@@ -8,5 +8,53 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Xm}from"/$bunfs/root/chunk-f9h0bg01.js";import{Co,Dr}from"/$bunfs/root/chunk-gcks6mn0.js";import{a}from"/$bunfs/root/chunk-fec4384a.js";var t={claudeMd:!0,skills:!0,workflows:!1,plugins:!0,pluginMonitors:!1,themes:!1,hljsLanguages:!0,hooks:!0,statusLine:!1,fileSuggestion:!1,mcpAutoDiscovered:!1,mcpClaudeAi:!1,mcpAgentFrontmatter:!0,agents:!0,outputStyles:!1,lspServers:!0,keybindings:!1},l={claudeMd:!1,skills:!1,workflows:!1,plugins:!1,pluginMonitors:!1,themes:!1,hljsLanguages:!1,hooks:!0,statusLine:!0,fileSuggestion:!0,mcpAutoDiscovered:!1,mcpClaudeAi:!1,mcpAgentFrontmatter:!1,agents:!1,outputStyles:!1,lspServers:!1,keybindings:!1};function ho(e,s){if(Dr()&&!l[e])return!0;if(Co()&&!s?.explicitlyRequested)return t[e];return!1}function gH(){return Boolean(a.CLAUDE_CODE_DISABLE_CLAUDE_MDS||ho("claudeMd",{explicitlyRequested:Xm().length>0}))}
-export{ho,gH};
+import { Xm } from "/$bunfs/root/chunk-f9h0bg01.js";
+import { Co, Dr } from "/$bunfs/root/chunk-gcks6mn0.js";
+import { a } from "/$bunfs/root/chunk-fec4384a.js";
+var t = {
+    claudeMd: !0,
+    skills: !0,
+    workflows: !1,
+    plugins: !0,
+    pluginMonitors: !1,
+    themes: !1,
+    hljsLanguages: !0,
+    hooks: !0,
+    statusLine: !1,
+    fileSuggestion: !1,
+    mcpAutoDiscovered: !1,
+    mcpClaudeAi: !1,
+    mcpAgentFrontmatter: !0,
+    agents: !0,
+    outputStyles: !1,
+    lspServers: !0,
+    keybindings: !1,
+  },
+  l = {
+    claudeMd: !1,
+    skills: !1,
+    workflows: !1,
+    plugins: !1,
+    pluginMonitors: !1,
+    themes: !1,
+    hljsLanguages: !1,
+    hooks: !0,
+    statusLine: !0,
+    fileSuggestion: !0,
+    mcpAutoDiscovered: !1,
+    mcpClaudeAi: !1,
+    mcpAgentFrontmatter: !1,
+    agents: !1,
+    outputStyles: !1,
+    lspServers: !1,
+    keybindings: !1,
+  };
+function ho(e, s) {
+  if (Dr() && !l[e]) return !0;
+  if (Co() && !s?.explicitlyRequested) return t[e];
+  return !1;
+}
+function gH() {
+  return Boolean(a.CLAUDE_CODE_DISABLE_CLAUDE_MDS || ho("claudeMd", { explicitlyRequested: Xm().length > 0 }));
+}
+export { ho, gH };

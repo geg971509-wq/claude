@@ -8,7 +8,386 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Te}from"/$bunfs/root/chunk-jpf4kat5.js";import{R,l,X}from"/$bunfs/root/chunk-ypdw393e.js";import{b,n}from"/$bunfs/root/chunk-fv016jr6.js";import{be}from"/$bunfs/root/chunk-gcks6mn0.js";import{Hr}from"/$bunfs/root/chunk-ca80fke8.js";import{V$}from"/$bunfs/root/chunk-1yr12dqr.js";import{Wn}from"/$bunfs/root/chunk-nqmqabr8.js";import{m}from"/$bunfs/root/chunk-bzx56g36.js";import{Bm,$6}from"/$bunfs/root/chunk-tzhtxm67.js";import{ui,Ut}from"/$bunfs/root/chunk-ntyhd04p.js";import{HI,kM,t5e}from"/$bunfs/root/chunk-avrc9gay.js";import{ru}from"/$bunfs/root/chunk-30e2jew7.js";import{rp}from"/$bunfs/root/chunk-sypj25ha.js";import{b6}from"/$bunfs/root/chunk-8tgj5dp2.js";import{an}from"/$bunfs/root/chunk-c47snwm2.js";import{Rb}from"/$bunfs/root/chunk-p7ge7f37.js";import{i,v,q,H,f,oe}from"/$bunfs/root/chunk-saay52v7.js";import{O}from"/$bunfs/root/chunk-dqkj2bph.js";var fse=1048576;async function xke(o){let t;try{t=await G(o)}catch(r){return{kind:"threw",error:r}}if(!t.ok){let r="telemetryCode"in t.error?t.error.telemetryCode:void 0;if(r==="ENXIO"||r==="EISDIR"||r==="EFBIG")return{kind:"refused"};return{kind:"failed",error:t.error}}let e=t.value.items[0];if(!e.found)return{kind:"absent"};if(e.totalBytes>fse)return{kind:"refused"};return{kind:"text",text:Buffer.from(e.value).toString("utf8")}}function G(o){return o.read([{key:Te.state("daemon-config"),offset:0,length:fse+1}])}import{readFile as te}from"fs/promises";import{join as re}from"path";import{readFile as V,stat as Y}from"fs/promises";import{dirname as Z}from"path";async function F(o,t){let e=o??Rb(),r;if(O()&&t!==void 0&&e===Rb())r=await ee(t,e);else try{let u=await Y(e);if(!u.isFile()||u.size>fse)throw Error(`${e} is not a regular file (or exceeds 1MiB); refusing read-modify-write`);r=await V(e,"utf8")}catch(u){if(!X(u))throw u}if(r===void 0||r.trim()==="")return{};let a;try{a=JSON.parse(ui(r))}catch{throw Error(`daemon.json is malformed: ${e}`)}if(a&&typeof a==="object"&&!Array.isArray(a))return a;return{}}async function ee(o,t){let e=await xke(o);switch(e.kind){case"text":return e.text;case"absent":return;case"refused":{let r=`${t} is not a regular file (or exceeds 1MiB); refusing read-modify-write`;throw Error(r)}case"failed":throw Object.assign(new R(`daemon.json read failed: ${e.error.code}`,"daemon.json v5 read failed"),{cause:"cause"in e.error?e.error.cause:e.error});case"threw":throw e.error}}async function u2e(o,t,e){let r=t??Rb(),a=await F(r,e);if(await o(a)===!1)return;if(O()&&e!==void 0&&r===Rb()){let c=await e.write(Te.state("daemon-config"),b(a,null,2)+`
-`,{publishDiscipline:"atomic",mode:438&~process.umask()});if(!c.ok)throw Object.assign(new R(`daemon.json write failed: ${c.error.code}`,"daemon.json v5 write failed"),{cause:"cause"in c.error?c.error.cause:c.error});return}await an().mkdir(Z(r)),await Wn(r,b(a,null,2)+`
-`)}function CYt(o){if(Array.isArray(o))return o.filter((t)=>!!t&&typeof t.dir==="string");if(o&&typeof o.dir==="string")return[o];return[]}var ne=1000,I=10080,Ige=["dontAsk","auto","default","acceptEdits","plan","bypassPermissions"],D=m(()=>f({id:i().min(1),cron:i().refine((o)=>HI(o)!==null,{message:"invalid 5-field cron expression"}),prompt:i().min(1),directory:i().min(1),enabled:q().default(!0),permissionMode:oe([...Ige,V$]).transform((o)=>o===V$?"default":o).default("dontAsk"),model:i().optional(),runTimeoutMinutes:v().positive().max(I).default(30),maxQueued:v().int().positive().default(1)}).strict()),vYt=m(()=>f({tasks:H(D()).default([]).refine((o)=>new Set(o.map((t)=>t.id)).size===o.length,{message:"task ids must be unique"}),maxConcurrent:v().int().positive().default(1)}).strict());function B(){return re(be(),"daemon.scheduled.status.json")}function M(){return Te.state("scheduled-status")}async function se(o,t){let e={workerPid:process.pid,workerProcStart:$6(),writtenAt:Date.now(),tasks:o};if(O()&&t){try{let r=await t.write(M(),b(e),{mode:438&~process.umask()});if(!r.ok)n(`writeScheduledStatus: ${r.error.code}`)}catch(r){n(`writeScheduledStatus: ${l(r)}`)}return}try{await Wn(B(),b(e))}catch{}}async function eNn(o){let t;if(O()&&o!==void 0){let a;try{a=await o.readText([M()])}catch{return null}if(!a.ok)return null;let u=a.value.items[0];if(!u.found)return null;t=u.value}else try{t=await te(B(),"utf8")}catch{return null}let e=Ut(t,!1);if(!e||typeof e!=="object")return null;let r=e;if(typeof r.workerPid!=="number"||typeof r.tasks!=="object"||r.tasks===null)return null;try{process.kill(r.workerPid,0)}catch{return null}if(!await Bm(r.workerPid,r.workerProcStart))return null;return e}var tNn=async(o,t,e,r,a)=>{let{tasks:u,maxConcurrent:c}=vYt().parse(o),{initializeErrorLogSink:y}=await import("/$bunfs/root/chunk-k24tdfes.js"),{initializeAnalyticsSink:N}=await import("/$bunfs/root/chunk-pfm44srq.js");if(y(),N(),!r.getAccessToken())e("scheduled worker: not authed \u2014 run `claude auth login`"),process.exit(1);let{query:L}=await import("/$bunfs/root/chunk-ss62wygn.js");if(e(`scheduled worker started tasks=${u.length} maxConcurrent=${c}`),u.length===0){let d=setInterval(()=>{},60000);await new Promise((s)=>{if(t.aborted){s();return}t.addEventListener("abort",()=>s(),{once:!0})}),clearInterval(d);return}let T=[],A=new Set,h=null;function W(d){let s=T.reduce((p,k)=>k.task.id===d.id?p+1:p,0);if(s>=d.maxQueued){e(`task=${d.id} dropped (queue full: ${s}/${d.maxQueued})`);return}T.push({task:d}),h?.(),h=null}let P=new Map,C=new Set,Q=Date.now();function _(){let d={};for(let s of u){let p=P.get(s.id);d[s.id]={running:C.has(s.id),...p!==void 0&&{lastFiredAt:p}}}se(d,a)}_();function U(d){let s=P.get(d.id)??Q;return t5e(d.cron,s,d.id,kM)}let J=setInterval((d,s,p,k)=>{let x=Date.now();for(let S of d){if(!S.enabled)continue;let w=s(S);if(w===null)continue;if(w<=x)p.set(S.id,x),k(S)}},ne,u,U,P,W);t.addEventListener("abort",()=>{clearInterval(J);for(let d of A)d.abort();h?.(),h=null});let E=new Set;async function K(d){let{task:s}=d,p=ru();if(p){e(`task=${s.id} refused: ${p}`);return}let k=new AbortController;A.add(k),C.add(s.id),_();let x=setTimeout((w)=>w.abort(),Math.min(s.runTimeoutMinutes,I)*60000,k);e(`task=${s.id} start cron='${s.cron}' dir='${s.directory}'`);let S=rp({pinToCurrentBinary:!0});try{let w=L({prompt:s.prompt,options:{cwd:s.directory,permissionMode:s.permissionMode,...s.permissionMode==="bypassPermissions"&&{allowDangerouslySkipPermissions:!0},...s.model&&{model:s.model},systemPrompt:{type:"preset",preset:"claude_code"},settingSources:["user","project","local"],pathToClaudeCodeExecutable:S.cmd,executableArgs:S.prefixArgs,abortController:k,stderr:(g)=>e(`[${s.id}] ${g.trimEnd()}`),workload:b6}});for await(let g of w)if(g.type==="result")e(`task=${s.id} result subtype=${g.subtype} duration=${g.duration_ms}ms cost=$${g.total_cost_usd.toFixed(4)}`)}catch(w){e(`task=${s.id} threw: ${w}`)}finally{clearTimeout(x),A.delete(k),C.delete(s.id),_()}}while(!t.aborted){while(E.size<c&&T.length>0&&!t.aborted){let d=T.shift(),s=K(d).finally(()=>{E.delete(s),h?.(),h=null});E.add(s)}if(t.aborted)break;if(T.length===0||E.size>=c)await new Promise((d)=>{h=d})}await Promise.allSettled(Array.from(E))};function j(o){let t=o.scheduled,e={};if(Array.isArray(t)&&t.length>0&&typeof t[0]==="object")e=t[0]??{};else if(t&&typeof t==="object"&&!Array.isArray(t))e=t;let r=Array.isArray(e.tasks)?e.tasks:[];return{...e,tasks:r}}function z(o,t){let e=o.scheduled;if(Array.isArray(e)){let r=e.slice();r[0]=t,o.scheduled=r}else o.scheduled=t}async function Pge(o,t,e){return Hr("daemon_scheduled_add",async()=>{D().parse(o),await u2e((r)=>{let a=j(r),u=a.tasks.filter((c)=>!(c&&typeof c==="object"&&c.id===o.id));u.push(o),z(r,{...a,tasks:u})},t,e)})}async function Dge(o,t,e){return Hr("daemon_scheduled_remove",async()=>{let r=!1;return await u2e((a)=>{if(!("scheduled"in a))return!1;let u=j(a),c=u.tasks.filter((y)=>!(y&&typeof y==="object"&&y.id===o));if(c.length===u.tasks.length)return!1;if(c.length===0){let y=a.scheduled;if(Array.isArray(y)&&y.length>1)a.scheduled=y.slice(1);else delete a.scheduled}else z(a,{...u,tasks:c});r=!0},t,e),r})}async function Ike(o,t){let e=await F(o,t);if(!("scheduled"in e))return[];let r=j(e),a=[];for(let u of r.tasks){let c=D().safeParse(u);if(c.success)a.push(c.data)}return a}
-export{fse,xke,u2e,CYt,Ige,vYt,eNn,tNn,Pge,Dge,Ike};
+import { Te } from "/$bunfs/root/chunk-jpf4kat5.js";
+import { R, l, X } from "/$bunfs/root/chunk-ypdw393e.js";
+import { b, n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { be } from "/$bunfs/root/chunk-gcks6mn0.js";
+import { Hr } from "/$bunfs/root/chunk-ca80fke8.js";
+import { V$ } from "/$bunfs/root/chunk-1yr12dqr.js";
+import { Wn } from "/$bunfs/root/chunk-nqmqabr8.js";
+import { m } from "/$bunfs/root/chunk-bzx56g36.js";
+import { Bm, $6 } from "/$bunfs/root/chunk-tzhtxm67.js";
+import { ui, Ut } from "/$bunfs/root/chunk-ntyhd04p.js";
+import { HI, kM, t5e } from "/$bunfs/root/chunk-avrc9gay.js";
+import { ru } from "/$bunfs/root/chunk-30e2jew7.js";
+import { rp } from "/$bunfs/root/chunk-sypj25ha.js";
+import { b6 } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { an } from "/$bunfs/root/chunk-c47snwm2.js";
+import { Rb } from "/$bunfs/root/chunk-p7ge7f37.js";
+import { i, v, q, H, f, oe } from "/$bunfs/root/chunk-saay52v7.js";
+import { O } from "/$bunfs/root/chunk-dqkj2bph.js";
+var fse = 1048576;
+async function xke(o) {
+  let t;
+  try {
+    t = await G(o);
+  } catch (r) {
+    return { kind: "threw", error: r };
+  }
+  if (!t.ok) {
+    let r = "telemetryCode" in t.error ? t.error.telemetryCode : void 0;
+    if (r === "ENXIO" || r === "EISDIR" || r === "EFBIG") return { kind: "refused" };
+    return { kind: "failed", error: t.error };
+  }
+  let e = t.value.items[0];
+  if (!e.found) return { kind: "absent" };
+  if (e.totalBytes > fse) return { kind: "refused" };
+  return { kind: "text", text: Buffer.from(e.value).toString("utf8") };
+}
+function G(o) {
+  return o.read([{ key: Te.state("daemon-config"), offset: 0, length: fse + 1 }]);
+}
+import { readFile as te } from "fs/promises";
+import { join as re } from "path";
+import { readFile as V, stat as Y } from "fs/promises";
+import { dirname as Z } from "path";
+async function F(o, t) {
+  let e = o ?? Rb(),
+    r;
+  if (O() && t !== void 0 && e === Rb()) r = await ee(t, e);
+  else
+    try {
+      let u = await Y(e);
+      if (!u.isFile() || u.size > fse)
+        throw Error(`${e} is not a regular file (or exceeds 1MiB); refusing read-modify-write`);
+      r = await V(e, "utf8");
+    } catch (u) {
+      if (!X(u)) throw u;
+    }
+  if (r === void 0 || r.trim() === "") return {};
+  let a;
+  try {
+    a = JSON.parse(ui(r));
+  } catch {
+    throw Error(`daemon.json is malformed: ${e}`);
+  }
+  if (a && typeof a === "object" && !Array.isArray(a)) return a;
+  return {};
+}
+async function ee(o, t) {
+  let e = await xke(o);
+  switch (e.kind) {
+    case "text":
+      return e.text;
+    case "absent":
+      return;
+    case "refused": {
+      let r = `${t} is not a regular file (or exceeds 1MiB); refusing read-modify-write`;
+      throw Error(r);
+    }
+    case "failed":
+      throw Object.assign(new R(`daemon.json read failed: ${e.error.code}`, "daemon.json v5 read failed"), {
+        cause: "cause" in e.error ? e.error.cause : e.error,
+      });
+    case "threw":
+      throw e.error;
+  }
+}
+async function u2e(o, t, e) {
+  let r = t ?? Rb(),
+    a = await F(r, e);
+  if ((await o(a)) === !1) return;
+  if (O() && e !== void 0 && r === Rb()) {
+    let c = await e.write(
+      Te.state("daemon-config"),
+      b(a, null, 2) +
+        `
+`,
+      { publishDiscipline: "atomic", mode: 438 & ~process.umask() },
+    );
+    if (!c.ok)
+      throw Object.assign(new R(`daemon.json write failed: ${c.error.code}`, "daemon.json v5 write failed"), {
+        cause: "cause" in c.error ? c.error.cause : c.error,
+      });
+    return;
+  }
+  await an().mkdir(Z(r)),
+    await Wn(
+      r,
+      b(a, null, 2) +
+        `
+`,
+    );
+}
+function CYt(o) {
+  if (Array.isArray(o)) return o.filter((t) => !!t && typeof t.dir === "string");
+  if (o && typeof o.dir === "string") return [o];
+  return [];
+}
+var ne = 1000,
+  I = 10080,
+  Ige = ["dontAsk", "auto", "default", "acceptEdits", "plan", "bypassPermissions"],
+  D = m(() =>
+    f({
+      id: i().min(1),
+      cron: i().refine((o) => HI(o) !== null, { message: "invalid 5-field cron expression" }),
+      prompt: i().min(1),
+      directory: i().min(1),
+      enabled: q().default(!0),
+      permissionMode: oe([...Ige, V$])
+        .transform((o) => (o === V$ ? "default" : o))
+        .default("dontAsk"),
+      model: i().optional(),
+      runTimeoutMinutes: v().positive().max(I).default(30),
+      maxQueued: v().int().positive().default(1),
+    }).strict(),
+  ),
+  vYt = m(() =>
+    f({
+      tasks: H(D())
+        .default([])
+        .refine((o) => new Set(o.map((t) => t.id)).size === o.length, { message: "task ids must be unique" }),
+      maxConcurrent: v().int().positive().default(1),
+    }).strict(),
+  );
+function B() {
+  return re(be(), "daemon.scheduled.status.json");
+}
+function M() {
+  return Te.state("scheduled-status");
+}
+async function se(o, t) {
+  let e = { workerPid: process.pid, workerProcStart: $6(), writtenAt: Date.now(), tasks: o };
+  if (O() && t) {
+    try {
+      let r = await t.write(M(), b(e), { mode: 438 & ~process.umask() });
+      if (!r.ok) n(`writeScheduledStatus: ${r.error.code}`);
+    } catch (r) {
+      n(`writeScheduledStatus: ${l(r)}`);
+    }
+    return;
+  }
+  try {
+    await Wn(B(), b(e));
+  } catch {}
+}
+async function eNn(o) {
+  let t;
+  if (O() && o !== void 0) {
+    let a;
+    try {
+      a = await o.readText([M()]);
+    } catch {
+      return null;
+    }
+    if (!a.ok) return null;
+    let u = a.value.items[0];
+    if (!u.found) return null;
+    t = u.value;
+  } else
+    try {
+      t = await te(B(), "utf8");
+    } catch {
+      return null;
+    }
+  let e = Ut(t, !1);
+  if (!e || typeof e !== "object") return null;
+  let r = e;
+  if (typeof r.workerPid !== "number" || typeof r.tasks !== "object" || r.tasks === null) return null;
+  try {
+    process.kill(r.workerPid, 0);
+  } catch {
+    return null;
+  }
+  if (!(await Bm(r.workerPid, r.workerProcStart))) return null;
+  return e;
+}
+var tNn = async (o, t, e, r, a) => {
+  let { tasks: u, maxConcurrent: c } = vYt().parse(o),
+    { initializeErrorLogSink: y } = await import("/$bunfs/root/chunk-k24tdfes.js"),
+    { initializeAnalyticsSink: N } = await import("/$bunfs/root/chunk-pfm44srq.js");
+  if ((y(), N(), !r.getAccessToken()))
+    e("scheduled worker: not authed \u2014 run `claude auth login`"), process.exit(1);
+  let { query: L } = await import("/$bunfs/root/chunk-ss62wygn.js");
+  if ((e(`scheduled worker started tasks=${u.length} maxConcurrent=${c}`), u.length === 0)) {
+    let d = setInterval(() => {}, 60000);
+    await new Promise((s) => {
+      if (t.aborted) {
+        s();
+        return;
+      }
+      t.addEventListener("abort", () => s(), { once: !0 });
+    }),
+      clearInterval(d);
+    return;
+  }
+  let T = [],
+    A = new Set(),
+    h = null;
+  function W(d) {
+    let s = T.reduce((p, k) => (k.task.id === d.id ? p + 1 : p), 0);
+    if (s >= d.maxQueued) {
+      e(`task=${d.id} dropped (queue full: ${s}/${d.maxQueued})`);
+      return;
+    }
+    T.push({ task: d }), h?.(), (h = null);
+  }
+  let P = new Map(),
+    C = new Set(),
+    Q = Date.now();
+  function _() {
+    let d = {};
+    for (let s of u) {
+      let p = P.get(s.id);
+      d[s.id] = { running: C.has(s.id), ...(p !== void 0 && { lastFiredAt: p }) };
+    }
+    se(d, a);
+  }
+  _();
+  function U(d) {
+    let s = P.get(d.id) ?? Q;
+    return t5e(d.cron, s, d.id, kM);
+  }
+  let J = setInterval(
+    (d, s, p, k) => {
+      let x = Date.now();
+      for (let S of d) {
+        if (!S.enabled) continue;
+        let w = s(S);
+        if (w === null) continue;
+        if (w <= x) p.set(S.id, x), k(S);
+      }
+    },
+    ne,
+    u,
+    U,
+    P,
+    W,
+  );
+  t.addEventListener("abort", () => {
+    clearInterval(J);
+    for (let d of A) d.abort();
+    h?.(), (h = null);
+  });
+  let E = new Set();
+  async function K(d) {
+    let { task: s } = d,
+      p = ru();
+    if (p) {
+      e(`task=${s.id} refused: ${p}`);
+      return;
+    }
+    let k = new AbortController();
+    A.add(k), C.add(s.id), _();
+    let x = setTimeout((w) => w.abort(), Math.min(s.runTimeoutMinutes, I) * 60000, k);
+    e(`task=${s.id} start cron='${s.cron}' dir='${s.directory}'`);
+    let S = rp({ pinToCurrentBinary: !0 });
+    try {
+      let w = L({
+        prompt: s.prompt,
+        options: {
+          cwd: s.directory,
+          permissionMode: s.permissionMode,
+          ...(s.permissionMode === "bypassPermissions" && { allowDangerouslySkipPermissions: !0 }),
+          ...(s.model && { model: s.model }),
+          systemPrompt: { type: "preset", preset: "claude_code" },
+          settingSources: ["user", "project", "local"],
+          pathToClaudeCodeExecutable: S.cmd,
+          executableArgs: S.prefixArgs,
+          abortController: k,
+          stderr: (g) => e(`[${s.id}] ${g.trimEnd()}`),
+          workload: b6,
+        },
+      });
+      for await (let g of w)
+        if (g.type === "result")
+          e(
+            `task=${s.id} result subtype=${g.subtype} duration=${g.duration_ms}ms cost=$${g.total_cost_usd.toFixed(4)}`,
+          );
+    } catch (w) {
+      e(`task=${s.id} threw: ${w}`);
+    } finally {
+      clearTimeout(x), A.delete(k), C.delete(s.id), _();
+    }
+  }
+  while (!t.aborted) {
+    while (E.size < c && T.length > 0 && !t.aborted) {
+      let d = T.shift(),
+        s = K(d).finally(() => {
+          E.delete(s), h?.(), (h = null);
+        });
+      E.add(s);
+    }
+    if (t.aborted) break;
+    if (T.length === 0 || E.size >= c)
+      await new Promise((d) => {
+        h = d;
+      });
+  }
+  await Promise.allSettled(Array.from(E));
+};
+function j(o) {
+  let t = o.scheduled,
+    e = {};
+  if (Array.isArray(t) && t.length > 0 && typeof t[0] === "object") e = t[0] ?? {};
+  else if (t && typeof t === "object" && !Array.isArray(t)) e = t;
+  let r = Array.isArray(e.tasks) ? e.tasks : [];
+  return { ...e, tasks: r };
+}
+function z(o, t) {
+  let e = o.scheduled;
+  if (Array.isArray(e)) {
+    let r = e.slice();
+    (r[0] = t), (o.scheduled = r);
+  } else o.scheduled = t;
+}
+async function Pge(o, t, e) {
+  return Hr("daemon_scheduled_add", async () => {
+    D().parse(o),
+      await u2e(
+        (r) => {
+          let a = j(r),
+            u = a.tasks.filter((c) => !(c && typeof c === "object" && c.id === o.id));
+          u.push(o), z(r, { ...a, tasks: u });
+        },
+        t,
+        e,
+      );
+  });
+}
+async function Dge(o, t, e) {
+  return Hr("daemon_scheduled_remove", async () => {
+    let r = !1;
+    return (
+      await u2e(
+        (a) => {
+          if (!("scheduled" in a)) return !1;
+          let u = j(a),
+            c = u.tasks.filter((y) => !(y && typeof y === "object" && y.id === o));
+          if (c.length === u.tasks.length) return !1;
+          if (c.length === 0) {
+            let y = a.scheduled;
+            if (Array.isArray(y) && y.length > 1) a.scheduled = y.slice(1);
+            else delete a.scheduled;
+          } else z(a, { ...u, tasks: c });
+          r = !0;
+        },
+        t,
+        e,
+      ),
+      r
+    );
+  });
+}
+async function Ike(o, t) {
+  let e = await F(o, t);
+  if (!("scheduled" in e)) return [];
+  let r = j(e),
+    a = [];
+  for (let u of r.tasks) {
+    let c = D().safeParse(u);
+    if (c.success) a.push(c.data);
+  }
+  return a;
+}
+export { fse, xke, u2e, CYt, Ige, vYt, eNn, tNn, Pge, Dge, Ike };

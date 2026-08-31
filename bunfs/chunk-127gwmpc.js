@@ -8,5 +8,145 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{S5}from"/$bunfs/root/chunk-dmc9meqw.js";import{S}from"/$bunfs/root/chunk-yz031c9r.js";var Pl=S(function(p){var i=S5(),d=(t)=>({setHttpHandler(e){t.httpHandler=e},httpHandler(){return t.httpHandler},updateHttpClientConfig(e,r){t.httpHandler?.updateHttpClientConfig(e,r)},httpHandlerConfigs(){return t.httpHandler.httpHandlerConfigs()}}),l=(t)=>({httpHandler:t.httpHandler()});class n{name;kind;values;constructor({name:t,kind:e=i.FieldPosition.HEADER,values:r=[]}){this.name=t,this.kind=e,this.values=r}add(t){this.values.push(t)}set(t){this.values=t}remove(t){this.values=this.values.filter((e)=>e!==t)}toString(){return this.values.map((t)=>t.includes(",")||t.includes(" ")?`"${t}"`:t).join(", ")}get(){return this.values}}class o{entries={};encoding;constructor({fields:t=[],encoding:e="utf-8"}){t.forEach(this.setField.bind(this)),this.encoding=e}setField(t){this.entries[t.name.toLowerCase()]=t}getField(t){return this.entries[t.toLowerCase()]}removeField(t){delete this.entries[t.toLowerCase()]}getByType(t){return Object.values(this.entries).filter((e)=>e.kind===t)}}class s{method;protocol;hostname;port;path;query;headers;username;password;fragment;body;constructor(t){this.method=t.method||"GET",this.hostname=t.hostname||"localhost",this.port=t.port,this.query=t.query||{},this.headers=t.headers||{},this.body=t.body,this.protocol=t.protocol?t.protocol.slice(-1)!==":"?`${t.protocol}:`:t.protocol:"https:",this.path=t.path?t.path.charAt(0)!=="/"?`/${t.path}`:t.path:"/",this.username=t.username,this.password=t.password,this.fragment=t.fragment}static clone(t){let e=new s({...t,headers:{...t.headers}});if(e.query)e.query=u(e.query);return e}static isInstance(t){if(!t)return!1;let e=t;return"method"in e&&"protocol"in e&&"hostname"in e&&"path"in e&&typeof e.query==="object"&&typeof e.headers==="object"}clone(){return s.clone(this)}}function u(t){return Object.keys(t).reduce((e,r)=>{let a=t[r];return{...e,[r]:Array.isArray(a)?[...a]:a}},{})}class h{statusCode;reason;headers;body;constructor(t){this.statusCode=t.statusCode,this.reason=t.reason,this.headers=t.headers||{},this.body=t.body}static isInstance(t){if(!t)return!1;let e=t;return typeof e.statusCode==="number"&&typeof e.headers==="object"}}function c(t){return/^[a-z0-9][a-z0-9\.\-]*[a-z0-9]$/.test(t)}p.Field=n;p.Fields=o;p.HttpRequest=s;p.HttpResponse=h;p.getHttpHandlerExtensionConfiguration=d;p.isValidHostname=c;p.resolveHttpHandlerRuntimeConfig=l});
-export{Pl};
+import { S5 } from "/$bunfs/root/chunk-dmc9meqw.js";
+import { S } from "/$bunfs/root/chunk-yz031c9r.js";
+var Pl = S(function (p) {
+  var i = S5(),
+    d = (t) => ({
+      setHttpHandler(e) {
+        t.httpHandler = e;
+      },
+      httpHandler() {
+        return t.httpHandler;
+      },
+      updateHttpClientConfig(e, r) {
+        t.httpHandler?.updateHttpClientConfig(e, r);
+      },
+      httpHandlerConfigs() {
+        return t.httpHandler.httpHandlerConfigs();
+      },
+    }),
+    l = (t) => ({ httpHandler: t.httpHandler() });
+  class n {
+    name;
+    kind;
+    values;
+    constructor({ name: t, kind: e = i.FieldPosition.HEADER, values: r = [] }) {
+      (this.name = t), (this.kind = e), (this.values = r);
+    }
+    add(t) {
+      this.values.push(t);
+    }
+    set(t) {
+      this.values = t;
+    }
+    remove(t) {
+      this.values = this.values.filter((e) => e !== t);
+    }
+    toString() {
+      return this.values.map((t) => (t.includes(",") || t.includes(" ") ? `"${t}"` : t)).join(", ");
+    }
+    get() {
+      return this.values;
+    }
+  }
+  class o {
+    entries = {};
+    encoding;
+    constructor({ fields: t = [], encoding: e = "utf-8" }) {
+      t.forEach(this.setField.bind(this)), (this.encoding = e);
+    }
+    setField(t) {
+      this.entries[t.name.toLowerCase()] = t;
+    }
+    getField(t) {
+      return this.entries[t.toLowerCase()];
+    }
+    removeField(t) {
+      delete this.entries[t.toLowerCase()];
+    }
+    getByType(t) {
+      return Object.values(this.entries).filter((e) => e.kind === t);
+    }
+  }
+  class s {
+    method;
+    protocol;
+    hostname;
+    port;
+    path;
+    query;
+    headers;
+    username;
+    password;
+    fragment;
+    body;
+    constructor(t) {
+      (this.method = t.method || "GET"),
+        (this.hostname = t.hostname || "localhost"),
+        (this.port = t.port),
+        (this.query = t.query || {}),
+        (this.headers = t.headers || {}),
+        (this.body = t.body),
+        (this.protocol = t.protocol ? (t.protocol.slice(-1) !== ":" ? `${t.protocol}:` : t.protocol) : "https:"),
+        (this.path = t.path ? (t.path.charAt(0) !== "/" ? `/${t.path}` : t.path) : "/"),
+        (this.username = t.username),
+        (this.password = t.password),
+        (this.fragment = t.fragment);
+    }
+    static clone(t) {
+      let e = new s({ ...t, headers: { ...t.headers } });
+      if (e.query) e.query = u(e.query);
+      return e;
+    }
+    static isInstance(t) {
+      if (!t) return !1;
+      let e = t;
+      return (
+        "method" in e &&
+        "protocol" in e &&
+        "hostname" in e &&
+        "path" in e &&
+        typeof e.query === "object" &&
+        typeof e.headers === "object"
+      );
+    }
+    clone() {
+      return s.clone(this);
+    }
+  }
+  function u(t) {
+    return Object.keys(t).reduce((e, r) => {
+      let a = t[r];
+      return { ...e, [r]: Array.isArray(a) ? [...a] : a };
+    }, {});
+  }
+  class h {
+    statusCode;
+    reason;
+    headers;
+    body;
+    constructor(t) {
+      (this.statusCode = t.statusCode),
+        (this.reason = t.reason),
+        (this.headers = t.headers || {}),
+        (this.body = t.body);
+    }
+    static isInstance(t) {
+      if (!t) return !1;
+      let e = t;
+      return typeof e.statusCode === "number" && typeof e.headers === "object";
+    }
+  }
+  function c(t) {
+    return /^[a-z0-9][a-z0-9\.\-]*[a-z0-9]$/.test(t);
+  }
+  p.Field = n;
+  p.Fields = o;
+  p.HttpRequest = s;
+  p.HttpResponse = h;
+  p.getHttpHandlerExtensionConfiguration = d;
+  p.isValidHostname = c;
+  p.resolveHttpHandlerRuntimeConfig = l;
+});
+export { Pl };

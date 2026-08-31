@@ -8,5 +8,59 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{_}from"/$bunfs/root/chunk-haan6f8z.js";import{sN}from"/$bunfs/root/chunk-8tgj5dp2.js";import{o,t,ut}from"/$bunfs/root/chunk-he2phymk.js";import{wi}from"/$bunfs/root/chunk-5ypr8mk6.js";import{Br}from"/$bunfs/root/chunk-2ffqgskx.js";import{e,r}from"/$bunfs/root/chunk-8s7kcbyw.js";import{A,u,F}from"/$bunfs/root/chunk-twm95mhz.js";import{d}from"/$bunfs/root/chunk-yz031c9r.js";F();function P(p,L){let b=p.match(S);if(!b){return e(t,{dimColor:!0,children:p},L)}let y=b[0];let N=b.index??0;let H=p.slice(0,N);let J=p.slice(N+y.length);return r(t,{dimColor:!0,children:[H,e(ut,{url:y,children:y}),J]},L)}var S=/https?:\/\/\S+/;function _ge(){let c=_(10),C;if(c[0]===d)C=sN.getInstance().getStatus(),c[0]=C;else C=c[0];let[n,G]=u(C),I,B;if(c[1]===d)I=()=>sN.getInstance().subscribe(G),B=[],c[1]=I,c[2]=B;else I=c[1],B=c[2];if(A(I,B),!n.isAuthenticating&&!n.error&&n.output.length===0){return null}if(!n.isAuthenticating&&!n.error){return null}let l;if(c[3]!==n.output)l=n.output.length>0&&e(o,{flexDirection:"column",children:n.output.slice(-5).map(P)}),c[3]=n.output,c[4]=l;else l=c[4];let f;if(c[5]!==n.error)f=n.error&&e(Br,{error:n.error}),c[5]=n.error,c[6]=f;else f=c[6];let D;if(c[7]!==l||c[8]!==f)D=e(o,{marginY:1,children:r(wi,{color:"permission",title:"Authentication",children:[l,f]})}),c[7]=l,c[8]=f,c[9]=D;else D=c[9];return D}
-export{_ge};
+import { _ } from "/$bunfs/root/chunk-haan6f8z.js";
+import { sN } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { o, t, ut } from "/$bunfs/root/chunk-he2phymk.js";
+import { wi } from "/$bunfs/root/chunk-5ypr8mk6.js";
+import { Br } from "/$bunfs/root/chunk-2ffqgskx.js";
+import { e, r } from "/$bunfs/root/chunk-8s7kcbyw.js";
+import { A, u, F } from "/$bunfs/root/chunk-twm95mhz.js";
+import { d } from "/$bunfs/root/chunk-yz031c9r.js";
+F();
+function P(p, L) {
+  let b = p.match(S);
+  if (!b) {
+    return e(t, { dimColor: !0, children: p }, L);
+  }
+  let y = b[0];
+  let N = b.index ?? 0;
+  let H = p.slice(0, N);
+  let J = p.slice(N + y.length);
+  return r(t, { dimColor: !0, children: [H, e(ut, { url: y, children: y }), J] }, L);
+}
+var S = /https?:\/\/\S+/;
+function _ge() {
+  let c = _(10),
+    C;
+  if (c[0] === d) (C = sN.getInstance().getStatus()), (c[0] = C);
+  else C = c[0];
+  let [n, G] = u(C),
+    I,
+    B;
+  if (c[1] === d) (I = () => sN.getInstance().subscribe(G)), (B = []), (c[1] = I), (c[2] = B);
+  else (I = c[1]), (B = c[2]);
+  if ((A(I, B), !n.isAuthenticating && !n.error && n.output.length === 0)) {
+    return null;
+  }
+  if (!n.isAuthenticating && !n.error) {
+    return null;
+  }
+  let l;
+  if (c[3] !== n.output)
+    (l = n.output.length > 0 && e(o, { flexDirection: "column", children: n.output.slice(-5).map(P) })),
+      (c[3] = n.output),
+      (c[4] = l);
+  else l = c[4];
+  let f;
+  if (c[5] !== n.error) (f = n.error && e(Br, { error: n.error })), (c[5] = n.error), (c[6] = f);
+  else f = c[6];
+  let D;
+  if (c[7] !== l || c[8] !== f)
+    (D = e(o, { marginY: 1, children: r(wi, { color: "permission", title: "Authentication", children: [l, f] }) })),
+      (c[7] = l),
+      (c[8] = f),
+      (c[9] = D);
+  else D = c[9];
+  return D;
+}
+export { _ge };

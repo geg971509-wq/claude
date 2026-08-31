@@ -8,5 +8,275 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import"/$bunfs/root/chunk-f9h0bg01.js";import"/$bunfs/root/chunk-qq1mdtb5.js";import"/$bunfs/root/chunk-tx16jn0x.js";import"/$bunfs/root/chunk-r53tkxrh.js";import"/$bunfs/root/chunk-4xj01xwv.js";import{Hr}from"/$bunfs/root/chunk-ca80fke8.js";import{m}from"/$bunfs/root/chunk-bzx56g36.js";import"/$bunfs/root/chunk-vfy57cpd.js";import"/$bunfs/root/chunk-ypdw393e.js";import{b,V}from"/$bunfs/root/chunk-fv016jr6.js";import"/$bunfs/root/chunk-gcks6mn0.js";import"/$bunfs/root/chunk-qk7r0t2g.js";import"/$bunfs/root/chunk-4ddxwr9r.js";import"/$bunfs/root/chunk-eqdctte5.js";import"/$bunfs/root/chunk-fec4384a.js";import"/$bunfs/root/chunk-qm65zb83.js";import"/$bunfs/root/chunk-wkxx62a2.js";import"/$bunfs/root/chunk-ps6pc7xd.js";import"/$bunfs/root/chunk-s28wf80n.js";import"/$bunfs/root/chunk-3bbym8ct.js";import"/$bunfs/root/chunk-4fwj3vnx.js";import"/$bunfs/root/chunk-cf8qhmdc.js";import"/$bunfs/root/chunk-0pgyw7te.js";import"/$bunfs/root/chunk-2masxyqj.js";import"/$bunfs/root/chunk-2t3rnt88.js";import{hze,_ze}from"/$bunfs/root/chunk-986hvegp.js";import"/$bunfs/root/chunk-7s7jqj2f.js";import{T}from"/$bunfs/root/chunk-ma6kk3k0.js";import"/$bunfs/root/chunk-56sxk8k2.js";import"/$bunfs/root/chunk-a4q326ap.js";import{appendFile as M,chmod as y,mkdir as S,readdir as w,rmdir as R,unlink as d}from"fs/promises";import{createServer as B}from"net";import{platform as g}from"os";import{join as I}from"path";var _="1.0.0",v=1048576,C=void 0;function n(e,...t){if(C){let s=new Date().toISOString(),r=t.length>0?" "+b(t):"",i=`[${s}] [Claude Chrome Native Host] ${e}${r}
-`;M(C,i).catch(()=>{})}console.error(`[Claude Chrome Native Host] ${e}`,...t)}function a(e){let t=Buffer.from(e,"utf-8"),s=Buffer.alloc(4);s.writeUInt32LE(t.length,0),process.stdout.write(s),process.stdout.write(t)}async function O(){return Hr("chrome_native_host_run",async()=>{n("Initializing...");let e=new k,t=new P;await e.start();while(!0){let s=await t.read();if(s===null)break;await e.handleMessage(s)}await e.stop()})}var E=m(()=>T.object({type:T.string()}).passthrough());class k{mcpClients=new Map;nextClientId=1;server=null;running=!1;socketPath=null;async start(){if(this.running)return;if(this.socketPath=_ze(),g()!=="win32"){let e=hze();await d(e).catch(()=>{}),await S(e,{recursive:!0,mode:448}),await y(e,448).catch(()=>{});try{let t=await w(e);for(let s of t){if(!s.endsWith(".sock"))continue;let r=parseInt(s.replace(".sock",""),10);if(isNaN(r))continue;try{process.kill(r,0)}catch{await d(I(e,s)).catch(()=>{}),n(`Removed stale socket for PID ${r}`)}}}catch{}}if(n(`Creating socket listener: ${this.socketPath}`),this.server=B((e)=>this.handleMcpClient(e)),await new Promise((e,t)=>{this.server.listen(this.socketPath,()=>{n("Socket server listening for connections"),this.running=!0,e()}),this.server.on("error",(s)=>{n("Socket server error:",s),t(s)})}),g()!=="win32")try{await y(this.socketPath,384),n("Socket permissions set to 0600")}catch(e){n("Failed to set socket permissions:",e)}}async stop(){if(!this.running)return;for(let[,e]of this.mcpClients)e.socket.destroy();if(this.mcpClients.clear(),this.server)await new Promise((e)=>{this.server.close(()=>e())}),this.server=null;if(g()!=="win32"&&this.socketPath){try{await d(this.socketPath),n("Cleaned up socket file")}catch{}try{let e=hze();if((await w(e)).length===0)await R(e),n("Removed empty socket directory")}catch{}}this.running=!1}async isRunning(){return this.running}async handleMessage(e){let t;try{t=V(e)}catch(i){n("Invalid JSON from Chrome:",i.message),a(b({type:"error",error:"Invalid message format"}));return}let s=E().safeParse(t);if(!s.success){n("Invalid message from Chrome:",s.error.message),a(b({type:"error",error:"Invalid message format"}));return}let r=s.data;switch(n(`Handling Chrome message type: ${r.type}`),r.type){case"ping":n("Responding to ping"),a(b({type:"pong",timestamp:Date.now()}));break;case"get_status":a(b({type:"status_response",native_host_version:_}));break;case"tool_response":{if(this.mcpClients.size>0){n(`Forwarding tool response to ${this.mcpClients.size} MCP clients`);let{type:i,...c}=r,o=Buffer.from(b(c),"utf-8"),l=Buffer.alloc(4);l.writeUInt32LE(o.length,0);let f=Buffer.concat([l,o]);for(let[h,u]of this.mcpClients)try{u.socket.write(f)}catch(p){n(`Failed to send to MCP client ${h}:`,p)}}break}case"notification":{if(this.mcpClients.size>0){n(`Forwarding notification to ${this.mcpClients.size} MCP clients`);let{type:i,...c}=r,o=Buffer.from(b(c),"utf-8"),l=Buffer.alloc(4);l.writeUInt32LE(o.length,0);let f=Buffer.concat([l,o]);for(let[h,u]of this.mcpClients)try{u.socket.write(f)}catch(p){n(`Failed to send notification to MCP client ${h}:`,p)}}break}default:n(`Unknown message type: ${r.type}`),a(b({type:"error",error:`Unknown message type: ${r.type}`}))}}handleMcpClient(e){let t=this.nextClientId++,s={id:t,socket:e,buffer:Buffer.alloc(0)};this.mcpClients.set(t,s),n(`MCP client ${t} connected. Total clients: ${this.mcpClients.size}`),a(b({type:"mcp_connected"})),e.on("data",(r)=>{s.buffer=Buffer.concat([s.buffer,r]);while(s.buffer.length>=4){let i=s.buffer.readUInt32LE(0);if(i===0||i>v){n(`Invalid message length from MCP client ${t}: ${i}`),e.destroy();return}if(s.buffer.length<4+i)break;let c=s.buffer.slice(4,4+i);s.buffer=s.buffer.slice(4+i);try{let o=V(c.toString("utf-8"));n(`Forwarding tool request from MCP client ${t}: ${o.method}`),a(b({type:"tool_request",method:o.method,params:o.params}))}catch(o){n(`Failed to parse tool request from MCP client ${t}:`,o)}}}),e.on("error",(r)=>{n(`MCP client ${t} error: ${r}`)}),e.on("close",()=>{n(`MCP client ${t} disconnected. Remaining clients: ${this.mcpClients.size-1}`),this.mcpClients.delete(t),a(b({type:"mcp_disconnected"}))})}}class P{buffer=Buffer.alloc(0);pendingResolve=null;closed=!1;constructor(){process.stdin.on("data",(e)=>{this.buffer=Buffer.concat([this.buffer,e]),this.tryProcessMessage()}),process.stdin.on("end",()=>{if(this.closed=!0,this.pendingResolve)this.pendingResolve(null),this.pendingResolve=null}),process.stdin.on("error",()=>{if(this.closed=!0,this.pendingResolve)this.pendingResolve(null),this.pendingResolve=null})}tryProcessMessage(){if(!this.pendingResolve)return;if(this.buffer.length<4)return;let e=this.buffer.readUInt32LE(0);if(e===0||e>v){n(`Invalid message length: ${e}`),this.pendingResolve(null),this.pendingResolve=null;return}if(this.buffer.length<4+e)return;let t=this.buffer.subarray(4,4+e);this.buffer=this.buffer.subarray(4+e);let s=t.toString("utf-8");this.pendingResolve(s),this.pendingResolve=null}async read(){if(this.closed)return null;if(this.buffer.length>=4){let e=this.buffer.readUInt32LE(0);if(e>0&&e<=v&&this.buffer.length>=4+e){let t=this.buffer.subarray(4,4+e);return this.buffer=this.buffer.subarray(4+e),t.toString("utf-8")}}return new Promise((e)=>{this.pendingResolve=e,this.tryProcessMessage()})}}export{O as runChromeNativeHost,a as sendChromeMessage};
+import "/$bunfs/root/chunk-f9h0bg01.js";
+import "/$bunfs/root/chunk-qq1mdtb5.js";
+import "/$bunfs/root/chunk-tx16jn0x.js";
+import "/$bunfs/root/chunk-r53tkxrh.js";
+import "/$bunfs/root/chunk-4xj01xwv.js";
+import { Hr } from "/$bunfs/root/chunk-ca80fke8.js";
+import { m } from "/$bunfs/root/chunk-bzx56g36.js";
+import "/$bunfs/root/chunk-vfy57cpd.js";
+import "/$bunfs/root/chunk-ypdw393e.js";
+import { b, V } from "/$bunfs/root/chunk-fv016jr6.js";
+import "/$bunfs/root/chunk-gcks6mn0.js";
+import "/$bunfs/root/chunk-qk7r0t2g.js";
+import "/$bunfs/root/chunk-4ddxwr9r.js";
+import "/$bunfs/root/chunk-eqdctte5.js";
+import "/$bunfs/root/chunk-fec4384a.js";
+import "/$bunfs/root/chunk-qm65zb83.js";
+import "/$bunfs/root/chunk-wkxx62a2.js";
+import "/$bunfs/root/chunk-ps6pc7xd.js";
+import "/$bunfs/root/chunk-s28wf80n.js";
+import "/$bunfs/root/chunk-3bbym8ct.js";
+import "/$bunfs/root/chunk-4fwj3vnx.js";
+import "/$bunfs/root/chunk-cf8qhmdc.js";
+import "/$bunfs/root/chunk-0pgyw7te.js";
+import "/$bunfs/root/chunk-2masxyqj.js";
+import "/$bunfs/root/chunk-2t3rnt88.js";
+import { hze, _ze } from "/$bunfs/root/chunk-986hvegp.js";
+import "/$bunfs/root/chunk-7s7jqj2f.js";
+import { T } from "/$bunfs/root/chunk-ma6kk3k0.js";
+import "/$bunfs/root/chunk-56sxk8k2.js";
+import "/$bunfs/root/chunk-a4q326ap.js";
+import { appendFile as M, chmod as y, mkdir as S, readdir as w, rmdir as R, unlink as d } from "fs/promises";
+import { createServer as B } from "net";
+import { platform as g } from "os";
+import { join as I } from "path";
+var _ = "1.0.0",
+  v = 1048576,
+  C = void 0;
+function n(e, ...t) {
+  if (C) {
+    let s = new Date().toISOString(),
+      r = t.length > 0 ? " " + b(t) : "",
+      i = `[${s}] [Claude Chrome Native Host] ${e}${r}
+`;
+    M(C, i).catch(() => {});
+  }
+  console.error(`[Claude Chrome Native Host] ${e}`, ...t);
+}
+function a(e) {
+  let t = Buffer.from(e, "utf-8"),
+    s = Buffer.alloc(4);
+  s.writeUInt32LE(t.length, 0), process.stdout.write(s), process.stdout.write(t);
+}
+async function O() {
+  return Hr("chrome_native_host_run", async () => {
+    n("Initializing...");
+    let e = new k(),
+      t = new P();
+    await e.start();
+    while (!0) {
+      let s = await t.read();
+      if (s === null) break;
+      await e.handleMessage(s);
+    }
+    await e.stop();
+  });
+}
+var E = m(() => T.object({ type: T.string() }).passthrough());
+class k {
+  mcpClients = new Map();
+  nextClientId = 1;
+  server = null;
+  running = !1;
+  socketPath = null;
+  async start() {
+    if (this.running) return;
+    if (((this.socketPath = _ze()), g() !== "win32")) {
+      let e = hze();
+      await d(e).catch(() => {}), await S(e, { recursive: !0, mode: 448 }), await y(e, 448).catch(() => {});
+      try {
+        let t = await w(e);
+        for (let s of t) {
+          if (!s.endsWith(".sock")) continue;
+          let r = parseInt(s.replace(".sock", ""), 10);
+          if (isNaN(r)) continue;
+          try {
+            process.kill(r, 0);
+          } catch {
+            await d(I(e, s)).catch(() => {}), n(`Removed stale socket for PID ${r}`);
+          }
+        }
+      } catch {}
+    }
+    if (
+      (n(`Creating socket listener: ${this.socketPath}`),
+      (this.server = B((e) => this.handleMcpClient(e))),
+      await new Promise((e, t) => {
+        this.server.listen(this.socketPath, () => {
+          n("Socket server listening for connections"), (this.running = !0), e();
+        }),
+          this.server.on("error", (s) => {
+            n("Socket server error:", s), t(s);
+          });
+      }),
+      g() !== "win32")
+    )
+      try {
+        await y(this.socketPath, 384), n("Socket permissions set to 0600");
+      } catch (e) {
+        n("Failed to set socket permissions:", e);
+      }
+  }
+  async stop() {
+    if (!this.running) return;
+    for (let [, e] of this.mcpClients) e.socket.destroy();
+    if ((this.mcpClients.clear(), this.server))
+      await new Promise((e) => {
+        this.server.close(() => e());
+      }),
+        (this.server = null);
+    if (g() !== "win32" && this.socketPath) {
+      try {
+        await d(this.socketPath), n("Cleaned up socket file");
+      } catch {}
+      try {
+        let e = hze();
+        if ((await w(e)).length === 0) await R(e), n("Removed empty socket directory");
+      } catch {}
+    }
+    this.running = !1;
+  }
+  async isRunning() {
+    return this.running;
+  }
+  async handleMessage(e) {
+    let t;
+    try {
+      t = V(e);
+    } catch (i) {
+      n("Invalid JSON from Chrome:", i.message), a(b({ type: "error", error: "Invalid message format" }));
+      return;
+    }
+    let s = E().safeParse(t);
+    if (!s.success) {
+      n("Invalid message from Chrome:", s.error.message), a(b({ type: "error", error: "Invalid message format" }));
+      return;
+    }
+    let r = s.data;
+    switch ((n(`Handling Chrome message type: ${r.type}`), r.type)) {
+      case "ping":
+        n("Responding to ping"), a(b({ type: "pong", timestamp: Date.now() }));
+        break;
+      case "get_status":
+        a(b({ type: "status_response", native_host_version: _ }));
+        break;
+      case "tool_response": {
+        if (this.mcpClients.size > 0) {
+          n(`Forwarding tool response to ${this.mcpClients.size} MCP clients`);
+          let { type: i, ...c } = r,
+            o = Buffer.from(b(c), "utf-8"),
+            l = Buffer.alloc(4);
+          l.writeUInt32LE(o.length, 0);
+          let f = Buffer.concat([l, o]);
+          for (let [h, u] of this.mcpClients)
+            try {
+              u.socket.write(f);
+            } catch (p) {
+              n(`Failed to send to MCP client ${h}:`, p);
+            }
+        }
+        break;
+      }
+      case "notification": {
+        if (this.mcpClients.size > 0) {
+          n(`Forwarding notification to ${this.mcpClients.size} MCP clients`);
+          let { type: i, ...c } = r,
+            o = Buffer.from(b(c), "utf-8"),
+            l = Buffer.alloc(4);
+          l.writeUInt32LE(o.length, 0);
+          let f = Buffer.concat([l, o]);
+          for (let [h, u] of this.mcpClients)
+            try {
+              u.socket.write(f);
+            } catch (p) {
+              n(`Failed to send notification to MCP client ${h}:`, p);
+            }
+        }
+        break;
+      }
+      default:
+        n(`Unknown message type: ${r.type}`), a(b({ type: "error", error: `Unknown message type: ${r.type}` }));
+    }
+  }
+  handleMcpClient(e) {
+    let t = this.nextClientId++,
+      s = { id: t, socket: e, buffer: Buffer.alloc(0) };
+    this.mcpClients.set(t, s),
+      n(`MCP client ${t} connected. Total clients: ${this.mcpClients.size}`),
+      a(b({ type: "mcp_connected" })),
+      e.on("data", (r) => {
+        s.buffer = Buffer.concat([s.buffer, r]);
+        while (s.buffer.length >= 4) {
+          let i = s.buffer.readUInt32LE(0);
+          if (i === 0 || i > v) {
+            n(`Invalid message length from MCP client ${t}: ${i}`), e.destroy();
+            return;
+          }
+          if (s.buffer.length < 4 + i) break;
+          let c = s.buffer.slice(4, 4 + i);
+          s.buffer = s.buffer.slice(4 + i);
+          try {
+            let o = V(c.toString("utf-8"));
+            n(`Forwarding tool request from MCP client ${t}: ${o.method}`),
+              a(b({ type: "tool_request", method: o.method, params: o.params }));
+          } catch (o) {
+            n(`Failed to parse tool request from MCP client ${t}:`, o);
+          }
+        }
+      }),
+      e.on("error", (r) => {
+        n(`MCP client ${t} error: ${r}`);
+      }),
+      e.on("close", () => {
+        n(`MCP client ${t} disconnected. Remaining clients: ${this.mcpClients.size - 1}`),
+          this.mcpClients.delete(t),
+          a(b({ type: "mcp_disconnected" }));
+      });
+  }
+}
+class P {
+  buffer = Buffer.alloc(0);
+  pendingResolve = null;
+  closed = !1;
+  constructor() {
+    process.stdin.on("data", (e) => {
+      (this.buffer = Buffer.concat([this.buffer, e])), this.tryProcessMessage();
+    }),
+      process.stdin.on("end", () => {
+        if (((this.closed = !0), this.pendingResolve)) this.pendingResolve(null), (this.pendingResolve = null);
+      }),
+      process.stdin.on("error", () => {
+        if (((this.closed = !0), this.pendingResolve)) this.pendingResolve(null), (this.pendingResolve = null);
+      });
+  }
+  tryProcessMessage() {
+    if (!this.pendingResolve) return;
+    if (this.buffer.length < 4) return;
+    let e = this.buffer.readUInt32LE(0);
+    if (e === 0 || e > v) {
+      n(`Invalid message length: ${e}`), this.pendingResolve(null), (this.pendingResolve = null);
+      return;
+    }
+    if (this.buffer.length < 4 + e) return;
+    let t = this.buffer.subarray(4, 4 + e);
+    this.buffer = this.buffer.subarray(4 + e);
+    let s = t.toString("utf-8");
+    this.pendingResolve(s), (this.pendingResolve = null);
+  }
+  async read() {
+    if (this.closed) return null;
+    if (this.buffer.length >= 4) {
+      let e = this.buffer.readUInt32LE(0);
+      if (e > 0 && e <= v && this.buffer.length >= 4 + e) {
+        let t = this.buffer.subarray(4, 4 + e);
+        return (this.buffer = this.buffer.subarray(4 + e)), t.toString("utf-8");
+      }
+    }
+    return new Promise((e) => {
+      (this.pendingResolve = e), this.tryProcessMessage();
+    });
+  }
+}
+export { O as runChromeNativeHost, a as sendChromeMessage };

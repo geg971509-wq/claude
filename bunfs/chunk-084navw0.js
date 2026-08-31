@@ -8,5 +8,178 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Xrn,VHe}from"/$bunfs/root/chunk-cagtjatw.js";import{K,Se,gn}from"/$bunfs/root/chunk-f9h0bg01.js";import{c}from"/$bunfs/root/chunk-4xj01xwv.js";import{rbe,obe,AE}from"/$bunfs/root/chunk-zze8764r.js";import{s}from"/$bunfs/root/chunk-r53tkxrh.js";import{y,p}from"/$bunfs/root/chunk-ca80fke8.js";import{b}from"/$bunfs/root/chunk-fv016jr6.js";import{to,Z}from"/$bunfs/root/chunk-wkxx62a2.js";function q(i){return i.mode==="url"?"url":"form"}function TAr(i){let t=VHe.safeParse(i?.[Xrn]);return t.success?{taskId:t.data.taskId}:null}function _(i,t,d){return i.findIndex((n)=>n.serverName===t&&n.params.mode==="url"&&("elicitationId"in n.params)&&n.params.elicitationId===d)}function EAr(i,t,d,n){try{i.setRequestHandler("elicitation/create",(a,e)=>nOt({serverName:t,params:a.params,requestId:e.mcpReq.id,signal:e.mcpReq.signal,setAppState:d,transportErrorState:n})),i.setNotificationHandler("notifications/elicitation/complete",(a)=>{let{elicitationId:e}=a.params;Z(t,`Received elicitation completion notification: ${e}`),AE({id:K(),project:{originalCwd:Se(),projectRoot:gn()}},{message:`MCP server "${t}" confirmed elicitation ${e} complete`,notificationType:"elicitation_complete"});let r=!1;if(d((o)=>{let l=_(o.elicitation.queue,t,e);if(l===-1)return o;r=!0;let u=[...o.elicitation.queue];return u[l]={...u[l],completed:!0},{...o,elicitation:{queue:u}}}),!r)Z(t,`Ignoring completion notification for unknown elicitation: ${e}`)})}catch{return}}async function nOt({serverName:i,params:t,requestId:d,signal:n,setAppState:a,transportErrorState:e}){if(e)e.pendingElicitations++;Z(i,`Received elicitation request: ${b(t)}`);let r=q(t);s("tengu_mcp_elicitation_shown",{mode:c(r)});try{let o=await rOt(i,t,n);if(o)return Z(i,`Elicitation resolved by hook: ${b(o)}`),s("tengu_mcp_elicitation_response",{mode:c(r),action:c(o.action)}),y("mcp_elicitation_handle"),o;let l=r==="url"&&"elicitationId"in t?t.elicitationId:void 0,m=await new Promise((g)=>{let f=()=>{g({action:"cancel"})};if(n.aborted){f();return}let k=l?{actionLabel:"Skip confirmation"}:void 0;a((E)=>({...E,elicitation:{queue:[...E.elicitation.queue,{serverName:i,requestId:d,params:t,signal:n,waitingState:k,respond:(R)=>{n.removeEventListener("abort",f),s("tengu_mcp_elicitation_response",{mode:c(r),action:c(R.action)}),g(R)}}]}})),n.addEventListener("abort",f,{once:!0})});Z(i,`Elicitation response: ${b(m)}`);let S=await oOt(i,m,n,r,l);return y("mcp_elicitation_handle"),S}catch(o){return to(i,`Elicitation error: ${o}`),p("mcp_elicitation_handle","handler_error"),{action:"cancel"}}finally{if(e)e.pendingElicitations--,e.lastElicitationClosedAt=Date.now()}}async function rOt(i,t,d){let n={id:K(),project:{originalCwd:Se(),projectRoot:gn()}};try{let a=t.mode==="url"?"url":"form",e="url"in t?t.url:void 0,r="elicitationId"in t?t.elicitationId:void 0,{elicitationResponse:o,blockingError:l}=await rbe({session:n,serverName:i,message:t.message,requestedSchema:"requestedSchema"in t?t.requestedSchema:void 0,signal:d,mode:a,url:e,elicitationId:r});if(l)return{action:"decline"};if(o)return{action:o.action,content:o.content};return}catch(a){to(i,`Elicitation hook error: ${a}`);return}}async function oOt(i,t,d,n,a){let e={id:K(),project:{originalCwd:Se(),projectRoot:gn()}};try{let{elicitationResultResponse:r,blockingError:o}=await obe({session:e,serverName:i,action:t.action,content:t.content,signal:d,mode:n,elicitationId:a});if(o)return AE(e,{message:`Elicitation response for server "${i}": decline`,notificationType:"elicitation_response"}),{action:"decline"};let l=r?{action:r.action,content:r.content??t.content}:t;return AE(e,{message:`Elicitation response for server "${i}": ${l.action}`,notificationType:"elicitation_response"}),l}catch(r){return to(i,`ElicitationResult hook error: ${r}`),AE(e,{message:`Elicitation response for server "${i}": ${t.action}`,notificationType:"elicitation_response"}),t}}
-export{TAr,EAr,nOt,rOt,oOt};
+import { Xrn, VHe } from "/$bunfs/root/chunk-cagtjatw.js";
+import { K, Se, gn } from "/$bunfs/root/chunk-f9h0bg01.js";
+import { c } from "/$bunfs/root/chunk-4xj01xwv.js";
+import { rbe, obe, AE } from "/$bunfs/root/chunk-zze8764r.js";
+import { s } from "/$bunfs/root/chunk-r53tkxrh.js";
+import { y, p } from "/$bunfs/root/chunk-ca80fke8.js";
+import { b } from "/$bunfs/root/chunk-fv016jr6.js";
+import { to, Z } from "/$bunfs/root/chunk-wkxx62a2.js";
+function q(i) {
+  return i.mode === "url" ? "url" : "form";
+}
+function TAr(i) {
+  let t = VHe.safeParse(i?.[Xrn]);
+  return t.success ? { taskId: t.data.taskId } : null;
+}
+function _(i, t, d) {
+  return i.findIndex(
+    (n) => n.serverName === t && n.params.mode === "url" && "elicitationId" in n.params && n.params.elicitationId === d,
+  );
+}
+function EAr(i, t, d, n) {
+  try {
+    i.setRequestHandler("elicitation/create", (a, e) =>
+      nOt({
+        serverName: t,
+        params: a.params,
+        requestId: e.mcpReq.id,
+        signal: e.mcpReq.signal,
+        setAppState: d,
+        transportErrorState: n,
+      }),
+    ),
+      i.setNotificationHandler("notifications/elicitation/complete", (a) => {
+        let { elicitationId: e } = a.params;
+        Z(t, `Received elicitation completion notification: ${e}`),
+          AE(
+            { id: K(), project: { originalCwd: Se(), projectRoot: gn() } },
+            {
+              message: `MCP server "${t}" confirmed elicitation ${e} complete`,
+              notificationType: "elicitation_complete",
+            },
+          );
+        let r = !1;
+        if (
+          (d((o) => {
+            let l = _(o.elicitation.queue, t, e);
+            if (l === -1) return o;
+            r = !0;
+            let u = [...o.elicitation.queue];
+            return (u[l] = { ...u[l], completed: !0 }), { ...o, elicitation: { queue: u } };
+          }),
+          !r)
+        )
+          Z(t, `Ignoring completion notification for unknown elicitation: ${e}`);
+      });
+  } catch {
+    return;
+  }
+}
+async function nOt({ serverName: i, params: t, requestId: d, signal: n, setAppState: a, transportErrorState: e }) {
+  if (e) e.pendingElicitations++;
+  Z(i, `Received elicitation request: ${b(t)}`);
+  let r = q(t);
+  s("tengu_mcp_elicitation_shown", { mode: c(r) });
+  try {
+    let o = await rOt(i, t, n);
+    if (o)
+      return (
+        Z(i, `Elicitation resolved by hook: ${b(o)}`),
+        s("tengu_mcp_elicitation_response", { mode: c(r), action: c(o.action) }),
+        y("mcp_elicitation_handle"),
+        o
+      );
+    let l = r === "url" && "elicitationId" in t ? t.elicitationId : void 0,
+      m = await new Promise((g) => {
+        let f = () => {
+          g({ action: "cancel" });
+        };
+        if (n.aborted) {
+          f();
+          return;
+        }
+        let k = l ? { actionLabel: "Skip confirmation" } : void 0;
+        a((E) => ({
+          ...E,
+          elicitation: {
+            queue: [
+              ...E.elicitation.queue,
+              {
+                serverName: i,
+                requestId: d,
+                params: t,
+                signal: n,
+                waitingState: k,
+                respond: (R) => {
+                  n.removeEventListener("abort", f),
+                    s("tengu_mcp_elicitation_response", { mode: c(r), action: c(R.action) }),
+                    g(R);
+                },
+              },
+            ],
+          },
+        })),
+          n.addEventListener("abort", f, { once: !0 });
+      });
+    Z(i, `Elicitation response: ${b(m)}`);
+    let S = await oOt(i, m, n, r, l);
+    return y("mcp_elicitation_handle"), S;
+  } catch (o) {
+    return to(i, `Elicitation error: ${o}`), p("mcp_elicitation_handle", "handler_error"), { action: "cancel" };
+  } finally {
+    if (e) e.pendingElicitations--, (e.lastElicitationClosedAt = Date.now());
+  }
+}
+async function rOt(i, t, d) {
+  let n = { id: K(), project: { originalCwd: Se(), projectRoot: gn() } };
+  try {
+    let a = t.mode === "url" ? "url" : "form",
+      e = "url" in t ? t.url : void 0,
+      r = "elicitationId" in t ? t.elicitationId : void 0,
+      { elicitationResponse: o, blockingError: l } = await rbe({
+        session: n,
+        serverName: i,
+        message: t.message,
+        requestedSchema: "requestedSchema" in t ? t.requestedSchema : void 0,
+        signal: d,
+        mode: a,
+        url: e,
+        elicitationId: r,
+      });
+    if (l) return { action: "decline" };
+    if (o) return { action: o.action, content: o.content };
+    return;
+  } catch (a) {
+    to(i, `Elicitation hook error: ${a}`);
+    return;
+  }
+}
+async function oOt(i, t, d, n, a) {
+  let e = { id: K(), project: { originalCwd: Se(), projectRoot: gn() } };
+  try {
+    let { elicitationResultResponse: r, blockingError: o } = await obe({
+      session: e,
+      serverName: i,
+      action: t.action,
+      content: t.content,
+      signal: d,
+      mode: n,
+      elicitationId: a,
+    });
+    if (o)
+      return (
+        AE(e, { message: `Elicitation response for server "${i}": decline`, notificationType: "elicitation_response" }),
+        { action: "decline" }
+      );
+    let l = r ? { action: r.action, content: r.content ?? t.content } : t;
+    return (
+      AE(e, {
+        message: `Elicitation response for server "${i}": ${l.action}`,
+        notificationType: "elicitation_response",
+      }),
+      l
+    );
+  } catch (r) {
+    return (
+      to(i, `ElicitationResult hook error: ${r}`),
+      AE(e, {
+        message: `Elicitation response for server "${i}": ${t.action}`,
+        notificationType: "elicitation_response",
+      }),
+      t
+    );
+  }
+}
+export { TAr, EAr, nOt, rOt, oOt };

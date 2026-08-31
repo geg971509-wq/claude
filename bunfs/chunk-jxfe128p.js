@@ -8,7 +8,476 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{si,Lye,Jc,PPe,Zqe,zr,sX}from"/$bunfs/root/chunk-zze8764r.js";import{Kr}from"/$bunfs/root/chunk-f9h0bg01.js";import"/$bunfs/root/chunk-qq1mdtb5.js";import"/$bunfs/root/chunk-tx16jn0x.js";import"/$bunfs/root/chunk-4xj01xwv.js";import{be}from"/$bunfs/root/chunk-gcks6mn0.js";import{m}from"/$bunfs/root/chunk-bzx56g36.js";import"/$bunfs/root/chunk-eqdctte5.js";import"/$bunfs/root/chunk-fec4384a.js";import"/$bunfs/root/chunk-qm65zb83.js";import"/$bunfs/root/chunk-vfy57cpd.js";import{R,ft,we,Ht}from"/$bunfs/root/chunk-ypdw393e.js";import{Ge,b,V,n}from"/$bunfs/root/chunk-fv016jr6.js";import"/$bunfs/root/chunk-qk7r0t2g.js";import{St,Dn}from"/$bunfs/root/chunk-4ddxwr9r.js";import{h}from"/$bunfs/root/chunk-wkxx62a2.js";import"/$bunfs/root/chunk-82w4mtvq.js";import"/$bunfs/root/chunk-twwd9fep.js";import"/$bunfs/root/chunk-ps6pc7xd.js";import"/$bunfs/root/chunk-r53tkxrh.js";import"/$bunfs/root/chunk-ca80fke8.js";import"/$bunfs/root/chunk-4fwj3vnx.js";import"/$bunfs/root/chunk-s7e0px8j.js";import"/$bunfs/root/chunk-s28wf80n.js";import"/$bunfs/root/chunk-3bbym8ct.js";import"/$bunfs/root/chunk-cf8qhmdc.js";import"/$bunfs/root/chunk-0pgyw7te.js";import"/$bunfs/root/chunk-2masxyqj.js";import"/$bunfs/root/chunk-rgw52f13.js";import"/$bunfs/root/chunk-2rx5nghb.js";import"/$bunfs/root/chunk-f5hrzy3k.js";import"/$bunfs/root/chunk-nqmqabr8.js";import"/$bunfs/root/chunk-z0z1xzkg.js";import"/$bunfs/root/chunk-c47snwm2.js";import{Te}from"/$bunfs/root/chunk-jpf4kat5.js";import"/$bunfs/root/chunk-s4vc7est.js";import"/$bunfs/root/chunk-hyh5wcm1.js";import{wl,_a}from"/$bunfs/root/chunk-8tgj5dp2.js";import"/$bunfs/root/chunk-amem41jf.js";import"/$bunfs/root/chunk-386w1sy8.js";import"/$bunfs/root/chunk-ax6dy60b.js";import"/$bunfs/root/chunk-6k63g5t6.js";import"/$bunfs/root/chunk-q14dgq5g.js";import"/$bunfs/root/chunk-ntyhd04p.js";import"/$bunfs/root/chunk-8qsdea2c.js";import"/$bunfs/root/chunk-988p40e0.js";import"/$bunfs/root/chunk-0spqrdaj.js";import"/$bunfs/root/chunk-5rt2mvvk.js";import"/$bunfs/root/chunk-1yr12dqr.js";import"/$bunfs/root/chunk-2mmw62jx.js";import"/$bunfs/root/chunk-z2bvp3sv.js";import"/$bunfs/root/chunk-keb644xg.js";import"/$bunfs/root/chunk-bj904w9w.js";import"/$bunfs/root/chunk-18bck2pp.js";import"/$bunfs/root/chunk-dwwpyy7b.js";import"/$bunfs/root/chunk-jck8t8fq.js";import"/$bunfs/root/chunk-qcx34e4j.js";import"/$bunfs/root/chunk-psdymar6.js";import"/$bunfs/root/chunk-0r9wzh7g.js";import"/$bunfs/root/chunk-sxxp6vcr.js";import"/$bunfs/root/chunk-rf51999f.js";import"/$bunfs/root/chunk-v7yhn7cf.js";import"/$bunfs/root/chunk-kxyny47c.js";import"/$bunfs/root/chunk-e7rq8w09.js";import"/$bunfs/root/chunk-fbp3w46j.js";import"/$bunfs/root/chunk-gtv2468w.js";import"/$bunfs/root/chunk-4r03fm98.js";import"/$bunfs/root/chunk-s4smmnta.js";import"/$bunfs/root/chunk-z9ex1x2t.js";import"/$bunfs/root/chunk-k4a21mkt.js";import"/$bunfs/root/chunk-4rh74qms.js";import"/$bunfs/root/chunk-r3qa2s4k.js";import"/$bunfs/root/chunk-1evht33z.js";import"/$bunfs/root/chunk-gkfy5ggn.js";import{Eo}from"/$bunfs/root/chunk-qk6zade1.js";import"/$bunfs/root/chunk-4t3vsqt7.js";import"/$bunfs/root/chunk-ejdwrhgv.js";import"/$bunfs/root/chunk-zkvj62rn.js";import"/$bunfs/root/chunk-492vgtnr.js";import"/$bunfs/root/chunk-0g6cj4h1.js";import"/$bunfs/root/chunk-a48rnvhj.js";import"/$bunfs/root/chunk-tzhtxm67.js";import"/$bunfs/root/chunk-mznd09c6.js";import"/$bunfs/root/chunk-ghara6r1.js";import"/$bunfs/root/chunk-97wwdfyx.js";import"/$bunfs/root/chunk-167jjb66.js";import"/$bunfs/root/chunk-h7dkgq01.js";import"/$bunfs/root/chunk-2n1hsggr.js";import"/$bunfs/root/chunk-s0xdwab3.js";import"/$bunfs/root/chunk-fs02hzwy.js";import"/$bunfs/root/chunk-c76q2y0e.js";import"/$bunfs/root/chunk-cds31m36.js";import"/$bunfs/root/chunk-z15hpjf9.js";import"/$bunfs/root/chunk-1pn2pk9v.js";import"/$bunfs/root/chunk-hebj76vj.js";import"/$bunfs/root/chunk-0mrbtv3q.js";import"/$bunfs/root/chunk-5n1tbe50.js";import"/$bunfs/root/chunk-a2an01ph.js";import"/$bunfs/root/chunk-dck778n3.js";import"/$bunfs/root/chunk-nkjrjh5n.js";import{Nl}from"/$bunfs/root/chunk-c6k0ecxv.js";import"/$bunfs/root/chunk-bp3j8sq3.js";import"/$bunfs/root/chunk-qekzccch.js";import"/$bunfs/root/chunk-s2ac0z44.js";import"/$bunfs/root/chunk-wgz3g40p.js";import"/$bunfs/root/chunk-1mp2j0tx.js";import"/$bunfs/root/chunk-anwgkcw5.js";import"/$bunfs/root/chunk-hz299nfa.js";import"/$bunfs/root/chunk-5wecjdtm.js";import"/$bunfs/root/chunk-p1awcxk1.js";import"/$bunfs/root/chunk-z9bhq3k9.js";import"/$bunfs/root/chunk-e17gvevg.js";import"/$bunfs/root/chunk-da857b4g.js";import"/$bunfs/root/chunk-vzc4dhqq.js";import"/$bunfs/root/chunk-98tgyb1d.js";import"/$bunfs/root/chunk-tveh0k24.js";import"/$bunfs/root/chunk-699y5x28.js";import"/$bunfs/root/chunk-37pvmyqb.js";import"/$bunfs/root/chunk-0m39033q.js";import"/$bunfs/root/chunk-6a5ggyw4.js";import"/$bunfs/root/chunk-btcxpqw5.js";import"/$bunfs/root/chunk-k8xha1qv.js";import"/$bunfs/root/chunk-30e2jew7.js";import"/$bunfs/root/chunk-51qp0385.js";import"/$bunfs/root/chunk-wjr8v4tx.js";import"/$bunfs/root/chunk-kbyvkqye.js";import"/$bunfs/root/chunk-dd55s64p.js";import"/$bunfs/root/chunk-83h0j7w2.js";import"/$bunfs/root/chunk-qg6z8ah8.js";import"/$bunfs/root/chunk-308krgtb.js";import"/$bunfs/root/chunk-nf8aaj8a.js";import"/$bunfs/root/chunk-a6xhjq7b.js";import"/$bunfs/root/chunk-qnrh4abv.js";import"/$bunfs/root/chunk-6nmk3t6g.js";import"/$bunfs/root/chunk-jwrz2gmg.js";import"/$bunfs/root/chunk-6w72z84m.js";import"/$bunfs/root/chunk-nkf7ctf5.js";import"/$bunfs/root/chunk-38mxah2g.js";import"/$bunfs/root/chunk-v94qfg1j.js";import"/$bunfs/root/chunk-p18e2918.js";import"/$bunfs/root/chunk-rsp0anqd.js";import"/$bunfs/root/chunk-vq9g7y26.js";import"/$bunfs/root/chunk-w3c6n7jh.js";import"/$bunfs/root/chunk-gvnqpbsf.js";import"/$bunfs/root/chunk-d1d8xqks.js";import"/$bunfs/root/chunk-rgh8hav6.js";import"/$bunfs/root/chunk-qd35gw0c.js";import"/$bunfs/root/chunk-ky33xsw7.js";import"/$bunfs/root/chunk-x06p1jhb.js";import"/$bunfs/root/chunk-91315wj5.js";import"/$bunfs/root/chunk-tz5bx4mb.js";import"/$bunfs/root/chunk-1v3848mh.js";import"/$bunfs/root/chunk-xgfepdf4.js";import"/$bunfs/root/chunk-r4m4cqz1.js";import"/$bunfs/root/chunk-mq8h2tk8.js";import"/$bunfs/root/chunk-50g10fz0.js";import"/$bunfs/root/chunk-5c5qq1s7.js";import"/$bunfs/root/chunk-86v6b72m.js";import"/$bunfs/root/chunk-eb5y4yrx.js";import"/$bunfs/root/chunk-cfqs035d.js";import"/$bunfs/root/chunk-8td9ks9h.js";import"/$bunfs/root/chunk-9y48by1e.js";import"/$bunfs/root/chunk-9tey6wcd.js";import"/$bunfs/root/chunk-c2kqvv3h.js";import"/$bunfs/root/chunk-cgy998p5.js";import"/$bunfs/root/chunk-h605j25g.js";import"/$bunfs/root/chunk-vx3kc9d2.js";import"/$bunfs/root/chunk-fctnm902.js";import"/$bunfs/root/chunk-e53y7x75.js";import"/$bunfs/root/chunk-d5s7a9by.js";import"/$bunfs/root/chunk-5g92v3fd.js";import"/$bunfs/root/chunk-76gryyye.js";import"/$bunfs/root/chunk-4sw5yxwb.js";import"/$bunfs/root/chunk-trte0v0g.js";import"/$bunfs/root/chunk-gmgmb4mg.js";import"/$bunfs/root/chunk-hzjjsb0j.js";import"/$bunfs/root/chunk-avrc9gay.js";import"/$bunfs/root/chunk-pbd9yggs.js";import"/$bunfs/root/chunk-fvkzpeqe.js";import"/$bunfs/root/chunk-96xrtyd5.js";import"/$bunfs/root/chunk-k7v7xwvs.js";import"/$bunfs/root/chunk-pzvxycbq.js";import"/$bunfs/root/chunk-dzv4k86d.js";import"/$bunfs/root/chunk-rt5p4yax.js";import"/$bunfs/root/chunk-jn7d47r1.js";import"/$bunfs/root/chunk-dc4hb8f7.js";import"/$bunfs/root/chunk-z9jgt14c.js";import"/$bunfs/root/chunk-y8sx7bf9.js";import"/$bunfs/root/chunk-q2gyteg0.js";import"/$bunfs/root/chunk-0manfhn2.js";import"/$bunfs/root/chunk-r6ppzf4r.js";import"/$bunfs/root/chunk-4399d2v0.js";import"/$bunfs/root/chunk-y79sc2hm.js";import"/$bunfs/root/chunk-2t3rnt88.js";import"/$bunfs/root/chunk-986hvegp.js";import"/$bunfs/root/chunk-8jsj2mx0.js";import"/$bunfs/root/chunk-dt5bt1kc.js";import"/$bunfs/root/chunk-z9rrv31w.js";import"/$bunfs/root/chunk-5djs3wbb.js";import"/$bunfs/root/chunk-pdf5n9dy.js";import"/$bunfs/root/chunk-4c3hecm4.js";import"/$bunfs/root/chunk-rntp2fy5.js";import"/$bunfs/root/chunk-a9vrr0nr.js";import"/$bunfs/root/chunk-nfmyt8cw.js";import"/$bunfs/root/chunk-6var9pwd.js";import"/$bunfs/root/chunk-gmj1vprd.js";import"/$bunfs/root/chunk-ht15rw3x.js";import"/$bunfs/root/chunk-gay9hbs8.js";import"/$bunfs/root/chunk-mvz9fsh3.js";import"/$bunfs/root/chunk-ddbk6aje.js";import"/$bunfs/root/chunk-krety1hw.js";import"/$bunfs/root/chunk-6ywvv1q0.js";import"/$bunfs/root/chunk-wn1jrcrk.js";import"/$bunfs/root/chunk-zk5v8tw6.js";import"/$bunfs/root/chunk-kdtcyk0z.js";import"/$bunfs/root/chunk-q75cm02t.js";import"/$bunfs/root/chunk-dxqac26z.js";import"/$bunfs/root/chunk-2204t1q0.js";import"/$bunfs/root/chunk-kfdrcvxr.js";import"/$bunfs/root/chunk-fd2h00ye.js";import"/$bunfs/root/chunk-z6m3k8w5.js";import"/$bunfs/root/chunk-vm4xrmr7.js";import"/$bunfs/root/chunk-hkzwg35z.js";import"/$bunfs/root/chunk-mkweh3a4.js";import"/$bunfs/root/chunk-6nsyrmhg.js";import"/$bunfs/root/chunk-jjkewjsg.js";import"/$bunfs/root/chunk-4r71nj50.js";import"/$bunfs/root/chunk-3qvtfvqg.js";import"/$bunfs/root/chunk-r7t0evh2.js";import"/$bunfs/root/chunk-6xz0kht6.js";import"/$bunfs/root/chunk-2am7kb6k.js";import"/$bunfs/root/chunk-9kr4hqvs.js";import"/$bunfs/root/chunk-xvwx3w83.js";import"/$bunfs/root/chunk-y9akj3mq.js";import"/$bunfs/root/chunk-gdk3p0b3.js";import"/$bunfs/root/chunk-qy75zxb2.js";import"/$bunfs/root/chunk-r6t6p0zm.js";import"/$bunfs/root/chunk-qpj83ec7.js";import"/$bunfs/root/chunk-f77e8yef.js";import"/$bunfs/root/chunk-f7y0mdt6.js";import"/$bunfs/root/chunk-jb2pzt3t.js";import"/$bunfs/root/chunk-9yzzw213.js";import"/$bunfs/root/chunk-mknyj0qp.js";import"/$bunfs/root/chunk-81defen8.js";import"/$bunfs/root/chunk-mpg6r2j0.js";import"/$bunfs/root/chunk-3dh32z3c.js";import"/$bunfs/root/chunk-n8ecp4gs.js";import"/$bunfs/root/chunk-406nxetx.js";import"/$bunfs/root/chunk-2zf9m1zh.js";import"/$bunfs/root/chunk-rxqmmxnb.js";import"/$bunfs/root/chunk-gdhqsw8a.js";import"/$bunfs/root/chunk-5xr818a0.js";import"/$bunfs/root/chunk-fgavb5x0.js";import"/$bunfs/root/chunk-sqa0bs5e.js";import"/$bunfs/root/chunk-fveqn4y7.js";import"/$bunfs/root/chunk-4zsxhey6.js";import"/$bunfs/root/chunk-61nasexv.js";import"/$bunfs/root/chunk-m1andcps.js";import"/$bunfs/root/chunk-61hbq2wc.js";import"/$bunfs/root/chunk-rq65wazg.js";import{jF}from"/$bunfs/root/chunk-5tdaspnd.js";import"/$bunfs/root/chunk-rr0yj5sq.js";import"/$bunfs/root/chunk-a7wreksn.js";import"/$bunfs/root/chunk-8sbwe0jk.js";import"/$bunfs/root/chunk-nwb64bac.js";import{yt,xf}from"/$bunfs/root/chunk-06p73s1x.js";import"/$bunfs/root/chunk-g5y4mxg8.js";import"/$bunfs/root/chunk-cbn30h5b.js";import"/$bunfs/root/chunk-g01aac1k.js";import"/$bunfs/root/chunk-3fwkz19s.js";import"/$bunfs/root/chunk-9319g175.js";import"/$bunfs/root/chunk-szz73wxx.js";import"/$bunfs/root/chunk-b40bn863.js";import"/$bunfs/root/chunk-6mgs10s2.js";import"/$bunfs/root/chunk-6s9ybdq1.js";import"/$bunfs/root/chunk-74qqwjhx.js";import{i,v,q,H,f,De}from"/$bunfs/root/chunk-saay52v7.js";import"/$bunfs/root/chunk-1hh0bg14.js";import"/$bunfs/root/chunk-052zvbpg.js";import"/$bunfs/root/chunk-werv747a.js";import{ec,Ao}from"/$bunfs/root/chunk-czmxr2ps.js";import"/$bunfs/root/chunk-jzh4kg5x.js";import"/$bunfs/root/chunk-7s7jqj2f.js";import"/$bunfs/root/chunk-56sxk8k2.js";import{O}from"/$bunfs/root/chunk-dqkj2bph.js";import"/$bunfs/root/chunk-7jz6r17g.js";import"/$bunfs/root/chunk-a4q326ap.js";import{mkdir as ye,readdir as Ee,readFile as Re,unlink as ze,writeFile as ce}from"fs/promises";import{extname as je,join as G}from"path";function ve(){return wl()}function Oe(){return wl()}var xe=m(()=>f({session_id:i(),transcript_mtime:v().optional(),project_path:i(),start_time:i(),duration_minutes:v(),user_message_count:v(),assistant_message_count:v(),tool_counts:De(i(),v()).optional(),languages:De(i(),v()).optional(),git_commits:v(),git_pushes:v(),input_tokens:v(),output_tokens:v(),first_prompt:i(),summary:i().optional(),user_interruptions:v().optional(),user_response_times:H(v()).optional(),tool_errors:v().optional(),tool_error_categories:De(i(),v()).optional(),uses_task_agent:q().optional(),uses_mcp:q().optional(),uses_web_search:q().optional(),uses_web_fetch:q().optional(),lines_added:v().optional(),lines_removed:v().optional(),files_modified:v().optional(),message_hours:H(v()).optional(),user_message_timestamps:H(i()).optional()})),Pe={".ts":"TypeScript",".tsx":"TypeScript",".js":"JavaScript",".jsx":"JavaScript",".py":"Python",".rb":"Ruby",".go":"Go",".rs":"Rust",".java":"Java",".c":"C",".h":"C",".cpp":"C++",".cc":"C++",".cxx":"C++",".hpp":"C++",".hh":"C++",".hxx":"C++",".ipp":"C++",".md":"Markdown",".json":"JSON",".yaml":"YAML",".yml":"YAML",".sh":"Shell",".css":"CSS",".html":"HTML"},Me={debug_investigate:"Debug/Investigate",implement_feature:"Implement Feature",fix_bug:"Fix Bug",write_script_tool:"Write Script/Tool",refactor_code:"Refactor Code",configure_system:"Configure System",create_pr_commit:"Create PR/Commit",analyze_data:"Analyze Data",understand_codebase:"Understand Codebase",write_tests:"Write Tests",write_docs:"Write Docs",deploy_infra:"Deploy/Infra",warmup_minimal:"Cache Warmup",fast_accurate_search:"Fast/Accurate Search",correct_code_edits:"Correct Code Edits",good_explanations:"Good Explanations",proactive_help:"Proactive Help",multi_file_changes:"Multi-file Changes",handled_complexity:"Multi-file Changes",good_debugging:"Good Debugging",misunderstood_request:"Misunderstood Request",wrong_approach:"Wrong Approach",buggy_code:"Buggy Code",user_rejected_action:"User Rejected Action",claude_got_blocked:"Claude Got Blocked",user_stopped_early:"User Stopped Early",wrong_file_or_location:"Wrong File/Location",excessive_changes:"Excessive Changes",slow_or_verbose:"Slow/Verbose",tool_failed:"Tool Failed",user_unclear:"User Unclear",external_issue:"External Issue",frustrated:"Frustrated",dissatisfied:"Dissatisfied",likely_satisfied:"Likely Satisfied",satisfied:"Satisfied",happy:"Happy",unsure:"Unsure",neutral:"Neutral",delighted:"Delighted",single_task:"Single Task",multi_task:"Multi Task",iterative_refinement:"Iterative Refinement",exploration:"Exploration",quick_question:"Quick Question",fully_achieved:"Fully Achieved",mostly_achieved:"Mostly Achieved",partially_achieved:"Partially Achieved",not_achieved:"Not Achieved",unclear_from_transcript:"Unclear",unhelpful:"Unhelpful",slightly_helpful:"Slightly Helpful",moderately_helpful:"Moderately Helpful",very_helpful:"Very Helpful",essential:"Essential"};function oe(){return G(be(),"usage-data")}function ae(){return G(oe(),"facets")}function Ne(){return G(oe(),"session-meta")}function le(e){return Te.userConfigDir("usage-data",["facets",`${e}.json`])}function ke(e){return Te.userConfigDir("usage-data",["session-meta",`${e}.json`])}function Fe(e){return Te.userConfigDir("usage-data",[e])}async function He(e,s,t){let o=G(oe(),`report-${s}.html`);if(O()&&t){for(let p of[`report-${s}.html`,"report.html"]){let c=await t.write(Fe(p),e,{mode:384,keepExistingMode:!0});if(!c.ok)throw n(`insights: report write failed: ${Ge(c.error)}`),Error("insights: report write through the storage backend failed")}return o}try{await ye(oe(),{recursive:!0})}catch{}return await ce(o,e,{encoding:"utf-8",mode:384}),await ce(G(oe(),"report.html"),e,{encoding:"utf-8",mode:384}),o}function Le(e){if(e.code!=="Failed")return!1;return e.failureClass==="permission"||e.failureClass==="environment"||e.telemetryCode==="UnexpectedAbsent"||e.telemetryCode==="ENOENT"}var fe=50;function he(e,s){let t=[];for(let o=0;o<e.length;o+=s)t.push(e.slice(o,o+s));return t}function Ce(e){return jF(G(Ne(),`${e}.json`),()=>xe().nullable(),{defaultValue:null,ensureDir:!0,indent:2,mode:384})}var Ue=`Analyze this Claude Code session and extract structured facets.
+import { si, Lye, Jc, PPe, Zqe, zr, sX } from "/$bunfs/root/chunk-zze8764r.js";
+import { Kr } from "/$bunfs/root/chunk-f9h0bg01.js";
+import "/$bunfs/root/chunk-qq1mdtb5.js";
+import "/$bunfs/root/chunk-tx16jn0x.js";
+import "/$bunfs/root/chunk-4xj01xwv.js";
+import { be } from "/$bunfs/root/chunk-gcks6mn0.js";
+import { m } from "/$bunfs/root/chunk-bzx56g36.js";
+import "/$bunfs/root/chunk-eqdctte5.js";
+import "/$bunfs/root/chunk-fec4384a.js";
+import "/$bunfs/root/chunk-qm65zb83.js";
+import "/$bunfs/root/chunk-vfy57cpd.js";
+import { R, ft, we, Ht } from "/$bunfs/root/chunk-ypdw393e.js";
+import { Ge, b, V, n } from "/$bunfs/root/chunk-fv016jr6.js";
+import "/$bunfs/root/chunk-qk7r0t2g.js";
+import { St, Dn } from "/$bunfs/root/chunk-4ddxwr9r.js";
+import { h } from "/$bunfs/root/chunk-wkxx62a2.js";
+import "/$bunfs/root/chunk-82w4mtvq.js";
+import "/$bunfs/root/chunk-twwd9fep.js";
+import "/$bunfs/root/chunk-ps6pc7xd.js";
+import "/$bunfs/root/chunk-r53tkxrh.js";
+import "/$bunfs/root/chunk-ca80fke8.js";
+import "/$bunfs/root/chunk-4fwj3vnx.js";
+import "/$bunfs/root/chunk-s7e0px8j.js";
+import "/$bunfs/root/chunk-s28wf80n.js";
+import "/$bunfs/root/chunk-3bbym8ct.js";
+import "/$bunfs/root/chunk-cf8qhmdc.js";
+import "/$bunfs/root/chunk-0pgyw7te.js";
+import "/$bunfs/root/chunk-2masxyqj.js";
+import "/$bunfs/root/chunk-rgw52f13.js";
+import "/$bunfs/root/chunk-2rx5nghb.js";
+import "/$bunfs/root/chunk-f5hrzy3k.js";
+import "/$bunfs/root/chunk-nqmqabr8.js";
+import "/$bunfs/root/chunk-z0z1xzkg.js";
+import "/$bunfs/root/chunk-c47snwm2.js";
+import { Te } from "/$bunfs/root/chunk-jpf4kat5.js";
+import "/$bunfs/root/chunk-s4vc7est.js";
+import "/$bunfs/root/chunk-hyh5wcm1.js";
+import { wl, _a } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import "/$bunfs/root/chunk-amem41jf.js";
+import "/$bunfs/root/chunk-386w1sy8.js";
+import "/$bunfs/root/chunk-ax6dy60b.js";
+import "/$bunfs/root/chunk-6k63g5t6.js";
+import "/$bunfs/root/chunk-q14dgq5g.js";
+import "/$bunfs/root/chunk-ntyhd04p.js";
+import "/$bunfs/root/chunk-8qsdea2c.js";
+import "/$bunfs/root/chunk-988p40e0.js";
+import "/$bunfs/root/chunk-0spqrdaj.js";
+import "/$bunfs/root/chunk-5rt2mvvk.js";
+import "/$bunfs/root/chunk-1yr12dqr.js";
+import "/$bunfs/root/chunk-2mmw62jx.js";
+import "/$bunfs/root/chunk-z2bvp3sv.js";
+import "/$bunfs/root/chunk-keb644xg.js";
+import "/$bunfs/root/chunk-bj904w9w.js";
+import "/$bunfs/root/chunk-18bck2pp.js";
+import "/$bunfs/root/chunk-dwwpyy7b.js";
+import "/$bunfs/root/chunk-jck8t8fq.js";
+import "/$bunfs/root/chunk-qcx34e4j.js";
+import "/$bunfs/root/chunk-psdymar6.js";
+import "/$bunfs/root/chunk-0r9wzh7g.js";
+import "/$bunfs/root/chunk-sxxp6vcr.js";
+import "/$bunfs/root/chunk-rf51999f.js";
+import "/$bunfs/root/chunk-v7yhn7cf.js";
+import "/$bunfs/root/chunk-kxyny47c.js";
+import "/$bunfs/root/chunk-e7rq8w09.js";
+import "/$bunfs/root/chunk-fbp3w46j.js";
+import "/$bunfs/root/chunk-gtv2468w.js";
+import "/$bunfs/root/chunk-4r03fm98.js";
+import "/$bunfs/root/chunk-s4smmnta.js";
+import "/$bunfs/root/chunk-z9ex1x2t.js";
+import "/$bunfs/root/chunk-k4a21mkt.js";
+import "/$bunfs/root/chunk-4rh74qms.js";
+import "/$bunfs/root/chunk-r3qa2s4k.js";
+import "/$bunfs/root/chunk-1evht33z.js";
+import "/$bunfs/root/chunk-gkfy5ggn.js";
+import { Eo } from "/$bunfs/root/chunk-qk6zade1.js";
+import "/$bunfs/root/chunk-4t3vsqt7.js";
+import "/$bunfs/root/chunk-ejdwrhgv.js";
+import "/$bunfs/root/chunk-zkvj62rn.js";
+import "/$bunfs/root/chunk-492vgtnr.js";
+import "/$bunfs/root/chunk-0g6cj4h1.js";
+import "/$bunfs/root/chunk-a48rnvhj.js";
+import "/$bunfs/root/chunk-tzhtxm67.js";
+import "/$bunfs/root/chunk-mznd09c6.js";
+import "/$bunfs/root/chunk-ghara6r1.js";
+import "/$bunfs/root/chunk-97wwdfyx.js";
+import "/$bunfs/root/chunk-167jjb66.js";
+import "/$bunfs/root/chunk-h7dkgq01.js";
+import "/$bunfs/root/chunk-2n1hsggr.js";
+import "/$bunfs/root/chunk-s0xdwab3.js";
+import "/$bunfs/root/chunk-fs02hzwy.js";
+import "/$bunfs/root/chunk-c76q2y0e.js";
+import "/$bunfs/root/chunk-cds31m36.js";
+import "/$bunfs/root/chunk-z15hpjf9.js";
+import "/$bunfs/root/chunk-1pn2pk9v.js";
+import "/$bunfs/root/chunk-hebj76vj.js";
+import "/$bunfs/root/chunk-0mrbtv3q.js";
+import "/$bunfs/root/chunk-5n1tbe50.js";
+import "/$bunfs/root/chunk-a2an01ph.js";
+import "/$bunfs/root/chunk-dck778n3.js";
+import "/$bunfs/root/chunk-nkjrjh5n.js";
+import { Nl } from "/$bunfs/root/chunk-c6k0ecxv.js";
+import "/$bunfs/root/chunk-bp3j8sq3.js";
+import "/$bunfs/root/chunk-qekzccch.js";
+import "/$bunfs/root/chunk-s2ac0z44.js";
+import "/$bunfs/root/chunk-wgz3g40p.js";
+import "/$bunfs/root/chunk-1mp2j0tx.js";
+import "/$bunfs/root/chunk-anwgkcw5.js";
+import "/$bunfs/root/chunk-hz299nfa.js";
+import "/$bunfs/root/chunk-5wecjdtm.js";
+import "/$bunfs/root/chunk-p1awcxk1.js";
+import "/$bunfs/root/chunk-z9bhq3k9.js";
+import "/$bunfs/root/chunk-e17gvevg.js";
+import "/$bunfs/root/chunk-da857b4g.js";
+import "/$bunfs/root/chunk-vzc4dhqq.js";
+import "/$bunfs/root/chunk-98tgyb1d.js";
+import "/$bunfs/root/chunk-tveh0k24.js";
+import "/$bunfs/root/chunk-699y5x28.js";
+import "/$bunfs/root/chunk-37pvmyqb.js";
+import "/$bunfs/root/chunk-0m39033q.js";
+import "/$bunfs/root/chunk-6a5ggyw4.js";
+import "/$bunfs/root/chunk-btcxpqw5.js";
+import "/$bunfs/root/chunk-k8xha1qv.js";
+import "/$bunfs/root/chunk-30e2jew7.js";
+import "/$bunfs/root/chunk-51qp0385.js";
+import "/$bunfs/root/chunk-wjr8v4tx.js";
+import "/$bunfs/root/chunk-kbyvkqye.js";
+import "/$bunfs/root/chunk-dd55s64p.js";
+import "/$bunfs/root/chunk-83h0j7w2.js";
+import "/$bunfs/root/chunk-qg6z8ah8.js";
+import "/$bunfs/root/chunk-308krgtb.js";
+import "/$bunfs/root/chunk-nf8aaj8a.js";
+import "/$bunfs/root/chunk-a6xhjq7b.js";
+import "/$bunfs/root/chunk-qnrh4abv.js";
+import "/$bunfs/root/chunk-6nmk3t6g.js";
+import "/$bunfs/root/chunk-jwrz2gmg.js";
+import "/$bunfs/root/chunk-6w72z84m.js";
+import "/$bunfs/root/chunk-nkf7ctf5.js";
+import "/$bunfs/root/chunk-38mxah2g.js";
+import "/$bunfs/root/chunk-v94qfg1j.js";
+import "/$bunfs/root/chunk-p18e2918.js";
+import "/$bunfs/root/chunk-rsp0anqd.js";
+import "/$bunfs/root/chunk-vq9g7y26.js";
+import "/$bunfs/root/chunk-w3c6n7jh.js";
+import "/$bunfs/root/chunk-gvnqpbsf.js";
+import "/$bunfs/root/chunk-d1d8xqks.js";
+import "/$bunfs/root/chunk-rgh8hav6.js";
+import "/$bunfs/root/chunk-qd35gw0c.js";
+import "/$bunfs/root/chunk-ky33xsw7.js";
+import "/$bunfs/root/chunk-x06p1jhb.js";
+import "/$bunfs/root/chunk-91315wj5.js";
+import "/$bunfs/root/chunk-tz5bx4mb.js";
+import "/$bunfs/root/chunk-1v3848mh.js";
+import "/$bunfs/root/chunk-xgfepdf4.js";
+import "/$bunfs/root/chunk-r4m4cqz1.js";
+import "/$bunfs/root/chunk-mq8h2tk8.js";
+import "/$bunfs/root/chunk-50g10fz0.js";
+import "/$bunfs/root/chunk-5c5qq1s7.js";
+import "/$bunfs/root/chunk-86v6b72m.js";
+import "/$bunfs/root/chunk-eb5y4yrx.js";
+import "/$bunfs/root/chunk-cfqs035d.js";
+import "/$bunfs/root/chunk-8td9ks9h.js";
+import "/$bunfs/root/chunk-9y48by1e.js";
+import "/$bunfs/root/chunk-9tey6wcd.js";
+import "/$bunfs/root/chunk-c2kqvv3h.js";
+import "/$bunfs/root/chunk-cgy998p5.js";
+import "/$bunfs/root/chunk-h605j25g.js";
+import "/$bunfs/root/chunk-vx3kc9d2.js";
+import "/$bunfs/root/chunk-fctnm902.js";
+import "/$bunfs/root/chunk-e53y7x75.js";
+import "/$bunfs/root/chunk-d5s7a9by.js";
+import "/$bunfs/root/chunk-5g92v3fd.js";
+import "/$bunfs/root/chunk-76gryyye.js";
+import "/$bunfs/root/chunk-4sw5yxwb.js";
+import "/$bunfs/root/chunk-trte0v0g.js";
+import "/$bunfs/root/chunk-gmgmb4mg.js";
+import "/$bunfs/root/chunk-hzjjsb0j.js";
+import "/$bunfs/root/chunk-avrc9gay.js";
+import "/$bunfs/root/chunk-pbd9yggs.js";
+import "/$bunfs/root/chunk-fvkzpeqe.js";
+import "/$bunfs/root/chunk-96xrtyd5.js";
+import "/$bunfs/root/chunk-k7v7xwvs.js";
+import "/$bunfs/root/chunk-pzvxycbq.js";
+import "/$bunfs/root/chunk-dzv4k86d.js";
+import "/$bunfs/root/chunk-rt5p4yax.js";
+import "/$bunfs/root/chunk-jn7d47r1.js";
+import "/$bunfs/root/chunk-dc4hb8f7.js";
+import "/$bunfs/root/chunk-z9jgt14c.js";
+import "/$bunfs/root/chunk-y8sx7bf9.js";
+import "/$bunfs/root/chunk-q2gyteg0.js";
+import "/$bunfs/root/chunk-0manfhn2.js";
+import "/$bunfs/root/chunk-r6ppzf4r.js";
+import "/$bunfs/root/chunk-4399d2v0.js";
+import "/$bunfs/root/chunk-y79sc2hm.js";
+import "/$bunfs/root/chunk-2t3rnt88.js";
+import "/$bunfs/root/chunk-986hvegp.js";
+import "/$bunfs/root/chunk-8jsj2mx0.js";
+import "/$bunfs/root/chunk-dt5bt1kc.js";
+import "/$bunfs/root/chunk-z9rrv31w.js";
+import "/$bunfs/root/chunk-5djs3wbb.js";
+import "/$bunfs/root/chunk-pdf5n9dy.js";
+import "/$bunfs/root/chunk-4c3hecm4.js";
+import "/$bunfs/root/chunk-rntp2fy5.js";
+import "/$bunfs/root/chunk-a9vrr0nr.js";
+import "/$bunfs/root/chunk-nfmyt8cw.js";
+import "/$bunfs/root/chunk-6var9pwd.js";
+import "/$bunfs/root/chunk-gmj1vprd.js";
+import "/$bunfs/root/chunk-ht15rw3x.js";
+import "/$bunfs/root/chunk-gay9hbs8.js";
+import "/$bunfs/root/chunk-mvz9fsh3.js";
+import "/$bunfs/root/chunk-ddbk6aje.js";
+import "/$bunfs/root/chunk-krety1hw.js";
+import "/$bunfs/root/chunk-6ywvv1q0.js";
+import "/$bunfs/root/chunk-wn1jrcrk.js";
+import "/$bunfs/root/chunk-zk5v8tw6.js";
+import "/$bunfs/root/chunk-kdtcyk0z.js";
+import "/$bunfs/root/chunk-q75cm02t.js";
+import "/$bunfs/root/chunk-dxqac26z.js";
+import "/$bunfs/root/chunk-2204t1q0.js";
+import "/$bunfs/root/chunk-kfdrcvxr.js";
+import "/$bunfs/root/chunk-fd2h00ye.js";
+import "/$bunfs/root/chunk-z6m3k8w5.js";
+import "/$bunfs/root/chunk-vm4xrmr7.js";
+import "/$bunfs/root/chunk-hkzwg35z.js";
+import "/$bunfs/root/chunk-mkweh3a4.js";
+import "/$bunfs/root/chunk-6nsyrmhg.js";
+import "/$bunfs/root/chunk-jjkewjsg.js";
+import "/$bunfs/root/chunk-4r71nj50.js";
+import "/$bunfs/root/chunk-3qvtfvqg.js";
+import "/$bunfs/root/chunk-r7t0evh2.js";
+import "/$bunfs/root/chunk-6xz0kht6.js";
+import "/$bunfs/root/chunk-2am7kb6k.js";
+import "/$bunfs/root/chunk-9kr4hqvs.js";
+import "/$bunfs/root/chunk-xvwx3w83.js";
+import "/$bunfs/root/chunk-y9akj3mq.js";
+import "/$bunfs/root/chunk-gdk3p0b3.js";
+import "/$bunfs/root/chunk-qy75zxb2.js";
+import "/$bunfs/root/chunk-r6t6p0zm.js";
+import "/$bunfs/root/chunk-qpj83ec7.js";
+import "/$bunfs/root/chunk-f77e8yef.js";
+import "/$bunfs/root/chunk-f7y0mdt6.js";
+import "/$bunfs/root/chunk-jb2pzt3t.js";
+import "/$bunfs/root/chunk-9yzzw213.js";
+import "/$bunfs/root/chunk-mknyj0qp.js";
+import "/$bunfs/root/chunk-81defen8.js";
+import "/$bunfs/root/chunk-mpg6r2j0.js";
+import "/$bunfs/root/chunk-3dh32z3c.js";
+import "/$bunfs/root/chunk-n8ecp4gs.js";
+import "/$bunfs/root/chunk-406nxetx.js";
+import "/$bunfs/root/chunk-2zf9m1zh.js";
+import "/$bunfs/root/chunk-rxqmmxnb.js";
+import "/$bunfs/root/chunk-gdhqsw8a.js";
+import "/$bunfs/root/chunk-5xr818a0.js";
+import "/$bunfs/root/chunk-fgavb5x0.js";
+import "/$bunfs/root/chunk-sqa0bs5e.js";
+import "/$bunfs/root/chunk-fveqn4y7.js";
+import "/$bunfs/root/chunk-4zsxhey6.js";
+import "/$bunfs/root/chunk-61nasexv.js";
+import "/$bunfs/root/chunk-m1andcps.js";
+import "/$bunfs/root/chunk-61hbq2wc.js";
+import "/$bunfs/root/chunk-rq65wazg.js";
+import { jF } from "/$bunfs/root/chunk-5tdaspnd.js";
+import "/$bunfs/root/chunk-rr0yj5sq.js";
+import "/$bunfs/root/chunk-a7wreksn.js";
+import "/$bunfs/root/chunk-8sbwe0jk.js";
+import "/$bunfs/root/chunk-nwb64bac.js";
+import { yt, xf } from "/$bunfs/root/chunk-06p73s1x.js";
+import "/$bunfs/root/chunk-g5y4mxg8.js";
+import "/$bunfs/root/chunk-cbn30h5b.js";
+import "/$bunfs/root/chunk-g01aac1k.js";
+import "/$bunfs/root/chunk-3fwkz19s.js";
+import "/$bunfs/root/chunk-9319g175.js";
+import "/$bunfs/root/chunk-szz73wxx.js";
+import "/$bunfs/root/chunk-b40bn863.js";
+import "/$bunfs/root/chunk-6mgs10s2.js";
+import "/$bunfs/root/chunk-6s9ybdq1.js";
+import "/$bunfs/root/chunk-74qqwjhx.js";
+import { i, v, q, H, f, De } from "/$bunfs/root/chunk-saay52v7.js";
+import "/$bunfs/root/chunk-1hh0bg14.js";
+import "/$bunfs/root/chunk-052zvbpg.js";
+import "/$bunfs/root/chunk-werv747a.js";
+import { ec, Ao } from "/$bunfs/root/chunk-czmxr2ps.js";
+import "/$bunfs/root/chunk-jzh4kg5x.js";
+import "/$bunfs/root/chunk-7s7jqj2f.js";
+import "/$bunfs/root/chunk-56sxk8k2.js";
+import { O } from "/$bunfs/root/chunk-dqkj2bph.js";
+import "/$bunfs/root/chunk-7jz6r17g.js";
+import "/$bunfs/root/chunk-a4q326ap.js";
+import { mkdir as ye, readdir as Ee, readFile as Re, unlink as ze, writeFile as ce } from "fs/promises";
+import { extname as je, join as G } from "path";
+function ve() {
+  return wl();
+}
+function Oe() {
+  return wl();
+}
+var xe = m(() =>
+    f({
+      session_id: i(),
+      transcript_mtime: v().optional(),
+      project_path: i(),
+      start_time: i(),
+      duration_minutes: v(),
+      user_message_count: v(),
+      assistant_message_count: v(),
+      tool_counts: De(i(), v()).optional(),
+      languages: De(i(), v()).optional(),
+      git_commits: v(),
+      git_pushes: v(),
+      input_tokens: v(),
+      output_tokens: v(),
+      first_prompt: i(),
+      summary: i().optional(),
+      user_interruptions: v().optional(),
+      user_response_times: H(v()).optional(),
+      tool_errors: v().optional(),
+      tool_error_categories: De(i(), v()).optional(),
+      uses_task_agent: q().optional(),
+      uses_mcp: q().optional(),
+      uses_web_search: q().optional(),
+      uses_web_fetch: q().optional(),
+      lines_added: v().optional(),
+      lines_removed: v().optional(),
+      files_modified: v().optional(),
+      message_hours: H(v()).optional(),
+      user_message_timestamps: H(i()).optional(),
+    }),
+  ),
+  Pe = {
+    ".ts": "TypeScript",
+    ".tsx": "TypeScript",
+    ".js": "JavaScript",
+    ".jsx": "JavaScript",
+    ".py": "Python",
+    ".rb": "Ruby",
+    ".go": "Go",
+    ".rs": "Rust",
+    ".java": "Java",
+    ".c": "C",
+    ".h": "C",
+    ".cpp": "C++",
+    ".cc": "C++",
+    ".cxx": "C++",
+    ".hpp": "C++",
+    ".hh": "C++",
+    ".hxx": "C++",
+    ".ipp": "C++",
+    ".md": "Markdown",
+    ".json": "JSON",
+    ".yaml": "YAML",
+    ".yml": "YAML",
+    ".sh": "Shell",
+    ".css": "CSS",
+    ".html": "HTML",
+  },
+  Me = {
+    debug_investigate: "Debug/Investigate",
+    implement_feature: "Implement Feature",
+    fix_bug: "Fix Bug",
+    write_script_tool: "Write Script/Tool",
+    refactor_code: "Refactor Code",
+    configure_system: "Configure System",
+    create_pr_commit: "Create PR/Commit",
+    analyze_data: "Analyze Data",
+    understand_codebase: "Understand Codebase",
+    write_tests: "Write Tests",
+    write_docs: "Write Docs",
+    deploy_infra: "Deploy/Infra",
+    warmup_minimal: "Cache Warmup",
+    fast_accurate_search: "Fast/Accurate Search",
+    correct_code_edits: "Correct Code Edits",
+    good_explanations: "Good Explanations",
+    proactive_help: "Proactive Help",
+    multi_file_changes: "Multi-file Changes",
+    handled_complexity: "Multi-file Changes",
+    good_debugging: "Good Debugging",
+    misunderstood_request: "Misunderstood Request",
+    wrong_approach: "Wrong Approach",
+    buggy_code: "Buggy Code",
+    user_rejected_action: "User Rejected Action",
+    claude_got_blocked: "Claude Got Blocked",
+    user_stopped_early: "User Stopped Early",
+    wrong_file_or_location: "Wrong File/Location",
+    excessive_changes: "Excessive Changes",
+    slow_or_verbose: "Slow/Verbose",
+    tool_failed: "Tool Failed",
+    user_unclear: "User Unclear",
+    external_issue: "External Issue",
+    frustrated: "Frustrated",
+    dissatisfied: "Dissatisfied",
+    likely_satisfied: "Likely Satisfied",
+    satisfied: "Satisfied",
+    happy: "Happy",
+    unsure: "Unsure",
+    neutral: "Neutral",
+    delighted: "Delighted",
+    single_task: "Single Task",
+    multi_task: "Multi Task",
+    iterative_refinement: "Iterative Refinement",
+    exploration: "Exploration",
+    quick_question: "Quick Question",
+    fully_achieved: "Fully Achieved",
+    mostly_achieved: "Mostly Achieved",
+    partially_achieved: "Partially Achieved",
+    not_achieved: "Not Achieved",
+    unclear_from_transcript: "Unclear",
+    unhelpful: "Unhelpful",
+    slightly_helpful: "Slightly Helpful",
+    moderately_helpful: "Moderately Helpful",
+    very_helpful: "Very Helpful",
+    essential: "Essential",
+  };
+function oe() {
+  return G(be(), "usage-data");
+}
+function ae() {
+  return G(oe(), "facets");
+}
+function Ne() {
+  return G(oe(), "session-meta");
+}
+function le(e) {
+  return Te.userConfigDir("usage-data", ["facets", `${e}.json`]);
+}
+function ke(e) {
+  return Te.userConfigDir("usage-data", ["session-meta", `${e}.json`]);
+}
+function Fe(e) {
+  return Te.userConfigDir("usage-data", [e]);
+}
+async function He(e, s, t) {
+  let o = G(oe(), `report-${s}.html`);
+  if (O() && t) {
+    for (let p of [`report-${s}.html`, "report.html"]) {
+      let c = await t.write(Fe(p), e, { mode: 384, keepExistingMode: !0 });
+      if (!c.ok)
+        throw (
+          (n(`insights: report write failed: ${Ge(c.error)}`),
+          Error("insights: report write through the storage backend failed"))
+        );
+    }
+    return o;
+  }
+  try {
+    await ye(oe(), { recursive: !0 });
+  } catch {}
+  return (
+    await ce(o, e, { encoding: "utf-8", mode: 384 }),
+    await ce(G(oe(), "report.html"), e, { encoding: "utf-8", mode: 384 }),
+    o
+  );
+}
+function Le(e) {
+  if (e.code !== "Failed") return !1;
+  return (
+    e.failureClass === "permission" ||
+    e.failureClass === "environment" ||
+    e.telemetryCode === "UnexpectedAbsent" ||
+    e.telemetryCode === "ENOENT"
+  );
+}
+var fe = 50;
+function he(e, s) {
+  let t = [];
+  for (let o = 0; o < e.length; o += s) t.push(e.slice(o, o + s));
+  return t;
+}
+function Ce(e) {
+  return jF(G(Ne(), `${e}.json`), () => xe().nullable(), { defaultValue: null, ensureDir: !0, indent: 2, mode: 384 });
+}
+var Ue = `Analyze this Claude Code session and extract structured facets.
 
 CRITICAL GUIDELINES:
 
@@ -34,9 +503,253 @@ CRITICAL GUIDELINES:
 4. If very short or just warmup, use warmup_minimal for goal_category
 
 SESSION:
-`;function se(e){return typeof e==="string"?e:""}var We=[[["exit code"],"Command Failed"],[["rejected","doesn't want"],"User Rejected"],[["string to replace not found","no changes"],"Edit Failed"],[["modified since read"],"File Changed"],[["exceeds maximum","too large"],"File Too Large"],[["file not found","does not exist"],"File Not Found"]];function Be(e){if(typeof e!=="string")return"Other";let s=e.toLowerCase();return We.find(([t])=>t.some((o)=>s.includes(o)))?.[1]??"Other"}function Ye(e){let s={},t={},o=0,p=0,c=0,d=0,r=0,l=[],a=0,g={},x=!1,I=0,w=0,z=new Set,E=[],F=[],D=!1,U=!1,y=!1,j=null;for(let L of e.messages){let Y=L.timestamp;if(L.type==="assistant"&&L.message){if(Y)j=Y;let P=L.message.usage;if(P)c+=P.input_tokens||0,d+=P.output_tokens||0;let W=L.message.content;if(Array.isArray(W)){for(let u of W)if(u.type==="tool_use"&&"name"in u){let C=u.name;if(s[C]=(s[C]||0)+1,C===yt||C===xf)x=!0;if(C.startsWith("mcp__"))D=!0;if(C==="WebSearch")U=!0;if(C==="WebFetch")y=!0;let S=u.input;if(S){let Q=se(S.file_path);if(Q){let N=Pe[je(Q).toLowerCase()];if(N)t[N]=(t[N]||0)+1;if(C==="Edit"||C==="Write")z.add(Q)}if(C==="Edit"){let N=se(S.old_string),K=se(S.new_string);for(let Z of Lye(N,K)){if(Z.added)I+=Z.count||0;if(Z.removed)w+=Z.count||0}}if(C==="Write"){let N=se(S.content);if(N)I+=Dn(N,`
-`)+1}let ne=se(S.command);if(ne.includes("git commit"))o++;if(ne.includes("git push"))p++}}}}if(L.type==="user"&&L.message){let P=L.message.content,W=!1;if(typeof P==="string"&&P.trim())W=!0;else if(Array.isArray(P)){for(let u of P)if(u.type==="text"&&"text"in u){W=!0;break}}if(W){if(Y){let u=new Date(Y);if(Number.isFinite(u.getTime())){let C=u.getHours();E.push(C),F.push(Y)}}if(j&&Y){let u=new Date(j).getTime(),S=(new Date(Y).getTime()-u)/1000;if(S>2&&S<3600)l.push(S)}}if(Array.isArray(P)){for(let u of P)if(u.type==="tool_result"&&"content"in u){if(u.is_error){a++;let S=Be(u.content);g[S]=(g[S]||0)+1}}}if(typeof P==="string"){if(P.includes("[Request interrupted by user"))r++}else if(Array.isArray(P)){for(let u of P)if(u.type==="text"&&"text"in u&&u.text.includes("[Request interrupted by user")){r++;break}}}}return{toolCounts:s,languages:t,gitCommits:o,gitPushes:p,inputTokens:c,outputTokens:d,userInterruptions:r,userResponseTimes:l,toolErrors:a,toolErrorCategories:g,usesTaskAgent:x,usesMcp:D,usesWebSearch:U,usesWebFetch:y,linesAdded:I,linesRemoved:w,filesModified:z,messageHours:E,userMessageTimestamps:F}}function ue(e){let s=Ye(e),t=Jc(e)||"unknown",o=e.created.toISOString(),p=Math.round((e.modified.getTime()-e.created.getTime())/1000/60),c=0,d=0;for(let r of e.messages){if(r.type==="assistant")d++;if(r.type==="user"&&r.message){let l=r.message.content,a=!1;if(typeof l==="string"&&l.trim())a=!0;else if(Array.isArray(l)){for(let g of l)if(g.type==="text"&&"text"in g){a=!0;break}}if(a)c++}}return{session_id:t,project_path:e.relocatedCwd??e.projectPath??"",start_time:o,duration_minutes:p,user_message_count:c,assistant_message_count:d,tool_counts:s.toolCounts,languages:s.languages,git_commits:s.gitCommits,git_pushes:s.gitPushes,input_tokens:s.inputTokens,output_tokens:s.outputTokens,first_prompt:e.firstPrompt||"",summary:e.summary,user_interruptions:s.userInterruptions,user_response_times:s.userResponseTimes,tool_errors:s.toolErrors,tool_error_categories:s.toolErrorCategories,uses_task_agent:s.usesTaskAgent,uses_mcp:s.usesMcp,uses_web_search:s.usesWebSearch,uses_web_fetch:s.usesWebFetch,lines_added:s.linesAdded,lines_removed:s.linesRemoved,files_modified:s.filesModified.size,message_hours:s.messageHours,user_message_timestamps:s.userMessageTimestamps}}function de(e,s){if(!s)return!0;if(e.user_message_count!==s.user_message_count)return e.user_message_count>s.user_message_count;return e.duration_minutes>s.duration_minutes}function es(e){let s=new Map;for(let t of e){let o=t.meta.session_id;if(de(t.meta,s.get(o)?.meta))s.set(o,t)}return[...s.values()]}function Ve(e){let s=[],t=ue(e);s.push(`Session: ${t.session_id.slice(0,8)}`),s.push(`Date: ${t.start_time}`),s.push(`Project: ${t.project_path}`),s.push(`Duration: ${t.duration_minutes} min`),s.push("");for(let o of e.messages)if(o.type==="user"&&o.message){let p=o.message.content;if(typeof p==="string")s.push(`[User]: ${p.slice(0,500)}`);else if(Array.isArray(p)){for(let c of p)if(c.type==="text"&&"text"in c)s.push(`[User]: ${c.text.slice(0,500)}`)}}else if(o.type==="assistant"&&o.message){let p=o.message.content;if(Array.isArray(p)){for(let c of p)if(c.type==="text"&&"text"in c)s.push(`[Assistant]: ${c.text.slice(0,300)}`);else if(c.type==="tool_use"&&"name"in c)s.push(`[Tool: ${c.name}]`)}}return s.join(`
-`)}var Je=`Summarize this portion of a Claude Code session transcript. Focus on:
+`;
+function se(e) {
+  return typeof e === "string" ? e : "";
+}
+var We = [
+  [["exit code"], "Command Failed"],
+  [["rejected", "doesn't want"], "User Rejected"],
+  [["string to replace not found", "no changes"], "Edit Failed"],
+  [["modified since read"], "File Changed"],
+  [["exceeds maximum", "too large"], "File Too Large"],
+  [["file not found", "does not exist"], "File Not Found"],
+];
+function Be(e) {
+  if (typeof e !== "string") return "Other";
+  let s = e.toLowerCase();
+  return We.find(([t]) => t.some((o) => s.includes(o)))?.[1] ?? "Other";
+}
+function Ye(e) {
+  let s = {},
+    t = {},
+    o = 0,
+    p = 0,
+    c = 0,
+    d = 0,
+    r = 0,
+    l = [],
+    a = 0,
+    g = {},
+    x = !1,
+    I = 0,
+    w = 0,
+    z = new Set(),
+    E = [],
+    F = [],
+    D = !1,
+    U = !1,
+    y = !1,
+    j = null;
+  for (let L of e.messages) {
+    let Y = L.timestamp;
+    if (L.type === "assistant" && L.message) {
+      if (Y) j = Y;
+      let P = L.message.usage;
+      if (P) (c += P.input_tokens || 0), (d += P.output_tokens || 0);
+      let W = L.message.content;
+      if (Array.isArray(W)) {
+        for (let u of W)
+          if (u.type === "tool_use" && "name" in u) {
+            let C = u.name;
+            if (((s[C] = (s[C] || 0) + 1), C === yt || C === xf)) x = !0;
+            if (C.startsWith("mcp__")) D = !0;
+            if (C === "WebSearch") U = !0;
+            if (C === "WebFetch") y = !0;
+            let S = u.input;
+            if (S) {
+              let Q = se(S.file_path);
+              if (Q) {
+                let N = Pe[je(Q).toLowerCase()];
+                if (N) t[N] = (t[N] || 0) + 1;
+                if (C === "Edit" || C === "Write") z.add(Q);
+              }
+              if (C === "Edit") {
+                let N = se(S.old_string),
+                  K = se(S.new_string);
+                for (let Z of Lye(N, K)) {
+                  if (Z.added) I += Z.count || 0;
+                  if (Z.removed) w += Z.count || 0;
+                }
+              }
+              if (C === "Write") {
+                let N = se(S.content);
+                if (N)
+                  I +=
+                    Dn(
+                      N,
+                      `
+`,
+                    ) + 1;
+              }
+              let ne = se(S.command);
+              if (ne.includes("git commit")) o++;
+              if (ne.includes("git push")) p++;
+            }
+          }
+      }
+    }
+    if (L.type === "user" && L.message) {
+      let P = L.message.content,
+        W = !1;
+      if (typeof P === "string" && P.trim()) W = !0;
+      else if (Array.isArray(P)) {
+        for (let u of P)
+          if (u.type === "text" && "text" in u) {
+            W = !0;
+            break;
+          }
+      }
+      if (W) {
+        if (Y) {
+          let u = new Date(Y);
+          if (Number.isFinite(u.getTime())) {
+            let C = u.getHours();
+            E.push(C), F.push(Y);
+          }
+        }
+        if (j && Y) {
+          let u = new Date(j).getTime(),
+            S = (new Date(Y).getTime() - u) / 1000;
+          if (S > 2 && S < 3600) l.push(S);
+        }
+      }
+      if (Array.isArray(P)) {
+        for (let u of P)
+          if (u.type === "tool_result" && "content" in u) {
+            if (u.is_error) {
+              a++;
+              let S = Be(u.content);
+              g[S] = (g[S] || 0) + 1;
+            }
+          }
+      }
+      if (typeof P === "string") {
+        if (P.includes("[Request interrupted by user")) r++;
+      } else if (Array.isArray(P)) {
+        for (let u of P)
+          if (u.type === "text" && "text" in u && u.text.includes("[Request interrupted by user")) {
+            r++;
+            break;
+          }
+      }
+    }
+  }
+  return {
+    toolCounts: s,
+    languages: t,
+    gitCommits: o,
+    gitPushes: p,
+    inputTokens: c,
+    outputTokens: d,
+    userInterruptions: r,
+    userResponseTimes: l,
+    toolErrors: a,
+    toolErrorCategories: g,
+    usesTaskAgent: x,
+    usesMcp: D,
+    usesWebSearch: U,
+    usesWebFetch: y,
+    linesAdded: I,
+    linesRemoved: w,
+    filesModified: z,
+    messageHours: E,
+    userMessageTimestamps: F,
+  };
+}
+function ue(e) {
+  let s = Ye(e),
+    t = Jc(e) || "unknown",
+    o = e.created.toISOString(),
+    p = Math.round((e.modified.getTime() - e.created.getTime()) / 1000 / 60),
+    c = 0,
+    d = 0;
+  for (let r of e.messages) {
+    if (r.type === "assistant") d++;
+    if (r.type === "user" && r.message) {
+      let l = r.message.content,
+        a = !1;
+      if (typeof l === "string" && l.trim()) a = !0;
+      else if (Array.isArray(l)) {
+        for (let g of l)
+          if (g.type === "text" && "text" in g) {
+            a = !0;
+            break;
+          }
+      }
+      if (a) c++;
+    }
+  }
+  return {
+    session_id: t,
+    project_path: e.relocatedCwd ?? e.projectPath ?? "",
+    start_time: o,
+    duration_minutes: p,
+    user_message_count: c,
+    assistant_message_count: d,
+    tool_counts: s.toolCounts,
+    languages: s.languages,
+    git_commits: s.gitCommits,
+    git_pushes: s.gitPushes,
+    input_tokens: s.inputTokens,
+    output_tokens: s.outputTokens,
+    first_prompt: e.firstPrompt || "",
+    summary: e.summary,
+    user_interruptions: s.userInterruptions,
+    user_response_times: s.userResponseTimes,
+    tool_errors: s.toolErrors,
+    tool_error_categories: s.toolErrorCategories,
+    uses_task_agent: s.usesTaskAgent,
+    uses_mcp: s.usesMcp,
+    uses_web_search: s.usesWebSearch,
+    uses_web_fetch: s.usesWebFetch,
+    lines_added: s.linesAdded,
+    lines_removed: s.linesRemoved,
+    files_modified: s.filesModified.size,
+    message_hours: s.messageHours,
+    user_message_timestamps: s.userMessageTimestamps,
+  };
+}
+function de(e, s) {
+  if (!s) return !0;
+  if (e.user_message_count !== s.user_message_count) return e.user_message_count > s.user_message_count;
+  return e.duration_minutes > s.duration_minutes;
+}
+function es(e) {
+  let s = new Map();
+  for (let t of e) {
+    let o = t.meta.session_id;
+    if (de(t.meta, s.get(o)?.meta)) s.set(o, t);
+  }
+  return [...s.values()];
+}
+function Ve(e) {
+  let s = [],
+    t = ue(e);
+  s.push(`Session: ${t.session_id.slice(0, 8)}`),
+    s.push(`Date: ${t.start_time}`),
+    s.push(`Project: ${t.project_path}`),
+    s.push(`Duration: ${t.duration_minutes} min`),
+    s.push("");
+  for (let o of e.messages)
+    if (o.type === "user" && o.message) {
+      let p = o.message.content;
+      if (typeof p === "string") s.push(`[User]: ${p.slice(0, 500)}`);
+      else if (Array.isArray(p)) {
+        for (let c of p) if (c.type === "text" && "text" in c) s.push(`[User]: ${c.text.slice(0, 500)}`);
+      }
+    } else if (o.type === "assistant" && o.message) {
+      let p = o.message.content;
+      if (Array.isArray(p)) {
+        for (let c of p)
+          if (c.type === "text" && "text" in c) s.push(`[Assistant]: ${c.text.slice(0, 300)}`);
+          else if (c.type === "tool_use" && "name" in c) s.push(`[Tool: ${c.name}]`);
+      }
+    }
+  return s.join(`
+`);
+}
+var Je = `Summarize this portion of a Claude Code session transcript. Focus on:
 1. What the user asked for
 2. What Claude did (tools used, files modified)
 3. Any friction or issues
@@ -45,12 +758,183 @@ SESSION:
 Keep it concise - 3-5 sentences. Preserve specific details like file names, error messages, and user feedback.
 
 TRANSCRIPT CHUNK:
-`;async function qe(e,s){try{let t=await sX({systemPrompt:si([]),userPrompt:Je+e,signal:new AbortController().signal,options:{model:ve(),querySource:"insights",agents:[],isNonInteractiveSession:!0,hasAppendSystemPrompt:!1,mcpTools:[],maxOutputTokensOverride:500,agentContext:_a(),credentials:s}});if(t.isApiErrorMessage)return e.slice(0,2000);return zr(t.message.content)||e.slice(0,2000)}catch{return e.slice(0,2000)}}async function Ke(e,s){let t=Ve(e);if(t.length<=30000)return t;let o=25000,p=[];for(let l=0;l<t.length;l+=o)p.push(t.slice(l,l+o));let c=await Promise.all(p.map((l)=>qe(l,s))),d=ue(e);return[`Session: ${d.session_id.slice(0,8)}`,`Date: ${d.start_time}`,`Project: ${d.project_path}`,`Duration: ${d.duration_minutes} min`,`[Long session - ${p.length} parts summarized]`,""].join(`
-`)+c.join(`
+`;
+async function qe(e, s) {
+  try {
+    let t = await sX({
+      systemPrompt: si([]),
+      userPrompt: Je + e,
+      signal: new AbortController().signal,
+      options: {
+        model: ve(),
+        querySource: "insights",
+        agents: [],
+        isNonInteractiveSession: !0,
+        hasAppendSystemPrompt: !1,
+        mcpTools: [],
+        maxOutputTokensOverride: 500,
+        agentContext: _a(),
+        credentials: s,
+      },
+    });
+    if (t.isApiErrorMessage) return e.slice(0, 2000);
+    return zr(t.message.content) || e.slice(0, 2000);
+  } catch {
+    return e.slice(0, 2000);
+  }
+}
+async function Ke(e, s) {
+  let t = Ve(e);
+  if (t.length <= 30000) return t;
+  let o = 25000,
+    p = [];
+  for (let l = 0; l < t.length; l += o) p.push(t.slice(l, l + o));
+  let c = await Promise.all(p.map((l) => qe(l, s))),
+    d = ue(e);
+  return (
+    [
+      `Session: ${d.session_id.slice(0, 8)}`,
+      `Date: ${d.start_time}`,
+      `Project: ${d.project_path}`,
+      `Duration: ${d.duration_minutes} min`,
+      `[Long session - ${p.length} parts summarized]`,
+      "",
+    ].join(`
+`) +
+    c.join(`
 
 ---
 
-`)}async function Xe(e,s){if(s){let[o]=await Se([e],s);return o??null}let t=G(ae(),`${e}.json`);try{let o=await Re(t,{encoding:"utf-8"}),p=V(o);if(!me(p)){try{await ze(t)}catch{}return null}return p}catch{return null}}function Se(e,s){return pe(e,le,s,async(t,o)=>{let p;try{p=V(Buffer.from(t).toString("utf-8"))}catch{return null}if(!me(p))return await s.delete(le(o)),null;return p})}async function Qe(e,s){try{await ye(ae(),{recursive:!0})}catch{}if(O()&&s){let o=await s.write(le(e.session_id),b(e,null,2),{publishDiscipline:"inPlace",mode:384});if(!o.ok)throw n(`saveFacets: cache write failed: ${Ge(o.error)}`),Error("saveFacets: cache write through the storage backend failed");return}let t=G(ae(),`${e.session_id}.json`);await ce(t,b(e,null,2),{encoding:"utf-8",mode:384})}async function Ze(e,s){if(s){let[t]=await $e([e],s);return t??null}try{let t=await Ce(e).read();return t===null?null:Ae(t)}catch{return null}}function $e(e,s){return pe(e,ke,s,(t)=>{try{let o=xe().nullable().safeParse(V(Buffer.from(t).toString("utf-8")));return o.success&&o.data!==null?Ae(o.data):null}catch{return null}})}async function pe(e,s,t,o){if(e.length===0)return[];let p=await t.read(e.map(s));if(!p.ok&&e.length>1)return(await Promise.all(e.map((d)=>pe([d],s,t,o)))).map(([d])=>d??null);return Promise.all(e.map(async(c,d)=>{let r=p.ok?p.value.items[d]:void 0;return r?.found?o(r.value,c):null}))}function Ae(e){return{...e,tool_counts:e.tool_counts??{},languages:e.languages??{},tool_error_categories:e.tool_error_categories??{},user_response_times:e.user_response_times??[],message_hours:e.message_hours??[],user_message_timestamps:e.user_message_timestamps??[],user_interruptions:e.user_interruptions??0,tool_errors:e.tool_errors??0,lines_added:e.lines_added??0,lines_removed:e.lines_removed??0,files_modified:e.files_modified??0,uses_task_agent:e.uses_task_agent??!1,uses_mcp:e.uses_mcp??!1,uses_web_search:e.uses_web_search??!1,uses_web_fetch:e.uses_web_fetch??!1}}async function et(e,s){try{if(s){let t=await s.write(ke(e.session_id),b(e,null,2),{mode:384});if(!t.ok){let o=t.error;if(Le(o))n(`saveSessionMeta: cache write failed: ${Ge(o)}`);else h(new R(`saveSessionMeta: cache write failed: ${Ge(o)}`,"insights session-meta cache write failed"))}return}await Ce(e.session_id).write(e)}catch(t){if(Ht(t)){n(`saveSessionMeta: cache write failed: ${t}`);return}h(t)}}async function tt(e,s,t){try{let o=await Ke(e,t),p=`${Ue}${o}
+`)
+  );
+}
+async function Xe(e, s) {
+  if (s) {
+    let [o] = await Se([e], s);
+    return o ?? null;
+  }
+  let t = G(ae(), `${e}.json`);
+  try {
+    let o = await Re(t, { encoding: "utf-8" }),
+      p = V(o);
+    if (!me(p)) {
+      try {
+        await ze(t);
+      } catch {}
+      return null;
+    }
+    return p;
+  } catch {
+    return null;
+  }
+}
+function Se(e, s) {
+  return pe(e, le, s, async (t, o) => {
+    let p;
+    try {
+      p = V(Buffer.from(t).toString("utf-8"));
+    } catch {
+      return null;
+    }
+    if (!me(p)) return await s.delete(le(o)), null;
+    return p;
+  });
+}
+async function Qe(e, s) {
+  try {
+    await ye(ae(), { recursive: !0 });
+  } catch {}
+  if (O() && s) {
+    let o = await s.write(le(e.session_id), b(e, null, 2), { publishDiscipline: "inPlace", mode: 384 });
+    if (!o.ok)
+      throw (
+        (n(`saveFacets: cache write failed: ${Ge(o.error)}`),
+        Error("saveFacets: cache write through the storage backend failed"))
+      );
+    return;
+  }
+  let t = G(ae(), `${e.session_id}.json`);
+  await ce(t, b(e, null, 2), { encoding: "utf-8", mode: 384 });
+}
+async function Ze(e, s) {
+  if (s) {
+    let [t] = await $e([e], s);
+    return t ?? null;
+  }
+  try {
+    let t = await Ce(e).read();
+    return t === null ? null : Ae(t);
+  } catch {
+    return null;
+  }
+}
+function $e(e, s) {
+  return pe(e, ke, s, (t) => {
+    try {
+      let o = xe()
+        .nullable()
+        .safeParse(V(Buffer.from(t).toString("utf-8")));
+      return o.success && o.data !== null ? Ae(o.data) : null;
+    } catch {
+      return null;
+    }
+  });
+}
+async function pe(e, s, t, o) {
+  if (e.length === 0) return [];
+  let p = await t.read(e.map(s));
+  if (!p.ok && e.length > 1) return (await Promise.all(e.map((d) => pe([d], s, t, o)))).map(([d]) => d ?? null);
+  return Promise.all(
+    e.map(async (c, d) => {
+      let r = p.ok ? p.value.items[d] : void 0;
+      return r?.found ? o(r.value, c) : null;
+    }),
+  );
+}
+function Ae(e) {
+  return {
+    ...e,
+    tool_counts: e.tool_counts ?? {},
+    languages: e.languages ?? {},
+    tool_error_categories: e.tool_error_categories ?? {},
+    user_response_times: e.user_response_times ?? [],
+    message_hours: e.message_hours ?? [],
+    user_message_timestamps: e.user_message_timestamps ?? [],
+    user_interruptions: e.user_interruptions ?? 0,
+    tool_errors: e.tool_errors ?? 0,
+    lines_added: e.lines_added ?? 0,
+    lines_removed: e.lines_removed ?? 0,
+    files_modified: e.files_modified ?? 0,
+    uses_task_agent: e.uses_task_agent ?? !1,
+    uses_mcp: e.uses_mcp ?? !1,
+    uses_web_search: e.uses_web_search ?? !1,
+    uses_web_fetch: e.uses_web_fetch ?? !1,
+  };
+}
+async function et(e, s) {
+  try {
+    if (s) {
+      let t = await s.write(ke(e.session_id), b(e, null, 2), { mode: 384 });
+      if (!t.ok) {
+        let o = t.error;
+        if (Le(o)) n(`saveSessionMeta: cache write failed: ${Ge(o)}`);
+        else h(new R(`saveSessionMeta: cache write failed: ${Ge(o)}`, "insights session-meta cache write failed"));
+      }
+      return;
+    }
+    await Ce(e.session_id).write(e);
+  } catch (t) {
+    if (Ht(t)) {
+      n(`saveSessionMeta: cache write failed: ${t}`);
+      return;
+    }
+    h(t);
+  }
+}
+async function tt(e, s, t) {
+  try {
+    let o = await Ke(e, t),
+      p = `${Ue}${o}
 
 RESPOND WITH ONLY A VALID JSON OBJECT matching this schema:
 {
@@ -64,7 +948,183 @@ RESPOND WITH ONLY A VALID JSON OBJECT matching this schema:
   "friction_detail": "One sentence describing friction or empty",
   "primary_success": "none|fast_accurate_search|correct_code_edits|good_explanations|proactive_help|multi_file_changes|good_debugging",
   "brief_summary": "One sentence: what user wanted and whether they got it"
-}`,c=await sX({systemPrompt:si([]),userPrompt:p,signal:new AbortController().signal,options:{model:ve(),querySource:"insights",agents:[],isNonInteractiveSession:!0,hasAppendSystemPrompt:!1,mcpTools:[],maxOutputTokensOverride:4096,agentContext:_a(),credentials:t}}),r=zr(c.message.content).match(/\{[\s\S]*\}/);if(!r)return null;let l=V(r[0]);if(!me(l))return null;return{...l,session_id:s}}catch(o){return n(`Facet extraction failed: ${we(o).message}`,{level:"error"}),null}}function st(e){let t=[];for(let l of e)for(let a of l.user_message_timestamps){let g=new Date(a).getTime();if(!Number.isFinite(g))continue;t.push({ts:g,sessionId:l.session_id})}t.sort((l,a)=>l.ts-a.ts);let o=new Set,p=new Set,c=0,d=new Map;for(let l=0;l<t.length;l++){let a=t[l];while(c<l&&a.ts-t[c].ts>1800000){let x=t[c];if(d.get(x.sessionId)===c)d.delete(x.sessionId);c++}let g=d.get(a.sessionId);if(g!==void 0)for(let x=g+1;x<l;x++){let I=t[x];if(I.sessionId!==a.sessionId){let w=[a.sessionId,I.sessionId].sort().join(":");o.add(w),p.add(`${t[g].ts}:${a.sessionId}`),p.add(`${I.ts}:${I.sessionId}`),p.add(`${a.ts}:${a.sessionId}`);break}}d.set(a.sessionId,l)}let r=new Set;for(let l of o){let[a,g]=l.split(":");if(a)r.add(a);if(g)r.add(g)}return{overlap_events:o.size,sessions_involved:r.size,user_messages_during:p.size}}function ot(e,s){let t={total_sessions:e.length,sessions_with_facets:s.size,date_range:{start:"",end:""},total_messages:0,total_duration_hours:0,total_input_tokens:0,total_output_tokens:0,tool_counts:{},languages:{},git_commits:0,git_pushes:0,projects:{},goal_categories:{},outcomes:{},satisfaction:{},helpfulness:{},session_types:{},friction:{},success:{},session_summaries:[],total_interruptions:0,total_tool_errors:0,tool_error_categories:{},user_response_times:[],median_response_time:0,avg_response_time:0,sessions_using_task_agent:0,sessions_using_mcp:0,sessions_using_web_search:0,sessions_using_web_fetch:0,total_lines_added:0,total_lines_removed:0,total_files_modified:0,days_active:0,messages_per_day:0,message_hours:[],multi_clauding:{overlap_events:0,sessions_involved:0,user_messages_during:0}},o=[],p=[],c=[];for(let r of e){o.push(r.start_time),t.total_messages+=r.user_message_count,t.total_duration_hours+=r.duration_minutes/60,t.total_input_tokens+=r.input_tokens,t.total_output_tokens+=r.output_tokens,t.git_commits+=r.git_commits,t.git_pushes+=r.git_pushes,t.total_interruptions+=r.user_interruptions,t.total_tool_errors+=r.tool_errors;for(let[a,g]of Object.entries(r.tool_error_categories))t.tool_error_categories[a]=(t.tool_error_categories[a]||0)+g;if(p.push(...r.user_response_times),r.uses_task_agent)t.sessions_using_task_agent++;if(r.uses_mcp)t.sessions_using_mcp++;if(r.uses_web_search)t.sessions_using_web_search++;if(r.uses_web_fetch)t.sessions_using_web_fetch++;t.total_lines_added+=r.lines_added,t.total_lines_removed+=r.lines_removed,t.total_files_modified+=r.files_modified,c.push(...r.message_hours);for(let[a,g]of Object.entries(r.tool_counts))t.tool_counts[a]=(t.tool_counts[a]||0)+g;for(let[a,g]of Object.entries(r.languages))t.languages[a]=(t.languages[a]||0)+g;if(r.project_path)t.projects[r.project_path]=(t.projects[r.project_path]||0)+1;let l=s.get(r.session_id);if(l){for(let[a,g]of ee(l.goal_categories))if(g>0)t.goal_categories[a]=(t.goal_categories[a]||0)+g;t.outcomes[l.outcome]=(t.outcomes[l.outcome]||0)+1;for(let[a,g]of ee(l.user_satisfaction_counts))if(g>0)t.satisfaction[a]=(t.satisfaction[a]||0)+g;t.helpfulness[l.claude_helpfulness]=(t.helpfulness[l.claude_helpfulness]||0)+1,t.session_types[l.session_type]=(t.session_types[l.session_type]||0)+1;for(let[a,g]of ee(l.friction_counts))if(g>0)t.friction[a]=(t.friction[a]||0)+g;if(l.primary_success!=="none")t.success[l.primary_success]=(t.success[l.primary_success]||0)+1}if(t.session_summaries.length<50)t.session_summaries.push({id:r.session_id.slice(0,8),date:St(r.start_time,"T"),summary:r.summary||r.first_prompt.slice(0,100),goal:l?.underlying_goal})}if(o.sort(),t.date_range.start=St(o[0]??"","T"),t.date_range.end=St(o.at(-1)??"","T"),t.user_response_times=p,p.length>0){let r=[...p].sort((l,a)=>l-a);t.median_response_time=r[Math.floor(r.length/2)]||0,t.avg_response_time=p.reduce((l,a)=>l+a,0)/p.length}let d=new Set(o.map((r)=>St(r,"T")));return t.days_active=d.size,t.messages_per_day=t.days_active>0?Math.round(t.total_messages/t.days_active*10)/10:0,t.message_hours=c,t.multi_clauding=st(e),t}var nt=[{name:"project_areas",prompt:`Analyze this Claude Code usage data and identify project areas.
+}`,
+      c = await sX({
+        systemPrompt: si([]),
+        userPrompt: p,
+        signal: new AbortController().signal,
+        options: {
+          model: ve(),
+          querySource: "insights",
+          agents: [],
+          isNonInteractiveSession: !0,
+          hasAppendSystemPrompt: !1,
+          mcpTools: [],
+          maxOutputTokensOverride: 4096,
+          agentContext: _a(),
+          credentials: t,
+        },
+      }),
+      r = zr(c.message.content).match(/\{[\s\S]*\}/);
+    if (!r) return null;
+    let l = V(r[0]);
+    if (!me(l)) return null;
+    return { ...l, session_id: s };
+  } catch (o) {
+    return n(`Facet extraction failed: ${we(o).message}`, { level: "error" }), null;
+  }
+}
+function st(e) {
+  let t = [];
+  for (let l of e)
+    for (let a of l.user_message_timestamps) {
+      let g = new Date(a).getTime();
+      if (!Number.isFinite(g)) continue;
+      t.push({ ts: g, sessionId: l.session_id });
+    }
+  t.sort((l, a) => l.ts - a.ts);
+  let o = new Set(),
+    p = new Set(),
+    c = 0,
+    d = new Map();
+  for (let l = 0; l < t.length; l++) {
+    let a = t[l];
+    while (c < l && a.ts - t[c].ts > 1800000) {
+      let x = t[c];
+      if (d.get(x.sessionId) === c) d.delete(x.sessionId);
+      c++;
+    }
+    let g = d.get(a.sessionId);
+    if (g !== void 0)
+      for (let x = g + 1; x < l; x++) {
+        let I = t[x];
+        if (I.sessionId !== a.sessionId) {
+          let w = [a.sessionId, I.sessionId].sort().join(":");
+          o.add(w),
+            p.add(`${t[g].ts}:${a.sessionId}`),
+            p.add(`${I.ts}:${I.sessionId}`),
+            p.add(`${a.ts}:${a.sessionId}`);
+          break;
+        }
+      }
+    d.set(a.sessionId, l);
+  }
+  let r = new Set();
+  for (let l of o) {
+    let [a, g] = l.split(":");
+    if (a) r.add(a);
+    if (g) r.add(g);
+  }
+  return { overlap_events: o.size, sessions_involved: r.size, user_messages_during: p.size };
+}
+function ot(e, s) {
+  let t = {
+      total_sessions: e.length,
+      sessions_with_facets: s.size,
+      date_range: { start: "", end: "" },
+      total_messages: 0,
+      total_duration_hours: 0,
+      total_input_tokens: 0,
+      total_output_tokens: 0,
+      tool_counts: {},
+      languages: {},
+      git_commits: 0,
+      git_pushes: 0,
+      projects: {},
+      goal_categories: {},
+      outcomes: {},
+      satisfaction: {},
+      helpfulness: {},
+      session_types: {},
+      friction: {},
+      success: {},
+      session_summaries: [],
+      total_interruptions: 0,
+      total_tool_errors: 0,
+      tool_error_categories: {},
+      user_response_times: [],
+      median_response_time: 0,
+      avg_response_time: 0,
+      sessions_using_task_agent: 0,
+      sessions_using_mcp: 0,
+      sessions_using_web_search: 0,
+      sessions_using_web_fetch: 0,
+      total_lines_added: 0,
+      total_lines_removed: 0,
+      total_files_modified: 0,
+      days_active: 0,
+      messages_per_day: 0,
+      message_hours: [],
+      multi_clauding: { overlap_events: 0, sessions_involved: 0, user_messages_during: 0 },
+    },
+    o = [],
+    p = [],
+    c = [];
+  for (let r of e) {
+    o.push(r.start_time),
+      (t.total_messages += r.user_message_count),
+      (t.total_duration_hours += r.duration_minutes / 60),
+      (t.total_input_tokens += r.input_tokens),
+      (t.total_output_tokens += r.output_tokens),
+      (t.git_commits += r.git_commits),
+      (t.git_pushes += r.git_pushes),
+      (t.total_interruptions += r.user_interruptions),
+      (t.total_tool_errors += r.tool_errors);
+    for (let [a, g] of Object.entries(r.tool_error_categories))
+      t.tool_error_categories[a] = (t.tool_error_categories[a] || 0) + g;
+    if ((p.push(...r.user_response_times), r.uses_task_agent)) t.sessions_using_task_agent++;
+    if (r.uses_mcp) t.sessions_using_mcp++;
+    if (r.uses_web_search) t.sessions_using_web_search++;
+    if (r.uses_web_fetch) t.sessions_using_web_fetch++;
+    (t.total_lines_added += r.lines_added),
+      (t.total_lines_removed += r.lines_removed),
+      (t.total_files_modified += r.files_modified),
+      c.push(...r.message_hours);
+    for (let [a, g] of Object.entries(r.tool_counts)) t.tool_counts[a] = (t.tool_counts[a] || 0) + g;
+    for (let [a, g] of Object.entries(r.languages)) t.languages[a] = (t.languages[a] || 0) + g;
+    if (r.project_path) t.projects[r.project_path] = (t.projects[r.project_path] || 0) + 1;
+    let l = s.get(r.session_id);
+    if (l) {
+      for (let [a, g] of ee(l.goal_categories)) if (g > 0) t.goal_categories[a] = (t.goal_categories[a] || 0) + g;
+      t.outcomes[l.outcome] = (t.outcomes[l.outcome] || 0) + 1;
+      for (let [a, g] of ee(l.user_satisfaction_counts)) if (g > 0) t.satisfaction[a] = (t.satisfaction[a] || 0) + g;
+      (t.helpfulness[l.claude_helpfulness] = (t.helpfulness[l.claude_helpfulness] || 0) + 1),
+        (t.session_types[l.session_type] = (t.session_types[l.session_type] || 0) + 1);
+      for (let [a, g] of ee(l.friction_counts)) if (g > 0) t.friction[a] = (t.friction[a] || 0) + g;
+      if (l.primary_success !== "none") t.success[l.primary_success] = (t.success[l.primary_success] || 0) + 1;
+    }
+    if (t.session_summaries.length < 50)
+      t.session_summaries.push({
+        id: r.session_id.slice(0, 8),
+        date: St(r.start_time, "T"),
+        summary: r.summary || r.first_prompt.slice(0, 100),
+        goal: l?.underlying_goal,
+      });
+  }
+  if (
+    (o.sort(),
+    (t.date_range.start = St(o[0] ?? "", "T")),
+    (t.date_range.end = St(o.at(-1) ?? "", "T")),
+    (t.user_response_times = p),
+    p.length > 0)
+  ) {
+    let r = [...p].sort((l, a) => l - a);
+    (t.median_response_time = r[Math.floor(r.length / 2)] || 0),
+      (t.avg_response_time = p.reduce((l, a) => l + a, 0) / p.length);
+  }
+  let d = new Set(o.map((r) => St(r, "T")));
+  return (
+    (t.days_active = d.size),
+    (t.messages_per_day = t.days_active > 0 ? Math.round((t.total_messages / t.days_active) * 10) / 10 : 0),
+    (t.message_hours = c),
+    (t.multi_clauding = st(e)),
+    t
+  );
+}
+var nt = [
+  {
+    name: "project_areas",
+    prompt: `Analyze this Claude Code usage data and identify project areas.
 
 RESPOND WITH ONLY A VALID JSON OBJECT:
 {
@@ -73,13 +1133,23 @@ RESPOND WITH ONLY A VALID JSON OBJECT:
   ]
 }
 
-Include 4-5 areas. Skip internal CC operations.`,maxTokens:8192},{name:"interaction_style",prompt:`Analyze this Claude Code usage data and describe the user's interaction style.
+Include 4-5 areas. Skip internal CC operations.`,
+    maxTokens: 8192,
+  },
+  {
+    name: "interaction_style",
+    prompt: `Analyze this Claude Code usage data and describe the user's interaction style.
 
 RESPOND WITH ONLY A VALID JSON OBJECT:
 {
   "narrative": "2-3 paragraphs analyzing HOW the user interacts with Claude Code. Use second person 'you'. Describe patterns: iterate quickly vs detailed upfront specs? Interrupt often or let Claude run? Include specific examples. Use **bold** for key insights.",
   "key_pattern": "One sentence summary of most distinctive interaction style"
-}`,maxTokens:8192},{name:"what_works",prompt:`Analyze this Claude Code usage data and identify what's working well for this user. Use second person ("you").
+}`,
+    maxTokens: 8192,
+  },
+  {
+    name: "what_works",
+    prompt: `Analyze this Claude Code usage data and identify what's working well for this user. Use second person ("you").
 
 RESPOND WITH ONLY A VALID JSON OBJECT:
 {
@@ -89,7 +1159,12 @@ RESPOND WITH ONLY A VALID JSON OBJECT:
   ]
 }
 
-Include 3 impressive workflows.`,maxTokens:8192},{name:"friction_analysis",prompt:`Analyze this Claude Code usage data and identify friction points for this user. Use second person ("you").
+Include 3 impressive workflows.`,
+    maxTokens: 8192,
+  },
+  {
+    name: "friction_analysis",
+    prompt: `Analyze this Claude Code usage data and identify friction points for this user. Use second person ("you").
 
 RESPOND WITH ONLY A VALID JSON OBJECT:
 {
@@ -99,7 +1174,12 @@ RESPOND WITH ONLY A VALID JSON OBJECT:
   ]
 }
 
-Include 3 friction categories with 2 examples each.`,maxTokens:8192},{name:"suggestions",prompt:`Analyze this Claude Code usage data and suggest improvements.
+Include 3 friction categories with 2 examples each.`,
+    maxTokens: 8192,
+  },
+  {
+    name: "suggestions",
+    prompt: `Analyze this Claude Code usage data and suggest improvements.
 
 ## CC FEATURES REFERENCE (pick from these for features_to_try):
 1. **MCP Servers**: Connect Claude to external tools, databases, and APIs via Model Context Protocol.
@@ -137,7 +1217,12 @@ RESPOND WITH ONLY A VALID JSON OBJECT:
 
 IMPORTANT for claude_md_additions: PRIORITIZE instructions that appear MULTIPLE TIMES in the user data. If user told Claude the same thing in 2+ sessions (e.g., 'always run tests', 'use TypeScript'), that's a PRIME candidate - they shouldn't have to repeat themselves.
 
-IMPORTANT for features_to_try: Pick 2-3 from the CC FEATURES REFERENCE above. Include 2-3 items for each category.`,maxTokens:8192},{name:"on_the_horizon",prompt:`Analyze this Claude Code usage data and identify future opportunities.
+IMPORTANT for features_to_try: Pick 2-3 from the CC FEATURES REFERENCE above. Include 2-3 items for each category.`,
+    maxTokens: 8192,
+  },
+  {
+    name: "on_the_horizon",
+    prompt: `Analyze this Claude Code usage data and identify future opportunities.
 
 RESPOND WITH ONLY A VALID JSON OBJECT:
 {
@@ -147,7 +1232,13 @@ RESPOND WITH ONLY A VALID JSON OBJECT:
   ]
 }
 
-Include 3 opportunities. Think BIG - autonomous workflows, parallel agents, iterating against tests.`,maxTokens:8192},...[],{name:"fun_ending",prompt:`Analyze this Claude Code usage data and find a memorable moment.
+Include 3 opportunities. Think BIG - autonomous workflows, parallel agents, iterating against tests.`,
+    maxTokens: 8192,
+  },
+  ...[],
+  {
+    name: "fun_ending",
+    prompt: `Analyze this Claude Code usage data and find a memorable moment.
 
 RESPOND WITH ONLY A VALID JSON OBJECT:
 {
@@ -155,28 +1246,144 @@ RESPOND WITH ONLY A VALID JSON OBJECT:
   "detail": "Brief context about when/where this happened"
 }
 
-Find something genuinely interesting or amusing from the session summaries.`,maxTokens:8192}];async function _e(e,s,t){try{let o=await sX({systemPrompt:si([]),userPrompt:e.prompt+`
+Find something genuinely interesting or amusing from the session summaries.`,
+    maxTokens: 8192,
+  },
+];
+async function _e(e, s, t) {
+  try {
+    let o = await sX({
+        systemPrompt: si([]),
+        userPrompt:
+          e.prompt +
+          `
 
 DATA:
-`+s,signal:new AbortController().signal,options:{model:Oe(),querySource:"insights",agents:[],isNonInteractiveSession:!0,hasAppendSystemPrompt:!1,mcpTools:[],maxOutputTokensOverride:e.maxTokens,agentContext:_a(),credentials:t}}),p=zr(o.message.content);if(p){let c=p.match(/\{[\s\S]*\}/);if(c)try{return{name:e.name,result:V(c[0])}}catch{return{name:e.name,result:null}}}return{name:e.name,result:null}}catch(o){return h(ft(Error(`${e.name} failed: ${we(o).message}`),"insight section query failed")),{name:e.name,result:null}}}async function it(e,s,t){let o=Array.from(s.values()).slice(0,50).map((y)=>`- ${y.brief_summary} (${y.outcome}, ${y.claude_helpfulness})`).join(`
-`),p=Array.from(s.values()).filter((y)=>y.friction_detail).slice(0,20).map((y)=>`- ${y.friction_detail}`).join(`
-`),c=Array.from(s.values()).flatMap((y)=>y.user_instructions_to_claude||[]).slice(0,15).map((y)=>`- ${y}`).join(`
-`),r=b({sessions:e.total_sessions,analyzed:e.sessions_with_facets,date_range:e.date_range,messages:e.total_messages,hours:Math.round(e.total_duration_hours),commits:e.git_commits,top_tools:Object.entries(e.tool_counts).sort((y,j)=>j[1]-y[1]).slice(0,8),top_goals:Object.entries(e.goal_categories).sort((y,j)=>j[1]-y[1]).slice(0,8),outcomes:e.outcomes,satisfaction:e.satisfaction,friction:e.friction,success:e.success,languages:e.languages},null,2)+`
+` +
+          s,
+        signal: new AbortController().signal,
+        options: {
+          model: Oe(),
+          querySource: "insights",
+          agents: [],
+          isNonInteractiveSession: !0,
+          hasAppendSystemPrompt: !1,
+          mcpTools: [],
+          maxOutputTokensOverride: e.maxTokens,
+          agentContext: _a(),
+          credentials: t,
+        },
+      }),
+      p = zr(o.message.content);
+    if (p) {
+      let c = p.match(/\{[\s\S]*\}/);
+      if (c)
+        try {
+          return { name: e.name, result: V(c[0]) };
+        } catch {
+          return { name: e.name, result: null };
+        }
+    }
+    return { name: e.name, result: null };
+  } catch (o) {
+    return (
+      h(ft(Error(`${e.name} failed: ${we(o).message}`), "insight section query failed")), { name: e.name, result: null }
+    );
+  }
+}
+async function it(e, s, t) {
+  let o = Array.from(s.values())
+      .slice(0, 50)
+      .map((y) => `- ${y.brief_summary} (${y.outcome}, ${y.claude_helpfulness})`)
+      .join(`
+`),
+    p = Array.from(s.values())
+      .filter((y) => y.friction_detail)
+      .slice(0, 20)
+      .map((y) => `- ${y.friction_detail}`)
+      .join(`
+`),
+    c = Array.from(s.values())
+      .flatMap((y) => y.user_instructions_to_claude || [])
+      .slice(0, 15)
+      .map((y) => `- ${y}`)
+      .join(`
+`),
+    r =
+      b(
+        {
+          sessions: e.total_sessions,
+          analyzed: e.sessions_with_facets,
+          date_range: e.date_range,
+          messages: e.total_messages,
+          hours: Math.round(e.total_duration_hours),
+          commits: e.git_commits,
+          top_tools: Object.entries(e.tool_counts)
+            .sort((y, j) => j[1] - y[1])
+            .slice(0, 8),
+          top_goals: Object.entries(e.goal_categories)
+            .sort((y, j) => j[1] - y[1])
+            .slice(0, 8),
+          outcomes: e.outcomes,
+          satisfaction: e.satisfaction,
+          friction: e.friction,
+          success: e.success,
+          languages: e.languages,
+        },
+        null,
+        2,
+      ) +
+      `
 
 SESSION SUMMARIES:
-`+o+`
+` +
+      o +
+      `
 
 FRICTION DETAILS:
-`+p+`
+` +
+      p +
+      `
 
 USER INSTRUCTIONS TO CLAUDE:
-`+(c||"None captured"),l=await Promise.all(nt.map((y)=>_e(y,r,t))),a={};for(let{name:y,result:j}of l)if(j)a[y]=j;let g=a.project_areas?.areas?.map((y)=>`- ${y.name}: ${y.description}`).join(`
-`)||"",x=a.what_works?.impressive_workflows?.map((y)=>`- ${y.title}: ${y.description}`).join(`
-`)||"",I=a.friction_analysis?.categories?.map((y)=>`- ${y.category}: ${y.description}`).join(`
-`)||"",w=a.suggestions?.features_to_try?.map((y)=>`- ${y.feature}: ${y.one_liner}`).join(`
-`)||"",z=a.suggestions?.usage_patterns?.map((y)=>`- ${y.title}: ${y.suggestion}`).join(`
-`)||"",E=a.on_the_horizon?.opportunities?.map((y)=>`- ${y.title}: ${y.whats_possible}`).join(`
-`)||"",D={name:"at_a_glance",prompt:`You're writing an "At a Glance" summary for a Claude Code usage insights report for Claude Code users. The goal is to help them understand their usage and improve how they can use Claude better, especially as models improve.
+` +
+      (c || "None captured"),
+    l = await Promise.all(nt.map((y) => _e(y, r, t))),
+    a = {};
+  for (let { name: y, result: j } of l) if (j) a[y] = j;
+  let g =
+      a.project_areas?.areas
+        ?.map((y) => `- ${y.name}: ${y.description}`)
+        .join(`
+`) || "",
+    x =
+      a.what_works?.impressive_workflows
+        ?.map((y) => `- ${y.title}: ${y.description}`)
+        .join(`
+`) || "",
+    I =
+      a.friction_analysis?.categories
+        ?.map((y) => `- ${y.category}: ${y.description}`)
+        .join(`
+`) || "",
+    w =
+      a.suggestions?.features_to_try
+        ?.map((y) => `- ${y.feature}: ${y.one_liner}`)
+        .join(`
+`) || "",
+    z =
+      a.suggestions?.usage_patterns
+        ?.map((y) => `- ${y.title}: ${y.suggestion}`)
+        .join(`
+`) || "",
+    E =
+      a.on_the_horizon?.opportunities
+        ?.map((y) => `- ${y.title}: ${y.whats_possible}`)
+        .join(`
+`) || "",
+    D = {
+      name: "at_a_glance",
+      prompt: `You're writing an "At a Glance" summary for a Claude Code usage insights report for Claude Code users. The goal is to help them understand their usage and improve how they can use Claude better, especially as models improve.
 
 Use this 4-part structure:
 
@@ -217,40 +1424,140 @@ ${w}
 ${z}
 
 ## On the Horizon (ambitious workflows for better models)
-${E}`,maxTokens:8192},U=await _e(D,"",t);if(U.result)a.at_a_glance=U.result;return a}function re(e){return Eo(e).replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>")}var rt=["frustrated","dissatisfied","likely_satisfied","satisfied","happy","unsure"],at=["not_achieved","partially_achieved","mostly_achieved","fully_achieved","unclear_from_transcript"];function J(e,s,t=6,o){let p;if(o)p=o.filter((d)=>(d in e)&&(e[d]??0)>0).map((d)=>[d,e[d]??0]);else p=Object.entries(e).sort((d,r)=>r[1]-d[1]).slice(0,t);if(p.length===0)return'<p class="empty">No data</p>';let c=Math.max(...p.map((d)=>d[1]));return p.map(([d,r])=>{let l=r/c*100,a=Me[d]||d.replaceAll("_"," ").replace(/\b\w/g,(g)=>g.toUpperCase());return`<div class="bar-row">
+${E}`,
+      maxTokens: 8192,
+    },
+    U = await _e(D, "", t);
+  if (U.result) a.at_a_glance = U.result;
+  return a;
+}
+function re(e) {
+  return Eo(e).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+}
+var rt = ["frustrated", "dissatisfied", "likely_satisfied", "satisfied", "happy", "unsure"],
+  at = ["not_achieved", "partially_achieved", "mostly_achieved", "fully_achieved", "unclear_from_transcript"];
+function J(e, s, t = 6, o) {
+  let p;
+  if (o) p = o.filter((d) => d in e && (e[d] ?? 0) > 0).map((d) => [d, e[d] ?? 0]);
+  else
+    p = Object.entries(e)
+      .sort((d, r) => r[1] - d[1])
+      .slice(0, t);
+  if (p.length === 0) return '<p class="empty">No data</p>';
+  let c = Math.max(...p.map((d) => d[1]));
+  return p
+    .map(([d, r]) => {
+      let l = (r / c) * 100,
+        a = Me[d] || d.replaceAll("_", " ").replace(/\b\w/g, (g) => g.toUpperCase());
+      return `<div class="bar-row">
         <div class="bar-label">${Eo(a)}</div>
         <div class="bar-track"><div class="bar-fill" style="width:${l}%;background:${s}"></div></div>
         <div class="bar-value">${r}</div>
-      </div>`}).join(`
-`)}function ct(e){if(e.length===0)return'<p class="empty">No response time data</p>';let s={"2-10s":0,"10-30s":0,"30s-1m":0,"1-2m":0,"2-5m":0,"5-15m":0,">15m":0};for(let o of e)if(o<10)s["2-10s"]=(s["2-10s"]??0)+1;else if(o<30)s["10-30s"]=(s["10-30s"]??0)+1;else if(o<60)s["30s-1m"]=(s["30s-1m"]??0)+1;else if(o<120)s["1-2m"]=(s["1-2m"]??0)+1;else if(o<300)s["2-5m"]=(s["2-5m"]??0)+1;else if(o<900)s["5-15m"]=(s["5-15m"]??0)+1;else s[">15m"]=(s[">15m"]??0)+1;let t=Math.max(...Object.values(s));if(t===0)return'<p class="empty">No response time data</p>';return Object.entries(s).map(([o,p])=>{let c=p/t*100;return`<div class="bar-row">
+      </div>`;
+    })
+    .join(`
+`);
+}
+function ct(e) {
+  if (e.length === 0) return '<p class="empty">No response time data</p>';
+  let s = { "2-10s": 0, "10-30s": 0, "30s-1m": 0, "1-2m": 0, "2-5m": 0, "5-15m": 0, ">15m": 0 };
+  for (let o of e)
+    if (o < 10) s["2-10s"] = (s["2-10s"] ?? 0) + 1;
+    else if (o < 30) s["10-30s"] = (s["10-30s"] ?? 0) + 1;
+    else if (o < 60) s["30s-1m"] = (s["30s-1m"] ?? 0) + 1;
+    else if (o < 120) s["1-2m"] = (s["1-2m"] ?? 0) + 1;
+    else if (o < 300) s["2-5m"] = (s["2-5m"] ?? 0) + 1;
+    else if (o < 900) s["5-15m"] = (s["5-15m"] ?? 0) + 1;
+    else s[">15m"] = (s[">15m"] ?? 0) + 1;
+  let t = Math.max(...Object.values(s));
+  if (t === 0) return '<p class="empty">No response time data</p>';
+  return Object.entries(s)
+    .map(([o, p]) => {
+      let c = (p / t) * 100;
+      return `<div class="bar-row">
         <div class="bar-label">${o}</div>
         <div class="bar-track"><div class="bar-fill" style="width:${c}%;background:#6366f1"></div></div>
         <div class="bar-value">${p}</div>
-      </div>`}).join(`
-`)}function lt(e){if(e.length===0)return'<p class="empty">No time data</p>';let s=[{label:"Morning (6-12)",range:[6,7,8,9,10,11]},{label:"Afternoon (12-18)",range:[12,13,14,15,16,17]},{label:"Evening (18-24)",range:[18,19,20,21,22,23]},{label:"Night (0-6)",range:[0,1,2,3,4,5]}],t={};for(let d of e)t[d]=(t[d]||0)+1;let o=s.map((d)=>({label:d.label,count:d.range.reduce((r,l)=>r+(t[l]||0),0)})),p=Math.max(...o.map((d)=>d.count))||1;return`<div id="hour-histogram">${o.map((d)=>`
+      </div>`;
+    })
+    .join(`
+`);
+}
+function lt(e) {
+  if (e.length === 0) return '<p class="empty">No time data</p>';
+  let s = [
+      { label: "Morning (6-12)", range: [6, 7, 8, 9, 10, 11] },
+      { label: "Afternoon (12-18)", range: [12, 13, 14, 15, 16, 17] },
+      { label: "Evening (18-24)", range: [18, 19, 20, 21, 22, 23] },
+      { label: "Night (0-6)", range: [0, 1, 2, 3, 4, 5] },
+    ],
+    t = {};
+  for (let d of e) t[d] = (t[d] || 0) + 1;
+  let o = s.map((d) => ({ label: d.label, count: d.range.reduce((r, l) => r + (t[l] || 0), 0) })),
+    p = Math.max(...o.map((d) => d.count)) || 1;
+  return `<div id="hour-histogram">${o
+    .map(
+      (d) => `
       <div class="bar-row">
         <div class="bar-label">${d.label}</div>
-        <div class="bar-track"><div class="bar-fill" style="width:${d.count/p*100}%;background:#8b5cf6"></div></div>
+        <div class="bar-track"><div class="bar-fill" style="width:${(d.count / p) * 100}%;background:#8b5cf6"></div></div>
         <div class="bar-value">${d.count}</div>
-      </div>`).join(`
-`)}</div>`}function dt(e){let s={};for(let t of e)s[t]=(s[t]||0)+1;return b(s)}function ut(e,s){let t=(u)=>{if(!u)return"";return u.split(`
+      </div>`,
+    )
+    .join(`
+`)}</div>`;
+}
+function dt(e) {
+  let s = {};
+  for (let t of e) s[t] = (s[t] || 0) + 1;
+  return b(s);
+}
+function ut(e, s) {
+  let t = (u) => {
+      if (!u) return "";
+      return u
+        .split(`
 
-`).map((C)=>{let S=Eo(C);return S=S.replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>"),S=S.replace(/^- /gm,"\u2022 "),S=S.replaceAll(`
-`,"<br>"),`<p>${S}</p>`}).join(`
-`)},o=s.at_a_glance,p=o?`
+`)
+        .map((C) => {
+          let S = Eo(C);
+          return (
+            (S = S.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")),
+            (S = S.replace(/^- /gm, "\u2022 ")),
+            (S = S.replaceAll(
+              `
+`,
+              "<br>",
+            )),
+            `<p>${S}</p>`
+          );
+        })
+        .join(`
+`);
+    },
+    o = s.at_a_glance,
+    p = o
+      ? `
     <div class="at-a-glance">
       <div class="glance-title">At a Glance</div>
       <div class="glance-sections">
-        ${o.whats_working?`<div class="glance-section"><strong>What's working:</strong> ${re(o.whats_working)} <a href="#section-wins" class="see-more">Impressive Things You Did \u2192</a></div>`:""}
-        ${o.whats_hindering?`<div class="glance-section"><strong>What's hindering you:</strong> ${re(o.whats_hindering)} <a href="#section-friction" class="see-more">Where Things Go Wrong \u2192</a></div>`:""}
-        ${o.quick_wins?`<div class="glance-section"><strong>Quick wins to try:</strong> ${re(o.quick_wins)} <a href="#section-features" class="see-more">Features to Try \u2192</a></div>`:""}
-        ${o.ambitious_workflows?`<div class="glance-section"><strong>Ambitious workflows:</strong> ${re(o.ambitious_workflows)} <a href="#section-horizon" class="see-more">On the Horizon \u2192</a></div>`:""}
+        ${o.whats_working ? `<div class="glance-section"><strong>What's working:</strong> ${re(o.whats_working)} <a href="#section-wins" class="see-more">Impressive Things You Did \u2192</a></div>` : ""}
+        ${o.whats_hindering ? `<div class="glance-section"><strong>What's hindering you:</strong> ${re(o.whats_hindering)} <a href="#section-friction" class="see-more">Where Things Go Wrong \u2192</a></div>` : ""}
+        ${o.quick_wins ? `<div class="glance-section"><strong>Quick wins to try:</strong> ${re(o.quick_wins)} <a href="#section-features" class="see-more">Features to Try \u2192</a></div>` : ""}
+        ${o.ambitious_workflows ? `<div class="glance-section"><strong>Ambitious workflows:</strong> ${re(o.ambitious_workflows)} <a href="#section-horizon" class="see-more">On the Horizon \u2192</a></div>` : ""}
       </div>
     </div>
-    `:"",c=s.project_areas?.areas||[],d=c.length>0?`
+    `
+      : "",
+    c = s.project_areas?.areas || [],
+    d =
+      c.length > 0
+        ? `
     <h2 id="section-work">What You Work On</h2>
     <div class="project-areas">
-      ${c.map((u)=>`
+      ${c
+        .map(
+          (u) => `
         <div class="project-area">
           <div class="area-header">
             <span class="area-name">${Eo(u.name)}</span>
@@ -258,39 +1565,69 @@ ${E}`,maxTokens:8192},U=await _e(D,"",t);if(U.result)a.at_a_glance=U.result;retu
           </div>
           <div class="area-desc">${Eo(u.description)}</div>
         </div>
-      `).join("")}
+      `,
+        )
+        .join("")}
     </div>
-    `:"",r=s.interaction_style,l=r?.narrative?`
+    `
+        : "",
+    r = s.interaction_style,
+    l = r?.narrative
+      ? `
     <h2 id="section-usage">How You Use Claude Code</h2>
     <div class="narrative">
       ${t(r.narrative)}
-      ${r.key_pattern?`<div class="key-insight"><strong>Key pattern:</strong> ${Eo(r.key_pattern)}</div>`:""}
+      ${r.key_pattern ? `<div class="key-insight"><strong>Key pattern:</strong> ${Eo(r.key_pattern)}</div>` : ""}
     </div>
-    `:"",a=s.what_works,g=a?.impressive_workflows&&a.impressive_workflows.length>0?`
+    `
+      : "",
+    a = s.what_works,
+    g =
+      a?.impressive_workflows && a.impressive_workflows.length > 0
+        ? `
     <h2 id="section-wins">Impressive Things You Did</h2>
-    ${a.intro?`<p class="section-intro">${Eo(a.intro)}</p>`:""}
+    ${a.intro ? `<p class="section-intro">${Eo(a.intro)}</p>` : ""}
     <div class="big-wins">
-      ${a.impressive_workflows.map((u)=>`
+      ${a.impressive_workflows
+        .map(
+          (u) => `
         <div class="big-win">
-          <div class="big-win-title">${Eo(u.title||"")}</div>
-          <div class="big-win-desc">${Eo(u.description||"")}</div>
+          <div class="big-win-title">${Eo(u.title || "")}</div>
+          <div class="big-win-desc">${Eo(u.description || "")}</div>
         </div>
-      `).join("")}
+      `,
+        )
+        .join("")}
     </div>
-    `:"",x=s.friction_analysis,I=x?.categories&&x.categories.length>0?`
+    `
+        : "",
+    x = s.friction_analysis,
+    I =
+      x?.categories && x.categories.length > 0
+        ? `
     <h2 id="section-friction">Where Things Go Wrong</h2>
-    ${x.intro?`<p class="section-intro">${Eo(x.intro)}</p>`:""}
+    ${x.intro ? `<p class="section-intro">${Eo(x.intro)}</p>` : ""}
     <div class="friction-categories">
-      ${x.categories.map((u)=>`
+      ${x.categories
+        .map(
+          (u) => `
         <div class="friction-category">
-          <div class="friction-title">${Eo(u.category||"")}</div>
-          <div class="friction-desc">${Eo(u.description||"")}</div>
-          ${u.examples?`<ul class="friction-examples">${u.examples.map((C)=>`<li>${Eo(C)}</li>`).join("")}</ul>`:""}
+          <div class="friction-title">${Eo(u.category || "")}</div>
+          <div class="friction-desc">${Eo(u.description || "")}</div>
+          ${u.examples ? `<ul class="friction-examples">${u.examples.map((C) => `<li>${Eo(C)}</li>`).join("")}</ul>` : ""}
         </div>
-      `).join("")}
+      `,
+        )
+        .join("")}
     </div>
-    `:"",w=s.suggestions,z=w?`
-    ${w.claude_md_additions&&w.claude_md_additions.length>0?`
+    `
+        : "",
+    w = s.suggestions,
+    z = w
+      ? `
+    ${
+      w.claude_md_additions && w.claude_md_additions.length > 0
+        ? `
     <h2 id="section-features">Existing CC Features to Try</h2>
     <div class="claude-md-section">
       <h3>Suggested CLAUDE.md Additions</h3>
@@ -298,27 +1635,39 @@ ${E}`,maxTokens:8192},U=await _e(D,"",t);if(U.result)a.at_a_glance=U.result;retu
       <div class="claude-md-actions">
         <button class="copy-all-btn" onclick="copyAllCheckedClaudeMd()">Copy All Checked</button>
       </div>
-      ${w.claude_md_additions.map((u,C)=>`
+      ${w.claude_md_additions
+        .map(
+          (u, C) => `
         <div class="claude-md-item">
-          <input type="checkbox" id="cmd-${C}" class="cmd-checkbox" checked data-text="${Eo(u.prompt_scaffold||u.where||"Add to CLAUDE.md")}\\n\\n${Eo(u.addition)}">
+          <input type="checkbox" id="cmd-${C}" class="cmd-checkbox" checked data-text="${Eo(u.prompt_scaffold || u.where || "Add to CLAUDE.md")}\\n\\n${Eo(u.addition)}">
           <label for="cmd-${C}">
             <code class="cmd-code">${Eo(u.addition)}</code>
             <button class="copy-btn" onclick="copyCmdItem(${C})">Copy</button>
           </label>
           <div class="cmd-why">${Eo(u.why)}</div>
         </div>
-      `).join("")}
+      `,
+        )
+        .join("")}
     </div>
-    `:""}
-    ${w.features_to_try&&w.features_to_try.length>0?`
+    `
+        : ""
+    }
+    ${
+      w.features_to_try && w.features_to_try.length > 0
+        ? `
     <p style="font-size: 13px; color: #64748b; margin-bottom: 12px;">Just copy this into Claude Code and it'll set it up for you.</p>
     <div class="features-section">
-      ${w.features_to_try.map((u)=>`
+      ${w.features_to_try
+        .map(
+          (u) => `
         <div class="feature-card">
-          <div class="feature-title">${Eo(u.feature||"")}</div>
-          <div class="feature-oneliner">${Eo(u.one_liner||"")}</div>
-          <div class="feature-why"><strong>Why for you:</strong> ${Eo(u.why_for_you||"")}</div>
-          ${u.example_code?`
+          <div class="feature-title">${Eo(u.feature || "")}</div>
+          <div class="feature-oneliner">${Eo(u.one_liner || "")}</div>
+          <div class="feature-why"><strong>Why for you:</strong> ${Eo(u.why_for_you || "")}</div>
+          ${
+            u.example_code
+              ? `
           <div class="feature-examples">
             <div class="feature-example">
               <div class="example-code-row">
@@ -327,21 +1676,33 @@ ${E}`,maxTokens:8192},U=await _e(D,"",t);if(U.result)a.at_a_glance=U.result;retu
               </div>
             </div>
           </div>
-          `:""}
+          `
+              : ""
+          }
         </div>
-      `).join("")}
+      `,
+        )
+        .join("")}
     </div>
-    `:""}
-    ${w.usage_patterns&&w.usage_patterns.length>0?`
+    `
+        : ""
+    }
+    ${
+      w.usage_patterns && w.usage_patterns.length > 0
+        ? `
     <h2 id="section-patterns">New Ways to Use Claude Code</h2>
     <p style="font-size: 13px; color: #64748b; margin-bottom: 12px;">Just copy this into Claude Code and it'll walk you through it.</p>
     <div class="patterns-section">
-      ${w.usage_patterns.map((u)=>`
+      ${w.usage_patterns
+        .map(
+          (u) => `
         <div class="pattern-card">
-          <div class="pattern-title">${Eo(u.title||"")}</div>
-          <div class="pattern-summary">${Eo(u.suggestion||"")}</div>
-          ${u.detail?`<div class="pattern-detail">${Eo(u.detail)}</div>`:""}
-          ${u.copyable_prompt?`
+          <div class="pattern-title">${Eo(u.title || "")}</div>
+          <div class="pattern-summary">${Eo(u.suggestion || "")}</div>
+          ${u.detail ? `<div class="pattern-detail">${Eo(u.detail)}</div>` : ""}
+          ${
+            u.copyable_prompt
+              ? `
           <div class="copyable-prompt-section">
             <div class="prompt-label">Paste into Claude Code:</div>
             <div class="copyable-prompt-row">
@@ -349,28 +1710,51 @@ ${E}`,maxTokens:8192},U=await _e(D,"",t);if(U.result)a.at_a_glance=U.result;retu
               <button class="copy-btn" onclick="copyText(this)">Copy</button>
             </div>
           </div>
-          `:""}
+          `
+              : ""
+          }
         </div>
-      `).join("")}
+      `,
+        )
+        .join("")}
     </div>
-    `:""}
-    `:"",E=s.on_the_horizon,F=E?.opportunities&&E.opportunities.length>0?`
+    `
+        : ""
+    }
+    `
+      : "",
+    E = s.on_the_horizon,
+    F =
+      E?.opportunities && E.opportunities.length > 0
+        ? `
     <h2 id="section-horizon">On the Horizon</h2>
-    ${E.intro?`<p class="section-intro">${Eo(E.intro)}</p>`:""}
+    ${E.intro ? `<p class="section-intro">${Eo(E.intro)}</p>` : ""}
     <div class="horizon-section">
-      ${E.opportunities.map((u)=>`
+      ${E.opportunities
+        .map(
+          (u) => `
         <div class="horizon-card">
-          <div class="horizon-title">${Eo(u.title||"")}</div>
-          <div class="horizon-possible">${Eo(u.whats_possible||"")}</div>
-          ${u.how_to_try?`<div class="horizon-tip"><strong>Getting started:</strong> ${Eo(u.how_to_try)}</div>`:""}
-          ${u.copyable_prompt?`<div class="pattern-prompt"><div class="prompt-label">Paste into Claude Code:</div><code>${Eo(u.copyable_prompt)}</code><button class="copy-btn" onclick="copyText(this)">Copy</button></div>`:""}
+          <div class="horizon-title">${Eo(u.title || "")}</div>
+          <div class="horizon-possible">${Eo(u.whats_possible || "")}</div>
+          ${u.how_to_try ? `<div class="horizon-tip"><strong>Getting started:</strong> ${Eo(u.how_to_try)}</div>` : ""}
+          ${u.copyable_prompt ? `<div class="pattern-prompt"><div class="prompt-label">Paste into Claude Code:</div><code>${Eo(u.copyable_prompt)}</code><button class="copy-btn" onclick="copyText(this)">Copy</button></div>` : ""}
         </div>
-      `).join("")}
+      `,
+        )
+        .join("")}
     </div>
-    `:"",D=[],U=[],y=D.length>0||U.length>0?`
+    `
+        : "",
+    D = [],
+    U = [],
+    y =
+      D.length > 0 || U.length > 0
+        ? `
     <h2 id="section-feedback" class="feedback-header">Closing the Loop: Feedback for Other Teams</h2>
     <p class="feedback-intro">Suggestions for the CC product and model teams based on your usage patterns. Click to expand.</p>
-    ${D.length>0?`
+    ${
+      D.length > 0
+        ? `
     <div class="collapsible-section">
       <div class="collapsible-header" onclick="toggleCollapsible(this)">
         <span class="collapsible-arrow">\u25B6</span>
@@ -378,18 +1762,24 @@ ${E}`,maxTokens:8192},U=await _e(D,"",t);if(U.result)a.at_a_glance=U.result;retu
       </div>
       <div class="collapsible-content">
         <div class="suggestions-section">
-          ${D.map((u)=>`
+          ${D.map(
+            (u) => `
             <div class="feedback-card team-card">
-              <div class="feedback-title">${Eo(u.title||"")}</div>
-              <div class="feedback-detail">${Eo(u.detail||"")}</div>
-              ${u.evidence?`<div class="feedback-evidence"><em>Evidence:</em> ${Eo(u.evidence)}</div>`:""}
+              <div class="feedback-title">${Eo(u.title || "")}</div>
+              <div class="feedback-detail">${Eo(u.detail || "")}</div>
+              ${u.evidence ? `<div class="feedback-evidence"><em>Evidence:</em> ${Eo(u.evidence)}</div>` : ""}
             </div>
-          `).join("")}
+          `,
+          ).join("")}
         </div>
       </div>
     </div>
-    `:""}
-    ${U.length>0?`
+    `
+        : ""
+    }
+    ${
+      U.length > 0
+        ? `
     <div class="collapsible-section">
       <div class="collapsible-header" onclick="toggleCollapsible(this)">
         <span class="collapsible-arrow">\u25B6</span>
@@ -397,23 +1787,33 @@ ${E}`,maxTokens:8192},U=await _e(D,"",t);if(U.result)a.at_a_glance=U.result;retu
       </div>
       <div class="collapsible-content">
         <div class="suggestions-section">
-          ${U.map((u)=>`
+          ${U.map(
+            (u) => `
             <div class="feedback-card model-card">
-              <div class="feedback-title">${Eo(u.title||"")}</div>
-              <div class="feedback-detail">${Eo(u.detail||"")}</div>
-              ${u.evidence?`<div class="feedback-evidence"><em>Evidence:</em> ${Eo(u.evidence)}</div>`:""}
+              <div class="feedback-title">${Eo(u.title || "")}</div>
+              <div class="feedback-detail">${Eo(u.detail || "")}</div>
+              ${u.evidence ? `<div class="feedback-evidence"><em>Evidence:</em> ${Eo(u.evidence)}</div>` : ""}
             </div>
-          `).join("")}
+          `,
+          ).join("")}
         </div>
       </div>
     </div>
-    `:""}
-    `:"",j=s.fun_ending,L=j?.headline?`
+    `
+        : ""
+    }
+    `
+        : "",
+    j = s.fun_ending,
+    L = j?.headline
+      ? `
     <div class="fun-ending">
       <div class="fun-headline">"${Eo(j.headline)}"</div>
-      ${j.detail?`<div class="fun-detail">${Eo(j.detail)}</div>`:""}
+      ${j.detail ? `<div class="fun-detail">${Eo(j.detail)}</div>` : ""}
     </div>
-    `:"",Y=`
+    `
+      : "",
+    Y = `
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #f8fafc; color: #334155; line-height: 1.65; padding: 48px 24px; }
     .container { max-width: 800px; margin: 0 auto; }
@@ -523,7 +1923,8 @@ ${E}`,maxTokens:8192},U=await _e(D,"",t);if(U.result)a.at_a_glance=U.result;retu
     .collapsible-content.open { display: block; }
     .collapsible-header.open .collapsible-arrow { transform: rotate(90deg); }
     @media (max-width: 640px) { .charts-row { grid-template-columns: 1fr; } .stats-row { justify-content: center; } }
-  `,W=`
+  `,
+    W = `
     function toggleCollapsible(header) {
       header.classList.toggle('open');
       const content = header.nextElementSibling;
@@ -620,7 +2021,8 @@ ${E}`,maxTokens:8192},U=await _e(D,"",t);if(U.result)a.at_a_glance=U.result;retu
       if (isNaN(parsed)) return;
       updateHourHistogram(parsed + 8);
     });
-  `;return`<!DOCTYPE html>
+  `;
+  return `<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
@@ -741,7 +2143,7 @@ ${E}`,maxTokens:8192},U=await _e(D,"",t);if(U.result)a.at_a_glance=U.result;retu
 <body>
   <div class="container">
     <h1>Claude Code Insights</h1>
-    <p class="subtitle">${e.total_messages.toLocaleString()} messages across ${e.total_sessions} sessions${e.total_sessions_scanned&&e.total_sessions_scanned>e.total_sessions?` (${e.total_sessions_scanned.toLocaleString()} total)`:""} | ${e.date_range.start} to ${e.date_range.end}</p>
+    <p class="subtitle">${e.total_messages.toLocaleString()} messages across ${e.total_sessions} sessions${e.total_sessions_scanned && e.total_sessions_scanned > e.total_sessions ? ` (${e.total_sessions_scanned.toLocaleString()} total)` : ""} | ${e.date_range.start} to ${e.date_range.end}</p>
 
     ${p}
 
@@ -769,22 +2171,22 @@ ${E}`,maxTokens:8192},U=await _e(D,"",t);if(U.result)a.at_a_glance=U.result;retu
     <div class="charts-row">
       <div class="chart-card">
         <div class="chart-title">What You Wanted</div>
-        ${J(e.goal_categories,"#2563eb")}
+        ${J(e.goal_categories, "#2563eb")}
       </div>
       <div class="chart-card">
         <div class="chart-title">Top Tools Used</div>
-        ${J(e.tool_counts,"#0891b2")}
+        ${J(e.tool_counts, "#0891b2")}
       </div>
     </div>
 
     <div class="charts-row">
       <div class="chart-card">
         <div class="chart-title">Languages</div>
-        ${J(e.languages,"#10b981")}
+        ${J(e.languages, "#10b981")}
       </div>
       <div class="chart-card">
         <div class="chart-title">Session Types</div>
-        ${J(e.session_types||{},"#8b5cf6")}
+        ${J(e.session_types || {}, "#8b5cf6")}
       </div>
     </div>
 
@@ -802,11 +2204,14 @@ ${E}`,maxTokens:8192},U=await _e(D,"",t);if(U.result)a.at_a_glance=U.result;retu
     <!-- Multi-clauding Section (matching Python reference) -->
     <div class="chart-card" style="margin: 24px 0;">
       <div class="chart-title">Multi-Clauding (Parallel Sessions)</div>
-      ${e.multi_clauding.overlap_events===0?`
+      ${
+        e.multi_clauding.overlap_events === 0
+          ? `
         <p style="font-size: 14px; color: #64748b; padding: 8px 0;">
           No parallel session usage detected. You typically work with one Claude Code session at a time.
         </p>
-      `:`
+      `
+          : `
         <div style="display: flex; gap: 24px; margin: 12px 0;">
           <div style="text-align: center;">
             <div style="font-size: 24px; font-weight: 700; color: #7c3aed;">${e.multi_clauding.overlap_events}</div>
@@ -817,7 +2222,7 @@ ${E}`,maxTokens:8192},U=await _e(D,"",t);if(U.result)a.at_a_glance=U.result;retu
             <div style="font-size: 11px; color: #64748b; text-transform: uppercase;">Sessions Involved</div>
           </div>
           <div style="text-align: center;">
-            <div style="font-size: 24px; font-weight: 700; color: #7c3aed;">${e.total_messages>0?Math.round(100*e.multi_clauding.user_messages_during/e.total_messages):0}%</div>
+            <div style="font-size: 24px; font-weight: 700; color: #7c3aed;">${e.total_messages > 0 ? Math.round((100 * e.multi_clauding.user_messages_during) / e.total_messages) : 0}%</div>
             <div style="font-size: 11px; color: #64748b; text-transform: uppercase;">Of Messages</div>
           </div>
         </div>
@@ -825,7 +2230,8 @@ ${E}`,maxTokens:8192},U=await _e(D,"",t);if(U.result)a.at_a_glance=U.result;retu
           You run multiple Claude Code sessions simultaneously. Multi-clauding is detected when sessions
           overlap in time, suggesting parallel workflows.
         </p>
-      `}
+      `
+      }
     </div>
 
     <!-- Time of Day & Tool Errors -->
@@ -847,7 +2253,7 @@ ${E}`,maxTokens:8192},U=await _e(D,"",t);if(U.result)a.at_a_glance=U.result;retu
       </div>
       <div class="chart-card">
         <div class="chart-title">Tool Errors Encountered</div>
-        ${Object.keys(e.tool_error_categories).length>0?J(e.tool_error_categories,"#dc2626"):'<p class="empty">No tool errors</p>'}
+        ${Object.keys(e.tool_error_categories).length > 0 ? J(e.tool_error_categories, "#dc2626") : '<p class="empty">No tool errors</p>'}
       </div>
     </div>
 
@@ -856,11 +2262,11 @@ ${E}`,maxTokens:8192},U=await _e(D,"",t);if(U.result)a.at_a_glance=U.result;retu
     <div class="charts-row">
       <div class="chart-card">
         <div class="chart-title">What Helped Most (Claude's Capabilities)</div>
-        ${J(e.success,"#16a34a")}
+        ${J(e.success, "#16a34a")}
       </div>
       <div class="chart-card">
         <div class="chart-title">Outcomes</div>
-        ${J(e.outcomes,"#8b5cf6",6,at)}
+        ${J(e.outcomes, "#8b5cf6", 6, at)}
       </div>
     </div>
 
@@ -869,11 +2275,11 @@ ${E}`,maxTokens:8192},U=await _e(D,"",t);if(U.result)a.at_a_glance=U.result;retu
     <div class="charts-row">
       <div class="chart-card">
         <div class="chart-title">Primary Friction Types</div>
-        ${J(e.friction,"#dc2626")}
+        ${J(e.friction, "#dc2626")}
       </div>
       <div class="chart-card">
         <div class="chart-title">Inferred Satisfaction (model-estimated)</div>
-        ${J(e.satisfaction,"#eab308",6,rt)}
+        ${J(e.satisfaction, "#eab308", 6, rt)}
       </div>
     </div>
 
@@ -887,20 +2293,336 @@ ${E}`,maxTokens:8192},U=await _e(D,"",t);if(U.result)a.at_a_glance=U.result;retu
   </div>
   <script>${W}</script>
 </body>
-</html>`}function ts(e,s,t,o){let p=typeof{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}<"u"?{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION:"unknown",c=o?.hosts.filter((r)=>r.sessionCount>0).map((r)=>r.name),d={total:t.size,goal_categories:{},outcomes:{},satisfaction:{},friction:{}};for(let r of t.values()){for(let[l,a]of ee(r.goal_categories))if(a>0)d.goal_categories[l]=(d.goal_categories[l]||0)+a;d.outcomes[r.outcome]=(d.outcomes[r.outcome]||0)+1;for(let[l,a]of ee(r.user_satisfaction_counts))if(a>0)d.satisfaction[l]=(d.satisfaction[l]||0)+a;for(let[l,a]of ee(r.friction_counts))if(a>0)d.friction[l]=(d.friction[l]||0)+a}return{metadata:{username:process.env.SAFEUSER||process.env.USER||"unknown",generated_at:new Date().toISOString(),claude_code_version:p,date_range:e.date_range,session_count:e.total_sessions,...c&&c.length>0&&{remote_hosts_collected:c}},aggregated_data:e,insights:s,facets_summary:d}}async function pt(e){if(e){let c=[];switch((await Ao((g)=>e.listEntries({namespace:"transcript"},g?{cursor:g}:void 0),(g)=>{for(let x of g)if(x.kind==="scope"&&x.scope.namespace==="transcript"&&x.scope.projectKey!==void 0)c.push(x.scope.projectKey)})).status){case"done":break;case"error":return[];case"capped":n(`insights: project listing truncated at ${ec} pages; scanning the ${c.length} projects seen`,{level:"warn"});break}let r=[],l={pagesLeft:ec},a=0;for(let g=0;g<c.length;g++){let x=c[g];switch((await Ao((w)=>e.listEntries({namespace:"transcript",projectKey:x},w?{cursor:w}:void 0),(w)=>{for(let z of w){if(z.kind!=="key"||z.key.namespace!=="transcript")continue;if(z.key.agentId!==void 0||z.key.journal===!0||z.key.projectKey!==x)continue;let E=Kr(z.key.sessionId);if(!E)continue;r.push({sessionId:E,key:Te.transcript(x,E),mtime:z.mtimeMs??0,size:z.size??0})}},{budget:l})).status){case"done":break;case"error":break;case"capped":if(a===0)n(`insights: session listing for project ${x} truncated (the scan's ${ec}-page session-listing budget is spent); keeping the sessions seen`,{level:"warn"});a++;break}if(g%10===9)await new Promise((w)=>setImmediate(w))}if(a>1)n(`insights: ${a-1} more ${a===2?"project was":"projects were"} left without a session listing after the scan's budget ran out`,{level:"warn"});return r.sort((g,x)=>x.mtime-g.mtime),r}let s=Nl(),t;try{t=await Ee(s,{withFileTypes:!0})}catch{return[]}let o=t.filter((c)=>c.isDirectory()).map((c)=>G(s,c.name)),p=[];for(let c=0;c<o.length;c++){let d=await PPe(o[c]);for(let[r,l]of d)p.push({sessionId:r,path:l.path,mtime:l.mtime,size:l.size});if(c%10===9)await new Promise((r)=>setImmediate(r))}return p.sort((c,d)=>d.mtime-c.mtime),p}async function mt(e){let s,t=await pt(e?.storageV5),o=t.length,p=200,c=[],d=[],r=0,l=0;for(let _ of he(t,fe)){let T=e?.storageV5,M=T?await $e(_.map((k)=>k.sessionId),T):await Promise.all(_.map((k)=>Ze(k.sessionId))),B=_.map((k,A)=>({sessionInfo:k,cached:M[A]??null}));for(let{sessionInfo:k,cached:A}of B)if(A&&(A.transcript_mtime===void 0||A.transcript_mtime>=k.mtime))c.push(A);else if(!A){if(r<p)d.push({sessionInfo:k,cached:A}),r++}else if(l<p)d.push({sessionInfo:k,cached:A}),l++;else c.push(A)}let a=new Map,g=(_)=>{for(let T of _.messages.slice(0,5))if(T.type==="user"&&T.message){let M=T.message.content;if(typeof M==="string"){if(M.includes("RESPOND WITH ONLY A VALID JSON OBJECT")||M.includes("record_facets"))return!0}}return!1},x=10;for(let _=0;_<d.length;_+=x){let T=d.slice(_,_+x),M=await Promise.all(T.map(async({sessionInfo:k,cached:A})=>{try{return{sessionInfo:k,cached:A,logs:e?.storageV5&&k.key?await Zqe(`${k.sessionId}.jsonl`,void 0,{backend:e.storageV5,key:k.key}):await Zqe(k.path??"")}}catch{return{sessionInfo:k,cached:A,logs:[]}}})),B=new Map;for(let{sessionInfo:k,cached:A,logs:ie}of M){let ge=!1;for(let te of ie){if(g(te)||Number.isNaN(te.created.getTime())||Number.isNaN(te.modified.getTime()))continue;let X=ue(te);if(X.transcript_mtime=k.mtime,c.push(X),ge=!0,de(X,B.get(X.session_id)))B.set(X.session_id,X);a.set(X.session_id,te)}if(!ge&&A)c.push(A)}await Promise.all([...B.values()].map((k)=>et(k,e?.storageV5)))}let I=new Map;for(let _ of c)if(de(_,I.get(_.session_id)))I.set(_.session_id,_);let w=new Set(I.keys());c=[...I.values()];for(let _ of a.keys())if(!w.has(_))a.delete(_);c.sort((_,T)=>T.start_time.localeCompare(_.start_time));let z=(_)=>{if(_.user_message_count<2)return!1;if(_.duration_minutes<1)return!1;return!0},E=c.filter(z),F=new Map,D=[],U=50,y=e?.storageV5,j=E.map((_)=>_.session_id),L=y?(await Promise.all(he(j,fe).map((_)=>Se(_,y)))).flat():await Promise.all(j.map((_)=>Xe(_))),Y=E.map((_,T)=>({sessionId:_.session_id,cached:L[T]??null}));for(let{sessionId:_,cached:T}of Y)if(T)F.set(_,T);else{let M=a.get(_);if(M&&D.length<U)D.push({log:M,sessionId:_})}let P=50;for(let _=0;_<D.length;_+=P){let T=D.slice(_,_+P),M=await Promise.all(T.map(async({log:k,sessionId:A})=>{let ie=await tt(k,A,e?.credentials);return{sessionId:A,newFacets:ie}})),B=[];for(let{sessionId:k,newFacets:A}of M)if(A)F.set(k,A),B.push(A);await Promise.all(B.map((k)=>Qe(k,e?.storageV5)))}let W=(_)=>{let T=F.get(_);if(!T)return!1;let M=T.goal_categories,B=gt(M).filter((k)=>(M[k]??0)>0);return B.length===1&&B[0]==="warmup_minimal"},u=E.filter((_)=>!W(_.session_id)),C=new Map;for(let[_,T]of F)if(!W(_))C.set(_,T);let S=ot(u,C);S.total_sessions_scanned=o;let Q=await it(S,F,e?.credentials),ne=ut(S,Q),N=new Date,K=(_)=>String(_).padStart(2,"0"),Z=`${N.getFullYear()}-${K(N.getMonth()+1)}-${K(N.getDate())}-${K(N.getHours())}${K(N.getMinutes())}${K(N.getSeconds())}`,Ie=await He(ne,Z,e?.storageV5);return{insights:Q,htmlPath:Ie,data:S,remoteStats:s,facets:C}}function ee(e){return e?Object.entries(e):[]}function gt(e){return e?Object.keys(e):[]}var ht={type:"prompt",name:"insights",description:"Generate a report analyzing your Claude Code sessions",contentLength:0,progressMessage:"analyzing your sessions",source:"builtin",async getPromptForCommand(e,s){if(s.options?.isSkillPreload)return[{type:"text",text:"The /insights report is generated only when the command is invoked directly."}];let t=!1,o=[],p=!1,{insights:c,htmlPath:d,data:r,remoteStats:l}=await mt({collectRemote:t,storageV5:s.storageV5,credentials:s.credentials}),a=`file://${d}`,x=[r.total_sessions_scanned&&r.total_sessions_scanned>r.total_sessions?`${r.total_sessions_scanned.toLocaleString()} sessions total \xB7 ${r.total_sessions} analyzed`:`${r.total_sessions} sessions`,`${r.total_messages.toLocaleString()} messages`,`${Math.round(r.total_duration_hours)}h`,`${r.git_commits} commits`].join(" \xB7 "),I="",w=c.at_a_glance,z=w?`## At a Glance
+</html>`;
+}
+function ts(e, s, t, o) {
+  let p =
+      typeof {
+        ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues",
+        PACKAGE_URL: "@anthropic-ai/claude-code",
+        README_URL: "https://code.claude.com/docs/en/overview",
+        VERSION: "2.1.252",
+        FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues",
+        BUILD_TIME: "2026-08-31T16:02:57Z",
+        GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548",
+        HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",
+        DD_SOURCEMAP_GROUP: "darwin",
+      } < "u"
+        ? {
+            ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues",
+            PACKAGE_URL: "@anthropic-ai/claude-code",
+            README_URL: "https://code.claude.com/docs/en/overview",
+            VERSION: "2.1.252",
+            FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues",
+            BUILD_TIME: "2026-08-31T16:02:57Z",
+            GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548",
+            HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",
+            DD_SOURCEMAP_GROUP: "darwin",
+          }.VERSION
+        : "unknown",
+    c = o?.hosts.filter((r) => r.sessionCount > 0).map((r) => r.name),
+    d = { total: t.size, goal_categories: {}, outcomes: {}, satisfaction: {}, friction: {} };
+  for (let r of t.values()) {
+    for (let [l, a] of ee(r.goal_categories)) if (a > 0) d.goal_categories[l] = (d.goal_categories[l] || 0) + a;
+    d.outcomes[r.outcome] = (d.outcomes[r.outcome] || 0) + 1;
+    for (let [l, a] of ee(r.user_satisfaction_counts)) if (a > 0) d.satisfaction[l] = (d.satisfaction[l] || 0) + a;
+    for (let [l, a] of ee(r.friction_counts)) if (a > 0) d.friction[l] = (d.friction[l] || 0) + a;
+  }
+  return {
+    metadata: {
+      username: process.env.SAFEUSER || process.env.USER || "unknown",
+      generated_at: new Date().toISOString(),
+      claude_code_version: p,
+      date_range: e.date_range,
+      session_count: e.total_sessions,
+      ...(c && c.length > 0 && { remote_hosts_collected: c }),
+    },
+    aggregated_data: e,
+    insights: s,
+    facets_summary: d,
+  };
+}
+async function pt(e) {
+  if (e) {
+    let c = [];
+    switch (
+      (
+        await Ao(
+          (g) => e.listEntries({ namespace: "transcript" }, g ? { cursor: g } : void 0),
+          (g) => {
+            for (let x of g)
+              if (x.kind === "scope" && x.scope.namespace === "transcript" && x.scope.projectKey !== void 0)
+                c.push(x.scope.projectKey);
+          },
+        )
+      ).status
+    ) {
+      case "done":
+        break;
+      case "error":
+        return [];
+      case "capped":
+        n(`insights: project listing truncated at ${ec} pages; scanning the ${c.length} projects seen`, {
+          level: "warn",
+        });
+        break;
+    }
+    let r = [],
+      l = { pagesLeft: ec },
+      a = 0;
+    for (let g = 0; g < c.length; g++) {
+      let x = c[g];
+      switch (
+        (
+          await Ao(
+            (w) => e.listEntries({ namespace: "transcript", projectKey: x }, w ? { cursor: w } : void 0),
+            (w) => {
+              for (let z of w) {
+                if (z.kind !== "key" || z.key.namespace !== "transcript") continue;
+                if (z.key.agentId !== void 0 || z.key.journal === !0 || z.key.projectKey !== x) continue;
+                let E = Kr(z.key.sessionId);
+                if (!E) continue;
+                r.push({ sessionId: E, key: Te.transcript(x, E), mtime: z.mtimeMs ?? 0, size: z.size ?? 0 });
+              }
+            },
+            { budget: l },
+          )
+        ).status
+      ) {
+        case "done":
+          break;
+        case "error":
+          break;
+        case "capped":
+          if (a === 0)
+            n(
+              `insights: session listing for project ${x} truncated (the scan's ${ec}-page session-listing budget is spent); keeping the sessions seen`,
+              { level: "warn" },
+            );
+          a++;
+          break;
+      }
+      if (g % 10 === 9) await new Promise((w) => setImmediate(w));
+    }
+    if (a > 1)
+      n(
+        `insights: ${a - 1} more ${a === 2 ? "project was" : "projects were"} left without a session listing after the scan's budget ran out`,
+        { level: "warn" },
+      );
+    return r.sort((g, x) => x.mtime - g.mtime), r;
+  }
+  let s = Nl(),
+    t;
+  try {
+    t = await Ee(s, { withFileTypes: !0 });
+  } catch {
+    return [];
+  }
+  let o = t.filter((c) => c.isDirectory()).map((c) => G(s, c.name)),
+    p = [];
+  for (let c = 0; c < o.length; c++) {
+    let d = await PPe(o[c]);
+    for (let [r, l] of d) p.push({ sessionId: r, path: l.path, mtime: l.mtime, size: l.size });
+    if (c % 10 === 9) await new Promise((r) => setImmediate(r));
+  }
+  return p.sort((c, d) => d.mtime - c.mtime), p;
+}
+async function mt(e) {
+  let s,
+    t = await pt(e?.storageV5),
+    o = t.length,
+    p = 200,
+    c = [],
+    d = [],
+    r = 0,
+    l = 0;
+  for (let _ of he(t, fe)) {
+    let T = e?.storageV5,
+      M = T
+        ? await $e(
+            _.map((k) => k.sessionId),
+            T,
+          )
+        : await Promise.all(_.map((k) => Ze(k.sessionId))),
+      B = _.map((k, A) => ({ sessionInfo: k, cached: M[A] ?? null }));
+    for (let { sessionInfo: k, cached: A } of B)
+      if (A && (A.transcript_mtime === void 0 || A.transcript_mtime >= k.mtime)) c.push(A);
+      else if (!A) {
+        if (r < p) d.push({ sessionInfo: k, cached: A }), r++;
+      } else if (l < p) d.push({ sessionInfo: k, cached: A }), l++;
+      else c.push(A);
+  }
+  let a = new Map(),
+    g = (_) => {
+      for (let T of _.messages.slice(0, 5))
+        if (T.type === "user" && T.message) {
+          let M = T.message.content;
+          if (typeof M === "string") {
+            if (M.includes("RESPOND WITH ONLY A VALID JSON OBJECT") || M.includes("record_facets")) return !0;
+          }
+        }
+      return !1;
+    },
+    x = 10;
+  for (let _ = 0; _ < d.length; _ += x) {
+    let T = d.slice(_, _ + x),
+      M = await Promise.all(
+        T.map(async ({ sessionInfo: k, cached: A }) => {
+          try {
+            return {
+              sessionInfo: k,
+              cached: A,
+              logs:
+                e?.storageV5 && k.key
+                  ? await Zqe(`${k.sessionId}.jsonl`, void 0, { backend: e.storageV5, key: k.key })
+                  : await Zqe(k.path ?? ""),
+            };
+          } catch {
+            return { sessionInfo: k, cached: A, logs: [] };
+          }
+        }),
+      ),
+      B = new Map();
+    for (let { sessionInfo: k, cached: A, logs: ie } of M) {
+      let ge = !1;
+      for (let te of ie) {
+        if (g(te) || Number.isNaN(te.created.getTime()) || Number.isNaN(te.modified.getTime())) continue;
+        let X = ue(te);
+        if (((X.transcript_mtime = k.mtime), c.push(X), (ge = !0), de(X, B.get(X.session_id)))) B.set(X.session_id, X);
+        a.set(X.session_id, te);
+      }
+      if (!ge && A) c.push(A);
+    }
+    await Promise.all([...B.values()].map((k) => et(k, e?.storageV5)));
+  }
+  let I = new Map();
+  for (let _ of c) if (de(_, I.get(_.session_id))) I.set(_.session_id, _);
+  let w = new Set(I.keys());
+  c = [...I.values()];
+  for (let _ of a.keys()) if (!w.has(_)) a.delete(_);
+  c.sort((_, T) => T.start_time.localeCompare(_.start_time));
+  let z = (_) => {
+      if (_.user_message_count < 2) return !1;
+      if (_.duration_minutes < 1) return !1;
+      return !0;
+    },
+    E = c.filter(z),
+    F = new Map(),
+    D = [],
+    U = 50,
+    y = e?.storageV5,
+    j = E.map((_) => _.session_id),
+    L = y ? (await Promise.all(he(j, fe).map((_) => Se(_, y)))).flat() : await Promise.all(j.map((_) => Xe(_))),
+    Y = E.map((_, T) => ({ sessionId: _.session_id, cached: L[T] ?? null }));
+  for (let { sessionId: _, cached: T } of Y)
+    if (T) F.set(_, T);
+    else {
+      let M = a.get(_);
+      if (M && D.length < U) D.push({ log: M, sessionId: _ });
+    }
+  let P = 50;
+  for (let _ = 0; _ < D.length; _ += P) {
+    let T = D.slice(_, _ + P),
+      M = await Promise.all(
+        T.map(async ({ log: k, sessionId: A }) => {
+          let ie = await tt(k, A, e?.credentials);
+          return { sessionId: A, newFacets: ie };
+        }),
+      ),
+      B = [];
+    for (let { sessionId: k, newFacets: A } of M) if (A) F.set(k, A), B.push(A);
+    await Promise.all(B.map((k) => Qe(k, e?.storageV5)));
+  }
+  let W = (_) => {
+      let T = F.get(_);
+      if (!T) return !1;
+      let M = T.goal_categories,
+        B = gt(M).filter((k) => (M[k] ?? 0) > 0);
+      return B.length === 1 && B[0] === "warmup_minimal";
+    },
+    u = E.filter((_) => !W(_.session_id)),
+    C = new Map();
+  for (let [_, T] of F) if (!W(_)) C.set(_, T);
+  let S = ot(u, C);
+  S.total_sessions_scanned = o;
+  let Q = await it(S, F, e?.credentials),
+    ne = ut(S, Q),
+    N = new Date(),
+    K = (_) => String(_).padStart(2, "0"),
+    Z = `${N.getFullYear()}-${K(N.getMonth() + 1)}-${K(N.getDate())}-${K(N.getHours())}${K(N.getMinutes())}${K(N.getSeconds())}`,
+    Ie = await He(ne, Z, e?.storageV5);
+  return { insights: Q, htmlPath: Ie, data: S, remoteStats: s, facets: C };
+}
+function ee(e) {
+  return e ? Object.entries(e) : [];
+}
+function gt(e) {
+  return e ? Object.keys(e) : [];
+}
+var ht = {
+  type: "prompt",
+  name: "insights",
+  description: "Generate a report analyzing your Claude Code sessions",
+  contentLength: 0,
+  progressMessage: "analyzing your sessions",
+  source: "builtin",
+  async getPromptForCommand(e, s) {
+    if (s.options?.isSkillPreload)
+      return [{ type: "text", text: "The /insights report is generated only when the command is invoked directly." }];
+    let t = !1,
+      o = [],
+      p = !1,
+      {
+        insights: c,
+        htmlPath: d,
+        data: r,
+        remoteStats: l,
+      } = await mt({ collectRemote: t, storageV5: s.storageV5, credentials: s.credentials }),
+      a = `file://${d}`,
+      x = [
+        r.total_sessions_scanned && r.total_sessions_scanned > r.total_sessions
+          ? `${r.total_sessions_scanned.toLocaleString()} sessions total \xB7 ${r.total_sessions} analyzed`
+          : `${r.total_sessions} sessions`,
+        `${r.total_messages.toLocaleString()} messages`,
+        `${Math.round(r.total_duration_hours)}h`,
+        `${r.git_commits} commits`,
+      ].join(" \xB7 "),
+      I = "",
+      w = c.at_a_glance,
+      z = w
+        ? `## At a Glance
 
-${w.whats_working?`**What's working:** ${w.whats_working} See _Impressive Things You Did_.`:""}
+${w.whats_working ? `**What's working:** ${w.whats_working} See _Impressive Things You Did_.` : ""}
 
-${w.whats_hindering?`**What's hindering you:** ${w.whats_hindering} See _Where Things Go Wrong_.`:""}
+${w.whats_hindering ? `**What's hindering you:** ${w.whats_hindering} See _Where Things Go Wrong_.` : ""}
 
-${w.quick_wins?`**Quick wins to try:** ${w.quick_wins} See _Features to Try_.`:""}
+${w.quick_wins ? `**Quick wins to try:** ${w.quick_wins} See _Features to Try_.` : ""}
 
-${w.ambitious_workflows?`**Ambitious workflows:** ${w.ambitious_workflows} See _On the Horizon_.`:""}`:"_No insights generated_",E=`# Claude Code Insights
+${w.ambitious_workflows ? `**Ambitious workflows:** ${w.ambitious_workflows} See _On the Horizon_.` : ""}`
+        : "_No insights generated_",
+      E = `# Claude Code Insights
 
 ${x}
 ${r.date_range.start} to ${r.date_range.end}
 ${I}
-`;return[{type:"text",text:_t({insightsJson:b(c,null,2),reportUrl:a,htmlPath:d,facetsDir:ae(),header:E,summaryText:z})}]}};function _t({insightsJson:e,reportUrl:s,htmlPath:t,facetsDir:o,header:p,summaryText:c}){return`The user just ran /insights to generate a usage report analyzing their Claude Code sessions.
+`;
+    return [
+      {
+        type: "text",
+        text: _t({
+          insightsJson: b(c, null, 2),
+          reportUrl: a,
+          htmlPath: d,
+          facetsDir: ae(),
+          header: E,
+          summaryText: z,
+        }),
+      },
+    ];
+  },
+};
+function _t({ insightsJson: e, reportUrl: s, htmlPath: t, facetsDir: o, header: p, summaryText: c }) {
+  return `The user just ran /insights to generate a usage report analyzing their Claude Code sessions.
 
 Here is the full insights data:
 ${e}
@@ -917,4 +2639,38 @@ Respond with exactly the following, and nothing else. Do not add, omit, or rewor
 Your shareable insights report is ready:
 ${s}
 
-Want to dig into any section or try one of the suggestions?`}function me(e){if(!e||typeof e!=="object")return!1;let s=e;return typeof s.underlying_goal==="string"&&typeof s.outcome==="string"&&typeof s.brief_summary==="string"&&s.goal_categories!==null&&typeof s.goal_categories==="object"&&s.user_satisfaction_counts!==null&&typeof s.user_satisfaction_counts==="object"&&s.friction_counts!==null&&typeof s.friction_counts==="object"}var os=ht;export{ot as aggregateData,ts as buildExportData,_t as buildInsightsResponsePrompt,es as deduplicateSessionBranches,os as default,st as detectMultiClauding,Ye as extractToolStats,mt as generateUsageReport,Xe as loadCachedFacets,Ze as loadCachedSessionMeta,Ae as normalizeSessionMeta,Qe as saveFacets,et as saveSessionMeta,He as saveUsageReport,qe as summarizeTranscriptChunk};
+Want to dig into any section or try one of the suggestions?`;
+}
+function me(e) {
+  if (!e || typeof e !== "object") return !1;
+  let s = e;
+  return (
+    typeof s.underlying_goal === "string" &&
+    typeof s.outcome === "string" &&
+    typeof s.brief_summary === "string" &&
+    s.goal_categories !== null &&
+    typeof s.goal_categories === "object" &&
+    s.user_satisfaction_counts !== null &&
+    typeof s.user_satisfaction_counts === "object" &&
+    s.friction_counts !== null &&
+    typeof s.friction_counts === "object"
+  );
+}
+var os = ht;
+export {
+  ot as aggregateData,
+  ts as buildExportData,
+  _t as buildInsightsResponsePrompt,
+  es as deduplicateSessionBranches,
+  os as default,
+  st as detectMultiClauding,
+  Ye as extractToolStats,
+  mt as generateUsageReport,
+  Xe as loadCachedFacets,
+  Ze as loadCachedSessionMeta,
+  Ae as normalizeSessionMeta,
+  Qe as saveFacets,
+  et as saveSessionMeta,
+  He as saveUsageReport,
+  qe as summarizeTranscriptChunk,
+};

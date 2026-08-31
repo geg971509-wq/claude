@@ -8,5 +8,149 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{k}from"/$bunfs/root/chunk-4ddxwr9r.js";import{_p}from"/$bunfs/root/chunk-8tgj5dp2.js";import{Gn,g0}from"/$bunfs/root/chunk-2rx5nghb.js";import{Fp}from"/$bunfs/root/chunk-6k63g5t6.js";import{hN}from"/$bunfs/root/chunk-0spqrdaj.js";import{P4n,U$t,B$t,QA,az,iDe}from"/$bunfs/root/chunk-zze8764r.js";import{he}from"/$bunfs/root/chunk-h605j25g.js";import{O2e,ONn}from"/$bunfs/root/chunk-brkpapaa.js";import{Ase}from"/$bunfs/root/chunk-800kqn71.js";import{ln}from"/$bunfs/root/chunk-tjmf73ft.js";import{se}from"/$bunfs/root/chunk-q1fyd2qk.js";import{te}from"/$bunfs/root/chunk-wag5ye9w.js";function h1(n,t){return n+" ".repeat(Math.max(0,t-se(n)))}function ov(n,t){return" ".repeat(Math.max(0,t-se(n)))+n}function D2e(n){let t=n.map((o)=>({context:o.listingTokens===null?"-":g0(o.listingTokens),week:o.weekTokens===null?"-":Gn(o.weekTokens),lastUsed:o.daysSinceUse===null?"never":o.daysSinceUse===0?"today":`${o.daysSinceUse} ${k(o.daysSinceUse,"day")}`}));return{cells:t,widths:{name:Math.max(5,...n.map((o)=>se(o.name))),source:Math.max(6,...n.map((o)=>se(o.source))),context:Math.max(7,...t.map((o)=>se(o.context))),week:Math.max(9,...t.map((o)=>se(o.week))),uses:Math.max(4,...n.map((o)=>se(String(o.usageCount))))}}}class $Q extends Error{featureErrorCode;constructor(n,t){super("skill-doctor stage failed",{cause:t});this.featureErrorCode=n}}function Gge(n){return{commands:n.options.commands,mcpCommands:n.getMcp().commands,mcpClients:n.getMcp().clients,agentId:n.agentId,mainLoopModel:n.options.mainLoopModel,permissionMode:he(n).mode,storageV5:n.storageV5}}async function irt(n){let t=Ase();t.catch(()=>{});let o=O2e(),c=o.allowed?ONn(n.storageV5).catch((e)=>{throw new $Q("scan_failed",e)}):Promise.resolve(new Map);c.catch(()=>{});let{included:S}=await B$t(n.mcpCommands,n.agentId,n.storageV5).catch((e)=>{throw new $Q("skill_set_failed",e)}),w=_p({permissionMode:n.permissionMode,mainLoopModel:n.mainLoopModel}),y=U$t(S,w,n.mainLoopModel),p=await c,r=[],l=az([...n.commands]),M=new Set(l.map((e)=>e.name)),h=new Set(n.commands.filter((e)=>iDe(e)&&!M.has(e.name)).map((e)=>e.name)),m=new Map;for(let e of l){let s=e.type==="prompt"?e.name.lastIndexOf(":"):-1;if(s>0){let i=e.name.slice(s+1);m.set(i,(m.get(i)??0)+1)}}for(let e of l){if(e.type!=="prompt")continue;if(e.source==="bundled"||e.source==="builtin"||e.source==="policySettings")continue;if(e.source==="mcp"&&e.loadedFrom!=="mcp")continue;let s=e.name.lastIndexOf(":"),i=s>0?e.name.slice(s+1):void 0,d=i!==void 0&&h.has(i)&&m.get(i)===1?i:void 0,f=P4n(e.name,d??e.unqualifiedName);r.push({name:e.pluginInfo?Fp(e.name):e.name,source:e.pluginInfo?Fp(e.pluginInfo.pluginManifest.name):e.loadedFrom==="syncedSkills"?hN:e.source,owner:e.source==="plugin"?"plugin":e.source==="mcp"?"mcp":e.loadedFrom==="syncedSkills"?"synced":"settings",pluginKey:e.pluginInfo?.pluginManifest.name,usageCount:f?.usageCount??0,daysSinceUse:f?.daysSinceUse??null,listingTokens:y.get(e.name)??null,weekTokens:p.get(QA(e))??(d?p.get(d):void 0)??null})}r.sort((e,s)=>(s.daysSinceUse??1/0)-(e.daysSinceUse??1/0));let a=r.filter((e)=>e.usageCount===0&&e.listingTokens!==null),x=a.filter((e)=>e.owner==="settings"),C=a.filter((e)=>e.owner==="synced"),b=new Set(r.filter((e)=>e.usageCount>0&&e.pluginKey!==void 0).map((e)=>e.pluginKey)),T=a.filter((e)=>e.owner==="plugin"&&(e.pluginKey===void 0||!b.has(e.pluginKey))),u=(e)=>{let s=e.name.indexOf(":");return s>0?e.name.slice(0,s):void 0},I=new Set(r.filter((e)=>e.owner==="mcp"&&e.usageCount>0).map(u).filter((e)=>e!==void 0)),g=a.filter((e)=>{if(e.owner!=="mcp")return!1;let s=u(e);return s===void 0||!I.has(s)}),L=te(g.map(u).filter((e)=>e!==void 0)).map((e)=>Fp(n.mcpClients.find((s)=>ln(s.name)===e)?.name??e));return{rows:r,unusedOwned:x,unusedFromPlugins:T,unusedFromMcp:g,unusedSynced:C,unusedMcpServers:L,disusedPlugins:await t,weekTokensNote:o.allowed?null:o.reason}}
-export{h1,ov,D2e,$Q,Gge,irt};
+import { k } from "/$bunfs/root/chunk-4ddxwr9r.js";
+import { _p } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { Gn, g0 } from "/$bunfs/root/chunk-2rx5nghb.js";
+import { Fp } from "/$bunfs/root/chunk-6k63g5t6.js";
+import { hN } from "/$bunfs/root/chunk-0spqrdaj.js";
+import { P4n, U$t, B$t, QA, az, iDe } from "/$bunfs/root/chunk-zze8764r.js";
+import { he } from "/$bunfs/root/chunk-h605j25g.js";
+import { O2e, ONn } from "/$bunfs/root/chunk-brkpapaa.js";
+import { Ase } from "/$bunfs/root/chunk-800kqn71.js";
+import { ln } from "/$bunfs/root/chunk-tjmf73ft.js";
+import { se } from "/$bunfs/root/chunk-q1fyd2qk.js";
+import { te } from "/$bunfs/root/chunk-wag5ye9w.js";
+function h1(n, t) {
+  return n + " ".repeat(Math.max(0, t - se(n)));
+}
+function ov(n, t) {
+  return " ".repeat(Math.max(0, t - se(n))) + n;
+}
+function D2e(n) {
+  let t = n.map((o) => ({
+    context: o.listingTokens === null ? "-" : g0(o.listingTokens),
+    week: o.weekTokens === null ? "-" : Gn(o.weekTokens),
+    lastUsed:
+      o.daysSinceUse === null
+        ? "never"
+        : o.daysSinceUse === 0
+          ? "today"
+          : `${o.daysSinceUse} ${k(o.daysSinceUse, "day")}`,
+  }));
+  return {
+    cells: t,
+    widths: {
+      name: Math.max(5, ...n.map((o) => se(o.name))),
+      source: Math.max(6, ...n.map((o) => se(o.source))),
+      context: Math.max(7, ...t.map((o) => se(o.context))),
+      week: Math.max(9, ...t.map((o) => se(o.week))),
+      uses: Math.max(4, ...n.map((o) => se(String(o.usageCount)))),
+    },
+  };
+}
+class $Q extends Error {
+  featureErrorCode;
+  constructor(n, t) {
+    super("skill-doctor stage failed", { cause: t });
+    this.featureErrorCode = n;
+  }
+}
+function Gge(n) {
+  return {
+    commands: n.options.commands,
+    mcpCommands: n.getMcp().commands,
+    mcpClients: n.getMcp().clients,
+    agentId: n.agentId,
+    mainLoopModel: n.options.mainLoopModel,
+    permissionMode: he(n).mode,
+    storageV5: n.storageV5,
+  };
+}
+async function irt(n) {
+  let t = Ase();
+  t.catch(() => {});
+  let o = O2e(),
+    c = o.allowed
+      ? ONn(n.storageV5).catch((e) => {
+          throw new $Q("scan_failed", e);
+        })
+      : Promise.resolve(new Map());
+  c.catch(() => {});
+  let { included: S } = await B$t(n.mcpCommands, n.agentId, n.storageV5).catch((e) => {
+      throw new $Q("skill_set_failed", e);
+    }),
+    w = _p({ permissionMode: n.permissionMode, mainLoopModel: n.mainLoopModel }),
+    y = U$t(S, w, n.mainLoopModel),
+    p = await c,
+    r = [],
+    l = az([...n.commands]),
+    M = new Set(l.map((e) => e.name)),
+    h = new Set(n.commands.filter((e) => iDe(e) && !M.has(e.name)).map((e) => e.name)),
+    m = new Map();
+  for (let e of l) {
+    let s = e.type === "prompt" ? e.name.lastIndexOf(":") : -1;
+    if (s > 0) {
+      let i = e.name.slice(s + 1);
+      m.set(i, (m.get(i) ?? 0) + 1);
+    }
+  }
+  for (let e of l) {
+    if (e.type !== "prompt") continue;
+    if (e.source === "bundled" || e.source === "builtin" || e.source === "policySettings") continue;
+    if (e.source === "mcp" && e.loadedFrom !== "mcp") continue;
+    let s = e.name.lastIndexOf(":"),
+      i = s > 0 ? e.name.slice(s + 1) : void 0,
+      d = i !== void 0 && h.has(i) && m.get(i) === 1 ? i : void 0,
+      f = P4n(e.name, d ?? e.unqualifiedName);
+    r.push({
+      name: e.pluginInfo ? Fp(e.name) : e.name,
+      source: e.pluginInfo ? Fp(e.pluginInfo.pluginManifest.name) : e.loadedFrom === "syncedSkills" ? hN : e.source,
+      owner:
+        e.source === "plugin"
+          ? "plugin"
+          : e.source === "mcp"
+            ? "mcp"
+            : e.loadedFrom === "syncedSkills"
+              ? "synced"
+              : "settings",
+      pluginKey: e.pluginInfo?.pluginManifest.name,
+      usageCount: f?.usageCount ?? 0,
+      daysSinceUse: f?.daysSinceUse ?? null,
+      listingTokens: y.get(e.name) ?? null,
+      weekTokens: p.get(QA(e)) ?? (d ? p.get(d) : void 0) ?? null,
+    });
+  }
+  r.sort((e, s) => (s.daysSinceUse ?? 1 / 0) - (e.daysSinceUse ?? 1 / 0));
+  let a = r.filter((e) => e.usageCount === 0 && e.listingTokens !== null),
+    x = a.filter((e) => e.owner === "settings"),
+    C = a.filter((e) => e.owner === "synced"),
+    b = new Set(r.filter((e) => e.usageCount > 0 && e.pluginKey !== void 0).map((e) => e.pluginKey)),
+    T = a.filter((e) => e.owner === "plugin" && (e.pluginKey === void 0 || !b.has(e.pluginKey))),
+    u = (e) => {
+      let s = e.name.indexOf(":");
+      return s > 0 ? e.name.slice(0, s) : void 0;
+    },
+    I = new Set(
+      r
+        .filter((e) => e.owner === "mcp" && e.usageCount > 0)
+        .map(u)
+        .filter((e) => e !== void 0),
+    ),
+    g = a.filter((e) => {
+      if (e.owner !== "mcp") return !1;
+      let s = u(e);
+      return s === void 0 || !I.has(s);
+    }),
+    L = te(g.map(u).filter((e) => e !== void 0)).map((e) => Fp(n.mcpClients.find((s) => ln(s.name) === e)?.name ?? e));
+  return {
+    rows: r,
+    unusedOwned: x,
+    unusedFromPlugins: T,
+    unusedFromMcp: g,
+    unusedSynced: C,
+    unusedMcpServers: L,
+    disusedPlugins: await t,
+    weekTokensNote: o.allowed ? null : o.reason,
+  };
+}
+export { h1, ov, D2e, $Q, Gge, irt };

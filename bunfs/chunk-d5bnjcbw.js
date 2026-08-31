@@ -8,5 +8,14 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Qz,Lk}from"/$bunfs/root/chunk-qd35gw0c.js";function mt(e,r,o="foreground"){return(t)=>{if(!e)return t;if(e.startsWith("rgb(")||e.startsWith("#")||e.startsWith("ansi256(")||e.startsWith("ansi:"))return Qz(t,e,o);let i=typeof r==="string"?Lk(r):r;return Qz(t,i[e],o)}}
-export{mt};
+import { Qz, Lk } from "/$bunfs/root/chunk-qd35gw0c.js";
+function mt(e, r, o = "foreground") {
+  return (t) => {
+    if (!e) return t;
+    if (e.startsWith("rgb(") || e.startsWith("#") || e.startsWith("ansi256(") || e.startsWith("ansi:"))
+      return Qz(t, e, o);
+    let i = typeof r === "string" ? Lk(r) : r;
+    return Qz(t, i[e], o);
+  };
+}
+export { mt };

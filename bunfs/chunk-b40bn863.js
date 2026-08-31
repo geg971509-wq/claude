@@ -8,7 +8,12 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{eve}from"/$bunfs/root/chunk-wkxx62a2.js";import{Eo,O$}from"/$bunfs/root/chunk-qk6zade1.js";var yp="main";function Spe(r,t){return`<${eve} from="${Eo(r)}">
-${O$(eve,t)}
-</${eve}>`}
-export{yp,Spe};
+import { eve } from "/$bunfs/root/chunk-wkxx62a2.js";
+import { Eo, O$ } from "/$bunfs/root/chunk-qk6zade1.js";
+var yp = "main";
+function Spe(r, t) {
+  return `<${eve} from="${Eo(r)}">
+${O$(eve, t)}
+</${eve}>`;
+}
+export { yp, Spe };

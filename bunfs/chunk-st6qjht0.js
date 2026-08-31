@@ -8,4 +8,635 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import"/$bunfs/root/chunk-f9h0bg01.js";import"/$bunfs/root/chunk-qq1mdtb5.js";import{ne}from"/$bunfs/root/chunk-tx16jn0x.js";import{oi}from"/$bunfs/root/chunk-492vgtnr.js";import{da}from"/$bunfs/root/chunk-pzvxycbq.js";import"/$bunfs/root/chunk-vfy57cpd.js";import"/$bunfs/root/chunk-4xj01xwv.js";import{l,X}from"/$bunfs/root/chunk-ypdw393e.js";import"/$bunfs/root/chunk-gcks6mn0.js";import"/$bunfs/root/chunk-bzx56g36.js";import"/$bunfs/root/chunk-eqdctte5.js";import"/$bunfs/root/chunk-fec4384a.js";import"/$bunfs/root/chunk-qm65zb83.js";import{vt,n}from"/$bunfs/root/chunk-fv016jr6.js";import"/$bunfs/root/chunk-qk7r0t2g.js";import"/$bunfs/root/chunk-4ddxwr9r.js";import"/$bunfs/root/chunk-wkxx62a2.js";import{Ne}from"/$bunfs/root/chunk-82w4mtvq.js";import{MIt}from"/$bunfs/root/chunk-5vzmp12v.js";import"/$bunfs/root/chunk-r53tkxrh.js";import{y,g}from"/$bunfs/root/chunk-ca80fke8.js";import"/$bunfs/root/chunk-qcx34e4j.js";import"/$bunfs/root/chunk-gtv2468w.js";import"/$bunfs/root/chunk-0pgyw7te.js";import"/$bunfs/root/chunk-ps6pc7xd.js";import"/$bunfs/root/chunk-386w1sy8.js";import"/$bunfs/root/chunk-ax6dy60b.js";import"/$bunfs/root/chunk-6k63g5t6.js";import"/$bunfs/root/chunk-4fwj3vnx.js";import"/$bunfs/root/chunk-nqmqabr8.js";import"/$bunfs/root/chunk-q14dgq5g.js";import"/$bunfs/root/chunk-f5hrzy3k.js";import"/$bunfs/root/chunk-s7e0px8j.js";import"/$bunfs/root/chunk-s28wf80n.js";import"/$bunfs/root/chunk-3bbym8ct.js";import"/$bunfs/root/chunk-cf8qhmdc.js";import"/$bunfs/root/chunk-2masxyqj.js";import"/$bunfs/root/chunk-rgw52f13.js";import"/$bunfs/root/chunk-2rx5nghb.js";import"/$bunfs/root/chunk-z0z1xzkg.js";import"/$bunfs/root/chunk-c47snwm2.js";import"/$bunfs/root/chunk-jpf4kat5.js";import"/$bunfs/root/chunk-s4vc7est.js";import"/$bunfs/root/chunk-hyh5wcm1.js";import"/$bunfs/root/chunk-ntyhd04p.js";import"/$bunfs/root/chunk-8qsdea2c.js";import"/$bunfs/root/chunk-988p40e0.js";import"/$bunfs/root/chunk-0spqrdaj.js";import"/$bunfs/root/chunk-5rt2mvvk.js";import"/$bunfs/root/chunk-1yr12dqr.js";import"/$bunfs/root/chunk-2mmw62jx.js";import"/$bunfs/root/chunk-z2bvp3sv.js";import"/$bunfs/root/chunk-keb644xg.js";import"/$bunfs/root/chunk-bj904w9w.js";import"/$bunfs/root/chunk-18bck2pp.js";import"/$bunfs/root/chunk-dwwpyy7b.js";import"/$bunfs/root/chunk-jck8t8fq.js";import"/$bunfs/root/chunk-psdymar6.js";import"/$bunfs/root/chunk-0r9wzh7g.js";import"/$bunfs/root/chunk-sxxp6vcr.js";import"/$bunfs/root/chunk-rf51999f.js";import{dbt,jMe,bt}from"/$bunfs/root/chunk-8tgj5dp2.js";import"/$bunfs/root/chunk-amem41jf.js";import"/$bunfs/root/chunk-ghara6r1.js";import"/$bunfs/root/chunk-97wwdfyx.js";import"/$bunfs/root/chunk-e7rq8w09.js";import"/$bunfs/root/chunk-v7yhn7cf.js";import"/$bunfs/root/chunk-fbp3w46j.js";import"/$bunfs/root/chunk-z9ex1x2t.js";import"/$bunfs/root/chunk-k4a21mkt.js";import"/$bunfs/root/chunk-4rh74qms.js";import"/$bunfs/root/chunk-r3qa2s4k.js";import"/$bunfs/root/chunk-1evht33z.js";import"/$bunfs/root/chunk-gkfy5ggn.js";import"/$bunfs/root/chunk-qk6zade1.js";import"/$bunfs/root/chunk-4t3vsqt7.js";import"/$bunfs/root/chunk-ejdwrhgv.js";import"/$bunfs/root/chunk-zkvj62rn.js";import"/$bunfs/root/chunk-0g6cj4h1.js";import"/$bunfs/root/chunk-a48rnvhj.js";import"/$bunfs/root/chunk-tzhtxm67.js";import"/$bunfs/root/chunk-mznd09c6.js";import"/$bunfs/root/chunk-167jjb66.js";import"/$bunfs/root/chunk-kxyny47c.js";import"/$bunfs/root/chunk-4r03fm98.js";import"/$bunfs/root/chunk-s4smmnta.js";import"/$bunfs/root/chunk-da857b4g.js";import{QJ,pRt,xie,tDn,Y$e,nDn,fRt,xme,Ret}from"/$bunfs/root/chunk-ar4qw0cj.js";import"/$bunfs/root/chunk-98tgyb1d.js";import{Dt}from"/$bunfs/root/chunk-zze8764r.js";import"/$bunfs/root/chunk-h7dkgq01.js";import"/$bunfs/root/chunk-2n1hsggr.js";import"/$bunfs/root/chunk-s0xdwab3.js";import"/$bunfs/root/chunk-fs02hzwy.js";import"/$bunfs/root/chunk-c76q2y0e.js";import"/$bunfs/root/chunk-cds31m36.js";import"/$bunfs/root/chunk-z15hpjf9.js";import"/$bunfs/root/chunk-1pn2pk9v.js";import"/$bunfs/root/chunk-hebj76vj.js";import"/$bunfs/root/chunk-0mrbtv3q.js";import"/$bunfs/root/chunk-5n1tbe50.js";import"/$bunfs/root/chunk-twwd9fep.js";import"/$bunfs/root/chunk-a2an01ph.js";import"/$bunfs/root/chunk-dck778n3.js";import"/$bunfs/root/chunk-nkjrjh5n.js";import"/$bunfs/root/chunk-c6k0ecxv.js";import"/$bunfs/root/chunk-bp3j8sq3.js";import"/$bunfs/root/chunk-qekzccch.js";import"/$bunfs/root/chunk-s2ac0z44.js";import"/$bunfs/root/chunk-wgz3g40p.js";import"/$bunfs/root/chunk-1mp2j0tx.js";import"/$bunfs/root/chunk-tveh0k24.js";import"/$bunfs/root/chunk-699y5x28.js";import"/$bunfs/root/chunk-37pvmyqb.js";import"/$bunfs/root/chunk-0m39033q.js";import"/$bunfs/root/chunk-6a5ggyw4.js";import"/$bunfs/root/chunk-btcxpqw5.js";import"/$bunfs/root/chunk-k8xha1qv.js";import"/$bunfs/root/chunk-30e2jew7.js";import"/$bunfs/root/chunk-51qp0385.js";import"/$bunfs/root/chunk-wjr8v4tx.js";import"/$bunfs/root/chunk-kbyvkqye.js";import"/$bunfs/root/chunk-dd55s64p.js";import"/$bunfs/root/chunk-83h0j7w2.js";import"/$bunfs/root/chunk-qg6z8ah8.js";import"/$bunfs/root/chunk-308krgtb.js";import"/$bunfs/root/chunk-nf8aaj8a.js";import"/$bunfs/root/chunk-a6xhjq7b.js";import"/$bunfs/root/chunk-qnrh4abv.js";import"/$bunfs/root/chunk-6nmk3t6g.js";import"/$bunfs/root/chunk-jwrz2gmg.js";import"/$bunfs/root/chunk-6w72z84m.js";import"/$bunfs/root/chunk-nkf7ctf5.js";import"/$bunfs/root/chunk-38mxah2g.js";import"/$bunfs/root/chunk-z9bhq3k9.js";import"/$bunfs/root/chunk-v94qfg1j.js";import"/$bunfs/root/chunk-p18e2918.js";import"/$bunfs/root/chunk-rsp0anqd.js";import"/$bunfs/root/chunk-vq9g7y26.js";import"/$bunfs/root/chunk-w3c6n7jh.js";import"/$bunfs/root/chunk-gvnqpbsf.js";import"/$bunfs/root/chunk-d1d8xqks.js";import"/$bunfs/root/chunk-5wecjdtm.js";import"/$bunfs/root/chunk-rgh8hav6.js";import"/$bunfs/root/chunk-qd35gw0c.js";import"/$bunfs/root/chunk-ky33xsw7.js";import"/$bunfs/root/chunk-p1awcxk1.js";import"/$bunfs/root/chunk-vzc4dhqq.js";import"/$bunfs/root/chunk-x06p1jhb.js";import"/$bunfs/root/chunk-91315wj5.js";import"/$bunfs/root/chunk-tz5bx4mb.js";import"/$bunfs/root/chunk-e17gvevg.js";import"/$bunfs/root/chunk-anwgkcw5.js";import"/$bunfs/root/chunk-hz299nfa.js";import"/$bunfs/root/chunk-1v3848mh.js";import"/$bunfs/root/chunk-fctnm902.js";import"/$bunfs/root/chunk-e53y7x75.js";import"/$bunfs/root/chunk-d5s7a9by.js";import"/$bunfs/root/chunk-5g92v3fd.js";import"/$bunfs/root/chunk-76gryyye.js";import"/$bunfs/root/chunk-h605j25g.js";import"/$bunfs/root/chunk-4sw5yxwb.js";import"/$bunfs/root/chunk-vx3kc9d2.js";import"/$bunfs/root/chunk-eb5y4yrx.js";import"/$bunfs/root/chunk-5c5qq1s7.js";import"/$bunfs/root/chunk-4c3hecm4.js";import"/$bunfs/root/chunk-xgfepdf4.js";import"/$bunfs/root/chunk-50g10fz0.js";import"/$bunfs/root/chunk-8td9ks9h.js";import"/$bunfs/root/chunk-9y48by1e.js";import"/$bunfs/root/chunk-cfqs035d.js";import"/$bunfs/root/chunk-9tey6wcd.js";import"/$bunfs/root/chunk-86v6b72m.js";import"/$bunfs/root/chunk-c2kqvv3h.js";import"/$bunfs/root/chunk-cgy998p5.js";import"/$bunfs/root/chunk-hzjjsb0j.js";import"/$bunfs/root/chunk-trte0v0g.js";import"/$bunfs/root/chunk-gmgmb4mg.js";import"/$bunfs/root/chunk-avrc9gay.js";import"/$bunfs/root/chunk-pbd9yggs.js";import"/$bunfs/root/chunk-fvkzpeqe.js";import"/$bunfs/root/chunk-96xrtyd5.js";import"/$bunfs/root/chunk-k7v7xwvs.js";import"/$bunfs/root/chunk-dzv4k86d.js";import"/$bunfs/root/chunk-rt5p4yax.js";import"/$bunfs/root/chunk-jn7d47r1.js";import"/$bunfs/root/chunk-dc4hb8f7.js";import"/$bunfs/root/chunk-z9jgt14c.js";import"/$bunfs/root/chunk-y8sx7bf9.js";import"/$bunfs/root/chunk-q2gyteg0.js";import"/$bunfs/root/chunk-0manfhn2.js";import"/$bunfs/root/chunk-r6ppzf4r.js";import"/$bunfs/root/chunk-4399d2v0.js";import"/$bunfs/root/chunk-y79sc2hm.js";import"/$bunfs/root/chunk-2t3rnt88.js";import"/$bunfs/root/chunk-986hvegp.js";import"/$bunfs/root/chunk-8jsj2mx0.js";import"/$bunfs/root/chunk-dt5bt1kc.js";import"/$bunfs/root/chunk-z9rrv31w.js";import"/$bunfs/root/chunk-5djs3wbb.js";import"/$bunfs/root/chunk-r4m4cqz1.js";import"/$bunfs/root/chunk-mq8h2tk8.js";import"/$bunfs/root/chunk-pdf5n9dy.js";import"/$bunfs/root/chunk-rntp2fy5.js";import"/$bunfs/root/chunk-a9vrr0nr.js";import"/$bunfs/root/chunk-nfmyt8cw.js";import"/$bunfs/root/chunk-6var9pwd.js";import"/$bunfs/root/chunk-gmj1vprd.js";import"/$bunfs/root/chunk-ht15rw3x.js";import"/$bunfs/root/chunk-gay9hbs8.js";import"/$bunfs/root/chunk-mvz9fsh3.js";import"/$bunfs/root/chunk-ddbk6aje.js";import"/$bunfs/root/chunk-krety1hw.js";import"/$bunfs/root/chunk-6ywvv1q0.js";import"/$bunfs/root/chunk-wn1jrcrk.js";import"/$bunfs/root/chunk-zk5v8tw6.js";import"/$bunfs/root/chunk-kdtcyk0z.js";import"/$bunfs/root/chunk-q75cm02t.js";import"/$bunfs/root/chunk-dxqac26z.js";import"/$bunfs/root/chunk-2204t1q0.js";import"/$bunfs/root/chunk-kfdrcvxr.js";import"/$bunfs/root/chunk-fd2h00ye.js";import"/$bunfs/root/chunk-vm4xrmr7.js";import"/$bunfs/root/chunk-hkzwg35z.js";import"/$bunfs/root/chunk-mkweh3a4.js";import"/$bunfs/root/chunk-z6m3k8w5.js";import"/$bunfs/root/chunk-gxxykp81.js";import"/$bunfs/root/chunk-v87rvfy2.js";import{net,Jve,PKt,JJ,kie}from"/$bunfs/root/chunk-s0z4n3aj.js";import"/$bunfs/root/chunk-gwz0vzjq.js";import"/$bunfs/root/chunk-7y4mv6da.js";import"/$bunfs/root/chunk-8kwjh4ab.js";import"/$bunfs/root/chunk-1fwtbc4t.js";import"/$bunfs/root/chunk-6nsyrmhg.js";import"/$bunfs/root/chunk-jjkewjsg.js";import"/$bunfs/root/chunk-4r71nj50.js";import"/$bunfs/root/chunk-3qvtfvqg.js";import"/$bunfs/root/chunk-r7t0evh2.js";import"/$bunfs/root/chunk-6xz0kht6.js";import"/$bunfs/root/chunk-2am7kb6k.js";import"/$bunfs/root/chunk-9kr4hqvs.js";import"/$bunfs/root/chunk-xvwx3w83.js";import"/$bunfs/root/chunk-y9akj3mq.js";import"/$bunfs/root/chunk-gdk3p0b3.js";import"/$bunfs/root/chunk-qy75zxb2.js";import"/$bunfs/root/chunk-r6t6p0zm.js";import"/$bunfs/root/chunk-qpj83ec7.js";import"/$bunfs/root/chunk-f77e8yef.js";import"/$bunfs/root/chunk-f7y0mdt6.js";import"/$bunfs/root/chunk-jb2pzt3t.js";import"/$bunfs/root/chunk-9yzzw213.js";import"/$bunfs/root/chunk-mknyj0qp.js";import"/$bunfs/root/chunk-81defen8.js";import"/$bunfs/root/chunk-mpg6r2j0.js";import"/$bunfs/root/chunk-3dh32z3c.js";import"/$bunfs/root/chunk-n8ecp4gs.js";import"/$bunfs/root/chunk-406nxetx.js";import"/$bunfs/root/chunk-2zf9m1zh.js";import"/$bunfs/root/chunk-rxqmmxnb.js";import"/$bunfs/root/chunk-gdhqsw8a.js";import"/$bunfs/root/chunk-5xr818a0.js";import"/$bunfs/root/chunk-fgavb5x0.js";import"/$bunfs/root/chunk-sqa0bs5e.js";import"/$bunfs/root/chunk-fveqn4y7.js";import"/$bunfs/root/chunk-4zsxhey6.js";import"/$bunfs/root/chunk-61nasexv.js";import"/$bunfs/root/chunk-m1andcps.js";import"/$bunfs/root/chunk-61hbq2wc.js";import"/$bunfs/root/chunk-rq65wazg.js";import"/$bunfs/root/chunk-5tdaspnd.js";import"/$bunfs/root/chunk-rr0yj5sq.js";import"/$bunfs/root/chunk-a7wreksn.js";import"/$bunfs/root/chunk-8sbwe0jk.js";import"/$bunfs/root/chunk-nwb64bac.js";import"/$bunfs/root/chunk-g5y4mxg8.js";import"/$bunfs/root/chunk-cbn30h5b.js";import"/$bunfs/root/chunk-g01aac1k.js";import"/$bunfs/root/chunk-3fwkz19s.js";import"/$bunfs/root/chunk-9319g175.js";import"/$bunfs/root/chunk-szz73wxx.js";import"/$bunfs/root/chunk-b40bn863.js";import"/$bunfs/root/chunk-6mgs10s2.js";import"/$bunfs/root/chunk-6s9ybdq1.js";import"/$bunfs/root/chunk-74qqwjhx.js";import"/$bunfs/root/chunk-1hh0bg14.js";import"/$bunfs/root/chunk-052zvbpg.js";import"/$bunfs/root/chunk-werv747a.js";import"/$bunfs/root/chunk-jzh4kg5x.js";import"/$bunfs/root/chunk-7s7jqj2f.js";import"/$bunfs/root/chunk-56sxk8k2.js";import"/$bunfs/root/chunk-7jz6r17g.js";import"/$bunfs/root/chunk-a4q326ap.js";import{createWriteStream as q}from"fs";import{mkdir as O,readFile as x,rm as N,stat as U,unlink as v}from"fs/promises";import{tmpdir as j}from"os";import{join as b}from"path";import{pipeline as F}from"stream/promises";var w=null,k=nDn,K=4,G=500,C=16000000,z=30000,B=3000,A=40;function L(){let e=oi();if(e.historySpoolDir===null)e.historySpoolDir=b(j(),`cc-history-prefetch-${process.pid}`),vt(()=>e.historySpoolDir===null?void 0:N(e.historySpoolDir,{recursive:!0,force:!0}).catch(()=>{}));return e.historySpoolDir}function E(e,s,r){if(Ne()!=="firstParty")return;if(!MIt.test(e)){n(`[historyPrefetch] ${e} fails CCR_SESSION_ID_RE \u2014 refusing`,{level:"warn"});return}let o=oi().historyPrefetchEntries,a=o.get(e);if(a&&!a.settled)return;if(r?.force!==!0&&a?.settledOk===!0&&a.settledAt!==void 0&&Date.now()-a.settledAt<B)return;let i=L(),u=b(i,`${e}.${Date.now()}.json`),p=performance.now(),f={path:u,written:Promise.resolve(null),settled:!1,pageSize:k},m=(async()=>{await O(i,{recursive:!0,mode:448});let c=async(d)=>bt.get(`/v1/code/sessions/${e}/events?limit=${d}&sort_order=desc`,{auth:"teleport-org",credentials:s,headers:await jMe(),responseType:"stream",timeout:15000,validateStatus:()=>!0}),t=await c(k);if(t.ok&&t.status===400)n(`[historyPrefetch] ${e} limit=${k} rejected (400) \u2014 retrying at ${Y$e}`),t.data.resume(),f.pageSize=Y$e,t=await c(Y$e);if(!t.ok)return n(`[historyPrefetch] ${e} gate=${t.reason} ${"detail"in t?t.detail:""}`),null;if(t.status!==200)return n(`[historyPrefetch] ${e} HTTP ${t.status}`),t.data.resume(),null;return await F(t.data,q(u,{mode:384})),u})().catch((c)=>(n(`[historyPrefetch] ${e} failed: ${l(c)}`),v(u).catch(()=>{}),null));if(f.written=m,o.set(e,f),a)setTimeout((c)=>{v(c).catch(()=>{})},z,a.path).unref();m.then((c)=>{if(f.settled=!0,f.settledAt=Date.now(),f.settledOk=c!==null,c===null&&a?.settled===!0&&o.get(e)===f)o.set(e,{...a,settledAt:Date.now()});n(`[historyPrefetch] ${e} ${c?`\u2192 ${c}`:"null"} +${(performance.now()-p).toFixed(0)}ms`)})}async function D(e,s){let r;try{r=(await U(s)).size}catch(o){if(!X(o))n(`[historyPrefetch] stat ${s} failed: ${l(o)}`);return{skip:"gone"}}if(r>C)return n(`[historyPrefetch] ${e} spool ${r}B exceeds cap \u2014 skipping`),{skip:"oversize"};try{return{body:await x(s,"utf8")}}catch(o){if(!X(o))n(`[historyPrefetch] read ${s} failed: ${l(o)}`);return{skip:"gone"}}}async function we(e,s){let r=oi().historyPrefetchEntries;if(!r.has(e))E(e,s);let o=r.get(e);if(r.delete(e),!o)return null;let a=await o.written;if(a===null)return null;let i=await D(e,a);if(await v(a).catch(()=>{}),"skip"in i)return null;let u=i.body,p=H(u);if(p===null)return n(`[historyPrefetch] ${e} parse failed`),null;if(!p.hasMore)return P(p);let f=await xme(e,s).catch(()=>null);if(f===null)return P(p);let{events:m,firstId:c}=p,t=1,d=Date.now()+G;while(c!==null&&t<K&&Date.now()<d&&!M(m)){let _=d-Date.now(),h=await Promise.race([Ret(f,c,o.pageSize,C),ne(_).then(()=>"budget")]);if(h==="budget"||h===null)break;t++,m.unshift(...h.events),c=h.hasMore?h.firstId:null,p=h}let S=c!==null&&M(m);return n(`[historyPrefetch] ${e} walked ${t} pages, ${m.length} events, complete=${c===null||S}`),P({events:m,firstId:c,hasMore:c!==null&&!S})}async function Ae(e,{maxAgeMs:s,tailMessages:r,credentials:o}){let a=oi().historyPrefetchEntries;if(!a.has(e))E(e,o);let i=a.get(e);if(!i)return null;let u=()=>{if(i.settled&&i.settledAt!==void 0&&Date.now()-i.settledAt>=s)E(e,o,{force:!0})};if(i.peeked!==void 0)return u(),i.peeked;let p=await i.written;if(p===null)return i.peeked=null,u(),null;let f=await D(e,p);if("skip"in f){if(f.skip==="oversize")i.peeked=null,u();return null}let m=f.body,c=H(m);if(c===null)n(`[historyPrefetch] ${e} peek parse failed`);let t=c===null?null:P(c);if(i.peeked=t!==null&&r!==void 0&&t.messages.length>r?{...t,messages:t.messages.slice(-r)}:t,i.peeked!==null)W(e);return u(),i.peeked}function W(e){let s=oi().historyPrefetchEntries,r=0;for(let o of s.values())if(o.peeked!==void 0&&o.peeked!==null)r++;if(r<=A)return;for(let[o,a]of s){if(r<=A)break;if(o===e||a.peeked===void 0||a.peeked===null)continue;a.peeked=void 0,r--}}function H(e){let s;try{s=JSON.parse(e)}catch{return null}if(s===null||typeof s!=="object")return null;let r=Array.isArray(s.data)?s.data:[],o=[];for(let i=r.length-1;i>=0;i--){let u=r[i];if(u?.payload)o.push({payload:u.payload,createdAt:u.created_at,source:u.source,sequenceNum:fRt(u)})}let a=s.next_cursor??null;return{events:o,firstId:a,hasMore:a!==null}}function P(e){let s=Y(e.events),r=[],o=0,a=new Set,i=new Map,u=!1,p=new Set,f,m,c;for(let t of s){if(t.sequenceNum!==void 0&&t.sequenceNum>o)o=t.sequenceNum;try{if(!QJ(t.payload))continue;if(t.source==="worker"){let _=kie(t.payload);if(_)for(let h of _.uuids)a.add(h);if(t.payload.type==="active_goal"){f=Jve(t.payload.value);continue}if(t.payload.type==="autocompact_state"){m=PKt(t.payload.value);continue}c=dbt(t.payload)??c}if(!Q(t))continue;if(R(t)){r=[],a.clear(),i.clear(),u=!1,p.clear();continue}if(w!==null){if(!u)u=Z(t.payload);J(t.payload,p)}let d=null;if(d!==null){let _=t.payload.uuid;if(typeof _==="string")i.set(_,d.map((h)=>h.uuid));r.push(...d);continue}let S=JJ(t.payload,{convertUserTextMessages:!0});if(S.type==="message")r.push(S.message)}catch(d){n(`[historyPrefetch] Skipping ${t.payload.type} frame seq=${t.sequenceNum??"?"} \u2014 conversion threw: ${l(d)}`,{level:"error"})}}if(a.size>0){let t=new Set(a);for(let d of a)for(let S of i.get(d)??[])t.add(S);r=r.filter((d)=>!t.has(d.uuid))}return{messages:r,maxSequenceNum:o,complete:!e.hasMore,nestedUuidAliases:[...i.entries()].filter(([,t])=>t.length>1),hasReplyChannel:u,replyChannelToolUseIds:[...p],lastActiveGoal:f,lastAutocompactState:m,lastWorkerPermissionMode:c}}function Y(e){let s=new Map;for(let o=0;o<e.length;o++){let a=e[o],i=a.payload;if(i.type==="control_response"){let u=i.response;if(typeof u==="object"&&u!==null&&"request_id"in u&&typeof u.request_id==="string")s.delete(u.request_id)}else if(a.source==="worker"&&i.type==="control_cancel_request"&&typeof i.request_id==="string")s.delete(i.request_id);else if(i.type==="result"&&a.source==="worker")s.clear();else if(a.source==="worker"&&i.type==="control_request"&&a.sequenceNum!==void 0&&typeof i.request_id==="string"){let u=i.request;if(typeof u==="object"&&u!==null&&"subtype"in u&&typeof u.subtype==="string"&&tDn.includes(u.subtype))s.set(i.request_id,o)}}if(s.size===0)return e;let r=e.length;for(let o of s.values())r=Math.min(r,o);return e.slice(0,r)}function J(e,s){let r=w;if(r===null||e.type!=="assistant")return;for(let o of e.message.content)if(o.type==="tool_use"&&r.replyChannelBlockKind(o)!==void 0)s.add(o.id)}function Z(e){let s=w;if(s===null)return!1;if(e.type==="system"&&e.subtype==="init"){let r=net(e);return s.hasReplyChannelInit({mcp_servers:r.mcpServers,tools:r.tools})}return e.type==="assistant"&&!e.parent_tool_use_id&&e.message.content.some((r)=>s.replyChannelBlockKind(r)!==void 0)}function R(e){if(e.payload.type!=="conversation_reset"||e.source!==void 0&&e.source!=="worker")return!1;let s=e.payload.new_conversation_id;return typeof s==="string"&&s!==""}function M(e){return e.some(R)}function Q(e){if(e.source===void 0||e.source==="worker")return!0;if(e.payload.type==="user")return!xie(e.payload);return pRt.has(e.payload.type)}function Me(e){if(e===null)g("remote_history_prefetch","miss");else if(e.maxSequenceNum===0)g("remote_history_prefetch","no_seq");else if(!e.complete&&e.messages.length===0)g("remote_history_prefetch","empty_partial");else if(!e.complete)g("remote_history_prefetch","incomplete");else y("remote_history_prefetch")}function be(e){if(e===null||e.maxSequenceNum===0)return null;if(!e.complete&&e.messages.length===0)return null;return e}function Ce(e){return Dt(`Showing recent messages \xB7 full history at ${da(e,void 0,{from:"cli",m:"0"})}`,"notice")}export{we as consumePrefetchedHistory,be as gateSeed,P as historyPageToSeed,Ce as partialSeedNotice,Ae as peekPrefetchedHistory,E as prefetchRemoteHistory,Me as reportPrefetchOutcome};
+import "/$bunfs/root/chunk-f9h0bg01.js";
+import "/$bunfs/root/chunk-qq1mdtb5.js";
+import { ne } from "/$bunfs/root/chunk-tx16jn0x.js";
+import { oi } from "/$bunfs/root/chunk-492vgtnr.js";
+import { da } from "/$bunfs/root/chunk-pzvxycbq.js";
+import "/$bunfs/root/chunk-vfy57cpd.js";
+import "/$bunfs/root/chunk-4xj01xwv.js";
+import { l, X } from "/$bunfs/root/chunk-ypdw393e.js";
+import "/$bunfs/root/chunk-gcks6mn0.js";
+import "/$bunfs/root/chunk-bzx56g36.js";
+import "/$bunfs/root/chunk-eqdctte5.js";
+import "/$bunfs/root/chunk-fec4384a.js";
+import "/$bunfs/root/chunk-qm65zb83.js";
+import { vt, n } from "/$bunfs/root/chunk-fv016jr6.js";
+import "/$bunfs/root/chunk-qk7r0t2g.js";
+import "/$bunfs/root/chunk-4ddxwr9r.js";
+import "/$bunfs/root/chunk-wkxx62a2.js";
+import { Ne } from "/$bunfs/root/chunk-82w4mtvq.js";
+import { MIt } from "/$bunfs/root/chunk-5vzmp12v.js";
+import "/$bunfs/root/chunk-r53tkxrh.js";
+import { y, g } from "/$bunfs/root/chunk-ca80fke8.js";
+import "/$bunfs/root/chunk-qcx34e4j.js";
+import "/$bunfs/root/chunk-gtv2468w.js";
+import "/$bunfs/root/chunk-0pgyw7te.js";
+import "/$bunfs/root/chunk-ps6pc7xd.js";
+import "/$bunfs/root/chunk-386w1sy8.js";
+import "/$bunfs/root/chunk-ax6dy60b.js";
+import "/$bunfs/root/chunk-6k63g5t6.js";
+import "/$bunfs/root/chunk-4fwj3vnx.js";
+import "/$bunfs/root/chunk-nqmqabr8.js";
+import "/$bunfs/root/chunk-q14dgq5g.js";
+import "/$bunfs/root/chunk-f5hrzy3k.js";
+import "/$bunfs/root/chunk-s7e0px8j.js";
+import "/$bunfs/root/chunk-s28wf80n.js";
+import "/$bunfs/root/chunk-3bbym8ct.js";
+import "/$bunfs/root/chunk-cf8qhmdc.js";
+import "/$bunfs/root/chunk-2masxyqj.js";
+import "/$bunfs/root/chunk-rgw52f13.js";
+import "/$bunfs/root/chunk-2rx5nghb.js";
+import "/$bunfs/root/chunk-z0z1xzkg.js";
+import "/$bunfs/root/chunk-c47snwm2.js";
+import "/$bunfs/root/chunk-jpf4kat5.js";
+import "/$bunfs/root/chunk-s4vc7est.js";
+import "/$bunfs/root/chunk-hyh5wcm1.js";
+import "/$bunfs/root/chunk-ntyhd04p.js";
+import "/$bunfs/root/chunk-8qsdea2c.js";
+import "/$bunfs/root/chunk-988p40e0.js";
+import "/$bunfs/root/chunk-0spqrdaj.js";
+import "/$bunfs/root/chunk-5rt2mvvk.js";
+import "/$bunfs/root/chunk-1yr12dqr.js";
+import "/$bunfs/root/chunk-2mmw62jx.js";
+import "/$bunfs/root/chunk-z2bvp3sv.js";
+import "/$bunfs/root/chunk-keb644xg.js";
+import "/$bunfs/root/chunk-bj904w9w.js";
+import "/$bunfs/root/chunk-18bck2pp.js";
+import "/$bunfs/root/chunk-dwwpyy7b.js";
+import "/$bunfs/root/chunk-jck8t8fq.js";
+import "/$bunfs/root/chunk-psdymar6.js";
+import "/$bunfs/root/chunk-0r9wzh7g.js";
+import "/$bunfs/root/chunk-sxxp6vcr.js";
+import "/$bunfs/root/chunk-rf51999f.js";
+import { dbt, jMe, bt } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import "/$bunfs/root/chunk-amem41jf.js";
+import "/$bunfs/root/chunk-ghara6r1.js";
+import "/$bunfs/root/chunk-97wwdfyx.js";
+import "/$bunfs/root/chunk-e7rq8w09.js";
+import "/$bunfs/root/chunk-v7yhn7cf.js";
+import "/$bunfs/root/chunk-fbp3w46j.js";
+import "/$bunfs/root/chunk-z9ex1x2t.js";
+import "/$bunfs/root/chunk-k4a21mkt.js";
+import "/$bunfs/root/chunk-4rh74qms.js";
+import "/$bunfs/root/chunk-r3qa2s4k.js";
+import "/$bunfs/root/chunk-1evht33z.js";
+import "/$bunfs/root/chunk-gkfy5ggn.js";
+import "/$bunfs/root/chunk-qk6zade1.js";
+import "/$bunfs/root/chunk-4t3vsqt7.js";
+import "/$bunfs/root/chunk-ejdwrhgv.js";
+import "/$bunfs/root/chunk-zkvj62rn.js";
+import "/$bunfs/root/chunk-0g6cj4h1.js";
+import "/$bunfs/root/chunk-a48rnvhj.js";
+import "/$bunfs/root/chunk-tzhtxm67.js";
+import "/$bunfs/root/chunk-mznd09c6.js";
+import "/$bunfs/root/chunk-167jjb66.js";
+import "/$bunfs/root/chunk-kxyny47c.js";
+import "/$bunfs/root/chunk-4r03fm98.js";
+import "/$bunfs/root/chunk-s4smmnta.js";
+import "/$bunfs/root/chunk-da857b4g.js";
+import { QJ, pRt, xie, tDn, Y$e, nDn, fRt, xme, Ret } from "/$bunfs/root/chunk-ar4qw0cj.js";
+import "/$bunfs/root/chunk-98tgyb1d.js";
+import { Dt } from "/$bunfs/root/chunk-zze8764r.js";
+import "/$bunfs/root/chunk-h7dkgq01.js";
+import "/$bunfs/root/chunk-2n1hsggr.js";
+import "/$bunfs/root/chunk-s0xdwab3.js";
+import "/$bunfs/root/chunk-fs02hzwy.js";
+import "/$bunfs/root/chunk-c76q2y0e.js";
+import "/$bunfs/root/chunk-cds31m36.js";
+import "/$bunfs/root/chunk-z15hpjf9.js";
+import "/$bunfs/root/chunk-1pn2pk9v.js";
+import "/$bunfs/root/chunk-hebj76vj.js";
+import "/$bunfs/root/chunk-0mrbtv3q.js";
+import "/$bunfs/root/chunk-5n1tbe50.js";
+import "/$bunfs/root/chunk-twwd9fep.js";
+import "/$bunfs/root/chunk-a2an01ph.js";
+import "/$bunfs/root/chunk-dck778n3.js";
+import "/$bunfs/root/chunk-nkjrjh5n.js";
+import "/$bunfs/root/chunk-c6k0ecxv.js";
+import "/$bunfs/root/chunk-bp3j8sq3.js";
+import "/$bunfs/root/chunk-qekzccch.js";
+import "/$bunfs/root/chunk-s2ac0z44.js";
+import "/$bunfs/root/chunk-wgz3g40p.js";
+import "/$bunfs/root/chunk-1mp2j0tx.js";
+import "/$bunfs/root/chunk-tveh0k24.js";
+import "/$bunfs/root/chunk-699y5x28.js";
+import "/$bunfs/root/chunk-37pvmyqb.js";
+import "/$bunfs/root/chunk-0m39033q.js";
+import "/$bunfs/root/chunk-6a5ggyw4.js";
+import "/$bunfs/root/chunk-btcxpqw5.js";
+import "/$bunfs/root/chunk-k8xha1qv.js";
+import "/$bunfs/root/chunk-30e2jew7.js";
+import "/$bunfs/root/chunk-51qp0385.js";
+import "/$bunfs/root/chunk-wjr8v4tx.js";
+import "/$bunfs/root/chunk-kbyvkqye.js";
+import "/$bunfs/root/chunk-dd55s64p.js";
+import "/$bunfs/root/chunk-83h0j7w2.js";
+import "/$bunfs/root/chunk-qg6z8ah8.js";
+import "/$bunfs/root/chunk-308krgtb.js";
+import "/$bunfs/root/chunk-nf8aaj8a.js";
+import "/$bunfs/root/chunk-a6xhjq7b.js";
+import "/$bunfs/root/chunk-qnrh4abv.js";
+import "/$bunfs/root/chunk-6nmk3t6g.js";
+import "/$bunfs/root/chunk-jwrz2gmg.js";
+import "/$bunfs/root/chunk-6w72z84m.js";
+import "/$bunfs/root/chunk-nkf7ctf5.js";
+import "/$bunfs/root/chunk-38mxah2g.js";
+import "/$bunfs/root/chunk-z9bhq3k9.js";
+import "/$bunfs/root/chunk-v94qfg1j.js";
+import "/$bunfs/root/chunk-p18e2918.js";
+import "/$bunfs/root/chunk-rsp0anqd.js";
+import "/$bunfs/root/chunk-vq9g7y26.js";
+import "/$bunfs/root/chunk-w3c6n7jh.js";
+import "/$bunfs/root/chunk-gvnqpbsf.js";
+import "/$bunfs/root/chunk-d1d8xqks.js";
+import "/$bunfs/root/chunk-5wecjdtm.js";
+import "/$bunfs/root/chunk-rgh8hav6.js";
+import "/$bunfs/root/chunk-qd35gw0c.js";
+import "/$bunfs/root/chunk-ky33xsw7.js";
+import "/$bunfs/root/chunk-p1awcxk1.js";
+import "/$bunfs/root/chunk-vzc4dhqq.js";
+import "/$bunfs/root/chunk-x06p1jhb.js";
+import "/$bunfs/root/chunk-91315wj5.js";
+import "/$bunfs/root/chunk-tz5bx4mb.js";
+import "/$bunfs/root/chunk-e17gvevg.js";
+import "/$bunfs/root/chunk-anwgkcw5.js";
+import "/$bunfs/root/chunk-hz299nfa.js";
+import "/$bunfs/root/chunk-1v3848mh.js";
+import "/$bunfs/root/chunk-fctnm902.js";
+import "/$bunfs/root/chunk-e53y7x75.js";
+import "/$bunfs/root/chunk-d5s7a9by.js";
+import "/$bunfs/root/chunk-5g92v3fd.js";
+import "/$bunfs/root/chunk-76gryyye.js";
+import "/$bunfs/root/chunk-h605j25g.js";
+import "/$bunfs/root/chunk-4sw5yxwb.js";
+import "/$bunfs/root/chunk-vx3kc9d2.js";
+import "/$bunfs/root/chunk-eb5y4yrx.js";
+import "/$bunfs/root/chunk-5c5qq1s7.js";
+import "/$bunfs/root/chunk-4c3hecm4.js";
+import "/$bunfs/root/chunk-xgfepdf4.js";
+import "/$bunfs/root/chunk-50g10fz0.js";
+import "/$bunfs/root/chunk-8td9ks9h.js";
+import "/$bunfs/root/chunk-9y48by1e.js";
+import "/$bunfs/root/chunk-cfqs035d.js";
+import "/$bunfs/root/chunk-9tey6wcd.js";
+import "/$bunfs/root/chunk-86v6b72m.js";
+import "/$bunfs/root/chunk-c2kqvv3h.js";
+import "/$bunfs/root/chunk-cgy998p5.js";
+import "/$bunfs/root/chunk-hzjjsb0j.js";
+import "/$bunfs/root/chunk-trte0v0g.js";
+import "/$bunfs/root/chunk-gmgmb4mg.js";
+import "/$bunfs/root/chunk-avrc9gay.js";
+import "/$bunfs/root/chunk-pbd9yggs.js";
+import "/$bunfs/root/chunk-fvkzpeqe.js";
+import "/$bunfs/root/chunk-96xrtyd5.js";
+import "/$bunfs/root/chunk-k7v7xwvs.js";
+import "/$bunfs/root/chunk-dzv4k86d.js";
+import "/$bunfs/root/chunk-rt5p4yax.js";
+import "/$bunfs/root/chunk-jn7d47r1.js";
+import "/$bunfs/root/chunk-dc4hb8f7.js";
+import "/$bunfs/root/chunk-z9jgt14c.js";
+import "/$bunfs/root/chunk-y8sx7bf9.js";
+import "/$bunfs/root/chunk-q2gyteg0.js";
+import "/$bunfs/root/chunk-0manfhn2.js";
+import "/$bunfs/root/chunk-r6ppzf4r.js";
+import "/$bunfs/root/chunk-4399d2v0.js";
+import "/$bunfs/root/chunk-y79sc2hm.js";
+import "/$bunfs/root/chunk-2t3rnt88.js";
+import "/$bunfs/root/chunk-986hvegp.js";
+import "/$bunfs/root/chunk-8jsj2mx0.js";
+import "/$bunfs/root/chunk-dt5bt1kc.js";
+import "/$bunfs/root/chunk-z9rrv31w.js";
+import "/$bunfs/root/chunk-5djs3wbb.js";
+import "/$bunfs/root/chunk-r4m4cqz1.js";
+import "/$bunfs/root/chunk-mq8h2tk8.js";
+import "/$bunfs/root/chunk-pdf5n9dy.js";
+import "/$bunfs/root/chunk-rntp2fy5.js";
+import "/$bunfs/root/chunk-a9vrr0nr.js";
+import "/$bunfs/root/chunk-nfmyt8cw.js";
+import "/$bunfs/root/chunk-6var9pwd.js";
+import "/$bunfs/root/chunk-gmj1vprd.js";
+import "/$bunfs/root/chunk-ht15rw3x.js";
+import "/$bunfs/root/chunk-gay9hbs8.js";
+import "/$bunfs/root/chunk-mvz9fsh3.js";
+import "/$bunfs/root/chunk-ddbk6aje.js";
+import "/$bunfs/root/chunk-krety1hw.js";
+import "/$bunfs/root/chunk-6ywvv1q0.js";
+import "/$bunfs/root/chunk-wn1jrcrk.js";
+import "/$bunfs/root/chunk-zk5v8tw6.js";
+import "/$bunfs/root/chunk-kdtcyk0z.js";
+import "/$bunfs/root/chunk-q75cm02t.js";
+import "/$bunfs/root/chunk-dxqac26z.js";
+import "/$bunfs/root/chunk-2204t1q0.js";
+import "/$bunfs/root/chunk-kfdrcvxr.js";
+import "/$bunfs/root/chunk-fd2h00ye.js";
+import "/$bunfs/root/chunk-vm4xrmr7.js";
+import "/$bunfs/root/chunk-hkzwg35z.js";
+import "/$bunfs/root/chunk-mkweh3a4.js";
+import "/$bunfs/root/chunk-z6m3k8w5.js";
+import "/$bunfs/root/chunk-gxxykp81.js";
+import "/$bunfs/root/chunk-v87rvfy2.js";
+import { net, Jve, PKt, JJ, kie } from "/$bunfs/root/chunk-s0z4n3aj.js";
+import "/$bunfs/root/chunk-gwz0vzjq.js";
+import "/$bunfs/root/chunk-7y4mv6da.js";
+import "/$bunfs/root/chunk-8kwjh4ab.js";
+import "/$bunfs/root/chunk-1fwtbc4t.js";
+import "/$bunfs/root/chunk-6nsyrmhg.js";
+import "/$bunfs/root/chunk-jjkewjsg.js";
+import "/$bunfs/root/chunk-4r71nj50.js";
+import "/$bunfs/root/chunk-3qvtfvqg.js";
+import "/$bunfs/root/chunk-r7t0evh2.js";
+import "/$bunfs/root/chunk-6xz0kht6.js";
+import "/$bunfs/root/chunk-2am7kb6k.js";
+import "/$bunfs/root/chunk-9kr4hqvs.js";
+import "/$bunfs/root/chunk-xvwx3w83.js";
+import "/$bunfs/root/chunk-y9akj3mq.js";
+import "/$bunfs/root/chunk-gdk3p0b3.js";
+import "/$bunfs/root/chunk-qy75zxb2.js";
+import "/$bunfs/root/chunk-r6t6p0zm.js";
+import "/$bunfs/root/chunk-qpj83ec7.js";
+import "/$bunfs/root/chunk-f77e8yef.js";
+import "/$bunfs/root/chunk-f7y0mdt6.js";
+import "/$bunfs/root/chunk-jb2pzt3t.js";
+import "/$bunfs/root/chunk-9yzzw213.js";
+import "/$bunfs/root/chunk-mknyj0qp.js";
+import "/$bunfs/root/chunk-81defen8.js";
+import "/$bunfs/root/chunk-mpg6r2j0.js";
+import "/$bunfs/root/chunk-3dh32z3c.js";
+import "/$bunfs/root/chunk-n8ecp4gs.js";
+import "/$bunfs/root/chunk-406nxetx.js";
+import "/$bunfs/root/chunk-2zf9m1zh.js";
+import "/$bunfs/root/chunk-rxqmmxnb.js";
+import "/$bunfs/root/chunk-gdhqsw8a.js";
+import "/$bunfs/root/chunk-5xr818a0.js";
+import "/$bunfs/root/chunk-fgavb5x0.js";
+import "/$bunfs/root/chunk-sqa0bs5e.js";
+import "/$bunfs/root/chunk-fveqn4y7.js";
+import "/$bunfs/root/chunk-4zsxhey6.js";
+import "/$bunfs/root/chunk-61nasexv.js";
+import "/$bunfs/root/chunk-m1andcps.js";
+import "/$bunfs/root/chunk-61hbq2wc.js";
+import "/$bunfs/root/chunk-rq65wazg.js";
+import "/$bunfs/root/chunk-5tdaspnd.js";
+import "/$bunfs/root/chunk-rr0yj5sq.js";
+import "/$bunfs/root/chunk-a7wreksn.js";
+import "/$bunfs/root/chunk-8sbwe0jk.js";
+import "/$bunfs/root/chunk-nwb64bac.js";
+import "/$bunfs/root/chunk-g5y4mxg8.js";
+import "/$bunfs/root/chunk-cbn30h5b.js";
+import "/$bunfs/root/chunk-g01aac1k.js";
+import "/$bunfs/root/chunk-3fwkz19s.js";
+import "/$bunfs/root/chunk-9319g175.js";
+import "/$bunfs/root/chunk-szz73wxx.js";
+import "/$bunfs/root/chunk-b40bn863.js";
+import "/$bunfs/root/chunk-6mgs10s2.js";
+import "/$bunfs/root/chunk-6s9ybdq1.js";
+import "/$bunfs/root/chunk-74qqwjhx.js";
+import "/$bunfs/root/chunk-1hh0bg14.js";
+import "/$bunfs/root/chunk-052zvbpg.js";
+import "/$bunfs/root/chunk-werv747a.js";
+import "/$bunfs/root/chunk-jzh4kg5x.js";
+import "/$bunfs/root/chunk-7s7jqj2f.js";
+import "/$bunfs/root/chunk-56sxk8k2.js";
+import "/$bunfs/root/chunk-7jz6r17g.js";
+import "/$bunfs/root/chunk-a4q326ap.js";
+import { createWriteStream as q } from "fs";
+import { mkdir as O, readFile as x, rm as N, stat as U, unlink as v } from "fs/promises";
+import { tmpdir as j } from "os";
+import { join as b } from "path";
+import { pipeline as F } from "stream/promises";
+var w = null,
+  k = nDn,
+  K = 4,
+  G = 500,
+  C = 16000000,
+  z = 30000,
+  B = 3000,
+  A = 40;
+function L() {
+  let e = oi();
+  if (e.historySpoolDir === null)
+    (e.historySpoolDir = b(j(), `cc-history-prefetch-${process.pid}`)),
+      vt(() =>
+        e.historySpoolDir === null ? void 0 : N(e.historySpoolDir, { recursive: !0, force: !0 }).catch(() => {}),
+      );
+  return e.historySpoolDir;
+}
+function E(e, s, r) {
+  if (Ne() !== "firstParty") return;
+  if (!MIt.test(e)) {
+    n(`[historyPrefetch] ${e} fails CCR_SESSION_ID_RE \u2014 refusing`, { level: "warn" });
+    return;
+  }
+  let o = oi().historyPrefetchEntries,
+    a = o.get(e);
+  if (a && !a.settled) return;
+  if (r?.force !== !0 && a?.settledOk === !0 && a.settledAt !== void 0 && Date.now() - a.settledAt < B) return;
+  let i = L(),
+    u = b(i, `${e}.${Date.now()}.json`),
+    p = performance.now(),
+    f = { path: u, written: Promise.resolve(null), settled: !1, pageSize: k },
+    m = (async () => {
+      await O(i, { recursive: !0, mode: 448 });
+      let c = async (d) =>
+          bt.get(`/v1/code/sessions/${e}/events?limit=${d}&sort_order=desc`, {
+            auth: "teleport-org",
+            credentials: s,
+            headers: await jMe(),
+            responseType: "stream",
+            timeout: 15000,
+            validateStatus: () => !0,
+          }),
+        t = await c(k);
+      if (t.ok && t.status === 400)
+        n(`[historyPrefetch] ${e} limit=${k} rejected (400) \u2014 retrying at ${Y$e}`),
+          t.data.resume(),
+          (f.pageSize = Y$e),
+          (t = await c(Y$e));
+      if (!t.ok) return n(`[historyPrefetch] ${e} gate=${t.reason} ${"detail" in t ? t.detail : ""}`), null;
+      if (t.status !== 200) return n(`[historyPrefetch] ${e} HTTP ${t.status}`), t.data.resume(), null;
+      return await F(t.data, q(u, { mode: 384 })), u;
+    })().catch((c) => (n(`[historyPrefetch] ${e} failed: ${l(c)}`), v(u).catch(() => {}), null));
+  if (((f.written = m), o.set(e, f), a))
+    setTimeout(
+      (c) => {
+        v(c).catch(() => {});
+      },
+      z,
+      a.path,
+    ).unref();
+  m.then((c) => {
+    if (
+      ((f.settled = !0),
+      (f.settledAt = Date.now()),
+      (f.settledOk = c !== null),
+      c === null && a?.settled === !0 && o.get(e) === f)
+    )
+      o.set(e, { ...a, settledAt: Date.now() });
+    n(`[historyPrefetch] ${e} ${c ? `\u2192 ${c}` : "null"} +${(performance.now() - p).toFixed(0)}ms`);
+  });
+}
+async function D(e, s) {
+  let r;
+  try {
+    r = (await U(s)).size;
+  } catch (o) {
+    if (!X(o)) n(`[historyPrefetch] stat ${s} failed: ${l(o)}`);
+    return { skip: "gone" };
+  }
+  if (r > C) return n(`[historyPrefetch] ${e} spool ${r}B exceeds cap \u2014 skipping`), { skip: "oversize" };
+  try {
+    return { body: await x(s, "utf8") };
+  } catch (o) {
+    if (!X(o)) n(`[historyPrefetch] read ${s} failed: ${l(o)}`);
+    return { skip: "gone" };
+  }
+}
+async function we(e, s) {
+  let r = oi().historyPrefetchEntries;
+  if (!r.has(e)) E(e, s);
+  let o = r.get(e);
+  if ((r.delete(e), !o)) return null;
+  let a = await o.written;
+  if (a === null) return null;
+  let i = await D(e, a);
+  if ((await v(a).catch(() => {}), "skip" in i)) return null;
+  let u = i.body,
+    p = H(u);
+  if (p === null) return n(`[historyPrefetch] ${e} parse failed`), null;
+  if (!p.hasMore) return P(p);
+  let f = await xme(e, s).catch(() => null);
+  if (f === null) return P(p);
+  let { events: m, firstId: c } = p,
+    t = 1,
+    d = Date.now() + G;
+  while (c !== null && t < K && Date.now() < d && !M(m)) {
+    let _ = d - Date.now(),
+      h = await Promise.race([Ret(f, c, o.pageSize, C), ne(_).then(() => "budget")]);
+    if (h === "budget" || h === null) break;
+    t++, m.unshift(...h.events), (c = h.hasMore ? h.firstId : null), (p = h);
+  }
+  let S = c !== null && M(m);
+  return (
+    n(`[historyPrefetch] ${e} walked ${t} pages, ${m.length} events, complete=${c === null || S}`),
+    P({ events: m, firstId: c, hasMore: c !== null && !S })
+  );
+}
+async function Ae(e, { maxAgeMs: s, tailMessages: r, credentials: o }) {
+  let a = oi().historyPrefetchEntries;
+  if (!a.has(e)) E(e, o);
+  let i = a.get(e);
+  if (!i) return null;
+  let u = () => {
+    if (i.settled && i.settledAt !== void 0 && Date.now() - i.settledAt >= s) E(e, o, { force: !0 });
+  };
+  if (i.peeked !== void 0) return u(), i.peeked;
+  let p = await i.written;
+  if (p === null) return (i.peeked = null), u(), null;
+  let f = await D(e, p);
+  if ("skip" in f) {
+    if (f.skip === "oversize") (i.peeked = null), u();
+    return null;
+  }
+  let m = f.body,
+    c = H(m);
+  if (c === null) n(`[historyPrefetch] ${e} peek parse failed`);
+  let t = c === null ? null : P(c);
+  if (
+    ((i.peeked = t !== null && r !== void 0 && t.messages.length > r ? { ...t, messages: t.messages.slice(-r) } : t),
+    i.peeked !== null)
+  )
+    W(e);
+  return u(), i.peeked;
+}
+function W(e) {
+  let s = oi().historyPrefetchEntries,
+    r = 0;
+  for (let o of s.values()) if (o.peeked !== void 0 && o.peeked !== null) r++;
+  if (r <= A) return;
+  for (let [o, a] of s) {
+    if (r <= A) break;
+    if (o === e || a.peeked === void 0 || a.peeked === null) continue;
+    (a.peeked = void 0), r--;
+  }
+}
+function H(e) {
+  let s;
+  try {
+    s = JSON.parse(e);
+  } catch {
+    return null;
+  }
+  if (s === null || typeof s !== "object") return null;
+  let r = Array.isArray(s.data) ? s.data : [],
+    o = [];
+  for (let i = r.length - 1; i >= 0; i--) {
+    let u = r[i];
+    if (u?.payload) o.push({ payload: u.payload, createdAt: u.created_at, source: u.source, sequenceNum: fRt(u) });
+  }
+  let a = s.next_cursor ?? null;
+  return { events: o, firstId: a, hasMore: a !== null };
+}
+function P(e) {
+  let s = Y(e.events),
+    r = [],
+    o = 0,
+    a = new Set(),
+    i = new Map(),
+    u = !1,
+    p = new Set(),
+    f,
+    m,
+    c;
+  for (let t of s) {
+    if (t.sequenceNum !== void 0 && t.sequenceNum > o) o = t.sequenceNum;
+    try {
+      if (!QJ(t.payload)) continue;
+      if (t.source === "worker") {
+        let _ = kie(t.payload);
+        if (_) for (let h of _.uuids) a.add(h);
+        if (t.payload.type === "active_goal") {
+          f = Jve(t.payload.value);
+          continue;
+        }
+        if (t.payload.type === "autocompact_state") {
+          m = PKt(t.payload.value);
+          continue;
+        }
+        c = dbt(t.payload) ?? c;
+      }
+      if (!Q(t)) continue;
+      if (R(t)) {
+        (r = []), a.clear(), i.clear(), (u = !1), p.clear();
+        continue;
+      }
+      if (w !== null) {
+        if (!u) u = Z(t.payload);
+        J(t.payload, p);
+      }
+      let d = null;
+      if (d !== null) {
+        let _ = t.payload.uuid;
+        if (typeof _ === "string")
+          i.set(
+            _,
+            d.map((h) => h.uuid),
+          );
+        r.push(...d);
+        continue;
+      }
+      let S = JJ(t.payload, { convertUserTextMessages: !0 });
+      if (S.type === "message") r.push(S.message);
+    } catch (d) {
+      n(
+        `[historyPrefetch] Skipping ${t.payload.type} frame seq=${t.sequenceNum ?? "?"} \u2014 conversion threw: ${l(d)}`,
+        { level: "error" },
+      );
+    }
+  }
+  if (a.size > 0) {
+    let t = new Set(a);
+    for (let d of a) for (let S of i.get(d) ?? []) t.add(S);
+    r = r.filter((d) => !t.has(d.uuid));
+  }
+  return {
+    messages: r,
+    maxSequenceNum: o,
+    complete: !e.hasMore,
+    nestedUuidAliases: [...i.entries()].filter(([, t]) => t.length > 1),
+    hasReplyChannel: u,
+    replyChannelToolUseIds: [...p],
+    lastActiveGoal: f,
+    lastAutocompactState: m,
+    lastWorkerPermissionMode: c,
+  };
+}
+function Y(e) {
+  let s = new Map();
+  for (let o = 0; o < e.length; o++) {
+    let a = e[o],
+      i = a.payload;
+    if (i.type === "control_response") {
+      let u = i.response;
+      if (typeof u === "object" && u !== null && "request_id" in u && typeof u.request_id === "string")
+        s.delete(u.request_id);
+    } else if (a.source === "worker" && i.type === "control_cancel_request" && typeof i.request_id === "string")
+      s.delete(i.request_id);
+    else if (i.type === "result" && a.source === "worker") s.clear();
+    else if (
+      a.source === "worker" &&
+      i.type === "control_request" &&
+      a.sequenceNum !== void 0 &&
+      typeof i.request_id === "string"
+    ) {
+      let u = i.request;
+      if (
+        typeof u === "object" &&
+        u !== null &&
+        "subtype" in u &&
+        typeof u.subtype === "string" &&
+        tDn.includes(u.subtype)
+      )
+        s.set(i.request_id, o);
+    }
+  }
+  if (s.size === 0) return e;
+  let r = e.length;
+  for (let o of s.values()) r = Math.min(r, o);
+  return e.slice(0, r);
+}
+function J(e, s) {
+  let r = w;
+  if (r === null || e.type !== "assistant") return;
+  for (let o of e.message.content) if (o.type === "tool_use" && r.replyChannelBlockKind(o) !== void 0) s.add(o.id);
+}
+function Z(e) {
+  let s = w;
+  if (s === null) return !1;
+  if (e.type === "system" && e.subtype === "init") {
+    let r = net(e);
+    return s.hasReplyChannelInit({ mcp_servers: r.mcpServers, tools: r.tools });
+  }
+  return (
+    e.type === "assistant" &&
+    !e.parent_tool_use_id &&
+    e.message.content.some((r) => s.replyChannelBlockKind(r) !== void 0)
+  );
+}
+function R(e) {
+  if (e.payload.type !== "conversation_reset" || (e.source !== void 0 && e.source !== "worker")) return !1;
+  let s = e.payload.new_conversation_id;
+  return typeof s === "string" && s !== "";
+}
+function M(e) {
+  return e.some(R);
+}
+function Q(e) {
+  if (e.source === void 0 || e.source === "worker") return !0;
+  if (e.payload.type === "user") return !xie(e.payload);
+  return pRt.has(e.payload.type);
+}
+function Me(e) {
+  if (e === null) g("remote_history_prefetch", "miss");
+  else if (e.maxSequenceNum === 0) g("remote_history_prefetch", "no_seq");
+  else if (!e.complete && e.messages.length === 0) g("remote_history_prefetch", "empty_partial");
+  else if (!e.complete) g("remote_history_prefetch", "incomplete");
+  else y("remote_history_prefetch");
+}
+function be(e) {
+  if (e === null || e.maxSequenceNum === 0) return null;
+  if (!e.complete && e.messages.length === 0) return null;
+  return e;
+}
+function Ce(e) {
+  return Dt(`Showing recent messages \xB7 full history at ${da(e, void 0, { from: "cli", m: "0" })}`, "notice");
+}
+export {
+  we as consumePrefetchedHistory,
+  be as gateSeed,
+  P as historyPageToSeed,
+  Ce as partialSeedNotice,
+  Ae as peekPrefetchedHistory,
+  E as prefetchRemoteHistory,
+  Me as reportPrefetchOutcome,
+};

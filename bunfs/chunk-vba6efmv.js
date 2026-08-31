@@ -8,4 +8,185 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{X8,NL,Y8,qx,Qg,Ub}from"/$bunfs/root/chunk-zze8764r.js";import{l}from"/$bunfs/root/chunk-ypdw393e.js";import{n}from"/$bunfs/root/chunk-fv016jr6.js";import{o,t,A8}from"/$bunfs/root/chunk-he2phymk.js";import{Re,Ns}from"/$bunfs/root/chunk-qg6z8ah8.js";import{bke}from"/$bunfs/root/chunk-pwk6q778.js";import{Xe}from"/$bunfs/root/chunk-gtwaztzc.js";import{Fx,We,A,z,C,u,F}from"/$bunfs/root/chunk-twm95mhz.js";import{je}from"/$bunfs/root/chunk-yz031c9r.js";var ss={};je(ss,{BOLD_WEIGHT:()=>b,HEX_COLOR_PROPS:()=>R,NAMED_TO_HEX:()=>a,PressButton:()=>E,default:()=>ss,heldFor:()=>S,hexOfNamed:()=>g,inkTextPropsOf:()=>T,rebuild:()=>k,renderInputKey:()=>I,siteFailed:()=>D,useEngineDrew:()=>O,useRenderAnswer:()=>N,useRenderHook:()=>P,useRenderInput:()=>v,useRenderVersion:()=>B,withHexColors:()=>H});var c={};je(c,{HEX_COLOR_PROPS:()=>R,NAMED_TO_HEX:()=>a,default:()=>c,hexOfNamed:()=>g,withHexColors:()=>H});var R=["color","backgroundColor","borderColor"];var a={black:"#000000",red:"#e5484d",green:"#46a758",yellow:"#f5d90a",blue:"#3e63dd",magenta:"#d6409f",cyan:"#05a2c2",white:"#ffffff",gray:"#8b8d98",grey:"#8b8d98",blackBright:"#6e6e6e",redBright:"#ff6369",greenBright:"#5bd07f",yellowBright:"#ffe629",blueBright:"#5b8def",magentaBright:"#ee6ac2",cyanBright:"#3ec2e0",whiteBright:"#ffffff"};var g=(e)=>Object.hasOwn(a,e)?a[e]:void 0;function H(e){if(!e)return null;let r={...e};for(let p of R){let s=r[p],i=typeof s==="string"?g(s):void 0;if(i!==void 0)r[p]=i}return r}var d={};je(d,{BOLD_WEIGHT:()=>b,PressButton:()=>E,default:()=>d,heldFor:()=>S,inkTextPropsOf:()=>T,rebuild:()=>k});var b=600;function S(e,r,p){let s=NL.heldRenderInput(e,r);return s!==void 0&&s.component===p.component?s:p}function T(e,r){let p={};if(r)p.bold=!0;if(typeof e!=="string")return p;for(let s of e.split(";")){let i=s.indexOf(":");if(i===-1)continue;let m=s.slice(0,i).trim().toLowerCase(),f=s.slice(i+1).trim().toLowerCase();if(m==="color"&&f!=="")p.color=c.hexOfNamed(f)??f;else if(m==="font-weight"&&(f==="bold"||Number(f)>=b))p.bold=!0;else if(m==="font-style"&&f==="italic")p.italic=!0;else if(m==="text-decoration"&&f.includes("underline"))p.underline=!0}return p}F();var E=({plugin:e,handle:r,label:p})=>Fx(A8,{tabIndex:-1,flexShrink:0,alignSelf:"flex-start",onAction:()=>{X8.runPressSite({plugin:e,handle:r,surface:"terminal"}).catch((s)=>n(`ui.press ${e}: ${l(s)}`,{level:"error"}))},children:({focused:s,hovered:i})=>Fx(t,{inverse:s||i,bold:!0},`[ ${p} ]`)});F();function k(e,r){if(typeof e==="string")return Fx(t,null,e);if(e.type==="engine")return r(e.ref);if(e.type==="Button")return Fx(E,{plugin:e.press.plugin,handle:e.press.handle,label:e.props.label});let p=(e.children??[]).map((s)=>(e.type==="Text"||e.type==="span"||e.type==="b")&&typeof s==="string"?s:k(s,r));return e.type==="Box"||e.type==="Text"?Fx(e.type==="Box"?o:t,c.withHexColors(e.props),...p):e.type==="div"?Fx(o,{flexDirection:"column"},...p):Fx(t,T(e.props?.style,e.type==="b"),...p)}var I=(e,r)=>e?`${r.component}\x00${r.requestId}\x00`+Y8.propsKeyOf(r):"";var D=(e,r)=>n(`ui.render (${e.component} ${e.requestId}): site failed: ${l(r)}`,{level:"error"});F();function O(e){let r=C(!1);if(!e)r.current=!0;return r.current}F();function N(e,r,{version:p,submittedBy:s,staticFrame:i}){let m=s===void 0?void 0:[s],[f,y]=u(()=>e?Qg.renderDraws.settled(r,m):void 0),h=I(e,r);return A(()=>{if(!e||i)return;let x=new AbortController;return Ub.dollar({signal:x.signal,origin:m}).ui.render(r).then((w)=>{if(!x.signal.aborted)y(w)},(w)=>{if(D(r,w),!x.signal.aborted)y(Ns.RENDER_ENGINE_FALLBACK)}),()=>{x.abort(new Re.HooksError("ui.render: superseded"))}},[h,p,e,s,i]),f}F();var B=()=>Xe(qx.renderVersionsStore(),(e)=>e.get(Qg.RENDER_EVENT)??0);function P(e,r,p){let s=Qg.hasRenderHooks(e.component),i=We(bke),m=B(),f=N(s,e,{version:m,submittedBy:p,staticFrame:i}),y=O(s)||i;return Fx(o,{flexDirection:"column",renderEvent:Qg.RENDER_EVENT,renderComponent:e.component},s?f===void 0?y?r(e):null:d.rebuild(f,(h)=>r(d.heldFor(f,h,e))):r(e))}F();var v=(e,r,p)=>z(()=>({surface:"terminal",component:e,...r()}),p);export{ss};
+import { X8, NL, Y8, qx, Qg, Ub } from "/$bunfs/root/chunk-zze8764r.js";
+import { l } from "/$bunfs/root/chunk-ypdw393e.js";
+import { n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { o, t, A8 } from "/$bunfs/root/chunk-he2phymk.js";
+import { Re, Ns } from "/$bunfs/root/chunk-qg6z8ah8.js";
+import { bke } from "/$bunfs/root/chunk-pwk6q778.js";
+import { Xe } from "/$bunfs/root/chunk-gtwaztzc.js";
+import { Fx, We, A, z, C, u, F } from "/$bunfs/root/chunk-twm95mhz.js";
+import { je } from "/$bunfs/root/chunk-yz031c9r.js";
+var ss = {};
+je(ss, {
+  BOLD_WEIGHT: () => b,
+  HEX_COLOR_PROPS: () => R,
+  NAMED_TO_HEX: () => a,
+  PressButton: () => E,
+  default: () => ss,
+  heldFor: () => S,
+  hexOfNamed: () => g,
+  inkTextPropsOf: () => T,
+  rebuild: () => k,
+  renderInputKey: () => I,
+  siteFailed: () => D,
+  useEngineDrew: () => O,
+  useRenderAnswer: () => N,
+  useRenderHook: () => P,
+  useRenderInput: () => v,
+  useRenderVersion: () => B,
+  withHexColors: () => H,
+});
+var c = {};
+je(c, {
+  HEX_COLOR_PROPS: () => R,
+  NAMED_TO_HEX: () => a,
+  default: () => c,
+  hexOfNamed: () => g,
+  withHexColors: () => H,
+});
+var R = ["color", "backgroundColor", "borderColor"];
+var a = {
+  black: "#000000",
+  red: "#e5484d",
+  green: "#46a758",
+  yellow: "#f5d90a",
+  blue: "#3e63dd",
+  magenta: "#d6409f",
+  cyan: "#05a2c2",
+  white: "#ffffff",
+  gray: "#8b8d98",
+  grey: "#8b8d98",
+  blackBright: "#6e6e6e",
+  redBright: "#ff6369",
+  greenBright: "#5bd07f",
+  yellowBright: "#ffe629",
+  blueBright: "#5b8def",
+  magentaBright: "#ee6ac2",
+  cyanBright: "#3ec2e0",
+  whiteBright: "#ffffff",
+};
+var g = (e) => (Object.hasOwn(a, e) ? a[e] : void 0);
+function H(e) {
+  if (!e) return null;
+  let r = { ...e };
+  for (let p of R) {
+    let s = r[p],
+      i = typeof s === "string" ? g(s) : void 0;
+    if (i !== void 0) r[p] = i;
+  }
+  return r;
+}
+var d = {};
+je(d, {
+  BOLD_WEIGHT: () => b,
+  PressButton: () => E,
+  default: () => d,
+  heldFor: () => S,
+  inkTextPropsOf: () => T,
+  rebuild: () => k,
+});
+var b = 600;
+function S(e, r, p) {
+  let s = NL.heldRenderInput(e, r);
+  return s !== void 0 && s.component === p.component ? s : p;
+}
+function T(e, r) {
+  let p = {};
+  if (r) p.bold = !0;
+  if (typeof e !== "string") return p;
+  for (let s of e.split(";")) {
+    let i = s.indexOf(":");
+    if (i === -1) continue;
+    let m = s.slice(0, i).trim().toLowerCase(),
+      f = s
+        .slice(i + 1)
+        .trim()
+        .toLowerCase();
+    if (m === "color" && f !== "") p.color = c.hexOfNamed(f) ?? f;
+    else if (m === "font-weight" && (f === "bold" || Number(f) >= b)) p.bold = !0;
+    else if (m === "font-style" && f === "italic") p.italic = !0;
+    else if (m === "text-decoration" && f.includes("underline")) p.underline = !0;
+  }
+  return p;
+}
+F();
+var E = ({ plugin: e, handle: r, label: p }) =>
+  Fx(A8, {
+    tabIndex: -1,
+    flexShrink: 0,
+    alignSelf: "flex-start",
+    onAction: () => {
+      X8.runPressSite({ plugin: e, handle: r, surface: "terminal" }).catch((s) =>
+        n(`ui.press ${e}: ${l(s)}`, { level: "error" }),
+      );
+    },
+    children: ({ focused: s, hovered: i }) => Fx(t, { inverse: s || i, bold: !0 }, `[ ${p} ]`),
+  });
+F();
+function k(e, r) {
+  if (typeof e === "string") return Fx(t, null, e);
+  if (e.type === "engine") return r(e.ref);
+  if (e.type === "Button") return Fx(E, { plugin: e.press.plugin, handle: e.press.handle, label: e.props.label });
+  let p = (e.children ?? []).map((s) =>
+    (e.type === "Text" || e.type === "span" || e.type === "b") && typeof s === "string" ? s : k(s, r),
+  );
+  return e.type === "Box" || e.type === "Text"
+    ? Fx(e.type === "Box" ? o : t, c.withHexColors(e.props), ...p)
+    : e.type === "div"
+      ? Fx(o, { flexDirection: "column" }, ...p)
+      : Fx(t, T(e.props?.style, e.type === "b"), ...p);
+}
+var I = (e, r) => (e ? `${r.component}\x00${r.requestId}\x00` + Y8.propsKeyOf(r) : "");
+var D = (e, r) => n(`ui.render (${e.component} ${e.requestId}): site failed: ${l(r)}`, { level: "error" });
+F();
+function O(e) {
+  let r = C(!1);
+  if (!e) r.current = !0;
+  return r.current;
+}
+F();
+function N(e, r, { version: p, submittedBy: s, staticFrame: i }) {
+  let m = s === void 0 ? void 0 : [s],
+    [f, y] = u(() => (e ? Qg.renderDraws.settled(r, m) : void 0)),
+    h = I(e, r);
+  return (
+    A(() => {
+      if (!e || i) return;
+      let x = new AbortController();
+      return (
+        Ub.dollar({ signal: x.signal, origin: m })
+          .ui.render(r)
+          .then(
+            (w) => {
+              if (!x.signal.aborted) y(w);
+            },
+            (w) => {
+              if ((D(r, w), !x.signal.aborted)) y(Ns.RENDER_ENGINE_FALLBACK);
+            },
+          ),
+        () => {
+          x.abort(new Re.HooksError("ui.render: superseded"));
+        }
+      );
+    }, [h, p, e, s, i]),
+    f
+  );
+}
+F();
+var B = () => Xe(qx.renderVersionsStore(), (e) => e.get(Qg.RENDER_EVENT) ?? 0);
+function P(e, r, p) {
+  let s = Qg.hasRenderHooks(e.component),
+    i = We(bke),
+    m = B(),
+    f = N(s, e, { version: m, submittedBy: p, staticFrame: i }),
+    y = O(s) || i;
+  return Fx(
+    o,
+    { flexDirection: "column", renderEvent: Qg.RENDER_EVENT, renderComponent: e.component },
+    s ? (f === void 0 ? (y ? r(e) : null) : d.rebuild(f, (h) => r(d.heldFor(f, h, e)))) : r(e),
+  );
+}
+F();
+var v = (e, r, p) => z(() => ({ surface: "terminal", component: e, ...r() }), p);
+export { ss };

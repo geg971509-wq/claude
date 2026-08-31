@@ -8,5 +8,72 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Me,bo}from"/$bunfs/root/chunk-qq1mdtb5.js";import{ol}from"/$bunfs/root/chunk-gcks6mn0.js";import{m}from"/$bunfs/root/chunk-bzx56g36.js";import{T}from"/$bunfs/root/chunk-ma6kk3k0.js";function o(n){let e=n?.trim();return e?e:void 0}function r(n){return n===void 0?void 0:String(n)}var d=m(()=>T.preprocess(r,T.string().optional().transform(o))),s=m(()=>T.preprocess(r,T.string().optional())),u=m(()=>T.preprocess(r,T.string().optional().transform((n)=>Me(n)))),f=m(()=>T.preprocess(r,T.string().optional().transform((n)=>{if(Me(n))return!0;if(bo(n))return!1;return}))),a=m(()=>t());function ulr(n){if(typeof n==="boolean")return n?"1":"0";return String(n)}var x={str:()=>d(),rawStr:()=>s(),bool:()=>u(),triBool:()=>f(),int:(n)=>n?t(n):a(),enum:(n)=>T.preprocess(r,T.string().optional().transform((e)=>e!==void 0&&n.includes(e.trim())?e.trim():void 0))};function t(n){return T.preprocess(r,T.string().optional().transform((e)=>{if(e===void 0)return;if(n?.digitsOnly&&!/^[+-]?\d+$/.test(e.trim()))return;let i=ol(e);if(!Number.isFinite(i))return;if(n?.min!==void 0&&i<n.min)return;if(n?.max!==void 0&&i>n.max)return;return i}))}
-export{ulr,x};
+import { Me, bo } from "/$bunfs/root/chunk-qq1mdtb5.js";
+import { ol } from "/$bunfs/root/chunk-gcks6mn0.js";
+import { m } from "/$bunfs/root/chunk-bzx56g36.js";
+import { T } from "/$bunfs/root/chunk-ma6kk3k0.js";
+function o(n) {
+  let e = n?.trim();
+  return e ? e : void 0;
+}
+function r(n) {
+  return n === void 0 ? void 0 : String(n);
+}
+var d = m(() => T.preprocess(r, T.string().optional().transform(o))),
+  s = m(() => T.preprocess(r, T.string().optional())),
+  u = m(() =>
+    T.preprocess(
+      r,
+      T.string()
+        .optional()
+        .transform((n) => Me(n)),
+    ),
+  ),
+  f = m(() =>
+    T.preprocess(
+      r,
+      T.string()
+        .optional()
+        .transform((n) => {
+          if (Me(n)) return !0;
+          if (bo(n)) return !1;
+          return;
+        }),
+    ),
+  ),
+  a = m(() => t());
+function ulr(n) {
+  if (typeof n === "boolean") return n ? "1" : "0";
+  return String(n);
+}
+var x = {
+  str: () => d(),
+  rawStr: () => s(),
+  bool: () => u(),
+  triBool: () => f(),
+  int: (n) => (n ? t(n) : a()),
+  enum: (n) =>
+    T.preprocess(
+      r,
+      T.string()
+        .optional()
+        .transform((e) => (e !== void 0 && n.includes(e.trim()) ? e.trim() : void 0)),
+    ),
+};
+function t(n) {
+  return T.preprocess(
+    r,
+    T.string()
+      .optional()
+      .transform((e) => {
+        if (e === void 0) return;
+        if (n?.digitsOnly && !/^[+-]?\d+$/.test(e.trim())) return;
+        let i = ol(e);
+        if (!Number.isFinite(i)) return;
+        if (n?.min !== void 0 && i < n.min) return;
+        if (n?.max !== void 0 && i > n.max) return;
+        return i;
+      }),
+  );
+}
+export { ulr, x };

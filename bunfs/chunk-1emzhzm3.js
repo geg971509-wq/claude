@@ -8,5 +8,15 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-function pV(n){return/^\w[\w.@-]*$/.test(n)}function Ra(n,t,r){if(!pV(t))return null;return`claude ${n} ${t}${r?` ${r}`:""}`}function Uk(n,t,{extra:r,tail:i="",fallback:s}){let l=Ra(n,t,r);return l===null?s:`run \`${l}\`${i?` ${i}`:""}`}
-export{pV,Ra,Uk};
+function pV(n) {
+  return /^\w[\w.@-]*$/.test(n);
+}
+function Ra(n, t, r) {
+  if (!pV(t)) return null;
+  return `claude ${n} ${t}${r ? ` ${r}` : ""}`;
+}
+function Uk(n, t, { extra: r, tail: i = "", fallback: s }) {
+  let l = Ra(n, t, r);
+  return l === null ? s : `run \`${l}\`${i ? ` ${i}` : ""}`;
+}
+export { pV, Ra, Uk };

@@ -8,5 +8,140 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-var i={Task:"Agent",KillShell:"TaskStop",KillBash:"TaskStop",AgentOutputTool:"TaskOutput",BashOutputTool:"TaskOutput",AgentOutput:"TaskOutput",BashOutput:"TaskOutput",ListPeers:"ListAgents",Brief:"SendUserMessage",ListMcpResources:"ListMcpResourcesTool",ReadMcpResource:"ReadMcpResourceTool",ReadMcpResourceDir:"ReadMcpResourceDirTool"};function Vd(e){return Object.hasOwn(i,e)?i[e]:e}function MTt(e){let r=[];for(let[t,n]of Object.entries(i))if(n===e)r.push(t);return r}var aGt="workspace",Wpe=`mcp__${aGt}__bash`,NTt=`mcp__${aGt}__web_fetch`;function r1e(e,r){let t=r&&Object.hasOwn(r,e)?r[e]:void 0;return t!==void 0&&t!==e?[e,t]:[e]}function Z6(e,r){if(!r)return[];let t=[];for(let[n,s]of Object.entries(r))if(s===e)t.push(n);return t}function d0(e){return e.includes("*")}function gYe(e,r){return new RegExp(`^${e.split("*").map((n)=>n.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join(".*")}$`,"s").test(r)}function hCe(e,r){return gYe(e,r)}function c(e){return e.replaceAll("\\","\\\\").replaceAll("(","\\(").replaceAll(")","\\)")}function FTt(e,r){let t=e.replaceAll("\\","\\\\").replace(/[[\]()|+^$]/g,(n)=>`\\${n}`);if(r?.escapeGlobs)t=t.replaceAll("*","\\*");if(t.startsWith("!")||t.startsWith("#"))t=`\\${t}`;return t=t.replace(/\s+$/,(n)=>Array.from(n,(s)=>`\\${s}`).join("")),t}function vir(e){return e.replace(/\\([\\[\]!#()|+^$*?\s])/g,"$1")}function a(e){return e.replaceAll("\\(","(").replaceAll("\\)",")").replaceAll("\\\\","\\")}function Ur(e){let r=l(e,"(");if(r===-1)return{toolName:Vd(e)};let t=u(e,")");if(t===-1||t<=r)return{toolName:Vd(e)};if(t!==e.length-1)return{toolName:Vd(e)};let n=e.substring(0,r),s=e.substring(r+1,t);if(!n)return{toolName:Vd(e)};if(s===""||s==="*")return{toolName:Vd(n)};let o=a(s);return{toolName:Vd(n),ruleContent:o}}function eo(e){if(!e.ruleContent)return e.toolName;let r=c(e.ruleContent);return`${e.toolName}(${r})`}function Bu(e){if(e.length===0)return[];let r=[];for(let t of e){if(!t)continue;let n="",s=!1;for(let o of t)switch(o){case"(":s=!0,n+=o;break;case")":s=!1,n+=o;break;case",":if(s)n+=o;else{if(n.trim())r.push(n.trim());n=""}break;case" ":if(s)n+=o;else if(n.trim())r.push(n.trim()),n="";break;default:n+=o}if(n.trim())r.push(n.trim())}return r}function l(e,r){for(let t=0;t<e.length;t++)if(e[t]===r){let n=0,s=t-1;while(s>=0&&e[s]==="\\")n++,s--;if(n%2===0)return t}return-1}function u(e,r){for(let t=e.length-1;t>=0;t--)if(e[t]===r){let n=0,s=t-1;while(s>=0&&e[s]==="\\")n++,s--;if(n%2===0)return t}return-1}
-export{Vd,MTt,aGt,Wpe,NTt,r1e,Z6,d0,gYe,hCe,FTt,vir,Ur,eo,Bu};
+var i = {
+  Task: "Agent",
+  KillShell: "TaskStop",
+  KillBash: "TaskStop",
+  AgentOutputTool: "TaskOutput",
+  BashOutputTool: "TaskOutput",
+  AgentOutput: "TaskOutput",
+  BashOutput: "TaskOutput",
+  ListPeers: "ListAgents",
+  Brief: "SendUserMessage",
+  ListMcpResources: "ListMcpResourcesTool",
+  ReadMcpResource: "ReadMcpResourceTool",
+  ReadMcpResourceDir: "ReadMcpResourceDirTool",
+};
+function Vd(e) {
+  return Object.hasOwn(i, e) ? i[e] : e;
+}
+function MTt(e) {
+  let r = [];
+  for (let [t, n] of Object.entries(i)) if (n === e) r.push(t);
+  return r;
+}
+var aGt = "workspace",
+  Wpe = `mcp__${aGt}__bash`,
+  NTt = `mcp__${aGt}__web_fetch`;
+function r1e(e, r) {
+  let t = r && Object.hasOwn(r, e) ? r[e] : void 0;
+  return t !== void 0 && t !== e ? [e, t] : [e];
+}
+function Z6(e, r) {
+  if (!r) return [];
+  let t = [];
+  for (let [n, s] of Object.entries(r)) if (s === e) t.push(n);
+  return t;
+}
+function d0(e) {
+  return e.includes("*");
+}
+function gYe(e, r) {
+  return new RegExp(
+    `^${e
+      .split("*")
+      .map((n) => n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+      .join(".*")}$`,
+    "s",
+  ).test(r);
+}
+function hCe(e, r) {
+  return gYe(e, r);
+}
+function c(e) {
+  return e.replaceAll("\\", "\\\\").replaceAll("(", "\\(").replaceAll(")", "\\)");
+}
+function FTt(e, r) {
+  let t = e.replaceAll("\\", "\\\\").replace(/[[\]()|+^$]/g, (n) => `\\${n}`);
+  if (r?.escapeGlobs) t = t.replaceAll("*", "\\*");
+  if (t.startsWith("!") || t.startsWith("#")) t = `\\${t}`;
+  return (t = t.replace(/\s+$/, (n) => Array.from(n, (s) => `\\${s}`).join(""))), t;
+}
+function vir(e) {
+  return e.replace(/\\([\\[\]!#()|+^$*?\s])/g, "$1");
+}
+function a(e) {
+  return e.replaceAll("\\(", "(").replaceAll("\\)", ")").replaceAll("\\\\", "\\");
+}
+function Ur(e) {
+  let r = l(e, "(");
+  if (r === -1) return { toolName: Vd(e) };
+  let t = u(e, ")");
+  if (t === -1 || t <= r) return { toolName: Vd(e) };
+  if (t !== e.length - 1) return { toolName: Vd(e) };
+  let n = e.substring(0, r),
+    s = e.substring(r + 1, t);
+  if (!n) return { toolName: Vd(e) };
+  if (s === "" || s === "*") return { toolName: Vd(n) };
+  let o = a(s);
+  return { toolName: Vd(n), ruleContent: o };
+}
+function eo(e) {
+  if (!e.ruleContent) return e.toolName;
+  let r = c(e.ruleContent);
+  return `${e.toolName}(${r})`;
+}
+function Bu(e) {
+  if (e.length === 0) return [];
+  let r = [];
+  for (let t of e) {
+    if (!t) continue;
+    let n = "",
+      s = !1;
+    for (let o of t)
+      switch (o) {
+        case "(":
+          (s = !0), (n += o);
+          break;
+        case ")":
+          (s = !1), (n += o);
+          break;
+        case ",":
+          if (s) n += o;
+          else {
+            if (n.trim()) r.push(n.trim());
+            n = "";
+          }
+          break;
+        case " ":
+          if (s) n += o;
+          else if (n.trim()) r.push(n.trim()), (n = "");
+          break;
+        default:
+          n += o;
+      }
+    if (n.trim()) r.push(n.trim());
+  }
+  return r;
+}
+function l(e, r) {
+  for (let t = 0; t < e.length; t++)
+    if (e[t] === r) {
+      let n = 0,
+        s = t - 1;
+      while (s >= 0 && e[s] === "\\") n++, s--;
+      if (n % 2 === 0) return t;
+    }
+  return -1;
+}
+function u(e, r) {
+  for (let t = e.length - 1; t >= 0; t--)
+    if (e[t] === r) {
+      let n = 0,
+        s = t - 1;
+      while (s >= 0 && e[s] === "\\") n++, s--;
+      if (n % 2 === 0) return t;
+    }
+  return -1;
+}
+export { Vd, MTt, aGt, Wpe, NTt, r1e, Z6, d0, gYe, hCe, FTt, vir, Ur, eo, Bu };

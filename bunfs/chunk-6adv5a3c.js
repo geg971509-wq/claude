@@ -8,4 +8,44 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{QWt}from"/$bunfs/root/chunk-v8ghznj8.js";import"/$bunfs/root/chunk-rgw52f13.js";import"/$bunfs/root/chunk-1hh0bg14.js";import"/$bunfs/root/chunk-s7e0px8j.js";import"/$bunfs/root/chunk-2rx5nghb.js";import"/$bunfs/root/chunk-c47snwm2.js";import"/$bunfs/root/chunk-2masxyqj.js";import"/$bunfs/root/chunk-cf8qhmdc.js";import"/$bunfs/root/chunk-s28wf80n.js";import"/$bunfs/root/chunk-3bbym8ct.js";import"/$bunfs/root/chunk-hyh5wcm1.js";import"/$bunfs/root/chunk-jpf4kat5.js";import"/$bunfs/root/chunk-s4vc7est.js";import"/$bunfs/root/chunk-z0z1xzkg.js";import"/$bunfs/root/chunk-f5hrzy3k.js";import"/$bunfs/root/chunk-nqmqabr8.js";import"/$bunfs/root/chunk-jzh4kg5x.js";import"/$bunfs/root/chunk-4fwj3vnx.js";import"/$bunfs/root/chunk-0pgyw7te.js";import"/$bunfs/root/chunk-ca80fke8.js";import"/$bunfs/root/chunk-r53tkxrh.js";import"/$bunfs/root/chunk-ps6pc7xd.js";import"/$bunfs/root/chunk-fec4384a.js";import"/$bunfs/root/chunk-qm65zb83.js";import"/$bunfs/root/chunk-7s7jqj2f.js";import"/$bunfs/root/chunk-eqdctte5.js";import"/$bunfs/root/chunk-bzx56g36.js";import"/$bunfs/root/chunk-wkxx62a2.js";import"/$bunfs/root/chunk-fv016jr6.js";import"/$bunfs/root/chunk-qk7r0t2g.js";import"/$bunfs/root/chunk-f9h0bg01.js";import"/$bunfs/root/chunk-gcks6mn0.js";import"/$bunfs/root/chunk-56sxk8k2.js";import"/$bunfs/root/chunk-tx16jn0x.js";import"/$bunfs/root/chunk-qq1mdtb5.js";import"/$bunfs/root/chunk-4ddxwr9r.js";import"/$bunfs/root/chunk-ypdw393e.js";import"/$bunfs/root/chunk-4xj01xwv.js";import"/$bunfs/root/chunk-a4q326ap.js";import"/$bunfs/root/chunk-vfy57cpd.js";export{QWt as primeWorkspaceRoots};
+import { QWt } from "/$bunfs/root/chunk-v8ghznj8.js";
+import "/$bunfs/root/chunk-rgw52f13.js";
+import "/$bunfs/root/chunk-1hh0bg14.js";
+import "/$bunfs/root/chunk-s7e0px8j.js";
+import "/$bunfs/root/chunk-2rx5nghb.js";
+import "/$bunfs/root/chunk-c47snwm2.js";
+import "/$bunfs/root/chunk-2masxyqj.js";
+import "/$bunfs/root/chunk-cf8qhmdc.js";
+import "/$bunfs/root/chunk-s28wf80n.js";
+import "/$bunfs/root/chunk-3bbym8ct.js";
+import "/$bunfs/root/chunk-hyh5wcm1.js";
+import "/$bunfs/root/chunk-jpf4kat5.js";
+import "/$bunfs/root/chunk-s4vc7est.js";
+import "/$bunfs/root/chunk-z0z1xzkg.js";
+import "/$bunfs/root/chunk-f5hrzy3k.js";
+import "/$bunfs/root/chunk-nqmqabr8.js";
+import "/$bunfs/root/chunk-jzh4kg5x.js";
+import "/$bunfs/root/chunk-4fwj3vnx.js";
+import "/$bunfs/root/chunk-0pgyw7te.js";
+import "/$bunfs/root/chunk-ca80fke8.js";
+import "/$bunfs/root/chunk-r53tkxrh.js";
+import "/$bunfs/root/chunk-ps6pc7xd.js";
+import "/$bunfs/root/chunk-fec4384a.js";
+import "/$bunfs/root/chunk-qm65zb83.js";
+import "/$bunfs/root/chunk-7s7jqj2f.js";
+import "/$bunfs/root/chunk-eqdctte5.js";
+import "/$bunfs/root/chunk-bzx56g36.js";
+import "/$bunfs/root/chunk-wkxx62a2.js";
+import "/$bunfs/root/chunk-fv016jr6.js";
+import "/$bunfs/root/chunk-qk7r0t2g.js";
+import "/$bunfs/root/chunk-f9h0bg01.js";
+import "/$bunfs/root/chunk-gcks6mn0.js";
+import "/$bunfs/root/chunk-56sxk8k2.js";
+import "/$bunfs/root/chunk-tx16jn0x.js";
+import "/$bunfs/root/chunk-qq1mdtb5.js";
+import "/$bunfs/root/chunk-4ddxwr9r.js";
+import "/$bunfs/root/chunk-ypdw393e.js";
+import "/$bunfs/root/chunk-4xj01xwv.js";
+import "/$bunfs/root/chunk-a4q326ap.js";
+import "/$bunfs/root/chunk-vfy57cpd.js";
+export { QWt as primeWorkspaceRoots };

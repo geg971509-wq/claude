@@ -8,5 +8,104 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{s}from"/$bunfs/root/chunk-r53tkxrh.js";import{c}from"/$bunfs/root/chunk-4xj01xwv.js";import{y,p,g}from"/$bunfs/root/chunk-ca80fke8.js";import{n}from"/$bunfs/root/chunk-fv016jr6.js";import{h}from"/$bunfs/root/chunk-wkxx62a2.js";import{pY}from"/$bunfs/root/chunk-bp3j8sq3.js";import{Rt,tn}from"/$bunfs/root/chunk-y8sx7bf9.js";import{Pb}from"/$bunfs/root/chunk-nxy7wtqk.js";import{srn,xHe,R2n}from"/$bunfs/root/chunk-1y4te1a7.js";import{Nn}from"/$bunfs/root/chunk-c48t1p6v.js";var jnn=20971520,C=60000,w="HEAD",R=16;function i(e,r){return{ok:!1,reason:"git_error",stage:e,detail:r}}function x(e,r){return`${e} exited ${r??"with no status (killed, timed out, or not spawned)"}`}async function o2n({gitRoot:e,prerequisiteSha:r,maxBytes:o=jnn,signal:t}){let l=Date.now(),u=await D({gitRoot:e,prerequisiteSha:r,maxBytes:o,signal:t}).catch((a)=>(h(a),i("threw","unexpected throw")));return T(u,Date.now()-l),u}async function D({gitRoot:e,prerequisiteSha:r,maxBytes:o,signal:t}){if(!tn.test(r))return i("arguments","prerequisite is not an object id");if(!(o>0))return i("arguments","maxBytes is not a positive number");if(Rt(t))return{ok:!1,reason:"aborted"};let l={gitRoot:e,signal:t??new AbortController().signal,timeoutMs:C},u=await Pb(l,["rev-parse","-q","--verify","HEAD"]),a=u.stdout.trim();if(u.exitCode!==0||!tn.test(a))return Rt(t)?{ok:!1,reason:"aborted"}:i("head","HEAD does not resolve");let[_,b]=await Promise.all([Pb(l,["rev-list","--count",`${r}..${a}`,"--"]),Pb(l,["merge-base","--is-ancestor",r,a])]);if(Rt(t))return{ok:!1,reason:"aborted"};if(b.exitCode===1)return{ok:!1,reason:"not_ancestor"};let f=/^\d+$/.test(_.stdout.trim())?Number(_.stdout.trim()):null;if(_.exitCode!==0||f===null||b.exitCode!==0)return i("placement",`${x("rev-list",_.exitCode)}, ${x("merge-base",b.exitCode)}`);if(f===0)return{ok:!1,reason:"not_diverged"};let m=await Pb(l,["rev-list","--objects","--disk-usage",a,`^${r}`,"--"]);if(Rt(t))return{ok:!1,reason:"aborted"};let v=/^\d+$/.test(m.stdout.trim())?Number(m.stdout.trim()):null;if(m.exitCode===0&&v!==null&&v>R*o)return{ok:!1,reason:"too_large",sizeBytes:v,aheadCount:f};let k=pY("ccr-overlay",".bundle");try{let O=await Pb(l,["bundle","create","--quiet",k,`^${r}`,w,"--"]);if(Rt(t))return{ok:!1,reason:"aborted"};if(O.exitCode!==0)return i("bundle_create",x("bundle create",O.exitCode));let d=await xHe(k,o);if(d.kind==="too_large")return{ok:!1,reason:"too_large",sizeBytes:d.sizeBytes,aheadCount:f};let B=srn(d.content);if(B===null)return i("header","the bundle does not open with a well-formed header");let[E,...A]=B.refs;if(E===void 0||A.length>0||E.name!==w||E.id!==a)return i("header","the bundle does not carry exactly HEAD at the id read before packing");if(Rt(t))return{ok:!1,reason:"aborted"};return{ok:!0,content:d.content,sizeBytes:d.content.length,sha256:Nn(d.content),headSha:a,prerequisiteSha:r,prerequisites:B.prerequisites,aheadCount:f}}finally{await R2n(k)}}function T(e,r){let o=e.ok||e.reason==="too_large"?e:null;if(s("tengu_ccr_overlay_bundle",{outcome:c(e.ok?"bundle":e.reason),stage:!e.ok&&e.reason==="git_error"?c(e.stage):void 0,duration_ms:r,size_bytes:o?.sizeBytes,ahead:o?.aheadCount,prerequisite_count:e.ok?e.prerequisites.length:void 0}),e.ok){y("teleport_overlay_bundle");return}if(n(`[overlayBundle] not created: ${e.reason}${e.reason==="git_error"?` (${e.stage}: ${e.detail})`:""}`),e.reason==="aborted"||e.reason==="not_diverged"||e.reason==="not_ancestor")g("teleport_overlay_bundle",e.reason);else p("teleport_overlay_bundle",e.reason,{...e.reason==="git_error"&&{stage:c(e.stage)}})}
-export{jnn,o2n};
+import { s } from "/$bunfs/root/chunk-r53tkxrh.js";
+import { c } from "/$bunfs/root/chunk-4xj01xwv.js";
+import { y, p, g } from "/$bunfs/root/chunk-ca80fke8.js";
+import { n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { h } from "/$bunfs/root/chunk-wkxx62a2.js";
+import { pY } from "/$bunfs/root/chunk-bp3j8sq3.js";
+import { Rt, tn } from "/$bunfs/root/chunk-y8sx7bf9.js";
+import { Pb } from "/$bunfs/root/chunk-nxy7wtqk.js";
+import { srn, xHe, R2n } from "/$bunfs/root/chunk-1y4te1a7.js";
+import { Nn } from "/$bunfs/root/chunk-c48t1p6v.js";
+var jnn = 20971520,
+  C = 60000,
+  w = "HEAD",
+  R = 16;
+function i(e, r) {
+  return { ok: !1, reason: "git_error", stage: e, detail: r };
+}
+function x(e, r) {
+  return `${e} exited ${r ?? "with no status (killed, timed out, or not spawned)"}`;
+}
+async function o2n({ gitRoot: e, prerequisiteSha: r, maxBytes: o = jnn, signal: t }) {
+  let l = Date.now(),
+    u = await D({ gitRoot: e, prerequisiteSha: r, maxBytes: o, signal: t }).catch(
+      (a) => (h(a), i("threw", "unexpected throw")),
+    );
+  return T(u, Date.now() - l), u;
+}
+async function D({ gitRoot: e, prerequisiteSha: r, maxBytes: o, signal: t }) {
+  if (!tn.test(r)) return i("arguments", "prerequisite is not an object id");
+  if (!(o > 0)) return i("arguments", "maxBytes is not a positive number");
+  if (Rt(t)) return { ok: !1, reason: "aborted" };
+  let l = { gitRoot: e, signal: t ?? new AbortController().signal, timeoutMs: C },
+    u = await Pb(l, ["rev-parse", "-q", "--verify", "HEAD"]),
+    a = u.stdout.trim();
+  if (u.exitCode !== 0 || !tn.test(a))
+    return Rt(t) ? { ok: !1, reason: "aborted" } : i("head", "HEAD does not resolve");
+  let [_, b] = await Promise.all([
+    Pb(l, ["rev-list", "--count", `${r}..${a}`, "--"]),
+    Pb(l, ["merge-base", "--is-ancestor", r, a]),
+  ]);
+  if (Rt(t)) return { ok: !1, reason: "aborted" };
+  if (b.exitCode === 1) return { ok: !1, reason: "not_ancestor" };
+  let f = /^\d+$/.test(_.stdout.trim()) ? Number(_.stdout.trim()) : null;
+  if (_.exitCode !== 0 || f === null || b.exitCode !== 0)
+    return i("placement", `${x("rev-list", _.exitCode)}, ${x("merge-base", b.exitCode)}`);
+  if (f === 0) return { ok: !1, reason: "not_diverged" };
+  let m = await Pb(l, ["rev-list", "--objects", "--disk-usage", a, `^${r}`, "--"]);
+  if (Rt(t)) return { ok: !1, reason: "aborted" };
+  let v = /^\d+$/.test(m.stdout.trim()) ? Number(m.stdout.trim()) : null;
+  if (m.exitCode === 0 && v !== null && v > R * o) return { ok: !1, reason: "too_large", sizeBytes: v, aheadCount: f };
+  let k = pY("ccr-overlay", ".bundle");
+  try {
+    let O = await Pb(l, ["bundle", "create", "--quiet", k, `^${r}`, w, "--"]);
+    if (Rt(t)) return { ok: !1, reason: "aborted" };
+    if (O.exitCode !== 0) return i("bundle_create", x("bundle create", O.exitCode));
+    let d = await xHe(k, o);
+    if (d.kind === "too_large") return { ok: !1, reason: "too_large", sizeBytes: d.sizeBytes, aheadCount: f };
+    let B = srn(d.content);
+    if (B === null) return i("header", "the bundle does not open with a well-formed header");
+    let [E, ...A] = B.refs;
+    if (E === void 0 || A.length > 0 || E.name !== w || E.id !== a)
+      return i("header", "the bundle does not carry exactly HEAD at the id read before packing");
+    if (Rt(t)) return { ok: !1, reason: "aborted" };
+    return {
+      ok: !0,
+      content: d.content,
+      sizeBytes: d.content.length,
+      sha256: Nn(d.content),
+      headSha: a,
+      prerequisiteSha: r,
+      prerequisites: B.prerequisites,
+      aheadCount: f,
+    };
+  } finally {
+    await R2n(k);
+  }
+}
+function T(e, r) {
+  let o = e.ok || e.reason === "too_large" ? e : null;
+  if (
+    (s("tengu_ccr_overlay_bundle", {
+      outcome: c(e.ok ? "bundle" : e.reason),
+      stage: !e.ok && e.reason === "git_error" ? c(e.stage) : void 0,
+      duration_ms: r,
+      size_bytes: o?.sizeBytes,
+      ahead: o?.aheadCount,
+      prerequisite_count: e.ok ? e.prerequisites.length : void 0,
+    }),
+    e.ok)
+  ) {
+    y("teleport_overlay_bundle");
+    return;
+  }
+  if (
+    (n(`[overlayBundle] not created: ${e.reason}${e.reason === "git_error" ? ` (${e.stage}: ${e.detail})` : ""}`),
+    e.reason === "aborted" || e.reason === "not_diverged" || e.reason === "not_ancestor")
+  )
+    g("teleport_overlay_bundle", e.reason);
+  else p("teleport_overlay_bundle", e.reason, { ...(e.reason === "git_error" && { stage: c(e.stage) }) });
+}
+export { jnn, o2n };

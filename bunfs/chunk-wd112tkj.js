@@ -8,5 +8,32 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Ue}from"/$bunfs/root/chunk-qq1mdtb5.js";var c=50;function f8(){let s=Ue(),e=[],i=0;return{publish(t,n){let r={line:t,level:n};if(i===0){e=[...e,r].slice(-c);return}s.emit(r)},takeBacklog(){let t=e;return e=[],t},subscribe(t){i+=1;let n=s.subscribe(t);return()=>{i-=1,n()}}}}
-export{f8};
+import { Ue } from "/$bunfs/root/chunk-qq1mdtb5.js";
+var c = 50;
+function f8() {
+  let s = Ue(),
+    e = [],
+    i = 0;
+  return {
+    publish(t, n) {
+      let r = { line: t, level: n };
+      if (i === 0) {
+        e = [...e, r].slice(-c);
+        return;
+      }
+      s.emit(r);
+    },
+    takeBacklog() {
+      let t = e;
+      return (e = []), t;
+    },
+    subscribe(t) {
+      i += 1;
+      let n = s.subscribe(t);
+      return () => {
+        (i -= 1), n();
+      };
+    },
+  };
+}
+export { f8 };

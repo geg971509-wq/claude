@@ -8,4 +8,208 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import"/$bunfs/root/chunk-twwd9fep.js";import"/$bunfs/root/chunk-f9h0bg01.js";import"/$bunfs/root/chunk-qq1mdtb5.js";import"/$bunfs/root/chunk-tx16jn0x.js";import"/$bunfs/root/chunk-vfy57cpd.js";import"/$bunfs/root/chunk-4xj01xwv.js";import{ft}from"/$bunfs/root/chunk-ypdw393e.js";import"/$bunfs/root/chunk-fv016jr6.js";import"/$bunfs/root/chunk-gcks6mn0.js";import"/$bunfs/root/chunk-qk7r0t2g.js";import"/$bunfs/root/chunk-4ddxwr9r.js";import{h}from"/$bunfs/root/chunk-wkxx62a2.js";import"/$bunfs/root/chunk-r53tkxrh.js";import{y,p}from"/$bunfs/root/chunk-ca80fke8.js";import"/$bunfs/root/chunk-bzx56g36.js";import"/$bunfs/root/chunk-eqdctte5.js";import{Zn}from"/$bunfs/root/chunk-fec4384a.js";import"/$bunfs/root/chunk-qm65zb83.js";import"/$bunfs/root/chunk-ps6pc7xd.js";import"/$bunfs/root/chunk-amem41jf.js";import{Kt,ar}from"/$bunfs/root/chunk-8tgj5dp2.js";import"/$bunfs/root/chunk-4fwj3vnx.js";import"/$bunfs/root/chunk-s7e0px8j.js";import"/$bunfs/root/chunk-s28wf80n.js";import"/$bunfs/root/chunk-3bbym8ct.js";import"/$bunfs/root/chunk-cf8qhmdc.js";import"/$bunfs/root/chunk-0pgyw7te.js";import"/$bunfs/root/chunk-2masxyqj.js";import"/$bunfs/root/chunk-rgw52f13.js";import{rt}from"/$bunfs/root/chunk-2rx5nghb.js";import"/$bunfs/root/chunk-f5hrzy3k.js";import"/$bunfs/root/chunk-nqmqabr8.js";import"/$bunfs/root/chunk-z0z1xzkg.js";import"/$bunfs/root/chunk-c47snwm2.js";import"/$bunfs/root/chunk-jpf4kat5.js";import"/$bunfs/root/chunk-s4vc7est.js";import"/$bunfs/root/chunk-hyh5wcm1.js";import"/$bunfs/root/chunk-ntyhd04p.js";import"/$bunfs/root/chunk-6k63g5t6.js";import"/$bunfs/root/chunk-q14dgq5g.js";import"/$bunfs/root/chunk-8qsdea2c.js";import"/$bunfs/root/chunk-988p40e0.js";import"/$bunfs/root/chunk-0spqrdaj.js";import"/$bunfs/root/chunk-5rt2mvvk.js";import"/$bunfs/root/chunk-1yr12dqr.js";import"/$bunfs/root/chunk-2mmw62jx.js";import"/$bunfs/root/chunk-z2bvp3sv.js";import"/$bunfs/root/chunk-keb644xg.js";import"/$bunfs/root/chunk-bj904w9w.js";import"/$bunfs/root/chunk-18bck2pp.js";import"/$bunfs/root/chunk-dwwpyy7b.js";import"/$bunfs/root/chunk-jck8t8fq.js";import"/$bunfs/root/chunk-a48rnvhj.js";import"/$bunfs/root/chunk-492vgtnr.js";import"/$bunfs/root/chunk-qk6zade1.js";import"/$bunfs/root/chunk-0g6cj4h1.js";import"/$bunfs/root/chunk-tzhtxm67.js";import"/$bunfs/root/chunk-mznd09c6.js";import"/$bunfs/root/chunk-167jjb66.js";import"/$bunfs/root/chunk-4rh74qms.js";import"/$bunfs/root/chunk-386w1sy8.js";import"/$bunfs/root/chunk-ax6dy60b.js";import"/$bunfs/root/chunk-qcx34e4j.js";import"/$bunfs/root/chunk-psdymar6.js";import"/$bunfs/root/chunk-0r9wzh7g.js";import"/$bunfs/root/chunk-sxxp6vcr.js";import"/$bunfs/root/chunk-rf51999f.js";import"/$bunfs/root/chunk-82w4mtvq.js";import"/$bunfs/root/chunk-v7yhn7cf.js";import"/$bunfs/root/chunk-kxyny47c.js";import"/$bunfs/root/chunk-e7rq8w09.js";import"/$bunfs/root/chunk-ghara6r1.js";import"/$bunfs/root/chunk-4r03fm98.js";import"/$bunfs/root/chunk-r3qa2s4k.js";import"/$bunfs/root/chunk-k4a21mkt.js";import"/$bunfs/root/chunk-1evht33z.js";import"/$bunfs/root/chunk-97wwdfyx.js";import"/$bunfs/root/chunk-fbp3w46j.js";import"/$bunfs/root/chunk-gtv2468w.js";import"/$bunfs/root/chunk-s4smmnta.js";import"/$bunfs/root/chunk-z9ex1x2t.js";import"/$bunfs/root/chunk-gkfy5ggn.js";import"/$bunfs/root/chunk-4t3vsqt7.js";import"/$bunfs/root/chunk-ejdwrhgv.js";import"/$bunfs/root/chunk-zkvj62rn.js";import{due}from"/$bunfs/root/chunk-5g92v3fd.js";import{T2t}from"/$bunfs/root/chunk-y79sc2hm.js";import{de}from"/$bunfs/root/chunk-xgfepdf4.js";import{FKe}from"/$bunfs/root/chunk-0mrbtv3q.js";import{vZ}from"/$bunfs/root/chunk-0cxwrbmy.js";import{bZn}from"/$bunfs/root/chunk-r4m4cqz1.js";import"/$bunfs/root/chunk-szz73wxx.js";import"/$bunfs/root/chunk-b40bn863.js";import"/$bunfs/root/chunk-6mgs10s2.js";import"/$bunfs/root/chunk-6s9ybdq1.js";import"/$bunfs/root/chunk-1hh0bg14.js";import"/$bunfs/root/chunk-052zvbpg.js";import"/$bunfs/root/chunk-werv747a.js";import"/$bunfs/root/chunk-jzh4kg5x.js";import"/$bunfs/root/chunk-7s7jqj2f.js";import"/$bunfs/root/chunk-56sxk8k2.js";import"/$bunfs/root/chunk-a4q326ap.js";var m=100,_=8,w=131072,l=4096,A=40,S=new RegExp(`^${vZ}$`),E=8;function x(){return Zn.CLAUDE_WORKSHOP_PROGRESS!==!1&&bZn()}function a(t,r){try{t()}catch(e){h(ft(e,`workshop authoring-progress hook failed (${r})`));let o=de().authoringProgress;if(!o.failureReported)o.failureReported=!0,p("workshop_authoring_progress","hook_failed")}}function U(){a(()=>{let{slotsByBlockIndex:t}=de().authoringProgress,r=!1;for(let e of t.values())r=r||e.shown;if(t.clear(),r)T2t.setSpinnerMessage(null)},"reset")}function W(t,r){let e=due(r),o=e??r;if(o!==Kt&&o!==ar)return;a(()=>{let{slotsByBlockIndex:n}=de().authoringProgress;if(n.size>=_||!x())return;n.set(t,{raw:"",flushedAt:0,matched:null,shown:!1,batch:e!==void 0})},"start")}function G(t,r){let e=de().authoringProgress.slotsByBlockIndex.get(t);if(!e||e.matched===!1)return;a(()=>P(e,r),"delta")}function P(t,r){if(t.raw.length<w)t.raw+=r;if(t.matched===null){let i=R(t.raw);if(i.some(FKe))t.matched=!0;else if(t.raw.length>=l||i.length>0&&!t.batch){t.matched=!1,t.raw="";return}else return}let e=Date.now();if(e-t.flushedAt<m)return;t.flushedAt=e;let o=b(t.raw,t.batch);if(!o)return;t.shown=!0;let n=process.stdout.columns||80;T2t.setSpinnerMessage(rt(o,Math.max(40,n-E)))}function V(t){let{slotsByBlockIndex:r}=de().authoringProgress,e=r.get(t);if(!e)return;a(()=>{if(r.delete(t),e.shown)T2t.setSpinnerMessage(null),y("workshop_authoring_progress")},"stop")}function R(t){let r=[];for(let e of t.slice(0,l).matchAll(/"(?:file_path|path)"\s*:\s*"((?:[^"\\]|\\.)*)"/g))r.push(e[1]);return r}function b(t,r=!1){let e=-1;for(let s of t.matchAll(/"(?:new_string|new_str|content)"\s*:\s*"/g))e=s.index+s[0].length;if(e<0)return"";let o=t.slice(e);if(r&&/"path"\s*:/.test(o))return"";if(o.includes("id=\\\"ws-decisions\\\""))return"wiring up the decisions";let n=0,i="",c=-1,g=/data-decision-id=\\"([^"\\]+)\\"/g;for(let s of o.matchAll(g))n+=1,i=s[1],c=s.index;let d=/<figure\b/g,u=0,f=-1;for(let s of o.matchAll(d))u+=1,f=s.index;if(f>c)return`drawing figure ${u}`;if(n>0)return S.test(i)?`drawing decision ${n} \u2014 ${rt(i,A)}`:`drawing decision ${n}`;return"authoring the design page"}export{b as deriveAuthoringProgress,R as extractFilePaths,x as isWorkshopProgressEnabled,G as onInputJsonDelta,W as onToolUseStart,V as onToolUseStop,U as resetAuthoringProgress};
+import "/$bunfs/root/chunk-twwd9fep.js";
+import "/$bunfs/root/chunk-f9h0bg01.js";
+import "/$bunfs/root/chunk-qq1mdtb5.js";
+import "/$bunfs/root/chunk-tx16jn0x.js";
+import "/$bunfs/root/chunk-vfy57cpd.js";
+import "/$bunfs/root/chunk-4xj01xwv.js";
+import { ft } from "/$bunfs/root/chunk-ypdw393e.js";
+import "/$bunfs/root/chunk-fv016jr6.js";
+import "/$bunfs/root/chunk-gcks6mn0.js";
+import "/$bunfs/root/chunk-qk7r0t2g.js";
+import "/$bunfs/root/chunk-4ddxwr9r.js";
+import { h } from "/$bunfs/root/chunk-wkxx62a2.js";
+import "/$bunfs/root/chunk-r53tkxrh.js";
+import { y, p } from "/$bunfs/root/chunk-ca80fke8.js";
+import "/$bunfs/root/chunk-bzx56g36.js";
+import "/$bunfs/root/chunk-eqdctte5.js";
+import { Zn } from "/$bunfs/root/chunk-fec4384a.js";
+import "/$bunfs/root/chunk-qm65zb83.js";
+import "/$bunfs/root/chunk-ps6pc7xd.js";
+import "/$bunfs/root/chunk-amem41jf.js";
+import { Kt, ar } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import "/$bunfs/root/chunk-4fwj3vnx.js";
+import "/$bunfs/root/chunk-s7e0px8j.js";
+import "/$bunfs/root/chunk-s28wf80n.js";
+import "/$bunfs/root/chunk-3bbym8ct.js";
+import "/$bunfs/root/chunk-cf8qhmdc.js";
+import "/$bunfs/root/chunk-0pgyw7te.js";
+import "/$bunfs/root/chunk-2masxyqj.js";
+import "/$bunfs/root/chunk-rgw52f13.js";
+import { rt } from "/$bunfs/root/chunk-2rx5nghb.js";
+import "/$bunfs/root/chunk-f5hrzy3k.js";
+import "/$bunfs/root/chunk-nqmqabr8.js";
+import "/$bunfs/root/chunk-z0z1xzkg.js";
+import "/$bunfs/root/chunk-c47snwm2.js";
+import "/$bunfs/root/chunk-jpf4kat5.js";
+import "/$bunfs/root/chunk-s4vc7est.js";
+import "/$bunfs/root/chunk-hyh5wcm1.js";
+import "/$bunfs/root/chunk-ntyhd04p.js";
+import "/$bunfs/root/chunk-6k63g5t6.js";
+import "/$bunfs/root/chunk-q14dgq5g.js";
+import "/$bunfs/root/chunk-8qsdea2c.js";
+import "/$bunfs/root/chunk-988p40e0.js";
+import "/$bunfs/root/chunk-0spqrdaj.js";
+import "/$bunfs/root/chunk-5rt2mvvk.js";
+import "/$bunfs/root/chunk-1yr12dqr.js";
+import "/$bunfs/root/chunk-2mmw62jx.js";
+import "/$bunfs/root/chunk-z2bvp3sv.js";
+import "/$bunfs/root/chunk-keb644xg.js";
+import "/$bunfs/root/chunk-bj904w9w.js";
+import "/$bunfs/root/chunk-18bck2pp.js";
+import "/$bunfs/root/chunk-dwwpyy7b.js";
+import "/$bunfs/root/chunk-jck8t8fq.js";
+import "/$bunfs/root/chunk-a48rnvhj.js";
+import "/$bunfs/root/chunk-492vgtnr.js";
+import "/$bunfs/root/chunk-qk6zade1.js";
+import "/$bunfs/root/chunk-0g6cj4h1.js";
+import "/$bunfs/root/chunk-tzhtxm67.js";
+import "/$bunfs/root/chunk-mznd09c6.js";
+import "/$bunfs/root/chunk-167jjb66.js";
+import "/$bunfs/root/chunk-4rh74qms.js";
+import "/$bunfs/root/chunk-386w1sy8.js";
+import "/$bunfs/root/chunk-ax6dy60b.js";
+import "/$bunfs/root/chunk-qcx34e4j.js";
+import "/$bunfs/root/chunk-psdymar6.js";
+import "/$bunfs/root/chunk-0r9wzh7g.js";
+import "/$bunfs/root/chunk-sxxp6vcr.js";
+import "/$bunfs/root/chunk-rf51999f.js";
+import "/$bunfs/root/chunk-82w4mtvq.js";
+import "/$bunfs/root/chunk-v7yhn7cf.js";
+import "/$bunfs/root/chunk-kxyny47c.js";
+import "/$bunfs/root/chunk-e7rq8w09.js";
+import "/$bunfs/root/chunk-ghara6r1.js";
+import "/$bunfs/root/chunk-4r03fm98.js";
+import "/$bunfs/root/chunk-r3qa2s4k.js";
+import "/$bunfs/root/chunk-k4a21mkt.js";
+import "/$bunfs/root/chunk-1evht33z.js";
+import "/$bunfs/root/chunk-97wwdfyx.js";
+import "/$bunfs/root/chunk-fbp3w46j.js";
+import "/$bunfs/root/chunk-gtv2468w.js";
+import "/$bunfs/root/chunk-s4smmnta.js";
+import "/$bunfs/root/chunk-z9ex1x2t.js";
+import "/$bunfs/root/chunk-gkfy5ggn.js";
+import "/$bunfs/root/chunk-4t3vsqt7.js";
+import "/$bunfs/root/chunk-ejdwrhgv.js";
+import "/$bunfs/root/chunk-zkvj62rn.js";
+import { due } from "/$bunfs/root/chunk-5g92v3fd.js";
+import { T2t } from "/$bunfs/root/chunk-y79sc2hm.js";
+import { de } from "/$bunfs/root/chunk-xgfepdf4.js";
+import { FKe } from "/$bunfs/root/chunk-0mrbtv3q.js";
+import { vZ } from "/$bunfs/root/chunk-0cxwrbmy.js";
+import { bZn } from "/$bunfs/root/chunk-r4m4cqz1.js";
+import "/$bunfs/root/chunk-szz73wxx.js";
+import "/$bunfs/root/chunk-b40bn863.js";
+import "/$bunfs/root/chunk-6mgs10s2.js";
+import "/$bunfs/root/chunk-6s9ybdq1.js";
+import "/$bunfs/root/chunk-1hh0bg14.js";
+import "/$bunfs/root/chunk-052zvbpg.js";
+import "/$bunfs/root/chunk-werv747a.js";
+import "/$bunfs/root/chunk-jzh4kg5x.js";
+import "/$bunfs/root/chunk-7s7jqj2f.js";
+import "/$bunfs/root/chunk-56sxk8k2.js";
+import "/$bunfs/root/chunk-a4q326ap.js";
+var m = 100,
+  _ = 8,
+  w = 131072,
+  l = 4096,
+  A = 40,
+  S = new RegExp(`^${vZ}$`),
+  E = 8;
+function x() {
+  return Zn.CLAUDE_WORKSHOP_PROGRESS !== !1 && bZn();
+}
+function a(t, r) {
+  try {
+    t();
+  } catch (e) {
+    h(ft(e, `workshop authoring-progress hook failed (${r})`));
+    let o = de().authoringProgress;
+    if (!o.failureReported) (o.failureReported = !0), p("workshop_authoring_progress", "hook_failed");
+  }
+}
+function U() {
+  a(() => {
+    let { slotsByBlockIndex: t } = de().authoringProgress,
+      r = !1;
+    for (let e of t.values()) r = r || e.shown;
+    if ((t.clear(), r)) T2t.setSpinnerMessage(null);
+  }, "reset");
+}
+function W(t, r) {
+  let e = due(r),
+    o = e ?? r;
+  if (o !== Kt && o !== ar) return;
+  a(() => {
+    let { slotsByBlockIndex: n } = de().authoringProgress;
+    if (n.size >= _ || !x()) return;
+    n.set(t, { raw: "", flushedAt: 0, matched: null, shown: !1, batch: e !== void 0 });
+  }, "start");
+}
+function G(t, r) {
+  let e = de().authoringProgress.slotsByBlockIndex.get(t);
+  if (!e || e.matched === !1) return;
+  a(() => P(e, r), "delta");
+}
+function P(t, r) {
+  if (t.raw.length < w) t.raw += r;
+  if (t.matched === null) {
+    let i = R(t.raw);
+    if (i.some(FKe)) t.matched = !0;
+    else if (t.raw.length >= l || (i.length > 0 && !t.batch)) {
+      (t.matched = !1), (t.raw = "");
+      return;
+    } else return;
+  }
+  let e = Date.now();
+  if (e - t.flushedAt < m) return;
+  t.flushedAt = e;
+  let o = b(t.raw, t.batch);
+  if (!o) return;
+  t.shown = !0;
+  let n = process.stdout.columns || 80;
+  T2t.setSpinnerMessage(rt(o, Math.max(40, n - E)));
+}
+function V(t) {
+  let { slotsByBlockIndex: r } = de().authoringProgress,
+    e = r.get(t);
+  if (!e) return;
+  a(() => {
+    if ((r.delete(t), e.shown)) T2t.setSpinnerMessage(null), y("workshop_authoring_progress");
+  }, "stop");
+}
+function R(t) {
+  let r = [];
+  for (let e of t.slice(0, l).matchAll(/"(?:file_path|path)"\s*:\s*"((?:[^"\\]|\\.)*)"/g)) r.push(e[1]);
+  return r;
+}
+function b(t, r = !1) {
+  let e = -1;
+  for (let s of t.matchAll(/"(?:new_string|new_str|content)"\s*:\s*"/g)) e = s.index + s[0].length;
+  if (e < 0) return "";
+  let o = t.slice(e);
+  if (r && /"path"\s*:/.test(o)) return "";
+  if (o.includes('id=\\"ws-decisions\\"')) return "wiring up the decisions";
+  let n = 0,
+    i = "",
+    c = -1,
+    g = /data-decision-id=\\"([^"\\]+)\\"/g;
+  for (let s of o.matchAll(g)) (n += 1), (i = s[1]), (c = s.index);
+  let d = /<figure\b/g,
+    u = 0,
+    f = -1;
+  for (let s of o.matchAll(d)) (u += 1), (f = s.index);
+  if (f > c) return `drawing figure ${u}`;
+  if (n > 0) return S.test(i) ? `drawing decision ${n} \u2014 ${rt(i, A)}` : `drawing decision ${n}`;
+  return "authoring the design page";
+}
+export {
+  b as deriveAuthoringProgress,
+  R as extractFilePaths,
+  x as isWorkshopProgressEnabled,
+  G as onInputJsonDelta,
+  W as onToolUseStart,
+  V as onToolUseStop,
+  U as resetAuthoringProgress,
+};

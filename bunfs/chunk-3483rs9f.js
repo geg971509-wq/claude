@@ -8,5 +8,148 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Te}from"/$bunfs/root/chunk-jpf4kat5.js";import{R}from"/$bunfs/root/chunk-ypdw393e.js";import{Ge,b,V,n}from"/$bunfs/root/chunk-fv016jr6.js";import{be}from"/$bunfs/root/chunk-gcks6mn0.js";import{m}from"/$bunfs/root/chunk-bzx56g36.js";import{Z}from"/$bunfs/root/chunk-wkxx62a2.js";import{jF}from"/$bunfs/root/chunk-5tdaspnd.js";import{ln}from"/$bunfs/root/chunk-tjmf73ft.js";import{i,v,f}from"/$bunfs/root/chunk-saay52v7.js";import{Nn}from"/$bunfs/root/chunk-c48t1p6v.js";import{O}from"/$bunfs/root/chunk-dqkj2bph.js";import{readFile as D,stat as P}from"fs/promises";import{join as u}from"path";var Exe="mcp-skill-archives",p="meta.json",Ilt="SKILL.md",I=86400000,k=m(()=>f({uri:i().optional(),cacheKey:i(),declaredDigest:i().optional(),fetchedAt:v()}));function S(){return u(be(),Exe)}function g(e,t){return Te.userConfigDir(Exe,[e,t,Ilt])}function w(e){return Te.userConfigDir(Exe,[e,p])}function C(e){return jF(u(e,p),()=>k().nullable(),{defaultValue:null,ensureDir:!0})}function y(e,t,o){let r=Nn(`${e}\x00${o}`).slice(0,8),a=t.replace(/[^A-Za-z0-9._-]/g,"-").slice(0,64);return`${ln(e)}--${a}--${r}`}function Plt(e){if(!e)return;let t=/^(?:sha256:)?([0-9a-fA-F]{64})$/.exec(e.trim());return t?t[1].toLowerCase():void 0}async function oin(e){try{return await C(e).read()}catch{return null}}async function _(e,t){await C(e).write(t)}async function E(e,t){let o=await e.read([w(t)]);if(!o.ok)return null;let r=o.value.items[0];if(!r.found)return null;let a;try{a=V(Buffer.from(r.value).toString("utf8"))}catch(s){return n(`mcpSkillCache: meta.json for ${t} is not valid JSON: ${s}`,{level:"warn"}),null}let c=k().nullable().safeParse(a);if(!c.success)return n(`mcpSkillCache: meta.json for ${t} failed schema validation: ${c.error.message}`,{level:"warn"}),null;return c.data}async function L(e,t,o){let r=await e.write(w(t),b(o),{publishDiscipline:"atomic",mode:438&~process.umask()});if(!r.ok)throw new R(`meta.json write failed: ${Ge(r.error)}`,"MCP skill cache meta.json write failed")}async function bjn(e,t,o){let r=y(e,t.name,t.uri),a=u(S(),r),c={hit:!1,slugDir:a},s,d=Plt(t.digest??void 0);if(d)s=d;else{let l=o?await E(o,r):await oin(a);if(!l||Date.now()-l.fetchedAt>=I)return c;s=l.cacheKey}if(o){let l=await o.read([g(r,s)]);if(!l.ok)return c;let h=l.value.items[0];return h.found?{hit:!0,cacheKey:s,skillMd:Buffer.from(h.value).toString("utf8")}:c}let M=u(a,s);try{let l=await D(u(M,Ilt),"utf8");return{hit:!0,cacheKey:s,skillMd:l}}catch{return c}}async function iin(e,t,o,r){return r?(await r.statMeta(g(e,t))).ok:P(u(o,Ilt)).then((a)=>a.isFile()).catch(()=>!1)}async function wjn(e,t,o,r){let a=y(e,t.name,t.uri),c=u(S(),a),s=u(c,o),d=await iin(a,o,s,r);if(d)Z(e,`Skill '${t.name}' content unchanged \u2014 reusing ${s}`);return{slug:a,slugDir:c,keyDir:s,alreadyCached:d}}async function x(e,t,o){for(let r of[[t,o],[t]]){let a=Te.userConfigDir(Exe,r);if((await e.statMeta(a)).ok){n(`[mcp-skills] replacing a stray file at ${Exe}/${r.join("/")} with the cache directory`);let c=await e.delete(a);if(!c.ok)n(`[mcp-skills] could not remove it: ${Ge(c.error)}`);return c.ok}}return!1}async function Tjn(e,t,o,r){let a=g(t,o),c={publishDiscipline:"atomic",mode:438&~process.umask()},s=await e.write(a,r,c);if(!s.ok&&s.error.code==="Failed"&&(s.error.telemetryCode==="ENOTDIR"||s.error.telemetryCode==="ENOENT")&&await x(e,t,o))s=await e.write(a,r,c);if(!s.ok)throw new R(`SKILL.md write failed: ${Ge(s.error)}`,"MCP skill cache SKILL.md write failed")}async function Ejn(e,t,o,r){let a={uri:t.uri,cacheKey:o,declaredDigest:Plt(t.digest??void 0),fetchedAt:Date.now()};if(O()&&r){await L(r,e.slug,a);return}await _(e.slugDir,a)}
-export{Exe,Ilt,Plt,oin,bjn,iin,wjn,Tjn,Ejn};
+import { Te } from "/$bunfs/root/chunk-jpf4kat5.js";
+import { R } from "/$bunfs/root/chunk-ypdw393e.js";
+import { Ge, b, V, n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { be } from "/$bunfs/root/chunk-gcks6mn0.js";
+import { m } from "/$bunfs/root/chunk-bzx56g36.js";
+import { Z } from "/$bunfs/root/chunk-wkxx62a2.js";
+import { jF } from "/$bunfs/root/chunk-5tdaspnd.js";
+import { ln } from "/$bunfs/root/chunk-tjmf73ft.js";
+import { i, v, f } from "/$bunfs/root/chunk-saay52v7.js";
+import { Nn } from "/$bunfs/root/chunk-c48t1p6v.js";
+import { O } from "/$bunfs/root/chunk-dqkj2bph.js";
+import { readFile as D, stat as P } from "fs/promises";
+import { join as u } from "path";
+var Exe = "mcp-skill-archives",
+  p = "meta.json",
+  Ilt = "SKILL.md",
+  I = 86400000,
+  k = m(() => f({ uri: i().optional(), cacheKey: i(), declaredDigest: i().optional(), fetchedAt: v() }));
+function S() {
+  return u(be(), Exe);
+}
+function g(e, t) {
+  return Te.userConfigDir(Exe, [e, t, Ilt]);
+}
+function w(e) {
+  return Te.userConfigDir(Exe, [e, p]);
+}
+function C(e) {
+  return jF(u(e, p), () => k().nullable(), { defaultValue: null, ensureDir: !0 });
+}
+function y(e, t, o) {
+  let r = Nn(`${e}\x00${o}`).slice(0, 8),
+    a = t.replace(/[^A-Za-z0-9._-]/g, "-").slice(0, 64);
+  return `${ln(e)}--${a}--${r}`;
+}
+function Plt(e) {
+  if (!e) return;
+  let t = /^(?:sha256:)?([0-9a-fA-F]{64})$/.exec(e.trim());
+  return t ? t[1].toLowerCase() : void 0;
+}
+async function oin(e) {
+  try {
+    return await C(e).read();
+  } catch {
+    return null;
+  }
+}
+async function _(e, t) {
+  await C(e).write(t);
+}
+async function E(e, t) {
+  let o = await e.read([w(t)]);
+  if (!o.ok) return null;
+  let r = o.value.items[0];
+  if (!r.found) return null;
+  let a;
+  try {
+    a = V(Buffer.from(r.value).toString("utf8"));
+  } catch (s) {
+    return n(`mcpSkillCache: meta.json for ${t} is not valid JSON: ${s}`, { level: "warn" }), null;
+  }
+  let c = k().nullable().safeParse(a);
+  if (!c.success)
+    return n(`mcpSkillCache: meta.json for ${t} failed schema validation: ${c.error.message}`, { level: "warn" }), null;
+  return c.data;
+}
+async function L(e, t, o) {
+  let r = await e.write(w(t), b(o), { publishDiscipline: "atomic", mode: 438 & ~process.umask() });
+  if (!r.ok) throw new R(`meta.json write failed: ${Ge(r.error)}`, "MCP skill cache meta.json write failed");
+}
+async function bjn(e, t, o) {
+  let r = y(e, t.name, t.uri),
+    a = u(S(), r),
+    c = { hit: !1, slugDir: a },
+    s,
+    d = Plt(t.digest ?? void 0);
+  if (d) s = d;
+  else {
+    let l = o ? await E(o, r) : await oin(a);
+    if (!l || Date.now() - l.fetchedAt >= I) return c;
+    s = l.cacheKey;
+  }
+  if (o) {
+    let l = await o.read([g(r, s)]);
+    if (!l.ok) return c;
+    let h = l.value.items[0];
+    return h.found ? { hit: !0, cacheKey: s, skillMd: Buffer.from(h.value).toString("utf8") } : c;
+  }
+  let M = u(a, s);
+  try {
+    let l = await D(u(M, Ilt), "utf8");
+    return { hit: !0, cacheKey: s, skillMd: l };
+  } catch {
+    return c;
+  }
+}
+async function iin(e, t, o, r) {
+  return r
+    ? (await r.statMeta(g(e, t))).ok
+    : P(u(o, Ilt))
+        .then((a) => a.isFile())
+        .catch(() => !1);
+}
+async function wjn(e, t, o, r) {
+  let a = y(e, t.name, t.uri),
+    c = u(S(), a),
+    s = u(c, o),
+    d = await iin(a, o, s, r);
+  if (d) Z(e, `Skill '${t.name}' content unchanged \u2014 reusing ${s}`);
+  return { slug: a, slugDir: c, keyDir: s, alreadyCached: d };
+}
+async function x(e, t, o) {
+  for (let r of [[t, o], [t]]) {
+    let a = Te.userConfigDir(Exe, r);
+    if ((await e.statMeta(a)).ok) {
+      n(`[mcp-skills] replacing a stray file at ${Exe}/${r.join("/")} with the cache directory`);
+      let c = await e.delete(a);
+      if (!c.ok) n(`[mcp-skills] could not remove it: ${Ge(c.error)}`);
+      return c.ok;
+    }
+  }
+  return !1;
+}
+async function Tjn(e, t, o, r) {
+  let a = g(t, o),
+    c = { publishDiscipline: "atomic", mode: 438 & ~process.umask() },
+    s = await e.write(a, r, c);
+  if (
+    !s.ok &&
+    s.error.code === "Failed" &&
+    (s.error.telemetryCode === "ENOTDIR" || s.error.telemetryCode === "ENOENT") &&
+    (await x(e, t, o))
+  )
+    s = await e.write(a, r, c);
+  if (!s.ok) throw new R(`SKILL.md write failed: ${Ge(s.error)}`, "MCP skill cache SKILL.md write failed");
+}
+async function Ejn(e, t, o, r) {
+  let a = { uri: t.uri, cacheKey: o, declaredDigest: Plt(t.digest ?? void 0), fetchedAt: Date.now() };
+  if (O() && r) {
+    await L(r, e.slug, a);
+    return;
+  }
+  await _(e.slugDir, a);
+}
+export { Exe, Ilt, Plt, oin, bjn, iin, wjn, Tjn, Ejn };

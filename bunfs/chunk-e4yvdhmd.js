@@ -8,5 +8,222 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{po,K,Dkn,Se,gn,P0n,Jfe,Le,t1,fie,rc}from"/$bunfs/root/chunk-f9h0bg01.js";import{y}from"/$bunfs/root/chunk-ca80fke8.js";import{Tu,ha}from"/$bunfs/root/chunk-8tgj5dp2.js";import{a}from"/$bunfs/root/chunk-fec4384a.js";import{n}from"/$bunfs/root/chunk-fv016jr6.js";import{h}from"/$bunfs/root/chunk-wkxx62a2.js";import{jlt,iee,cct,dye,LL,MB,UW,Sv,out,$ye,MG,YB,Zg,Dd,Cr,Lc,gl,JL,nI,QL,Wcn,Gcn,Ta,zcn,EUt,Yc,ez,Kqe,z7,pF,tz,XA,ibe,sGe}from"/$bunfs/root/chunk-zze8764r.js";import{Hl,mp}from"/$bunfs/root/chunk-c6k0ecxv.js";import{Xhn}from"/$bunfs/root/chunk-nkjrjh5n.js";import{bd,tV}from"/$bunfs/root/chunk-6a5ggyw4.js";import{CF}from"/$bunfs/root/chunk-btcxpqw5.js";import{i3}from"/$bunfs/root/chunk-x06p1jhb.js";import{AV}from"/$bunfs/root/chunk-hz299nfa.js";import{cY,gEe,tre,hEe,_Ee}from"/$bunfs/root/chunk-xgfepdf4.js";import{Lgt}from"/$bunfs/root/chunk-dt5bt1kc.js";import{Kue}from"/$bunfs/root/chunk-rntp2fy5.js";import{sdn}from"/$bunfs/root/chunk-wn1jrcrk.js";import{H1}from"/$bunfs/root/chunk-k1wj710t.js";import{krt,Hrt}from"/$bunfs/root/chunk-cxaagyn6.js";import{GJt}from"/$bunfs/root/chunk-1ankawzw.js";import{jJt}from"/$bunfs/root/chunk-ev8019wx.js";import{xrt}from"/$bunfs/root/chunk-5m7ykdyk.js";import{Xs}from"/$bunfs/root/chunk-3qvtfvqg.js";import{Q}from"/$bunfs/root/chunk-wag5ye9w.js";import{randomUUID as z}from"crypto";async function*UJt({session:t,setMessages:c,readFileState:L,loadedNestedMemoryPaths:C,sessionEnvVars:M,toolState:N,memorySelector:j,getAppState:i,setAppState:k,sessionHooksRegistry:U,dialogStore:F,isolationLatch:d,taskRegistry:b,clearedSessionTitle:u,storageV5:o,credentials:I}){out(t),Sv(UW),hEe(),tre(),cY();let B=sGe();await ibe(t,"clear",{sessionHooks:U,getAppState:i,signal:AbortSignal.timeout(B),storageV5:o,credentials:I}),cct("conversation_clear");let m=new Set,_=[];if(i)for(let e of Object.values(i().tasks)){if(O(e))continue;if(Cr(e))m.add(e.agentId),_.push(e);else if(Dd(e))m.add(e.identity.agentId)}YB("clear"),c((e)=>{if(iee()==="padded-countdown")jlt.of(t).rollOverContext("main",LL(e));return[]}),jJt(t,m,k,N,o);let v=Se();try{Lc(v)}catch{n(`/clear: originalCwd "${v}" no longer exists; falling back`);let e=gn();if(e!==v)try{Lc(e)}catch{}}if(L.clear(),C)for(let e of Object.keys(C))delete C[e];if(M?.clear(),MB(j),d&&m.size===0)d.current=null;if(i)Hrt(i);let l=Yc(K()),A=ez(),f=!u&&l!==void 0,H=f&&EUt(Ta(K())),p,T;if(gEe(),k){if(F?.dismissKind(H1.kind),Lgt(new Set),k((e)=>{let s={};for(let[S,r]of Object.entries(e.tasks)){if(!O(r)){s[S]=r;continue}try{if(r.status==="running"){if(Zg(r))r.shellCommand?.kill(),r.shellCommand?.cleanup();if("abortController"in r)r.abortController?.abort()}}catch(W){h(W)}bd(S)}return p=Q(Object.values(s),(S)=>!X.has(S.type)),T=e.activeGoal,{...krt(e),tasks:s,runningSubagents:p===0?0:e.runningSubagents,...{endedByModel:!1},attribution:$ye(),cacheBreakerPhrase:void 0,sendMessagePins:{},agentNameRegistry:xrt(e.agentNameRegistry,s),frameUrls:{},standaloneAgentContext:f&&e.standaloneAgentContext?.name?{name:e.standaloneAgentContext.name}:void 0,fileHistory:{snapshots:[],trackedFiles:new Set,snapshotSequence:0}}}),T!==void 0)CF(T,"session_clear")}if(b&&p===0)b.resetWebSearchCalls();if(i){for(let e of i().mcp.clients)if(e.name==="ide"&&e.type==="connected"){i3(e,void 0);let{clearServerCache:s}=import.meta.require("/$bunfs/root/chunk-qadpp1g1.js").mcpClientModule();await s(e.name,e.config).catch(()=>{})}}Xhn();let x=K(),G=u?gl()??Hl():void 0,q=QL(),w=p===0&&m.size===0?void 0:t1();if(Kqe(),q)Wcn();if(w!==void 0)fie(w);let P=z();if(Le()||rc()&&AV())Tu({type:"conversation_reset",new_conversation_id:P}),y("bridge_conversation_reset");yield{type:"conversation_reset",newConversationId:P},P0n(o),Jfe();let R=Ta(K()),J=H||f&&EUt(R);if(Dkn({setCurrentAsParent:!0}),f&&l!==void 0)pF(l);let Z=Promise.resolve(!0);if(Kue(),_Ee(),GJt.of(t).reset(),dye(t),a.CLAUDE_CODE_SESSION_ID)process.env.CLAUDE_CODE_SESSION_ID=K();if(await JL(),Gcn(),zcn(R),await sdn(K(),Hl(),o),u)await nI(x,u,G,"user",o);else if(l){if(await nI(K(),l,void 0,"user",o),A)await z7(K(),A,void 0,"user",o)}for(let e of _){if(e.status!=="running")continue;tV(e.id,mp(po(e.agentId)))}{let{saveMode:e}=import.meta.require("/$bunfs/root/chunk-nx45wyht.js"),{isCoordinatorMode:s}=import.meta.require("/$bunfs/root/chunk-gpgdwqf2.js");e(s()?"coordinator":"normal")}let E=ha();if(E)XA(E,o);if(d?.current)tz(d.current,o);let D=await MG(t,"clear",{storageV5:o,credentials:I});if(D.length>0)c(()=>D)}function O(t){return"isBackgrounded"in t&&t.isBackgrounded===!1}var X=new Set(["local_bash","monitor_mcp","monitor_ws","mcp_task"]),Y=new Set(["local_agent","in_process_teammate","local_workflow","dream"]);function BJt(t){return Object.values(t).some((c)=>!O(c)&&Y.has(c.type)&&!Xs(c.status))}
-export{UJt,BJt};
+import { po, K, Dkn, Se, gn, P0n, Jfe, Le, t1, fie, rc } from "/$bunfs/root/chunk-f9h0bg01.js";
+import { y } from "/$bunfs/root/chunk-ca80fke8.js";
+import { Tu, ha } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { a } from "/$bunfs/root/chunk-fec4384a.js";
+import { n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { h } from "/$bunfs/root/chunk-wkxx62a2.js";
+import {
+  jlt,
+  iee,
+  cct,
+  dye,
+  LL,
+  MB,
+  UW,
+  Sv,
+  out,
+  $ye,
+  MG,
+  YB,
+  Zg,
+  Dd,
+  Cr,
+  Lc,
+  gl,
+  JL,
+  nI,
+  QL,
+  Wcn,
+  Gcn,
+  Ta,
+  zcn,
+  EUt,
+  Yc,
+  ez,
+  Kqe,
+  z7,
+  pF,
+  tz,
+  XA,
+  ibe,
+  sGe,
+} from "/$bunfs/root/chunk-zze8764r.js";
+import { Hl, mp } from "/$bunfs/root/chunk-c6k0ecxv.js";
+import { Xhn } from "/$bunfs/root/chunk-nkjrjh5n.js";
+import { bd, tV } from "/$bunfs/root/chunk-6a5ggyw4.js";
+import { CF } from "/$bunfs/root/chunk-btcxpqw5.js";
+import { i3 } from "/$bunfs/root/chunk-x06p1jhb.js";
+import { AV } from "/$bunfs/root/chunk-hz299nfa.js";
+import { cY, gEe, tre, hEe, _Ee } from "/$bunfs/root/chunk-xgfepdf4.js";
+import { Lgt } from "/$bunfs/root/chunk-dt5bt1kc.js";
+import { Kue } from "/$bunfs/root/chunk-rntp2fy5.js";
+import { sdn } from "/$bunfs/root/chunk-wn1jrcrk.js";
+import { H1 } from "/$bunfs/root/chunk-k1wj710t.js";
+import { krt, Hrt } from "/$bunfs/root/chunk-cxaagyn6.js";
+import { GJt } from "/$bunfs/root/chunk-1ankawzw.js";
+import { jJt } from "/$bunfs/root/chunk-ev8019wx.js";
+import { xrt } from "/$bunfs/root/chunk-5m7ykdyk.js";
+import { Xs } from "/$bunfs/root/chunk-3qvtfvqg.js";
+import { Q } from "/$bunfs/root/chunk-wag5ye9w.js";
+import { randomUUID as z } from "crypto";
+async function* UJt({
+  session: t,
+  setMessages: c,
+  readFileState: L,
+  loadedNestedMemoryPaths: C,
+  sessionEnvVars: M,
+  toolState: N,
+  memorySelector: j,
+  getAppState: i,
+  setAppState: k,
+  sessionHooksRegistry: U,
+  dialogStore: F,
+  isolationLatch: d,
+  taskRegistry: b,
+  clearedSessionTitle: u,
+  storageV5: o,
+  credentials: I,
+}) {
+  out(t), Sv(UW), hEe(), tre(), cY();
+  let B = sGe();
+  await ibe(t, "clear", {
+    sessionHooks: U,
+    getAppState: i,
+    signal: AbortSignal.timeout(B),
+    storageV5: o,
+    credentials: I,
+  }),
+    cct("conversation_clear");
+  let m = new Set(),
+    _ = [];
+  if (i)
+    for (let e of Object.values(i().tasks)) {
+      if (O(e)) continue;
+      if (Cr(e)) m.add(e.agentId), _.push(e);
+      else if (Dd(e)) m.add(e.identity.agentId);
+    }
+  YB("clear"),
+    c((e) => {
+      if (iee() === "padded-countdown") jlt.of(t).rollOverContext("main", LL(e));
+      return [];
+    }),
+    jJt(t, m, k, N, o);
+  let v = Se();
+  try {
+    Lc(v);
+  } catch {
+    n(`/clear: originalCwd "${v}" no longer exists; falling back`);
+    let e = gn();
+    if (e !== v)
+      try {
+        Lc(e);
+      } catch {}
+  }
+  if ((L.clear(), C)) for (let e of Object.keys(C)) delete C[e];
+  if ((M?.clear(), MB(j), d && m.size === 0)) d.current = null;
+  if (i) Hrt(i);
+  let l = Yc(K()),
+    A = ez(),
+    f = !u && l !== void 0,
+    H = f && EUt(Ta(K())),
+    p,
+    T;
+  if ((gEe(), k)) {
+    if (
+      (F?.dismissKind(H1.kind),
+      Lgt(new Set()),
+      k((e) => {
+        let s = {};
+        for (let [S, r] of Object.entries(e.tasks)) {
+          if (!O(r)) {
+            s[S] = r;
+            continue;
+          }
+          try {
+            if (r.status === "running") {
+              if (Zg(r)) r.shellCommand?.kill(), r.shellCommand?.cleanup();
+              if ("abortController" in r) r.abortController?.abort();
+            }
+          } catch (W) {
+            h(W);
+          }
+          bd(S);
+        }
+        return (
+          (p = Q(Object.values(s), (S) => !X.has(S.type))),
+          (T = e.activeGoal),
+          {
+            ...krt(e),
+            tasks: s,
+            runningSubagents: p === 0 ? 0 : e.runningSubagents,
+            ...{ endedByModel: !1 },
+            attribution: $ye(),
+            cacheBreakerPhrase: void 0,
+            sendMessagePins: {},
+            agentNameRegistry: xrt(e.agentNameRegistry, s),
+            frameUrls: {},
+            standaloneAgentContext:
+              f && e.standaloneAgentContext?.name ? { name: e.standaloneAgentContext.name } : void 0,
+            fileHistory: { snapshots: [], trackedFiles: new Set(), snapshotSequence: 0 },
+          }
+        );
+      }),
+      T !== void 0)
+    )
+      CF(T, "session_clear");
+  }
+  if (b && p === 0) b.resetWebSearchCalls();
+  if (i) {
+    for (let e of i().mcp.clients)
+      if (e.name === "ide" && e.type === "connected") {
+        i3(e, void 0);
+        let { clearServerCache: s } = import.meta.require("/$bunfs/root/chunk-qadpp1g1.js").mcpClientModule();
+        await s(e.name, e.config).catch(() => {});
+      }
+  }
+  Xhn();
+  let x = K(),
+    G = u ? (gl() ?? Hl()) : void 0,
+    q = QL(),
+    w = p === 0 && m.size === 0 ? void 0 : t1();
+  if ((Kqe(), q)) Wcn();
+  if (w !== void 0) fie(w);
+  let P = z();
+  if (Le() || (rc() && AV()))
+    Tu({ type: "conversation_reset", new_conversation_id: P }), y("bridge_conversation_reset");
+  yield { type: "conversation_reset", newConversationId: P }, P0n(o), Jfe();
+  let R = Ta(K()),
+    J = H || (f && EUt(R));
+  if ((Dkn({ setCurrentAsParent: !0 }), f && l !== void 0)) pF(l);
+  let Z = Promise.resolve(!0);
+  if ((Kue(), _Ee(), GJt.of(t).reset(), dye(t), a.CLAUDE_CODE_SESSION_ID)) process.env.CLAUDE_CODE_SESSION_ID = K();
+  if ((await JL(), Gcn(), zcn(R), await sdn(K(), Hl(), o), u)) await nI(x, u, G, "user", o);
+  else if (l) {
+    if ((await nI(K(), l, void 0, "user", o), A)) await z7(K(), A, void 0, "user", o);
+  }
+  for (let e of _) {
+    if (e.status !== "running") continue;
+    tV(e.id, mp(po(e.agentId)));
+  }
+  {
+    let { saveMode: e } = import.meta.require("/$bunfs/root/chunk-nx45wyht.js"),
+      { isCoordinatorMode: s } = import.meta.require("/$bunfs/root/chunk-gpgdwqf2.js");
+    e(s() ? "coordinator" : "normal");
+  }
+  let E = ha();
+  if (E) XA(E, o);
+  if (d?.current) tz(d.current, o);
+  let D = await MG(t, "clear", { storageV5: o, credentials: I });
+  if (D.length > 0) c(() => D);
+}
+function O(t) {
+  return "isBackgrounded" in t && t.isBackgrounded === !1;
+}
+var X = new Set(["local_bash", "monitor_mcp", "monitor_ws", "mcp_task"]),
+  Y = new Set(["local_agent", "in_process_teammate", "local_workflow", "dream"]);
+function BJt(t) {
+  return Object.values(t).some((c) => !O(c) && Y.has(c.type) && !Xs(c.status));
+}
+export { UJt, BJt };

@@ -8,9 +8,610 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{R,E}from"/$bunfs/root/chunk-ypdw393e.js";import{m}from"/$bunfs/root/chunk-bzx56g36.js";import{b,nQe}from"/$bunfs/root/chunk-fv016jr6.js";import{VN,BRn,Km,KN,$f,Woe,_J,jJe,WJe,fU,dFe,UO,fFe,mFe,Goe,aa,Cm,Wu,zoe,Al,SJ,fb,zCe,cVt}from"/$bunfs/root/chunk-f5hrzy3k.js";import{hg}from"/$bunfs/root/chunk-5rt2mvvk.js";import{Zt}from"/$bunfs/root/chunk-jpf4kat5.js";import{Bk}from"/$bunfs/root/chunk-c6k0ecxv.js";import{Nc,Ng,_d}from"/$bunfs/root/chunk-r7t0evh2.js";import{Nu}from"/$bunfs/root/chunk-jb2pzt3t.js";import{Us}from"/$bunfs/root/chunk-v7yhn7cf.js";import{i,f}from"/$bunfs/root/chunk-saay52v7.js";import{vw}from"/$bunfs/root/chunk-1hh0bg14.js";import{ec,Ao}from"/$bunfs/root/chunk-czmxr2ps.js";import{O}from"/$bunfs/root/chunk-dqkj2bph.js";import{constants as M}from"fs";import{open as W,readdir as A,rm as B,stat as H}from"fs/promises";import{join as j}from"path";var G=64;function N(e){return O()?e:void 0}async function a5n(e,n,o={},t){if(!Km(e))throw Error(`Invalid sessionId: ${e}`);if(!n.trim())throw Error("title must be non-empty");let r=b({type:"custom-title",customTitle:n.trim(),sessionId:e})+`
-`;await z(e,r,o,N(t))}async function l5n(e,n,o={},t){if(!Km(e))throw Error(`Invalid sessionId: ${e}`);if(n!==null){let s=hg(n).trim();if(!s)throw Error("tag must be non-empty (use null to clear)");n=s}let r=b({type:"tag",tag:n??"",sessionId:e})+`
-`;await z(e,r,o,N(t))}async function c5n(e,n={},o){if(!Km(e))throw Error(`Invalid sessionId: ${e}`);let t=N(o);for(let r of await J(n,t)){if(O()&&t!==void 0){let c=zoe(r,t.isKeySegment);if(c!==void 0){if(await q(c,e,t))return;continue}}let s=j(r,`${e}.jsonl`),a;try{({size:a}=await H(s))}catch(c){let d=E(c);if(d==="ENOENT"||d==="ENOTDIR")continue;throw c}if(a===0)continue;await B(s,{force:!0}),await B(j(r,e),{recursive:!0,force:!0});return}throw Error(n.dir?`Session ${e} not found in project directory for ${n.dir}`:`Session ${e} not found in any project directory`)}async function q(e,n,o){let{backend:t,transcriptKey:r}=o,s=r(e,n),a=await t.statMeta(s);if(!a.ok){if(a.error.code==="NotFound")return!1;throw Error("Session delete: transcript unreadable via storage",{cause:a.error})}if((a.value.storedBytes??a.value.size)===0)return!1;for(let d of["transcript","sidecar"]){let u=await t.deleteScope({namespace:d,projectKey:e,sessionId:n});if(!u.ok)throw Error("Session delete: session directory not deletable via storage",{cause:u.error})}let c=await t.delete(s);if(!c.ok)throw Error("Session delete: transcript not deletable via storage",{cause:c.error});return!0}async function J(e,n){if(e.dir){let t=await Al(e.dir,jJe(n,O())),r=await L(t,n),s;try{s=await VN(t)}catch{s=[]}for(let a of s){if(a===t)continue;r.push(...await L(a,n))}return r}let o=aa();if(O()&&n!==void 0){let t=await _(n);if(t===void 0)return[];if(t.laterPageFailed)throw Error("Session delete: project listing incomplete via storage");return t.names.map((r)=>j(o,r))}try{return(await A(o,{withFileTypes:!0})).filter((r)=>r.isDirectory()||r.isSymbolicLink()).map((r)=>j(o,r.name))}catch{return[]}}async function L(e,n){let o=_d(n);if(o===void 0||!o.hoverRestOn)return fb(e);let t=await fb(e,o),r=Wu(e),s=!1,a=[];for(let c of t)if(c===r||await SJ(c,e,s,o))a.push(c);return a}async function _(e){let n=[],o,t=0;try{do{let r=await e.backend.listEntries({namespace:"transcript"},{skipScopeStats:!0,...o!==void 0&&{cursor:o}});if(!r.ok)return t===0?void 0:{names:n,laterPageFailed:!0};for(let s of r.value.items){let a=fU(s,e.isKeySegment);if(a!==void 0)n.push(a)}o=r.value.cursor}while(o&&++t<G);return{names:n,laterPageFailed:Boolean(o)}}catch{return t===0&&n.length===0?void 0:{names:n,laterPageFailed:!0}}}async function z(e,n,o,t){let r=`${e}.jsonl`;if(o.dir){let c=await Al(o.dir,jJe(t,O()));for(let u of await fb(c,_d(t)))if(await nze(j(u,r),n,F(u,e,t)))return;let d;try{d=await VN(c)}catch{d=[]}for(let u of d){if(u===c)continue;for(let l of await fb(u,_d(t)))if(await nze(j(l,r),n,F(l,e,t)))return}throw Error(`Session ${e} not found in project directory for ${o.dir}`)}let s=aa();if(O()&&t!==void 0){let c=await _(t);if(c===void 0)throw new R(`Session ${e} not found (no projects directory)`,"Session not found (no projects directory)");let{names:d}=c;for(let u of d){let l=j(s,u);if(await nze(j(l,r),n,F(l,e,t)))return}throw new R(`Session ${e} not found in any project directory`,"Session not found in any project directory")}let a;try{a=await A(s)}catch{throw Error(`Session ${e} not found (no projects directory)`)}for(let c of a)if(await nze(j(s,c,r),n))return;throw Error(`Session ${e} not found in any project directory`)}async function nze(e,n,o){if(O()&&o!==void 0)return U(o,n);let t;try{t=await W(e,M.O_WRONLY|M.O_APPEND)}catch(r){let s=E(r);if(s==="ENOENT"||s==="ENOTDIR")return!1;throw r}try{let{size:r}=await t.stat();if(r===0)return!1;let s=void 0,a=Buffer.from(n,"utf8"),c=0;while(c<a.length){let{bytesWritten:d}=await t.write(a,c,a.length-c,s);if(d<=0)throw new R(`tryAppend: short write to ${e} stalled with ${a.length-c} bytes remaining`,"tryAppend: zero-progress short write");if(c+=d,s!==void 0)s+=d}return!0}finally{await t.close()}}async function U({backend:e,key:n},o){let t=await e.append(n,[{data:o}],{precondition:{type:"ifExists",nonEmpty:!0}});if(!t.ok){if(t.error.code==="NotFound")return!1;throw Error("Session append: transcript not writable via storage",{cause:t.error})}return!0}function F(e,n,o){if(!O()||o===void 0)return;let t=zoe(e,o.isKeySegment);return t===void 0?void 0:{backend:o.backend,key:o.transcriptKey(t,n)}}import{readFile as X}from"fs/promises";import{dirname as Z,join as Y}from"path";var Q=m(()=>f({customTitle:i()}));function tmt(e,n){return Y(Z(e),n,"custom-title.json")}async function Bce(e,n,o){let t=await V(tmt(e,n),o);if(t===void 0)return;let r;try{r=JSON.parse(t)}catch{return}let s=Q().safeParse(r);if(!s.success)return;return Us(s.data.customTitle)||void 0}async function V(e,n){if(O()&&n!==void 0)try{let o=vw(e);if(o!==void 0){let t=await n.readText([o]);if(!t.ok)return;let r=t.value.items[0];return r.found?r.value:void 0}}catch{return}try{return await X(e,"utf8")}catch{return}}class Z_{returned;queue=[];readResolve;readReject;isDone=!1;hasError;started=!1;constructor(e){this.returned=e}[Symbol.asyncIterator](){if(this.started)throw Error("Stream can only be iterated once");return this.started=!0,this}next(){if(this.queue.length>0)return Promise.resolve({done:!1,value:this.queue.shift()});if(this.isDone)return Promise.resolve({done:!0,value:void 0});if(this.hasError)return Promise.reject(this.hasError);return new Promise((e,n)=>{this.readResolve=e,this.readReject=n})}enqueue(e){if(this.readResolve){let n=this.readResolve;this.readResolve=void 0,this.readReject=void 0,n({done:!1,value:e})}else this.queue.push(e)}done(){if(this.isDone=!0,this.readResolve){let e=this.readResolve;this.readResolve=void 0,this.readReject=void 0,e({done:!0,value:void 0})}}error(e){if(this.hasError=e,this.readReject){let n=this.readReject;this.readResolve=void 0,this.readReject=void 0,n(e)}}return(){if(this.isDone=!0,this.returned)this.returned();return Promise.resolve({done:!0,value:void 0})}}import{readdir as x,stat as ee}from"fs/promises";import{basename as te,join as T}from"path";function rze(e,n,o,t){let{head:r,tail:s,mtime:a,size:c}=n,d=r.indexOf(`
-`),u=d>=0?r.slice(0,d):r;if(u.includes('"isSidechain":true')||u.includes('"isSidechain": true'))return null;let l=$f(s,"customTitle")||t||$f(r,"customTitle")||$f(s,"aiTitle")||$f(r,"aiTitle")||void 0,p=WJe(r)||void 0,S=KN(r,"timestamp"),y;if(S){let g=Date.parse(S);if(!Number.isNaN(g))y=g}let P=l||$f(s,"lastPrompt")||$f(s,"summary")||p;if(!P)return null;let C=$f(s,"gitBranch")||KN(r,"gitBranch")||void 0,k=Woe(s,"relocated","relocatedCwd")||KN(r,"cwd")||o||void 0,w=s.split(`
-`).findLast((g)=>g.includes('"type":"tag"')&&g.includes('"tag":"')),h=w?$f(w,"tag")||void 0:void 0;return{sessionId:e,summary:P,lastModified:a,fileSize:c,customTitle:l,firstPrompt:p,gitBranch:C,cwd:k,tag:h,createdAt:y}}function ne(e){let n=Bk(e);return n!==void 0&&Zt(n)?n:void 0}function D(e){return{pagesLeft:ec+e}}async function SDe(e,n,o,t,r,s){let a=O()&&t!==void 0?ne(e):void 0;if(t!==void 0&&a!==void 0){let u=new Map;try{await Ao((l)=>t.listEntries({namespace:"transcript",projectKey:a},{skipScopeStats:!0,...n?{}:{skipKeyStats:!0},...l!==void 0&&{cursor:l}}),(l)=>{for(let p of l){if(p.kind!=="key"||p.key.namespace!=="transcript")continue;let S=Km(p.key.sessionId);if(!S)continue;if(n&&p.mtimeMs===void 0)continue;let y=n?Math.trunc(p.mtimeMs??0):0,P=u.get(S);if(P!==void 0){if(y>P.mtime)P.mtime=y;continue}u.set(S,{sessionId:S,filePath:T(e,`${p.key.sessionId}.jsonl`),mtime:y,projectPath:o,ownWorktrees:s})}},r!==void 0?{budget:r}:void 0)}catch{}return[...u.values()]}let c;try{c=await x(e)}catch{return[]}return(await Promise.all(c.map(async(u)=>{if(!u.endsWith(".jsonl"))return null;let l=Km(u.slice(0,-6));if(!l)return null;let p=T(e,u);if(!n)return{sessionId:l,filePath:p,mtime:0,projectPath:o,ownWorktrees:s};try{let S=await ee(p);return{sessionId:l,filePath:p,mtime:S.mtime.getTime(),projectPath:o,ownWorktrees:s}}catch{return null}}))).filter((u)=>u!==null)}async function K(e,n,o){let t=await dFe(e.filePath,_d(Nc(e.filePath,o)));if(!t)return null;if(!n&&BRn(t.head,t.tail))return null;let r=$f(t.tail,"customTitle")===void 0?await Bce(e.filePath,e.sessionId,o):void 0,s=rze(e.sessionId,t,e.projectPath,r);if(!s)return null;let a=Woe(t.tail,"relocated","relocatedCwd")??_J(t.head,"cwd");if(a!==void 0&&e.projectPath!==void 0&&!mFe(a,e.ownWorktrees,Goe())&&await fFe(a,e.projectPath,Goe(),nQe,Nu(o)))return null;if(e.mtime)s.lastModified=e.mtime;return s}var re=32;function ie(e,n){if(n.mtime!==e.mtime)return n.mtime-e.mtime;return n.sessionId<e.sessionId?-1:n.sessionId>e.sessionId?1:0}async function oe(e,n,o,t,r){e.sort(ie);let s=[],a=n&&n>0?n:1/0,c=0,d=new Set;for(let u=0;u<e.length&&s.length<a;){let l=Math.min(u+re,e.length),p=e.slice(u,l),S=await Promise.all(p.map((y)=>K(y,t,r)));for(let y=0;y<S.length&&s.length<a;y++){u++;let P=S[y];if(!P)continue;if(d.has(P.sessionId))continue;if(d.add(P.sessionId),c<o){c++;continue}s.push(P)}}return s}async function se(e,n,o){let t=await Promise.all(e.map((a)=>K(a,n,o))),r=new Map;for(let a of t){if(!a)continue;let c=r.get(a.sessionId);if(!c||a.lastModified>c.lastModified)r.set(a.sessionId,a)}let s=[...r.values()];return s.sort((a,c)=>c.lastModified!==a.lastModified?c.lastModified-a.lastModified:c.sessionId<a.sessionId?-1:c.sessionId>a.sessionId?1:0),s}async function ae(e,n,o,t){let r=await Al(e,Nu(t)),s=_d(Ng(t)),a;if(n)try{a=await VN(r)}catch{a=[]}else a=[];if(a.length<=1){let w=[],h=await fb(r,s),g=D(h.length);for(let v of h)w.push(...await SDe(v,o,r,t,g));return w}let c=aa(),d=!1,u=a.map((w)=>{let h=Cm(w),g=d?h.toLowerCase():h;return{path:w,exactName:g,truncatedPrefix:h.length>UO?g.slice(0,UO):void 0}});u.sort((w,h)=>h.exactName.length-w.exactName.length);let l=s!==void 0&&s.hoverRestOn?await zCe(s.source):null,p=l;if(p===null){let w;try{w=await x(c,{withFileTypes:!0})}catch{let h=[],g=await fb(r),v=D(g.length);for(let I of g)h.push(...await SDe(I,o,r,t,v));return h}p=w.filter((h)=>h.isDirectory()).map((h)=>h.name)}let S=[],y=new Set,P=D(p.length+1),C=s!==void 0&&s.hoverRestOn&&l!==null?await cVt(r,l,d,s):await fb(r),k=[r,...a];for(let w of C){let h=te(w),g=d?h.toLowerCase():h;y.add(g),S.push(...await SDe(w,o,r,t,P,k))}for(let w of p){let h=d?w.toLowerCase():w;if(y.has(h))continue;for(let{path:g,exactName:v,truncatedPrefix:I}of u)if(h===v||I!==void 0&&h.startsWith(I+"-")&&await SJ(T(c,w),g,d,s)){y.add(h),S.push(...await SDe(T(c,w),o,g,t,P,k));break}}return S}async function ce(e,n){let o=aa(),t=Ng(n),r=t!==void 0?await zCe(t):null;if(r===null){let c;try{c=await x(o,{withFileTypes:!0})}catch{return[]}r=c.filter((d)=>d.isDirectory()).map((d)=>d.name)}let s=D(r.length);return(await Promise.all(r.map((c)=>SDe(T(o,c),e,void 0,n,s)))).flat()}async function u5n(e,n){let o=O()?n:void 0,{dir:t,limit:r,offset:s,includeWorktrees:a,includeProgrammatic:c}=e??{},d=s??0,u=c??!0,l=r!==void 0&&r>0||d>0,p=t?await ae(t,a??!0,l,o):await ce(l,o);if(!l)return se(p,u,o);return oe(p,r,d,u,o)}
-export{a5n,l5n,c5n,nze,tmt,Bce,Z_,rze,SDe,u5n};
+import { R, E } from "/$bunfs/root/chunk-ypdw393e.js";
+import { m } from "/$bunfs/root/chunk-bzx56g36.js";
+import { b, nQe } from "/$bunfs/root/chunk-fv016jr6.js";
+import {
+  VN,
+  BRn,
+  Km,
+  KN,
+  $f,
+  Woe,
+  _J,
+  jJe,
+  WJe,
+  fU,
+  dFe,
+  UO,
+  fFe,
+  mFe,
+  Goe,
+  aa,
+  Cm,
+  Wu,
+  zoe,
+  Al,
+  SJ,
+  fb,
+  zCe,
+  cVt,
+} from "/$bunfs/root/chunk-f5hrzy3k.js";
+import { hg } from "/$bunfs/root/chunk-5rt2mvvk.js";
+import { Zt } from "/$bunfs/root/chunk-jpf4kat5.js";
+import { Bk } from "/$bunfs/root/chunk-c6k0ecxv.js";
+import { Nc, Ng, _d } from "/$bunfs/root/chunk-r7t0evh2.js";
+import { Nu } from "/$bunfs/root/chunk-jb2pzt3t.js";
+import { Us } from "/$bunfs/root/chunk-v7yhn7cf.js";
+import { i, f } from "/$bunfs/root/chunk-saay52v7.js";
+import { vw } from "/$bunfs/root/chunk-1hh0bg14.js";
+import { ec, Ao } from "/$bunfs/root/chunk-czmxr2ps.js";
+import { O } from "/$bunfs/root/chunk-dqkj2bph.js";
+import { constants as M } from "fs";
+import { open as W, readdir as A, rm as B, stat as H } from "fs/promises";
+import { join as j } from "path";
+var G = 64;
+function N(e) {
+  return O() ? e : void 0;
+}
+async function a5n(e, n, o = {}, t) {
+  if (!Km(e)) throw Error(`Invalid sessionId: ${e}`);
+  if (!n.trim()) throw Error("title must be non-empty");
+  let r =
+    b({ type: "custom-title", customTitle: n.trim(), sessionId: e }) +
+    `
+`;
+  await z(e, r, o, N(t));
+}
+async function l5n(e, n, o = {}, t) {
+  if (!Km(e)) throw Error(`Invalid sessionId: ${e}`);
+  if (n !== null) {
+    let s = hg(n).trim();
+    if (!s) throw Error("tag must be non-empty (use null to clear)");
+    n = s;
+  }
+  let r =
+    b({ type: "tag", tag: n ?? "", sessionId: e }) +
+    `
+`;
+  await z(e, r, o, N(t));
+}
+async function c5n(e, n = {}, o) {
+  if (!Km(e)) throw Error(`Invalid sessionId: ${e}`);
+  let t = N(o);
+  for (let r of await J(n, t)) {
+    if (O() && t !== void 0) {
+      let c = zoe(r, t.isKeySegment);
+      if (c !== void 0) {
+        if (await q(c, e, t)) return;
+        continue;
+      }
+    }
+    let s = j(r, `${e}.jsonl`),
+      a;
+    try {
+      ({ size: a } = await H(s));
+    } catch (c) {
+      let d = E(c);
+      if (d === "ENOENT" || d === "ENOTDIR") continue;
+      throw c;
+    }
+    if (a === 0) continue;
+    await B(s, { force: !0 }), await B(j(r, e), { recursive: !0, force: !0 });
+    return;
+  }
+  throw Error(
+    n.dir
+      ? `Session ${e} not found in project directory for ${n.dir}`
+      : `Session ${e} not found in any project directory`,
+  );
+}
+async function q(e, n, o) {
+  let { backend: t, transcriptKey: r } = o,
+    s = r(e, n),
+    a = await t.statMeta(s);
+  if (!a.ok) {
+    if (a.error.code === "NotFound") return !1;
+    throw Error("Session delete: transcript unreadable via storage", { cause: a.error });
+  }
+  if ((a.value.storedBytes ?? a.value.size) === 0) return !1;
+  for (let d of ["transcript", "sidecar"]) {
+    let u = await t.deleteScope({ namespace: d, projectKey: e, sessionId: n });
+    if (!u.ok) throw Error("Session delete: session directory not deletable via storage", { cause: u.error });
+  }
+  let c = await t.delete(s);
+  if (!c.ok) throw Error("Session delete: transcript not deletable via storage", { cause: c.error });
+  return !0;
+}
+async function J(e, n) {
+  if (e.dir) {
+    let t = await Al(e.dir, jJe(n, O())),
+      r = await L(t, n),
+      s;
+    try {
+      s = await VN(t);
+    } catch {
+      s = [];
+    }
+    for (let a of s) {
+      if (a === t) continue;
+      r.push(...(await L(a, n)));
+    }
+    return r;
+  }
+  let o = aa();
+  if (O() && n !== void 0) {
+    let t = await _(n);
+    if (t === void 0) return [];
+    if (t.laterPageFailed) throw Error("Session delete: project listing incomplete via storage");
+    return t.names.map((r) => j(o, r));
+  }
+  try {
+    return (await A(o, { withFileTypes: !0 }))
+      .filter((r) => r.isDirectory() || r.isSymbolicLink())
+      .map((r) => j(o, r.name));
+  } catch {
+    return [];
+  }
+}
+async function L(e, n) {
+  let o = _d(n);
+  if (o === void 0 || !o.hoverRestOn) return fb(e);
+  let t = await fb(e, o),
+    r = Wu(e),
+    s = !1,
+    a = [];
+  for (let c of t) if (c === r || (await SJ(c, e, s, o))) a.push(c);
+  return a;
+}
+async function _(e) {
+  let n = [],
+    o,
+    t = 0;
+  try {
+    do {
+      let r = await e.backend.listEntries(
+        { namespace: "transcript" },
+        { skipScopeStats: !0, ...(o !== void 0 && { cursor: o }) },
+      );
+      if (!r.ok) return t === 0 ? void 0 : { names: n, laterPageFailed: !0 };
+      for (let s of r.value.items) {
+        let a = fU(s, e.isKeySegment);
+        if (a !== void 0) n.push(a);
+      }
+      o = r.value.cursor;
+    } while (o && ++t < G);
+    return { names: n, laterPageFailed: Boolean(o) };
+  } catch {
+    return t === 0 && n.length === 0 ? void 0 : { names: n, laterPageFailed: !0 };
+  }
+}
+async function z(e, n, o, t) {
+  let r = `${e}.jsonl`;
+  if (o.dir) {
+    let c = await Al(o.dir, jJe(t, O()));
+    for (let u of await fb(c, _d(t))) if (await nze(j(u, r), n, F(u, e, t))) return;
+    let d;
+    try {
+      d = await VN(c);
+    } catch {
+      d = [];
+    }
+    for (let u of d) {
+      if (u === c) continue;
+      for (let l of await fb(u, _d(t))) if (await nze(j(l, r), n, F(l, e, t))) return;
+    }
+    throw Error(`Session ${e} not found in project directory for ${o.dir}`);
+  }
+  let s = aa();
+  if (O() && t !== void 0) {
+    let c = await _(t);
+    if (c === void 0)
+      throw new R(`Session ${e} not found (no projects directory)`, "Session not found (no projects directory)");
+    let { names: d } = c;
+    for (let u of d) {
+      let l = j(s, u);
+      if (await nze(j(l, r), n, F(l, e, t))) return;
+    }
+    throw new R(`Session ${e} not found in any project directory`, "Session not found in any project directory");
+  }
+  let a;
+  try {
+    a = await A(s);
+  } catch {
+    throw Error(`Session ${e} not found (no projects directory)`);
+  }
+  for (let c of a) if (await nze(j(s, c, r), n)) return;
+  throw Error(`Session ${e} not found in any project directory`);
+}
+async function nze(e, n, o) {
+  if (O() && o !== void 0) return U(o, n);
+  let t;
+  try {
+    t = await W(e, M.O_WRONLY | M.O_APPEND);
+  } catch (r) {
+    let s = E(r);
+    if (s === "ENOENT" || s === "ENOTDIR") return !1;
+    throw r;
+  }
+  try {
+    let { size: r } = await t.stat();
+    if (r === 0) return !1;
+    let s = void 0,
+      a = Buffer.from(n, "utf8"),
+      c = 0;
+    while (c < a.length) {
+      let { bytesWritten: d } = await t.write(a, c, a.length - c, s);
+      if (d <= 0)
+        throw new R(
+          `tryAppend: short write to ${e} stalled with ${a.length - c} bytes remaining`,
+          "tryAppend: zero-progress short write",
+        );
+      if (((c += d), s !== void 0)) s += d;
+    }
+    return !0;
+  } finally {
+    await t.close();
+  }
+}
+async function U({ backend: e, key: n }, o) {
+  let t = await e.append(n, [{ data: o }], { precondition: { type: "ifExists", nonEmpty: !0 } });
+  if (!t.ok) {
+    if (t.error.code === "NotFound") return !1;
+    throw Error("Session append: transcript not writable via storage", { cause: t.error });
+  }
+  return !0;
+}
+function F(e, n, o) {
+  if (!O() || o === void 0) return;
+  let t = zoe(e, o.isKeySegment);
+  return t === void 0 ? void 0 : { backend: o.backend, key: o.transcriptKey(t, n) };
+}
+import { readFile as X } from "fs/promises";
+import { dirname as Z, join as Y } from "path";
+var Q = m(() => f({ customTitle: i() }));
+function tmt(e, n) {
+  return Y(Z(e), n, "custom-title.json");
+}
+async function Bce(e, n, o) {
+  let t = await V(tmt(e, n), o);
+  if (t === void 0) return;
+  let r;
+  try {
+    r = JSON.parse(t);
+  } catch {
+    return;
+  }
+  let s = Q().safeParse(r);
+  if (!s.success) return;
+  return Us(s.data.customTitle) || void 0;
+}
+async function V(e, n) {
+  if (O() && n !== void 0)
+    try {
+      let o = vw(e);
+      if (o !== void 0) {
+        let t = await n.readText([o]);
+        if (!t.ok) return;
+        let r = t.value.items[0];
+        return r.found ? r.value : void 0;
+      }
+    } catch {
+      return;
+    }
+  try {
+    return await X(e, "utf8");
+  } catch {
+    return;
+  }
+}
+class Z_ {
+  returned;
+  queue = [];
+  readResolve;
+  readReject;
+  isDone = !1;
+  hasError;
+  started = !1;
+  constructor(e) {
+    this.returned = e;
+  }
+  [Symbol.asyncIterator]() {
+    if (this.started) throw Error("Stream can only be iterated once");
+    return (this.started = !0), this;
+  }
+  next() {
+    if (this.queue.length > 0) return Promise.resolve({ done: !1, value: this.queue.shift() });
+    if (this.isDone) return Promise.resolve({ done: !0, value: void 0 });
+    if (this.hasError) return Promise.reject(this.hasError);
+    return new Promise((e, n) => {
+      (this.readResolve = e), (this.readReject = n);
+    });
+  }
+  enqueue(e) {
+    if (this.readResolve) {
+      let n = this.readResolve;
+      (this.readResolve = void 0), (this.readReject = void 0), n({ done: !1, value: e });
+    } else this.queue.push(e);
+  }
+  done() {
+    if (((this.isDone = !0), this.readResolve)) {
+      let e = this.readResolve;
+      (this.readResolve = void 0), (this.readReject = void 0), e({ done: !0, value: void 0 });
+    }
+  }
+  error(e) {
+    if (((this.hasError = e), this.readReject)) {
+      let n = this.readReject;
+      (this.readResolve = void 0), (this.readReject = void 0), n(e);
+    }
+  }
+  return() {
+    if (((this.isDone = !0), this.returned)) this.returned();
+    return Promise.resolve({ done: !0, value: void 0 });
+  }
+}
+import { readdir as x, stat as ee } from "fs/promises";
+import { basename as te, join as T } from "path";
+function rze(e, n, o, t) {
+  let { head: r, tail: s, mtime: a, size: c } = n,
+    d = r.indexOf(`
+`),
+    u = d >= 0 ? r.slice(0, d) : r;
+  if (u.includes('"isSidechain":true') || u.includes('"isSidechain": true')) return null;
+  let l = $f(s, "customTitle") || t || $f(r, "customTitle") || $f(s, "aiTitle") || $f(r, "aiTitle") || void 0,
+    p = WJe(r) || void 0,
+    S = KN(r, "timestamp"),
+    y;
+  if (S) {
+    let g = Date.parse(S);
+    if (!Number.isNaN(g)) y = g;
+  }
+  let P = l || $f(s, "lastPrompt") || $f(s, "summary") || p;
+  if (!P) return null;
+  let C = $f(s, "gitBranch") || KN(r, "gitBranch") || void 0,
+    k = Woe(s, "relocated", "relocatedCwd") || KN(r, "cwd") || o || void 0,
+    w = s
+      .split(`
+`)
+      .findLast((g) => g.includes('"type":"tag"') && g.includes('"tag":"')),
+    h = w ? $f(w, "tag") || void 0 : void 0;
+  return {
+    sessionId: e,
+    summary: P,
+    lastModified: a,
+    fileSize: c,
+    customTitle: l,
+    firstPrompt: p,
+    gitBranch: C,
+    cwd: k,
+    tag: h,
+    createdAt: y,
+  };
+}
+function ne(e) {
+  let n = Bk(e);
+  return n !== void 0 && Zt(n) ? n : void 0;
+}
+function D(e) {
+  return { pagesLeft: ec + e };
+}
+async function SDe(e, n, o, t, r, s) {
+  let a = O() && t !== void 0 ? ne(e) : void 0;
+  if (t !== void 0 && a !== void 0) {
+    let u = new Map();
+    try {
+      await Ao(
+        (l) =>
+          t.listEntries(
+            { namespace: "transcript", projectKey: a },
+            { skipScopeStats: !0, ...(n ? {} : { skipKeyStats: !0 }), ...(l !== void 0 && { cursor: l }) },
+          ),
+        (l) => {
+          for (let p of l) {
+            if (p.kind !== "key" || p.key.namespace !== "transcript") continue;
+            let S = Km(p.key.sessionId);
+            if (!S) continue;
+            if (n && p.mtimeMs === void 0) continue;
+            let y = n ? Math.trunc(p.mtimeMs ?? 0) : 0,
+              P = u.get(S);
+            if (P !== void 0) {
+              if (y > P.mtime) P.mtime = y;
+              continue;
+            }
+            u.set(S, {
+              sessionId: S,
+              filePath: T(e, `${p.key.sessionId}.jsonl`),
+              mtime: y,
+              projectPath: o,
+              ownWorktrees: s,
+            });
+          }
+        },
+        r !== void 0 ? { budget: r } : void 0,
+      );
+    } catch {}
+    return [...u.values()];
+  }
+  let c;
+  try {
+    c = await x(e);
+  } catch {
+    return [];
+  }
+  return (
+    await Promise.all(
+      c.map(async (u) => {
+        if (!u.endsWith(".jsonl")) return null;
+        let l = Km(u.slice(0, -6));
+        if (!l) return null;
+        let p = T(e, u);
+        if (!n) return { sessionId: l, filePath: p, mtime: 0, projectPath: o, ownWorktrees: s };
+        try {
+          let S = await ee(p);
+          return { sessionId: l, filePath: p, mtime: S.mtime.getTime(), projectPath: o, ownWorktrees: s };
+        } catch {
+          return null;
+        }
+      }),
+    )
+  ).filter((u) => u !== null);
+}
+async function K(e, n, o) {
+  let t = await dFe(e.filePath, _d(Nc(e.filePath, o)));
+  if (!t) return null;
+  if (!n && BRn(t.head, t.tail)) return null;
+  let r = $f(t.tail, "customTitle") === void 0 ? await Bce(e.filePath, e.sessionId, o) : void 0,
+    s = rze(e.sessionId, t, e.projectPath, r);
+  if (!s) return null;
+  let a = Woe(t.tail, "relocated", "relocatedCwd") ?? _J(t.head, "cwd");
+  if (
+    a !== void 0 &&
+    e.projectPath !== void 0 &&
+    !mFe(a, e.ownWorktrees, Goe()) &&
+    (await fFe(a, e.projectPath, Goe(), nQe, Nu(o)))
+  )
+    return null;
+  if (e.mtime) s.lastModified = e.mtime;
+  return s;
+}
+var re = 32;
+function ie(e, n) {
+  if (n.mtime !== e.mtime) return n.mtime - e.mtime;
+  return n.sessionId < e.sessionId ? -1 : n.sessionId > e.sessionId ? 1 : 0;
+}
+async function oe(e, n, o, t, r) {
+  e.sort(ie);
+  let s = [],
+    a = n && n > 0 ? n : 1 / 0,
+    c = 0,
+    d = new Set();
+  for (let u = 0; u < e.length && s.length < a; ) {
+    let l = Math.min(u + re, e.length),
+      p = e.slice(u, l),
+      S = await Promise.all(p.map((y) => K(y, t, r)));
+    for (let y = 0; y < S.length && s.length < a; y++) {
+      u++;
+      let P = S[y];
+      if (!P) continue;
+      if (d.has(P.sessionId)) continue;
+      if ((d.add(P.sessionId), c < o)) {
+        c++;
+        continue;
+      }
+      s.push(P);
+    }
+  }
+  return s;
+}
+async function se(e, n, o) {
+  let t = await Promise.all(e.map((a) => K(a, n, o))),
+    r = new Map();
+  for (let a of t) {
+    if (!a) continue;
+    let c = r.get(a.sessionId);
+    if (!c || a.lastModified > c.lastModified) r.set(a.sessionId, a);
+  }
+  let s = [...r.values()];
+  return (
+    s.sort((a, c) =>
+      c.lastModified !== a.lastModified
+        ? c.lastModified - a.lastModified
+        : c.sessionId < a.sessionId
+          ? -1
+          : c.sessionId > a.sessionId
+            ? 1
+            : 0,
+    ),
+    s
+  );
+}
+async function ae(e, n, o, t) {
+  let r = await Al(e, Nu(t)),
+    s = _d(Ng(t)),
+    a;
+  if (n)
+    try {
+      a = await VN(r);
+    } catch {
+      a = [];
+    }
+  else a = [];
+  if (a.length <= 1) {
+    let w = [],
+      h = await fb(r, s),
+      g = D(h.length);
+    for (let v of h) w.push(...(await SDe(v, o, r, t, g)));
+    return w;
+  }
+  let c = aa(),
+    d = !1,
+    u = a.map((w) => {
+      let h = Cm(w),
+        g = d ? h.toLowerCase() : h;
+      return { path: w, exactName: g, truncatedPrefix: h.length > UO ? g.slice(0, UO) : void 0 };
+    });
+  u.sort((w, h) => h.exactName.length - w.exactName.length);
+  let l = s !== void 0 && s.hoverRestOn ? await zCe(s.source) : null,
+    p = l;
+  if (p === null) {
+    let w;
+    try {
+      w = await x(c, { withFileTypes: !0 });
+    } catch {
+      let h = [],
+        g = await fb(r),
+        v = D(g.length);
+      for (let I of g) h.push(...(await SDe(I, o, r, t, v)));
+      return h;
+    }
+    p = w.filter((h) => h.isDirectory()).map((h) => h.name);
+  }
+  let S = [],
+    y = new Set(),
+    P = D(p.length + 1),
+    C = s !== void 0 && s.hoverRestOn && l !== null ? await cVt(r, l, d, s) : await fb(r),
+    k = [r, ...a];
+  for (let w of C) {
+    let h = te(w),
+      g = d ? h.toLowerCase() : h;
+    y.add(g), S.push(...(await SDe(w, o, r, t, P, k)));
+  }
+  for (let w of p) {
+    let h = d ? w.toLowerCase() : w;
+    if (y.has(h)) continue;
+    for (let { path: g, exactName: v, truncatedPrefix: I } of u)
+      if (h === v || (I !== void 0 && h.startsWith(I + "-") && (await SJ(T(c, w), g, d, s)))) {
+        y.add(h), S.push(...(await SDe(T(c, w), o, g, t, P, k)));
+        break;
+      }
+  }
+  return S;
+}
+async function ce(e, n) {
+  let o = aa(),
+    t = Ng(n),
+    r = t !== void 0 ? await zCe(t) : null;
+  if (r === null) {
+    let c;
+    try {
+      c = await x(o, { withFileTypes: !0 });
+    } catch {
+      return [];
+    }
+    r = c.filter((d) => d.isDirectory()).map((d) => d.name);
+  }
+  let s = D(r.length);
+  return (await Promise.all(r.map((c) => SDe(T(o, c), e, void 0, n, s)))).flat();
+}
+async function u5n(e, n) {
+  let o = O() ? n : void 0,
+    { dir: t, limit: r, offset: s, includeWorktrees: a, includeProgrammatic: c } = e ?? {},
+    d = s ?? 0,
+    u = c ?? !0,
+    l = (r !== void 0 && r > 0) || d > 0,
+    p = t ? await ae(t, a ?? !0, l, o) : await ce(l, o);
+  if (!l) return se(p, u, o);
+  return oe(p, r, d, u, o);
+}
+export { a5n, l5n, c5n, nze, tmt, Bce, Z_, rze, SDe, u5n };

@@ -8,4 +8,14 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{bCn}from"/$bunfs/root/chunk-580wf282.js";import"/$bunfs/root/chunk-0km1g2gp.js";import"/$bunfs/root/chunk-jpaz9qpm.js";import"/$bunfs/root/chunk-1bw3xm1h.js";import"/$bunfs/root/chunk-w9fwyp2c.js";import"/$bunfs/root/chunk-g2s7kk3r.js";import{j}from"/$bunfs/root/chunk-yz031c9r.js";var m=j(bCn(),1);var export_AssumeRoleCommand=m.AssumeRoleCommand;var export_STSClient=m.STSClient;export{export_AssumeRoleCommand as AssumeRoleCommand,export_STSClient as STSClient};
+import { bCn } from "/$bunfs/root/chunk-580wf282.js";
+import "/$bunfs/root/chunk-0km1g2gp.js";
+import "/$bunfs/root/chunk-jpaz9qpm.js";
+import "/$bunfs/root/chunk-1bw3xm1h.js";
+import "/$bunfs/root/chunk-w9fwyp2c.js";
+import "/$bunfs/root/chunk-g2s7kk3r.js";
+import { j } from "/$bunfs/root/chunk-yz031c9r.js";
+var m = j(bCn(), 1);
+var export_AssumeRoleCommand = m.AssumeRoleCommand;
+var export_STSClient = m.STSClient;
+export { export_AssumeRoleCommand as AssumeRoleCommand, export_STSClient as STSClient };

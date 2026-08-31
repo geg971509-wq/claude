@@ -8,5 +8,28 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{_}from"/$bunfs/root/chunk-haan6f8z.js";import{o,t}from"/$bunfs/root/chunk-he2phymk.js";import{e,r}from"/$bunfs/root/chunk-8s7kcbyw.js";function sr(x){let d=_(9),{children:a,hint:R}=x;if(!R){let c;if(d[0]!==a)c=e(t,{dimColor:!0,children:a}),d[0]=a,d[1]=c;else c=d[1];return c}let c;if(d[2]!==a)c=e(t,{dimColor:!0,children:a}),d[2]=a,d[3]=c;else c=d[3];let i;if(d[4]!==R)i=e(t,{dimColor:!0,children:R}),d[4]=R,d[5]=i;else i=d[5];let m;if(d[6]!==c||d[7]!==i)m=r(o,{flexDirection:"column",children:[c,i]}),d[6]=c,d[7]=i,d[8]=m;else m=d[8];return m}
-export{sr};
+import { _ } from "/$bunfs/root/chunk-haan6f8z.js";
+import { o, t } from "/$bunfs/root/chunk-he2phymk.js";
+import { e, r } from "/$bunfs/root/chunk-8s7kcbyw.js";
+function sr(x) {
+  let d = _(9),
+    { children: a, hint: R } = x;
+  if (!R) {
+    let c;
+    if (d[0] !== a) (c = e(t, { dimColor: !0, children: a })), (d[0] = a), (d[1] = c);
+    else c = d[1];
+    return c;
+  }
+  let c;
+  if (d[2] !== a) (c = e(t, { dimColor: !0, children: a })), (d[2] = a), (d[3] = c);
+  else c = d[3];
+  let i;
+  if (d[4] !== R) (i = e(t, { dimColor: !0, children: R })), (d[4] = R), (d[5] = i);
+  else i = d[5];
+  let m;
+  if (d[6] !== c || d[7] !== i)
+    (m = r(o, { flexDirection: "column", children: [c, i] })), (d[6] = c), (d[7] = i), (d[8] = m);
+  else m = d[8];
+  return m;
+}
+export { sr };

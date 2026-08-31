@@ -8,6 +8,117 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{J,G}from"/$bunfs/root/chunk-f9h0bg01.js";import{dR}from"/$bunfs/root/chunk-q3yd61z9.js";import{NN}from"/$bunfs/root/chunk-manh1369.js";class u{buffer="";capturing=!1;readableHandler=null}var dmr=new J(()=>new u);function o(){return dmr.of(G().host)}function kAr(){let e=o();if(!process.stdin.isTTY||e.capturing||dR("-p")||dR("--print"))return;e.capturing=!0,e.buffer="";try{process.stdin.setEncoding("utf8"),process.stdin.setRawMode(!0),process.stdin.ref(),e.readableHandler=()=>{let n=process.stdin.read();while(n!==null){if(typeof n==="string")pmr(n);n=process.stdin.read()}},process.stdin.on("readable",e.readableHandler)}catch{e.capturing=!1}}function pmr(e){let n=o(),t=0;while(t<e.length){let a=e[t],i=a.charCodeAt(0);if(i===3){$1(),process.exit(130);return}if(i===4){$1();return}if(i===127||i===8){if(n.buffer.length>0){let r=NN(n.buffer);n.buffer=n.buffer.slice(0,-(r.length||1))}t++;continue}if(i===27){t++;let r=t<e.length?e.charCodeAt(t):-1;if(r===91){t++;while(t<e.length&&e.charCodeAt(t)<64)t++;if(t<e.length)t++}else if(r===93||r===80||r===88||r===94||r===95){t++;while(t<e.length){let s=e.charCodeAt(t);if(s===7){t++;break}if(s===27&&t+1<e.length&&e.charCodeAt(t+1)===92){t+=2;break}t++}}else if(r===79)t+=2;else if(r!==-1&&r!==27)t++;continue}if(i<32&&i!==9&&i!==10&&i!==13){t++;continue}if(i===13){n.buffer+=`
-`,t++;continue}n.buffer+=a,t++}}function $1(){let e=o();if(!e.capturing)return;if(e.capturing=!1,e.readableHandler)process.stdin.removeListener("readable",e.readableHandler),e.readableHandler=null}function bxe(){$1();let e=o(),n=e.buffer.trim();return e.buffer="",n}function k9e(){return o().buffer.trim().length>0}function H9e(e){o().buffer=e}function HAr(){return o().capturing}
-export{dmr,kAr,pmr,$1,bxe,k9e,H9e,HAr};
+import { J, G } from "/$bunfs/root/chunk-f9h0bg01.js";
+import { dR } from "/$bunfs/root/chunk-q3yd61z9.js";
+import { NN } from "/$bunfs/root/chunk-manh1369.js";
+class u {
+  buffer = "";
+  capturing = !1;
+  readableHandler = null;
+}
+var dmr = new J(() => new u());
+function o() {
+  return dmr.of(G().host);
+}
+function kAr() {
+  let e = o();
+  if (!process.stdin.isTTY || e.capturing || dR("-p") || dR("--print")) return;
+  (e.capturing = !0), (e.buffer = "");
+  try {
+    process.stdin.setEncoding("utf8"),
+      process.stdin.setRawMode(!0),
+      process.stdin.ref(),
+      (e.readableHandler = () => {
+        let n = process.stdin.read();
+        while (n !== null) {
+          if (typeof n === "string") pmr(n);
+          n = process.stdin.read();
+        }
+      }),
+      process.stdin.on("readable", e.readableHandler);
+  } catch {
+    e.capturing = !1;
+  }
+}
+function pmr(e) {
+  let n = o(),
+    t = 0;
+  while (t < e.length) {
+    let a = e[t],
+      i = a.charCodeAt(0);
+    if (i === 3) {
+      $1(), process.exit(130);
+      return;
+    }
+    if (i === 4) {
+      $1();
+      return;
+    }
+    if (i === 127 || i === 8) {
+      if (n.buffer.length > 0) {
+        let r = NN(n.buffer);
+        n.buffer = n.buffer.slice(0, -(r.length || 1));
+      }
+      t++;
+      continue;
+    }
+    if (i === 27) {
+      t++;
+      let r = t < e.length ? e.charCodeAt(t) : -1;
+      if (r === 91) {
+        t++;
+        while (t < e.length && e.charCodeAt(t) < 64) t++;
+        if (t < e.length) t++;
+      } else if (r === 93 || r === 80 || r === 88 || r === 94 || r === 95) {
+        t++;
+        while (t < e.length) {
+          let s = e.charCodeAt(t);
+          if (s === 7) {
+            t++;
+            break;
+          }
+          if (s === 27 && t + 1 < e.length && e.charCodeAt(t + 1) === 92) {
+            t += 2;
+            break;
+          }
+          t++;
+        }
+      } else if (r === 79) t += 2;
+      else if (r !== -1 && r !== 27) t++;
+      continue;
+    }
+    if (i < 32 && i !== 9 && i !== 10 && i !== 13) {
+      t++;
+      continue;
+    }
+    if (i === 13) {
+      (n.buffer += `
+`),
+        t++;
+      continue;
+    }
+    (n.buffer += a), t++;
+  }
+}
+function $1() {
+  let e = o();
+  if (!e.capturing) return;
+  if (((e.capturing = !1), e.readableHandler))
+    process.stdin.removeListener("readable", e.readableHandler), (e.readableHandler = null);
+}
+function bxe() {
+  $1();
+  let e = o(),
+    n = e.buffer.trim();
+  return (e.buffer = ""), n;
+}
+function k9e() {
+  return o().buffer.trim().length > 0;
+}
+function H9e(e) {
+  o().buffer = e;
+}
+function HAr() {
+  return o().capturing;
+}
+export { dmr, kAr, pmr, $1, bxe, k9e, H9e, HAr };

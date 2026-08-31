@@ -8,7 +8,31 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import"/$bunfs/root/chunk-f9h0bg01.js";import"/$bunfs/root/chunk-qq1mdtb5.js";import"/$bunfs/root/chunk-tx16jn0x.js";import"/$bunfs/root/chunk-97wwdfyx.js";import"/$bunfs/root/chunk-gcks6mn0.js";import"/$bunfs/root/chunk-bzx56g36.js";import"/$bunfs/root/chunk-eqdctte5.js";import"/$bunfs/root/chunk-fec4384a.js";import"/$bunfs/root/chunk-qm65zb83.js";import"/$bunfs/root/chunk-vfy57cpd.js";import"/$bunfs/root/chunk-4xj01xwv.js";import"/$bunfs/root/chunk-ypdw393e.js";import"/$bunfs/root/chunk-fv016jr6.js";import"/$bunfs/root/chunk-qk7r0t2g.js";import"/$bunfs/root/chunk-4ddxwr9r.js";import"/$bunfs/root/chunk-wkxx62a2.js";import"/$bunfs/root/chunk-ps6pc7xd.js";import{jS}from"/$bunfs/root/chunk-96xrtyd5.js";import{MTe}from"/$bunfs/root/chunk-zckyaycr.js";import{yt}from"/$bunfs/root/chunk-06p73s1x.js";import"/$bunfs/root/chunk-7s7jqj2f.js";import"/$bunfs/root/chunk-56sxk8k2.js";import"/$bunfs/root/chunk-a4q326ap.js";function e(){return`You are a worker agent executing a task assigned by the coordinator.
+import "/$bunfs/root/chunk-f9h0bg01.js";
+import "/$bunfs/root/chunk-qq1mdtb5.js";
+import "/$bunfs/root/chunk-tx16jn0x.js";
+import "/$bunfs/root/chunk-97wwdfyx.js";
+import "/$bunfs/root/chunk-gcks6mn0.js";
+import "/$bunfs/root/chunk-bzx56g36.js";
+import "/$bunfs/root/chunk-eqdctte5.js";
+import "/$bunfs/root/chunk-fec4384a.js";
+import "/$bunfs/root/chunk-qm65zb83.js";
+import "/$bunfs/root/chunk-vfy57cpd.js";
+import "/$bunfs/root/chunk-4xj01xwv.js";
+import "/$bunfs/root/chunk-ypdw393e.js";
+import "/$bunfs/root/chunk-fv016jr6.js";
+import "/$bunfs/root/chunk-qk7r0t2g.js";
+import "/$bunfs/root/chunk-4ddxwr9r.js";
+import "/$bunfs/root/chunk-wkxx62a2.js";
+import "/$bunfs/root/chunk-ps6pc7xd.js";
+import { jS } from "/$bunfs/root/chunk-96xrtyd5.js";
+import { MTe } from "/$bunfs/root/chunk-zckyaycr.js";
+import { yt } from "/$bunfs/root/chunk-06p73s1x.js";
+import "/$bunfs/root/chunk-7s7jqj2f.js";
+import "/$bunfs/root/chunk-56sxk8k2.js";
+import "/$bunfs/root/chunk-a4q326ap.js";
+function e() {
+  return `You are a worker agent executing a task assigned by the coordinator.
 
 ## Environment
 
@@ -18,8 +42,12 @@ import"/$bunfs/root/chunk-f9h0bg01.js";import"/$bunfs/root/chunk-qq1mdtb5.js";im
 
 Complete exactly what was asked. Don't fix unrelated issues you discover \u2014 suggest them as follow-ups instead.
 - If you changed any files, commit your changes when done. Use a clear, descriptive commit message. Only stage files you actually changed \u2014 never use \`git add .\` or \`git add -A\`. Report the commit hash in your summary.
-${jS()>1?`- If you have the ${yt} tool, you may use it to fan out (e.g. \`/simplify\`, \`/code-review\`, or your own parallel research/verification) \u2014 workers at the depth cap don't receive it
-`:""}- Limit changes to what your task requires
+${
+  jS() > 1
+    ? `- If you have the ${yt} tool, you may use it to fan out (e.g. \`/simplify\`, \`/code-review\`, or your own parallel research/verification) \u2014 workers at the depth cap don't receive it
+`
+    : ""
+}- Limit changes to what your task requires
 
 ## Resumed Tasks
 
@@ -44,4 +72,19 @@ Structure your response as:
 2. **Summary:** One sentence the coordinator can relay to the user
 
 Good summary: "Added Redis cache implementation. Tests pass, typecheck clean. Committed abc123."
-Bad summary: "I looked at files X, Y, and Z. Y has the changes you mentioned."`}var t={agentType:MTe,whenToUse:"For executing tasks autonomously \u2014 research, implementation, or verification.",tools:["*"],maxTurns:500,permissionMode:"bubble",source:"built-in",baseDir:"built-in",getSystemPrompt:(o)=>e()};function i(){return[t]}export{t as WORKER_AGENT,i as getCoordinatorAgents,e as getWorkerSystemPrompt};
+Bad summary: "I looked at files X, Y, and Z. Y has the changes you mentioned."`;
+}
+var t = {
+  agentType: MTe,
+  whenToUse: "For executing tasks autonomously \u2014 research, implementation, or verification.",
+  tools: ["*"],
+  maxTurns: 500,
+  permissionMode: "bubble",
+  source: "built-in",
+  baseDir: "built-in",
+  getSystemPrompt: (o) => e(),
+};
+function i() {
+  return [t];
+}
+export { t as WORKER_AGENT, i as getCoordinatorAgents, e as getWorkerSystemPrompt };

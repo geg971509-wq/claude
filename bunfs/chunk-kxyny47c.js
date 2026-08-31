@@ -8,7 +8,189 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{st,Sp}from"/$bunfs/root/chunk-qcx34e4j.js";import{Me}from"/$bunfs/root/chunk-qq1mdtb5.js";import{sJ}from"/$bunfs/root/chunk-30ppz8v8.js";var T=/(^|\.)(anthropic\.com|claude\.ai|claude\.com)$/i,l=/(^|\.)downloads\.claude\.ai$/i;function f(e){let t,r=e.startsWith("//")?`https:${e}`:e;try{t=new URL(r).hostname}catch{t=e.match(/^[^/:]+/)?.[0]??e}return t.endsWith(".")?t.slice(0,-1):t}function xCe(e){return T.test(f(e))}function iJ(e){return l.test(f(e))}import _ from"ws";class i extends Error{name="TestEgressBlockedError";code="TestEgressBlocked"}var R=globalThis.fetch,g=_;function Uvn(e,t){if(e instanceof Request)return{method:(t?.method??e.method).toUpperCase(),url:e.url};return{method:(t?.method??"GET").toUpperCase(),url:String(e)}}function A(){return Me(process.env.CLAUDE_CODE_TEST_ALLOW_REAL_NETWORK)}function a(e,t){return`[CLAUDE_CODE_TEST_ALLOW_REAL_NETWORK] live request from a test runtime: ${e} ${t}
-`}function c(e){let t;try{t=sJ(new URL(e).hostname)}catch{t=!1}if(t)return"loopback";return A()?"opted-in":"refused"}function o(e,t){return`Blocked under test: ${e} ${t} \u2014 test runtimes must not reach the network. `+"Run the file via `bun run test:file -- <path>` with this request mocked, or set CLAUDE_CODE_TEST_ALLOW_REAL_NETWORK=1 for an intentional live probe."}function E(e){let t=st.getUri(e),r=(e.method??"get").toUpperCase();switch(c(t)){case"loopback":return m(e,r);case"opted-in":return process.stderr.write(a(r,t)),e;case"refused":throw new i(o(r,t))}}function m(e,t){let r=e.beforeRedirect;return e.beforeRedirect=(n,p)=>{let s=typeof n.href==="string"?n.href:"";switch(c(s)){case"loopback":break;case"opted-in":process.stderr.write(a(t,s));break;case"refused":throw process.stderr.write(`${o(t,s)}
-`),new i(o(t,s))}r?.(n,p)},e}function x(){if(!h())st.interceptors.request.use(E)}function h(){return st.interceptors.request.handlers?.some((e)=>e?.fulfilled===E)??!1}function d(){return!1}function b5(){return}function Bvn(e,t,r){if(e!==R||!d())return;switch(c(r)){case"loopback":return;case"opted-in":process.stderr.write(a(t,r));return;case"refused":throw new i(o(t,r))}}function jvn(e,t,r){if(e!==R||!d())return;if(r.redirected&&c(r.url)==="refused")throw new i(o(t,r.url))}var w;function aAt(e,t){if(!d()||t!==void 0&&t!==g)return;switch(c(e)){case"loopback":return;case"opted-in":process.stderr.write(a("WS",e));return;case"refused":{let r=new i(o("WS",e));throw w?.(r),r}}}async function lAt(e,t){let r=globalThis.fetch,{method:n,url:p}=Uvn(e,t);Bvn(r,n,p);let s=await r(e,t);return jvn(r,n,s),s}var k=new Set(["ERR_BAD_OPTION","ERR_BAD_OPTION_VALUE","ERR_BAD_REQUEST","ERR_BAD_RESPONSE","ERR_CANCELED","ERR_DEPRECATED","ERR_FORM_DATA_DEPTH_EXCEEDED","ERR_FR_MAX_BODY_LENGTH_EXCEEDED","ERR_FR_TOO_MANY_REDIRECTS","ERR_INVALID_URL","ERR_NOT_SUPPORT","ERR_STREAM_WRITE_AFTER_END"]);function mJe(e){return Sp(e)&&e.response===void 0&&!k.has(e.code??"")}function u(e,t){for(let r of[e,t?.baseURL])if(r&&xCe(r))throw Error(`externalHttp: ${r} is Anthropic-operated. Use firstPartyApi from `+"src/services/http/firstParty \u2014 it enforces the 3P data-residency gate.")}var Dl={get(e,t){return u(e,t),b5(),st.get(e,t)},head(e,t){return u(e,t),b5(),st.head(e,t)},post(e,t,r){return u(e,r),b5(),st.post(e,t,r)},put(e,t,r){return u(e,r),b5(),st.put(e,t,r)},patch(e,t,r){return u(e,r),b5(),st.patch(e,t,r)},delete(e,t){return u(e,t),b5(),st.delete(e,t)}};
-export{xCe,iJ,Uvn,b5,Bvn,jvn,aAt,lAt,mJe,Dl};
+import { st, Sp } from "/$bunfs/root/chunk-qcx34e4j.js";
+import { Me } from "/$bunfs/root/chunk-qq1mdtb5.js";
+import { sJ } from "/$bunfs/root/chunk-30ppz8v8.js";
+var T = /(^|\.)(anthropic\.com|claude\.ai|claude\.com)$/i,
+  l = /(^|\.)downloads\.claude\.ai$/i;
+function f(e) {
+  let t,
+    r = e.startsWith("//") ? `https:${e}` : e;
+  try {
+    t = new URL(r).hostname;
+  } catch {
+    t = e.match(/^[^/:]+/)?.[0] ?? e;
+  }
+  return t.endsWith(".") ? t.slice(0, -1) : t;
+}
+function xCe(e) {
+  return T.test(f(e));
+}
+function iJ(e) {
+  return l.test(f(e));
+}
+import _ from "ws";
+class i extends Error {
+  name = "TestEgressBlockedError";
+  code = "TestEgressBlocked";
+}
+var R = globalThis.fetch,
+  g = _;
+function Uvn(e, t) {
+  if (e instanceof Request) return { method: (t?.method ?? e.method).toUpperCase(), url: e.url };
+  return { method: (t?.method ?? "GET").toUpperCase(), url: String(e) };
+}
+function A() {
+  return Me(process.env.CLAUDE_CODE_TEST_ALLOW_REAL_NETWORK);
+}
+function a(e, t) {
+  return `[CLAUDE_CODE_TEST_ALLOW_REAL_NETWORK] live request from a test runtime: ${e} ${t}
+`;
+}
+function c(e) {
+  let t;
+  try {
+    t = sJ(new URL(e).hostname);
+  } catch {
+    t = !1;
+  }
+  if (t) return "loopback";
+  return A() ? "opted-in" : "refused";
+}
+function o(e, t) {
+  return (
+    `Blocked under test: ${e} ${t} \u2014 test runtimes must not reach the network. ` +
+    "Run the file via `bun run test:file -- <path>` with this request mocked, or set CLAUDE_CODE_TEST_ALLOW_REAL_NETWORK=1 for an intentional live probe."
+  );
+}
+function E(e) {
+  let t = st.getUri(e),
+    r = (e.method ?? "get").toUpperCase();
+  switch (c(t)) {
+    case "loopback":
+      return m(e, r);
+    case "opted-in":
+      return process.stderr.write(a(r, t)), e;
+    case "refused":
+      throw new i(o(r, t));
+  }
+}
+function m(e, t) {
+  let r = e.beforeRedirect;
+  return (
+    (e.beforeRedirect = (n, p) => {
+      let s = typeof n.href === "string" ? n.href : "";
+      switch (c(s)) {
+        case "loopback":
+          break;
+        case "opted-in":
+          process.stderr.write(a(t, s));
+          break;
+        case "refused":
+          throw (
+            (process.stderr.write(`${o(t, s)}
+`),
+            new i(o(t, s)))
+          );
+      }
+      r?.(n, p);
+    }),
+    e
+  );
+}
+function x() {
+  if (!h()) st.interceptors.request.use(E);
+}
+function h() {
+  return st.interceptors.request.handlers?.some((e) => e?.fulfilled === E) ?? !1;
+}
+function d() {
+  return !1;
+}
+function b5() {
+  return;
+}
+function Bvn(e, t, r) {
+  if (e !== R || !d()) return;
+  switch (c(r)) {
+    case "loopback":
+      return;
+    case "opted-in":
+      process.stderr.write(a(t, r));
+      return;
+    case "refused":
+      throw new i(o(t, r));
+  }
+}
+function jvn(e, t, r) {
+  if (e !== R || !d()) return;
+  if (r.redirected && c(r.url) === "refused") throw new i(o(t, r.url));
+}
+var w;
+function aAt(e, t) {
+  if (!d() || (t !== void 0 && t !== g)) return;
+  switch (c(e)) {
+    case "loopback":
+      return;
+    case "opted-in":
+      process.stderr.write(a("WS", e));
+      return;
+    case "refused": {
+      let r = new i(o("WS", e));
+      throw (w?.(r), r);
+    }
+  }
+}
+async function lAt(e, t) {
+  let r = globalThis.fetch,
+    { method: n, url: p } = Uvn(e, t);
+  Bvn(r, n, p);
+  let s = await r(e, t);
+  return jvn(r, n, s), s;
+}
+var k = new Set([
+  "ERR_BAD_OPTION",
+  "ERR_BAD_OPTION_VALUE",
+  "ERR_BAD_REQUEST",
+  "ERR_BAD_RESPONSE",
+  "ERR_CANCELED",
+  "ERR_DEPRECATED",
+  "ERR_FORM_DATA_DEPTH_EXCEEDED",
+  "ERR_FR_MAX_BODY_LENGTH_EXCEEDED",
+  "ERR_FR_TOO_MANY_REDIRECTS",
+  "ERR_INVALID_URL",
+  "ERR_NOT_SUPPORT",
+  "ERR_STREAM_WRITE_AFTER_END",
+]);
+function mJe(e) {
+  return Sp(e) && e.response === void 0 && !k.has(e.code ?? "");
+}
+function u(e, t) {
+  for (let r of [e, t?.baseURL])
+    if (r && xCe(r))
+      throw Error(
+        `externalHttp: ${r} is Anthropic-operated. Use firstPartyApi from ` +
+          "src/services/http/firstParty \u2014 it enforces the 3P data-residency gate.",
+      );
+}
+var Dl = {
+  get(e, t) {
+    return u(e, t), b5(), st.get(e, t);
+  },
+  head(e, t) {
+    return u(e, t), b5(), st.head(e, t);
+  },
+  post(e, t, r) {
+    return u(e, r), b5(), st.post(e, t, r);
+  },
+  put(e, t, r) {
+    return u(e, r), b5(), st.put(e, t, r);
+  },
+  patch(e, t, r) {
+    return u(e, r), b5(), st.patch(e, t, r);
+  },
+  delete(e, t) {
+    return u(e, t), b5(), st.delete(e, t);
+  },
+};
+export { xCe, iJ, Uvn, b5, Bvn, jvn, aAt, lAt, mJe, Dl };

@@ -8,5 +8,14 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Dt,qzn}from"/$bunfs/root/chunk-zze8764r.js";var Bkt={create:"Cloud session active",attach:"Attached to cloud session"},jkt=" \xB7 code here or at ";function a(e,t){return`${Bkt[e]}${jkt}${t}`}function ztt(e,t,o){let s=a(e,t);return o?qzn(e,t,s):Dt(s,"info")}
-export{Bkt,jkt,ztt};
+import { Dt, qzn } from "/$bunfs/root/chunk-zze8764r.js";
+var Bkt = { create: "Cloud session active", attach: "Attached to cloud session" },
+  jkt = " \xB7 code here or at ";
+function a(e, t) {
+  return `${Bkt[e]}${jkt}${t}`;
+}
+function ztt(e, t, o) {
+  let s = a(e, t);
+  return o ? qzn(e, t, s) : Dt(s, "info");
+}
+export { Bkt, jkt, ztt };

@@ -8,10 +8,821 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import"/$bunfs/root/chunk-qq1mdtb5.js";import{ne}from"/$bunfs/root/chunk-tx16jn0x.js";import{Co,Dr}from"/$bunfs/root/chunk-gcks6mn0.js";import"/$bunfs/root/chunk-bzx56g36.js";import"/$bunfs/root/chunk-eqdctte5.js";import{a,mb}from"/$bunfs/root/chunk-fec4384a.js";import{Gu,J,G,K,Gp,gn,yS,zfe,Le,$n}from"/$bunfs/root/chunk-f9h0bg01.js";import"/$bunfs/root/chunk-qm65zb83.js";import"/$bunfs/root/chunk-vfy57cpd.js";import{c}from"/$bunfs/root/chunk-4xj01xwv.js";import{Qd,l,uo}from"/$bunfs/root/chunk-ypdw393e.js";import{vt,qu,n}from"/$bunfs/root/chunk-fv016jr6.js";import{qp}from"/$bunfs/root/chunk-qk7r0t2g.js";import"/$bunfs/root/chunk-4ddxwr9r.js";import{h}from"/$bunfs/root/chunk-wkxx62a2.js";import"/$bunfs/root/chunk-ps6pc7xd.js";import{ae}from"/$bunfs/root/chunk-386w1sy8.js";import{ve,ha,wt,cO,Kbn,Yh,I,ri,Ae,ie,ci}from"/$bunfs/root/chunk-8tgj5dp2.js";import{s}from"/$bunfs/root/chunk-r53tkxrh.js";import{y,p,g}from"/$bunfs/root/chunk-ca80fke8.js";import{ee}from"/$bunfs/root/chunk-4fwj3vnx.js";import{Y}from"/$bunfs/root/chunk-s7e0px8j.js";import"/$bunfs/root/chunk-s28wf80n.js";import"/$bunfs/root/chunk-3bbym8ct.js";import"/$bunfs/root/chunk-cf8qhmdc.js";import"/$bunfs/root/chunk-0pgyw7te.js";import"/$bunfs/root/chunk-2masxyqj.js";import{Vr,m0,Vg}from"/$bunfs/root/chunk-rgw52f13.js";import"/$bunfs/root/chunk-2rx5nghb.js";import"/$bunfs/root/chunk-f5hrzy3k.js";import"/$bunfs/root/chunk-nqmqabr8.js";import"/$bunfs/root/chunk-z0z1xzkg.js";import"/$bunfs/root/chunk-c47snwm2.js";import"/$bunfs/root/chunk-jpf4kat5.js";import"/$bunfs/root/chunk-s4vc7est.js";import"/$bunfs/root/chunk-hyh5wcm1.js";import"/$bunfs/root/chunk-ntyhd04p.js";import"/$bunfs/root/chunk-6k63g5t6.js";import"/$bunfs/root/chunk-q14dgq5g.js";import{Mr}from"/$bunfs/root/chunk-8qsdea2c.js";import{ye,En}from"/$bunfs/root/chunk-988p40e0.js";import"/$bunfs/root/chunk-0spqrdaj.js";import"/$bunfs/root/chunk-5rt2mvvk.js";import"/$bunfs/root/chunk-1yr12dqr.js";import"/$bunfs/root/chunk-2mmw62jx.js";import"/$bunfs/root/chunk-z2bvp3sv.js";import"/$bunfs/root/chunk-keb644xg.js";import"/$bunfs/root/chunk-bj904w9w.js";import"/$bunfs/root/chunk-18bck2pp.js";import"/$bunfs/root/chunk-dwwpyy7b.js";import"/$bunfs/root/chunk-jck8t8fq.js";import"/$bunfs/root/chunk-a48rnvhj.js";import"/$bunfs/root/chunk-492vgtnr.js";import"/$bunfs/root/chunk-qk6zade1.js";import"/$bunfs/root/chunk-0g6cj4h1.js";import{Uu,NAe,V6}from"/$bunfs/root/chunk-amem41jf.js";import"/$bunfs/root/chunk-e7rq8w09.js";import"/$bunfs/root/chunk-82w4mtvq.js";import"/$bunfs/root/chunk-ax6dy60b.js";import"/$bunfs/root/chunk-qcx34e4j.js";import"/$bunfs/root/chunk-psdymar6.js";import"/$bunfs/root/chunk-0r9wzh7g.js";import"/$bunfs/root/chunk-sxxp6vcr.js";import{WAn,GAn}from"/$bunfs/root/chunk-rf51999f.js";import"/$bunfs/root/chunk-v7yhn7cf.js";import"/$bunfs/root/chunk-kxyny47c.js";import"/$bunfs/root/chunk-ghara6r1.js";import"/$bunfs/root/chunk-4r03fm98.js";import"/$bunfs/root/chunk-r3qa2s4k.js";import"/$bunfs/root/chunk-k4a21mkt.js";import"/$bunfs/root/chunk-4rh74qms.js";import"/$bunfs/root/chunk-1evht33z.js";import"/$bunfs/root/chunk-fbp3w46j.js";import"/$bunfs/root/chunk-gtv2468w.js";import"/$bunfs/root/chunk-s4smmnta.js";import"/$bunfs/root/chunk-z9ex1x2t.js";import"/$bunfs/root/chunk-gkfy5ggn.js";import"/$bunfs/root/chunk-4t3vsqt7.js";import"/$bunfs/root/chunk-ejdwrhgv.js";import"/$bunfs/root/chunk-zkvj62rn.js";import"/$bunfs/root/chunk-tzhtxm67.js";import"/$bunfs/root/chunk-mznd09c6.js";import"/$bunfs/root/chunk-167jjb66.js";import"/$bunfs/root/chunk-97wwdfyx.js";import{Yo}from"/$bunfs/root/chunk-nf8aaj8a.js";import{xo}from"/$bunfs/root/chunk-0m39033q.js";import"/$bunfs/root/chunk-98tgyb1d.js";import{ZMt,ks,Z9n,l7,Fb,c7,Bye,kIe,L1t,Put,Dle,Q3e,aan,u7,Z3e,Lle,t4e,Dut,Lc,d9,is,XA,Z7,wGe}from"/$bunfs/root/chunk-zze8764r.js";import"/$bunfs/root/chunk-h7dkgq01.js";import"/$bunfs/root/chunk-2n1hsggr.js";import"/$bunfs/root/chunk-s0xdwab3.js";import"/$bunfs/root/chunk-fs02hzwy.js";import"/$bunfs/root/chunk-c76q2y0e.js";import"/$bunfs/root/chunk-cds31m36.js";import"/$bunfs/root/chunk-z15hpjf9.js";import"/$bunfs/root/chunk-1pn2pk9v.js";import"/$bunfs/root/chunk-hebj76vj.js";import"/$bunfs/root/chunk-0mrbtv3q.js";import"/$bunfs/root/chunk-5n1tbe50.js";import"/$bunfs/root/chunk-twwd9fep.js";import"/$bunfs/root/chunk-a2an01ph.js";import"/$bunfs/root/chunk-dck778n3.js";import{ah,UM,va}from"/$bunfs/root/chunk-nkjrjh5n.js";import"/$bunfs/root/chunk-c6k0ecxv.js";import"/$bunfs/root/chunk-bp3j8sq3.js";import"/$bunfs/root/chunk-qekzccch.js";import"/$bunfs/root/chunk-s2ac0z44.js";import"/$bunfs/root/chunk-wgz3g40p.js";import"/$bunfs/root/chunk-1mp2j0tx.js";import"/$bunfs/root/chunk-tveh0k24.js";import"/$bunfs/root/chunk-699y5x28.js";import"/$bunfs/root/chunk-37pvmyqb.js";import"/$bunfs/root/chunk-6a5ggyw4.js";import{Wpn,OD,UDe}from"/$bunfs/root/chunk-btcxpqw5.js";import"/$bunfs/root/chunk-k8xha1qv.js";import"/$bunfs/root/chunk-30e2jew7.js";import"/$bunfs/root/chunk-51qp0385.js";import"/$bunfs/root/chunk-wjr8v4tx.js";import"/$bunfs/root/chunk-kbyvkqye.js";import"/$bunfs/root/chunk-dd55s64p.js";import"/$bunfs/root/chunk-83h0j7w2.js";import"/$bunfs/root/chunk-qg6z8ah8.js";import"/$bunfs/root/chunk-308krgtb.js";import"/$bunfs/root/chunk-a6xhjq7b.js";import"/$bunfs/root/chunk-qnrh4abv.js";import"/$bunfs/root/chunk-6nmk3t6g.js";import"/$bunfs/root/chunk-jwrz2gmg.js";import"/$bunfs/root/chunk-6w72z84m.js";import"/$bunfs/root/chunk-nkf7ctf5.js";import"/$bunfs/root/chunk-38mxah2g.js";import{dJn}from"/$bunfs/root/chunk-z9bhq3k9.js";import"/$bunfs/root/chunk-v94qfg1j.js";import"/$bunfs/root/chunk-p18e2918.js";import{Wi}from"/$bunfs/root/chunk-rsp0anqd.js";import"/$bunfs/root/chunk-vq9g7y26.js";import"/$bunfs/root/chunk-w3c6n7jh.js";import"/$bunfs/root/chunk-gvnqpbsf.js";import"/$bunfs/root/chunk-d1d8xqks.js";import"/$bunfs/root/chunk-5wecjdtm.js";import"/$bunfs/root/chunk-rgh8hav6.js";import"/$bunfs/root/chunk-qd35gw0c.js";import"/$bunfs/root/chunk-ky33xsw7.js";import"/$bunfs/root/chunk-x06p1jhb.js";import"/$bunfs/root/chunk-91315wj5.js";import"/$bunfs/root/chunk-tz5bx4mb.js";import"/$bunfs/root/chunk-p1awcxk1.js";import"/$bunfs/root/chunk-e17gvevg.js";import"/$bunfs/root/chunk-da857b4g.js";import"/$bunfs/root/chunk-vzc4dhqq.js";import"/$bunfs/root/chunk-anwgkcw5.js";import"/$bunfs/root/chunk-hz299nfa.js";import"/$bunfs/root/chunk-1v3848mh.js";import"/$bunfs/root/chunk-fctnm902.js";import"/$bunfs/root/chunk-e53y7x75.js";import"/$bunfs/root/chunk-d5s7a9by.js";import"/$bunfs/root/chunk-5g92v3fd.js";import"/$bunfs/root/chunk-76gryyye.js";import"/$bunfs/root/chunk-h605j25g.js";import"/$bunfs/root/chunk-4sw5yxwb.js";import"/$bunfs/root/chunk-vx3kc9d2.js";import"/$bunfs/root/chunk-eb5y4yrx.js";import"/$bunfs/root/chunk-5c5qq1s7.js";import"/$bunfs/root/chunk-4c3hecm4.js";import"/$bunfs/root/chunk-xgfepdf4.js";import"/$bunfs/root/chunk-50g10fz0.js";import"/$bunfs/root/chunk-8td9ks9h.js";import"/$bunfs/root/chunk-9y48by1e.js";import"/$bunfs/root/chunk-cfqs035d.js";import"/$bunfs/root/chunk-9tey6wcd.js";import"/$bunfs/root/chunk-86v6b72m.js";import"/$bunfs/root/chunk-c2kqvv3h.js";import"/$bunfs/root/chunk-cgy998p5.js";import"/$bunfs/root/chunk-hzjjsb0j.js";import"/$bunfs/root/chunk-trte0v0g.js";import"/$bunfs/root/chunk-gmgmb4mg.js";import"/$bunfs/root/chunk-avrc9gay.js";import"/$bunfs/root/chunk-pbd9yggs.js";import"/$bunfs/root/chunk-fvkzpeqe.js";import"/$bunfs/root/chunk-96xrtyd5.js";import"/$bunfs/root/chunk-k7v7xwvs.js";import"/$bunfs/root/chunk-pzvxycbq.js";import"/$bunfs/root/chunk-dzv4k86d.js";import{io,Gun}from"/$bunfs/root/chunk-rt5p4yax.js";import"/$bunfs/root/chunk-jn7d47r1.js";import"/$bunfs/root/chunk-dc4hb8f7.js";import"/$bunfs/root/chunk-z9jgt14c.js";import"/$bunfs/root/chunk-y8sx7bf9.js";import"/$bunfs/root/chunk-q2gyteg0.js";import"/$bunfs/root/chunk-0manfhn2.js";import"/$bunfs/root/chunk-r6ppzf4r.js";import"/$bunfs/root/chunk-4399d2v0.js";import"/$bunfs/root/chunk-y79sc2hm.js";import"/$bunfs/root/chunk-2t3rnt88.js";import"/$bunfs/root/chunk-986hvegp.js";import"/$bunfs/root/chunk-8jsj2mx0.js";import"/$bunfs/root/chunk-dt5bt1kc.js";import"/$bunfs/root/chunk-z9rrv31w.js";import"/$bunfs/root/chunk-5djs3wbb.js";import"/$bunfs/root/chunk-r4m4cqz1.js";import"/$bunfs/root/chunk-mq8h2tk8.js";import"/$bunfs/root/chunk-pdf5n9dy.js";import"/$bunfs/root/chunk-rntp2fy5.js";import"/$bunfs/root/chunk-a9vrr0nr.js";import"/$bunfs/root/chunk-nfmyt8cw.js";import"/$bunfs/root/chunk-6var9pwd.js";import"/$bunfs/root/chunk-gmj1vprd.js";import"/$bunfs/root/chunk-ht15rw3x.js";import"/$bunfs/root/chunk-gay9hbs8.js";import"/$bunfs/root/chunk-mvz9fsh3.js";import"/$bunfs/root/chunk-ddbk6aje.js";import"/$bunfs/root/chunk-krety1hw.js";import"/$bunfs/root/chunk-6ywvv1q0.js";import"/$bunfs/root/chunk-wn1jrcrk.js";import"/$bunfs/root/chunk-zk5v8tw6.js";import"/$bunfs/root/chunk-kdtcyk0z.js";import"/$bunfs/root/chunk-q75cm02t.js";import{pT,TKn}from"/$bunfs/root/chunk-dxqac26z.js";import"/$bunfs/root/chunk-2204t1q0.js";import"/$bunfs/root/chunk-kfdrcvxr.js";import"/$bunfs/root/chunk-fd2h00ye.js";import"/$bunfs/root/chunk-vm4xrmr7.js";import"/$bunfs/root/chunk-hkzwg35z.js";import"/$bunfs/root/chunk-mkweh3a4.js";import"/$bunfs/root/chunk-z6m3k8w5.js";import{A0e}from"/$bunfs/root/chunk-ac0gs4d8.js";import{YDn}from"/$bunfs/root/chunk-ym3ayhed.js";import"/$bunfs/root/chunk-ck269khx.js";import"/$bunfs/root/chunk-ed7f7dr9.js";import{RYt}from"/$bunfs/root/chunk-852pcyvm.js";import{Txe}from"/$bunfs/root/chunk-fwwvmbqn.js";import"/$bunfs/root/chunk-qwp18h36.js";import"/$bunfs/root/chunk-5g669xdp.js";import{_G}from"/$bunfs/root/chunk-7rcn0da5.js";import{U1}from"/$bunfs/root/chunk-zan6y17n.js";import{Q0t}from"/$bunfs/root/chunk-ngn87vcm.js";import"/$bunfs/root/chunk-p4y4qj90.js";import"/$bunfs/root/chunk-6nsyrmhg.js";import"/$bunfs/root/chunk-jjkewjsg.js";import"/$bunfs/root/chunk-4r71nj50.js";import"/$bunfs/root/chunk-3qvtfvqg.js";import"/$bunfs/root/chunk-r7t0evh2.js";import"/$bunfs/root/chunk-6xz0kht6.js";import"/$bunfs/root/chunk-2am7kb6k.js";import"/$bunfs/root/chunk-9kr4hqvs.js";import"/$bunfs/root/chunk-xvwx3w83.js";import"/$bunfs/root/chunk-y9akj3mq.js";import"/$bunfs/root/chunk-gdk3p0b3.js";import"/$bunfs/root/chunk-qy75zxb2.js";import"/$bunfs/root/chunk-r6t6p0zm.js";import"/$bunfs/root/chunk-qpj83ec7.js";import"/$bunfs/root/chunk-f77e8yef.js";import"/$bunfs/root/chunk-f7y0mdt6.js";import"/$bunfs/root/chunk-jb2pzt3t.js";import"/$bunfs/root/chunk-9yzzw213.js";import"/$bunfs/root/chunk-mknyj0qp.js";import"/$bunfs/root/chunk-81defen8.js";import"/$bunfs/root/chunk-mpg6r2j0.js";import"/$bunfs/root/chunk-3dh32z3c.js";import"/$bunfs/root/chunk-n8ecp4gs.js";import"/$bunfs/root/chunk-406nxetx.js";import"/$bunfs/root/chunk-2zf9m1zh.js";import"/$bunfs/root/chunk-rxqmmxnb.js";import"/$bunfs/root/chunk-gdhqsw8a.js";import"/$bunfs/root/chunk-5xr818a0.js";import"/$bunfs/root/chunk-fgavb5x0.js";import"/$bunfs/root/chunk-sqa0bs5e.js";import"/$bunfs/root/chunk-fveqn4y7.js";import"/$bunfs/root/chunk-4zsxhey6.js";import"/$bunfs/root/chunk-61nasexv.js";import"/$bunfs/root/chunk-m1andcps.js";import"/$bunfs/root/chunk-61hbq2wc.js";import"/$bunfs/root/chunk-rq65wazg.js";import"/$bunfs/root/chunk-5tdaspnd.js";import"/$bunfs/root/chunk-rr0yj5sq.js";import"/$bunfs/root/chunk-a7wreksn.js";import"/$bunfs/root/chunk-8sbwe0jk.js";import"/$bunfs/root/chunk-nwb64bac.js";import"/$bunfs/root/chunk-g5y4mxg8.js";import"/$bunfs/root/chunk-cbn30h5b.js";import"/$bunfs/root/chunk-g01aac1k.js";import"/$bunfs/root/chunk-3fwkz19s.js";import"/$bunfs/root/chunk-9319g175.js";import"/$bunfs/root/chunk-szz73wxx.js";import"/$bunfs/root/chunk-b40bn863.js";import"/$bunfs/root/chunk-6mgs10s2.js";import"/$bunfs/root/chunk-6s9ybdq1.js";import"/$bunfs/root/chunk-74qqwjhx.js";import"/$bunfs/root/chunk-1hh0bg14.js";import"/$bunfs/root/chunk-052zvbpg.js";import"/$bunfs/root/chunk-werv747a.js";import"/$bunfs/root/chunk-jzh4kg5x.js";import{D}from"/$bunfs/root/chunk-7s7jqj2f.js";import"/$bunfs/root/chunk-56sxk8k2.js";import{O}from"/$bunfs/root/chunk-dqkj2bph.js";import"/$bunfs/root/chunk-7jz6r17g.js";import"/$bunfs/root/chunk-a4q326ap.js";import{ue}from"/$bunfs/root/chunk-yz031c9r.js";function q(e,o){let r=!1,m=Yh(()=>{if(r||ks()||$n()||!Yo())return;return r=!0,m(),oe(e,o)});return vt(async()=>m()),m}async function oe(e,o){let r=await import("/$bunfs/root/chunk-r08e3kb6.js"),m;try{m=await r.startCrossSessionInbox(e,o)}catch(k){if(k instanceof Qd)n(`[uds-messaging] Late bind refused: ${k.message}`,{level:"warn"});else h(k);p("agents_cross_session_inbox",`${r.getUdsStartFailureCause()??"bind_failed"}_late`);return}if(!m){p("agents_cross_session_inbox",`${r.getUdsStartFailureCause()??"bind_failed"}_late`);return}if(xo()){await m(),n("[uds-messaging] Late bind landed during shutdown \u2014 torn down, not published"),g("agents_cross_session_inbox","shutdown_discarded");return}n("[uds-messaging] Late bind: gate enabled by a GrowthBook refresh after startup"),A0e();let d=r.getUdsStartDegradedCause();if(d)g("agents_cross_session_inbox",d,{bind_late:!0});else y("agents_cross_session_inbox",{bind_late:!0});let{updateSessionMessagingSocketPath:_}=await import("/$bunfs/root/chunk-0p166wkt.js"),S=r.getUdsMessagingSocketPath();if(S!==void 0)await _(S,o)}import{constants as X}from"fs";import{open as re}from"fs/promises";import{isatty as N}from"tty";async function L(){try{return await(await re("/dev/tty",X.O_RDWR|X.O_NOCTTY)).close(),!0}catch{return!1}}async function z(){if(D()==="windows")return"unsupported";if(!N(0)||!N(1)||!N(2))return"not_a_tty";if(await L())return"already";let e=le();if(!e)return"ffi_unavailable";if(e(0)!==0)return n("[bg-ctty] login_tty(0) failed",{level:"warn"}),"failed";return"acquired"}function se(){return D()==="macos"?["/usr/lib/libSystem.B.dylib","libSystem.B.dylib"]:["libc.so.6","libutil.so.1","libc.so"]}function le(){let e;try{e=ue("bun:ffi")}catch(o){return n(`[bg-ctty] bun:ffi unavailable: ${o instanceof Error?o.message:String(o)}`),null}for(let o of se())try{let r=e.dlopen(o,{login_tty:{args:["i32"],returns:"i32"}});return(m)=>r.symbols.login_tty(m)}catch{}return n("[bg-ctty] no libc candidate exports login_tty"),null}import{copyFile as ce,stat as me}from"fs/promises";import{homedir as pe}from"os";import{join as de}from"path";async function B(e){await Ae((o)=>({...o,iterm2SetupInProgress:!1}),e)}function fe(){let e=ie();return{inProgress:e.iterm2SetupInProgress??!1,backupPath:e.iterm2BackupPath||null}}function ge(){return de(pe(),"Library","Preferences","com.googlecode.iterm2.plist")}async function Z(e){let{inProgress:o,backupPath:r}=fe();if(!o)return{status:"no_backup"};if(s("tengu_dead_probe_iterm2_crash_restore",{has_backup_path:c(r?"true":"false")}),!r)return await B(e),{status:"no_backup"};try{await me(r)}catch{return await B(e),{status:"no_backup"}}try{return await ce(r,ge()),await B(e),{status:"restored"}}catch(m){return n(`Failed to restore iTerm2 settings with: ${m}`,{level:"error"}),await B(e),{status:"failed",backupPath:r}}}import{realpath as _e}from"fs/promises";import{basename as he,resolve as ke}from"path";async function V(e,o){if(!o?.worktreePath||o.worktreeHookBased)return null;let r=await _e(e).catch(()=>e);if(!(o.worktreePath===e||o.worktreePath===r||ke(o.worktreePath)===r))return null;let d=Vr(e);if(!d||!m0(e)||!Put(e,d))return null;let _=he(e).replaceAll("+","/");try{Bye(_)}catch{return null}let S=await l7(e,[],Fb(e,d));if(!S.ok)return n(`[worktree] bg boot: not adopting ${e} \u2014 ${S.message}`,{level:"warn"}),null;let k=await t4e(e,d,_,"session");if(!k||!await Q(e,d)){if(await ne(250),k=await t4e(e,d,_,"session"),k&&!await Q(e,d))n(`[worktree] bg boot: adopted ${e} but no worktree lock names this process`,{level:"warn"})}if(!k)return null;let w={originalCwd:d,worktreePath:e,worktreeName:_,worktreeBranch:Dle(_),originalHeadCommit:await Q3e(e)??void 0,sessionId:K(),hookBased:!1,enteredExisting:!1};return kIe(w),XA(w),w}async function Q(e,o){try{return Z3e(await Lle(e,o))===process.pid}catch{return!1}}async function po(e,o,r,m,d,_,S,k,w,i,T){Y("info","setup_started");let W=process.version.match(/^v(\d+)\./)?.[1];if(!W||parseInt(W)<22)console.error(ae.bold.red("Error: Claude Code requires Node.js version 22 or higher.")),process.exit(1);if(a.CLAUDE_BG_BACKEND==="daemon"){let t=I("tengu_bg_worker_ctty",!0)?await z():await L()?"already":"switched_off";switch(Y("info","bg_worker_ctty",{outcome:t}),t){case"acquired":ZMt(),y("bg_worker_ctty");break;case"already":ZMt();break;case"failed":g("bg_worker_ctty",t);break;case"ffi_unavailable":case"not_a_tty":g("bg_worker_ctty",t);break;case"unsupported":case"switched_off":break}}if(S)Gp(Gu(S),"startup_custom_id");if(mb.unset("CLAUDE_CODE_MESSAGING_SOCKET"),mb.unset("CLAUDE_CODE_MESSAGING_TOKEN"),!Co()||w!==void 0)if(!Yo())if(!$n()){if(w!==void 0)await(await import("/$bunfs/root/chunk-r08e3kb6.js")).validateExplicitMessagingSocketPath(w);n("[uds-messaging] Skipped: cross-session messaging gate off (will late-bind if a GrowthBook refresh enables it)"),q(w,i)}else n("[uds-messaging] Skipped: cross-session messaging gate off");else if($n())n("[uds-messaging] Skipped: remote thin client");else{let t=performance.now(),f=await import("/$bunfs/root/chunk-r08e3kb6.js"),P=await f.startCrossSessionInbox(w,i);if(P){let C=f.getUdsStartDegradedCause();if(C)g("agents_cross_session_inbox",C);else y("agents_cross_session_inbox")}else p("agents_cross_session_inbox",f.getUdsStartFailureCause()??"bind_failed");let b=performance.now()-t;Wi("setup_uds_messaging_ms",b,t),s("tengu_uds_startup_bind",{durationMs:Math.round(b),bound:!!P})}if(process.env.CLAUDE_BG_BACKEND==="daemon"){let{startRendezvousServer:t}=await import("/$bunfs/root/chunk-gvrmjk51.js");t(i)}await Gun();{let{installObserverSpawner:t}=await import("/$bunfs/root/chunk-97wdcv5p.js");t(G())}if(!Le()){if(io()){let t=await Z(i);if(t.status==="restored")console.log(ae.yellow("Detected an interrupted iTerm2 setup. Your original settings have been restored. You may need to restart iTerm2 for the changes to take effect."));else if(t.status==="failed")console.error(ae.red(`Failed to restore iTerm2 settings. Please manually restore your original settings with: defaults import com.googlecode.iterm2 ${t.backupPath}.`))}try{let t=await Q0t(i);if(t.status==="restored")console.log(ae.yellow("Detected an interrupted Terminal.app setup. Your original settings have been restored. You may need to restart Terminal.app for the changes to take effect."));else if(t.status==="failed")console.error(ae.red(`Failed to restore Terminal.app settings. Please manually restore your original settings with: defaults import com.apple.Terminal ${t.backupPath}.`))}catch(t){h(t)}}try{Lc(e)}catch(t){process.stderr.write(ae.red(`Error: Can't access working directory ${ae.bold(e)}: ${l(t)}
-`)),qp("setcwd"),process.exit(1)}let M=performance.now();if(O()&&i!==void 0)await UDe(i);else Wpn();if(Wi("setup_hooks_snapshot_ms",performance.now()-M,M),Y("info","setup_hooks_captured",{duration_ms:Math.round(performance.now()-M)}),!$n()){let t=performance.now();Z9n(e,i,T),Wi("setup_file_watcher_ms",performance.now()-t,t)}let U=performance.now();if(m){let t=c7(),f=await Vg();if(!t&&!f)process.stderr.write(ae.red(`Error: Can only use --worktree in a git repository, but ${ae.bold(e)} is not a git repository. Configure a WorktreeCreate hook in settings.json to use --worktree with other VCS systems.
-`)),process.exit(1);let P=k?`pr-${k}`:d??UM(),b,C=null;if(f){if(C=Vr(ee()),!C)process.stderr.write(ae.red(`Error: Could not determine the main git repository root.
-`)),process.exit(1);if(m0(ee()))Y("info","worktree_resolved_to_main_repo"),qu(C),Lc(C);b=_?L1t(C,Dle(P)):void 0}else b=_?L1t(ee(),Dle(P)):void 0;let v;try{v=await Dut(K(),P,b,{prNumber:k,fromCwd:e,repoRoot:C??void 0,storageV5:i,credentials:T})}catch(E){process.stderr.write(ae.red(`Error creating worktree: ${l(E)}
-`)),qp("worktree_create"),process.exit(1)}s("tengu_worktree_created",{tmux_enabled:_});let H=!1;if(_&&b){let E=await aan(b,v.worktreePath);if(E.created)H=!0,console.log(ae.green(`Created tmux session: ${ae.bold(b)}
-To attach: ${ae.bold(`tmux attach -t ${b}`)}`));else console.error(ae.yellow(`Warning: Failed to create tmux session: ${E.error}`))}try{qu(v.worktreePath)}catch(E){let x=uo(E);if(!x)throw E;let R;if(x==="ENOENT"||x==="ENOTDIR")R=v.hookBased?"does not exist or is not a directory. The path came from a "+"WorktreeCreate hook \u2014 the hook must print the directory it "+"created as the last line of its stdout.":"does not exist or is not a directory. It may have been removed out from under this session; retrying will recreate it.";else if(x==="EACCES"||x==="EPERM")R=`is not accessible (${x}). Check the directory's permissions.`;else R=`cannot be entered (${l(E)}).`;if(process.stderr.write(ae.red(`Error: worktree directory ${v.worktreePath} ${R}
-`)),h(E),H&&b)await u7(b);qp(`worktree_chdir:${x}`),await U1(),process.exit(1)}if(Lc(v.worktreePath),yS(ee()),zfe(ee()),XA(v),Z7(),O()&&i!==void 0)await UDe(i);else OD();va.cache.clear?.(),ah(i),Wi("setup_worktree_ms",performance.now()-U,U)}else if(wt()&&!ha()){let t=performance.now();try{let f=cO(),P=f?await(await import("/$bunfs/root/chunk-m43j1acx.js")).readJobState(f,i):null;await V(e,P)}catch(f){n(`[worktree] bg adopt-time reclaim skipped: ${l(f)}`)}Wi("setup_bg_worktree_adopt_ms",performance.now()-t,t)}if(Y("info","setup_background_jobs_starting"),!Co());_G(),Y("info","setup_background_jobs_launched"),Mr("setup_before_prefetch"),Y("info","setup_prefetch_starting");let j=Le()&&a.CLAUDE_CODE_SYNC_PLUGIN_INSTALL||Co()||Dr();if(!j){if(d9(T))is(i,T).catch(()=>{});wGe(gn(),i)}if(import("/$bunfs/root/chunk-bfzh1b9q.js").then((t)=>{if(!j)t.loadPluginHooks(i,T).catch((f)=>{n(`plugin hooks prefetch: ${l(f)}`)}),t.setupPluginHookHotReload(i,T)}),!Co()){if(import("/$bunfs/root/chunk-ap3b94a6.js").then((t)=>t.registerSessionFileAccessHooks()),import("/$bunfs/root/chunk-tpzv8d25.js").then((t)=>t.registerUltrareviewPostCommitHook()),!$n()&&ri())import("/$bunfs/root/chunk-xm3kqres.js").then((t)=>t.startMemoryWatcher(i,T))}RYt(),s("tengu_started",{trigger_id:ve(a.CLAUDE_CODE_TRIGGER_ID),worktree_flag:m,tmux_flag:_,in_tmux_worktree:Boolean(a.CLAUDE_CODE_TMUX_SESSION&&a.TMUX)}),Kbn(Le());let F=(En()||{}).proxyAuthHelper;if(WAn({helper:F,fromProjectOrLocal:ye("projectSettings")?.proxyAuthHelper===F||ye("localSettings")?.proxyAuthHelper===F,trustAccepted:ri}),GAn(),be({isNonInteractiveSession:Le(),isRemoteMode:$n(),isBareMode:Co(),exitAfterFirstRender:a.CLAUDE_CODE_EXIT_AFTER_FIRST_RENDER,trustAccepted:ri()}))dJn();Mr("setup_after_prefetch");{let t=performance.now(),f=[Txe(i),...O()&&i!==void 0?[TKn(pT,i)]:[]];if(!Co())f.push(YDn(void 0,i));await Promise.all(f),Wi("setup_release_notes_ms",performance.now()-t,t)}if(o==="bypassPermissions"||r){if(typeof process.getuid==="function"&&process.getuid()===0&&process.env.IS_SANDBOX!=="1"&&!a.CLAUDE_CODE_BUBBLEWRAP)console.error("--dangerously-skip-permissions cannot be used with root/sudo privileges for security reasons"),process.exit(1)}let u=ci();if(u.lastCost!==void 0&&u.lastDuration!==void 0)s("tengu_exit",{last_session_cost:u.lastCost,last_session_api_duration:u.lastAPIDuration,last_session_tool_duration:u.lastToolDuration,last_session_duration:u.lastDuration,last_session_lines_added:u.lastLinesAdded,last_session_lines_removed:u.lastLinesRemoved,last_session_total_input_tokens:u.lastTotalInputTokens,last_session_total_output_tokens:u.lastTotalOutputTokens,last_session_total_cache_creation_input_tokens:u.lastTotalCacheCreationInputTokens,last_session_total_cache_read_input_tokens:u.lastTotalCacheReadInputTokens,last_session_fps_average:u.lastFpsAverage,last_session_fps_low_1_pct:u.lastFpsLow1Pct,last_session_graceful_shutdown:u.lastGracefulShutdown??!1,last_session_version_base:u.lastVersionBase??"unknown",last_session_id:ve(u.lastSessionId),...u.lastSessionMetrics})}function fo(e){return!1}function go(e){return!1}function be({isNonInteractiveSession:e,isRemoteMode:o,isBareMode:r,exitAfterFirstRender:m,trustAccepted:d}){return!e&&!o&&!r&&!m&&d}class te{fired=!1;claim(){if(this.fired)return!1;return this.fired=!0,!0}}var we=new J(()=>new te);function _o(e){if(!we.of(e.host).claim())return;if($n()||!ri())return;(async()=>{let[o,r]=await Promise.all([import("/$bunfs/root/chunk-vt62kaj2.js"),import("/$bunfs/root/chunk-dn80gge8.js")]);if(!process.argv.some((m)=>/^-(?!-)[A-Za-z]*[cr]/.test(m)||["--resume","--continue","--from-pr"].some((d)=>m===d||m.startsWith(`${d}=`)))&&r.loadedIndexExclusions()===null&&o.isAutoMemoryEnabled()&&o.isMemoryRecallEnabled()&&o.isIndexRecallEnabled()){let m=await import("/$bunfs/root/chunk-mwry2jd8.js"),d=await import("/$bunfs/root/chunk-q9fz3qvq.js"),_=await import("/$bunfs/root/chunk-y52yz3wb.js"),S=await import("/$bunfs/root/chunk-8rje3x1f.js"),k=await import("/$bunfs/root/chunk-zy12ydrt.js");if(_.isMultiStoreSyncAvailable()||k.hasOrgMemoryDecisionRunStarted()){if(await d.waitForOrgMemoryDecisionSettled(S.FIRST_STORE_PULL_WAIT_DEADLINE_MS,new AbortController().signal),d.getOrgMemoryDecision().state==="undecided")return}await o.getAutoMemPathState().warmCanonicalWcRoot();let w=r.recallVisibleTeamMounts(o.getAutoMemPath());m.prewarmMemoryIndex(e,o.getAutoMemPath(),o.activeSessionLogExcluder(),(i)=>r.isRecallVisiblePath(i,w))}})().catch((o)=>n(`recall prewarm skipped: ${l(o)}`))}export{fo as isDesktopEntrypointExempted,go as isRemoteCoworkEntrypointExempted,_o as maybePrewarmRecallIndex,we as recallPrewarmLatches,po as setup,be as shouldPrefetchStartupHints};
+import "/$bunfs/root/chunk-qq1mdtb5.js";
+import { ne } from "/$bunfs/root/chunk-tx16jn0x.js";
+import { Co, Dr } from "/$bunfs/root/chunk-gcks6mn0.js";
+import "/$bunfs/root/chunk-bzx56g36.js";
+import "/$bunfs/root/chunk-eqdctte5.js";
+import { a, mb } from "/$bunfs/root/chunk-fec4384a.js";
+import { Gu, J, G, K, Gp, gn, yS, zfe, Le, $n } from "/$bunfs/root/chunk-f9h0bg01.js";
+import "/$bunfs/root/chunk-qm65zb83.js";
+import "/$bunfs/root/chunk-vfy57cpd.js";
+import { c } from "/$bunfs/root/chunk-4xj01xwv.js";
+import { Qd, l, uo } from "/$bunfs/root/chunk-ypdw393e.js";
+import { vt, qu, n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { qp } from "/$bunfs/root/chunk-qk7r0t2g.js";
+import "/$bunfs/root/chunk-4ddxwr9r.js";
+import { h } from "/$bunfs/root/chunk-wkxx62a2.js";
+import "/$bunfs/root/chunk-ps6pc7xd.js";
+import { ae } from "/$bunfs/root/chunk-386w1sy8.js";
+import { ve, ha, wt, cO, Kbn, Yh, I, ri, Ae, ie, ci } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { s } from "/$bunfs/root/chunk-r53tkxrh.js";
+import { y, p, g } from "/$bunfs/root/chunk-ca80fke8.js";
+import { ee } from "/$bunfs/root/chunk-4fwj3vnx.js";
+import { Y } from "/$bunfs/root/chunk-s7e0px8j.js";
+import "/$bunfs/root/chunk-s28wf80n.js";
+import "/$bunfs/root/chunk-3bbym8ct.js";
+import "/$bunfs/root/chunk-cf8qhmdc.js";
+import "/$bunfs/root/chunk-0pgyw7te.js";
+import "/$bunfs/root/chunk-2masxyqj.js";
+import { Vr, m0, Vg } from "/$bunfs/root/chunk-rgw52f13.js";
+import "/$bunfs/root/chunk-2rx5nghb.js";
+import "/$bunfs/root/chunk-f5hrzy3k.js";
+import "/$bunfs/root/chunk-nqmqabr8.js";
+import "/$bunfs/root/chunk-z0z1xzkg.js";
+import "/$bunfs/root/chunk-c47snwm2.js";
+import "/$bunfs/root/chunk-jpf4kat5.js";
+import "/$bunfs/root/chunk-s4vc7est.js";
+import "/$bunfs/root/chunk-hyh5wcm1.js";
+import "/$bunfs/root/chunk-ntyhd04p.js";
+import "/$bunfs/root/chunk-6k63g5t6.js";
+import "/$bunfs/root/chunk-q14dgq5g.js";
+import { Mr } from "/$bunfs/root/chunk-8qsdea2c.js";
+import { ye, En } from "/$bunfs/root/chunk-988p40e0.js";
+import "/$bunfs/root/chunk-0spqrdaj.js";
+import "/$bunfs/root/chunk-5rt2mvvk.js";
+import "/$bunfs/root/chunk-1yr12dqr.js";
+import "/$bunfs/root/chunk-2mmw62jx.js";
+import "/$bunfs/root/chunk-z2bvp3sv.js";
+import "/$bunfs/root/chunk-keb644xg.js";
+import "/$bunfs/root/chunk-bj904w9w.js";
+import "/$bunfs/root/chunk-18bck2pp.js";
+import "/$bunfs/root/chunk-dwwpyy7b.js";
+import "/$bunfs/root/chunk-jck8t8fq.js";
+import "/$bunfs/root/chunk-a48rnvhj.js";
+import "/$bunfs/root/chunk-492vgtnr.js";
+import "/$bunfs/root/chunk-qk6zade1.js";
+import "/$bunfs/root/chunk-0g6cj4h1.js";
+import { Uu, NAe, V6 } from "/$bunfs/root/chunk-amem41jf.js";
+import "/$bunfs/root/chunk-e7rq8w09.js";
+import "/$bunfs/root/chunk-82w4mtvq.js";
+import "/$bunfs/root/chunk-ax6dy60b.js";
+import "/$bunfs/root/chunk-qcx34e4j.js";
+import "/$bunfs/root/chunk-psdymar6.js";
+import "/$bunfs/root/chunk-0r9wzh7g.js";
+import "/$bunfs/root/chunk-sxxp6vcr.js";
+import { WAn, GAn } from "/$bunfs/root/chunk-rf51999f.js";
+import "/$bunfs/root/chunk-v7yhn7cf.js";
+import "/$bunfs/root/chunk-kxyny47c.js";
+import "/$bunfs/root/chunk-ghara6r1.js";
+import "/$bunfs/root/chunk-4r03fm98.js";
+import "/$bunfs/root/chunk-r3qa2s4k.js";
+import "/$bunfs/root/chunk-k4a21mkt.js";
+import "/$bunfs/root/chunk-4rh74qms.js";
+import "/$bunfs/root/chunk-1evht33z.js";
+import "/$bunfs/root/chunk-fbp3w46j.js";
+import "/$bunfs/root/chunk-gtv2468w.js";
+import "/$bunfs/root/chunk-s4smmnta.js";
+import "/$bunfs/root/chunk-z9ex1x2t.js";
+import "/$bunfs/root/chunk-gkfy5ggn.js";
+import "/$bunfs/root/chunk-4t3vsqt7.js";
+import "/$bunfs/root/chunk-ejdwrhgv.js";
+import "/$bunfs/root/chunk-zkvj62rn.js";
+import "/$bunfs/root/chunk-tzhtxm67.js";
+import "/$bunfs/root/chunk-mznd09c6.js";
+import "/$bunfs/root/chunk-167jjb66.js";
+import "/$bunfs/root/chunk-97wwdfyx.js";
+import { Yo } from "/$bunfs/root/chunk-nf8aaj8a.js";
+import { xo } from "/$bunfs/root/chunk-0m39033q.js";
+import "/$bunfs/root/chunk-98tgyb1d.js";
+import {
+  ZMt,
+  ks,
+  Z9n,
+  l7,
+  Fb,
+  c7,
+  Bye,
+  kIe,
+  L1t,
+  Put,
+  Dle,
+  Q3e,
+  aan,
+  u7,
+  Z3e,
+  Lle,
+  t4e,
+  Dut,
+  Lc,
+  d9,
+  is,
+  XA,
+  Z7,
+  wGe,
+} from "/$bunfs/root/chunk-zze8764r.js";
+import "/$bunfs/root/chunk-h7dkgq01.js";
+import "/$bunfs/root/chunk-2n1hsggr.js";
+import "/$bunfs/root/chunk-s0xdwab3.js";
+import "/$bunfs/root/chunk-fs02hzwy.js";
+import "/$bunfs/root/chunk-c76q2y0e.js";
+import "/$bunfs/root/chunk-cds31m36.js";
+import "/$bunfs/root/chunk-z15hpjf9.js";
+import "/$bunfs/root/chunk-1pn2pk9v.js";
+import "/$bunfs/root/chunk-hebj76vj.js";
+import "/$bunfs/root/chunk-0mrbtv3q.js";
+import "/$bunfs/root/chunk-5n1tbe50.js";
+import "/$bunfs/root/chunk-twwd9fep.js";
+import "/$bunfs/root/chunk-a2an01ph.js";
+import "/$bunfs/root/chunk-dck778n3.js";
+import { ah, UM, va } from "/$bunfs/root/chunk-nkjrjh5n.js";
+import "/$bunfs/root/chunk-c6k0ecxv.js";
+import "/$bunfs/root/chunk-bp3j8sq3.js";
+import "/$bunfs/root/chunk-qekzccch.js";
+import "/$bunfs/root/chunk-s2ac0z44.js";
+import "/$bunfs/root/chunk-wgz3g40p.js";
+import "/$bunfs/root/chunk-1mp2j0tx.js";
+import "/$bunfs/root/chunk-tveh0k24.js";
+import "/$bunfs/root/chunk-699y5x28.js";
+import "/$bunfs/root/chunk-37pvmyqb.js";
+import "/$bunfs/root/chunk-6a5ggyw4.js";
+import { Wpn, OD, UDe } from "/$bunfs/root/chunk-btcxpqw5.js";
+import "/$bunfs/root/chunk-k8xha1qv.js";
+import "/$bunfs/root/chunk-30e2jew7.js";
+import "/$bunfs/root/chunk-51qp0385.js";
+import "/$bunfs/root/chunk-wjr8v4tx.js";
+import "/$bunfs/root/chunk-kbyvkqye.js";
+import "/$bunfs/root/chunk-dd55s64p.js";
+import "/$bunfs/root/chunk-83h0j7w2.js";
+import "/$bunfs/root/chunk-qg6z8ah8.js";
+import "/$bunfs/root/chunk-308krgtb.js";
+import "/$bunfs/root/chunk-a6xhjq7b.js";
+import "/$bunfs/root/chunk-qnrh4abv.js";
+import "/$bunfs/root/chunk-6nmk3t6g.js";
+import "/$bunfs/root/chunk-jwrz2gmg.js";
+import "/$bunfs/root/chunk-6w72z84m.js";
+import "/$bunfs/root/chunk-nkf7ctf5.js";
+import "/$bunfs/root/chunk-38mxah2g.js";
+import { dJn } from "/$bunfs/root/chunk-z9bhq3k9.js";
+import "/$bunfs/root/chunk-v94qfg1j.js";
+import "/$bunfs/root/chunk-p18e2918.js";
+import { Wi } from "/$bunfs/root/chunk-rsp0anqd.js";
+import "/$bunfs/root/chunk-vq9g7y26.js";
+import "/$bunfs/root/chunk-w3c6n7jh.js";
+import "/$bunfs/root/chunk-gvnqpbsf.js";
+import "/$bunfs/root/chunk-d1d8xqks.js";
+import "/$bunfs/root/chunk-5wecjdtm.js";
+import "/$bunfs/root/chunk-rgh8hav6.js";
+import "/$bunfs/root/chunk-qd35gw0c.js";
+import "/$bunfs/root/chunk-ky33xsw7.js";
+import "/$bunfs/root/chunk-x06p1jhb.js";
+import "/$bunfs/root/chunk-91315wj5.js";
+import "/$bunfs/root/chunk-tz5bx4mb.js";
+import "/$bunfs/root/chunk-p1awcxk1.js";
+import "/$bunfs/root/chunk-e17gvevg.js";
+import "/$bunfs/root/chunk-da857b4g.js";
+import "/$bunfs/root/chunk-vzc4dhqq.js";
+import "/$bunfs/root/chunk-anwgkcw5.js";
+import "/$bunfs/root/chunk-hz299nfa.js";
+import "/$bunfs/root/chunk-1v3848mh.js";
+import "/$bunfs/root/chunk-fctnm902.js";
+import "/$bunfs/root/chunk-e53y7x75.js";
+import "/$bunfs/root/chunk-d5s7a9by.js";
+import "/$bunfs/root/chunk-5g92v3fd.js";
+import "/$bunfs/root/chunk-76gryyye.js";
+import "/$bunfs/root/chunk-h605j25g.js";
+import "/$bunfs/root/chunk-4sw5yxwb.js";
+import "/$bunfs/root/chunk-vx3kc9d2.js";
+import "/$bunfs/root/chunk-eb5y4yrx.js";
+import "/$bunfs/root/chunk-5c5qq1s7.js";
+import "/$bunfs/root/chunk-4c3hecm4.js";
+import "/$bunfs/root/chunk-xgfepdf4.js";
+import "/$bunfs/root/chunk-50g10fz0.js";
+import "/$bunfs/root/chunk-8td9ks9h.js";
+import "/$bunfs/root/chunk-9y48by1e.js";
+import "/$bunfs/root/chunk-cfqs035d.js";
+import "/$bunfs/root/chunk-9tey6wcd.js";
+import "/$bunfs/root/chunk-86v6b72m.js";
+import "/$bunfs/root/chunk-c2kqvv3h.js";
+import "/$bunfs/root/chunk-cgy998p5.js";
+import "/$bunfs/root/chunk-hzjjsb0j.js";
+import "/$bunfs/root/chunk-trte0v0g.js";
+import "/$bunfs/root/chunk-gmgmb4mg.js";
+import "/$bunfs/root/chunk-avrc9gay.js";
+import "/$bunfs/root/chunk-pbd9yggs.js";
+import "/$bunfs/root/chunk-fvkzpeqe.js";
+import "/$bunfs/root/chunk-96xrtyd5.js";
+import "/$bunfs/root/chunk-k7v7xwvs.js";
+import "/$bunfs/root/chunk-pzvxycbq.js";
+import "/$bunfs/root/chunk-dzv4k86d.js";
+import { io, Gun } from "/$bunfs/root/chunk-rt5p4yax.js";
+import "/$bunfs/root/chunk-jn7d47r1.js";
+import "/$bunfs/root/chunk-dc4hb8f7.js";
+import "/$bunfs/root/chunk-z9jgt14c.js";
+import "/$bunfs/root/chunk-y8sx7bf9.js";
+import "/$bunfs/root/chunk-q2gyteg0.js";
+import "/$bunfs/root/chunk-0manfhn2.js";
+import "/$bunfs/root/chunk-r6ppzf4r.js";
+import "/$bunfs/root/chunk-4399d2v0.js";
+import "/$bunfs/root/chunk-y79sc2hm.js";
+import "/$bunfs/root/chunk-2t3rnt88.js";
+import "/$bunfs/root/chunk-986hvegp.js";
+import "/$bunfs/root/chunk-8jsj2mx0.js";
+import "/$bunfs/root/chunk-dt5bt1kc.js";
+import "/$bunfs/root/chunk-z9rrv31w.js";
+import "/$bunfs/root/chunk-5djs3wbb.js";
+import "/$bunfs/root/chunk-r4m4cqz1.js";
+import "/$bunfs/root/chunk-mq8h2tk8.js";
+import "/$bunfs/root/chunk-pdf5n9dy.js";
+import "/$bunfs/root/chunk-rntp2fy5.js";
+import "/$bunfs/root/chunk-a9vrr0nr.js";
+import "/$bunfs/root/chunk-nfmyt8cw.js";
+import "/$bunfs/root/chunk-6var9pwd.js";
+import "/$bunfs/root/chunk-gmj1vprd.js";
+import "/$bunfs/root/chunk-ht15rw3x.js";
+import "/$bunfs/root/chunk-gay9hbs8.js";
+import "/$bunfs/root/chunk-mvz9fsh3.js";
+import "/$bunfs/root/chunk-ddbk6aje.js";
+import "/$bunfs/root/chunk-krety1hw.js";
+import "/$bunfs/root/chunk-6ywvv1q0.js";
+import "/$bunfs/root/chunk-wn1jrcrk.js";
+import "/$bunfs/root/chunk-zk5v8tw6.js";
+import "/$bunfs/root/chunk-kdtcyk0z.js";
+import "/$bunfs/root/chunk-q75cm02t.js";
+import { pT, TKn } from "/$bunfs/root/chunk-dxqac26z.js";
+import "/$bunfs/root/chunk-2204t1q0.js";
+import "/$bunfs/root/chunk-kfdrcvxr.js";
+import "/$bunfs/root/chunk-fd2h00ye.js";
+import "/$bunfs/root/chunk-vm4xrmr7.js";
+import "/$bunfs/root/chunk-hkzwg35z.js";
+import "/$bunfs/root/chunk-mkweh3a4.js";
+import "/$bunfs/root/chunk-z6m3k8w5.js";
+import { A0e } from "/$bunfs/root/chunk-ac0gs4d8.js";
+import { YDn } from "/$bunfs/root/chunk-ym3ayhed.js";
+import "/$bunfs/root/chunk-ck269khx.js";
+import "/$bunfs/root/chunk-ed7f7dr9.js";
+import { RYt } from "/$bunfs/root/chunk-852pcyvm.js";
+import { Txe } from "/$bunfs/root/chunk-fwwvmbqn.js";
+import "/$bunfs/root/chunk-qwp18h36.js";
+import "/$bunfs/root/chunk-5g669xdp.js";
+import { _G } from "/$bunfs/root/chunk-7rcn0da5.js";
+import { U1 } from "/$bunfs/root/chunk-zan6y17n.js";
+import { Q0t } from "/$bunfs/root/chunk-ngn87vcm.js";
+import "/$bunfs/root/chunk-p4y4qj90.js";
+import "/$bunfs/root/chunk-6nsyrmhg.js";
+import "/$bunfs/root/chunk-jjkewjsg.js";
+import "/$bunfs/root/chunk-4r71nj50.js";
+import "/$bunfs/root/chunk-3qvtfvqg.js";
+import "/$bunfs/root/chunk-r7t0evh2.js";
+import "/$bunfs/root/chunk-6xz0kht6.js";
+import "/$bunfs/root/chunk-2am7kb6k.js";
+import "/$bunfs/root/chunk-9kr4hqvs.js";
+import "/$bunfs/root/chunk-xvwx3w83.js";
+import "/$bunfs/root/chunk-y9akj3mq.js";
+import "/$bunfs/root/chunk-gdk3p0b3.js";
+import "/$bunfs/root/chunk-qy75zxb2.js";
+import "/$bunfs/root/chunk-r6t6p0zm.js";
+import "/$bunfs/root/chunk-qpj83ec7.js";
+import "/$bunfs/root/chunk-f77e8yef.js";
+import "/$bunfs/root/chunk-f7y0mdt6.js";
+import "/$bunfs/root/chunk-jb2pzt3t.js";
+import "/$bunfs/root/chunk-9yzzw213.js";
+import "/$bunfs/root/chunk-mknyj0qp.js";
+import "/$bunfs/root/chunk-81defen8.js";
+import "/$bunfs/root/chunk-mpg6r2j0.js";
+import "/$bunfs/root/chunk-3dh32z3c.js";
+import "/$bunfs/root/chunk-n8ecp4gs.js";
+import "/$bunfs/root/chunk-406nxetx.js";
+import "/$bunfs/root/chunk-2zf9m1zh.js";
+import "/$bunfs/root/chunk-rxqmmxnb.js";
+import "/$bunfs/root/chunk-gdhqsw8a.js";
+import "/$bunfs/root/chunk-5xr818a0.js";
+import "/$bunfs/root/chunk-fgavb5x0.js";
+import "/$bunfs/root/chunk-sqa0bs5e.js";
+import "/$bunfs/root/chunk-fveqn4y7.js";
+import "/$bunfs/root/chunk-4zsxhey6.js";
+import "/$bunfs/root/chunk-61nasexv.js";
+import "/$bunfs/root/chunk-m1andcps.js";
+import "/$bunfs/root/chunk-61hbq2wc.js";
+import "/$bunfs/root/chunk-rq65wazg.js";
+import "/$bunfs/root/chunk-5tdaspnd.js";
+import "/$bunfs/root/chunk-rr0yj5sq.js";
+import "/$bunfs/root/chunk-a7wreksn.js";
+import "/$bunfs/root/chunk-8sbwe0jk.js";
+import "/$bunfs/root/chunk-nwb64bac.js";
+import "/$bunfs/root/chunk-g5y4mxg8.js";
+import "/$bunfs/root/chunk-cbn30h5b.js";
+import "/$bunfs/root/chunk-g01aac1k.js";
+import "/$bunfs/root/chunk-3fwkz19s.js";
+import "/$bunfs/root/chunk-9319g175.js";
+import "/$bunfs/root/chunk-szz73wxx.js";
+import "/$bunfs/root/chunk-b40bn863.js";
+import "/$bunfs/root/chunk-6mgs10s2.js";
+import "/$bunfs/root/chunk-6s9ybdq1.js";
+import "/$bunfs/root/chunk-74qqwjhx.js";
+import "/$bunfs/root/chunk-1hh0bg14.js";
+import "/$bunfs/root/chunk-052zvbpg.js";
+import "/$bunfs/root/chunk-werv747a.js";
+import "/$bunfs/root/chunk-jzh4kg5x.js";
+import { D } from "/$bunfs/root/chunk-7s7jqj2f.js";
+import "/$bunfs/root/chunk-56sxk8k2.js";
+import { O } from "/$bunfs/root/chunk-dqkj2bph.js";
+import "/$bunfs/root/chunk-7jz6r17g.js";
+import "/$bunfs/root/chunk-a4q326ap.js";
+import { ue } from "/$bunfs/root/chunk-yz031c9r.js";
+function q(e, o) {
+  let r = !1,
+    m = Yh(() => {
+      if (r || ks() || $n() || !Yo()) return;
+      return (r = !0), m(), oe(e, o);
+    });
+  return vt(async () => m()), m;
+}
+async function oe(e, o) {
+  let r = await import("/$bunfs/root/chunk-r08e3kb6.js"),
+    m;
+  try {
+    m = await r.startCrossSessionInbox(e, o);
+  } catch (k) {
+    if (k instanceof Qd) n(`[uds-messaging] Late bind refused: ${k.message}`, { level: "warn" });
+    else h(k);
+    p("agents_cross_session_inbox", `${r.getUdsStartFailureCause() ?? "bind_failed"}_late`);
+    return;
+  }
+  if (!m) {
+    p("agents_cross_session_inbox", `${r.getUdsStartFailureCause() ?? "bind_failed"}_late`);
+    return;
+  }
+  if (xo()) {
+    await m(),
+      n("[uds-messaging] Late bind landed during shutdown \u2014 torn down, not published"),
+      g("agents_cross_session_inbox", "shutdown_discarded");
+    return;
+  }
+  n("[uds-messaging] Late bind: gate enabled by a GrowthBook refresh after startup"), A0e();
+  let d = r.getUdsStartDegradedCause();
+  if (d) g("agents_cross_session_inbox", d, { bind_late: !0 });
+  else y("agents_cross_session_inbox", { bind_late: !0 });
+  let { updateSessionMessagingSocketPath: _ } = await import("/$bunfs/root/chunk-0p166wkt.js"),
+    S = r.getUdsMessagingSocketPath();
+  if (S !== void 0) await _(S, o);
+}
+import { constants as X } from "fs";
+import { open as re } from "fs/promises";
+import { isatty as N } from "tty";
+async function L() {
+  try {
+    return await (await re("/dev/tty", X.O_RDWR | X.O_NOCTTY)).close(), !0;
+  } catch {
+    return !1;
+  }
+}
+async function z() {
+  if (D() === "windows") return "unsupported";
+  if (!N(0) || !N(1) || !N(2)) return "not_a_tty";
+  if (await L()) return "already";
+  let e = le();
+  if (!e) return "ffi_unavailable";
+  if (e(0) !== 0) return n("[bg-ctty] login_tty(0) failed", { level: "warn" }), "failed";
+  return "acquired";
+}
+function se() {
+  return D() === "macos"
+    ? ["/usr/lib/libSystem.B.dylib", "libSystem.B.dylib"]
+    : ["libc.so.6", "libutil.so.1", "libc.so"];
+}
+function le() {
+  let e;
+  try {
+    e = ue("bun:ffi");
+  } catch (o) {
+    return n(`[bg-ctty] bun:ffi unavailable: ${o instanceof Error ? o.message : String(o)}`), null;
+  }
+  for (let o of se())
+    try {
+      let r = e.dlopen(o, { login_tty: { args: ["i32"], returns: "i32" } });
+      return (m) => r.symbols.login_tty(m);
+    } catch {}
+  return n("[bg-ctty] no libc candidate exports login_tty"), null;
+}
+import { copyFile as ce, stat as me } from "fs/promises";
+import { homedir as pe } from "os";
+import { join as de } from "path";
+async function B(e) {
+  await Ae((o) => ({ ...o, iterm2SetupInProgress: !1 }), e);
+}
+function fe() {
+  let e = ie();
+  return { inProgress: e.iterm2SetupInProgress ?? !1, backupPath: e.iterm2BackupPath || null };
+}
+function ge() {
+  return de(pe(), "Library", "Preferences", "com.googlecode.iterm2.plist");
+}
+async function Z(e) {
+  let { inProgress: o, backupPath: r } = fe();
+  if (!o) return { status: "no_backup" };
+  if ((s("tengu_dead_probe_iterm2_crash_restore", { has_backup_path: c(r ? "true" : "false") }), !r))
+    return await B(e), { status: "no_backup" };
+  try {
+    await me(r);
+  } catch {
+    return await B(e), { status: "no_backup" };
+  }
+  try {
+    return await ce(r, ge()), await B(e), { status: "restored" };
+  } catch (m) {
+    return (
+      n(`Failed to restore iTerm2 settings with: ${m}`, { level: "error" }),
+      await B(e),
+      { status: "failed", backupPath: r }
+    );
+  }
+}
+import { realpath as _e } from "fs/promises";
+import { basename as he, resolve as ke } from "path";
+async function V(e, o) {
+  if (!o?.worktreePath || o.worktreeHookBased) return null;
+  let r = await _e(e).catch(() => e);
+  if (!(o.worktreePath === e || o.worktreePath === r || ke(o.worktreePath) === r)) return null;
+  let d = Vr(e);
+  if (!d || !m0(e) || !Put(e, d)) return null;
+  let _ = he(e).replaceAll("+", "/");
+  try {
+    Bye(_);
+  } catch {
+    return null;
+  }
+  let S = await l7(e, [], Fb(e, d));
+  if (!S.ok) return n(`[worktree] bg boot: not adopting ${e} \u2014 ${S.message}`, { level: "warn" }), null;
+  let k = await t4e(e, d, _, "session");
+  if (!k || !(await Q(e, d))) {
+    if ((await ne(250), (k = await t4e(e, d, _, "session")), k && !(await Q(e, d))))
+      n(`[worktree] bg boot: adopted ${e} but no worktree lock names this process`, { level: "warn" });
+  }
+  if (!k) return null;
+  let w = {
+    originalCwd: d,
+    worktreePath: e,
+    worktreeName: _,
+    worktreeBranch: Dle(_),
+    originalHeadCommit: (await Q3e(e)) ?? void 0,
+    sessionId: K(),
+    hookBased: !1,
+    enteredExisting: !1,
+  };
+  return kIe(w), XA(w), w;
+}
+async function Q(e, o) {
+  try {
+    return Z3e(await Lle(e, o)) === process.pid;
+  } catch {
+    return !1;
+  }
+}
+async function po(e, o, r, m, d, _, S, k, w, i, T) {
+  Y("info", "setup_started");
+  let W = process.version.match(/^v(\d+)\./)?.[1];
+  if (!W || parseInt(W) < 22)
+    console.error(ae.bold.red("Error: Claude Code requires Node.js version 22 or higher.")), process.exit(1);
+  if (a.CLAUDE_BG_BACKEND === "daemon") {
+    let t = I("tengu_bg_worker_ctty", !0) ? await z() : (await L()) ? "already" : "switched_off";
+    switch ((Y("info", "bg_worker_ctty", { outcome: t }), t)) {
+      case "acquired":
+        ZMt(), y("bg_worker_ctty");
+        break;
+      case "already":
+        ZMt();
+        break;
+      case "failed":
+        g("bg_worker_ctty", t);
+        break;
+      case "ffi_unavailable":
+      case "not_a_tty":
+        g("bg_worker_ctty", t);
+        break;
+      case "unsupported":
+      case "switched_off":
+        break;
+    }
+  }
+  if (S) Gp(Gu(S), "startup_custom_id");
+  if ((mb.unset("CLAUDE_CODE_MESSAGING_SOCKET"), mb.unset("CLAUDE_CODE_MESSAGING_TOKEN"), !Co() || w !== void 0))
+    if (!Yo())
+      if (!$n()) {
+        if (w !== void 0) await (await import("/$bunfs/root/chunk-r08e3kb6.js")).validateExplicitMessagingSocketPath(w);
+        n(
+          "[uds-messaging] Skipped: cross-session messaging gate off (will late-bind if a GrowthBook refresh enables it)",
+        ),
+          q(w, i);
+      } else n("[uds-messaging] Skipped: cross-session messaging gate off");
+    else if ($n()) n("[uds-messaging] Skipped: remote thin client");
+    else {
+      let t = performance.now(),
+        f = await import("/$bunfs/root/chunk-r08e3kb6.js"),
+        P = await f.startCrossSessionInbox(w, i);
+      if (P) {
+        let C = f.getUdsStartDegradedCause();
+        if (C) g("agents_cross_session_inbox", C);
+        else y("agents_cross_session_inbox");
+      } else p("agents_cross_session_inbox", f.getUdsStartFailureCause() ?? "bind_failed");
+      let b = performance.now() - t;
+      Wi("setup_uds_messaging_ms", b, t), s("tengu_uds_startup_bind", { durationMs: Math.round(b), bound: !!P });
+    }
+  if (process.env.CLAUDE_BG_BACKEND === "daemon") {
+    let { startRendezvousServer: t } = await import("/$bunfs/root/chunk-gvrmjk51.js");
+    t(i);
+  }
+  await Gun();
+  {
+    let { installObserverSpawner: t } = await import("/$bunfs/root/chunk-97wdcv5p.js");
+    t(G());
+  }
+  if (!Le()) {
+    if (io()) {
+      let t = await Z(i);
+      if (t.status === "restored")
+        console.log(
+          ae.yellow(
+            "Detected an interrupted iTerm2 setup. Your original settings have been restored. You may need to restart iTerm2 for the changes to take effect.",
+          ),
+        );
+      else if (t.status === "failed")
+        console.error(
+          ae.red(
+            `Failed to restore iTerm2 settings. Please manually restore your original settings with: defaults import com.googlecode.iterm2 ${t.backupPath}.`,
+          ),
+        );
+    }
+    try {
+      let t = await Q0t(i);
+      if (t.status === "restored")
+        console.log(
+          ae.yellow(
+            "Detected an interrupted Terminal.app setup. Your original settings have been restored. You may need to restart Terminal.app for the changes to take effect.",
+          ),
+        );
+      else if (t.status === "failed")
+        console.error(
+          ae.red(
+            `Failed to restore Terminal.app settings. Please manually restore your original settings with: defaults import com.apple.Terminal ${t.backupPath}.`,
+          ),
+        );
+    } catch (t) {
+      h(t);
+    }
+  }
+  try {
+    Lc(e);
+  } catch (t) {
+    process.stderr.write(
+      ae.red(`Error: Can't access working directory ${ae.bold(e)}: ${l(t)}
+`),
+    ),
+      qp("setcwd"),
+      process.exit(1);
+  }
+  let M = performance.now();
+  if (O() && i !== void 0) await UDe(i);
+  else Wpn();
+  if (
+    (Wi("setup_hooks_snapshot_ms", performance.now() - M, M),
+    Y("info", "setup_hooks_captured", { duration_ms: Math.round(performance.now() - M) }),
+    !$n())
+  ) {
+    let t = performance.now();
+    Z9n(e, i, T), Wi("setup_file_watcher_ms", performance.now() - t, t);
+  }
+  let U = performance.now();
+  if (m) {
+    let t = c7(),
+      f = await Vg();
+    if (!t && !f)
+      process.stderr.write(
+        ae.red(`Error: Can only use --worktree in a git repository, but ${ae.bold(e)} is not a git repository. Configure a WorktreeCreate hook in settings.json to use --worktree with other VCS systems.
+`),
+      ),
+        process.exit(1);
+    let P = k ? `pr-${k}` : (d ?? UM()),
+      b,
+      C = null;
+    if (f) {
+      if (((C = Vr(ee())), !C))
+        process.stderr.write(
+          ae.red(`Error: Could not determine the main git repository root.
+`),
+        ),
+          process.exit(1);
+      if (m0(ee())) Y("info", "worktree_resolved_to_main_repo"), qu(C), Lc(C);
+      b = _ ? L1t(C, Dle(P)) : void 0;
+    } else b = _ ? L1t(ee(), Dle(P)) : void 0;
+    let v;
+    try {
+      v = await Dut(K(), P, b, { prNumber: k, fromCwd: e, repoRoot: C ?? void 0, storageV5: i, credentials: T });
+    } catch (E) {
+      process.stderr.write(
+        ae.red(`Error creating worktree: ${l(E)}
+`),
+      ),
+        qp("worktree_create"),
+        process.exit(1);
+    }
+    s("tengu_worktree_created", { tmux_enabled: _ });
+    let H = !1;
+    if (_ && b) {
+      let E = await aan(b, v.worktreePath);
+      if (E.created)
+        (H = !0),
+          console.log(
+            ae.green(`Created tmux session: ${ae.bold(b)}
+To attach: ${ae.bold(`tmux attach -t ${b}`)}`),
+          );
+      else console.error(ae.yellow(`Warning: Failed to create tmux session: ${E.error}`));
+    }
+    try {
+      qu(v.worktreePath);
+    } catch (E) {
+      let x = uo(E);
+      if (!x) throw E;
+      let R;
+      if (x === "ENOENT" || x === "ENOTDIR")
+        R = v.hookBased
+          ? "does not exist or is not a directory. The path came from a " +
+            "WorktreeCreate hook \u2014 the hook must print the directory it " +
+            "created as the last line of its stdout."
+          : "does not exist or is not a directory. It may have been removed out from under this session; retrying will recreate it.";
+      else if (x === "EACCES" || x === "EPERM") R = `is not accessible (${x}). Check the directory's permissions.`;
+      else R = `cannot be entered (${l(E)}).`;
+      if (
+        (process.stderr.write(
+          ae.red(`Error: worktree directory ${v.worktreePath} ${R}
+`),
+        ),
+        h(E),
+        H && b)
+      )
+        await u7(b);
+      qp(`worktree_chdir:${x}`), await U1(), process.exit(1);
+    }
+    if ((Lc(v.worktreePath), yS(ee()), zfe(ee()), XA(v), Z7(), O() && i !== void 0)) await UDe(i);
+    else OD();
+    va.cache.clear?.(), ah(i), Wi("setup_worktree_ms", performance.now() - U, U);
+  } else if (wt() && !ha()) {
+    let t = performance.now();
+    try {
+      let f = cO(),
+        P = f ? await (await import("/$bunfs/root/chunk-m43j1acx.js")).readJobState(f, i) : null;
+      await V(e, P);
+    } catch (f) {
+      n(`[worktree] bg adopt-time reclaim skipped: ${l(f)}`);
+    }
+    Wi("setup_bg_worktree_adopt_ms", performance.now() - t, t);
+  }
+  if ((Y("info", "setup_background_jobs_starting"), !Co()));
+  _G(), Y("info", "setup_background_jobs_launched"), Mr("setup_before_prefetch"), Y("info", "setup_prefetch_starting");
+  let j = (Le() && a.CLAUDE_CODE_SYNC_PLUGIN_INSTALL) || Co() || Dr();
+  if (!j) {
+    if (d9(T)) is(i, T).catch(() => {});
+    wGe(gn(), i);
+  }
+  if (
+    (import("/$bunfs/root/chunk-bfzh1b9q.js").then((t) => {
+      if (!j)
+        t.loadPluginHooks(i, T).catch((f) => {
+          n(`plugin hooks prefetch: ${l(f)}`);
+        }),
+          t.setupPluginHookHotReload(i, T);
+    }),
+    !Co())
+  ) {
+    if (
+      (import("/$bunfs/root/chunk-ap3b94a6.js").then((t) => t.registerSessionFileAccessHooks()),
+      import("/$bunfs/root/chunk-tpzv8d25.js").then((t) => t.registerUltrareviewPostCommitHook()),
+      !$n() && ri())
+    )
+      import("/$bunfs/root/chunk-xm3kqres.js").then((t) => t.startMemoryWatcher(i, T));
+  }
+  RYt(),
+    s("tengu_started", {
+      trigger_id: ve(a.CLAUDE_CODE_TRIGGER_ID),
+      worktree_flag: m,
+      tmux_flag: _,
+      in_tmux_worktree: Boolean(a.CLAUDE_CODE_TMUX_SESSION && a.TMUX),
+    }),
+    Kbn(Le());
+  let F = (En() || {}).proxyAuthHelper;
+  if (
+    (WAn({
+      helper: F,
+      fromProjectOrLocal: ye("projectSettings")?.proxyAuthHelper === F || ye("localSettings")?.proxyAuthHelper === F,
+      trustAccepted: ri,
+    }),
+    GAn(),
+    be({
+      isNonInteractiveSession: Le(),
+      isRemoteMode: $n(),
+      isBareMode: Co(),
+      exitAfterFirstRender: a.CLAUDE_CODE_EXIT_AFTER_FIRST_RENDER,
+      trustAccepted: ri(),
+    }))
+  )
+    dJn();
+  Mr("setup_after_prefetch");
+  {
+    let t = performance.now(),
+      f = [Txe(i), ...(O() && i !== void 0 ? [TKn(pT, i)] : [])];
+    if (!Co()) f.push(YDn(void 0, i));
+    await Promise.all(f), Wi("setup_release_notes_ms", performance.now() - t, t);
+  }
+  if (o === "bypassPermissions" || r) {
+    if (
+      typeof process.getuid === "function" &&
+      process.getuid() === 0 &&
+      process.env.IS_SANDBOX !== "1" &&
+      !a.CLAUDE_CODE_BUBBLEWRAP
+    )
+      console.error("--dangerously-skip-permissions cannot be used with root/sudo privileges for security reasons"),
+        process.exit(1);
+  }
+  let u = ci();
+  if (u.lastCost !== void 0 && u.lastDuration !== void 0)
+    s("tengu_exit", {
+      last_session_cost: u.lastCost,
+      last_session_api_duration: u.lastAPIDuration,
+      last_session_tool_duration: u.lastToolDuration,
+      last_session_duration: u.lastDuration,
+      last_session_lines_added: u.lastLinesAdded,
+      last_session_lines_removed: u.lastLinesRemoved,
+      last_session_total_input_tokens: u.lastTotalInputTokens,
+      last_session_total_output_tokens: u.lastTotalOutputTokens,
+      last_session_total_cache_creation_input_tokens: u.lastTotalCacheCreationInputTokens,
+      last_session_total_cache_read_input_tokens: u.lastTotalCacheReadInputTokens,
+      last_session_fps_average: u.lastFpsAverage,
+      last_session_fps_low_1_pct: u.lastFpsLow1Pct,
+      last_session_graceful_shutdown: u.lastGracefulShutdown ?? !1,
+      last_session_version_base: u.lastVersionBase ?? "unknown",
+      last_session_id: ve(u.lastSessionId),
+      ...u.lastSessionMetrics,
+    });
+}
+function fo(e) {
+  return !1;
+}
+function go(e) {
+  return !1;
+}
+function be({ isNonInteractiveSession: e, isRemoteMode: o, isBareMode: r, exitAfterFirstRender: m, trustAccepted: d }) {
+  return !e && !o && !r && !m && d;
+}
+class te {
+  fired = !1;
+  claim() {
+    if (this.fired) return !1;
+    return (this.fired = !0), !0;
+  }
+}
+var we = new J(() => new te());
+function _o(e) {
+  if (!we.of(e.host).claim()) return;
+  if ($n() || !ri()) return;
+  (async () => {
+    let [o, r] = await Promise.all([
+      import("/$bunfs/root/chunk-vt62kaj2.js"),
+      import("/$bunfs/root/chunk-dn80gge8.js"),
+    ]);
+    if (
+      !process.argv.some(
+        (m) =>
+          /^-(?!-)[A-Za-z]*[cr]/.test(m) ||
+          ["--resume", "--continue", "--from-pr"].some((d) => m === d || m.startsWith(`${d}=`)),
+      ) &&
+      r.loadedIndexExclusions() === null &&
+      o.isAutoMemoryEnabled() &&
+      o.isMemoryRecallEnabled() &&
+      o.isIndexRecallEnabled()
+    ) {
+      let m = await import("/$bunfs/root/chunk-mwry2jd8.js"),
+        d = await import("/$bunfs/root/chunk-q9fz3qvq.js"),
+        _ = await import("/$bunfs/root/chunk-y52yz3wb.js"),
+        S = await import("/$bunfs/root/chunk-8rje3x1f.js"),
+        k = await import("/$bunfs/root/chunk-zy12ydrt.js");
+      if (_.isMultiStoreSyncAvailable() || k.hasOrgMemoryDecisionRunStarted()) {
+        if (
+          (await d.waitForOrgMemoryDecisionSettled(S.FIRST_STORE_PULL_WAIT_DEADLINE_MS, new AbortController().signal),
+          d.getOrgMemoryDecision().state === "undecided")
+        )
+          return;
+      }
+      await o.getAutoMemPathState().warmCanonicalWcRoot();
+      let w = r.recallVisibleTeamMounts(o.getAutoMemPath());
+      m.prewarmMemoryIndex(e, o.getAutoMemPath(), o.activeSessionLogExcluder(), (i) => r.isRecallVisiblePath(i, w));
+    }
+  })().catch((o) => n(`recall prewarm skipped: ${l(o)}`));
+}
+export {
+  fo as isDesktopEntrypointExempted,
+  go as isRemoteCoworkEntrypointExempted,
+  _o as maybePrewarmRecallIndex,
+  we as recallPrewarmLatches,
+  po as setup,
+  be as shouldPrefetchStartupHints,
+};

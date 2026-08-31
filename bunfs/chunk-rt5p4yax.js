@@ -8,5 +8,19 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{I}from"/$bunfs/root/chunk-8tgj5dp2.js";import{a}from"/$bunfs/root/chunk-fec4384a.js";function t(){return process.argv.includes("--agent-teams")}function io(){if(!a.CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS&&!t())return!1;if(!I("tengu_amber_flint",!0))return!1;return!0}async function Gun(){if(!io())return;let{captureTeammateModeSnapshot:e}=await import("/$bunfs/root/chunk-s4sn23h1.js");e()}
-export{io,Gun};
+import { I } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { a } from "/$bunfs/root/chunk-fec4384a.js";
+function t() {
+  return process.argv.includes("--agent-teams");
+}
+function io() {
+  if (!a.CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS && !t()) return !1;
+  if (!I("tengu_amber_flint", !0)) return !1;
+  return !0;
+}
+async function Gun() {
+  if (!io()) return;
+  let { captureTeammateModeSnapshot: e } = await import("/$bunfs/root/chunk-s4sn23h1.js");
+  e();
+}
+export { io, Gun };

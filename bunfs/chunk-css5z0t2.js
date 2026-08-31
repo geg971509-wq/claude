@@ -8,4 +8,5 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{iSt}from"/$bunfs/root/chunk-gxyqmzc8.js";export default iSt();
+import { iSt } from "/$bunfs/root/chunk-gxyqmzc8.js";
+export default iSt();

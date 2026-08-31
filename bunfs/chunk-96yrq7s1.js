@@ -8,4 +8,10 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import"/$bunfs/root/chunk-1bw3xm1h.js";import"/$bunfs/root/chunk-jpaz9qpm.js";import{Xpe,ZTt}from"/$bunfs/root/chunk-7ka63yb8.js";import"/$bunfs/root/chunk-w9fwyp2c.js";import"/$bunfs/root/chunk-0km1g2gp.js";import"/$bunfs/root/chunk-g2s7kk3r.js";export{ZTt as GetRoleCredentialsCommand,Xpe as SSOClient};
+import "/$bunfs/root/chunk-1bw3xm1h.js";
+import "/$bunfs/root/chunk-jpaz9qpm.js";
+import { Xpe, ZTt } from "/$bunfs/root/chunk-7ka63yb8.js";
+import "/$bunfs/root/chunk-w9fwyp2c.js";
+import "/$bunfs/root/chunk-0km1g2gp.js";
+import "/$bunfs/root/chunk-g2s7kk3r.js";
+export { ZTt as GetRoleCredentialsCommand, Xpe as SSOClient };

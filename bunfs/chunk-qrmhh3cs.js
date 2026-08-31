@@ -8,4 +8,5 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Knt,YTr}from"/$bunfs/root/chunk-g40pwv5p.js";export{Knt as RENAME_NOTICE,YTr as call};
+import { Knt, YTr } from "/$bunfs/root/chunk-g40pwv5p.js";
+export { Knt as RENAME_NOTICE, YTr as call };

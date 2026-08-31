@@ -8,4 +8,5 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{o0,fTn,mTn}from"/$bunfs/root/chunk-zkvj62rn.js";export{fTn as DESCRIPTION,o0 as SEND_USER_FILE_TOOL_NAME,mTn as SEND_USER_FILE_TOOL_PROMPT};
+import { o0, fTn, mTn } from "/$bunfs/root/chunk-zkvj62rn.js";
+export { fTn as DESCRIPTION, o0 as SEND_USER_FILE_TOOL_NAME, mTn as SEND_USER_FILE_TOOL_PROMPT };

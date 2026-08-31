@@ -8,5 +8,28 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{$t}from"/$bunfs/root/chunk-2rx5nghb.js";import{xt}from"/$bunfs/root/chunk-8cv6dqkz.js";import{B,Lt,F}from"/$bunfs/root/chunk-twm95mhz.js";F();function Tb(c,o,t=1000,i=0,m){let e=xt(),n=()=>$t(Math.max(0,(m??Date.now())-c-i)),a=B((l)=>{if(!o)return()=>{};let r,u=()=>{try{l()}finally{r=e.setTimeout(u,t)}};return r=e.setTimeout(u,t),()=>r()},[o,t,e]);return Lt(a,n,n)}
-export{Tb};
+import { $t } from "/$bunfs/root/chunk-2rx5nghb.js";
+import { xt } from "/$bunfs/root/chunk-8cv6dqkz.js";
+import { B, Lt, F } from "/$bunfs/root/chunk-twm95mhz.js";
+F();
+function Tb(c, o, t = 1000, i = 0, m) {
+  let e = xt(),
+    n = () => $t(Math.max(0, (m ?? Date.now()) - c - i)),
+    a = B(
+      (l) => {
+        if (!o) return () => {};
+        let r,
+          u = () => {
+            try {
+              l();
+            } finally {
+              r = e.setTimeout(u, t);
+            }
+          };
+        return (r = e.setTimeout(u, t)), () => r();
+      },
+      [o, t, e],
+    );
+  return Lt(a, n, n);
+}
+export { Tb };

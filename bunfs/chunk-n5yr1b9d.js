@@ -8,5 +8,16 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{D}from"/$bunfs/root/chunk-7s7jqj2f.js";import{readlink as e}from"fs/promises";async function sit(n){let r=D();if(r!=="linux"&&r!=="wsl")return null;try{let t=await e(`/proc/self/fd/${n}`);return t.startsWith("/")&&!t.endsWith(" (deleted)")?t:null}catch{return null}}
-export{sit};
+import { D } from "/$bunfs/root/chunk-7s7jqj2f.js";
+import { readlink as e } from "fs/promises";
+async function sit(n) {
+  let r = D();
+  if (r !== "linux" && r !== "wsl") return null;
+  try {
+    let t = await e(`/proc/self/fd/${n}`);
+    return t.startsWith("/") && !t.endsWith(" (deleted)") ? t : null;
+  } catch {
+    return null;
+  }
+}
+export { sit };

@@ -8,5 +8,10 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{R9e,F}from"/$bunfs/root/chunk-twm95mhz.js";F();var r=R9e;var _=function(e){return r.H.useMemoCache(e)};
-export{_};
+import { R9e, F } from "/$bunfs/root/chunk-twm95mhz.js";
+F();
+var r = R9e;
+var _ = function (e) {
+  return r.H.useMemoCache(e);
+};
+export { _ };

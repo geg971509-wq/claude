@@ -8,5 +8,15 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{ht}from"/$bunfs/root/chunk-ek4tmwbt.js";function x0({onClose:t,onBack:n,onKill:o}){return ht({"confirm:yes":t},{context:"Confirmation"}),function(e){if(e.key===" ")e.preventDefault(),t();else if(e.key==="left"&&n)e.preventDefault(),n();else if(e.key==="x"&&!e.ctrl&&!e.meta&&o)e.preventDefault(),o()}}
-export{x0};
+import { ht } from "/$bunfs/root/chunk-ek4tmwbt.js";
+function x0({ onClose: t, onBack: n, onKill: o }) {
+  return (
+    ht({ "confirm:yes": t }, { context: "Confirmation" }),
+    function (e) {
+      if (e.key === " ") e.preventDefault(), t();
+      else if (e.key === "left" && n) e.preventDefault(), n();
+      else if (e.key === "x" && !e.ctrl && !e.meta && o) e.preventDefault(), o();
+    }
+  );
+}
+export { x0 };

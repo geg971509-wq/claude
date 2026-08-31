@@ -8,4 +8,20 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{UP,yx,y1}from"/$bunfs/root/chunk-83rtv341.js";import"/$bunfs/root/chunk-8afqfths.js";import{j}from"/$bunfs/root/chunk-yz031c9r.js";var t=j(UP(),1),o=j(yx(),1),r=j(y1(),1);class e extends t.OTLPExporterBase{constructor(p={}){super(r.createOtlpHttpExportDelegate(r.convertLegacyHttpOptions(p,"TRACES","v1/traces",{"Content-Type":"application/json"}),o.JsonTraceSerializer))}}export{e as OTLPTraceExporter};
+import { UP, yx, y1 } from "/$bunfs/root/chunk-83rtv341.js";
+import "/$bunfs/root/chunk-8afqfths.js";
+import { j } from "/$bunfs/root/chunk-yz031c9r.js";
+var t = j(UP(), 1),
+  o = j(yx(), 1),
+  r = j(y1(), 1);
+class e extends t.OTLPExporterBase {
+  constructor(p = {}) {
+    super(
+      r.createOtlpHttpExportDelegate(
+        r.convertLegacyHttpOptions(p, "TRACES", "v1/traces", { "Content-Type": "application/json" }),
+        o.JsonTraceSerializer,
+      ),
+    );
+  }
+}
+export { e as OTLPTraceExporter };

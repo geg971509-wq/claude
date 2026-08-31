@@ -8,4 +8,16 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Li}from"/$bunfs/root/chunk-z5yhadgs.js";import{S}from"/$bunfs/root/chunk-yz031c9r.js";var i=S(function(e){Object.defineProperty(e,"__esModule",{value:!0});e.getMachineId=void 0;var d=Li();async function n(){d.diag.debug("could not read machine-id: unsupported platform");return}e.getMachineId=n});export default i();
+import { Li } from "/$bunfs/root/chunk-z5yhadgs.js";
+import { S } from "/$bunfs/root/chunk-yz031c9r.js";
+var i = S(function (e) {
+  Object.defineProperty(e, "__esModule", { value: !0 });
+  e.getMachineId = void 0;
+  var d = Li();
+  async function n() {
+    d.diag.debug("could not read machine-id: unsupported platform");
+    return;
+  }
+  e.getMachineId = n;
+});
+export default i();

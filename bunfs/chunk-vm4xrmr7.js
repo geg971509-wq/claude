@@ -8,5 +8,19 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-var Wbe="Remote Control is only available with claude.ai subscriptions. Please use `/login` to sign in with your claude.ai account.",hDe="Error: You must be logged in to use Remote Control.\n\nRemote Control is only available with claude.ai subscriptions. Please use `/login` to sign in with your claude.ai account.",vte="Remote Control disconnected.",qbe="/login",_De="Remote Control got an unexpected server response \u2014 try again after updating Claude Code",KGe="Remote Control could not verify the signed-in account \u2014 run /remote-control to reconnect",NBt="signed-in claude.ai account or organization changed on this machine \u2014 run /remote-control to start a session for the current account, or /login to switch back, then /remote-control",Tdn="Remote Control stopped \u2014 the app running this session is signed out of Claude. Sign in there, then turn Remote Control back on",Edn="Remote Control stopped \u2014 the app running this session is now signed in to a different Claude account",$ce="Previous session is unavailable \u2014 run /remote-control to start a new one",Adn="queued";
-export{Wbe,hDe,vte,qbe,_De,KGe,NBt,Tdn,Edn,$ce,Adn};
+var Wbe =
+    "Remote Control is only available with claude.ai subscriptions. Please use `/login` to sign in with your claude.ai account.",
+  hDe =
+    "Error: You must be logged in to use Remote Control.\n\nRemote Control is only available with claude.ai subscriptions. Please use `/login` to sign in with your claude.ai account.",
+  vte = "Remote Control disconnected.",
+  qbe = "/login",
+  _De = "Remote Control got an unexpected server response \u2014 try again after updating Claude Code",
+  KGe = "Remote Control could not verify the signed-in account \u2014 run /remote-control to reconnect",
+  NBt =
+    "signed-in claude.ai account or organization changed on this machine \u2014 run /remote-control to start a session for the current account, or /login to switch back, then /remote-control",
+  Tdn =
+    "Remote Control stopped \u2014 the app running this session is signed out of Claude. Sign in there, then turn Remote Control back on",
+  Edn = "Remote Control stopped \u2014 the app running this session is now signed in to a different Claude account",
+  $ce = "Previous session is unavailable \u2014 run /remote-control to start a new one",
+  Adn = "queued";
+export { Wbe, hDe, vte, qbe, _De, KGe, NBt, Tdn, Edn, $ce, Adn };

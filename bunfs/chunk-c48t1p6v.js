@@ -8,5 +8,9 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{createHash as r}from"crypto";var WN=/^[0-9a-f]{64}$/;function Nn(t){return r("sha256").update(t).digest("hex")}
-export{WN,Nn};
+import { createHash as r } from "crypto";
+var WN = /^[0-9a-f]{64}$/;
+function Nn(t) {
+  return r("sha256").update(t).digest("hex");
+}
+export { WN, Nn };

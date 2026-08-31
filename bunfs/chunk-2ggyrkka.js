@@ -8,5 +8,12 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{J}from"/$bunfs/root/chunk-f9h0bg01.js";class e{last=null;record(s){this.last=s}}var dL=new J(()=>new e);
-export{dL};
+import { J } from "/$bunfs/root/chunk-f9h0bg01.js";
+class e {
+  last = null;
+  record(s) {
+    this.last = s;
+  }
+}
+var dL = new J(() => new e());
+export { dL };

@@ -8,5 +8,19 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{I}from"/$bunfs/root/chunk-8tgj5dp2.js";import{Ct}from"/$bunfs/root/chunk-wkxx62a2.js";import{pr}from"/$bunfs/root/chunk-82w4mtvq.js";import{Mt}from"/$bunfs/root/chunk-fs02hzwy.js";var e="tengu_omelette_fouet";function vhe(){if(!Mt("allow_design_sync"))return!1;if(Ct())return!1;if(!pr())return!1;return I(e,!1)}var r="tengu_omelette_grant_watch";function hUn(){return I(r,!1)}
-export{vhe,hUn};
+import { I } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { Ct } from "/$bunfs/root/chunk-wkxx62a2.js";
+import { pr } from "/$bunfs/root/chunk-82w4mtvq.js";
+import { Mt } from "/$bunfs/root/chunk-fs02hzwy.js";
+var e = "tengu_omelette_fouet";
+function vhe() {
+  if (!Mt("allow_design_sync")) return !1;
+  if (Ct()) return !1;
+  if (!pr()) return !1;
+  return I(e, !1);
+}
+var r = "tengu_omelette_grant_watch";
+function hUn() {
+  return I(r, !1);
+}
+export { vhe, hUn };

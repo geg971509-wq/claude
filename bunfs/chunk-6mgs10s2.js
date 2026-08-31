@@ -8,5 +8,69 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{a}from"/$bunfs/root/chunk-fec4384a.js";import{ln}from"/$bunfs/root/chunk-tjmf73ft.js";var n0="computer-use",Uwn="com.anthropic.claude-code.cli-no-window",t={"iTerm.app":"com.googlecode.iterm2",Apple_Terminal:"com.apple.Terminal",ghostty:"com.mitchellh.ghostty",kitty:"net.kovidgoyal.kitty",WarpTerminal:"dev.warp.Warp-Stable",vscode:"com.microsoft.VSCode"};function err(){let e=a.__CFBundleIdentifier;if(e)return e;return t[a.terminal??""]??null}var ewt={screenshotFiltering:"native",platform:"darwin",adaptiveResolution:!1,saveToDisk:!1};function F6(e){return ln(e)===n0}var trr=["request_access","screenshot","zoom","left_click","double_click","triple_click","right_click","middle_click","type","key","scroll","left_click_drag","mouse_move","open_application","switch_display","list_granted_applications","read_clipboard","write_clipboard","wait","cursor_position","hold_key","left_mouse_down","left_mouse_up","computer_batch","request_teach_access","teach_step","teach_batch","app_ax_find","app_batch","app_bring_to_current_space","app_click","app_drag","app_key","app_list_windows","app_menu","app_release","app_screenshot","app_scroll","app_type","list_apps","release_full_control","request_full_control"];
-export{n0,Uwn,err,ewt,F6,trr};
+import { a } from "/$bunfs/root/chunk-fec4384a.js";
+import { ln } from "/$bunfs/root/chunk-tjmf73ft.js";
+var n0 = "computer-use",
+  Uwn = "com.anthropic.claude-code.cli-no-window",
+  t = {
+    "iTerm.app": "com.googlecode.iterm2",
+    Apple_Terminal: "com.apple.Terminal",
+    ghostty: "com.mitchellh.ghostty",
+    kitty: "net.kovidgoyal.kitty",
+    WarpTerminal: "dev.warp.Warp-Stable",
+    vscode: "com.microsoft.VSCode",
+  };
+function err() {
+  let e = a.__CFBundleIdentifier;
+  if (e) return e;
+  return t[a.terminal ?? ""] ?? null;
+}
+var ewt = { screenshotFiltering: "native", platform: "darwin", adaptiveResolution: !1, saveToDisk: !1 };
+function F6(e) {
+  return ln(e) === n0;
+}
+var trr = [
+  "request_access",
+  "screenshot",
+  "zoom",
+  "left_click",
+  "double_click",
+  "triple_click",
+  "right_click",
+  "middle_click",
+  "type",
+  "key",
+  "scroll",
+  "left_click_drag",
+  "mouse_move",
+  "open_application",
+  "switch_display",
+  "list_granted_applications",
+  "read_clipboard",
+  "write_clipboard",
+  "wait",
+  "cursor_position",
+  "hold_key",
+  "left_mouse_down",
+  "left_mouse_up",
+  "computer_batch",
+  "request_teach_access",
+  "teach_step",
+  "teach_batch",
+  "app_ax_find",
+  "app_batch",
+  "app_bring_to_current_space",
+  "app_click",
+  "app_drag",
+  "app_key",
+  "app_list_windows",
+  "app_menu",
+  "app_release",
+  "app_screenshot",
+  "app_scroll",
+  "app_type",
+  "list_apps",
+  "release_full_control",
+  "request_full_control",
+];
+export { n0, Uwn, err, ewt, F6, trr };

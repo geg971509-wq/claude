@@ -8,5 +8,18 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{_}from"/$bunfs/root/chunk-haan6f8z.js";import{t}from"/$bunfs/root/chunk-he2phymk.js";import{r}from"/$bunfs/root/chunk-8s7kcbyw.js";function DR(d){let f=_(2),{children:e,when:p}=d;if(!(p===void 0?!0:p)){return null}let a;if(f[0]!==e)a=r(t,{dimColor:!0,children:[" (",e,")"]}),f[0]=e,f[1]=a;else a=f[1];return a}
-export{DR};
+import { _ } from "/$bunfs/root/chunk-haan6f8z.js";
+import { t } from "/$bunfs/root/chunk-he2phymk.js";
+import { r } from "/$bunfs/root/chunk-8s7kcbyw.js";
+function DR(d) {
+  let f = _(2),
+    { children: e, when: p } = d;
+  if (!(p === void 0 ? !0 : p)) {
+    return null;
+  }
+  let a;
+  if (f[0] !== e) (a = r(t, { dimColor: !0, children: [" (", e, ")"] })), (f[0] = e), (f[1] = a);
+  else a = f[1];
+  return a;
+}
+export { DR };

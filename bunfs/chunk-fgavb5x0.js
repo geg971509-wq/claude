@@ -8,5 +8,13 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{En}from"/$bunfs/root/chunk-988p40e0.js";function kgn(){if((En()||{}).permissions?.disableBypassPermissionsMode==="disable")return"Bypass permissions mode was disabled by settings";return}function oy(){return kgn()!==void 0}
-export{kgn,oy};
+import { En } from "/$bunfs/root/chunk-988p40e0.js";
+function kgn() {
+  if ((En() || {}).permissions?.disableBypassPermissionsMode === "disable")
+    return "Bypass permissions mode was disabled by settings";
+  return;
+}
+function oy() {
+  return kgn() !== void 0;
+}
+export { kgn, oy };

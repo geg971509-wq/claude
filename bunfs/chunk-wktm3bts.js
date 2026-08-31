@@ -8,5 +8,18 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{a}from"/$bunfs/root/chunk-fec4384a.js";var $ke="CLAUDE_CODE_RELAUNCH_TERMINAL_SIZE";function Znt(){let{columns:r,rows:e}=process.stdout;if(!r||!e)return{};return{[$ke]:`${r}x${e}`}}function TNn(){let r=a.CLAUDE_CODE_RELAUNCH_TERMINAL_SIZE;if(delete process.env[$ke],r===void 0||!process.stdout.isTTY)return;let e=/^([1-9]\d{0,3})x([1-9]\d{0,3})$/.exec(r);if(!e)return;process.stdout.columns||=Number(e[1]),process.stdout.rows||=Number(e[2])}
-export{$ke,Znt,TNn};
+import { a } from "/$bunfs/root/chunk-fec4384a.js";
+var $ke = "CLAUDE_CODE_RELAUNCH_TERMINAL_SIZE";
+function Znt() {
+  let { columns: r, rows: e } = process.stdout;
+  if (!r || !e) return {};
+  return { [$ke]: `${r}x${e}` };
+}
+function TNn() {
+  let r = a.CLAUDE_CODE_RELAUNCH_TERMINAL_SIZE;
+  if ((delete process.env[$ke], r === void 0 || !process.stdout.isTTY)) return;
+  let e = /^([1-9]\d{0,3})x([1-9]\d{0,3})$/.exec(r);
+  if (!e) return;
+  (process.stdout.columns ||= Number(e[1])), (process.stdout.rows ||= Number(e[2]));
+}
+export { $ke, Znt, TNn };

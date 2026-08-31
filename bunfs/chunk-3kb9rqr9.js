@@ -8,5 +8,237 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Me}from"/$bunfs/root/chunk-qq1mdtb5.js";import{Zn}from"/$bunfs/root/chunk-fec4384a.js";import{_}from"/$bunfs/root/chunk-haan6f8z.js";import{ge}from"/$bunfs/root/chunk-c3bffkxg.js";import{ff,wre,Ae,ie}from"/$bunfs/root/chunk-8tgj5dp2.js";import{Je}from"/$bunfs/root/chunk-988p40e0.js";import{o,t,hn,vW}from"/$bunfs/root/chunk-he2phymk.js";import{fi}from"/$bunfs/root/chunk-8td9ks9h.js";import{xt}from"/$bunfs/root/chunk-8cv6dqkz.js";import{sq}from"/$bunfs/root/chunk-t9ftg1j2.js";import{Xu}from"/$bunfs/root/chunk-84qb5tsd.js";import{U,e,r}from"/$bunfs/root/chunk-8s7kcbyw.js";import{A,br,C,u,F}from"/$bunfs/root/chunk-twm95mhz.js";F();function vtt(){let n=Zn.CLAUDE_CODE_FORCE_FIRST_LAUNCH;if(n===void 0)return;if(wre(n))return{pretendLastSeen:n};return Me(n)?{pretendLastSeen:void 0}:void 0}function Uj(n,a={ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION){if(!wre(a))return!1;if(!wre(n))return!0;try{return ff(a,n)}catch{return!0}}function Se(J){return Uj(J.lastClawdEntranceVersion)?{...J,lastClawdEntranceVersion:{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION}:J}var R={dot:"\xB7",wave:"~"};function f(n,a,d,i){return Array.from({length:d},()=>({pose:n,offset:a,x:i}))}function P(n){return[{pose:"default",offset:1,x:n,poof:"dot"},{pose:"default",offset:1,x:n,poof:"wave"}]}var g=[...P(),...f("arms-up",0,3),...f("default",0,1),...P(),...f("arms-up",0,3),...f("default",0,1)],G=[...f("look-right",0,5),...f("look-left",0,5),...f("default",0,1)],ce=[...f("default",0,12),...f("look-right",0,5),...f("look-left",0,5)],z=[g,G],H={pose:"default",offset:0},ee=60;function me(n,a){if(!a||n.length===0)return n;let d=n[0],i=d.x!==void 0&&d.x!==0?d:H,p=Math.max(1,Math.round(a/ee));return[...Array.from({length:p},()=>i),...n]}var pe=(n)=>n+1,l=3,I=9,Ee=[...g,...f("default",1,3)],he=[...f("look-left",0,2),...f("look-right",0,2),...f("look-left",0,2),...f("arms-up",0,3),...f("default",0,1)],Ce=[...f("default",1,1,-I),...f("arms-up",0,2,-6),...f("default",0,1,-6),...f("default",1,1,-6),...f("arms-up",0,2,-3),...f("default",0,1,-3),...f("default",1,1,-3),...f("arms-up",0,2,0),...P(0),...f("default",0,1,0)],X={jump:g,look:G,celebrate:Ee,skip:Ce,spin:he};function iq(x){let y=_(16),te;if(y[0]!==x)te=x===void 0?{}:x,y[0]=x,y[1]=te;else te=y[1];let{autoplay:re,sequence:De,delayMs:Ue,onComplete:Te,reserveCrouchRow:fe}=te,Ve=re===void 0?!1:re,Qe=fe===void 0?!1:fe,{pose:Q,bounceOffset:h,x:K,poof:b,onClick:B}=Z(Ve,De,Ue,Te);const Y=Qe?l+1:l;let M;if(y[2]!==Q)M=e(sq,{pose:Q}),y[2]=Q,y[3]=M;else M=y[3];let N;if(y[4]!==h||y[5]!==M||y[6]!==K)N=e(o,{marginTop:h,marginLeft:K,flexShrink:0,children:M}),y[4]=h,y[5]=M,y[6]=K,y[7]=N;else N=y[7];let O;if(y[8]!==h||y[9]!==b)O=b&&h>0?r(U,{children:[e(o,{position:"absolute",top:l-1,left:0,children:e(t,{color:"inactive",children:R[b]})}),e(o,{position:"absolute",top:l-1,right:0,children:e(t,{color:"inactive",children:R[b]})})]}):null,y[8]=h,y[9]=b,y[10]=O;else O=y[10];let ae;if(y[11]!==B||y[12]!==Y||y[13]!==N||y[14]!==O)ae=e(vW,{children:r(o,{height:Y,width:I,flexDirection:"column",flexShrink:0,overflow:"hidden",onClick:B,children:[N,O]})}),y[11]=B,y[12]=Y,y[13]=N,y[14]=O,y[15]=ae;else ae=y[15];return ae}function Z(n,a,d,i){let p=hn(),[m]=u(()=>Xu(Je().prefersReducedMotion)||p),S=(n||a!==void 0)&&!m,[s,c]=u(S?0:-1),E=C(me(a?X[a]:n?ce:g,a?d:void 0)),L=br(()=>i?.()),D=C(!a),T=xt();A(()=>{if(m)L()},[m]);let ne=()=>{if(n||m||s!==-1||!D.current)return;E.current=z[Math.floor(Math.random()*z.length)],c(0)};A(()=>{if(s===-1)return;if(s>=E.current.length){D.current=!0,L(),c(n&&!a?0:-1);return}return T.setTimeout(()=>c(pe),ee)},[s,n,a,T]);let V=E.current,oe=a?X[a].at(-1):H,k=s>=0&&s<V.length?V[s]:oe;return{pose:k.pose,bounceOffset:k.offset,x:k.x??0,poof:k.poof,onClick:ne}}var W=["skip","jump","look","spin"];function q(){if(fi.clawdEntranceTaken)return;if(!vtt()&&!Uj(ie().lastClawdEntranceVersion))return;return fi.clawdEntranceTaken=!0,W[Math.floor(Math.random()*W.length)]}function Skt(j){let ue=_(6),{storageV5:v}=ge(),de;if(ue[0]!==j)de=()=>j?q():void 0,ue[0]=j,ue[1]=de;else de=ue[1];let[w]=u(de),se,le;if(ue[2]!==w||ue[3]!==v)se=()=>{if(w===void 0||!Uj(ie().lastClawdEntranceVersion)){return}Ae(Se,v)},le=[w,v],ue[2]=w,ue[3]=v,ue[4]=se,ue[5]=le;else se=ue[4],le=ue[5];return A(se,le),w}
-export{vtt,Uj,iq,Skt};
+import { Me } from "/$bunfs/root/chunk-qq1mdtb5.js";
+import { Zn } from "/$bunfs/root/chunk-fec4384a.js";
+import { _ } from "/$bunfs/root/chunk-haan6f8z.js";
+import { ge } from "/$bunfs/root/chunk-c3bffkxg.js";
+import { ff, wre, Ae, ie } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { Je } from "/$bunfs/root/chunk-988p40e0.js";
+import { o, t, hn, vW } from "/$bunfs/root/chunk-he2phymk.js";
+import { fi } from "/$bunfs/root/chunk-8td9ks9h.js";
+import { xt } from "/$bunfs/root/chunk-8cv6dqkz.js";
+import { sq } from "/$bunfs/root/chunk-t9ftg1j2.js";
+import { Xu } from "/$bunfs/root/chunk-84qb5tsd.js";
+import { U, e, r } from "/$bunfs/root/chunk-8s7kcbyw.js";
+import { A, br, C, u, F } from "/$bunfs/root/chunk-twm95mhz.js";
+F();
+function vtt() {
+  let n = Zn.CLAUDE_CODE_FORCE_FIRST_LAUNCH;
+  if (n === void 0) return;
+  if (wre(n)) return { pretendLastSeen: n };
+  return Me(n) ? { pretendLastSeen: void 0 } : void 0;
+}
+function Uj(
+  n,
+  a = {
+    ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues",
+    PACKAGE_URL: "@anthropic-ai/claude-code",
+    README_URL: "https://code.claude.com/docs/en/overview",
+    VERSION: "2.1.252",
+    FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues",
+    BUILD_TIME: "2026-08-31T16:02:57Z",
+    GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548",
+    HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",
+    DD_SOURCEMAP_GROUP: "darwin",
+  }.VERSION,
+) {
+  if (!wre(a)) return !1;
+  if (!wre(n)) return !0;
+  try {
+    return ff(a, n);
+  } catch {
+    return !0;
+  }
+}
+function Se(J) {
+  return Uj(J.lastClawdEntranceVersion)
+    ? {
+        ...J,
+        lastClawdEntranceVersion: {
+          ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues",
+          PACKAGE_URL: "@anthropic-ai/claude-code",
+          README_URL: "https://code.claude.com/docs/en/overview",
+          VERSION: "2.1.252",
+          FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues",
+          BUILD_TIME: "2026-08-31T16:02:57Z",
+          GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548",
+          HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",
+          DD_SOURCEMAP_GROUP: "darwin",
+        }.VERSION,
+      }
+    : J;
+}
+var R = { dot: "\xB7", wave: "~" };
+function f(n, a, d, i) {
+  return Array.from({ length: d }, () => ({ pose: n, offset: a, x: i }));
+}
+function P(n) {
+  return [
+    { pose: "default", offset: 1, x: n, poof: "dot" },
+    { pose: "default", offset: 1, x: n, poof: "wave" },
+  ];
+}
+var g = [...P(), ...f("arms-up", 0, 3), ...f("default", 0, 1), ...P(), ...f("arms-up", 0, 3), ...f("default", 0, 1)],
+  G = [...f("look-right", 0, 5), ...f("look-left", 0, 5), ...f("default", 0, 1)],
+  ce = [...f("default", 0, 12), ...f("look-right", 0, 5), ...f("look-left", 0, 5)],
+  z = [g, G],
+  H = { pose: "default", offset: 0 },
+  ee = 60;
+function me(n, a) {
+  if (!a || n.length === 0) return n;
+  let d = n[0],
+    i = d.x !== void 0 && d.x !== 0 ? d : H,
+    p = Math.max(1, Math.round(a / ee));
+  return [...Array.from({ length: p }, () => i), ...n];
+}
+var pe = (n) => n + 1,
+  l = 3,
+  I = 9,
+  Ee = [...g, ...f("default", 1, 3)],
+  he = [
+    ...f("look-left", 0, 2),
+    ...f("look-right", 0, 2),
+    ...f("look-left", 0, 2),
+    ...f("arms-up", 0, 3),
+    ...f("default", 0, 1),
+  ],
+  Ce = [
+    ...f("default", 1, 1, -I),
+    ...f("arms-up", 0, 2, -6),
+    ...f("default", 0, 1, -6),
+    ...f("default", 1, 1, -6),
+    ...f("arms-up", 0, 2, -3),
+    ...f("default", 0, 1, -3),
+    ...f("default", 1, 1, -3),
+    ...f("arms-up", 0, 2, 0),
+    ...P(0),
+    ...f("default", 0, 1, 0),
+  ],
+  X = { jump: g, look: G, celebrate: Ee, skip: Ce, spin: he };
+function iq(x) {
+  let y = _(16),
+    te;
+  if (y[0] !== x) (te = x === void 0 ? {} : x), (y[0] = x), (y[1] = te);
+  else te = y[1];
+  let { autoplay: re, sequence: De, delayMs: Ue, onComplete: Te, reserveCrouchRow: fe } = te,
+    Ve = re === void 0 ? !1 : re,
+    Qe = fe === void 0 ? !1 : fe,
+    { pose: Q, bounceOffset: h, x: K, poof: b, onClick: B } = Z(Ve, De, Ue, Te);
+  const Y = Qe ? l + 1 : l;
+  let M;
+  if (y[2] !== Q) (M = e(sq, { pose: Q })), (y[2] = Q), (y[3] = M);
+  else M = y[3];
+  let N;
+  if (y[4] !== h || y[5] !== M || y[6] !== K)
+    (N = e(o, { marginTop: h, marginLeft: K, flexShrink: 0, children: M })),
+      (y[4] = h),
+      (y[5] = M),
+      (y[6] = K),
+      (y[7] = N);
+  else N = y[7];
+  let O;
+  if (y[8] !== h || y[9] !== b)
+    (O =
+      b && h > 0
+        ? r(U, {
+            children: [
+              e(o, {
+                position: "absolute",
+                top: l - 1,
+                left: 0,
+                children: e(t, { color: "inactive", children: R[b] }),
+              }),
+              e(o, {
+                position: "absolute",
+                top: l - 1,
+                right: 0,
+                children: e(t, { color: "inactive", children: R[b] }),
+              }),
+            ],
+          })
+        : null),
+      (y[8] = h),
+      (y[9] = b),
+      (y[10] = O);
+  else O = y[10];
+  let ae;
+  if (y[11] !== B || y[12] !== Y || y[13] !== N || y[14] !== O)
+    (ae = e(vW, {
+      children: r(o, {
+        height: Y,
+        width: I,
+        flexDirection: "column",
+        flexShrink: 0,
+        overflow: "hidden",
+        onClick: B,
+        children: [N, O],
+      }),
+    })),
+      (y[11] = B),
+      (y[12] = Y),
+      (y[13] = N),
+      (y[14] = O),
+      (y[15] = ae);
+  else ae = y[15];
+  return ae;
+}
+function Z(n, a, d, i) {
+  let p = hn(),
+    [m] = u(() => Xu(Je().prefersReducedMotion) || p),
+    S = (n || a !== void 0) && !m,
+    [s, c] = u(S ? 0 : -1),
+    E = C(me(a ? X[a] : n ? ce : g, a ? d : void 0)),
+    L = br(() => i?.()),
+    D = C(!a),
+    T = xt();
+  A(() => {
+    if (m) L();
+  }, [m]);
+  let ne = () => {
+    if (n || m || s !== -1 || !D.current) return;
+    (E.current = z[Math.floor(Math.random() * z.length)]), c(0);
+  };
+  A(() => {
+    if (s === -1) return;
+    if (s >= E.current.length) {
+      (D.current = !0), L(), c(n && !a ? 0 : -1);
+      return;
+    }
+    return T.setTimeout(() => c(pe), ee);
+  }, [s, n, a, T]);
+  let V = E.current,
+    oe = a ? X[a].at(-1) : H,
+    k = s >= 0 && s < V.length ? V[s] : oe;
+  return { pose: k.pose, bounceOffset: k.offset, x: k.x ?? 0, poof: k.poof, onClick: ne };
+}
+var W = ["skip", "jump", "look", "spin"];
+function q() {
+  if (fi.clawdEntranceTaken) return;
+  if (!vtt() && !Uj(ie().lastClawdEntranceVersion)) return;
+  return (fi.clawdEntranceTaken = !0), W[Math.floor(Math.random() * W.length)];
+}
+function Skt(j) {
+  let ue = _(6),
+    { storageV5: v } = ge(),
+    de;
+  if (ue[0] !== j) (de = () => (j ? q() : void 0)), (ue[0] = j), (ue[1] = de);
+  else de = ue[1];
+  let [w] = u(de),
+    se,
+    le;
+  if (ue[2] !== w || ue[3] !== v)
+    (se = () => {
+      if (w === void 0 || !Uj(ie().lastClawdEntranceVersion)) {
+        return;
+      }
+      Ae(Se, v);
+    }),
+      (le = [w, v]),
+      (ue[2] = w),
+      (ue[3] = v),
+      (ue[4] = se),
+      (ue[5] = le);
+  else (se = ue[4]), (le = ue[5]);
+  return A(se, le), w;
+}
+export { vtt, Uj, iq, Skt };

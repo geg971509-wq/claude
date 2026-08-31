@@ -8,5 +8,23 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{vo,Uo,RS,wa,xA}from"/$bunfs/root/chunk-75mcd7yq.js";function DZ(r){return r instanceof Error&&"code"in r&&r.code==="CLAUDEAI_BEARER_REJECTED"}function Lst(r){if(r instanceof xA)return!0;if(DZ(r))return!1;if(r instanceof RS&&(r.status===403||r.status===401))return r.code!==vo.ClientHttpAuthentication&&r.code!==vo.ClientHttpForbidden;if(r instanceof Error&&!(r instanceof wa)&&!(r instanceof Uo)&&"code"in r&&(r.code===403||r.code===401))return!0;return!1}
-export{DZ,Lst};
+import { vo, Uo, RS, wa, xA } from "/$bunfs/root/chunk-75mcd7yq.js";
+function DZ(r) {
+  return r instanceof Error && "code" in r && r.code === "CLAUDEAI_BEARER_REJECTED";
+}
+function Lst(r) {
+  if (r instanceof xA) return !0;
+  if (DZ(r)) return !1;
+  if (r instanceof RS && (r.status === 403 || r.status === 401))
+    return r.code !== vo.ClientHttpAuthentication && r.code !== vo.ClientHttpForbidden;
+  if (
+    r instanceof Error &&
+    !(r instanceof wa) &&
+    !(r instanceof Uo) &&
+    "code" in r &&
+    (r.code === 403 || r.code === 401)
+  )
+    return !0;
+  return !1;
+}
+export { DZ, Lst };

@@ -8,5 +8,231 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{V}from"/$bunfs/root/chunk-fv016jr6.js";import{a,Zn}from"/$bunfs/root/chunk-fec4384a.js";var h=["runner_prep_total_ms","runner_prep_git_proxy_config_ms","runner_prep_reset_remote_ms","runner_prep_outcome_branch_ms","runner_prep_repo_settings_ms","runner_prep_config_seed_ms","runner_prep_remote_refetch_ms"],f={prewarm_vda_outcome:!0,prewarm_stat_outcome:!0,prewarm_idx_outcome:!0,prefetch_phase:!0,prefetch_phase_reason:!0},l=/^[a-z0-9_]{1,32}$/,m=604800,d={prewarm_vda_elapsed_s:m,prewarm_stat_elapsed_s:m,prefetch_runs:1e4,prefetch_ok:1e4,prefetch_last_ok_age_s:m,prefetch_last_duration_s:m,prefetch_midx:1e4,git_have_age_s:m,git_pack_count:1e4,standby_idle_s:m,healthz_claim_visible_ms:600000},S=3600000,b=new Set(h);function y(e){return Object.hasOwn(f,e)}function R(e){return Object.hasOwn(d,e)}function w(e){return b.has(e)}function _(e,r){if(typeof e!=="number"||!Number.isFinite(e))return;let t=Math.round(e);return t<0?void 0:Math.min(t,r)}function o(e,r){let t=Object.hasOwn(e,r)?Reflect.get(e,r):void 0;return typeof t==="object"&&t!==null?t:void 0}function g(e){if(typeof e!=="object"||e===null)return;let r={};for(let[s,i]of Object.entries(o(e,"fields")??{}))if(y(s)){if(typeof i==="string"&&l.test(i))r[s]=i}else if(R(s)){let u=_(i,d[s]);if(u!==void 0)r[s]=u}let t={};for(let[s,i]of Object.entries(o(e,"phases")??{}))if(w(s)){let u=_(i,S);if(u!==void 0)t[s]=u}if(Object.keys(r).length===0&&Object.keys(t).length===0)return;return{fields:r,phases:t}}var P=8192;function p(e){if(!e||e.length>P)return;try{return g(V(e))}catch{return}}class c{phases={};phaseStarts={};warmSpareClaimed=!1;hydratePrefetchSettledAt=void 0;resumeHydratePrefetch=void 0;resumeHydrateOnDiskBytes=void 0;resumeHydrateCcrBytes=void 0;resumeHydrateCcrEvents=void 0;resumeHydrateDeltaEvents=void 0;resumeHydrateDeltaFetchAttempted=void 0;resumeHydrateAnchorWalkback=void 0;consumed=!1;apiRequestSentFromSpawnMs=void 0;apiRequestSentFromSpawnConsumed=!1;recordPhase(e,r,t){if(this.consumed)return;if(e==="skills_load_ms"&&this.phases[e]!==void 0)return;if(this.phases[e]=Math.round(r),t!==void 0)this.phaseStarts[e]=Math.round(t)}getRecordedPhase(e){return this.phases[e]}recordSpawnToExec(){let e=Number.parseInt(process.env.CCR_SPAWN_TIMESTAMP_MS??"",10);if(!Number.isFinite(e))return;this.recordPhase("spawn_to_exec_ms",Date.now()-process.uptime()*1000-e,e-performance.timeOrigin)}markWarmSpareClaimed(){this.warmSpareClaimed=!0}wasWarmSpareClaimed(){return this.warmSpareClaimed}markHydratePrefetchSettled(){this.hydratePrefetchSettledAt=performance.now()}markResumeHydratePrefetch(e,r){this.resumeHydratePrefetch=e===null?"miss":this.hydratePrefetchSettledAt!==void 0&&this.hydratePrefetchSettledAt<r?"hit":"pending"}markResumeHydrateDelta(e,r,t,s,i,u){this.resumeHydrateOnDiskBytes=e,this.resumeHydrateCcrBytes=r,this.resumeHydrateCcrEvents=t,this.resumeHydrateDeltaEvents=s,this.resumeHydrateDeltaFetchAttempted=i,this.resumeHydrateAnchorWalkback=u}recordFirstMessageReadFromSpawn(){let e=Number.parseInt(process.env.CCR_SPAWN_TIMESTAMP_MS??"",10);if(!Number.isFinite(e))return;this.recordPhase("first_message_read_from_spawn_ms",Date.now()-e,e-performance.timeOrigin)}recordInputReadyFromSpawn(){let e=Number.parseInt(process.env.CCR_SPAWN_TIMESTAMP_MS??"",10);if(!Number.isFinite(e))return;this.recordPhase("input_ready_from_spawn_ms",Date.now()-e,e-performance.timeOrigin)}consume(){if(!a.CLAUDE_CODE_REMOTE)return;if(this.consumed||Object.keys(this.phases).length===0)return;this.consumed=!0;let e=p(Zn.CCR_RUNNER_STARTUP_TIMING);return{...e?.fields,entrypoint:a.CLAUDE_CODE_ENTRYPOINT??"unknown",warm_spare_claimed:this.warmSpareClaimed,resume_hydrate_prefetch:this.resumeHydratePrefetch,resume_hydrate_on_disk_bytes:this.resumeHydrateOnDiskBytes,resume_hydrate_ccr_bytes:this.resumeHydrateCcrBytes,resume_hydrate_ccr_events:this.resumeHydrateCcrEvents,resume_hydrate_delta_events:this.resumeHydrateDeltaEvents,resume_hydrate_delta_fetch_attempted:this.resumeHydrateDeltaFetchAttempted,resume_hydrate_anchor_walkback:this.resumeHydrateAnchorWalkback,prewarm_vda:Zn.CCR_PREWARM_VDA,prewarm_stat:Zn.CCR_PREWARM_STAT,delta_reset:Zn.CCR_DELTA_RESET,prefetch_network:Zn.CCR_PREFETCH_NETWORK,phases:{...e?.phases,...this.phases},time_origin_ms:performance.timeOrigin,phase_start_ms:{...this.phaseStarts}}}recordApiRequestSentFromSpawn(){if(this.apiRequestSentFromSpawnMs!==void 0)return;let e=Number.parseInt(process.env.CCR_SPAWN_TIMESTAMP_MS??"",10);if(!Number.isFinite(e))return;this.apiRequestSentFromSpawnMs=Date.now()-e}consumeApiRequestSentFromSpawn(){if(this.apiRequestSentFromSpawnConsumed||this.apiRequestSentFromSpawnMs===void 0)return;return this.apiRequestSentFromSpawnConsumed=!0,{ms:this.apiRequestSentFromSpawnMs,warmSpareClaimed:this.warmSpareClaimed,timeOriginMs:performance.timeOrigin}}}var n=new c;function Wi(e,r,t){n.recordPhase(e,r,t)}function Cft(e){return n.getRecordedPhase(e)}function mVn(){n.recordSpawnToExec()}function gVn(){n.markWarmSpareClaimed()}function hVn(){return n.wasWarmSpareClaimed()}function _Vn(){n.markHydratePrefetchSettled()}function yVn(e,r){n.markResumeHydratePrefetch(e,r)}function SVn(e,r,t,s,i,u){n.markResumeHydrateDelta(e,r,t,s,i,u)}function bVn(){n.recordFirstMessageReadFromSpawn()}function wVn(){n.recordInputReadyFromSpawn()}function TVn(){return n.consume()}function EVn(){n.recordApiRequestSentFromSpawn()}function SBt(){return n.consumeApiRequestSentFromSpawn()}
-export{Wi,Cft,mVn,gVn,hVn,_Vn,yVn,SVn,bVn,wVn,TVn,EVn,SBt};
+import { V } from "/$bunfs/root/chunk-fv016jr6.js";
+import { a, Zn } from "/$bunfs/root/chunk-fec4384a.js";
+var h = [
+    "runner_prep_total_ms",
+    "runner_prep_git_proxy_config_ms",
+    "runner_prep_reset_remote_ms",
+    "runner_prep_outcome_branch_ms",
+    "runner_prep_repo_settings_ms",
+    "runner_prep_config_seed_ms",
+    "runner_prep_remote_refetch_ms",
+  ],
+  f = {
+    prewarm_vda_outcome: !0,
+    prewarm_stat_outcome: !0,
+    prewarm_idx_outcome: !0,
+    prefetch_phase: !0,
+    prefetch_phase_reason: !0,
+  },
+  l = /^[a-z0-9_]{1,32}$/,
+  m = 604800,
+  d = {
+    prewarm_vda_elapsed_s: m,
+    prewarm_stat_elapsed_s: m,
+    prefetch_runs: 1e4,
+    prefetch_ok: 1e4,
+    prefetch_last_ok_age_s: m,
+    prefetch_last_duration_s: m,
+    prefetch_midx: 1e4,
+    git_have_age_s: m,
+    git_pack_count: 1e4,
+    standby_idle_s: m,
+    healthz_claim_visible_ms: 600000,
+  },
+  S = 3600000,
+  b = new Set(h);
+function y(e) {
+  return Object.hasOwn(f, e);
+}
+function R(e) {
+  return Object.hasOwn(d, e);
+}
+function w(e) {
+  return b.has(e);
+}
+function _(e, r) {
+  if (typeof e !== "number" || !Number.isFinite(e)) return;
+  let t = Math.round(e);
+  return t < 0 ? void 0 : Math.min(t, r);
+}
+function o(e, r) {
+  let t = Object.hasOwn(e, r) ? Reflect.get(e, r) : void 0;
+  return typeof t === "object" && t !== null ? t : void 0;
+}
+function g(e) {
+  if (typeof e !== "object" || e === null) return;
+  let r = {};
+  for (let [s, i] of Object.entries(o(e, "fields") ?? {}))
+    if (y(s)) {
+      if (typeof i === "string" && l.test(i)) r[s] = i;
+    } else if (R(s)) {
+      let u = _(i, d[s]);
+      if (u !== void 0) r[s] = u;
+    }
+  let t = {};
+  for (let [s, i] of Object.entries(o(e, "phases") ?? {}))
+    if (w(s)) {
+      let u = _(i, S);
+      if (u !== void 0) t[s] = u;
+    }
+  if (Object.keys(r).length === 0 && Object.keys(t).length === 0) return;
+  return { fields: r, phases: t };
+}
+var P = 8192;
+function p(e) {
+  if (!e || e.length > P) return;
+  try {
+    return g(V(e));
+  } catch {
+    return;
+  }
+}
+class c {
+  phases = {};
+  phaseStarts = {};
+  warmSpareClaimed = !1;
+  hydratePrefetchSettledAt = void 0;
+  resumeHydratePrefetch = void 0;
+  resumeHydrateOnDiskBytes = void 0;
+  resumeHydrateCcrBytes = void 0;
+  resumeHydrateCcrEvents = void 0;
+  resumeHydrateDeltaEvents = void 0;
+  resumeHydrateDeltaFetchAttempted = void 0;
+  resumeHydrateAnchorWalkback = void 0;
+  consumed = !1;
+  apiRequestSentFromSpawnMs = void 0;
+  apiRequestSentFromSpawnConsumed = !1;
+  recordPhase(e, r, t) {
+    if (this.consumed) return;
+    if (e === "skills_load_ms" && this.phases[e] !== void 0) return;
+    if (((this.phases[e] = Math.round(r)), t !== void 0)) this.phaseStarts[e] = Math.round(t);
+  }
+  getRecordedPhase(e) {
+    return this.phases[e];
+  }
+  recordSpawnToExec() {
+    let e = Number.parseInt(process.env.CCR_SPAWN_TIMESTAMP_MS ?? "", 10);
+    if (!Number.isFinite(e)) return;
+    this.recordPhase("spawn_to_exec_ms", Date.now() - process.uptime() * 1000 - e, e - performance.timeOrigin);
+  }
+  markWarmSpareClaimed() {
+    this.warmSpareClaimed = !0;
+  }
+  wasWarmSpareClaimed() {
+    return this.warmSpareClaimed;
+  }
+  markHydratePrefetchSettled() {
+    this.hydratePrefetchSettledAt = performance.now();
+  }
+  markResumeHydratePrefetch(e, r) {
+    this.resumeHydratePrefetch =
+      e === null
+        ? "miss"
+        : this.hydratePrefetchSettledAt !== void 0 && this.hydratePrefetchSettledAt < r
+          ? "hit"
+          : "pending";
+  }
+  markResumeHydrateDelta(e, r, t, s, i, u) {
+    (this.resumeHydrateOnDiskBytes = e),
+      (this.resumeHydrateCcrBytes = r),
+      (this.resumeHydrateCcrEvents = t),
+      (this.resumeHydrateDeltaEvents = s),
+      (this.resumeHydrateDeltaFetchAttempted = i),
+      (this.resumeHydrateAnchorWalkback = u);
+  }
+  recordFirstMessageReadFromSpawn() {
+    let e = Number.parseInt(process.env.CCR_SPAWN_TIMESTAMP_MS ?? "", 10);
+    if (!Number.isFinite(e)) return;
+    this.recordPhase("first_message_read_from_spawn_ms", Date.now() - e, e - performance.timeOrigin);
+  }
+  recordInputReadyFromSpawn() {
+    let e = Number.parseInt(process.env.CCR_SPAWN_TIMESTAMP_MS ?? "", 10);
+    if (!Number.isFinite(e)) return;
+    this.recordPhase("input_ready_from_spawn_ms", Date.now() - e, e - performance.timeOrigin);
+  }
+  consume() {
+    if (!a.CLAUDE_CODE_REMOTE) return;
+    if (this.consumed || Object.keys(this.phases).length === 0) return;
+    this.consumed = !0;
+    let e = p(Zn.CCR_RUNNER_STARTUP_TIMING);
+    return {
+      ...e?.fields,
+      entrypoint: a.CLAUDE_CODE_ENTRYPOINT ?? "unknown",
+      warm_spare_claimed: this.warmSpareClaimed,
+      resume_hydrate_prefetch: this.resumeHydratePrefetch,
+      resume_hydrate_on_disk_bytes: this.resumeHydrateOnDiskBytes,
+      resume_hydrate_ccr_bytes: this.resumeHydrateCcrBytes,
+      resume_hydrate_ccr_events: this.resumeHydrateCcrEvents,
+      resume_hydrate_delta_events: this.resumeHydrateDeltaEvents,
+      resume_hydrate_delta_fetch_attempted: this.resumeHydrateDeltaFetchAttempted,
+      resume_hydrate_anchor_walkback: this.resumeHydrateAnchorWalkback,
+      prewarm_vda: Zn.CCR_PREWARM_VDA,
+      prewarm_stat: Zn.CCR_PREWARM_STAT,
+      delta_reset: Zn.CCR_DELTA_RESET,
+      prefetch_network: Zn.CCR_PREFETCH_NETWORK,
+      phases: { ...e?.phases, ...this.phases },
+      time_origin_ms: performance.timeOrigin,
+      phase_start_ms: { ...this.phaseStarts },
+    };
+  }
+  recordApiRequestSentFromSpawn() {
+    if (this.apiRequestSentFromSpawnMs !== void 0) return;
+    let e = Number.parseInt(process.env.CCR_SPAWN_TIMESTAMP_MS ?? "", 10);
+    if (!Number.isFinite(e)) return;
+    this.apiRequestSentFromSpawnMs = Date.now() - e;
+  }
+  consumeApiRequestSentFromSpawn() {
+    if (this.apiRequestSentFromSpawnConsumed || this.apiRequestSentFromSpawnMs === void 0) return;
+    return (
+      (this.apiRequestSentFromSpawnConsumed = !0),
+      {
+        ms: this.apiRequestSentFromSpawnMs,
+        warmSpareClaimed: this.warmSpareClaimed,
+        timeOriginMs: performance.timeOrigin,
+      }
+    );
+  }
+}
+var n = new c();
+function Wi(e, r, t) {
+  n.recordPhase(e, r, t);
+}
+function Cft(e) {
+  return n.getRecordedPhase(e);
+}
+function mVn() {
+  n.recordSpawnToExec();
+}
+function gVn() {
+  n.markWarmSpareClaimed();
+}
+function hVn() {
+  return n.wasWarmSpareClaimed();
+}
+function _Vn() {
+  n.markHydratePrefetchSettled();
+}
+function yVn(e, r) {
+  n.markResumeHydratePrefetch(e, r);
+}
+function SVn(e, r, t, s, i, u) {
+  n.markResumeHydrateDelta(e, r, t, s, i, u);
+}
+function bVn() {
+  n.recordFirstMessageReadFromSpawn();
+}
+function wVn() {
+  n.recordInputReadyFromSpawn();
+}
+function TVn() {
+  return n.consume();
+}
+function EVn() {
+  n.recordApiRequestSentFromSpawn();
+}
+function SBt() {
+  return n.consumeApiRequestSentFromSpawn();
+}
+export { Wi, Cft, mVn, gVn, hVn, _Vn, yVn, SVn, bVn, wVn, TVn, EVn, SBt };

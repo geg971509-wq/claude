@@ -8,5 +8,30 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-var z$=["auto","iterm2","terminal_bell","iterm2_with_bell","kitty","ghostty","notifications_disabled"],sir=["permission_prompt","idle_prompt","auth_success","elicitation_dialog","agent_needs_input","agent_completed","elicitation_url_dialog","worker_permission_prompt","push_notification","computer_use_enter","computer_use_exit","quota_auto_resume_fired","quota_auto_resume_stale","quota_auto_resume_disabled"],sAn=["normal","vim"],air=["classic","readline"],mTt=["forward","keep_local"],lir=["auto","tmux","iterm2","in-process"],aAn=["dark","light","light-daltonized","dark-daltonized","light-ansi","dark-ansi"],gTt=["auto",...aAn],zXe=["auto","alwaysAsk","disabled"],rCe=1e5,YNe=1e6;
-export{z$,sir,sAn,air,mTt,lir,aAn,gTt,zXe,rCe,YNe};
+var z$ = ["auto", "iterm2", "terminal_bell", "iterm2_with_bell", "kitty", "ghostty", "notifications_disabled"],
+  sir = [
+    "permission_prompt",
+    "idle_prompt",
+    "auth_success",
+    "elicitation_dialog",
+    "agent_needs_input",
+    "agent_completed",
+    "elicitation_url_dialog",
+    "worker_permission_prompt",
+    "push_notification",
+    "computer_use_enter",
+    "computer_use_exit",
+    "quota_auto_resume_fired",
+    "quota_auto_resume_stale",
+    "quota_auto_resume_disabled",
+  ],
+  sAn = ["normal", "vim"],
+  air = ["classic", "readline"],
+  mTt = ["forward", "keep_local"],
+  lir = ["auto", "tmux", "iterm2", "in-process"],
+  aAn = ["dark", "light", "light-daltonized", "dark-daltonized", "light-ansi", "dark-ansi"],
+  gTt = ["auto", ...aAn],
+  zXe = ["auto", "alwaysAsk", "disabled"],
+  rCe = 1e5,
+  YNe = 1e6;
+export { z$, sir, sAn, air, mTt, lir, aAn, gTt, zXe, rCe, YNe };

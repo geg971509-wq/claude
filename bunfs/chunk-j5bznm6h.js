@@ -8,4 +8,611 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{K}from"/$bunfs/root/chunk-f9h0bg01.js";import"/$bunfs/root/chunk-qq1mdtb5.js";import"/$bunfs/root/chunk-tx16jn0x.js";import"/$bunfs/root/chunk-pbmajbn7.js";import{Ee}from"/$bunfs/root/chunk-rp246vnd.js";import"/$bunfs/root/chunk-gcks6mn0.js";import"/$bunfs/root/chunk-bzx56g36.js";import"/$bunfs/root/chunk-eqdctte5.js";import"/$bunfs/root/chunk-fec4384a.js";import"/$bunfs/root/chunk-qm65zb83.js";import"/$bunfs/root/chunk-vfy57cpd.js";import"/$bunfs/root/chunk-4xj01xwv.js";import"/$bunfs/root/chunk-ypdw393e.js";import"/$bunfs/root/chunk-fv016jr6.js";import"/$bunfs/root/chunk-qk7r0t2g.js";import"/$bunfs/root/chunk-4ddxwr9r.js";import"/$bunfs/root/chunk-wkxx62a2.js";import"/$bunfs/root/chunk-ps6pc7xd.js";import"/$bunfs/root/chunk-qd35gw0c.js";import"/$bunfs/root/chunk-mhf4d4sa.js";import"/$bunfs/root/chunk-htrft0p0.js";import{_}from"/$bunfs/root/chunk-haan6f8z.js";import"/$bunfs/root/chunk-c3bffkxg.js";import"/$bunfs/root/chunk-d1d8xqks.js";import"/$bunfs/root/chunk-jpf4kat5.js";import"/$bunfs/root/chunk-37pvmyqb.js";import"/$bunfs/root/chunk-nqmqabr8.js";import"/$bunfs/root/chunk-386w1sy8.js";import"/$bunfs/root/chunk-2mmw62jx.js";import"/$bunfs/root/chunk-fwwvmbqn.js";import"/$bunfs/root/chunk-8tgj5dp2.js";import"/$bunfs/root/chunk-amem41jf.js";import"/$bunfs/root/chunk-0pgyw7te.js";import{s}from"/$bunfs/root/chunk-r53tkxrh.js";import"/$bunfs/root/chunk-ca80fke8.js";import"/$bunfs/root/chunk-ax6dy60b.js";import"/$bunfs/root/chunk-6k63g5t6.js";import"/$bunfs/root/chunk-4fwj3vnx.js";import"/$bunfs/root/chunk-q14dgq5g.js";import"/$bunfs/root/chunk-f5hrzy3k.js";import"/$bunfs/root/chunk-s7e0px8j.js";import"/$bunfs/root/chunk-s28wf80n.js";import"/$bunfs/root/chunk-3bbym8ct.js";import"/$bunfs/root/chunk-cf8qhmdc.js";import"/$bunfs/root/chunk-2masxyqj.js";import"/$bunfs/root/chunk-rgw52f13.js";import"/$bunfs/root/chunk-2rx5nghb.js";import"/$bunfs/root/chunk-z0z1xzkg.js";import"/$bunfs/root/chunk-c47snwm2.js";import"/$bunfs/root/chunk-s4vc7est.js";import"/$bunfs/root/chunk-hyh5wcm1.js";import"/$bunfs/root/chunk-ntyhd04p.js";import"/$bunfs/root/chunk-8qsdea2c.js";import"/$bunfs/root/chunk-988p40e0.js";import"/$bunfs/root/chunk-0spqrdaj.js";import"/$bunfs/root/chunk-5rt2mvvk.js";import"/$bunfs/root/chunk-1yr12dqr.js";import"/$bunfs/root/chunk-z2bvp3sv.js";import"/$bunfs/root/chunk-keb644xg.js";import"/$bunfs/root/chunk-bj904w9w.js";import"/$bunfs/root/chunk-18bck2pp.js";import"/$bunfs/root/chunk-dwwpyy7b.js";import"/$bunfs/root/chunk-jck8t8fq.js";import"/$bunfs/root/chunk-qcx34e4j.js";import"/$bunfs/root/chunk-psdymar6.js";import"/$bunfs/root/chunk-0r9wzh7g.js";import"/$bunfs/root/chunk-sxxp6vcr.js";import"/$bunfs/root/chunk-rf51999f.js";import"/$bunfs/root/chunk-82w4mtvq.js";import"/$bunfs/root/chunk-v7yhn7cf.js";import"/$bunfs/root/chunk-kxyny47c.js";import"/$bunfs/root/chunk-e7rq8w09.js";import"/$bunfs/root/chunk-fbp3w46j.js";import"/$bunfs/root/chunk-gtv2468w.js";import"/$bunfs/root/chunk-4r03fm98.js";import"/$bunfs/root/chunk-s4smmnta.js";import"/$bunfs/root/chunk-z9ex1x2t.js";import"/$bunfs/root/chunk-k4a21mkt.js";import"/$bunfs/root/chunk-4rh74qms.js";import"/$bunfs/root/chunk-r3qa2s4k.js";import"/$bunfs/root/chunk-1evht33z.js";import"/$bunfs/root/chunk-gkfy5ggn.js";import"/$bunfs/root/chunk-qk6zade1.js";import"/$bunfs/root/chunk-4t3vsqt7.js";import"/$bunfs/root/chunk-ejdwrhgv.js";import"/$bunfs/root/chunk-zkvj62rn.js";import"/$bunfs/root/chunk-492vgtnr.js";import"/$bunfs/root/chunk-0g6cj4h1.js";import"/$bunfs/root/chunk-a48rnvhj.js";import"/$bunfs/root/chunk-tzhtxm67.js";import"/$bunfs/root/chunk-mznd09c6.js";import"/$bunfs/root/chunk-ghara6r1.js";import"/$bunfs/root/chunk-97wwdfyx.js";import"/$bunfs/root/chunk-167jjb66.js";import"/$bunfs/root/chunk-5c5qq1s7.js";import{o,t}from"/$bunfs/root/chunk-he2phymk.js";import"/$bunfs/root/chunk-ka74qrx3.js";import"/$bunfs/root/chunk-kez2zndg.js";import"/$bunfs/root/chunk-2wxj9m3z.js";import"/$bunfs/root/chunk-z45ex17x.js";import"/$bunfs/root/chunk-tbbqkkg3.js";import"/$bunfs/root/chunk-z9bhq3k9.js";import"/$bunfs/root/chunk-0m39033q.js";import"/$bunfs/root/chunk-v94qfg1j.js";import"/$bunfs/root/chunk-q04k5ycg.js";import"/$bunfs/root/chunk-c76q2y0e.js";import"/$bunfs/root/chunk-2204t1q0.js";import"/$bunfs/root/chunk-e28mhr30.js";import"/$bunfs/root/chunk-ky33xsw7.js";import"/$bunfs/root/chunk-8td9ks9h.js";import"/$bunfs/root/chunk-zk5d9rtp.js";import"/$bunfs/root/chunk-syabrr2b.js";import"/$bunfs/root/chunk-1pn2pk9v.js";import"/$bunfs/root/chunk-93max1bs.js";import"/$bunfs/root/chunk-8cv6dqkz.js";import"/$bunfs/root/chunk-f9km17e9.js";import{ht}from"/$bunfs/root/chunk-ek4tmwbt.js";import{fe}from"/$bunfs/root/chunk-rycvm63e.js";import"/$bunfs/root/chunk-8ktvd0rh.js";import"/$bunfs/root/chunk-59pkbjrf.js";import"/$bunfs/root/chunk-tmxtk606.js";import{me}from"/$bunfs/root/chunk-489c3cyq.js";import"/$bunfs/root/chunk-tspcysj2.js";import"/$bunfs/root/chunk-jmrpkgzd.js";import{M}from"/$bunfs/root/chunk-y2r26k83.js";import"/$bunfs/root/chunk-ngn87vcm.js";import{fl}from"/$bunfs/root/chunk-1y0jc48h.js";import"/$bunfs/root/chunk-m5yhrq50.js";import"/$bunfs/root/chunk-gtwaztzc.js";import"/$bunfs/root/chunk-ht28m404.js";import"/$bunfs/root/chunk-cmhbx7me.js";import"/$bunfs/root/chunk-30e2jew7.js";import"/$bunfs/root/chunk-sypj25ha.js";import"/$bunfs/root/chunk-p1awcxk1.js";import"/$bunfs/root/chunk-dxqac26z.js";import"/$bunfs/root/chunk-bp3j8sq3.js";import{xn}from"/$bunfs/root/chunk-hb6grkjg.js";import{HI,ry,cTe,Fz,U2}from"/$bunfs/root/chunk-avrc9gay.js";import{zte,_we,ywe}from"/$bunfs/root/chunk-btcxpqw5.js";import"/$bunfs/root/chunk-k8xha1qv.js";import{sr}from"/$bunfs/root/chunk-vnpdqx6v.js";import"/$bunfs/root/chunk-k9a5yseb.js";import"/$bunfs/root/chunk-84qb5tsd.js";import"/$bunfs/root/chunk-4kafv9jq.js";import"/$bunfs/root/chunk-7d0my7mt.js";import"/$bunfs/root/chunk-wnc75h2x.js";import"/$bunfs/root/chunk-1fwtbc4t.js";import{e,r}from"/$bunfs/root/chunk-8s7kcbyw.js";import"/$bunfs/root/chunk-tfb5y7hy.js";import"/$bunfs/root/chunk-d5bnjcbw.js";import{B,u,F}from"/$bunfs/root/chunk-twm95mhz.js";import"/$bunfs/root/chunk-31xy83wr.js";import"/$bunfs/root/chunk-g732bkj4.js";import"/$bunfs/root/chunk-zgfc288e.js";import"/$bunfs/root/chunk-jjkewjsg.js";import"/$bunfs/root/chunk-xvwx3w83.js";import"/$bunfs/root/chunk-qy75zxb2.js";import{L}from"/$bunfs/root/chunk-v4qqyykc.js";import"/$bunfs/root/chunk-fveqn4y7.js";import"/$bunfs/root/chunk-61nasexv.js";import"/$bunfs/root/chunk-m1andcps.js";import"/$bunfs/root/chunk-5tdaspnd.js";import"/$bunfs/root/chunk-8sbwe0jk.js";import"/$bunfs/root/chunk-nwb64bac.js";import"/$bunfs/root/chunk-g01aac1k.js";import"/$bunfs/root/chunk-szz73wxx.js";import"/$bunfs/root/chunk-b40bn863.js";import"/$bunfs/root/chunk-6mgs10s2.js";import"/$bunfs/root/chunk-6s9ybdq1.js";import"/$bunfs/root/chunk-1hh0bg14.js";import"/$bunfs/root/chunk-052zvbpg.js";import"/$bunfs/root/chunk-werv747a.js";import"/$bunfs/root/chunk-jzh4kg5x.js";import"/$bunfs/root/chunk-7s7jqj2f.js";import"/$bunfs/root/chunk-56sxk8k2.js";import"/$bunfs/root/chunk-a4q326ap.js";import{d}from"/$bunfs/root/chunk-yz031c9r.js";F();function Rt(io){return io==="interval"?"text":"interval"}var S=50;function H(i,f){return i.length>f?i.slice(0,f-1)+"\u2026":i}function be(Jt){let l=_(93),{loops:p,onDelete:Le,onCreate:re,onCancel:j}=Jt,[y,De]=u("list"),[N,Re]=u(0),[a,Xt]=u("every"),[b,jt]=u("10m"),[q,qt]=u(3),[R,zt]=u(""),[z,Kt]=u(0),[C,ne]=u(a==="every"?"interval":"text"),{columns:Qt}=Ee(),nt;if(l[0]!==p.length)nt={"select:previous":()=>Re((Ut)=>p.length?Math.max(0,Ut-1):0),"select:next":()=>Re((Yt)=>p.length?Math.min(p.length-1,Yt+1):0)},l[0]=p.length,l[1]=nt;else nt=l[1];const $e=y==="list";let it;if(l[2]!==$e)it={context:"Select",isActive:$e},l[2]=$e,l[3]=it;else it=l[3];ht(nt,it);let st;if(l[4]!==p||l[5]!==a||l[6]!==j||l[7]!==Le||l[8]!==N||l[9]!==y)st=(Q)=>{if(y!=="list"){return}if(Q.key==="escape"){Q.preventDefault(),j();return}if(Q.key==="d"&&p[N]){Q.preventDefault(),Le(p[N]),Re((Zt)=>Math.max(0,Math.min(Zt,p.length-2)));return}if(Q.key==="n")Q.preventDefault(),De("create"),ne(a==="every"?"interval":"text")},l[4]=p,l[5]=a,l[6]=j,l[7]=Le,l[8]=N,l[9]=y,l[10]=st;else st=l[10];let Wt=st,at;if(l[11]!==a)at=()=>{let lt=a==="every"?"until":"every";Xt(lt),ne(lt==="every"?"interval":"text")},l[11]=a,l[12]=at;else at=l[12];let ie=at,ct;if(l[13]!==C||l[14]!==b||l[15]!==q||l[16]!==a||l[17]!==R.length||l[18]!==z||l[19]!==ie||l[20]!==y)ct=(D)=>{if(y!=="create"){return}if(D.key==="escape"){D.preventDefault(),De("list");return}if(D.key==="tab"){D.preventDefault(),ie();return}let dt=C==="interval"?q:z;let St=C==="interval"?b.length:R.length;if(D.key==="left"&&dt===0||D.key==="right"&&dt>=St){D.preventDefault(),ie();return}if(a==="every"&&(D.key==="down"||D.key==="up"))D.preventDefault(),ne(Rt)},l[13]=C,l[14]=b,l[15]=q,l[16]=a,l[17]=R.length,l[18]=z,l[19]=ie,l[20]=y,l[21]=ct;else ct=l[21];let Ht=ct,mt;if(l[22]!==b||l[23]!==a||l[24]!==re||l[25]!==R)mt=function W(){let se=R.trim();if(a==="every"){if(!b.trim()||!se){return}re({kind:"cron",interval:b.trim(),prompt:se})}else{if(!se){return}re({kind:"stophook",condition:se})}},l[22]=b,l[23]=a,l[24]=re,l[25]=R,l[26]=mt;else mt=l[26];let W=mt,ae;if(l[27]!==p.length)ae=p.length>0&&e(M,{chord:["up","down"],action:"select"}),l[27]=p.length,l[28]=ae;else ae=l[28];let le;if(l[29]!==p.length)le=p.length>0&&e(M,{chord:"d",action:"delete"}),l[29]=p.length,l[30]=le;else le=l[30];let pt,ft;if(l[31]===d)pt=e(M,{chord:"n",action:"add"}),ft=e(M,{chord:"escape",action:"close"}),l[31]=pt,l[32]=ft;else pt=l[31],ft=l[32];let ut;if(l[33]!==ae||l[34]!==le)ut=r(fe,{children:[ae,le,pt,ft]}),l[33]=ae,l[34]=le,l[35]=ut;else ut=l[35];let eo=ut,vt;if(l[36]===d)vt=e(M,{chord:"tab",action:"switch mode"}),l[36]=vt;else vt=l[36];let ce;if(l[37]!==a)ce=a==="every"&&e(M,{chord:["up","down"],action:"next field"}),l[37]=a,l[38]=ce;else ce=l[38];let yt,kt;if(l[39]===d)yt=e(M,{chord:"enter",action:"create"}),kt=e(M,{chord:"escape",action:"back"}),l[39]=yt,l[40]=kt;else yt=l[39],kt=l[40];let gt;if(l[41]!==ce)gt=r(fe,{children:[vt,ce,yt,kt]}),l[41]=ce,l[42]=gt;else gt=l[42];let to=gt;const Me=a!=="every",Te=a==="every"?L.radioOn:L.radioOff;let de;if(l[43]!==Me||l[44]!==Te)de=r(t,{dimColor:Me,children:[Te," every"]}),l[43]=Me,l[44]=Te,l[45]=de;else de=l[45];let Ct;if(l[46]===d)Ct=e(t,{dimColor:!0,children:"  "}),l[46]=Ct;else Ct=l[46];const Ie=a!=="until",Oe=a==="until"?L.radioOn:L.radioOff;let pe;if(l[47]!==Ie||l[48]!==Oe)pe=r(t,{dimColor:Ie,children:[Oe," until"]}),l[47]=Ie,l[48]=Oe,l[49]=pe;else pe=l[49];let ue;if(l[50]!==de||l[51]!==pe)ue=r(t,{children:[de,Ct,pe]}),l[50]=de,l[51]=pe,l[52]=ue;else ue=l[52];let ve;if(l[53]!==C||l[54]!==b||l[55]!==q||l[56]!==a)ve=a==="every"&&r(o,{flexDirection:"row",gap:1,marginTop:1,children:[e(t,{dimColor:C!=="interval",children:"Interval >"}),e(xn,{value:b,onChange:jt,onSubmit:()=>ne("text"),focus:C==="interval",showCursor:C==="interval",multiline:!1,columns:12,cursorOffset:q,onChangeCursorOffset:qt,placeholder:"10m",disableEscapeDoublePress:!0})]}),l[53]=C,l[54]=b,l[55]=q,l[56]=a,l[57]=ve;else ve=l[57];const Pe=a==="every"&&C!=="text",Fe=a==="every"?"Prompt   >":"Condition>";let ye;if(l[58]!==Pe||l[59]!==Fe)ye=e(t,{dimColor:Pe,children:Fe}),l[58]=Pe,l[59]=Fe,l[60]=ye;else ye=l[60];const Ge=a==="until"||C==="text",Ne=a==="until"||C==="text",Ae=Qt-16,Be=a==="every"?"e.g. /babysit-prs":"e.g. tests pass and PR is merged";let he;if(l[61]!==W||l[62]!==Ge||l[63]!==Ne||l[64]!==Ae||l[65]!==Be||l[66]!==R||l[67]!==z)he=e(xn,{value:R,onChange:zt,onSubmit:W,focus:Ge,showCursor:Ne,multiline:!1,columns:Ae,cursorOffset:z,onChangeCursorOffset:Kt,placeholder:Be,disableEscapeDoublePress:!0}),l[61]=W,l[62]=Ge,l[63]=Ne,l[64]=Ae,l[65]=Be,l[66]=R,l[67]=z,l[68]=he;else he=l[68];let ke;if(l[69]!==ye||l[70]!==he)ke=r(o,{flexDirection:"row",gap:1,marginTop:1,children:[ye,he]}),l[69]=ye,l[70]=he,l[71]=ke;else ke=l[71];let xt;if(l[72]!==ue||l[73]!==ve||l[74]!==ke)xt=r(o,{flexDirection:"column",children:[ue,ve,ke]}),l[72]=ue,l[73]=ve,l[74]=ke,l[75]=xt;else xt=l[75];let oo=xt,ge;if(l[76]!==p||l[77]!==N)ge=p.length===0?e(sr,{children:"No active loops"}):p.map((wt,ro)=>e(we,{loop:wt,focused:ro===N},wt.id)),l[76]=p,l[77]=N,l[78]=ge;else ge=l[78];let bt;if(l[79]!==ge)bt=e(o,{flexDirection:"column",children:ge}),l[79]=ge,l[80]=bt;else bt=l[80];let no=bt;const Ve=y==="list"?Wt:Ht,_e=y==="list"?"Loops":"New loop",Je=y==="list"?"Recurring crons and stop-hooks active for this session":void 0;let Ce;if(l[81]!==j||l[82]!==y)Ce=y==="list"?j:()=>De("list"),l[81]=j,l[82]=y,l[83]=Ce;else Ce=l[83];const Xe=y==="list"?eo:to,je=y==="list"?no:oo;let xe;if(l[84]!==_e||l[85]!==Je||l[86]!==Ce||l[87]!==Xe||l[88]!==je)xe=e(me,{title:_e,subtitle:Je,color:"permission",onCancel:Ce,isCancelActive:!1,inputGuide:Xe,children:je}),l[84]=_e,l[85]=Je,l[86]=Ce,l[87]=Xe,l[88]=je,l[89]=xe;else xe=l[89];let Lt;if(l[90]!==Ve||l[91]!==xe)Lt=e(o,{flexDirection:"column",tabIndex:0,autoFocus:!0,onKeyDown:Ve,children:xe}),l[90]=Ve,l[91]=xe,l[92]=Lt;else Lt=l[92];return Lt}function we(so){let x=_(24),{loop:g,focused:U}=so;if(g.kind==="cron"){let E;if(x[0]!==g.human)E=e(t,{bold:!0,children:g.human}),x[0]=g.human,x[1]=E;else E=x[1];let A;if(x[2]===d)A=e(t,{dimColor:!0,children:" \xB7 "}),x[2]=A;else A=x[2];let V;if(x[3]!==g.prompt)V=H(g.prompt,S),x[3]=g.prompt,x[4]=V;else V=x[4];let T;if(x[5]!==g.id)T=r(t,{dimColor:!0,children:[" \xB7 ",g.id]}),x[5]=g.id,x[6]=T;else T=x[6];let J;if(x[7]!==E||x[8]!==V||x[9]!==T)J=r(t,{children:[E,A,V,T]}),x[7]=E,x[8]=V,x[9]=T,x[10]=J;else J=x[10];let Dt;if(x[11]!==U||x[12]!==J)Dt=e(fl,{isFocused:U,children:J}),x[11]=U,x[12]=J,x[13]=Dt;else Dt=x[13];return Dt}let E;if(x[14]!==g.condition)E=H(g.condition,S),x[14]=g.condition,x[15]=E;else E=x[15];let A;if(x[16]!==E)A=e(t,{bold:!0,children:E}),x[16]=E,x[17]=A;else A=x[17];let V;if(x[18]===d)V=e(t,{dimColor:!0,children:" \xB7 stop-hook"}),x[18]=V;else V=x[18];let T;if(x[19]!==A)T=r(t,{children:["goal: ",A,V]}),x[19]=A,x[20]=T;else T=x[20];let J;if(x[21]!==U||x[22]!==T)J=e(fl,{isFocused:U,children:T}),x[21]=U,x[22]=T,x[23]=J;else J=x[23];return J}var $t=/^(\d+)([smhd])$/i;function Mt(i){let f=i.match($t);if(!f)return null;let v=parseInt(f[1],10);if(v<1)return null;let k;switch(f[2].toLowerCase()){case"s":k=`*/${Math.max(1,Math.ceil(v/60))} * * * *`;break;case"m":k=v<=59?`*/${v} * * * *`:`0 */${Math.round(v/60)} * * *`;break;case"h":if(v>23)return null;k=`0 */${v} * * *`;break;case"d":if(v>31)return null;k=`0 0 */${v} * *`;break;default:return null}return HI(k)?k:null}var ho=async(i,f)=>{s("tengu_loops_command",{});let v=await U2(),k=zte(f.sessionHooksRegistry,K()),h=[...v.map((c)=>({kind:"cron",id:c.id,cron:c.cron,human:ry(c.cron),prompt:c.prompt})),...k.map((c,m)=>({kind:"stophook",id:`stophook-${m}`,condition:c.prompt}))];async function X(c){if(c.kind==="cron"){try{await Fz([c.id]),i(`Loop ${c.id} deleted`,{display:"system"})}catch(I){i(`Failed to delete loop ${c.id}: ${I}`,{display:"system"})}return}let m=ywe(f);i(m===null?"Stop hook not found":"Stop hook cleared",{display:"system"})}async function P(c){if(c.kind==="cron"){let I=Mt(c.interval);if(!I){i(`Invalid interval: ${c.interval}`,{display:"system"});return}let O=await cTe(I,c.prompt,!0,!1);i(`Loop ${O} created (${ry(I)})`,{display:"system"});return}let m=_we(c.condition,f,"loops_dialog");i(m??"Stop hook set",{display:"system"})}return e(be,{loops:h,onDelete:(c)=>void X(c),onCreate:(c)=>void P(c),onCancel:()=>i("",{display:"skip"})})};export{ho as call};
+import { K } from "/$bunfs/root/chunk-f9h0bg01.js";
+import "/$bunfs/root/chunk-qq1mdtb5.js";
+import "/$bunfs/root/chunk-tx16jn0x.js";
+import "/$bunfs/root/chunk-pbmajbn7.js";
+import { Ee } from "/$bunfs/root/chunk-rp246vnd.js";
+import "/$bunfs/root/chunk-gcks6mn0.js";
+import "/$bunfs/root/chunk-bzx56g36.js";
+import "/$bunfs/root/chunk-eqdctte5.js";
+import "/$bunfs/root/chunk-fec4384a.js";
+import "/$bunfs/root/chunk-qm65zb83.js";
+import "/$bunfs/root/chunk-vfy57cpd.js";
+import "/$bunfs/root/chunk-4xj01xwv.js";
+import "/$bunfs/root/chunk-ypdw393e.js";
+import "/$bunfs/root/chunk-fv016jr6.js";
+import "/$bunfs/root/chunk-qk7r0t2g.js";
+import "/$bunfs/root/chunk-4ddxwr9r.js";
+import "/$bunfs/root/chunk-wkxx62a2.js";
+import "/$bunfs/root/chunk-ps6pc7xd.js";
+import "/$bunfs/root/chunk-qd35gw0c.js";
+import "/$bunfs/root/chunk-mhf4d4sa.js";
+import "/$bunfs/root/chunk-htrft0p0.js";
+import { _ } from "/$bunfs/root/chunk-haan6f8z.js";
+import "/$bunfs/root/chunk-c3bffkxg.js";
+import "/$bunfs/root/chunk-d1d8xqks.js";
+import "/$bunfs/root/chunk-jpf4kat5.js";
+import "/$bunfs/root/chunk-37pvmyqb.js";
+import "/$bunfs/root/chunk-nqmqabr8.js";
+import "/$bunfs/root/chunk-386w1sy8.js";
+import "/$bunfs/root/chunk-2mmw62jx.js";
+import "/$bunfs/root/chunk-fwwvmbqn.js";
+import "/$bunfs/root/chunk-8tgj5dp2.js";
+import "/$bunfs/root/chunk-amem41jf.js";
+import "/$bunfs/root/chunk-0pgyw7te.js";
+import { s } from "/$bunfs/root/chunk-r53tkxrh.js";
+import "/$bunfs/root/chunk-ca80fke8.js";
+import "/$bunfs/root/chunk-ax6dy60b.js";
+import "/$bunfs/root/chunk-6k63g5t6.js";
+import "/$bunfs/root/chunk-4fwj3vnx.js";
+import "/$bunfs/root/chunk-q14dgq5g.js";
+import "/$bunfs/root/chunk-f5hrzy3k.js";
+import "/$bunfs/root/chunk-s7e0px8j.js";
+import "/$bunfs/root/chunk-s28wf80n.js";
+import "/$bunfs/root/chunk-3bbym8ct.js";
+import "/$bunfs/root/chunk-cf8qhmdc.js";
+import "/$bunfs/root/chunk-2masxyqj.js";
+import "/$bunfs/root/chunk-rgw52f13.js";
+import "/$bunfs/root/chunk-2rx5nghb.js";
+import "/$bunfs/root/chunk-z0z1xzkg.js";
+import "/$bunfs/root/chunk-c47snwm2.js";
+import "/$bunfs/root/chunk-s4vc7est.js";
+import "/$bunfs/root/chunk-hyh5wcm1.js";
+import "/$bunfs/root/chunk-ntyhd04p.js";
+import "/$bunfs/root/chunk-8qsdea2c.js";
+import "/$bunfs/root/chunk-988p40e0.js";
+import "/$bunfs/root/chunk-0spqrdaj.js";
+import "/$bunfs/root/chunk-5rt2mvvk.js";
+import "/$bunfs/root/chunk-1yr12dqr.js";
+import "/$bunfs/root/chunk-z2bvp3sv.js";
+import "/$bunfs/root/chunk-keb644xg.js";
+import "/$bunfs/root/chunk-bj904w9w.js";
+import "/$bunfs/root/chunk-18bck2pp.js";
+import "/$bunfs/root/chunk-dwwpyy7b.js";
+import "/$bunfs/root/chunk-jck8t8fq.js";
+import "/$bunfs/root/chunk-qcx34e4j.js";
+import "/$bunfs/root/chunk-psdymar6.js";
+import "/$bunfs/root/chunk-0r9wzh7g.js";
+import "/$bunfs/root/chunk-sxxp6vcr.js";
+import "/$bunfs/root/chunk-rf51999f.js";
+import "/$bunfs/root/chunk-82w4mtvq.js";
+import "/$bunfs/root/chunk-v7yhn7cf.js";
+import "/$bunfs/root/chunk-kxyny47c.js";
+import "/$bunfs/root/chunk-e7rq8w09.js";
+import "/$bunfs/root/chunk-fbp3w46j.js";
+import "/$bunfs/root/chunk-gtv2468w.js";
+import "/$bunfs/root/chunk-4r03fm98.js";
+import "/$bunfs/root/chunk-s4smmnta.js";
+import "/$bunfs/root/chunk-z9ex1x2t.js";
+import "/$bunfs/root/chunk-k4a21mkt.js";
+import "/$bunfs/root/chunk-4rh74qms.js";
+import "/$bunfs/root/chunk-r3qa2s4k.js";
+import "/$bunfs/root/chunk-1evht33z.js";
+import "/$bunfs/root/chunk-gkfy5ggn.js";
+import "/$bunfs/root/chunk-qk6zade1.js";
+import "/$bunfs/root/chunk-4t3vsqt7.js";
+import "/$bunfs/root/chunk-ejdwrhgv.js";
+import "/$bunfs/root/chunk-zkvj62rn.js";
+import "/$bunfs/root/chunk-492vgtnr.js";
+import "/$bunfs/root/chunk-0g6cj4h1.js";
+import "/$bunfs/root/chunk-a48rnvhj.js";
+import "/$bunfs/root/chunk-tzhtxm67.js";
+import "/$bunfs/root/chunk-mznd09c6.js";
+import "/$bunfs/root/chunk-ghara6r1.js";
+import "/$bunfs/root/chunk-97wwdfyx.js";
+import "/$bunfs/root/chunk-167jjb66.js";
+import "/$bunfs/root/chunk-5c5qq1s7.js";
+import { o, t } from "/$bunfs/root/chunk-he2phymk.js";
+import "/$bunfs/root/chunk-ka74qrx3.js";
+import "/$bunfs/root/chunk-kez2zndg.js";
+import "/$bunfs/root/chunk-2wxj9m3z.js";
+import "/$bunfs/root/chunk-z45ex17x.js";
+import "/$bunfs/root/chunk-tbbqkkg3.js";
+import "/$bunfs/root/chunk-z9bhq3k9.js";
+import "/$bunfs/root/chunk-0m39033q.js";
+import "/$bunfs/root/chunk-v94qfg1j.js";
+import "/$bunfs/root/chunk-q04k5ycg.js";
+import "/$bunfs/root/chunk-c76q2y0e.js";
+import "/$bunfs/root/chunk-2204t1q0.js";
+import "/$bunfs/root/chunk-e28mhr30.js";
+import "/$bunfs/root/chunk-ky33xsw7.js";
+import "/$bunfs/root/chunk-8td9ks9h.js";
+import "/$bunfs/root/chunk-zk5d9rtp.js";
+import "/$bunfs/root/chunk-syabrr2b.js";
+import "/$bunfs/root/chunk-1pn2pk9v.js";
+import "/$bunfs/root/chunk-93max1bs.js";
+import "/$bunfs/root/chunk-8cv6dqkz.js";
+import "/$bunfs/root/chunk-f9km17e9.js";
+import { ht } from "/$bunfs/root/chunk-ek4tmwbt.js";
+import { fe } from "/$bunfs/root/chunk-rycvm63e.js";
+import "/$bunfs/root/chunk-8ktvd0rh.js";
+import "/$bunfs/root/chunk-59pkbjrf.js";
+import "/$bunfs/root/chunk-tmxtk606.js";
+import { me } from "/$bunfs/root/chunk-489c3cyq.js";
+import "/$bunfs/root/chunk-tspcysj2.js";
+import "/$bunfs/root/chunk-jmrpkgzd.js";
+import { M } from "/$bunfs/root/chunk-y2r26k83.js";
+import "/$bunfs/root/chunk-ngn87vcm.js";
+import { fl } from "/$bunfs/root/chunk-1y0jc48h.js";
+import "/$bunfs/root/chunk-m5yhrq50.js";
+import "/$bunfs/root/chunk-gtwaztzc.js";
+import "/$bunfs/root/chunk-ht28m404.js";
+import "/$bunfs/root/chunk-cmhbx7me.js";
+import "/$bunfs/root/chunk-30e2jew7.js";
+import "/$bunfs/root/chunk-sypj25ha.js";
+import "/$bunfs/root/chunk-p1awcxk1.js";
+import "/$bunfs/root/chunk-dxqac26z.js";
+import "/$bunfs/root/chunk-bp3j8sq3.js";
+import { xn } from "/$bunfs/root/chunk-hb6grkjg.js";
+import { HI, ry, cTe, Fz, U2 } from "/$bunfs/root/chunk-avrc9gay.js";
+import { zte, _we, ywe } from "/$bunfs/root/chunk-btcxpqw5.js";
+import "/$bunfs/root/chunk-k8xha1qv.js";
+import { sr } from "/$bunfs/root/chunk-vnpdqx6v.js";
+import "/$bunfs/root/chunk-k9a5yseb.js";
+import "/$bunfs/root/chunk-84qb5tsd.js";
+import "/$bunfs/root/chunk-4kafv9jq.js";
+import "/$bunfs/root/chunk-7d0my7mt.js";
+import "/$bunfs/root/chunk-wnc75h2x.js";
+import "/$bunfs/root/chunk-1fwtbc4t.js";
+import { e, r } from "/$bunfs/root/chunk-8s7kcbyw.js";
+import "/$bunfs/root/chunk-tfb5y7hy.js";
+import "/$bunfs/root/chunk-d5bnjcbw.js";
+import { B, u, F } from "/$bunfs/root/chunk-twm95mhz.js";
+import "/$bunfs/root/chunk-31xy83wr.js";
+import "/$bunfs/root/chunk-g732bkj4.js";
+import "/$bunfs/root/chunk-zgfc288e.js";
+import "/$bunfs/root/chunk-jjkewjsg.js";
+import "/$bunfs/root/chunk-xvwx3w83.js";
+import "/$bunfs/root/chunk-qy75zxb2.js";
+import { L } from "/$bunfs/root/chunk-v4qqyykc.js";
+import "/$bunfs/root/chunk-fveqn4y7.js";
+import "/$bunfs/root/chunk-61nasexv.js";
+import "/$bunfs/root/chunk-m1andcps.js";
+import "/$bunfs/root/chunk-5tdaspnd.js";
+import "/$bunfs/root/chunk-8sbwe0jk.js";
+import "/$bunfs/root/chunk-nwb64bac.js";
+import "/$bunfs/root/chunk-g01aac1k.js";
+import "/$bunfs/root/chunk-szz73wxx.js";
+import "/$bunfs/root/chunk-b40bn863.js";
+import "/$bunfs/root/chunk-6mgs10s2.js";
+import "/$bunfs/root/chunk-6s9ybdq1.js";
+import "/$bunfs/root/chunk-1hh0bg14.js";
+import "/$bunfs/root/chunk-052zvbpg.js";
+import "/$bunfs/root/chunk-werv747a.js";
+import "/$bunfs/root/chunk-jzh4kg5x.js";
+import "/$bunfs/root/chunk-7s7jqj2f.js";
+import "/$bunfs/root/chunk-56sxk8k2.js";
+import "/$bunfs/root/chunk-a4q326ap.js";
+import { d } from "/$bunfs/root/chunk-yz031c9r.js";
+F();
+function Rt(io) {
+  return io === "interval" ? "text" : "interval";
+}
+var S = 50;
+function H(i, f) {
+  return i.length > f ? i.slice(0, f - 1) + "\u2026" : i;
+}
+function be(Jt) {
+  let l = _(93),
+    { loops: p, onDelete: Le, onCreate: re, onCancel: j } = Jt,
+    [y, De] = u("list"),
+    [N, Re] = u(0),
+    [a, Xt] = u("every"),
+    [b, jt] = u("10m"),
+    [q, qt] = u(3),
+    [R, zt] = u(""),
+    [z, Kt] = u(0),
+    [C, ne] = u(a === "every" ? "interval" : "text"),
+    { columns: Qt } = Ee(),
+    nt;
+  if (l[0] !== p.length)
+    (nt = {
+      "select:previous": () => Re((Ut) => (p.length ? Math.max(0, Ut - 1) : 0)),
+      "select:next": () => Re((Yt) => (p.length ? Math.min(p.length - 1, Yt + 1) : 0)),
+    }),
+      (l[0] = p.length),
+      (l[1] = nt);
+  else nt = l[1];
+  const $e = y === "list";
+  let it;
+  if (l[2] !== $e) (it = { context: "Select", isActive: $e }), (l[2] = $e), (l[3] = it);
+  else it = l[3];
+  ht(nt, it);
+  let st;
+  if (l[4] !== p || l[5] !== a || l[6] !== j || l[7] !== Le || l[8] !== N || l[9] !== y)
+    (st = (Q) => {
+      if (y !== "list") {
+        return;
+      }
+      if (Q.key === "escape") {
+        Q.preventDefault(), j();
+        return;
+      }
+      if (Q.key === "d" && p[N]) {
+        Q.preventDefault(), Le(p[N]), Re((Zt) => Math.max(0, Math.min(Zt, p.length - 2)));
+        return;
+      }
+      if (Q.key === "n") Q.preventDefault(), De("create"), ne(a === "every" ? "interval" : "text");
+    }),
+      (l[4] = p),
+      (l[5] = a),
+      (l[6] = j),
+      (l[7] = Le),
+      (l[8] = N),
+      (l[9] = y),
+      (l[10] = st);
+  else st = l[10];
+  let Wt = st,
+    at;
+  if (l[11] !== a)
+    (at = () => {
+      let lt = a === "every" ? "until" : "every";
+      Xt(lt), ne(lt === "every" ? "interval" : "text");
+    }),
+      (l[11] = a),
+      (l[12] = at);
+  else at = l[12];
+  let ie = at,
+    ct;
+  if (
+    l[13] !== C ||
+    l[14] !== b ||
+    l[15] !== q ||
+    l[16] !== a ||
+    l[17] !== R.length ||
+    l[18] !== z ||
+    l[19] !== ie ||
+    l[20] !== y
+  )
+    (ct = (D) => {
+      if (y !== "create") {
+        return;
+      }
+      if (D.key === "escape") {
+        D.preventDefault(), De("list");
+        return;
+      }
+      if (D.key === "tab") {
+        D.preventDefault(), ie();
+        return;
+      }
+      let dt = C === "interval" ? q : z;
+      let St = C === "interval" ? b.length : R.length;
+      if ((D.key === "left" && dt === 0) || (D.key === "right" && dt >= St)) {
+        D.preventDefault(), ie();
+        return;
+      }
+      if (a === "every" && (D.key === "down" || D.key === "up")) D.preventDefault(), ne(Rt);
+    }),
+      (l[13] = C),
+      (l[14] = b),
+      (l[15] = q),
+      (l[16] = a),
+      (l[17] = R.length),
+      (l[18] = z),
+      (l[19] = ie),
+      (l[20] = y),
+      (l[21] = ct);
+  else ct = l[21];
+  let Ht = ct,
+    mt;
+  if (l[22] !== b || l[23] !== a || l[24] !== re || l[25] !== R)
+    (mt = function W() {
+      let se = R.trim();
+      if (a === "every") {
+        if (!b.trim() || !se) {
+          return;
+        }
+        re({ kind: "cron", interval: b.trim(), prompt: se });
+      } else {
+        if (!se) {
+          return;
+        }
+        re({ kind: "stophook", condition: se });
+      }
+    }),
+      (l[22] = b),
+      (l[23] = a),
+      (l[24] = re),
+      (l[25] = R),
+      (l[26] = mt);
+  else mt = l[26];
+  let W = mt,
+    ae;
+  if (l[27] !== p.length)
+    (ae = p.length > 0 && e(M, { chord: ["up", "down"], action: "select" })), (l[27] = p.length), (l[28] = ae);
+  else ae = l[28];
+  let le;
+  if (l[29] !== p.length)
+    (le = p.length > 0 && e(M, { chord: "d", action: "delete" })), (l[29] = p.length), (l[30] = le);
+  else le = l[30];
+  let pt, ft;
+  if (l[31] === d)
+    (pt = e(M, { chord: "n", action: "add" })),
+      (ft = e(M, { chord: "escape", action: "close" })),
+      (l[31] = pt),
+      (l[32] = ft);
+  else (pt = l[31]), (ft = l[32]);
+  let ut;
+  if (l[33] !== ae || l[34] !== le)
+    (ut = r(fe, { children: [ae, le, pt, ft] })), (l[33] = ae), (l[34] = le), (l[35] = ut);
+  else ut = l[35];
+  let eo = ut,
+    vt;
+  if (l[36] === d) (vt = e(M, { chord: "tab", action: "switch mode" })), (l[36] = vt);
+  else vt = l[36];
+  let ce;
+  if (l[37] !== a)
+    (ce = a === "every" && e(M, { chord: ["up", "down"], action: "next field" })), (l[37] = a), (l[38] = ce);
+  else ce = l[38];
+  let yt, kt;
+  if (l[39] === d)
+    (yt = e(M, { chord: "enter", action: "create" })),
+      (kt = e(M, { chord: "escape", action: "back" })),
+      (l[39] = yt),
+      (l[40] = kt);
+  else (yt = l[39]), (kt = l[40]);
+  let gt;
+  if (l[41] !== ce) (gt = r(fe, { children: [vt, ce, yt, kt] })), (l[41] = ce), (l[42] = gt);
+  else gt = l[42];
+  let to = gt;
+  const Me = a !== "every",
+    Te = a === "every" ? L.radioOn : L.radioOff;
+  let de;
+  if (l[43] !== Me || l[44] !== Te)
+    (de = r(t, { dimColor: Me, children: [Te, " every"] })), (l[43] = Me), (l[44] = Te), (l[45] = de);
+  else de = l[45];
+  let Ct;
+  if (l[46] === d) (Ct = e(t, { dimColor: !0, children: "  " })), (l[46] = Ct);
+  else Ct = l[46];
+  const Ie = a !== "until",
+    Oe = a === "until" ? L.radioOn : L.radioOff;
+  let pe;
+  if (l[47] !== Ie || l[48] !== Oe)
+    (pe = r(t, { dimColor: Ie, children: [Oe, " until"] })), (l[47] = Ie), (l[48] = Oe), (l[49] = pe);
+  else pe = l[49];
+  let ue;
+  if (l[50] !== de || l[51] !== pe) (ue = r(t, { children: [de, Ct, pe] })), (l[50] = de), (l[51] = pe), (l[52] = ue);
+  else ue = l[52];
+  let ve;
+  if (l[53] !== C || l[54] !== b || l[55] !== q || l[56] !== a)
+    (ve =
+      a === "every" &&
+      r(o, {
+        flexDirection: "row",
+        gap: 1,
+        marginTop: 1,
+        children: [
+          e(t, { dimColor: C !== "interval", children: "Interval >" }),
+          e(xn, {
+            value: b,
+            onChange: jt,
+            onSubmit: () => ne("text"),
+            focus: C === "interval",
+            showCursor: C === "interval",
+            multiline: !1,
+            columns: 12,
+            cursorOffset: q,
+            onChangeCursorOffset: qt,
+            placeholder: "10m",
+            disableEscapeDoublePress: !0,
+          }),
+        ],
+      })),
+      (l[53] = C),
+      (l[54] = b),
+      (l[55] = q),
+      (l[56] = a),
+      (l[57] = ve);
+  else ve = l[57];
+  const Pe = a === "every" && C !== "text",
+    Fe = a === "every" ? "Prompt   >" : "Condition>";
+  let ye;
+  if (l[58] !== Pe || l[59] !== Fe)
+    (ye = e(t, { dimColor: Pe, children: Fe })), (l[58] = Pe), (l[59] = Fe), (l[60] = ye);
+  else ye = l[60];
+  const Ge = a === "until" || C === "text",
+    Ne = a === "until" || C === "text",
+    Ae = Qt - 16,
+    Be = a === "every" ? "e.g. /babysit-prs" : "e.g. tests pass and PR is merged";
+  let he;
+  if (l[61] !== W || l[62] !== Ge || l[63] !== Ne || l[64] !== Ae || l[65] !== Be || l[66] !== R || l[67] !== z)
+    (he = e(xn, {
+      value: R,
+      onChange: zt,
+      onSubmit: W,
+      focus: Ge,
+      showCursor: Ne,
+      multiline: !1,
+      columns: Ae,
+      cursorOffset: z,
+      onChangeCursorOffset: Kt,
+      placeholder: Be,
+      disableEscapeDoublePress: !0,
+    })),
+      (l[61] = W),
+      (l[62] = Ge),
+      (l[63] = Ne),
+      (l[64] = Ae),
+      (l[65] = Be),
+      (l[66] = R),
+      (l[67] = z),
+      (l[68] = he);
+  else he = l[68];
+  let ke;
+  if (l[69] !== ye || l[70] !== he)
+    (ke = r(o, { flexDirection: "row", gap: 1, marginTop: 1, children: [ye, he] })),
+      (l[69] = ye),
+      (l[70] = he),
+      (l[71] = ke);
+  else ke = l[71];
+  let xt;
+  if (l[72] !== ue || l[73] !== ve || l[74] !== ke)
+    (xt = r(o, { flexDirection: "column", children: [ue, ve, ke] })),
+      (l[72] = ue),
+      (l[73] = ve),
+      (l[74] = ke),
+      (l[75] = xt);
+  else xt = l[75];
+  let oo = xt,
+    ge;
+  if (l[76] !== p || l[77] !== N)
+    (ge =
+      p.length === 0
+        ? e(sr, { children: "No active loops" })
+        : p.map((wt, ro) => e(we, { loop: wt, focused: ro === N }, wt.id))),
+      (l[76] = p),
+      (l[77] = N),
+      (l[78] = ge);
+  else ge = l[78];
+  let bt;
+  if (l[79] !== ge) (bt = e(o, { flexDirection: "column", children: ge })), (l[79] = ge), (l[80] = bt);
+  else bt = l[80];
+  let no = bt;
+  const Ve = y === "list" ? Wt : Ht,
+    _e = y === "list" ? "Loops" : "New loop",
+    Je = y === "list" ? "Recurring crons and stop-hooks active for this session" : void 0;
+  let Ce;
+  if (l[81] !== j || l[82] !== y) (Ce = y === "list" ? j : () => De("list")), (l[81] = j), (l[82] = y), (l[83] = Ce);
+  else Ce = l[83];
+  const Xe = y === "list" ? eo : to,
+    je = y === "list" ? no : oo;
+  let xe;
+  if (l[84] !== _e || l[85] !== Je || l[86] !== Ce || l[87] !== Xe || l[88] !== je)
+    (xe = e(me, {
+      title: _e,
+      subtitle: Je,
+      color: "permission",
+      onCancel: Ce,
+      isCancelActive: !1,
+      inputGuide: Xe,
+      children: je,
+    })),
+      (l[84] = _e),
+      (l[85] = Je),
+      (l[86] = Ce),
+      (l[87] = Xe),
+      (l[88] = je),
+      (l[89] = xe);
+  else xe = l[89];
+  let Lt;
+  if (l[90] !== Ve || l[91] !== xe)
+    (Lt = e(o, { flexDirection: "column", tabIndex: 0, autoFocus: !0, onKeyDown: Ve, children: xe })),
+      (l[90] = Ve),
+      (l[91] = xe),
+      (l[92] = Lt);
+  else Lt = l[92];
+  return Lt;
+}
+function we(so) {
+  let x = _(24),
+    { loop: g, focused: U } = so;
+  if (g.kind === "cron") {
+    let E;
+    if (x[0] !== g.human) (E = e(t, { bold: !0, children: g.human })), (x[0] = g.human), (x[1] = E);
+    else E = x[1];
+    let A;
+    if (x[2] === d) (A = e(t, { dimColor: !0, children: " \xB7 " })), (x[2] = A);
+    else A = x[2];
+    let V;
+    if (x[3] !== g.prompt) (V = H(g.prompt, S)), (x[3] = g.prompt), (x[4] = V);
+    else V = x[4];
+    let T;
+    if (x[5] !== g.id) (T = r(t, { dimColor: !0, children: [" \xB7 ", g.id] })), (x[5] = g.id), (x[6] = T);
+    else T = x[6];
+    let J;
+    if (x[7] !== E || x[8] !== V || x[9] !== T)
+      (J = r(t, { children: [E, A, V, T] })), (x[7] = E), (x[8] = V), (x[9] = T), (x[10] = J);
+    else J = x[10];
+    let Dt;
+    if (x[11] !== U || x[12] !== J) (Dt = e(fl, { isFocused: U, children: J })), (x[11] = U), (x[12] = J), (x[13] = Dt);
+    else Dt = x[13];
+    return Dt;
+  }
+  let E;
+  if (x[14] !== g.condition) (E = H(g.condition, S)), (x[14] = g.condition), (x[15] = E);
+  else E = x[15];
+  let A;
+  if (x[16] !== E) (A = e(t, { bold: !0, children: E })), (x[16] = E), (x[17] = A);
+  else A = x[17];
+  let V;
+  if (x[18] === d) (V = e(t, { dimColor: !0, children: " \xB7 stop-hook" })), (x[18] = V);
+  else V = x[18];
+  let T;
+  if (x[19] !== A) (T = r(t, { children: ["goal: ", A, V] })), (x[19] = A), (x[20] = T);
+  else T = x[20];
+  let J;
+  if (x[21] !== U || x[22] !== T) (J = e(fl, { isFocused: U, children: T })), (x[21] = U), (x[22] = T), (x[23] = J);
+  else J = x[23];
+  return J;
+}
+var $t = /^(\d+)([smhd])$/i;
+function Mt(i) {
+  let f = i.match($t);
+  if (!f) return null;
+  let v = parseInt(f[1], 10);
+  if (v < 1) return null;
+  let k;
+  switch (f[2].toLowerCase()) {
+    case "s":
+      k = `*/${Math.max(1, Math.ceil(v / 60))} * * * *`;
+      break;
+    case "m":
+      k = v <= 59 ? `*/${v} * * * *` : `0 */${Math.round(v / 60)} * * *`;
+      break;
+    case "h":
+      if (v > 23) return null;
+      k = `0 */${v} * * *`;
+      break;
+    case "d":
+      if (v > 31) return null;
+      k = `0 0 */${v} * *`;
+      break;
+    default:
+      return null;
+  }
+  return HI(k) ? k : null;
+}
+var ho = async (i, f) => {
+  s("tengu_loops_command", {});
+  let v = await U2(),
+    k = zte(f.sessionHooksRegistry, K()),
+    h = [
+      ...v.map((c) => ({ kind: "cron", id: c.id, cron: c.cron, human: ry(c.cron), prompt: c.prompt })),
+      ...k.map((c, m) => ({ kind: "stophook", id: `stophook-${m}`, condition: c.prompt })),
+    ];
+  async function X(c) {
+    if (c.kind === "cron") {
+      try {
+        await Fz([c.id]), i(`Loop ${c.id} deleted`, { display: "system" });
+      } catch (I) {
+        i(`Failed to delete loop ${c.id}: ${I}`, { display: "system" });
+      }
+      return;
+    }
+    let m = ywe(f);
+    i(m === null ? "Stop hook not found" : "Stop hook cleared", { display: "system" });
+  }
+  async function P(c) {
+    if (c.kind === "cron") {
+      let I = Mt(c.interval);
+      if (!I) {
+        i(`Invalid interval: ${c.interval}`, { display: "system" });
+        return;
+      }
+      let O = await cTe(I, c.prompt, !0, !1);
+      i(`Loop ${O} created (${ry(I)})`, { display: "system" });
+      return;
+    }
+    let m = _we(c.condition, f, "loops_dialog");
+    i(m ?? "Stop hook set", { display: "system" });
+  }
+  return e(be, {
+    loops: h,
+    onDelete: (c) => void X(c),
+    onCreate: (c) => void P(c),
+    onCancel: () => i("", { display: "skip" }),
+  });
+};
+export { ho as call };

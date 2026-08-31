@@ -8,5 +8,23 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-var WGe="artifact-design",qft="artifact-diagramming",Ov="artifact-capabilities",Gft="workshop",KVn="whiteboard",XVn="whiteboard-mp",YVn="prototype",zft="dataviz",xD="code-review";var JVn="artifact-pr-review",SF="verify",qGe="simplify",GGe="commit",zGe="pr",wdn="commit-push-pr",Vft="cowork-plugin",Kft="loop",QVn="schedule",IE="workflow-authoring";
-export{WGe,qft,Ov,Gft,KVn,XVn,YVn,zft,xD,JVn,SF,qGe,GGe,zGe,wdn,Vft,Kft,QVn,IE};
+var WGe = "artifact-design",
+  qft = "artifact-diagramming",
+  Ov = "artifact-capabilities",
+  Gft = "workshop",
+  KVn = "whiteboard",
+  XVn = "whiteboard-mp",
+  YVn = "prototype",
+  zft = "dataviz",
+  xD = "code-review";
+var JVn = "artifact-pr-review",
+  SF = "verify",
+  qGe = "simplify",
+  GGe = "commit",
+  zGe = "pr",
+  wdn = "commit-push-pr",
+  Vft = "cowork-plugin",
+  Kft = "loop",
+  QVn = "schedule",
+  IE = "workflow-authoring";
+export { WGe, qft, Ov, Gft, KVn, XVn, YVn, zft, xD, JVn, SF, qGe, GGe, zGe, wdn, Vft, Kft, QVn, IE };

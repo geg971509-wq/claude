@@ -8,5 +8,11 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-var j0e=5,KIt="Structured output was retracted by a model fallback and no retry produced a valid result";function XIt(t,r){return r>0?`Failed to provide surviving structured output after ${t} attempts (${r} retracted by a model fallback)`:`Failed to provide valid structured output after ${t} attempts`}
-export{j0e,KIt,XIt};
+var j0e = 5,
+  KIt = "Structured output was retracted by a model fallback and no retry produced a valid result";
+function XIt(t, r) {
+  return r > 0
+    ? `Failed to provide surviving structured output after ${t} attempts (${r} retracted by a model fallback)`
+    : `Failed to provide valid structured output after ${t} attempts`;
+}
+export { j0e, KIt, XIt };

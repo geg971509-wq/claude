@@ -8,11 +8,243 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{n}from"/$bunfs/root/chunk-fv016jr6.js";import{Dn}from"/$bunfs/root/chunk-4ddxwr9r.js";import{wlr}from"/$bunfs/root/chunk-wkxx62a2.js";import{mn}from"/$bunfs/root/chunk-htrft0p0.js";import{_}from"/$bunfs/root/chunk-haan6f8z.js";import{ae}from"/$bunfs/root/chunk-386w1sy8.js";import{pj}from"/$bunfs/root/chunk-q14dgq5g.js";import{Et}from"/$bunfs/root/chunk-5rt2mvvk.js";import{VZ,o,t,oo,md,HS}from"/$bunfs/root/chunk-he2phymk.js";import{Nt}from"/$bunfs/root/chunk-z9bhq3k9.js";import{wT}from"/$bunfs/root/chunk-2204t1q0.js";import{kee}from"/$bunfs/root/chunk-zze8764r.js";import{OR}from"/$bunfs/root/chunk-tk2aqta8.js";import{snt,dge,Zie,lMn}from"/$bunfs/root/chunk-m6r337am.js";import{Ts}from"/$bunfs/root/chunk-b6a5y1qe.js";import{e,r}from"/$bunfs/root/chunk-8s7kcbyw.js";import{du,A,z,C,u,F}from"/$bunfs/root/chunk-twm95mhz.js";import{d,fn}from"/$bunfs/root/chunk-yz031c9r.js";F();F();import{extname as lt}from"path";var kt=500;function N(s,i,m,g){let l=wlr(`${g}\x00${kee.pluginGrammarGeneration}`,m),f=s.get(l);if(f!==void 0)return s.delete(l),s.set(l,f),f;let a=i.highlight(m,{language:g});if(s.size>=kt){let c=s.keys().next().value;if(c!==void 0)s.delete(c)}return s.set(l,a),a}function B(s){let i=new Map;if(s.length<=snt)return{text:s,markers:i};return{text:s.split(`
-`).map((l,f)=>{let{code:a,truncatedChars:c}=dge(l);if(c>0)return i.set(f,Zie(c)),a;return l}).join(`
-`),markers:i}}function x(s,i){if(i.size===0)return s;return s.split(`
-`).map((m,g)=>{let l=i.get(g);return l?m+ae.dim(l):m}).join(`
-`)}function X(It){let W=_(16),{code:Q,filePath:V,dim:pt,skipColoring:dt}=It,b=pt===void 0?!1:pt,Y=dt===void 0?!1:dt,G,Z;if(W[0]!==Q||W[1]!==b||W[2]!==Y){Z=fn;bb0:{G=pj(Q);if(Y){let{text:vt,markers:Lt}=B(G);const D=e(oo,{children:x(vt,Lt)});let y;if(W[5]!==b||W[6]!==D)y=e(t,{dimColor:b,children:D}),W[5]=b,W[6]=D,W[7]=y;else y=W[7];Z=y;break bb0}}W[0]=Q,W[1]=b,W[2]=Y,W[3]=G,W[4]=Z}else G=W[3],Z=W[4];if(Z!==fn)return Z;let D;if(W[8]!==V)D=lt(V).slice(1),W[8]=V,W[9]=D;else D=W[9];let tt=D,y;if(W[10]!==G||W[11]!==tt)y=e(U,{codeWithSpaces:G,language:tt}),W[10]=G,W[11]=tt,W[12]=y;else y=W[12];let ht;if(W[13]!==b||W[14]!==y)ht=e(t,{dimColor:b,children:y}),W[13]=b,W[14]=y,W[15]=ht;else ht=W[15];return ht}function U(zt){let et=_(7),{codeWithSpaces:nt,language:w}=zt,xt;if(et[0]===d)xt=OR(),et[0]=xt;else xt=et[0];let rt=xt,{highlightedCode:L}=VZ(),grammarGeneration=kee.pluginGrammarGeneration,P;if(et[1]!==nt||et[2]!==L||et[3]!==w){bb0:{let{text:ot,markers:it}=B(nt);let bt="markdown";if(w){if(rt.supportsLanguage(w))bt=w;else n(`Language not supported while highlighting code, falling back to markdown: ${w}`)};try{P=x(N(L,rt,ot,bt),it)}catch(O){let st=O;if(st instanceof Error&&st.message.includes("Unknown language")){P=(n(`Language not supported while highlighting code, falling back to markdown: ${st}`),x(N(L,rt,ot,"markdown"),it));break bb0}P=x(ot,it)}}et[1]=nt,et[2]=L,et[3]=w,et[4]=P}else P=et[4];let mt=P,O;if(et[5]!==mt)O=e(oo,{children:mt}),et[5]=mt,et[6]=O;else O=et[6];return O}var Rt=80,o_=du(function({code:i,filePath:m,width:g,dim:l=!1,startLine:f=1}){let a=C(null),[c,H]=u(g||Rt),[k]=mn(),I=Ts().syntaxHighlightingDisabled??!1,v=z(()=>{if(I)return null;let p=lMn();if(!p)return null;return new p(pj(i),m)},[i,m,I]);A(()=>{if(!g&&a.current){let{width:p}=HS(a.current);if(p>0)H(p-2)}},[g]);let E=z(()=>{if(f===1)return null;let p=ft(i),h=String(f+p-1).length;return{digits:h,extraCols:Math.max(0,h-String(p).length)}},[i,f]),R=z(()=>{if(v===null)return null;return v.render(k,c-(E?.extraCols??0),l)},[v,k,c,l,E]),S=z(()=>{if(!Nt()&&f===1)return 0;return String(ft(i)).length+2},[i,f]),at=z(()=>{if(E===null||S===0||R===null)return null;let{digits:p}=E,h=f;return R.map((ct)=>{if(Et(wT(ct,0,S)).trim()==="")return" ".repeat(p+2);return` ${String(h++).padStart(p)} `})},[E,f,S,R]);return e(o,{ref:a,children:R?e(o,{flexDirection:"column",children:R.map((p,h)=>S>0?e(gt,{line:p,gutterWidth:S,displayGutter:at?.[h]},h):e(t,{children:e(oo,{children:p})},h))}):r(o,{flexDirection:"column",children:[f!==1&&r(t,{dimColor:!0,children:["\u2026 from line ",f]}),e(X,{code:i,filePath:m,dim:l,skipColoring:I})]})})});function ft(s){let i=Dn(s,`
-`)+1;return s.endsWith(`
-`)?i-1:i}function gt(rn){let q=_(12),{line:M,gutterWidth:T,displayGutter:j}=rn,yt;if(q[0]!==T||q[1]!==M)yt=wT(M,T),q[0]=T,q[1]=M,q[2]=yt;else yt=q[2];let ut=yt,J;if(q[3]!==j||q[4]!==T||q[5]!==M)J=e(md,{fromLeftEdge:!0,children:j===void 0?e(t,{children:e(oo,{children:wT(M,0,T)})}):e(t,{dimColor:!0,children:j})}),q[3]=j,q[4]=T,q[5]=M,q[6]=J;else J=q[6];let K;if(q[7]!==ut)K=e(t,{children:e(oo,{children:ut})}),q[7]=ut,q[8]=K;else K=q[8];let Ct;if(q[9]!==J||q[10]!==K)Ct=r(o,{flexDirection:"row",children:[J,K]}),q[9]=J,q[10]=K,q[11]=Ct;else Ct=q[11];return Ct}
-export{o_};
+import { n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { Dn } from "/$bunfs/root/chunk-4ddxwr9r.js";
+import { wlr } from "/$bunfs/root/chunk-wkxx62a2.js";
+import { mn } from "/$bunfs/root/chunk-htrft0p0.js";
+import { _ } from "/$bunfs/root/chunk-haan6f8z.js";
+import { ae } from "/$bunfs/root/chunk-386w1sy8.js";
+import { pj } from "/$bunfs/root/chunk-q14dgq5g.js";
+import { Et } from "/$bunfs/root/chunk-5rt2mvvk.js";
+import { VZ, o, t, oo, md, HS } from "/$bunfs/root/chunk-he2phymk.js";
+import { Nt } from "/$bunfs/root/chunk-z9bhq3k9.js";
+import { wT } from "/$bunfs/root/chunk-2204t1q0.js";
+import { kee } from "/$bunfs/root/chunk-zze8764r.js";
+import { OR } from "/$bunfs/root/chunk-tk2aqta8.js";
+import { snt, dge, Zie, lMn } from "/$bunfs/root/chunk-m6r337am.js";
+import { Ts } from "/$bunfs/root/chunk-b6a5y1qe.js";
+import { e, r } from "/$bunfs/root/chunk-8s7kcbyw.js";
+import { du, A, z, C, u, F } from "/$bunfs/root/chunk-twm95mhz.js";
+import { d, fn } from "/$bunfs/root/chunk-yz031c9r.js";
+F();
+F();
+import { extname as lt } from "path";
+var kt = 500;
+function N(s, i, m, g) {
+  let l = wlr(`${g}\x00${kee.pluginGrammarGeneration}`, m),
+    f = s.get(l);
+  if (f !== void 0) return s.delete(l), s.set(l, f), f;
+  let a = i.highlight(m, { language: g });
+  if (s.size >= kt) {
+    let c = s.keys().next().value;
+    if (c !== void 0) s.delete(c);
+  }
+  return s.set(l, a), a;
+}
+function B(s) {
+  let i = new Map();
+  if (s.length <= snt) return { text: s, markers: i };
+  return {
+    text: s
+      .split(`
+`)
+      .map((l, f) => {
+        let { code: a, truncatedChars: c } = dge(l);
+        if (c > 0) return i.set(f, Zie(c)), a;
+        return l;
+      })
+      .join(`
+`),
+    markers: i,
+  };
+}
+function x(s, i) {
+  if (i.size === 0) return s;
+  return s
+    .split(`
+`)
+    .map((m, g) => {
+      let l = i.get(g);
+      return l ? m + ae.dim(l) : m;
+    })
+    .join(`
+`);
+}
+function X(It) {
+  let W = _(16),
+    { code: Q, filePath: V, dim: pt, skipColoring: dt } = It,
+    b = pt === void 0 ? !1 : pt,
+    Y = dt === void 0 ? !1 : dt,
+    G,
+    Z;
+  if (W[0] !== Q || W[1] !== b || W[2] !== Y) {
+    Z = fn;
+    bb0: {
+      G = pj(Q);
+      if (Y) {
+        let { text: vt, markers: Lt } = B(G);
+        const D = e(oo, { children: x(vt, Lt) });
+        let y;
+        if (W[5] !== b || W[6] !== D) (y = e(t, { dimColor: b, children: D })), (W[5] = b), (W[6] = D), (W[7] = y);
+        else y = W[7];
+        Z = y;
+        break bb0;
+      }
+    }
+    (W[0] = Q), (W[1] = b), (W[2] = Y), (W[3] = G), (W[4] = Z);
+  } else (G = W[3]), (Z = W[4]);
+  if (Z !== fn) return Z;
+  let D;
+  if (W[8] !== V) (D = lt(V).slice(1)), (W[8] = V), (W[9] = D);
+  else D = W[9];
+  let tt = D,
+    y;
+  if (W[10] !== G || W[11] !== tt)
+    (y = e(U, { codeWithSpaces: G, language: tt })), (W[10] = G), (W[11] = tt), (W[12] = y);
+  else y = W[12];
+  let ht;
+  if (W[13] !== b || W[14] !== y) (ht = e(t, { dimColor: b, children: y })), (W[13] = b), (W[14] = y), (W[15] = ht);
+  else ht = W[15];
+  return ht;
+}
+function U(zt) {
+  let et = _(7),
+    { codeWithSpaces: nt, language: w } = zt,
+    xt;
+  if (et[0] === d) (xt = OR()), (et[0] = xt);
+  else xt = et[0];
+  let rt = xt,
+    { highlightedCode: L } = VZ(),
+    grammarGeneration = kee.pluginGrammarGeneration,
+    P;
+  if (et[1] !== nt || et[2] !== L || et[3] !== w) {
+    bb0: {
+      let { text: ot, markers: it } = B(nt);
+      let bt = "markdown";
+      if (w) {
+        if (rt.supportsLanguage(w)) bt = w;
+        else n(`Language not supported while highlighting code, falling back to markdown: ${w}`);
+      }
+      try {
+        P = x(N(L, rt, ot, bt), it);
+      } catch (O) {
+        let st = O;
+        if (st instanceof Error && st.message.includes("Unknown language")) {
+          P =
+            (n(`Language not supported while highlighting code, falling back to markdown: ${st}`),
+            x(N(L, rt, ot, "markdown"), it));
+          break bb0;
+        }
+        P = x(ot, it);
+      }
+    }
+    (et[1] = nt), (et[2] = L), (et[3] = w), (et[4] = P);
+  } else P = et[4];
+  let mt = P,
+    O;
+  if (et[5] !== mt) (O = e(oo, { children: mt })), (et[5] = mt), (et[6] = O);
+  else O = et[6];
+  return O;
+}
+var Rt = 80,
+  o_ = du(function ({ code: i, filePath: m, width: g, dim: l = !1, startLine: f = 1 }) {
+    let a = C(null),
+      [c, H] = u(g || Rt),
+      [k] = mn(),
+      I = Ts().syntaxHighlightingDisabled ?? !1,
+      v = z(() => {
+        if (I) return null;
+        let p = lMn();
+        if (!p) return null;
+        return new p(pj(i), m);
+      }, [i, m, I]);
+    A(() => {
+      if (!g && a.current) {
+        let { width: p } = HS(a.current);
+        if (p > 0) H(p - 2);
+      }
+    }, [g]);
+    let E = z(() => {
+        if (f === 1) return null;
+        let p = ft(i),
+          h = String(f + p - 1).length;
+        return { digits: h, extraCols: Math.max(0, h - String(p).length) };
+      }, [i, f]),
+      R = z(() => {
+        if (v === null) return null;
+        return v.render(k, c - (E?.extraCols ?? 0), l);
+      }, [v, k, c, l, E]),
+      S = z(() => {
+        if (!Nt() && f === 1) return 0;
+        return String(ft(i)).length + 2;
+      }, [i, f]),
+      at = z(() => {
+        if (E === null || S === 0 || R === null) return null;
+        let { digits: p } = E,
+          h = f;
+        return R.map((ct) => {
+          if (Et(wT(ct, 0, S)).trim() === "") return " ".repeat(p + 2);
+          return ` ${String(h++).padStart(p)} `;
+        });
+      }, [E, f, S, R]);
+    return e(o, {
+      ref: a,
+      children: R
+        ? e(o, {
+            flexDirection: "column",
+            children: R.map((p, h) =>
+              S > 0
+                ? e(gt, { line: p, gutterWidth: S, displayGutter: at?.[h] }, h)
+                : e(t, { children: e(oo, { children: p }) }, h),
+            ),
+          })
+        : r(o, {
+            flexDirection: "column",
+            children: [
+              f !== 1 && r(t, { dimColor: !0, children: ["\u2026 from line ", f] }),
+              e(X, { code: i, filePath: m, dim: l, skipColoring: I }),
+            ],
+          }),
+    });
+  });
+function ft(s) {
+  let i =
+    Dn(
+      s,
+      `
+`,
+    ) + 1;
+  return s.endsWith(`
+`)
+    ? i - 1
+    : i;
+}
+function gt(rn) {
+  let q = _(12),
+    { line: M, gutterWidth: T, displayGutter: j } = rn,
+    yt;
+  if (q[0] !== T || q[1] !== M) (yt = wT(M, T)), (q[0] = T), (q[1] = M), (q[2] = yt);
+  else yt = q[2];
+  let ut = yt,
+    J;
+  if (q[3] !== j || q[4] !== T || q[5] !== M)
+    (J = e(md, {
+      fromLeftEdge: !0,
+      children:
+        j === void 0 ? e(t, { children: e(oo, { children: wT(M, 0, T) }) }) : e(t, { dimColor: !0, children: j }),
+    })),
+      (q[3] = j),
+      (q[4] = T),
+      (q[5] = M),
+      (q[6] = J);
+  else J = q[6];
+  let K;
+  if (q[7] !== ut) (K = e(t, { children: e(oo, { children: ut }) })), (q[7] = ut), (q[8] = K);
+  else K = q[8];
+  let Ct;
+  if (q[9] !== J || q[10] !== K)
+    (Ct = r(o, { flexDirection: "row", children: [J, K] })), (q[9] = J), (q[10] = K), (q[11] = Ct);
+  else Ct = q[11];
+  return Ct;
+}
+export { o_ };

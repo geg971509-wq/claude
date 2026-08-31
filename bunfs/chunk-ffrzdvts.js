@@ -8,5 +8,21 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{sd}from"/$bunfs/root/chunk-1yr12dqr.js";import{Dd,y7}from"/$bunfs/root/chunk-zze8764r.js";function Oot({recipientName:i,leaderMode:t,proactivityLevel:e,tasks:r}){let n=s(i,r)?t:y7(t,e),o=sd(n);return o==="plan"?"default":o}function s(i,t){return Object.values(t).some((e)=>Dd(e)&&e.status==="running"&&e.identity.agentName===i&&e.paneTeardown===void 0&&e.identity.resumableAgentId!==void 0)}
-export{Oot};
+import { sd } from "/$bunfs/root/chunk-1yr12dqr.js";
+import { Dd, y7 } from "/$bunfs/root/chunk-zze8764r.js";
+function Oot({ recipientName: i, leaderMode: t, proactivityLevel: e, tasks: r }) {
+  let n = s(i, r) ? t : y7(t, e),
+    o = sd(n);
+  return o === "plan" ? "default" : o;
+}
+function s(i, t) {
+  return Object.values(t).some(
+    (e) =>
+      Dd(e) &&
+      e.status === "running" &&
+      e.identity.agentName === i &&
+      e.paneTeardown === void 0 &&
+      e.identity.resumableAgentId !== void 0,
+  );
+}
+export { Oot };

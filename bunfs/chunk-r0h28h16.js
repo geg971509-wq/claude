@@ -8,6 +8,102 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{n}from"/$bunfs/root/chunk-fv016jr6.js";import{bfe}from"/$bunfs/root/chunk-hyh5wcm1.js";import{pne,Eue,DVe,OVe,E7n,tn,N2,UD}from"/$bunfs/root/chunk-y8sx7bf9.js";import{but,wut,Tut}from"/$bunfs/root/chunk-zze8764r.js";import{dn,wW}from"/$bunfs/root/chunk-1y4te1a7.js";import{WN,Nn}from"/$bunfs/root/chunk-c48t1p6v.js";import{basename as T,dirname as P,isAbsolute as L,join as p}from"path";var R="side.git",m=/^[A-Za-z0-9][A-Za-z0-9_-]{0,127}$/,g=/^[a-z][a-z0-9-]{0,31}(?:\/[a-z0-9][a-z0-9_-]{0,63})?$/;function p2n(o){return p(o,bfe,R)}function Ju(o,a){let e=`${N2}${o}/${a}`;return m.test(o)&&g.test(a)&&UD(e)?e:null}async function EHe(o,a){if(!m.test(a))return null;let e=`${N2}${a}/`,u=await dn(o,["for-each-ref","--format=%(objectname) %(refname)",e]);if(u.exitCode!==0)return null;let t=u.stdout.split(`
-`).filter((i)=>i!=="").map((i)=>{let[c="",r=""]=i.split(" ");return{name:r,id:c}}).filter((i)=>i.name.startsWith(e)&&UD(i.name));return t.every((i)=>tn.test(i.id))?t:null}var Cx=422,d={kind:"failed",status:Cx};function ust({client:o,direct:a,inboundMaxBytes:e=wW,stallMs:u,restartPauseMs:t}){let i={put:(r,l,s,f)=>o.putLaneRow(r,l,{ifMatchSha256:s,signal:f,oneTryIfLong:!0}),get:(r,l,s)=>o.getLaneFile(r,l,s)},c=but();return{putOutbound:(r,{ifMatchEtag:l,signal:s})=>wut({client:a,rel:DVe,content:r,ifMatchEtag:l,signal:s,side:"laptop",memo:c,...u!==void 0&&{stallMs:u},...t!==void 0&&{restartPauseMs:t}}),async getInbound(r,l){switch(r.via){case"direct":{let s=await Tut({client:a,rel:OVe,object:r,maxBytes:e,signal:l,...u!==void 0&&{stallMs:u}});return s.kind==="impossible"?d:s.kind==="unsupported"||s.kind==="failed"&&s.status===Cx?{kind:"failed"}:s}case"row":return O(i,OVe,r,l);case"file":case"unknown":return n("dir-sync: refused a container object named by a carrier this side cannot read"),d}},publishJournal:(r,{ifMatchEtag:l,createOnly:s,signal:f})=>s===!0&&l===null?i.put(pne,r,void 0,f):E(i,pne,r,l,f),readPeerJournal:(r)=>i.get(Eue,r),readOwnJournal:(r)=>i.get(pne,r)}}async function E(o,a,e,u,t){if(u!==null)return o.put(a,e,u,t);let i=await o.put(a,e,void 0,t);if(i.kind!=="conflict")return i;let c=await o.get(a,t,e.length);if(c.kind==="ok")return o.put(a,e,c.etag,t);return c.kind==="not_found"?{kind:"failed"}:c}async function O(o,a,e,u){if(!WN.test(e.sha256)||!Number.isSafeInteger(e.size)||e.size<0||e.size>E7n)return d;let t=await o.get(a,u,e.size);if(t.kind!=="ok")return t.kind==="failed"&&t.status===Cx?{kind:"failed"}:t;return t.content.length===e.size&&Nn(t.content)===e.sha256?t:{kind:"not_found"}}
-export{p2n,Ju,EHe,Cx,ust};
+import { n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { bfe } from "/$bunfs/root/chunk-hyh5wcm1.js";
+import { pne, Eue, DVe, OVe, E7n, tn, N2, UD } from "/$bunfs/root/chunk-y8sx7bf9.js";
+import { but, wut, Tut } from "/$bunfs/root/chunk-zze8764r.js";
+import { dn, wW } from "/$bunfs/root/chunk-1y4te1a7.js";
+import { WN, Nn } from "/$bunfs/root/chunk-c48t1p6v.js";
+import { basename as T, dirname as P, isAbsolute as L, join as p } from "path";
+var R = "side.git",
+  m = /^[A-Za-z0-9][A-Za-z0-9_-]{0,127}$/,
+  g = /^[a-z][a-z0-9-]{0,31}(?:\/[a-z0-9][a-z0-9_-]{0,63})?$/;
+function p2n(o) {
+  return p(o, bfe, R);
+}
+function Ju(o, a) {
+  let e = `${N2}${o}/${a}`;
+  return m.test(o) && g.test(a) && UD(e) ? e : null;
+}
+async function EHe(o, a) {
+  if (!m.test(a)) return null;
+  let e = `${N2}${a}/`,
+    u = await dn(o, ["for-each-ref", "--format=%(objectname) %(refname)", e]);
+  if (u.exitCode !== 0) return null;
+  let t = u.stdout
+    .split(`
+`)
+    .filter((i) => i !== "")
+    .map((i) => {
+      let [c = "", r = ""] = i.split(" ");
+      return { name: r, id: c };
+    })
+    .filter((i) => i.name.startsWith(e) && UD(i.name));
+  return t.every((i) => tn.test(i.id)) ? t : null;
+}
+var Cx = 422,
+  d = { kind: "failed", status: Cx };
+function ust({ client: o, direct: a, inboundMaxBytes: e = wW, stallMs: u, restartPauseMs: t }) {
+  let i = {
+      put: (r, l, s, f) => o.putLaneRow(r, l, { ifMatchSha256: s, signal: f, oneTryIfLong: !0 }),
+      get: (r, l, s) => o.getLaneFile(r, l, s),
+    },
+    c = but();
+  return {
+    putOutbound: (r, { ifMatchEtag: l, signal: s }) =>
+      wut({
+        client: a,
+        rel: DVe,
+        content: r,
+        ifMatchEtag: l,
+        signal: s,
+        side: "laptop",
+        memo: c,
+        ...(u !== void 0 && { stallMs: u }),
+        ...(t !== void 0 && { restartPauseMs: t }),
+      }),
+    async getInbound(r, l) {
+      switch (r.via) {
+        case "direct": {
+          let s = await Tut({
+            client: a,
+            rel: OVe,
+            object: r,
+            maxBytes: e,
+            signal: l,
+            ...(u !== void 0 && { stallMs: u }),
+          });
+          return s.kind === "impossible"
+            ? d
+            : s.kind === "unsupported" || (s.kind === "failed" && s.status === Cx)
+              ? { kind: "failed" }
+              : s;
+        }
+        case "row":
+          return O(i, OVe, r, l);
+        case "file":
+        case "unknown":
+          return n("dir-sync: refused a container object named by a carrier this side cannot read"), d;
+      }
+    },
+    publishJournal: (r, { ifMatchEtag: l, createOnly: s, signal: f }) =>
+      s === !0 && l === null ? i.put(pne, r, void 0, f) : E(i, pne, r, l, f),
+    readPeerJournal: (r) => i.get(Eue, r),
+    readOwnJournal: (r) => i.get(pne, r),
+  };
+}
+async function E(o, a, e, u, t) {
+  if (u !== null) return o.put(a, e, u, t);
+  let i = await o.put(a, e, void 0, t);
+  if (i.kind !== "conflict") return i;
+  let c = await o.get(a, t, e.length);
+  if (c.kind === "ok") return o.put(a, e, c.etag, t);
+  return c.kind === "not_found" ? { kind: "failed" } : c;
+}
+async function O(o, a, e, u) {
+  if (!WN.test(e.sha256) || !Number.isSafeInteger(e.size) || e.size < 0 || e.size > E7n) return d;
+  let t = await o.get(a, u, e.size);
+  if (t.kind !== "ok") return t.kind === "failed" && t.status === Cx ? { kind: "failed" } : t;
+  return t.content.length === e.size && Nn(t.content) === e.sha256 ? t : { kind: "not_found" };
+}
+export { p2n, Ju, EHe, Cx, ust };

@@ -8,10 +8,389 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{ix,TU,Jfe,mi,ZFe}from"/$bunfs/root/chunk-f9h0bg01.js";import{zU}from"/$bunfs/root/chunk-kf21y12g.js";import{d$,wt,lnr,Xh,On,O6,U3}from"/$bunfs/root/chunk-8tgj5dp2.js";import{a}from"/$bunfs/root/chunk-fec4384a.js";import{we,l}from"/$bunfs/root/chunk-ypdw393e.js";import{n}from"/$bunfs/root/chunk-fv016jr6.js";import{h}from"/$bunfs/root/chunk-wkxx62a2.js";import{gP}from"/$bunfs/root/chunk-z2bvp3sv.js";import{Ne}from"/$bunfs/root/chunk-82w4mtvq.js";import{xo}from"/$bunfs/root/chunk-0m39033q.js";import{g8e,Nyn,h8e}from"/$bunfs/root/chunk-z9jgt14c.js";import{vte}from"/$bunfs/root/chunk-vm4xrmr7.js";import{CZn}from"/$bunfs/root/chunk-xgfepdf4.js";import{_}from"/$bunfs/root/chunk-haan6f8z.js";import{fhn,mhn}from"/$bunfs/root/chunk-2n1hsggr.js";import{s$,KM,U_n}from"/$bunfs/root/chunk-s0xdwab3.js";import{Ln,Xc,Wy,Dt,Hun}from"/$bunfs/root/chunk-zze8764r.js";import{eR}from"/$bunfs/root/chunk-51qp0385.js";import{EF}from"/$bunfs/root/chunk-p1awcxk1.js";import{_gn}from"/$bunfs/root/chunk-w3c6n7jh.js";import{he,Mue}from"/$bunfs/root/chunk-h605j25g.js";import{lX,E9,cX}from"/$bunfs/root/chunk-wn1jrcrk.js";import{A8e}from"/$bunfs/root/chunk-2qsjxthp.js";import{cJt,WNn,lrt,zke,fJt}from"/$bunfs/root/chunk-xvbmqp62.js";import{Ua}from"/$bunfs/root/chunk-8ktvd0rh.js";import{t}from"/$bunfs/root/chunk-he2phymk.js";import{Be}from"/$bunfs/root/chunk-ek4tmwbt.js";import{At}from"/$bunfs/root/chunk-ht28m404.js";import{Hi}from"/$bunfs/root/chunk-tmxtk606.js";import{Rke}from"/$bunfs/root/chunk-cmhbx7me.js";import{lv,Px,me}from"/$bunfs/root/chunk-489c3cyq.js";import{DK}from"/$bunfs/root/chunk-kb0t60a2.js";import{bkt}from"/$bunfs/root/chunk-v7mbahwa.js";import{Oc}from"/$bunfs/root/chunk-p70hxvm1.js";import{$Ue}from"/$bunfs/root/chunk-wrya8f43.js";import{Rtt,RRe,ktt}from"/$bunfs/root/chunk-tv61dp0z.js";import{$P,Aq}from"/$bunfs/root/chunk-wfer9wy8.js";import{FR}from"/$bunfs/root/chunk-96dhk9az.js";import{ze}from"/$bunfs/root/chunk-4kafv9jq.js";import{e,r}from"/$bunfs/root/chunk-8s7kcbyw.js";import{B,C,u,F}from"/$bunfs/root/chunk-twm95mhz.js";import{d}from"/$bunfs/root/chunk-yz031c9r.js";F();function aur(){U_n(s$())}async function vK(o,s,i){if(o.onChangeAPIKey(),o.applyMessageOp({type:"update",updater:Hun}),!s)return{bridgeDisconnected:!1,accountSwitched:!1,relaunching:!1};let g=mi(),c=g!==null&&g!==i.previousGatewayAuth;if(Ne()==="gateway"){let f=i.onConsentNeeded,V={release:null},Z=f?WNn(()=>(V.release??=cJt(),f())):null;try{let v;try{v=await fJt(bkt,o.storageV5,o.credentials)}finally{Z?.()}let W=mi(),G=de(W);if(c&&!v.fetchSucceeded&&v.failure?.errorKind==="gateway_cert_mismatch")return await ce(o,W,lur(G,v.failure.gatewayPinMismatch));if(!v.fetchSucceeded||$Ue()){let H=v.fetchSucceeded?void 0:v.failure;return await le(o,cur(G,H,c),(ee)=>uur(G,H,ee,c)),N}if(xo())return N;Rtt("gateway"),eR(),_gn()}finally{if(!xo())V.release?.()}}else zke(bkt,o.storageV5,o.credentials);Jfe(),A8e(),d$(),U3();let{setAppState:m}=i,p=()=>{m((f)=>({...f,authChangeGeneration:f.authChangeGeneration+1}))},y=i.previousAccount,w=On(),b=Xh(y,w),{replBridgeEnabled:S,replBridgeOutboundOnly:E}=o.getAppState(),T=y?.accountUuid!==void 0&&!b,D=T&&S&&!E;if(T)m((f)=>{if(!(f.replBridgeEnabled||f.replBridgeError!==void 0))return f;return n("[bridge:repl] Account changed via /login \u2014 disconnecting Remote Control session"),{...f,replBridgeEnabled:!1,replBridgeExplicit:!1,replBridgeOutboundOnly:!1,replBridgeError:void 0,replBridgeErrorKind:void 0,notifications:Rke(f.notifications,FR)}});if(KM(),fhn(),CZn(w),T)if(mhn(),i.setAppState((f)=>({...f,replBridgeSessionGroupingId:void 0,replBridgeInitialName:void 0,ultrareviewOverageConfirmed:!1})),o.dialogStore)o.dialogStore.dismissKind(zU.kind);else h(Error("runPostLoginHooks: no dialog store to dismiss a pending Remote Control callout on account switch"));if(b&&await g8e())n("[trusted-device] Same account+org re-login with existing token, skipping re-enrollment"),p();else{Nyn();let f=h8e({credentials:o.credentials}).then(p,p);if(i.awaitEnrollment)await f}let{host:R}=o.session,Y=o.getAppState();return ktt(R),RRe(R,he(o),m,Y.fastMode),aur(),m((f)=>({...f,authVersion:f.authVersion+1})),{bridgeDisconnected:D,accountSwitched:T,relaunching:!1}}var se=16;function j(o){return`${o.slice(0,se)}\u2026`}function de(o){try{return o?new URL(o.url).hostname:"gateway"}catch{return o?.url??"gateway"}}var N={bridgeDisconnected:!1,accountSwitched:!1,relaunching:!0};async function ce(o,s,i){for(let m=ZFe();m;m=ZFe())await m.catch(()=>{});let g=mi();if(await lnr(g&&s&&g.url===s.url?g:s,o.credentials),await lrt(o.storageV5),xo())return{...N,gatewayLoginError:i};let c=!Xc();if(c)await $P(o.messages,o.storageV5);return await Ln(0,"other",{finalMessage:`${i}
-This session is ending so that nothing from that gateway stays half-applied. Start claude again${c?" to continue (your conversation can be resumed)":""} and sign in once that is fixed.`}),{...N,gatewayLoginError:i}}function lur(o,s){let i=s?.presentedFingerprint&&s.pinnedFingerprint?`TLS certificate ${j(s.presentedFingerprint)} instead of the one you trusted (${j(s.pinnedFingerprint)})`:"a different TLS certificate from the one you trusted";return`Cloud gateway sign-in was not completed: on the first request after sign-in, ${o} presented ${i}. No gateway credentials were kept. Usually this means the gateway runs several nodes behind one address that serve different certificates (they must all serve the same one), or something on the network path is intercepting TLS.`}function ue(o,s){switch(o.errorKind){case"timeout":return"the request timed out";case"network_error":return"couldn't connect to the gateway";case"http_401":case"http_403":return s?"the gateway did not accept the new credential":"the gateway did not accept this session's credential";case"no_auth_available":return"no credential was on hand for the request";case"http_4xx":case"http_5xx":return o.httpStatus===void 0?"the gateway answered with an unexpected status":`the gateway answered HTTP ${o.httpStatus}`;case"parse_error":case"invalid_settings":return"the gateway's response was not valid managed settings";case"gateway_cert_mismatch":return"the gateway's TLS certificate did not match the one you trusted";case"gateway_pin_refused":return"the credentials file that keeps the gateway's TLS pin is a symlink, which is not followed";case"gateway_pin_unreadable":return"the credentials file that keeps the gateway's TLS pin could not be read (try again)";case"unknown_error":return"something unexpected went wrong (details with --debug)"}}function Q(o,s,i){if(s){let g=ue(s,i);return i?`Signed in to Cloud gateway ${o}, but couldn't load your organization's managed settings (${g})`:`Couldn't reload your organization's managed settings from Cloud gateway ${o} (${g})`}return i?`Signed in to Cloud gateway ${o}`:`Your organization's managed settings on Cloud gateway ${o} changed`}function cur(o,s,i,g=!Xc()){let c=g?"\u2026":" (this conversation is not saved, so it starts fresh)\u2026",m=Q(o,s,i);return s?`${m}. Restarting Claude Code to retry${c}`:`${m}. Restarting Claude Code to apply ${i?"your organization's managed settings":"them"}${c}`}function uur(o,s,i,g,c=!Xc()){return`${Q(o,s,g)}. ${s?"Claude Code has to restart to retry":`Claude Code has to restart to apply ${g?"your organization's managed settings":"them"}`}, and ${i}, so this session is ending instead. Your sign-in is saved: start claude again the same way${c?" (add --continue to return to this conversation)":""}.`}async function le(o,s,i){if(xo())return;let g=(y)=>Ln(0,"other",{finalMessage:i(y)});if(await $P(EF(o),o.storageV5),xo())return;if(wt())return g("a background session cannot restart itself (sign in from a session started directly with `claude`)");let c=he(o),m=E9(c,ix());if(m.length>0)return g(`this session has restrictions a restart can't carry over (${m.join("; ")})`);let p={proactivityLevel:o.getProactivityLevel(),toolPermissionContext:c};try{await Aq({freshIfNoTranscript:!0,extraArgs:[...lX(c,Mue(o)),...cX(c,TU())],proactivity:p,env:O6(),preSpawn:()=>process.stdout.write(`
+import { ix, TU, Jfe, mi, ZFe } from "/$bunfs/root/chunk-f9h0bg01.js";
+import { zU } from "/$bunfs/root/chunk-kf21y12g.js";
+import { d$, wt, lnr, Xh, On, O6, U3 } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { a } from "/$bunfs/root/chunk-fec4384a.js";
+import { we, l } from "/$bunfs/root/chunk-ypdw393e.js";
+import { n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { h } from "/$bunfs/root/chunk-wkxx62a2.js";
+import { gP } from "/$bunfs/root/chunk-z2bvp3sv.js";
+import { Ne } from "/$bunfs/root/chunk-82w4mtvq.js";
+import { xo } from "/$bunfs/root/chunk-0m39033q.js";
+import { g8e, Nyn, h8e } from "/$bunfs/root/chunk-z9jgt14c.js";
+import { vte } from "/$bunfs/root/chunk-vm4xrmr7.js";
+import { CZn } from "/$bunfs/root/chunk-xgfepdf4.js";
+import { _ } from "/$bunfs/root/chunk-haan6f8z.js";
+import { fhn, mhn } from "/$bunfs/root/chunk-2n1hsggr.js";
+import { s$, KM, U_n } from "/$bunfs/root/chunk-s0xdwab3.js";
+import { Ln, Xc, Wy, Dt, Hun } from "/$bunfs/root/chunk-zze8764r.js";
+import { eR } from "/$bunfs/root/chunk-51qp0385.js";
+import { EF } from "/$bunfs/root/chunk-p1awcxk1.js";
+import { _gn } from "/$bunfs/root/chunk-w3c6n7jh.js";
+import { he, Mue } from "/$bunfs/root/chunk-h605j25g.js";
+import { lX, E9, cX } from "/$bunfs/root/chunk-wn1jrcrk.js";
+import { A8e } from "/$bunfs/root/chunk-2qsjxthp.js";
+import { cJt, WNn, lrt, zke, fJt } from "/$bunfs/root/chunk-xvbmqp62.js";
+import { Ua } from "/$bunfs/root/chunk-8ktvd0rh.js";
+import { t } from "/$bunfs/root/chunk-he2phymk.js";
+import { Be } from "/$bunfs/root/chunk-ek4tmwbt.js";
+import { At } from "/$bunfs/root/chunk-ht28m404.js";
+import { Hi } from "/$bunfs/root/chunk-tmxtk606.js";
+import { Rke } from "/$bunfs/root/chunk-cmhbx7me.js";
+import { lv, Px, me } from "/$bunfs/root/chunk-489c3cyq.js";
+import { DK } from "/$bunfs/root/chunk-kb0t60a2.js";
+import { bkt } from "/$bunfs/root/chunk-v7mbahwa.js";
+import { Oc } from "/$bunfs/root/chunk-p70hxvm1.js";
+import { $Ue } from "/$bunfs/root/chunk-wrya8f43.js";
+import { Rtt, RRe, ktt } from "/$bunfs/root/chunk-tv61dp0z.js";
+import { $P, Aq } from "/$bunfs/root/chunk-wfer9wy8.js";
+import { FR } from "/$bunfs/root/chunk-96dhk9az.js";
+import { ze } from "/$bunfs/root/chunk-4kafv9jq.js";
+import { e, r } from "/$bunfs/root/chunk-8s7kcbyw.js";
+import { B, C, u, F } from "/$bunfs/root/chunk-twm95mhz.js";
+import { d } from "/$bunfs/root/chunk-yz031c9r.js";
+F();
+function aur() {
+  U_n(s$());
+}
+async function vK(o, s, i) {
+  if ((o.onChangeAPIKey(), o.applyMessageOp({ type: "update", updater: Hun }), !s))
+    return { bridgeDisconnected: !1, accountSwitched: !1, relaunching: !1 };
+  let g = mi(),
+    c = g !== null && g !== i.previousGatewayAuth;
+  if (Ne() === "gateway") {
+    let f = i.onConsentNeeded,
+      V = { release: null },
+      Z = f ? WNn(() => ((V.release ??= cJt()), f())) : null;
+    try {
+      let v;
+      try {
+        v = await fJt(bkt, o.storageV5, o.credentials);
+      } finally {
+        Z?.();
+      }
+      let W = mi(),
+        G = de(W);
+      if (c && !v.fetchSucceeded && v.failure?.errorKind === "gateway_cert_mismatch")
+        return await ce(o, W, lur(G, v.failure.gatewayPinMismatch));
+      if (!v.fetchSucceeded || $Ue()) {
+        let H = v.fetchSucceeded ? void 0 : v.failure;
+        return await le(o, cur(G, H, c), (ee) => uur(G, H, ee, c)), N;
+      }
+      if (xo()) return N;
+      Rtt("gateway"), eR(), _gn();
+    } finally {
+      if (!xo()) V.release?.();
+    }
+  } else zke(bkt, o.storageV5, o.credentials);
+  Jfe(), A8e(), d$(), U3();
+  let { setAppState: m } = i,
+    p = () => {
+      m((f) => ({ ...f, authChangeGeneration: f.authChangeGeneration + 1 }));
+    },
+    y = i.previousAccount,
+    w = On(),
+    b = Xh(y, w),
+    { replBridgeEnabled: S, replBridgeOutboundOnly: E } = o.getAppState(),
+    T = y?.accountUuid !== void 0 && !b,
+    D = T && S && !E;
+  if (T)
+    m((f) => {
+      if (!(f.replBridgeEnabled || f.replBridgeError !== void 0)) return f;
+      return (
+        n("[bridge:repl] Account changed via /login \u2014 disconnecting Remote Control session"),
+        {
+          ...f,
+          replBridgeEnabled: !1,
+          replBridgeExplicit: !1,
+          replBridgeOutboundOnly: !1,
+          replBridgeError: void 0,
+          replBridgeErrorKind: void 0,
+          notifications: Rke(f.notifications, FR),
+        }
+      );
+    });
+  if ((KM(), fhn(), CZn(w), T))
+    if (
+      (mhn(),
+      i.setAppState((f) => ({
+        ...f,
+        replBridgeSessionGroupingId: void 0,
+        replBridgeInitialName: void 0,
+        ultrareviewOverageConfirmed: !1,
+      })),
+      o.dialogStore)
+    )
+      o.dialogStore.dismissKind(zU.kind);
+    else h(Error("runPostLoginHooks: no dialog store to dismiss a pending Remote Control callout on account switch"));
+  if (b && (await g8e()))
+    n("[trusted-device] Same account+org re-login with existing token, skipping re-enrollment"), p();
+  else {
+    Nyn();
+    let f = h8e({ credentials: o.credentials }).then(p, p);
+    if (i.awaitEnrollment) await f;
+  }
+  let { host: R } = o.session,
+    Y = o.getAppState();
+  return (
+    ktt(R),
+    RRe(R, he(o), m, Y.fastMode),
+    aur(),
+    m((f) => ({ ...f, authVersion: f.authVersion + 1 })),
+    { bridgeDisconnected: D, accountSwitched: T, relaunching: !1 }
+  );
+}
+var se = 16;
+function j(o) {
+  return `${o.slice(0, se)}\u2026`;
+}
+function de(o) {
+  try {
+    return o ? new URL(o.url).hostname : "gateway";
+  } catch {
+    return o?.url ?? "gateway";
+  }
+}
+var N = { bridgeDisconnected: !1, accountSwitched: !1, relaunching: !0 };
+async function ce(o, s, i) {
+  for (let m = ZFe(); m; m = ZFe()) await m.catch(() => {});
+  let g = mi();
+  if ((await lnr(g && s && g.url === s.url ? g : s, o.credentials), await lrt(o.storageV5), xo()))
+    return { ...N, gatewayLoginError: i };
+  let c = !Xc();
+  if (c) await $P(o.messages, o.storageV5);
+  return (
+    await Ln(0, "other", {
+      finalMessage: `${i}
+This session is ending so that nothing from that gateway stays half-applied. Start claude again${c ? " to continue (your conversation can be resumed)" : ""} and sign in once that is fixed.`,
+    }),
+    { ...N, gatewayLoginError: i }
+  );
+}
+function lur(o, s) {
+  let i =
+    s?.presentedFingerprint && s.pinnedFingerprint
+      ? `TLS certificate ${j(s.presentedFingerprint)} instead of the one you trusted (${j(s.pinnedFingerprint)})`
+      : "a different TLS certificate from the one you trusted";
+  return `Cloud gateway sign-in was not completed: on the first request after sign-in, ${o} presented ${i}. No gateway credentials were kept. Usually this means the gateway runs several nodes behind one address that serve different certificates (they must all serve the same one), or something on the network path is intercepting TLS.`;
+}
+function ue(o, s) {
+  switch (o.errorKind) {
+    case "timeout":
+      return "the request timed out";
+    case "network_error":
+      return "couldn't connect to the gateway";
+    case "http_401":
+    case "http_403":
+      return s
+        ? "the gateway did not accept the new credential"
+        : "the gateway did not accept this session's credential";
+    case "no_auth_available":
+      return "no credential was on hand for the request";
+    case "http_4xx":
+    case "http_5xx":
+      return o.httpStatus === void 0
+        ? "the gateway answered with an unexpected status"
+        : `the gateway answered HTTP ${o.httpStatus}`;
+    case "parse_error":
+    case "invalid_settings":
+      return "the gateway's response was not valid managed settings";
+    case "gateway_cert_mismatch":
+      return "the gateway's TLS certificate did not match the one you trusted";
+    case "gateway_pin_refused":
+      return "the credentials file that keeps the gateway's TLS pin is a symlink, which is not followed";
+    case "gateway_pin_unreadable":
+      return "the credentials file that keeps the gateway's TLS pin could not be read (try again)";
+    case "unknown_error":
+      return "something unexpected went wrong (details with --debug)";
+  }
+}
+function Q(o, s, i) {
+  if (s) {
+    let g = ue(s, i);
+    return i
+      ? `Signed in to Cloud gateway ${o}, but couldn't load your organization's managed settings (${g})`
+      : `Couldn't reload your organization's managed settings from Cloud gateway ${o} (${g})`;
+  }
+  return i ? `Signed in to Cloud gateway ${o}` : `Your organization's managed settings on Cloud gateway ${o} changed`;
+}
+function cur(o, s, i, g = !Xc()) {
+  let c = g ? "\u2026" : " (this conversation is not saved, so it starts fresh)\u2026",
+    m = Q(o, s, i);
+  return s
+    ? `${m}. Restarting Claude Code to retry${c}`
+    : `${m}. Restarting Claude Code to apply ${i ? "your organization's managed settings" : "them"}${c}`;
+}
+function uur(o, s, i, g, c = !Xc()) {
+  return `${Q(o, s, g)}. ${s ? "Claude Code has to restart to retry" : `Claude Code has to restart to apply ${g ? "your organization's managed settings" : "them"}`}, and ${i}, so this session is ending instead. Your sign-in is saved: start claude again the same way${c ? " (add --continue to return to this conversation)" : ""}.`;
+}
+async function le(o, s, i) {
+  if (xo()) return;
+  let g = (y) => Ln(0, "other", { finalMessage: i(y) });
+  if ((await $P(EF(o), o.storageV5), xo())) return;
+  if (wt())
+    return g("a background session cannot restart itself (sign in from a session started directly with `claude`)");
+  let c = he(o),
+    m = E9(c, ix());
+  if (m.length > 0) return g(`this session has restrictions a restart can't carry over (${m.join("; ")})`);
+  let p = { proactivityLevel: o.getProactivityLevel(), toolPermissionContext: c };
+  try {
+    await Aq(
+      {
+        freshIfNoTranscript: !0,
+        extraArgs: [...lX(c, Mue(o)), ...cX(c, TU())],
+        proactivity: p,
+        env: O6(),
+        preSpawn: () =>
+          process.stdout.write(`
 ${s}
-`)},o.storageV5)}catch(y){return h(we(y)),g(`it could not restart itself (${l(y)})`)}}function CRe(o,s,i,{envTokenWasSet:g=!1,envWarningOnce:c}={}){if(i.gatewayLoginError!==void 0||i.relaunching)return[i.gatewayLoginError];let m=s?dur(o,i):void 0,p=mur({envTokenWasSet:g,gatewayActive:Ne()==="gateway",willAutoQuery:m?.shouldQuery===!0});if(p==="out-of-band"&&c&&!c.delivered)c.delivered=!0,o.applyMessageOp({type:"append",messages:[Dt(JOn,"notice")]});return[gur(s,{bridgeDisconnected:i.bridgeDisconnected,includeEnvTokenWarning:p==="inline"}),m]}function dur(o,s){if(s.accountSwitched||s.relaunching)return;let i=Wy(o.messages);if(i?.isApiErrorMessage&&i.error==="authentication_failed")return{display:"system",shouldQuery:!0};return}var q="but if that variable is set in your shell profile or a Claude Code settings file, new `claude` sessions will keep using the old token until you remove it there.";function pur(){return"Signed in. Review your organization's managed settings to continue."}function fur(){return a.CLAUDE_CODE_OAUTH_TOKEN?`Warning: CLAUDE_CODE_OAUTH_TOKEN is set in your environment. This session will switch to your new credentials after logging in, ${q}`:void 0}var JOn=`Note: CLAUDE_CODE_OAUTH_TOKEN was set in your environment when /login started. This session will use your new credentials, ${q}`;function mur(o){if(!o.envTokenWasSet||o.gatewayActive)return"none";return o.willAutoQuery?"out-of-band":"inline"}function gur(o,s){if(!o)return"Login interrupted";let i=s.bridgeDisconnected?`Login successful. ${vte}`:"Login successful";return s.includeEnvTokenWarning?`${i}
+`),
+      },
+      o.storageV5,
+    );
+  } catch (y) {
+    return h(we(y)), g(`it could not restart itself (${l(y)})`);
+  }
+}
+function CRe(o, s, i, { envTokenWasSet: g = !1, envWarningOnce: c } = {}) {
+  if (i.gatewayLoginError !== void 0 || i.relaunching) return [i.gatewayLoginError];
+  let m = s ? dur(o, i) : void 0,
+    p = mur({ envTokenWasSet: g, gatewayActive: Ne() === "gateway", willAutoQuery: m?.shouldQuery === !0 });
+  if (p === "out-of-band" && c && !c.delivered)
+    (c.delivered = !0), o.applyMessageOp({ type: "append", messages: [Dt(JOn, "notice")] });
+  return [gur(s, { bridgeDisconnected: i.bridgeDisconnected, includeEnvTokenWarning: p === "inline" }), m];
+}
+function dur(o, s) {
+  if (s.accountSwitched || s.relaunching) return;
+  let i = Wy(o.messages);
+  if (i?.isApiErrorMessage && i.error === "authentication_failed") return { display: "system", shouldQuery: !0 };
+  return;
+}
+var q =
+  "but if that variable is set in your shell profile or a Claude Code settings file, new `claude` sessions will keep using the old token until you remove it there.";
+function pur() {
+  return "Signed in. Review your organization's managed settings to continue.";
+}
+function fur() {
+  return a.CLAUDE_CODE_OAUTH_TOKEN
+    ? `Warning: CLAUDE_CODE_OAUTH_TOKEN is set in your environment. This session will switch to your new credentials after logging in, ${q}`
+    : void 0;
+}
+var JOn = `Note: CLAUDE_CODE_OAUTH_TOKEN was set in your environment when /login started. This session will use your new credentials, ${q}`;
+function mur(o) {
+  if (!o.envTokenWasSet || o.gatewayActive) return "none";
+  return o.willAutoQuery ? "out-of-band" : "inline";
+}
+function gur(o, s) {
+  if (!o) return "Login interrupted";
+  let i = s.bridgeDisconnected ? `Login successful. ${vte}` : "Login successful";
+  return s.includeEnvTokenWarning
+    ? `${i}
 
-${JOn}`:i}async function cTr(o,s){let i=fur(),g=i!==void 0,c=On(),m=c&&{accountUuid:c.accountUuid,organizationUuid:c.organizationUuid},p=mi(),y={delivered:!1};return e(aq,{startingMessage:i,onDone:async(w,b,S)=>{let E=!1,T=await vK(s,w,{setAppState:S,previousAccount:m,previousGatewayAuth:p,onConsentNeeded:()=>(E=!0,o(pur(),{display:"system"}),gP())}),D=CRe(s,w,T,{envTokenWasSet:g,envWarningOnce:y});if(E){let[R]=D;if(R)s.applyMessageOp({type:"append",messages:[Dt(R,"notice")]});return}o(...D)}})}function aq(M){let A=_(23),X=Oc(),J=At(),ht=Ua(),[k,yt]=u(!1),te;if(A[0]===d)te=()=>yt(!0),A[0]=te;else te=A[0];let St=te,ne=C(!1),oe;if(A[1]!==X||A[2]!==M||A[3]!==J)oe=(Ct)=>{if(ne.current){return}ne.current=!0,M.onDone(Ct,X,J)},A[1]=X,A[2]=M,A[3]=J,A[4]=oe;else oe=A[4];let O=oe,re;if(A[5]!==k||A[6]!==O)re=()=>O(k),A[5]=k,A[6]=O,A[7]=re;else re=A[7];let P=re,ie;if(A[8]===d)ie={context:"Settings"},A[8]=ie;else ie=A[8];Be("confirm:no",P,ie);let L=Hi();const z=k&&!L.pending;let I;if(A[9]!==L.keyName||A[10]!==L.pending)I=L.pending?r(t,{children:["Press ",L.keyName," again to exit"]}):e(ze,{action:"confirm:no",context:"Settings",fallback:"Esc",description:"cancel"}),A[9]=L.keyName,A[10]=L.pending,A[11]=I;else I=A[11];let x;if(A[12]!==O)x=()=>O(!0),A[12]=O,A[13]=x;else x=A[13];const K=ht?Px:lv;let U;if(A[14]!==M.startingMessage||A[15]!==x||A[16]!==K)U=e(DK,{onDone:x,onAuthSuccess:St,startingMessage:M.startingMessage,urlOutdent:K}),A[14]=M.startingMessage,A[15]=x,A[16]=K,A[17]=U;else U=A[17];let ae;if(A[18]!==P||A[19]!==z||A[20]!==I||A[21]!==U)ae=e(me,{title:"Login",onCancel:P,color:"permission",isCancelActive:!1,hideInputGuide:z,inputGuide:I,children:U}),A[18]=P,A[19]=z,A[20]=I,A[21]=U,A[22]=ae;else ae=A[22];return ae}
-export{aur,vK,lur,cur,uur,CRe,dur,pur,fur,JOn,mur,gur,cTr,aq};
+${JOn}`
+    : i;
+}
+async function cTr(o, s) {
+  let i = fur(),
+    g = i !== void 0,
+    c = On(),
+    m = c && { accountUuid: c.accountUuid, organizationUuid: c.organizationUuid },
+    p = mi(),
+    y = { delivered: !1 };
+  return e(aq, {
+    startingMessage: i,
+    onDone: async (w, b, S) => {
+      let E = !1,
+        T = await vK(s, w, {
+          setAppState: S,
+          previousAccount: m,
+          previousGatewayAuth: p,
+          onConsentNeeded: () => ((E = !0), o(pur(), { display: "system" }), gP()),
+        }),
+        D = CRe(s, w, T, { envTokenWasSet: g, envWarningOnce: y });
+      if (E) {
+        let [R] = D;
+        if (R) s.applyMessageOp({ type: "append", messages: [Dt(R, "notice")] });
+        return;
+      }
+      o(...D);
+    },
+  });
+}
+function aq(M) {
+  let A = _(23),
+    X = Oc(),
+    J = At(),
+    ht = Ua(),
+    [k, yt] = u(!1),
+    te;
+  if (A[0] === d) (te = () => yt(!0)), (A[0] = te);
+  else te = A[0];
+  let St = te,
+    ne = C(!1),
+    oe;
+  if (A[1] !== X || A[2] !== M || A[3] !== J)
+    (oe = (Ct) => {
+      if (ne.current) {
+        return;
+      }
+      (ne.current = !0), M.onDone(Ct, X, J);
+    }),
+      (A[1] = X),
+      (A[2] = M),
+      (A[3] = J),
+      (A[4] = oe);
+  else oe = A[4];
+  let O = oe,
+    re;
+  if (A[5] !== k || A[6] !== O) (re = () => O(k)), (A[5] = k), (A[6] = O), (A[7] = re);
+  else re = A[7];
+  let P = re,
+    ie;
+  if (A[8] === d) (ie = { context: "Settings" }), (A[8] = ie);
+  else ie = A[8];
+  Be("confirm:no", P, ie);
+  let L = Hi();
+  const z = k && !L.pending;
+  let I;
+  if (A[9] !== L.keyName || A[10] !== L.pending)
+    (I = L.pending
+      ? r(t, { children: ["Press ", L.keyName, " again to exit"] })
+      : e(ze, { action: "confirm:no", context: "Settings", fallback: "Esc", description: "cancel" })),
+      (A[9] = L.keyName),
+      (A[10] = L.pending),
+      (A[11] = I);
+  else I = A[11];
+  let x;
+  if (A[12] !== O) (x = () => O(!0)), (A[12] = O), (A[13] = x);
+  else x = A[13];
+  const K = ht ? Px : lv;
+  let U;
+  if (A[14] !== M.startingMessage || A[15] !== x || A[16] !== K)
+    (U = e(DK, { onDone: x, onAuthSuccess: St, startingMessage: M.startingMessage, urlOutdent: K })),
+      (A[14] = M.startingMessage),
+      (A[15] = x),
+      (A[16] = K),
+      (A[17] = U);
+  else U = A[17];
+  let ae;
+  if (A[18] !== P || A[19] !== z || A[20] !== I || A[21] !== U)
+    (ae = e(me, {
+      title: "Login",
+      onCancel: P,
+      color: "permission",
+      isCancelActive: !1,
+      hideInputGuide: z,
+      inputGuide: I,
+      children: U,
+    })),
+      (A[18] = P),
+      (A[19] = z),
+      (A[20] = I),
+      (A[21] = U),
+      (A[22] = ae);
+  else ae = A[22];
+  return ae;
+}
+export { aur, vK, lur, cur, uur, CRe, dur, pur, fur, JOn, mur, gur, cTr, aq };

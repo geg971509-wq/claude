@@ -8,5 +8,11 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-var wJn="SearchPlugins",TJn="SearchSkills",EJn="SuggestPluginInstall",AJn="SuggestSkills",CJn="ListPlugins",vJn="ListSkills",k_t=["SearchPlugins","SearchSkills","ListPlugins","ListSkills"];
-export{wJn,TJn,EJn,AJn,CJn,vJn,k_t};
+var wJn = "SearchPlugins",
+  TJn = "SearchSkills",
+  EJn = "SuggestPluginInstall",
+  AJn = "SuggestSkills",
+  CJn = "ListPlugins",
+  vJn = "ListSkills",
+  k_t = ["SearchPlugins", "SearchSkills", "ListPlugins", "ListSkills"];
+export { wJn, TJn, EJn, AJn, CJn, vJn, k_t };

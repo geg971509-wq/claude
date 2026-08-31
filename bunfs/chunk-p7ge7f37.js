@@ -8,5 +8,12 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{be}from"/$bunfs/root/chunk-gcks6mn0.js";import{join as o}from"path";function Rb(){return o(be(),"daemon.json")}function tW(){return o(be(),"daemon.log")}
-export{Rb,tW};
+import { be } from "/$bunfs/root/chunk-gcks6mn0.js";
+import { join as o } from "path";
+function Rb() {
+  return o(be(), "daemon.json");
+}
+function tW() {
+  return o(be(), "daemon.log");
+}
+export { Rb, tW };

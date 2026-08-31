@@ -8,6 +8,62 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{s}from"/$bunfs/root/chunk-r53tkxrh.js";import{w}from"/$bunfs/root/chunk-4xj01xwv.js";import{Gn}from"/$bunfs/root/chunk-2rx5nghb.js";import{Je,rn}from"/$bunfs/root/chunk-988p40e0.js";import{Qf,p3e,$A}from"/$bunfs/root/chunk-zze8764r.js";function g(r,e){let{window:i,configured:o,source:n}=$A(r,e),t=o>i?` \xB7 capped to ${Gn(i)} by model`:"",a=[`Auto-compact window: ${n==="auto"?"auto":n==="experiment"||n==="clientdata"?`auto (${Gn(o)} tokens)${t}`:n==="env"?`${Gn(o)} tokens (from CLAUDE_CODE_AUTO_COMPACT_WINDOW)${t}`:n==="unknown-model"?`${Gn(o)} tokens (default for an unrecognized model)${t}`:n==="model-default"?`${Gn(o)} tokens (default for this model)${t}`:`${Gn(o)} tokens (from settings)${t}`}`];if(!Qf())a.push("Auto-compact is currently disabled (see /config)");if(a.push("Auto-compact summarizes the conversation when context usage approaches this limit. The actual threshold is the minimum of this setting and your model's maximum context window."),a.push("The auto setting picks a window tuned for your model and is strongly recommended for the best cost and performance."),n==="env"||n==="settings")a.push("Overriding auto may result in high token usage, especially when resuming long sessions.");return a.join(`
-`)}async function s6e(r,e){let i=e.options.mainLoopModel;if($A(i,void 0).source==="env")return"CLAUDE_CODE_AUTO_COMPACT_WINDOW is set and takes precedence. Unset it to change this setting.";let o=r.trim().toLowerCase(),t=o==="reset"||o==="unset"||o==="default"?"auto":p3e(o);if(t===void 0)return`Couldn't parse '${r}'. Expected 'auto' or 100k\u20131M tokens (e.g. 500k, 200000, or 200 as shorthand)`;let u=t==="auto"?void 0:t,{error:a}=await rn("userSettings",{autoCompactWindow:u},void 0,e.storageV5);if(a)return`Couldn't save setting: ${a.message}`;let m=Je().autoCompactWindow,{window:d,source:l}=$A(i,m),c=l==="env"||m!==u,f=c?m:u;if(e.onQueryEvent?.({type:"apply_flag_settings",settings:{autoCompactWindow:f??null}}),s("tengu_autocompact_command",{action:w(t==="auto"?"auto":"set"),...u!==void 0&&{tokens:u}}),t==="auto")return c?`Auto-compact window set to auto in settings, but a higher-priority override is active (${Gn(d)} tokens)`:"Auto-compact window set to auto";let p="";if(c)p=`, but a higher-priority override is active (${Gn(d)} tokens)`;else if(d<t)p=` (capped to model limit of ${Gn(d)})`;return`Auto-compact window set to ${Gn(t)} tokens${p}`}var sEr=async(r,e)=>{let i=r.trim();if(!i)return{type:"text",value:g(e.options.mainLoopModel,e.options.autoCompactWindow)};return{type:"text",value:await s6e(i,e)}};
-export{s6e,sEr};
+import { s } from "/$bunfs/root/chunk-r53tkxrh.js";
+import { w } from "/$bunfs/root/chunk-4xj01xwv.js";
+import { Gn } from "/$bunfs/root/chunk-2rx5nghb.js";
+import { Je, rn } from "/$bunfs/root/chunk-988p40e0.js";
+import { Qf, p3e, $A } from "/$bunfs/root/chunk-zze8764r.js";
+function g(r, e) {
+  let { window: i, configured: o, source: n } = $A(r, e),
+    t = o > i ? ` \xB7 capped to ${Gn(i)} by model` : "",
+    a = [
+      `Auto-compact window: ${n === "auto" ? "auto" : n === "experiment" || n === "clientdata" ? `auto (${Gn(o)} tokens)${t}` : n === "env" ? `${Gn(o)} tokens (from CLAUDE_CODE_AUTO_COMPACT_WINDOW)${t}` : n === "unknown-model" ? `${Gn(o)} tokens (default for an unrecognized model)${t}` : n === "model-default" ? `${Gn(o)} tokens (default for this model)${t}` : `${Gn(o)} tokens (from settings)${t}`}`,
+    ];
+  if (!Qf()) a.push("Auto-compact is currently disabled (see /config)");
+  if (
+    (a.push(
+      "Auto-compact summarizes the conversation when context usage approaches this limit. The actual threshold is the minimum of this setting and your model's maximum context window.",
+    ),
+    a.push(
+      "The auto setting picks a window tuned for your model and is strongly recommended for the best cost and performance.",
+    ),
+    n === "env" || n === "settings")
+  )
+    a.push("Overriding auto may result in high token usage, especially when resuming long sessions.");
+  return a.join(`
+`);
+}
+async function s6e(r, e) {
+  let i = e.options.mainLoopModel;
+  if ($A(i, void 0).source === "env")
+    return "CLAUDE_CODE_AUTO_COMPACT_WINDOW is set and takes precedence. Unset it to change this setting.";
+  let o = r.trim().toLowerCase(),
+    t = o === "reset" || o === "unset" || o === "default" ? "auto" : p3e(o);
+  if (t === void 0)
+    return `Couldn't parse '${r}'. Expected 'auto' or 100k\u20131M tokens (e.g. 500k, 200000, or 200 as shorthand)`;
+  let u = t === "auto" ? void 0 : t,
+    { error: a } = await rn("userSettings", { autoCompactWindow: u }, void 0, e.storageV5);
+  if (a) return `Couldn't save setting: ${a.message}`;
+  let m = Je().autoCompactWindow,
+    { window: d, source: l } = $A(i, m),
+    c = l === "env" || m !== u,
+    f = c ? m : u;
+  if (
+    (e.onQueryEvent?.({ type: "apply_flag_settings", settings: { autoCompactWindow: f ?? null } }),
+    s("tengu_autocompact_command", { action: w(t === "auto" ? "auto" : "set"), ...(u !== void 0 && { tokens: u }) }),
+    t === "auto")
+  )
+    return c
+      ? `Auto-compact window set to auto in settings, but a higher-priority override is active (${Gn(d)} tokens)`
+      : "Auto-compact window set to auto";
+  let p = "";
+  if (c) p = `, but a higher-priority override is active (${Gn(d)} tokens)`;
+  else if (d < t) p = ` (capped to model limit of ${Gn(d)})`;
+  return `Auto-compact window set to ${Gn(t)} tokens${p}`;
+}
+var sEr = async (r, e) => {
+  let i = r.trim();
+  if (!i) return { type: "text", value: g(e.options.mainLoopModel, e.options.autoCompactWindow) };
+  return { type: "text", value: await s6e(i, e) };
+};
+export { s6e, sEr };

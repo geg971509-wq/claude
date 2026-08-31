@@ -8,5 +8,14 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{m}from"/$bunfs/root/chunk-bzx56g36.js";import{go}from"/$bunfs/root/chunk-gpvgrng0.js";import{qm}from"/$bunfs/root/chunk-saay52v7.js";var SB=go({kind:"mcp_url_elicitation",payload:m(()=>qm((t)=>typeof t==="object"&&t!==null&&("serverName"in t)&&("params"in t))),result:m(()=>qm((t)=>typeof t==="object"&&t!==null)),default:{action:"cancel"},yieldsToPanels:!0});
-export{SB};
+import { m } from "/$bunfs/root/chunk-bzx56g36.js";
+import { go } from "/$bunfs/root/chunk-gpvgrng0.js";
+import { qm } from "/$bunfs/root/chunk-saay52v7.js";
+var SB = go({
+  kind: "mcp_url_elicitation",
+  payload: m(() => qm((t) => typeof t === "object" && t !== null && "serverName" in t && "params" in t)),
+  result: m(() => qm((t) => typeof t === "object" && t !== null)),
+  default: { action: "cancel" },
+  yieldsToPanels: !0,
+});
+export { SB };

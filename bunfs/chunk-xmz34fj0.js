@@ -8,7 +8,80 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{n}from"/$bunfs/root/chunk-fv016jr6.js";import{h}from"/$bunfs/root/chunk-wkxx62a2.js";import{ye}from"/$bunfs/root/chunk-988p40e0.js";import{mm}from"/$bunfs/root/chunk-5jbjbjsn.js";import{ph,TY}from"/$bunfs/root/chunk-8tgj5dp2.js";import{j}from"/$bunfs/root/chunk-yz031c9r.js";var t=j(mm(),1);var u=new Set(["update","install","doctor"]);function l({currentVersion:e,requiredMinimumVersion:r,requiredMaximumVersion:i,topLevelCommand:a}){if(!r&&!i)return null;if(a!==void 0&&u.has(a))return null;if(!t.parse(e))return null;if(r){let o=t.parse(r)?.version;if(!o)n(`requiredMinimumVersion '${r}' is not a valid semver version \u2014 ignoring`,{level:"error"});else if(!ph(e,o))return`Claude Code ${e} is older than the minimum version required by your organization (${r}).
-Update Claude Code using your organization's approved method, then try again. If automatic updates are available, \`claude update\` may also work.`}if(i){let o=t.parse(i)?.version;if(!o)n(`requiredMaximumVersion '${i}' is not a valid semver version \u2014 ignoring`,{level:"error"});else if(!TY(e,o))return`Claude Code ${e} is newer than the maximum version allowed by your organization (${i}).
-Your organization requires version ${i} or older. Install an approved version using your organization's approved method. \`claude install <version>\` may also work.`}return null}function j6n(e){try{let r=e.parent?e:null;while(r?.parent?.parent)r=r.parent;let i=ye("policySettings");return l({currentVersion:{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION,requiredMinimumVersion:i?.requiredMinimumVersion,requiredMaximumVersion:i?.requiredMaximumVersion,topLevelCommand:r?.name()})}catch(r){return h(r),null}}function W6n(){try{let e=ye("policySettings");return l({currentVersion:{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION,requiredMinimumVersion:e?.requiredMinimumVersion,requiredMaximumVersion:e?.requiredMaximumVersion,topLevelCommand:void 0})}catch(e){return h(e),null}}
-export{j6n,W6n};
+import { n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { h } from "/$bunfs/root/chunk-wkxx62a2.js";
+import { ye } from "/$bunfs/root/chunk-988p40e0.js";
+import { mm } from "/$bunfs/root/chunk-5jbjbjsn.js";
+import { ph, TY } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { j } from "/$bunfs/root/chunk-yz031c9r.js";
+var t = j(mm(), 1);
+var u = new Set(["update", "install", "doctor"]);
+function l({ currentVersion: e, requiredMinimumVersion: r, requiredMaximumVersion: i, topLevelCommand: a }) {
+  if (!r && !i) return null;
+  if (a !== void 0 && u.has(a)) return null;
+  if (!t.parse(e)) return null;
+  if (r) {
+    let o = t.parse(r)?.version;
+    if (!o) n(`requiredMinimumVersion '${r}' is not a valid semver version \u2014 ignoring`, { level: "error" });
+    else if (!ph(e, o))
+      return `Claude Code ${e} is older than the minimum version required by your organization (${r}).
+Update Claude Code using your organization's approved method, then try again. If automatic updates are available, \`claude update\` may also work.`;
+  }
+  if (i) {
+    let o = t.parse(i)?.version;
+    if (!o) n(`requiredMaximumVersion '${i}' is not a valid semver version \u2014 ignoring`, { level: "error" });
+    else if (!TY(e, o))
+      return `Claude Code ${e} is newer than the maximum version allowed by your organization (${i}).
+Your organization requires version ${i} or older. Install an approved version using your organization's approved method. \`claude install <version>\` may also work.`;
+  }
+  return null;
+}
+function j6n(e) {
+  try {
+    let r = e.parent ? e : null;
+    while (r?.parent?.parent) r = r.parent;
+    let i = ye("policySettings");
+    return l({
+      currentVersion: {
+        ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues",
+        PACKAGE_URL: "@anthropic-ai/claude-code",
+        README_URL: "https://code.claude.com/docs/en/overview",
+        VERSION: "2.1.252",
+        FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues",
+        BUILD_TIME: "2026-08-31T16:02:57Z",
+        GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548",
+        HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",
+        DD_SOURCEMAP_GROUP: "darwin",
+      }.VERSION,
+      requiredMinimumVersion: i?.requiredMinimumVersion,
+      requiredMaximumVersion: i?.requiredMaximumVersion,
+      topLevelCommand: r?.name(),
+    });
+  } catch (r) {
+    return h(r), null;
+  }
+}
+function W6n() {
+  try {
+    let e = ye("policySettings");
+    return l({
+      currentVersion: {
+        ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues",
+        PACKAGE_URL: "@anthropic-ai/claude-code",
+        README_URL: "https://code.claude.com/docs/en/overview",
+        VERSION: "2.1.252",
+        FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues",
+        BUILD_TIME: "2026-08-31T16:02:57Z",
+        GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548",
+        HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",
+        DD_SOURCEMAP_GROUP: "darwin",
+      }.VERSION,
+      requiredMinimumVersion: e?.requiredMinimumVersion,
+      requiredMaximumVersion: e?.requiredMaximumVersion,
+      topLevelCommand: void 0,
+    });
+  } catch (e) {
+    return h(e), null;
+  }
+}
+export { j6n, W6n };

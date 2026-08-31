@@ -8,5 +8,22 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{_}from"/$bunfs/root/chunk-haan6f8z.js";import{o,t}from"/$bunfs/root/chunk-he2phymk.js";import{e,r}from"/$bunfs/root/chunk-8s7kcbyw.js";function Pc(x){let f=_(7),{children:p,subtitle:c}=x,a;if(f[0]!==p)a=e(t,{bold:!0,children:p}),f[0]=p,f[1]=a;else a=f[1];let R;if(f[2]!==c)R=c&&e(t,{dimColor:!0,children:c}),f[2]=c,f[3]=R;else R=f[3];let l;if(f[4]!==a||f[5]!==R)l=r(o,{flexDirection:"column",children:[a,R]}),f[4]=a,f[5]=R,f[6]=l;else l=f[6];return l}
-export{Pc};
+import { _ } from "/$bunfs/root/chunk-haan6f8z.js";
+import { o, t } from "/$bunfs/root/chunk-he2phymk.js";
+import { e, r } from "/$bunfs/root/chunk-8s7kcbyw.js";
+function Pc(x) {
+  let f = _(7),
+    { children: p, subtitle: c } = x,
+    a;
+  if (f[0] !== p) (a = e(t, { bold: !0, children: p })), (f[0] = p), (f[1] = a);
+  else a = f[1];
+  let R;
+  if (f[2] !== c) (R = c && e(t, { dimColor: !0, children: c })), (f[2] = c), (f[3] = R);
+  else R = f[3];
+  let l;
+  if (f[4] !== a || f[5] !== R)
+    (l = r(o, { flexDirection: "column", children: [a, R] })), (f[4] = a), (f[5] = R), (f[6] = l);
+  else l = f[6];
+  return l;
+}
+export { Pc };

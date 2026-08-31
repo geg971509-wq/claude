@@ -8,7 +8,186 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{K,Se,gn}from"/$bunfs/root/chunk-f9h0bg01.js";import{Xt}from"/$bunfs/root/chunk-tx16jn0x.js";import{qp}from"/$bunfs/root/chunk-qk7r0t2g.js";import{R,l}from"/$bunfs/root/chunk-ypdw393e.js";import{Mfe,lve,gCt,qu,L5,n}from"/$bunfs/root/chunk-fv016jr6.js";import{h}from"/$bunfs/root/chunk-wkxx62a2.js";import{p}from"/$bunfs/root/chunk-ca80fke8.js";import{QEt}from"/$bunfs/root/chunk-s7e0px8j.js";import{FH}from"/$bunfs/root/chunk-988p40e0.js";import{VS,Xl,ru,ZE}from"/$bunfs/root/chunk-30e2jew7.js";import{MW,JMt,sle,Ln,J9e,gl,Tcn,Wb,GSe,hl,tM,Dt}from"/$bunfs/root/chunk-zze8764r.js";import{bl}from"/$bunfs/root/chunk-c6k0ecxv.js";import{rp,qP}from"/$bunfs/root/chunk-sypj25ha.js";import{brt,wrt,VQ}from"/$bunfs/root/chunk-9r67t977.js";import{$ke,Znt}from"/$bunfs/root/chunk-wktm3bts.js";import{ert}from"/$bunfs/root/chunk-khh70jnb.js";import{Nc}from"/$bunfs/root/chunk-r7t0evh2.js";import{D}from"/$bunfs/root/chunk-7s7jqj2f.js";import{spawnSync as I}from"child_process";import{stat as T}from"fs/promises";import{constants as S}from"os";import{dirname as y}from"path";import{isAbsolute as C}from"path";function E(e,t,o,r){if(D()==="windows"||!C(e))return;let a;try{if(r)a=process.cwd(),qu(r);process.execve(e,t,ert(o)),n(`execve(${e}) returned \u2014 falling back to spawn`,{level:"warn"})}catch(s){n(`execReplaceProcess: ${l(s)} \u2014 falling back to spawn`,{level:"warn"})}finally{if(a!==void 0)try{qu(a)}catch{}}}async function g(e){let t=gl();if(!t)return!1;return v(t,e)}async function v(e,t){if(await T(e).then((a)=>a.size>0,()=>!1))return!0;let r=Nc(e,t);if(r===void 0)return!1;try{let a=await r.backend.statMeta(r.key);if(!a.ok&&a.error.code!=="NotFound")n(`transcriptHasBytes: backend statMeta failed: ${a.error.code}`);return a.ok&&a.value.size>0}catch(a){return h(a),!1}}async function p1(e,t,{responseStreaming:o=!1}={},r){let a=wrt(t);if(!a||o)return a;try{if(await Wb([...e,Dt(brt[t],"warning")],void 0,void 0,void 0,r),t==="relaunch")await $P(e,r)}catch(s){throw VQ(),s}return!0}async function HHt(e,{responseStreaming:t=!1}={},o){try{await p1(e,"process_exit",{responseStreaming:t},o)}catch(r){h(r)}}async function rW(e,t={},o){await HHt(e,t,o),await Ln(0,"prompt_input_exit")}var f="the automatic continue at the usage-limit reset was cancelled (/rate-limit-options to wait again)",d=`${f.charAt(0).toUpperCase()}${f.slice(1)}.`,A="Automatic continue at the usage-limit reset was cancelled.";function iB(e,t){return t.includes(f)||t.includes(d)||t.includes(A)?`${e} ${d}`:e}function f1(e,t,{as:o="sentence",exitsAfterward:r=!1}={}){if(VQ(),!t)return e;if(o==="clause")return`${e} \u2014 ${f}`;return`${e}
-${r?A:d}`}function Qnt(e,t,o){return Aq(t,o).catch((r)=>{if(r instanceof Error)r.message=f1(r.message,e,{as:"clause"});else VQ();throw r})}async function $P(e,t){let o=e.findLast((r)=>(r.type==="user"||r.type==="assistant")&&tM(r))?.uuid;try{if(o)await GSe(o,void 0,t);else if(Tcn()&&await g(t))await GSe(null,void 0,t)}catch(r){h(r)}}async function A2e(){if(await ZE())return;throw p("agent_launcher","relaunch_launcher_not_runnable"),new R(ru()??`${VS}: launcher \`${Xl()[0]}\` was deleted or is not executable \u2014 restore it (or fix the setting), then retry; this session was left running`,"CLAUDE_CODE_PROCESS_WRAPPER launcher is not runnable")}async function Aq(e={},t){let{cmd:o,prefixArgs:r}=qP(e.launcher??rp());await A2e();let a=e.extraArgs??[],s;if(e.args)s=e.args;else if(e.freshIfNoTranscript&&!await g(t))s=a;else s=["--resume",K(),...a];J9e(),MW(),JMt(),await Promise.all([Xt(hl(),30000,"flush timeout (relaunch)").catch(()=>{}),Xt(lve(),Mfe,"cleanup timeout").catch(()=>{}).then(()=>Xt(sle(),1000,"analytics flush timeout").catch(()=>{}))]),e.preSpawn?.();let i={...process.env};delete i.CLAUDE_CODE_TUI_JUST_SWITCHED,delete i.CLAUDE_CODE_TUI_TRIAL,delete i.CLAUDE_BRIDGE_REATTACH_SESSION,delete i.CLAUDE_BRIDGE_REATTACH_SEQ,delete i.CLAUDE_BRIDGE_REATTACH_OUTBOUND_ONLY,delete i.CLAUDE_BRIDGE_REATTACH_GROUPING,delete i.CLAUDE_BRIDGE_REATTACH_OWNER_ACCT,delete i.CLAUDE_BRIDGE_REATTACH_OWNER_ORG,delete i.CLAUDE_BRIDGE_REATTACH_NO_BACKFILL,delete i[$ke],Object.assign(i,e.env);for(let u of e.dropEnv??[])delete i[u];Object.assign(i,Znt());let m=XYt();await _(),E(o,[o,...r,...s],i,m);for(let u of["SIGINT","SIGTERM","SIGHUP"])process.removeAllListeners(u),process.on(u,()=>{});await _();let c=I(o,[...r,...s],{stdio:"inherit",env:i,cwd:m});if(process.removeAllListeners("beforeExit"),process.removeAllListeners("exit"),c.error)process.stderr.write(`Failed to relaunch Claude Code: ${c.error.message}
-`),qp("relaunch_spawn_error"),process.exit(1);if(c.signal)process.removeAllListeners(c.signal),process.kill(process.pid,c.signal),process.exit(128+(S.signals[c.signal]??0));process.exit(c.status??(c.signal?1:0))}function XYt(){let e=gl(),t=Se();if(e&&y(e)===bl(t))return t;return gn()}async function _(){await Promise.all([Xt(L5(),2000,"debug flush timeout (relaunch)").catch(()=>{}),Xt(QEt(),2000,"diag flush timeout (relaunch)").catch(()=>{}),Xt(gCt(),2000,"pre-exit flush timeout (relaunch)").catch(()=>{}),Xt(FH(),2000,"write queue drain timeout (relaunch)").catch(()=>{})])}
-export{p1,HHt,rW,iB,f1,Qnt,$P,A2e,Aq,XYt};
+import { K, Se, gn } from "/$bunfs/root/chunk-f9h0bg01.js";
+import { Xt } from "/$bunfs/root/chunk-tx16jn0x.js";
+import { qp } from "/$bunfs/root/chunk-qk7r0t2g.js";
+import { R, l } from "/$bunfs/root/chunk-ypdw393e.js";
+import { Mfe, lve, gCt, qu, L5, n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { h } from "/$bunfs/root/chunk-wkxx62a2.js";
+import { p } from "/$bunfs/root/chunk-ca80fke8.js";
+import { QEt } from "/$bunfs/root/chunk-s7e0px8j.js";
+import { FH } from "/$bunfs/root/chunk-988p40e0.js";
+import { VS, Xl, ru, ZE } from "/$bunfs/root/chunk-30e2jew7.js";
+import { MW, JMt, sle, Ln, J9e, gl, Tcn, Wb, GSe, hl, tM, Dt } from "/$bunfs/root/chunk-zze8764r.js";
+import { bl } from "/$bunfs/root/chunk-c6k0ecxv.js";
+import { rp, qP } from "/$bunfs/root/chunk-sypj25ha.js";
+import { brt, wrt, VQ } from "/$bunfs/root/chunk-9r67t977.js";
+import { $ke, Znt } from "/$bunfs/root/chunk-wktm3bts.js";
+import { ert } from "/$bunfs/root/chunk-khh70jnb.js";
+import { Nc } from "/$bunfs/root/chunk-r7t0evh2.js";
+import { D } from "/$bunfs/root/chunk-7s7jqj2f.js";
+import { spawnSync as I } from "child_process";
+import { stat as T } from "fs/promises";
+import { constants as S } from "os";
+import { dirname as y } from "path";
+import { isAbsolute as C } from "path";
+function E(e, t, o, r) {
+  if (D() === "windows" || !C(e)) return;
+  let a;
+  try {
+    if (r) (a = process.cwd()), qu(r);
+    process.execve(e, t, ert(o)), n(`execve(${e}) returned \u2014 falling back to spawn`, { level: "warn" });
+  } catch (s) {
+    n(`execReplaceProcess: ${l(s)} \u2014 falling back to spawn`, { level: "warn" });
+  } finally {
+    if (a !== void 0)
+      try {
+        qu(a);
+      } catch {}
+  }
+}
+async function g(e) {
+  let t = gl();
+  if (!t) return !1;
+  return v(t, e);
+}
+async function v(e, t) {
+  if (
+    await T(e).then(
+      (a) => a.size > 0,
+      () => !1,
+    )
+  )
+    return !0;
+  let r = Nc(e, t);
+  if (r === void 0) return !1;
+  try {
+    let a = await r.backend.statMeta(r.key);
+    if (!a.ok && a.error.code !== "NotFound") n(`transcriptHasBytes: backend statMeta failed: ${a.error.code}`);
+    return a.ok && a.value.size > 0;
+  } catch (a) {
+    return h(a), !1;
+  }
+}
+async function p1(e, t, { responseStreaming: o = !1 } = {}, r) {
+  let a = wrt(t);
+  if (!a || o) return a;
+  try {
+    if ((await Wb([...e, Dt(brt[t], "warning")], void 0, void 0, void 0, r), t === "relaunch")) await $P(e, r);
+  } catch (s) {
+    throw (VQ(), s);
+  }
+  return !0;
+}
+async function HHt(e, { responseStreaming: t = !1 } = {}, o) {
+  try {
+    await p1(e, "process_exit", { responseStreaming: t }, o);
+  } catch (r) {
+    h(r);
+  }
+}
+async function rW(e, t = {}, o) {
+  await HHt(e, t, o), await Ln(0, "prompt_input_exit");
+}
+var f = "the automatic continue at the usage-limit reset was cancelled (/rate-limit-options to wait again)",
+  d = `${f.charAt(0).toUpperCase()}${f.slice(1)}.`,
+  A = "Automatic continue at the usage-limit reset was cancelled.";
+function iB(e, t) {
+  return t.includes(f) || t.includes(d) || t.includes(A) ? `${e} ${d}` : e;
+}
+function f1(e, t, { as: o = "sentence", exitsAfterward: r = !1 } = {}) {
+  if ((VQ(), !t)) return e;
+  if (o === "clause") return `${e} \u2014 ${f}`;
+  return `${e}
+${r ? A : d}`;
+}
+function Qnt(e, t, o) {
+  return Aq(t, o).catch((r) => {
+    if (r instanceof Error) r.message = f1(r.message, e, { as: "clause" });
+    else VQ();
+    throw r;
+  });
+}
+async function $P(e, t) {
+  let o = e.findLast((r) => (r.type === "user" || r.type === "assistant") && tM(r))?.uuid;
+  try {
+    if (o) await GSe(o, void 0, t);
+    else if (Tcn() && (await g(t))) await GSe(null, void 0, t);
+  } catch (r) {
+    h(r);
+  }
+}
+async function A2e() {
+  if (await ZE()) return;
+  throw (
+    (p("agent_launcher", "relaunch_launcher_not_runnable"),
+    new R(
+      ru() ??
+        `${VS}: launcher \`${Xl()[0]}\` was deleted or is not executable \u2014 restore it (or fix the setting), then retry; this session was left running`,
+      "CLAUDE_CODE_PROCESS_WRAPPER launcher is not runnable",
+    ))
+  );
+}
+async function Aq(e = {}, t) {
+  let { cmd: o, prefixArgs: r } = qP(e.launcher ?? rp());
+  await A2e();
+  let a = e.extraArgs ?? [],
+    s;
+  if (e.args) s = e.args;
+  else if (e.freshIfNoTranscript && !(await g(t))) s = a;
+  else s = ["--resume", K(), ...a];
+  J9e(),
+    MW(),
+    JMt(),
+    await Promise.all([
+      Xt(hl(), 30000, "flush timeout (relaunch)").catch(() => {}),
+      Xt(lve(), Mfe, "cleanup timeout")
+        .catch(() => {})
+        .then(() => Xt(sle(), 1000, "analytics flush timeout").catch(() => {})),
+    ]),
+    e.preSpawn?.();
+  let i = { ...process.env };
+  delete i.CLAUDE_CODE_TUI_JUST_SWITCHED,
+    delete i.CLAUDE_CODE_TUI_TRIAL,
+    delete i.CLAUDE_BRIDGE_REATTACH_SESSION,
+    delete i.CLAUDE_BRIDGE_REATTACH_SEQ,
+    delete i.CLAUDE_BRIDGE_REATTACH_OUTBOUND_ONLY,
+    delete i.CLAUDE_BRIDGE_REATTACH_GROUPING,
+    delete i.CLAUDE_BRIDGE_REATTACH_OWNER_ACCT,
+    delete i.CLAUDE_BRIDGE_REATTACH_OWNER_ORG,
+    delete i.CLAUDE_BRIDGE_REATTACH_NO_BACKFILL,
+    delete i[$ke],
+    Object.assign(i, e.env);
+  for (let u of e.dropEnv ?? []) delete i[u];
+  Object.assign(i, Znt());
+  let m = XYt();
+  await _(), E(o, [o, ...r, ...s], i, m);
+  for (let u of ["SIGINT", "SIGTERM", "SIGHUP"]) process.removeAllListeners(u), process.on(u, () => {});
+  await _();
+  let c = I(o, [...r, ...s], { stdio: "inherit", env: i, cwd: m });
+  if ((process.removeAllListeners("beforeExit"), process.removeAllListeners("exit"), c.error))
+    process.stderr.write(`Failed to relaunch Claude Code: ${c.error.message}
+`),
+      qp("relaunch_spawn_error"),
+      process.exit(1);
+  if (c.signal)
+    process.removeAllListeners(c.signal),
+      process.kill(process.pid, c.signal),
+      process.exit(128 + (S.signals[c.signal] ?? 0));
+  process.exit(c.status ?? (c.signal ? 1 : 0));
+}
+function XYt() {
+  let e = gl(),
+    t = Se();
+  if (e && y(e) === bl(t)) return t;
+  return gn();
+}
+async function _() {
+  await Promise.all([
+    Xt(L5(), 2000, "debug flush timeout (relaunch)").catch(() => {}),
+    Xt(QEt(), 2000, "diag flush timeout (relaunch)").catch(() => {}),
+    Xt(gCt(), 2000, "pre-exit flush timeout (relaunch)").catch(() => {}),
+    Xt(FH(), 2000, "write queue drain timeout (relaunch)").catch(() => {}),
+  ]);
+}
+export { p1, HHt, rW, iB, f1, Qnt, $P, A2e, Aq, XYt };

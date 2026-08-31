@@ -8,5 +8,29 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{YYn,k5e}from"/$bunfs/root/chunk-v94qfg1j.js";class o extends Map{get everMounted(){return k5e()}set everMounted(e){YYn(e)}set(e,n){return this.everMounted=!0,super.set(e,n)}standaloneRender=null;claimForStandaloneRender(e){let n=()=>{if(this.standaloneRender===t)this.standaloneRender=null},t=e.then(n,n);this.standaloneRender=t}get pendingStandaloneRender(){return this.standaloneRender}}var r=new o,Io=r;
-export{Io};
+import { YYn, k5e } from "/$bunfs/root/chunk-v94qfg1j.js";
+class o extends Map {
+  get everMounted() {
+    return k5e();
+  }
+  set everMounted(e) {
+    YYn(e);
+  }
+  set(e, n) {
+    return (this.everMounted = !0), super.set(e, n);
+  }
+  standaloneRender = null;
+  claimForStandaloneRender(e) {
+    let n = () => {
+        if (this.standaloneRender === t) this.standaloneRender = null;
+      },
+      t = e.then(n, n);
+    this.standaloneRender = t;
+  }
+  get pendingStandaloneRender() {
+    return this.standaloneRender;
+  }
+}
+var r = new o(),
+  Io = r;
+export { Io };

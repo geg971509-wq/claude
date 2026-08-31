@@ -8,5 +8,14 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{m}from"/$bunfs/root/chunk-bzx56g36.js";import{go}from"/$bunfs/root/chunk-gpvgrng0.js";import{q,f,oe}from"/$bunfs/root/chunk-saay52v7.js";var Phe=go({kind:"it2_setup",payload:m(()=>f({tmuxAvailable:q()})),result:m(()=>oe(["installed","use-tmux","cancelled"])),default:"cancelled",yieldsToPanels:!0});
-export{Phe};
+import { m } from "/$bunfs/root/chunk-bzx56g36.js";
+import { go } from "/$bunfs/root/chunk-gpvgrng0.js";
+import { q, f, oe } from "/$bunfs/root/chunk-saay52v7.js";
+var Phe = go({
+  kind: "it2_setup",
+  payload: m(() => f({ tmuxAvailable: q() })),
+  result: m(() => oe(["installed", "use-tmux", "cancelled"])),
+  default: "cancelled",
+  yieldsToPanels: !0,
+});
+export { Phe };

@@ -8,6 +8,169 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{J,G}from"/$bunfs/root/chunk-f9h0bg01.js";import{ee}from"/$bunfs/root/chunk-4fwj3vnx.js";import{n}from"/$bunfs/root/chunk-fv016jr6.js";import{St}from"/$bunfs/root/chunk-4ddxwr9r.js";import{cn}from"/$bunfs/root/chunk-cf8qhmdc.js";import{qe}from"/$bunfs/root/chunk-2masxyqj.js";import{vd,it,tJ}from"/$bunfs/root/chunk-rgw52f13.js";import{qo}from"/$bunfs/root/chunk-3s6zpzqb.js";function rvn(){vd().repositoryByCwd.clear()}async function ife(){let t=await x_();if(!t)return null;if(!qo(t.host))return null;return`${t.owner}/${t.name}`}class nsr{guards=null;setGuards(t){this.guards=t}blocked(){if(!this.guards)return!0;try{return!this.guards.trustProbe()}catch{return!0}}}var wwr=new J(()=>new nsr);function YYe(){return wwr.of(G().host)}function JYe(t){YYe().setGuards(t)}async function k1e(t){if(YYe().blocked())return null;let r=await qe(it(),[...cn,"remote","get-url","origin"],{cwd:t,preserveOutputOnError:!1});if(r.code===0&&r.stdout.trim())return{name:"origin",url:r.stdout.trim()};let e=await qe(it(),[...cn,"remote"],{cwd:t,preserveOutputOnError:!1}),o=e.code===0?St(e.stdout.trim(),`
-`).trim():void 0;if(!o)return null;let i=await qe(it(),[...cn,"remote","get-url",o],{cwd:t,preserveOutputOnError:!1}),s=i.code===0?i.stdout.trim():"";return s?{name:o,url:s}:null}async function QYe(t){return(await k1e(t))?.url??null}async function szt(t){if(YYe().blocked())return null;let{stdout:r,code:e}=await qe(it(),[...cn,"remote","get-url","--push","origin"],{cwd:t,preserveOutputOnError:!1});return e===0?r.trim()||null:null}async function x_(t,r){let e=t??ee(),o=vd().repositoryByCwd;if(!r?.skipCache&&o.has(e))return o.get(e)??null;try{let i=await QYe(e);if(n(`Git remote URL: ${tJ(i)}`),!i)return n("No git remote URL found"),null;let s=yP(i);if(!s){let{stdout:l,code:p}=await qe(it(),[...cn,"config","--get","remote.origin.url"],{cwd:e,preserveOutputOnError:!1}),a=p===0?l.trim():null;if(a&&a!==i)s=yP(a);if(!s){let c=await szt(e);if(c&&c!==i&&c!==a)s=yP(c)}}if(n(`Parsed repository: ${s?`${s.host}/${s.owner}/${s.name}`:null} from URL: ${tJ(i)}`),s)o.set(e,s);return s}catch(i){return n(`Error detecting repository: ${i}`),null}}function ovn(){let t=vd().repositoryByCwd.get(ee());if(!t||!qo(t.host))return null;return`${t.owner}/${t.name}`}function H1e(){return vd().repositoryByCwd.get(ee())?.host??null}function ivn(){let t=ee(),r=vd().repositoryByCwd;if(!r.has(t))return;let e=r.get(t);return!!e&&qo(e.host)}function yP(t){let r=t.trim(),e=r.match(/^git@([^:/@]+):([^/]+)\/([^/]+?)(?:\.git)?$/);if(e?.[1]&&e[2]&&e[3]){if(!f(e[1]))return null;if(!u(e[2])||!u(e[3]))return null;return{host:e[1],owner:e[2],name:e[3]}}let o=r.match(/^(https?|ssh|git):\/\/(?:[^@/?#]*@)?([^/:?#@]+(?::\d+)?)\/([^/]+)\/([^/]+?)(?:\.git)?$/);if(o?.[1]&&o[2]&&o[3]&&o[4]){let i=o[1],s=o[2],l=St(s,":");if(!f(l))return null;let p=i==="https"||i==="http"?s:l;if(!u(o[3])||!u(o[4]))return null;return{host:p,owner:o[3],name:o[4]}}return null}function svn(t){let r=t.trim().replace(/\/+$/,"").replace(/^[a-z][a-z0-9+.-]*:\/\/[^/]*/i,"").match(/(?:[:/]|^)([^/:]+)\/([^/:]+?)(?:\.git)?$/);if(!r?.[1]||!r[2])return null;if(!u(r[1])||!u(r[2]))return null;return{owner:r[1],name:r[2]}}function sfe(t){let r=t.trim(),e=yP(r);if(e){if(!qo(e.host))return null;return`${e.owner}/${e.name}`}if(!r.includes("://")&&!r.includes("@")&&r.includes("/")){let o=r.split("/");if(o.length===2&&o[0]&&o[1]){let i=o[1].replace(/\.git$/,"");if(!u(o[0])||!u(i))return null;return`${o[0]}/${i}`}}return n(`Could not parse repository from: ${r}`),null}var m=/^[A-Za-z0-9._-]+$/;function u(t){return m.test(t)&&!t.startsWith("-")&&t!=="."&&t!==".."}function f(t){if(!/^[A-Za-z0-9.-]+$/.test(t)||t.startsWith("-")||!t.includes("."))return!1;let r=t.split(".").pop();if(!r)return!1;return/^[a-zA-Z]+$/.test(r)}
-export{rvn,ife,nsr,wwr,YYe,JYe,k1e,QYe,szt,x_,ovn,H1e,ivn,yP,svn,sfe};
+import { J, G } from "/$bunfs/root/chunk-f9h0bg01.js";
+import { ee } from "/$bunfs/root/chunk-4fwj3vnx.js";
+import { n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { St } from "/$bunfs/root/chunk-4ddxwr9r.js";
+import { cn } from "/$bunfs/root/chunk-cf8qhmdc.js";
+import { qe } from "/$bunfs/root/chunk-2masxyqj.js";
+import { vd, it, tJ } from "/$bunfs/root/chunk-rgw52f13.js";
+import { qo } from "/$bunfs/root/chunk-3s6zpzqb.js";
+function rvn() {
+  vd().repositoryByCwd.clear();
+}
+async function ife() {
+  let t = await x_();
+  if (!t) return null;
+  if (!qo(t.host)) return null;
+  return `${t.owner}/${t.name}`;
+}
+class nsr {
+  guards = null;
+  setGuards(t) {
+    this.guards = t;
+  }
+  blocked() {
+    if (!this.guards) return !0;
+    try {
+      return !this.guards.trustProbe();
+    } catch {
+      return !0;
+    }
+  }
+}
+var wwr = new J(() => new nsr());
+function YYe() {
+  return wwr.of(G().host);
+}
+function JYe(t) {
+  YYe().setGuards(t);
+}
+async function k1e(t) {
+  if (YYe().blocked()) return null;
+  let r = await qe(it(), [...cn, "remote", "get-url", "origin"], { cwd: t, preserveOutputOnError: !1 });
+  if (r.code === 0 && r.stdout.trim()) return { name: "origin", url: r.stdout.trim() };
+  let e = await qe(it(), [...cn, "remote"], { cwd: t, preserveOutputOnError: !1 }),
+    o =
+      e.code === 0
+        ? St(
+            e.stdout.trim(),
+            `
+`,
+          ).trim()
+        : void 0;
+  if (!o) return null;
+  let i = await qe(it(), [...cn, "remote", "get-url", o], { cwd: t, preserveOutputOnError: !1 }),
+    s = i.code === 0 ? i.stdout.trim() : "";
+  return s ? { name: o, url: s } : null;
+}
+async function QYe(t) {
+  return (await k1e(t))?.url ?? null;
+}
+async function szt(t) {
+  if (YYe().blocked()) return null;
+  let { stdout: r, code: e } = await qe(it(), [...cn, "remote", "get-url", "--push", "origin"], {
+    cwd: t,
+    preserveOutputOnError: !1,
+  });
+  return e === 0 ? r.trim() || null : null;
+}
+async function x_(t, r) {
+  let e = t ?? ee(),
+    o = vd().repositoryByCwd;
+  if (!r?.skipCache && o.has(e)) return o.get(e) ?? null;
+  try {
+    let i = await QYe(e);
+    if ((n(`Git remote URL: ${tJ(i)}`), !i)) return n("No git remote URL found"), null;
+    let s = yP(i);
+    if (!s) {
+      let { stdout: l, code: p } = await qe(it(), [...cn, "config", "--get", "remote.origin.url"], {
+          cwd: e,
+          preserveOutputOnError: !1,
+        }),
+        a = p === 0 ? l.trim() : null;
+      if (a && a !== i) s = yP(a);
+      if (!s) {
+        let c = await szt(e);
+        if (c && c !== i && c !== a) s = yP(c);
+      }
+    }
+    if ((n(`Parsed repository: ${s ? `${s.host}/${s.owner}/${s.name}` : null} from URL: ${tJ(i)}`), s)) o.set(e, s);
+    return s;
+  } catch (i) {
+    return n(`Error detecting repository: ${i}`), null;
+  }
+}
+function ovn() {
+  let t = vd().repositoryByCwd.get(ee());
+  if (!t || !qo(t.host)) return null;
+  return `${t.owner}/${t.name}`;
+}
+function H1e() {
+  return vd().repositoryByCwd.get(ee())?.host ?? null;
+}
+function ivn() {
+  let t = ee(),
+    r = vd().repositoryByCwd;
+  if (!r.has(t)) return;
+  let e = r.get(t);
+  return !!e && qo(e.host);
+}
+function yP(t) {
+  let r = t.trim(),
+    e = r.match(/^git@([^:/@]+):([^/]+)\/([^/]+?)(?:\.git)?$/);
+  if (e?.[1] && e[2] && e[3]) {
+    if (!f(e[1])) return null;
+    if (!u(e[2]) || !u(e[3])) return null;
+    return { host: e[1], owner: e[2], name: e[3] };
+  }
+  let o = r.match(/^(https?|ssh|git):\/\/(?:[^@/?#]*@)?([^/:?#@]+(?::\d+)?)\/([^/]+)\/([^/]+?)(?:\.git)?$/);
+  if (o?.[1] && o[2] && o[3] && o[4]) {
+    let i = o[1],
+      s = o[2],
+      l = St(s, ":");
+    if (!f(l)) return null;
+    let p = i === "https" || i === "http" ? s : l;
+    if (!u(o[3]) || !u(o[4])) return null;
+    return { host: p, owner: o[3], name: o[4] };
+  }
+  return null;
+}
+function svn(t) {
+  let r = t
+    .trim()
+    .replace(/\/+$/, "")
+    .replace(/^[a-z][a-z0-9+.-]*:\/\/[^/]*/i, "")
+    .match(/(?:[:/]|^)([^/:]+)\/([^/:]+?)(?:\.git)?$/);
+  if (!r?.[1] || !r[2]) return null;
+  if (!u(r[1]) || !u(r[2])) return null;
+  return { owner: r[1], name: r[2] };
+}
+function sfe(t) {
+  let r = t.trim(),
+    e = yP(r);
+  if (e) {
+    if (!qo(e.host)) return null;
+    return `${e.owner}/${e.name}`;
+  }
+  if (!r.includes("://") && !r.includes("@") && r.includes("/")) {
+    let o = r.split("/");
+    if (o.length === 2 && o[0] && o[1]) {
+      let i = o[1].replace(/\.git$/, "");
+      if (!u(o[0]) || !u(i)) return null;
+      return `${o[0]}/${i}`;
+    }
+  }
+  return n(`Could not parse repository from: ${r}`), null;
+}
+var m = /^[A-Za-z0-9._-]+$/;
+function u(t) {
+  return m.test(t) && !t.startsWith("-") && t !== "." && t !== "..";
+}
+function f(t) {
+  if (!/^[A-Za-z0-9.-]+$/.test(t) || t.startsWith("-") || !t.includes(".")) return !1;
+  let r = t.split(".").pop();
+  if (!r) return !1;
+  return /^[a-zA-Z]+$/.test(r);
+}
+export { rvn, ife, nsr, wwr, YYe, JYe, k1e, QYe, szt, x_, ovn, H1e, ivn, yP, svn, sfe };

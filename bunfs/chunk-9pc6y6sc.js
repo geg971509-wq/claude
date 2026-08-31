@@ -8,5 +8,73 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{n}from"/$bunfs/root/chunk-fv016jr6.js";import{ye,Je}from"/$bunfs/root/chunk-988p40e0.js";import{IL,VMt,IS,lle}from"/$bunfs/root/chunk-zze8764r.js";import{DTe,JOe,fp}from"/$bunfs/root/chunk-x06p1jhb.js";async function Tse(){let t=Je(),i=[],r=lle();for(let[e,o]of Object.entries(r)){if(IS(e))continue;if(e.includes("@")&&o)i.push(e)}if(t.enabledPlugins)for(let[e,o]of Object.entries(t.enabledPlugins)){if(!e.includes("@"))continue;let c=IS(e)?VMt(e):o,s=i.indexOf(e);if(c){if(s===-1)i.push(e)}else if(s!==-1)i.splice(s,1)}return i}function m1(){let t=new Map,i=lle();for(let[e,o]of Object.entries(i)){if(!e.includes("@"))continue;if(IS(e))continue;if(o===!0)t.set(e,"flag");else if(o===!1)t.delete(e)}let r=[{scope:"managed",source:"policySettings"},{scope:"user",source:"userSettings"},{scope:"project",source:"projectSettings"},{scope:"local",source:"localSettings"},{scope:"flag",source:"flagSettings"}];for(let{scope:e,source:o}of r){let c=ye(o);if(!c?.enabledPlugins)continue;for(let[s,u]of Object.entries(c.enabledPlugins)){if(!s.includes("@"))continue;if(s in i&&i[s]!==u)n(`Plugin ${s} from --add-dir (${i[s]}) overridden by ${o} (${u})`);if(!IL.includes(o)&&IS(s))continue;if(u===!0)t.set(s,e);else if(u===!1)t.delete(s)}}return n(`Found ${t.size} enabled plugins with scopes: ${Array.from(t.entries()).map(([e,o])=>`${e}(${o})`).join(", ")}`),t}function R2e(t,i){let r=t.get(i);if(r!==void 0||!DTe(i))return r;let e=fp(i);for(let[o,c]of t)if(fp(o)===e)return c;return}function QTr(t){return JOe[t]}
-export{Tse,m1,R2e,QTr};
+import { n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { ye, Je } from "/$bunfs/root/chunk-988p40e0.js";
+import { IL, VMt, IS, lle } from "/$bunfs/root/chunk-zze8764r.js";
+import { DTe, JOe, fp } from "/$bunfs/root/chunk-x06p1jhb.js";
+async function Tse() {
+  let t = Je(),
+    i = [],
+    r = lle();
+  for (let [e, o] of Object.entries(r)) {
+    if (IS(e)) continue;
+    if (e.includes("@") && o) i.push(e);
+  }
+  if (t.enabledPlugins)
+    for (let [e, o] of Object.entries(t.enabledPlugins)) {
+      if (!e.includes("@")) continue;
+      let c = IS(e) ? VMt(e) : o,
+        s = i.indexOf(e);
+      if (c) {
+        if (s === -1) i.push(e);
+      } else if (s !== -1) i.splice(s, 1);
+    }
+  return i;
+}
+function m1() {
+  let t = new Map(),
+    i = lle();
+  for (let [e, o] of Object.entries(i)) {
+    if (!e.includes("@")) continue;
+    if (IS(e)) continue;
+    if (o === !0) t.set(e, "flag");
+    else if (o === !1) t.delete(e);
+  }
+  let r = [
+    { scope: "managed", source: "policySettings" },
+    { scope: "user", source: "userSettings" },
+    { scope: "project", source: "projectSettings" },
+    { scope: "local", source: "localSettings" },
+    { scope: "flag", source: "flagSettings" },
+  ];
+  for (let { scope: e, source: o } of r) {
+    let c = ye(o);
+    if (!c?.enabledPlugins) continue;
+    for (let [s, u] of Object.entries(c.enabledPlugins)) {
+      if (!s.includes("@")) continue;
+      if (s in i && i[s] !== u) n(`Plugin ${s} from --add-dir (${i[s]}) overridden by ${o} (${u})`);
+      if (!IL.includes(o) && IS(s)) continue;
+      if (u === !0) t.set(s, e);
+      else if (u === !1) t.delete(s);
+    }
+  }
+  return (
+    n(
+      `Found ${t.size} enabled plugins with scopes: ${Array.from(t.entries())
+        .map(([e, o]) => `${e}(${o})`)
+        .join(", ")}`,
+    ),
+    t
+  );
+}
+function R2e(t, i) {
+  let r = t.get(i);
+  if (r !== void 0 || !DTe(i)) return r;
+  let e = fp(i);
+  for (let [o, c] of t) if (fp(o) === e) return c;
+  return;
+}
+function QTr(t) {
+  return JOe[t];
+}
+export { Tse, m1, R2e, QTr };

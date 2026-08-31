@@ -8,5 +8,8 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{I}from"/$bunfs/root/chunk-8tgj5dp2.js";function Yot(){return I("tengu_propose_goal",!1)}
-export{Yot};
+import { I } from "/$bunfs/root/chunk-8tgj5dp2.js";
+function Yot() {
+  return I("tengu_propose_goal", !1);
+}
+export { Yot };

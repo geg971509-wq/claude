@@ -8,4 +8,293 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import"/$bunfs/root/chunk-f9h0bg01.js";import"/$bunfs/root/chunk-qq1mdtb5.js";import"/$bunfs/root/chunk-tx16jn0x.js";import"/$bunfs/root/chunk-vfy57cpd.js";import"/$bunfs/root/chunk-4xj01xwv.js";import"/$bunfs/root/chunk-ypdw393e.js";import{xFe,Pr,re,P}from"/$bunfs/root/chunk-fv016jr6.js";import"/$bunfs/root/chunk-gcks6mn0.js";import"/$bunfs/root/chunk-qk7r0t2g.js";import"/$bunfs/root/chunk-4ddxwr9r.js";import"/$bunfs/root/chunk-wkxx62a2.js";import"/$bunfs/root/chunk-bzx56g36.js";import"/$bunfs/root/chunk-eqdctte5.js";import"/$bunfs/root/chunk-fec4384a.js";import"/$bunfs/root/chunk-qm65zb83.js";import"/$bunfs/root/chunk-0pgyw7te.js";import"/$bunfs/root/chunk-f5hrzy3k.js";import"/$bunfs/root/chunk-jpf4kat5.js";import"/$bunfs/root/chunk-z0z1xzkg.js";import{Ke}from"/$bunfs/root/chunk-s4vc7est.js";import{Rd,Ar,cj,Kn,Zh,yc,Au,Jo,iFe,DJe,$oe}from"/$bunfs/root/chunk-hyh5wcm1.js";import{cAt,Msr,Nsr,Fsr,$sr,uAt,B1e,dAt,pAt,j1e,lJ,fAt,Usr,Bsr,jsr,Wsr,mAt,gAt,hAt,qsr,Gsr,zsr,Vsr,_At,Ksr,Lzt,Xsr,Ysr,Jsr,Qsr,Zsr,ear,tar,nar,rar,Qvn,Zvn,oar,iar,sar,aar,oRn,lar,car,uar,yAt,SAt,dar,par,fRn,far}from"/$bunfs/root/chunk-f0skvbce.js";import"/$bunfs/root/chunk-4rh74qms.js";import"/$bunfs/root/chunk-nqmqabr8.js";import{VT,wAt,So,kw}from"/$bunfs/root/chunk-jwrz2gmg.js";import"/$bunfs/root/chunk-ntyhd04p.js";import{f4}from"/$bunfs/root/chunk-167jjb66.js";import"/$bunfs/root/chunk-r53tkxrh.js";import"/$bunfs/root/chunk-ca80fke8.js";import"/$bunfs/root/chunk-4fwj3vnx.js";import"/$bunfs/root/chunk-ps6pc7xd.js";import"/$bunfs/root/chunk-q14dgq5g.js";import{MJe,ORn}from"/$bunfs/root/chunk-td2vnsa5.js";import"/$bunfs/root/chunk-052zvbpg.js";import"/$bunfs/root/chunk-werv747a.js";import"/$bunfs/root/chunk-jzh4kg5x.js";import{D}from"/$bunfs/root/chunk-7s7jqj2f.js";import"/$bunfs/root/chunk-56sxk8k2.js";import"/$bunfs/root/chunk-a4q326ap.js";import{randomUUID as L}from"crypto";import{resolve as f}from"path";function se(o){let s={configHome:f(o.configHome),globalConfigFile:f(o.globalConfigFile),...o.bridgeSpawnRoot!==void 0&&{bridgeSpawnRoot:f(o.bridgeSpawnRoot)}},n=M(s),a=o.clock??cAt,c={...Wsr,...o.subscriptionTiming},l=MJe({refuse:()=>t.closed?So():void 0,store:ORn(B(s)),...o.hostFilesServe!==void 0&&{serve:o.hostFilesServe}}),u=Bsr(s.configHome,c.unannouncedGraceMs),m=new Set,t={roots:s,instanceId:L(),bus:u,timing:c,canonical:n,clock:a,lockUnconditionalPublishes:o.lockUnconditionalPublishes??D()==="windows",subscriptions:m,unlisten:u.addListener((e,r)=>{for(let i of m)i.deliverLocal(e,r)}),closed:!1,indexCache:new Map,verifiedCache:new Map,scanCountCache:new Map,scanFilesCache:new Map,screenedSessionLogs:new Map},d={roots:s,instanceId:t.instanceId,bus:u,nativeWatch:o.nativeWatch??!0,timing:c,read:(e,r)=>Xsr(t,e,r),readText:(e,r)=>Ysr(t,e,r),stat:(e,r)=>Jsr(t,e,r),statMeta:(e)=>ear(t,e),touch:(e)=>Qsr(t,e),setMode:(e,r,i)=>tar(t,e,r,i),digest:(e,r)=>Zsr(t,e,r),write:(e,r,i)=>nar(t,e,r,i),writeFromFile:(e,r,i)=>dar(t,e,r,i),writeFromStream:(e,r,i)=>par(t,e,r,i),update:(e,r,i)=>fRn(t,e,r,i,(p)=>p),updateText:(e,r,i)=>fRn(t,e,r,i,(p)=>f4.decode(p)),delete:(e,r)=>rar(t,e,r),listEntries:(e,r)=>Qvn(t,e,r),listRecursive:(e,r)=>Zvn(t,e,r),deleteScope:(e,r)=>oar(t,e,r),scopeKind:(e,r)=>iar(t,e,r),ensureScope:(e,r)=>sar(t,e,r),resolveKey:(e,r)=>aar(t,e,r),resolveKeys:(e,r)=>oRn(t,e,r),copy:(e,r,i)=>lar(t,e,r,i),move:(e,r,i)=>car(t,e,r,i),moveScope:(e,r,i)=>uar(t,e,r,i),stagingScopeBeside:SAt,stagingScopeWithin:yAt,append:(e,r,i)=>qsr(t,e,r,i),replaceRecords:(e,r,i)=>far(t,e,r,i),readRecords:(e,r)=>Ksr(t,e,r),tombstone:(e,r)=>Gsr(t,e,r),applyTombstones:(e)=>zsr(t,e),statStream:(e)=>Vsr(t,e),acquireLease:(e,r,i)=>g(t,e,r,i),listLeases:(e)=>y(t,e),subscribe:(e,r,i)=>k(t,d,e,r,i),close:()=>w(t),hostFiles:l,clock:a,readValue:(e)=>R(t,e),streamEntries:(e,r)=>E(t,e,r),scopeKeys:(e)=>h(t,e)};return d}async function g(o,s,n,a){if(o.closed)return P(So());let c=pAt(o.roots,s)??B1e(n)??dAt(a?.meta);if(c!==void 0)return P(c);let l=uAt(a?.holder);await kw(o,iFe(o.roots,s),!0);let u=await Msr(o.roots,s,n,l,a?.meta,o.clock);if(!u.ok)return P(b(u.error,s));if(u.value.kind==="held"){let m=u.value.record;return P(xFe(j1e(s),{holder:m.holder,...m.meta!==void 0&&{meta:m.meta},expiresAtMs:m.expiresAtMs}))}return re(v(o,s,l,u.value.record.token,u.value.record.expiresAtMs))}function v(o,s,n,a,c){let l=async(d)=>{let e=B1e(d);if(e!==void 0)return P(e);let r=await Nsr(o.roots,s,a,d,o.clock);if(!r.ok)return P(b(r.error,s));if(r.value.kind==="lost"){let i=r.value.record;return P(xFe(j1e(s),{...i!==void 0&&{holder:i.holder,expiresAtMs:i.expiresAtMs}}))}return re({expiresAtMs:r.value.expiresAtMs})},u=async()=>{let d=await Fsr(o.roots,s,a);return d.ok?re(void 0):P(Ke(d.error))},m=c;return{get expiresAtMs(){return m},holder:n,renew:async(d)=>{let e=await l(d);if(e.ok)m=e.value.expiresAtMs;return e},release:u}}async function y(o,s){if(o.closed)return P(So());let n=Au(s)??Zh(o.roots,s);if(n!==void 0)return P(n);let a=await $sr(o.roots,o.clock);if(!a.ok)return P(Ke(a.error));let c=a.value.filter((l)=>!("lease"in l.target)&&$oe(o.roots,s,l.target)).map((l)=>({target:l.target,holder:l.holder,expiresAtMs:l.expiresAtMs}));return re({items:c})}async function k(o,s,n,a,c){if(o.closed)return P(So());let l=c?.maxObservationLagMs,u=(n.target==="key"?Kn(n.key)??yc(o.roots,n.key):Au(n.scope)??Zh(o.roots,n.scope))??gAt(l);if(u!==void 0)return P(u);let m=hAt(n);if(m!==void 0)return P(m);let t=new mAt(s,n,a,l);o.subscriptions.add(t);let d=await t.start();if(!d.ok||!d.value||o.closed)return o.subscriptions.delete(t),await t.stop(),P(d.ok?So():d.error);return re({unsubscribe:()=>void F(o,t),observationLagMs:t.observationLagMs})}async function F(o,s){o.subscriptions.delete(s),await s.stop()}async function w(o){if(o.closed)return re(void 0);o.closed=!0,o.unlisten();let s=[...o.subscriptions];o.subscriptions.clear();for(let n of s)await n.stop(),n.terminate();return await jsr(o.roots.configHome),re(void 0)}async function R(o,s){let n=Ar(s)?await Lzt(o,s):await VT(Jo(o.roots,s),Rd(s));return n.ok?{bytes:n.value.bytes,version:n.value.version,size:n.value.size,mtimeMs:n.value.mtimeMs}:void 0}async function E(o,s,n){if(lJ(s.namespace))return Usr(o,s,void 0,n);let a=await _At(o,s);if(!a.ok)return{unobservable:S(a.error,s)};return a.value==="missing"?"missing":{generation:a.value.applyGeneration,entries:a.value.entries}}async function h(o,s){let n={skipKeyStats:!0,skipScopeStats:!0};if(cj(s)){let c=await Zvn(o,s,n);return c.ok?re(c.value.items.map((l)=>l.key).filter(fAt)):P(S(c.error))}let a=await Qvn(o,s,n);return a.ok?re(a.value.items.flatMap((c)=>c.kind==="key"&&fAt(c.key)?[c.key]:[])):P(S(a.error))}function S(o,s){return o.code==="Unavailable"||o.code==="Failed"?o:Pr("invariant",{key:s,telemetryCode:o.code})}function M(o){return wAt(o,o)}function B(o){return{configHome:o.configHome,globalConfigFile:o.globalConfigFile,heldRoots:DJe(o)}}function b(o,s){return Ke(o,"lease"in s?void 0:s)}export{se as createLocalFsBackend};
+import "/$bunfs/root/chunk-f9h0bg01.js";
+import "/$bunfs/root/chunk-qq1mdtb5.js";
+import "/$bunfs/root/chunk-tx16jn0x.js";
+import "/$bunfs/root/chunk-vfy57cpd.js";
+import "/$bunfs/root/chunk-4xj01xwv.js";
+import "/$bunfs/root/chunk-ypdw393e.js";
+import { xFe, Pr, re, P } from "/$bunfs/root/chunk-fv016jr6.js";
+import "/$bunfs/root/chunk-gcks6mn0.js";
+import "/$bunfs/root/chunk-qk7r0t2g.js";
+import "/$bunfs/root/chunk-4ddxwr9r.js";
+import "/$bunfs/root/chunk-wkxx62a2.js";
+import "/$bunfs/root/chunk-bzx56g36.js";
+import "/$bunfs/root/chunk-eqdctte5.js";
+import "/$bunfs/root/chunk-fec4384a.js";
+import "/$bunfs/root/chunk-qm65zb83.js";
+import "/$bunfs/root/chunk-0pgyw7te.js";
+import "/$bunfs/root/chunk-f5hrzy3k.js";
+import "/$bunfs/root/chunk-jpf4kat5.js";
+import "/$bunfs/root/chunk-z0z1xzkg.js";
+import { Ke } from "/$bunfs/root/chunk-s4vc7est.js";
+import { Rd, Ar, cj, Kn, Zh, yc, Au, Jo, iFe, DJe, $oe } from "/$bunfs/root/chunk-hyh5wcm1.js";
+import {
+  cAt,
+  Msr,
+  Nsr,
+  Fsr,
+  $sr,
+  uAt,
+  B1e,
+  dAt,
+  pAt,
+  j1e,
+  lJ,
+  fAt,
+  Usr,
+  Bsr,
+  jsr,
+  Wsr,
+  mAt,
+  gAt,
+  hAt,
+  qsr,
+  Gsr,
+  zsr,
+  Vsr,
+  _At,
+  Ksr,
+  Lzt,
+  Xsr,
+  Ysr,
+  Jsr,
+  Qsr,
+  Zsr,
+  ear,
+  tar,
+  nar,
+  rar,
+  Qvn,
+  Zvn,
+  oar,
+  iar,
+  sar,
+  aar,
+  oRn,
+  lar,
+  car,
+  uar,
+  yAt,
+  SAt,
+  dar,
+  par,
+  fRn,
+  far,
+} from "/$bunfs/root/chunk-f0skvbce.js";
+import "/$bunfs/root/chunk-4rh74qms.js";
+import "/$bunfs/root/chunk-nqmqabr8.js";
+import { VT, wAt, So, kw } from "/$bunfs/root/chunk-jwrz2gmg.js";
+import "/$bunfs/root/chunk-ntyhd04p.js";
+import { f4 } from "/$bunfs/root/chunk-167jjb66.js";
+import "/$bunfs/root/chunk-r53tkxrh.js";
+import "/$bunfs/root/chunk-ca80fke8.js";
+import "/$bunfs/root/chunk-4fwj3vnx.js";
+import "/$bunfs/root/chunk-ps6pc7xd.js";
+import "/$bunfs/root/chunk-q14dgq5g.js";
+import { MJe, ORn } from "/$bunfs/root/chunk-td2vnsa5.js";
+import "/$bunfs/root/chunk-052zvbpg.js";
+import "/$bunfs/root/chunk-werv747a.js";
+import "/$bunfs/root/chunk-jzh4kg5x.js";
+import { D } from "/$bunfs/root/chunk-7s7jqj2f.js";
+import "/$bunfs/root/chunk-56sxk8k2.js";
+import "/$bunfs/root/chunk-a4q326ap.js";
+import { randomUUID as L } from "crypto";
+import { resolve as f } from "path";
+function se(o) {
+  let s = {
+      configHome: f(o.configHome),
+      globalConfigFile: f(o.globalConfigFile),
+      ...(o.bridgeSpawnRoot !== void 0 && { bridgeSpawnRoot: f(o.bridgeSpawnRoot) }),
+    },
+    n = M(s),
+    a = o.clock ?? cAt,
+    c = { ...Wsr, ...o.subscriptionTiming },
+    l = MJe({
+      refuse: () => (t.closed ? So() : void 0),
+      store: ORn(B(s)),
+      ...(o.hostFilesServe !== void 0 && { serve: o.hostFilesServe }),
+    }),
+    u = Bsr(s.configHome, c.unannouncedGraceMs),
+    m = new Set(),
+    t = {
+      roots: s,
+      instanceId: L(),
+      bus: u,
+      timing: c,
+      canonical: n,
+      clock: a,
+      lockUnconditionalPublishes: o.lockUnconditionalPublishes ?? D() === "windows",
+      subscriptions: m,
+      unlisten: u.addListener((e, r) => {
+        for (let i of m) i.deliverLocal(e, r);
+      }),
+      closed: !1,
+      indexCache: new Map(),
+      verifiedCache: new Map(),
+      scanCountCache: new Map(),
+      scanFilesCache: new Map(),
+      screenedSessionLogs: new Map(),
+    },
+    d = {
+      roots: s,
+      instanceId: t.instanceId,
+      bus: u,
+      nativeWatch: o.nativeWatch ?? !0,
+      timing: c,
+      read: (e, r) => Xsr(t, e, r),
+      readText: (e, r) => Ysr(t, e, r),
+      stat: (e, r) => Jsr(t, e, r),
+      statMeta: (e) => ear(t, e),
+      touch: (e) => Qsr(t, e),
+      setMode: (e, r, i) => tar(t, e, r, i),
+      digest: (e, r) => Zsr(t, e, r),
+      write: (e, r, i) => nar(t, e, r, i),
+      writeFromFile: (e, r, i) => dar(t, e, r, i),
+      writeFromStream: (e, r, i) => par(t, e, r, i),
+      update: (e, r, i) => fRn(t, e, r, i, (p) => p),
+      updateText: (e, r, i) => fRn(t, e, r, i, (p) => f4.decode(p)),
+      delete: (e, r) => rar(t, e, r),
+      listEntries: (e, r) => Qvn(t, e, r),
+      listRecursive: (e, r) => Zvn(t, e, r),
+      deleteScope: (e, r) => oar(t, e, r),
+      scopeKind: (e, r) => iar(t, e, r),
+      ensureScope: (e, r) => sar(t, e, r),
+      resolveKey: (e, r) => aar(t, e, r),
+      resolveKeys: (e, r) => oRn(t, e, r),
+      copy: (e, r, i) => lar(t, e, r, i),
+      move: (e, r, i) => car(t, e, r, i),
+      moveScope: (e, r, i) => uar(t, e, r, i),
+      stagingScopeBeside: SAt,
+      stagingScopeWithin: yAt,
+      append: (e, r, i) => qsr(t, e, r, i),
+      replaceRecords: (e, r, i) => far(t, e, r, i),
+      readRecords: (e, r) => Ksr(t, e, r),
+      tombstone: (e, r) => Gsr(t, e, r),
+      applyTombstones: (e) => zsr(t, e),
+      statStream: (e) => Vsr(t, e),
+      acquireLease: (e, r, i) => g(t, e, r, i),
+      listLeases: (e) => y(t, e),
+      subscribe: (e, r, i) => k(t, d, e, r, i),
+      close: () => w(t),
+      hostFiles: l,
+      clock: a,
+      readValue: (e) => R(t, e),
+      streamEntries: (e, r) => E(t, e, r),
+      scopeKeys: (e) => h(t, e),
+    };
+  return d;
+}
+async function g(o, s, n, a) {
+  if (o.closed) return P(So());
+  let c = pAt(o.roots, s) ?? B1e(n) ?? dAt(a?.meta);
+  if (c !== void 0) return P(c);
+  let l = uAt(a?.holder);
+  await kw(o, iFe(o.roots, s), !0);
+  let u = await Msr(o.roots, s, n, l, a?.meta, o.clock);
+  if (!u.ok) return P(b(u.error, s));
+  if (u.value.kind === "held") {
+    let m = u.value.record;
+    return P(xFe(j1e(s), { holder: m.holder, ...(m.meta !== void 0 && { meta: m.meta }), expiresAtMs: m.expiresAtMs }));
+  }
+  return re(v(o, s, l, u.value.record.token, u.value.record.expiresAtMs));
+}
+function v(o, s, n, a, c) {
+  let l = async (d) => {
+      let e = B1e(d);
+      if (e !== void 0) return P(e);
+      let r = await Nsr(o.roots, s, a, d, o.clock);
+      if (!r.ok) return P(b(r.error, s));
+      if (r.value.kind === "lost") {
+        let i = r.value.record;
+        return P(xFe(j1e(s), { ...(i !== void 0 && { holder: i.holder, expiresAtMs: i.expiresAtMs }) }));
+      }
+      return re({ expiresAtMs: r.value.expiresAtMs });
+    },
+    u = async () => {
+      let d = await Fsr(o.roots, s, a);
+      return d.ok ? re(void 0) : P(Ke(d.error));
+    },
+    m = c;
+  return {
+    get expiresAtMs() {
+      return m;
+    },
+    holder: n,
+    renew: async (d) => {
+      let e = await l(d);
+      if (e.ok) m = e.value.expiresAtMs;
+      return e;
+    },
+    release: u,
+  };
+}
+async function y(o, s) {
+  if (o.closed) return P(So());
+  let n = Au(s) ?? Zh(o.roots, s);
+  if (n !== void 0) return P(n);
+  let a = await $sr(o.roots, o.clock);
+  if (!a.ok) return P(Ke(a.error));
+  let c = a.value
+    .filter((l) => !("lease" in l.target) && $oe(o.roots, s, l.target))
+    .map((l) => ({ target: l.target, holder: l.holder, expiresAtMs: l.expiresAtMs }));
+  return re({ items: c });
+}
+async function k(o, s, n, a, c) {
+  if (o.closed) return P(So());
+  let l = c?.maxObservationLagMs,
+    u = (n.target === "key" ? (Kn(n.key) ?? yc(o.roots, n.key)) : (Au(n.scope) ?? Zh(o.roots, n.scope))) ?? gAt(l);
+  if (u !== void 0) return P(u);
+  let m = hAt(n);
+  if (m !== void 0) return P(m);
+  let t = new mAt(s, n, a, l);
+  o.subscriptions.add(t);
+  let d = await t.start();
+  if (!d.ok || !d.value || o.closed) return o.subscriptions.delete(t), await t.stop(), P(d.ok ? So() : d.error);
+  return re({ unsubscribe: () => void F(o, t), observationLagMs: t.observationLagMs });
+}
+async function F(o, s) {
+  o.subscriptions.delete(s), await s.stop();
+}
+async function w(o) {
+  if (o.closed) return re(void 0);
+  (o.closed = !0), o.unlisten();
+  let s = [...o.subscriptions];
+  o.subscriptions.clear();
+  for (let n of s) await n.stop(), n.terminate();
+  return await jsr(o.roots.configHome), re(void 0);
+}
+async function R(o, s) {
+  let n = Ar(s) ? await Lzt(o, s) : await VT(Jo(o.roots, s), Rd(s));
+  return n.ok
+    ? { bytes: n.value.bytes, version: n.value.version, size: n.value.size, mtimeMs: n.value.mtimeMs }
+    : void 0;
+}
+async function E(o, s, n) {
+  if (lJ(s.namespace)) return Usr(o, s, void 0, n);
+  let a = await _At(o, s);
+  if (!a.ok) return { unobservable: S(a.error, s) };
+  return a.value === "missing" ? "missing" : { generation: a.value.applyGeneration, entries: a.value.entries };
+}
+async function h(o, s) {
+  let n = { skipKeyStats: !0, skipScopeStats: !0 };
+  if (cj(s)) {
+    let c = await Zvn(o, s, n);
+    return c.ok ? re(c.value.items.map((l) => l.key).filter(fAt)) : P(S(c.error));
+  }
+  let a = await Qvn(o, s, n);
+  return a.ok ? re(a.value.items.flatMap((c) => (c.kind === "key" && fAt(c.key) ? [c.key] : []))) : P(S(a.error));
+}
+function S(o, s) {
+  return o.code === "Unavailable" || o.code === "Failed" ? o : Pr("invariant", { key: s, telemetryCode: o.code });
+}
+function M(o) {
+  return wAt(o, o);
+}
+function B(o) {
+  return { configHome: o.configHome, globalConfigFile: o.globalConfigFile, heldRoots: DJe(o) };
+}
+function b(o, s) {
+  return Ke(o, "lease" in s ? void 0 : s);
+}
+export { se as createLocalFsBackend };

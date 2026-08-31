@@ -8,4 +8,125 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-var c={},p={};async function m(){let{exitWithError:t}=await import("/$bunfs/root/chunk-as286awp.js"),{getSettingsWithErrors:e}=await import("/$bunfs/root/chunk-vbxndy62.js");if(e().settings.disableRemoteControl===!0)t("Error: Remote Control is disabled by your organization's policy (managed setting `disableRemoteControl`).");let[{hasStoredOAuthToken:r},{BRIDGE_LOGIN_ERROR:n},{getBridgeAuthDebugInfo:o}]=await Promise.all([import("/$bunfs/root/chunk-r7k9wyxs.js"),import("/$bunfs/root/chunk-g0ewx3rb.js"),import("/$bunfs/root/chunk-g1dxqg0t.js")]);if(!r())t(n+o());return c}async function g(t){let{getBridgeDisabledReason:e,checkBridgeMinVersion:r,getBridgeAuthDebugInfo:n}=await import("/$bunfs/root/chunk-g1dxqg0t.js"),{exitWithError:o}=await import("/$bunfs/root/chunk-as286awp.js"),i=await e();if(i)o(`Error: ${i}`+n());let a=r();if(a)o(a);let{waitForPolicyLimitsToLoad:l}=await import("/$bunfs/root/chunk-qvdq8j6c.js"),{isPolicyAllowed:s}=await import("/$bunfs/root/chunk-4v4vy63d.js");if(await l(),!s("allow_remote_control"))o("Error: Remote Control is disabled by your organization's policy.");return p}async function y(t,e,r,n){let[{preflightTrustedDeviceBlocking:o},{shutdown1PEventLogging:i},{shutdownDatadog:a},{sleep:l},{exitWithError:s},{bridgeMain:d}]=await Promise.all([import("/$bunfs/root/chunk-m90nqn8m.js"),import("/$bunfs/root/chunk-jn95py26.js"),import("/$bunfs/root/chunk-wk4g4k1s.js"),import("/$bunfs/root/chunk-j3e3xnzy.js"),import("/$bunfs/root/chunk-as286awp.js"),import("/$bunfs/root/chunk-fxfb1x5a.js")]),u=await o(n);if(u)await Promise.race([Promise.all([i(),a()]),l(500,void 0,{unref:!0})]).catch(()=>{}),s(`Error: ${u}`);await d(e,r,n)}async function R(t,e,r){let n=await m(),o=await g(n);await y(o,t,e,r)}var f=new Map([["verbose",()=>!0],["debug",()=>!0],["debugToStderr",()=>!0],["debugFile",()=>!0],["axScreenReader",()=>!0],["workload",()=>!0],["sessionId",()=>!0],["name",()=>!0],["remoteControlSessionNamePrefix",()=>!0],["pluginDir",()=>!0],["pluginDirNoMcp",()=>!0],["pluginUrl",()=>!0],["addDir",()=>!0],["ide",()=>!0],["chrome",(t)=>t===!0],["model",()=>!0],["effort",()=>!0],["fallbackModel",()=>!0],["betas",()=>!0],["thinking",()=>!0],["thinkingDisplay",()=>!0],["maxThinkingTokens",()=>!0],["autocompact",()=>!0],["allowedTools",()=>!0],["dangerouslySkipPermissions",()=>!0],["allowDangerouslySkipPermissions",()=>!0],["enableAutoMode",()=>!0],["bare",()=>!0]]);function b(t){let e=t.parent;if(e===null)return[];let r=new Map;for(let n of e.options){let o=n.attributeName();if(r.has(o)||e.getOptionValueSource(o)!=="cli")continue;let i=e.getOptionValue(o),a=e.options.find((l)=>l.attributeName()===o&&l.negate===(i===!1))??n;r.set(o,{flag:a.long??a.flags,key:o,value:i})}return[...r.values()]}function C(t){return t.filter(({key:e,value:r})=>!f.get(e)?.(r)).map(({flag:e})=>e)}function w(t){let e=t.map((i)=>`\`${i}\``).join(", "),[r,n]=t.length===1?["it","is"]:["them","are"],o=t.includes("--permission-mode")?" Set the permission mode with `claude remote-control --permission-mode <mode>`.":"";return`Error: ${e} before \`remote-control\` ${n} not carried over to the sessions Remote Control starts, so Remote Control refuses to start rather than drop ${r} \u2014 remove ${r}, and give Remote Control's own options after the verb (see \`claude remote-control --help\`).`+o}export{R as enterRemoteControl,g as refuseRemoteControlIneligible,m as refuseRemoteControlLocally,w as rootOptionsRefusedMessage,C as rootOptionsRemoteControlRefuses,y as startRemoteControl,b as suppliedRootOptions};
+var c = {},
+  p = {};
+async function m() {
+  let { exitWithError: t } = await import("/$bunfs/root/chunk-as286awp.js"),
+    { getSettingsWithErrors: e } = await import("/$bunfs/root/chunk-vbxndy62.js");
+  if (e().settings.disableRemoteControl === !0)
+    t("Error: Remote Control is disabled by your organization's policy (managed setting `disableRemoteControl`).");
+  let [{ hasStoredOAuthToken: r }, { BRIDGE_LOGIN_ERROR: n }, { getBridgeAuthDebugInfo: o }] = await Promise.all([
+    import("/$bunfs/root/chunk-r7k9wyxs.js"),
+    import("/$bunfs/root/chunk-g0ewx3rb.js"),
+    import("/$bunfs/root/chunk-g1dxqg0t.js"),
+  ]);
+  if (!r()) t(n + o());
+  return c;
+}
+async function g(t) {
+  let {
+      getBridgeDisabledReason: e,
+      checkBridgeMinVersion: r,
+      getBridgeAuthDebugInfo: n,
+    } = await import("/$bunfs/root/chunk-g1dxqg0t.js"),
+    { exitWithError: o } = await import("/$bunfs/root/chunk-as286awp.js"),
+    i = await e();
+  if (i) o(`Error: ${i}` + n());
+  let a = r();
+  if (a) o(a);
+  let { waitForPolicyLimitsToLoad: l } = await import("/$bunfs/root/chunk-qvdq8j6c.js"),
+    { isPolicyAllowed: s } = await import("/$bunfs/root/chunk-4v4vy63d.js");
+  if ((await l(), !s("allow_remote_control"))) o("Error: Remote Control is disabled by your organization's policy.");
+  return p;
+}
+async function y(t, e, r, n) {
+  let [
+      { preflightTrustedDeviceBlocking: o },
+      { shutdown1PEventLogging: i },
+      { shutdownDatadog: a },
+      { sleep: l },
+      { exitWithError: s },
+      { bridgeMain: d },
+    ] = await Promise.all([
+      import("/$bunfs/root/chunk-m90nqn8m.js"),
+      import("/$bunfs/root/chunk-jn95py26.js"),
+      import("/$bunfs/root/chunk-wk4g4k1s.js"),
+      import("/$bunfs/root/chunk-j3e3xnzy.js"),
+      import("/$bunfs/root/chunk-as286awp.js"),
+      import("/$bunfs/root/chunk-fxfb1x5a.js"),
+    ]),
+    u = await o(n);
+  if (u) await Promise.race([Promise.all([i(), a()]), l(500, void 0, { unref: !0 })]).catch(() => {}), s(`Error: ${u}`);
+  await d(e, r, n);
+}
+async function R(t, e, r) {
+  let n = await m(),
+    o = await g(n);
+  await y(o, t, e, r);
+}
+var f = new Map([
+  ["verbose", () => !0],
+  ["debug", () => !0],
+  ["debugToStderr", () => !0],
+  ["debugFile", () => !0],
+  ["axScreenReader", () => !0],
+  ["workload", () => !0],
+  ["sessionId", () => !0],
+  ["name", () => !0],
+  ["remoteControlSessionNamePrefix", () => !0],
+  ["pluginDir", () => !0],
+  ["pluginDirNoMcp", () => !0],
+  ["pluginUrl", () => !0],
+  ["addDir", () => !0],
+  ["ide", () => !0],
+  ["chrome", (t) => t === !0],
+  ["model", () => !0],
+  ["effort", () => !0],
+  ["fallbackModel", () => !0],
+  ["betas", () => !0],
+  ["thinking", () => !0],
+  ["thinkingDisplay", () => !0],
+  ["maxThinkingTokens", () => !0],
+  ["autocompact", () => !0],
+  ["allowedTools", () => !0],
+  ["dangerouslySkipPermissions", () => !0],
+  ["allowDangerouslySkipPermissions", () => !0],
+  ["enableAutoMode", () => !0],
+  ["bare", () => !0],
+]);
+function b(t) {
+  let e = t.parent;
+  if (e === null) return [];
+  let r = new Map();
+  for (let n of e.options) {
+    let o = n.attributeName();
+    if (r.has(o) || e.getOptionValueSource(o) !== "cli") continue;
+    let i = e.getOptionValue(o),
+      a = e.options.find((l) => l.attributeName() === o && l.negate === (i === !1)) ?? n;
+    r.set(o, { flag: a.long ?? a.flags, key: o, value: i });
+  }
+  return [...r.values()];
+}
+function C(t) {
+  return t.filter(({ key: e, value: r }) => !f.get(e)?.(r)).map(({ flag: e }) => e);
+}
+function w(t) {
+  let e = t.map((i) => `\`${i}\``).join(", "),
+    [r, n] = t.length === 1 ? ["it", "is"] : ["them", "are"],
+    o = t.includes("--permission-mode")
+      ? " Set the permission mode with `claude remote-control --permission-mode <mode>`."
+      : "";
+  return (
+    `Error: ${e} before \`remote-control\` ${n} not carried over to the sessions Remote Control starts, so Remote Control refuses to start rather than drop ${r} \u2014 remove ${r}, and give Remote Control's own options after the verb (see \`claude remote-control --help\`).` +
+    o
+  );
+}
+export {
+  R as enterRemoteControl,
+  g as refuseRemoteControlIneligible,
+  m as refuseRemoteControlLocally,
+  w as rootOptionsRefusedMessage,
+  C as rootOptionsRemoteControlRefuses,
+  y as startRemoteControl,
+  b as suppliedRootOptions,
+};

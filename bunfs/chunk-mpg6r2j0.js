@@ -8,5 +8,15 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{zu,$n}from"/$bunfs/root/chunk-f9h0bg01.js";import{Me}from"/$bunfs/root/chunk-qq1mdtb5.js";import{a}from"/$bunfs/root/chunk-fec4384a.js";function Fs(){if(!Me(process.env.CLAUDE_CODE_COORDINATOR_MODE))return!1;if(zu()&&!$n()&&!a.CLAUDE_CODE_REMOTE)return!1;return!0}function dTe(e){return Fs()&&e.agentId===void 0}
-export{Fs,dTe};
+import { zu, $n } from "/$bunfs/root/chunk-f9h0bg01.js";
+import { Me } from "/$bunfs/root/chunk-qq1mdtb5.js";
+import { a } from "/$bunfs/root/chunk-fec4384a.js";
+function Fs() {
+  if (!Me(process.env.CLAUDE_CODE_COORDINATOR_MODE)) return !1;
+  if (zu() && !$n() && !a.CLAUDE_CODE_REMOTE) return !1;
+  return !0;
+}
+function dTe(e) {
+  return Fs() && e.agentId === void 0;
+}
+export { Fs, dTe };

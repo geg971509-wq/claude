@@ -8,5 +8,20 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Co}from"/$bunfs/root/chunk-gcks6mn0.js";import{a}from"/$bunfs/root/chunk-fec4384a.js";import{l}from"/$bunfs/root/chunk-ypdw393e.js";import{n}from"/$bunfs/root/chunk-fv016jr6.js";import{ITn,PTn,Krr,Xrr}from"/$bunfs/root/chunk-4r03fm98.js";async function YLe(e,r={}){try{if(!Co()){if(!a.CLAUDE_CODE_OAUTH_TOKEN&&r.bgAuthSnapshot!=="leave")await ITn(e);await PTn(e),await Krr(e)}await Xrr(e)}catch(o){n(`Descriptor credential prime failed (non-fatal): ${l(o)}`,{level:"error"})}}
-export{YLe};
+import { Co } from "/$bunfs/root/chunk-gcks6mn0.js";
+import { a } from "/$bunfs/root/chunk-fec4384a.js";
+import { l } from "/$bunfs/root/chunk-ypdw393e.js";
+import { n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { ITn, PTn, Krr, Xrr } from "/$bunfs/root/chunk-4r03fm98.js";
+async function YLe(e, r = {}) {
+  try {
+    if (!Co()) {
+      if (!a.CLAUDE_CODE_OAUTH_TOKEN && r.bgAuthSnapshot !== "leave") await ITn(e);
+      await PTn(e), await Krr(e);
+    }
+    await Xrr(e);
+  } catch (o) {
+    n(`Descriptor credential prime failed (non-fatal): ${l(o)}`, { level: "error" });
+  }
+}
+export { YLe };

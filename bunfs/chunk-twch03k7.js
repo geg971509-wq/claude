@@ -8,5 +8,23 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-function Lse(t,r){switch(r){case"bash":return`!${t}`;default:return t}}function W_(t){if(t.startsWith("!"))return"bash";return"prompt"}function M0(t){if(W_(t)==="prompt")return t;return t.slice(1)}function i0e(t){return t==="!"}
-export{Lse,W_,M0,i0e};
+function Lse(t, r) {
+  switch (r) {
+    case "bash":
+      return `!${t}`;
+    default:
+      return t;
+  }
+}
+function W_(t) {
+  if (t.startsWith("!")) return "bash";
+  return "prompt";
+}
+function M0(t) {
+  if (W_(t) === "prompt") return t;
+  return t.slice(1);
+}
+function i0e(t) {
+  return t === "!";
+}
+export { Lse, W_, M0, i0e };

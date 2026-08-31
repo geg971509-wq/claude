@@ -8,5 +8,31 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{C,Lt,F}from"/$bunfs/root/chunk-twm95mhz.js";F();var EYt=()=>d,d=()=>{},c=()=>{return};function Xe(t,u){let l=C(null);if(l.current===null)l.current={select:u,last:null,source:null,get:c};let e=l.current;if(e.select=u,e.source!==t)e.source=t,e.last=null,e.get=t?()=>{let n=t.getSnapshot(),s=e.select;if(!s)return n;let o=e.last;if(o!==null&&o.snapshot===n&&o.select===s)return o.selected;let r=s(n);return e.last={snapshot:n,select:s,selected:r},r}:c;return Lt(t?t.subscribe:EYt,e.get,e.get)}
-export{EYt,Xe};
+import { C, Lt, F } from "/$bunfs/root/chunk-twm95mhz.js";
+F();
+var EYt = () => d,
+  d = () => {},
+  c = () => {
+    return;
+  };
+function Xe(t, u) {
+  let l = C(null);
+  if (l.current === null) l.current = { select: u, last: null, source: null, get: c };
+  let e = l.current;
+  if (((e.select = u), e.source !== t))
+    (e.source = t),
+      (e.last = null),
+      (e.get = t
+        ? () => {
+            let n = t.getSnapshot(),
+              s = e.select;
+            if (!s) return n;
+            let o = e.last;
+            if (o !== null && o.snapshot === n && o.select === s) return o.selected;
+            let r = s(n);
+            return (e.last = { snapshot: n, select: s, selected: r }), r;
+          }
+        : c);
+  return Lt(t ? t.subscribe : EYt, e.get, e.get);
+}
+export { EYt, Xe };

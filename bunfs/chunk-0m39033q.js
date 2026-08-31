@@ -8,5 +8,18 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-class t{committed=!1}var e=new t;function xo(){return e.committed}function S8e(){e.committed=!0}var n=new Promise(()=>{});function fm(){return n}
-export{xo,S8e,fm};
+class t {
+  committed = !1;
+}
+var e = new t();
+function xo() {
+  return e.committed;
+}
+function S8e() {
+  e.committed = !0;
+}
+var n = new Promise(() => {});
+function fm() {
+  return n;
+}
+export { xo, S8e, fm };

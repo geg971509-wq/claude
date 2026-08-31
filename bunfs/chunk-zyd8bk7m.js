@@ -8,7 +8,15 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{aCe}from"/$bunfs/root/chunk-1yr12dqr.js";import{IE}from"/$bunfs/root/chunk-0b5b5vvk.js";import{yt}from"/$bunfs/root/chunk-06p73s1x.js";import{vy}from"/$bunfs/root/chunk-zfb82nfr.js";var s="",a="'worktree'",r="",n="",e=`Execute a workflow script that orchestrates multiple subagents deterministically. Workflows run in the background \u2014 this tool returns immediately with a task ID, and a <task-notification> arrives when the workflow completes. Use /workflows to watch live progress.
+import { aCe } from "/$bunfs/root/chunk-1yr12dqr.js";
+import { IE } from "/$bunfs/root/chunk-0b5b5vvk.js";
+import { yt } from "/$bunfs/root/chunk-06p73s1x.js";
+import { vy } from "/$bunfs/root/chunk-zfb82nfr.js";
+var s = "",
+  a = "'worktree'",
+  r = "",
+  n = "",
+  e = `Execute a workflow script that orchestrates multiple subagents deterministically. Workflows run in the background \u2014 this tool returns immediately with a task ID, and a <task-notification> arrives when the workflow completes. Use /workflows to watch live progress.
 
 ONLY call this tool when the user has explicitly opted into multi-agent orchestration. Workflows can spawn dozens of agents and consume a large amount of tokens; the user must request that scale, not have it inferred. Explicit opt-in means one of:
 - The user included the keyword "ultracode" in their prompt (you'll see a system-reminder confirming it).
@@ -38,7 +46,8 @@ The canonical multi-stage pattern \u2014 pipeline by default, each dimension ver
   )
   const confirmed = results.flat().filter(Boolean).filter(f => f.verdict?.isReal)
   return { confirmed }
-  // Dimension 'bugs' findings verify while dimension 'perf' is still reviewing. No wasted wall-clock.`,Zen=`# Workflow authoring reference
+  // Dimension 'bugs' findings verify while dimension 'perf' is still reviewing. No wasted wall-clock.`,
+  Zen = `# Workflow authoring reference
 
 A workflow structures work across many agents \u2014 to be comprehensive (decompose and cover in parallel), to be confident (independent perspectives and adversarial checks before committing), or to take on scale one context can't hold (migrations, audits, broad sweeps). The script is where you encode that structure: what fans out, what verifies, what synthesizes.
 
@@ -168,9 +177,15 @@ Use this tool for multi-step orchestration where control flow should be determin
 
 ## Resume
 
-The tool result includes a runId. To resume after a pause, kill, or script edit, relaunch with Workflow({scriptPath, resumeFromRunId}) \u2014 the longest unchanged prefix of agent() calls returns cached results instantly; the first edited/new call and everything after it runs live. Same script + same args \u2192 100% cache hit. Before diagnosing why a completed workflow returned an empty or unexpected result, Read <transcriptDir>/journal.jsonl \u2014 it records each agent's actual return value; do not assume cached results are non-empty. Date.now()/Math.random()/new Date() are unavailable in scripts (they would break this) \u2014 stamp results after the workflow returns, or pass timestamps via args. Fallback when no journal is available: Read agent-<id>.jsonl files in the transcript directory and hand-author a continuation script.`,o=`Before writing a script, load the \`${IE}\` skill \u2014 the workflow authoring reference: script API and gotchas, resume, the **Ultracode** section, quality patterns, worked examples.`;function etn(t){return t?`${e}
+The tool result includes a runId. To resume after a pause, kill, or script edit, relaunch with Workflow({scriptPath, resumeFromRunId}) \u2014 the longest unchanged prefix of agent() calls returns cached results instantly; the first edited/new call and everything after it runs live. Same script + same args \u2192 100% cache hit. Before diagnosing why a completed workflow returned an empty or unexpected result, Read <transcriptDir>/journal.jsonl \u2014 it records each agent's actual return value; do not assume cached results are non-empty. Date.now()/Math.random()/new Date() are unavailable in scripts (they would break this) \u2014 stamp results after the workflow returns, or pass timestamps via args. Fallback when no journal is available: Read agent-<id>.jsonl files in the transcript directory and hand-author a continuation script.`,
+  o = `Before writing a script, load the \`${IE}\` skill \u2014 the workflow authoring reference: script API and gotchas, resume, the **Ultracode** section, quality patterns, worked examples.`;
+function etn(t) {
+  return t
+    ? `${e}
 
-${o}`:`${e}
+${o}`
+    : `${e}
 
-${Zen}`}
-export{Zen,etn};
+${Zen}`;
+}
+export { Zen, etn };

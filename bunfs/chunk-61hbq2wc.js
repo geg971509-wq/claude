@@ -8,5 +8,15 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{I}from"/$bunfs/root/chunk-8tgj5dp2.js";var U5e="io.modelcontextprotocol/skills";function yu(){return I("tengu_mcp_skills",!1)}function v_t(e){return yu()&&!!e?.resources&&Zgn(e)}function Zgn(e){return e?.extensions?.[U5e]!==void 0}
-export{U5e,yu,v_t,Zgn};
+import { I } from "/$bunfs/root/chunk-8tgj5dp2.js";
+var U5e = "io.modelcontextprotocol/skills";
+function yu() {
+  return I("tengu_mcp_skills", !1);
+}
+function v_t(e) {
+  return yu() && !!e?.resources && Zgn(e);
+}
+function Zgn(e) {
+  return e?.extensions?.[U5e] !== void 0;
+}
+export { U5e, yu, v_t, Zgn };

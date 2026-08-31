@@ -8,5 +8,13 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-var not=Object.freeze({}),rot=Object.freeze({}),oot=Object.freeze({}),iot=Object.freeze({}),sot=Object.freeze({}),aot=Object.freeze({}),lot=Object.freeze({}),cot=Object.freeze({}),phe=Object.freeze({});
-export{not,rot,oot,iot,sot,aot,lot,cot,phe};
+var not = Object.freeze({}),
+  rot = Object.freeze({}),
+  oot = Object.freeze({}),
+  iot = Object.freeze({}),
+  sot = Object.freeze({}),
+  aot = Object.freeze({}),
+  lot = Object.freeze({}),
+  cot = Object.freeze({}),
+  phe = Object.freeze({});
+export { not, rot, oot, iot, sot, aot, lot, cot, phe };

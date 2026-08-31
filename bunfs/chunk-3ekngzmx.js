@@ -8,5 +8,26 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-class Ak extends Error{constructor(e){super(e);this.name="SwarmPaneError"}}var o=/\p{Cc}/u;function F8n(e){return o.test(e)}function Iwe(e){let n=o.exec(e);if(n){let t=n[0].codePointAt(0);throw new Ak(`Refusing to send command containing control character U+${t.toString(16).padStart(4,"0").toUpperCase()} to terminal pane`)}}function _Ve(e){return e==="tmux"||e==="iterm2"}
-export{Ak,F8n,Iwe,_Ve};
+class Ak extends Error {
+  constructor(e) {
+    super(e);
+    this.name = "SwarmPaneError";
+  }
+}
+var o = /\p{Cc}/u;
+function F8n(e) {
+  return o.test(e);
+}
+function Iwe(e) {
+  let n = o.exec(e);
+  if (n) {
+    let t = n[0].codePointAt(0);
+    throw new Ak(
+      `Refusing to send command containing control character U+${t.toString(16).padStart(4, "0").toUpperCase()} to terminal pane`,
+    );
+  }
+}
+function _Ve(e) {
+  return e === "tmux" || e === "iterm2";
+}
+export { Ak, F8n, Iwe, _Ve };

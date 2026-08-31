@@ -8,4 +8,5 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{fJn,qgn,L_r,GE}from"/$bunfs/root/chunk-d1d8xqks.js";export{qgn as FSWatcher,fJn as WatchHelper,GE as default,L_r as watch};
+import { fJn, qgn, L_r, GE } from "/$bunfs/root/chunk-d1d8xqks.js";
+export { qgn as FSWatcher, fJn as WatchHelper, GE as default, L_r as watch };

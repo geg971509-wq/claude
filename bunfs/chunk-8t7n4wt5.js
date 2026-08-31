@@ -8,5 +8,14 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{ds}from"/$bunfs/root/chunk-0g6cj4h1.js";function f1n(t){if(ds())return;return t.standaloneAgentContext?.name}function Pse(t,n){let e=t.standaloneAgentContext;if(!Object.keys(n).some((o)=>e?.[o]!==n[o]))return t;return{...t,standaloneAgentContext:{...e,name:e?.name??"",...n}}}
-export{f1n,Pse};
+import { ds } from "/$bunfs/root/chunk-0g6cj4h1.js";
+function f1n(t) {
+  if (ds()) return;
+  return t.standaloneAgentContext?.name;
+}
+function Pse(t, n) {
+  let e = t.standaloneAgentContext;
+  if (!Object.keys(n).some((o) => e?.[o] !== n[o])) return t;
+  return { ...t, standaloneAgentContext: { ...e, name: e?.name ?? "", ...n } };
+}
+export { f1n, Pse };

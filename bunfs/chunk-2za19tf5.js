@@ -8,5 +8,13 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-class MR{#e=new Map;get(e){let t=this.#e.get(e);if(t instanceof e)return t;let n=new e;return this.#e.set(e,n),n}}
-export{MR};
+class MR {
+  #e = new Map();
+  get(e) {
+    let t = this.#e.get(e);
+    if (t instanceof e) return t;
+    let n = new e();
+    return this.#e.set(e, n), n;
+  }
+}
+export { MR };

@@ -8,4 +8,20 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{nt}from"/$bunfs/root/chunk-zfjmcnyh.js";import{ue}from"/$bunfs/root/chunk-yz031c9r.js";var e="/$bunfs/root/component-schemas-7fabf82f.md.zst";var t=nt(e,import.meta.dirname);var n=ue("/$bunfs/root/example-plugins-9n8v6pe1.md");var o=ue("/$bunfs/root/mcp-servers-chmkz450.md");var i=ue("/$bunfs/root/search-strategies-4qam2bp6.md");var s="/$bunfs/root/SKILL-0e9ec89e.md.zst";var r=nt(s,import.meta.dirname);var x=r,A={"references/component-schemas.md":t,"references/example-plugins.md":n,"references/mcp-servers.md":o,"references/search-strategies.md":i};export{A as SKILL_FILES,x as SKILL_MD};
+import { nt } from "/$bunfs/root/chunk-zfjmcnyh.js";
+import { ue } from "/$bunfs/root/chunk-yz031c9r.js";
+var e = "/$bunfs/root/component-schemas-7fabf82f.md.zst";
+var t = nt(e, import.meta.dirname);
+var n = ue("/$bunfs/root/example-plugins-9n8v6pe1.md");
+var o = ue("/$bunfs/root/mcp-servers-chmkz450.md");
+var i = ue("/$bunfs/root/search-strategies-4qam2bp6.md");
+var s = "/$bunfs/root/SKILL-0e9ec89e.md.zst";
+var r = nt(s, import.meta.dirname);
+var x = r,
+  A = {
+    "references/component-schemas.md": t,
+    "references/example-plugins.md": n,
+    "references/mcp-servers.md": o,
+    "references/search-strategies.md": i,
+  };
+export { A as SKILL_FILES, x as SKILL_MD };

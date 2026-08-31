@@ -8,5 +8,11 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-function xce(e){return!1}var RGe="default";function PVn(e){return e.toolPermissionContext.proactivityBaseline===void 0?void 0:e}
-export{RGe,xce,PVn};
+function xce(e) {
+  return !1;
+}
+var RGe = "default";
+function PVn(e) {
+  return e.toolPermissionContext.proactivityBaseline === void 0 ? void 0 : e;
+}
+export { RGe, xce, PVn };

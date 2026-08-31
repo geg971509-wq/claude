@@ -8,5 +8,24 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-var Ent={add(){},addFunctionHook(e,t,n,s,r,o){return o?.id??"function-hook-noop"},remove(){},clear(){},get(){return new Map},getFunctionHooks(){return new Map},getEntry(){return},has(){return!1}};
-export{Ent};
+var Ent = {
+  add() {},
+  addFunctionHook(e, t, n, s, r, o) {
+    return o?.id ?? "function-hook-noop";
+  },
+  remove() {},
+  clear() {},
+  get() {
+    return new Map();
+  },
+  getFunctionHooks() {
+    return new Map();
+  },
+  getEntry() {
+    return;
+  },
+  has() {
+    return !1;
+  },
+};
+export { Ent };

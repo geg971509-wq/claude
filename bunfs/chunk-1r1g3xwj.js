@@ -8,8 +8,2134 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{jC,Mn,hf}from"/$bunfs/root/chunk-f9h0bg01.js";import{ne}from"/$bunfs/root/chunk-tx16jn0x.js";import{s}from"/$bunfs/root/chunk-r53tkxrh.js";import{c,ke}from"/$bunfs/root/chunk-4xj01xwv.js";import{y,p,g}from"/$bunfs/root/chunk-ca80fke8.js";import{Ze,la,It,ft,we,l,X}from"/$bunfs/root/chunk-ypdw393e.js";import{h}from"/$bunfs/root/chunk-wkxx62a2.js";import{V,Qo,le,co,$fe,n}from"/$bunfs/root/chunk-fv016jr6.js";import{ce,Ku}from"/$bunfs/root/chunk-4ddxwr9r.js";import{m}from"/$bunfs/root/chunk-bzx56g36.js";import{HH,Qe,Bt,ve,$tr,E$,GV,kre,EC,kbt,A$,Un,nP,ie}from"/$bunfs/root/chunk-8tgj5dp2.js";import{V8,gIe,I9n,Hee,tg,jIe,eSe,m7,X0,e2,Y0,J0,oF,qee,z4n,iSe,aSe,Y_,jle,Dm,Od,t2,Gee,GA,t9,cSe,Y4n,Edt,es,Om,lk,J4n,Bo,Cv,Van,b7,Gle,HFt,P4e,sqn,aqn,Kan,lqn,Pdt,w7,ck,Uy,_i,rpt,a9,_D,pPe,Ld,Jx,tm,f2,sT,mk,rI,S9}from"/$bunfs/root/chunk-zze8764r.js";import{a}from"/$bunfs/root/chunk-fec4384a.js";import{ee}from"/$bunfs/root/chunk-4fwj3vnx.js";import{gt,fJ,Efe}from"/$bunfs/root/chunk-q14dgq5g.js";import{Yi}from"/$bunfs/root/chunk-98tgyb1d.js";import{Rgn,he}from"/$bunfs/root/chunk-h605j25g.js";import{ELe,cWt,yH,ade,FM}from"/$bunfs/root/chunk-2n1hsggr.js";import{Ci}from"/$bunfs/root/chunk-cds31m36.js";import{Dp,Bh,BM}from"/$bunfs/root/chunk-nkjrjh5n.js";import{Qy}from"/$bunfs/root/chunk-wgz3g40p.js";import{ow}from"/$bunfs/root/chunk-1mp2j0tx.js";import{Jbe,QBt}from"/$bunfs/root/chunk-308krgtb.js";import{xgt,xfn}from"/$bunfs/root/chunk-da857b4g.js";import{yJn}from"/$bunfs/root/chunk-x06p1jhb.js";import{Ok,RTe,o_t,Mjt}from"/$bunfs/root/chunk-vx3kc9d2.js";import{pt}from"/$bunfs/root/chunk-w3c6n7jh.js";import{_T}from"/$bunfs/root/chunk-91315wj5.js";import{fi}from"/$bunfs/root/chunk-8td9ks9h.js";import{uI}from"/$bunfs/root/chunk-986hvegp.js";import{dtn,hZ}from"/$bunfs/root/chunk-ndav7ebh.js";import{nPt}from"/$bunfs/root/chunk-chwy8rna.js";import{jUn,ctn,WUn,qUn}from"/$bunfs/root/chunk-tp60f6ta.js";import{QUn}from"/$bunfs/root/chunk-5vzrk7mr.js";import{htn,aPt}from"/$bunfs/root/chunk-p26tvkqz.js";import{nr}from"/$bunfs/root/chunk-8asdkt5r.js";import{a9e}from"/$bunfs/root/chunk-ak3rzqa8.js";import{Xr}from"/$bunfs/root/chunk-p8c745fb.js";import{que}from"/$bunfs/root/chunk-61nasexv.js";import{Wh}from"/$bunfs/root/chunk-h6vcz0m0.js";import{yp}from"/$bunfs/root/chunk-b40bn863.js";import{Np,go,Kwn}from"/$bunfs/root/chunk-gpvgrng0.js";import{vi}from"/$bunfs/root/chunk-75bjbbtd.js";import{Nn}from"/$bunfs/root/chunk-c48t1p6v.js";import{Boe,mj,SR,db}from"/$bunfs/root/chunk-052zvbpg.js";import{D}from"/$bunfs/root/chunk-7s7jqj2f.js";import{Bn,_r,Ms,Qi}from"/$bunfs/root/chunk-56sxk8k2.js";async function Aje(e){let{ctx:i,updatedInput:o,suggestions:t,permissionMode:r}=e,b=!1;try{let R=await i.runHooks(r,t,o);if(R&&!("reprompted"in R))return R}catch(R){if(b=!0,R instanceof Error)h(ft(R,"coordinator automated permission check failed"));else h(ft(Error(`Automated permission check failed: ${String(R)}`),"coordinator automated permission check failed (non-Error throw)"))}finally{if(b)p("permission_coordinator_check","permission_coordinator_check_failed");else y("permission_coordinator_check")}return null}function ePt({feedback:e,contentBlocks:i,isSubagent:o}){return!e&&!i?.length&&!o}function tPt(e){let i=!1,o=!1;return{resolve(t){if(o)return;o=!0,i=!0,e(t)},isResolved(){return i},claim(){if(i)return!1;return i=!0,!0}}}function vje(e,i,o,t,r,b,R){let d=t.message.id,_=he(o).mode;function u(P,f){I9n({tool:e,input:f?.input??i,toolUseContext:o,messageId:d,toolUseID:r,permissionMode:_},P,f?.permissionPromptStartTimeMs)}return Object.freeze({tool:e,input:i,toolUseContext:o,assistantMessage:t,messageId:d,toolUseID:r,setClassifierApprovals:b,permissionMode:_,logDecision:u,logCancelled(){s("tengu_tool_use_cancelled",{messageID:ve(d),toolName:Un(e.name)})},persistPermissions(P){if(P.length===0||E$(o))return!1;if(FM(P,o.storageV5).catch(h),R!==void 0)R(yH(Rgn(he(o)),P));else o.setSessionToolPermissionContext((f)=>yH(f,P)),setImmediate(()=>{m7.emit()});return P.some((f)=>ade(f.destination))},setModeFromBridge(P){return X0(P,he(o),o.setToolPermissionContext)},resolveIfAborted(P){if(!o.abortController.signal.aborted)return!1;return this.logCancelled(),P(this.cancelAndAbort(void 0,!0)),!0},cancelAndAbort(P,f,x,T){let A=!!o.agentId,v=P?`${A?S9:mk}${P}`:A?rI:sT,k=A?v:f2(v);if(f||ePt({feedback:P,contentBlocks:x,isSubagent:A}))n(`Aborting: tool=${e.name} isAbort=${f} hasFeedback=${!!P} isSubagent=${A}`),o.abortController.abort();return{behavior:"ask",message:k,contentBlocks:x,...T?.feedbackIsFromUser&&P&&{userFeedback:P}}},async runHooks(P,f,x,T){if(o.forRemoteExecution===!0)return null;for await(let A of Hee(e.name,r,i,o,P,f,o.abortController.signal))if(A.permissionRequestResult){let v=A.permissionRequestResult;if(v.behavior==="allow"){let k=v.updatedInput??x??i;if(!v.updatedInput&&e.requiresUserInteraction?.())return null;if(v.updatedInput){let I=pPe(await Jx(e,k,{...o,toolUseId:r},{hookUpdatedInput:v.updatedInput}),e.name);if(I?.behavior==="deny")return this.logDecision({decision:"reject",source:"config"},{input:k,permissionPromptStartTimeMs:T}),{...I,decideLocation:"ask-path"};if(I?.behavior==="ask")return{reprompted:I,finalInput:k}}return this.handleHookAllow(k,v.updatedPermissions??[],T)}else if(v.behavior==="deny"){if(this.logDecision({decision:"reject",source:{type:"hook"}},{permissionPromptStartTimeMs:T}),v.interrupt)n(`Hook interrupt: tool=${e.name} hookMessage=${v.message}`),o.abortController.abort();return this.buildDeny(v.message||"Permission denied by hook",{type:"hook",hookName:"PermissionRequest",reason:v.message})}}return null},buildAllow(P,f){return{behavior:"allow",updatedInput:P,userModified:f?.userModified??!1,...f?.decisionReason&&{decisionReason:f.decisionReason},...f?.acceptFeedback&&{acceptFeedback:f.acceptFeedback},...f?.contentBlocks&&f.contentBlocks.length>0&&{contentBlocks:f.contentBlocks},...f?.matchedAskRule&&{matchedAskRule:f.matchedAskRule}}},buildDeny(P,f){return{behavior:"deny",message:P,decisionReason:f,decideLocation:"ask-path"}},handleUserAllow(P,f,x){let T=cWt(f),A=o.forRemoteExecution===!0||E$(o)?[]:e.suppressesAllPermissionUpdates?.(i)===!0?_D(T):e.suppressesAlwaysAllowRule?.(i)===!0||x?.askSuppressesAlwaysAllowRule===!0?a9([...T],e,he(o)):T,v=this.persistPermissions(A);nPt(A),this.logDecision({decision:"accept",source:{type:"user",permanent:v}},{input:P,permissionPromptStartTimeMs:x?.permissionPromptStartTimeMs});let k=e.inputsEquivalent?!e.inputsEquivalent(i,P):!1,I=x?.feedback?.trim();return this.buildAllow(P,{userModified:k,decisionReason:x?.decisionReason,acceptFeedback:I||void 0,contentBlocks:x?.contentBlocks,matchedAskRule:x?.matchedAskRule})},handleHookAllow(P,f,x){let T=this.persistPermissions(o.forRemoteExecution===!0?[]:e.suppressesAllPermissionUpdates?.(i)===!0?_D(cWt(f)):cWt(f));return this.logDecision({decision:"accept",source:{type:"hook",permanent:T}},{input:P,permissionPromptStartTimeMs:x}),this.buildAllow(P,{decisionReason:{type:"hook",hookName:"PermissionRequest"}})}})}function qe(e){let i=e.input;if(e.tool.name===Yi)return Pdt(i);if(e.tool.name===Wh)return{text:"approve plan"};let o=e.tool.userFacingName(e.input).trim(),t=typeof i?.command==="string"?i.command:typeof i?.file_path==="string"?i.file_path:typeof i?.url==="string"?i.url:"",r=o||e.tool.name;return{text:t&&!r.includes(t)?w7(`approve ${r}: ${t}`):`approve ${r}`}}var Dhe=go({kind:"permission_ask_user_question",payload:m(()=>Np((e)=>typeof e==="object"&&e!==null&&("requestId"in e)&&("toolName"in e)&&("permissionResult"in e)&&("questions"in e))),result:m(()=>Np((e)=>typeof e==="object"&&e!==null&&("behavior"in e))),default:{behavior:"cancelled"},yieldsToPanels:!0});var V0e=go({kind:"permission_bash",payload:m(()=>Np((e)=>typeof e==="object"&&e!==null&&("requestId"in e)&&("toolName"in e)&&("permissionResult"in e)&&("command"in e)&&("classifierState"in e))),result:m(()=>Np((e)=>typeof e==="object"&&e!==null&&("behavior"in e))),default:{behavior:"cancelled"},yieldsToPanels:!0});var dit=go({kind:"permission_browser",payload:m(()=>Np((e)=>typeof e==="object"&&e!==null&&("requestId"in e)&&("toolName"in e)&&("permissionResult"in e)&&("verbPhrase"in e))),result:m(()=>Np((e)=>typeof e==="object"&&e!==null&&("behavior"in e))),default:{behavior:"cancelled"},yieldsToPanels:!0});var pit=go({kind:"permission_enter_plan_mode",payload:m(()=>Np((e)=>typeof e==="object"&&e!==null&&("requestId"in e)&&("toolName"in e)&&("permissionResult"in e))),result:m(()=>Np((e)=>typeof e==="object"&&e!==null&&("behavior"in e))),default:{behavior:"cancelled"},yieldsToPanels:!0});var Cje=go({kind:"permission_exit_plan_mode_v2",payload:m(()=>Np((e)=>typeof e==="object"&&e!==null&&("requestId"in e)&&("toolName"in e)&&("permissionResult"in e)&&("plan"in e))),result:m(()=>Np((e)=>typeof e==="object"&&e!==null&&("behavior"in e))),default:{behavior:"cancelled"},yieldsToPanels:!0});var Ohe=go({kind:"permission_file",payload:m(()=>Np((e)=>typeof e==="object"&&e!==null&&("requestId"in e)&&("toolName"in e)&&("permissionResult"in e)&&("filePath"in e)&&("operationType"in e))),result:m(()=>Np((e)=>typeof e==="object"&&e!==null&&("behavior"in e))),default:{behavior:"cancelled"},yieldsToPanels:!0});import{basename as To,posix as Ao,relative as vo}from"path";var Do=new Set(["date-time"]);function _o(e){let i=e?.properties;if(i===null||typeof i!=="object"||Array.isArray(i))return;let o;for(let[t,r]of Object.entries(i)){if(r===null||typeof r!=="object"||!("format"in r))continue;let b=r.format;if(typeof b==="string"&&Do.has(b))o??={},o[t]=b}return o}function WR(e){let i=e.tool.isMcp===!0?e.tool.mcpInfo:void 0,o=e.tool.isMcp===!0,t;if(i)t=Y4n(i);else{let R;try{R=e.tool.userFacingName(e.input)||e.tool.name}catch{R=e.tool.name}let d=e.tool.isMcp===!0&&R.endsWith(" (MCP)")?R.slice(0,-6):R;t=Edt(d)}let r="",b;if(e.tool.isMcp!==!0)try{let R=e.tool.renderToolUseMessage?.(e.input,{theme:e.theme,verbose:!0})??null;r=typeof R==="string"?Ci(R):R}catch{r="parameters could not be rendered \u2014 deny unless expected",b=!0}return{requestId:e.toolUseID,toolName:e.tool.name,input:e.input,description:es(e.description).text,permissionResult:e.permissionResult,userFacingName:t,hasMcpSuffix:o,renderedToolUseMessage:r,toolUseRenderFailed:b,paramFormatHints:_o(e.tool.inputJSONSchema),messageId:e.assistantMessage.message.id,isMcp:e.tool.isMcp??!1,isAskCappedByOrg:e.tool.mcpInfo?.effectiveMaxPermission==="ask",showAlwaysAllow:ELe()&&!(e.permissionResult.behavior==="ask"&&e.permissionResult.suppressAlwaysAllowRule===!0)&&e.tool.suppressesAlwaysAllowRule?.(e.input)!==!0&&e.tool.suppressesAllPermissionUpdates?.(e.input)!==!0&&!GV(e.requestSource),requestSource:e.requestSource,hasExternalRacer:e.hasExternalRacer??!1}}function Ae(e){if(e.forRemoteExecution===!0)return{type:"remote-agent"};let i=$tr(e);if(i!==void 0)return{type:"plugin",pluginName:i};if(E$(e))return{type:"plugin"};let o=e.spawnedByWorkflowRunId;if(o!==void 0)return{type:"workflow-agent",workflowName:Object.values(e.taskRegistry.all()).find((b)=>b.type==="local_workflow"&&b.workflowRunId===o)?.workflowName};let t=e.agentContext;if(t.agentType==="teammate")return{type:"subagent",agentName:t.agentName};if(EC(t)&&A$(t))return{type:"subagent",agentName:t.displayName??t.subagentName};return}function He(e){let i=WR(e),o=e.permissionResult.metadata?.command?.chrome;if(!o&&typeof e.input.url==="string")try{let t=new URL(e.input.url);if(t.host)o={host:t.host,url:t.href}}catch{}return{...i,chrome:o,verbPhrase:a9e(e.tool.name,e.input)}}function Ve(e){let i=WR(e),o=e.input.url,t="";if(typeof o==="string")try{t=new URL(o).hostname}catch{t=""}return{...i,hostname:t}}function ze(e){let i=WR(e),o=Gle.inputSchema.safeParse(e.input),t=o.success?o.data.questions??[]:[],r=o.success?o.data.metadata?.source:void 0;return{...i,questions:t,metadataSource:r}}function Ro(e){if(!("args"in e)||e.args===void 0)return;return Om(e.args,{scrub:"key",maxUnits:Dm})}function Ge(e){let i=WR(e),o=typeof e.input.command==="string"?Om(e.input.command,{maxUnits:Dm}):void 0,t=Te(e.input.mcp,"server"),r=Te(e.input.mcp,"tool"),b=t!==void 0&&r!==void 0?{server:$e(t,"(unnamed server)"),tool:$e(r,"(unnamed tool)"),argsDisplay:Ro(e.input.mcp)}:void 0,R=Te(e.input.ws,"url"),d=htn(e.input.ws),_=R!==void 0?{url:Om(K0e(R),{maxUnits:Dm}),protocols:d?.map((P,f)=>f<aPt?Bo(jle(ce(P,GA))):""),protocolsWithheld:d?.slice(0,aPt).some((P)=>{let f=ce(P,GA);return Od(f)!==f})}:void 0,u=typeof e.input.interval_ms==="number"?e.input.interval_ms:30000,w=typeof e.input.description==="string"?es(e.input.description).text:void 0;return{...i,command:o,mcp:b,ws:_,intervalMs:u,monitorDescription:w}}function $e(e,i){let o=Bo(Gee(ce(e,GA))).replace(/\s+/g," ").trim();return t2(o)?o:i}function Te(e,i){if(e===null||typeof e!=="object"||!(i in e))return;let o=e[i];return typeof o==="string"?o:void 0}function K0e(e){try{return new URL(e).href}catch{return e}}function Xe(e){let i=WR(e),o=typeof e.input.runId==="string"&&typeof e.input.script!=="string",t=typeof e.input.script==="string"?e.input.script:o&&typeof i.renderedToolUseMessage==="string"?i.renderedToolUseMessage:"",r=e.input.script!==void 0&&typeof e.input.script!=="string",b=typeof e.input.name==="string"&&e.input.name!==""&&!e.input.scriptPath&&Ci(e.input.name)===e.input.name?e.input.name:void 0,R=typeof i.renderedToolUseMessage==="string"?Ci(i.renderedToolUseMessage):i.renderedToolUseMessage,d=e.input.args;return{...i,renderedToolUseMessage:R,script:t,scriptForged:r,workflowName:b,args:d}}function Je(e){let i=WR(e),o=typeof e.input.filePath==="string"?e.input.filePath:"",t=typeof e.input.title==="string"?e.input.title:"",r=cSe(t)?"":t9(t),R=(Array.isArray(e.input.options)?e.input.options:[]).filter((u)=>u!==null&&typeof u==="object"&&("label"in u)&&typeof u.label==="string"&&("description"in u)&&typeof u.description==="string"&&("value"in u)&&typeof u.value==="string").map((u)=>({label:cSe(u.label)?"":t9(u.label),description:es(u.description).text,value:u.value})),d,_=!1;if(Qi(o)||_r(o))d=`(Network path \u2014 content not previewed: ${o})`,_=!0;else try{d=SR(o,Efe)}catch(u){if(mj(u))d=`(Artifact too large for preview: ${o})`;else d=X(u)?`(File not found: ${o})`:`(Error reading file: ${String(u)})`;_=!0}return{...i,filePath:o,artifactTitle:r,artifactOptions:R,fileContent:d,contentWithheld:_}}function Ke(e){let i=WR(e),o=e.permissionResult.metadata,t=o!==null&&typeof o==="object"&&"command"in o&&o.command!==null&&typeof o.command==="object"?o.command:void 0,r=t!==void 0&&typeof t.name==="string"?t.name:void 0,b=t!==void 0&&typeof t.description==="string"?t.description:void 0,d=(typeof e.input.skill==="string"?e.input.skill:void 0)??r??"";return{...i,skill:d,skillDescription:b}}function Ye(e){let i=WR(e),o=typeof e.input.command==="string"&&e.input.command.length<=Dm?Ci(e.input.command):"",t=typeof i.renderedToolUseMessage==="string"?Ci(i.renderedToolUseMessage):i.renderedToolUseMessage;return{...i,renderedToolUseMessage:t,command:o}}function eo(e){let i=WR(e),o=Bh();Dp(o);let t=BM()??"",r=e.assistantMessage.message.usage,b=r&&typeof r.input_tokens==="number"?{input_tokens:r.input_tokens,cache_creation_input_tokens:r.cache_creation_input_tokens,cache_read_input_tokens:r.cache_read_input_tokens}:void 0;return{...i,plan:t,planFilePath:o,usage:b}}function ZIt(e){let i=WR(e),o=typeof e.input.command==="string"&&e.input.command.length<=Dm?Ci(e.input.command):"",t=typeof i.renderedToolUseMessage==="string"?Ci(i.renderedToolUseMessage):i.renderedToolUseMessage;return{...i,renderedToolUseMessage:t,command:o,classifierState:e.classifierState,existingAllowDescriptions:[]}}var Y=200000;function fit(e){switch(e){case Uy:case Y_:case b7:case Y0:case J0:case tm:return!0;default:return!1}}function NUn(e){switch(e){case Uy:case Y_:case b7:return!0;default:return!1}}function mit(e,i){try{let o=e;if(typeof o.getPath!=="function")return null;let t=o.getPath(i);return typeof t==="string"&&t!==""?t:null}catch{return null}}function oo(e,i,o){if(i==="read"||o)return null;try{let t=gt(e),r=le(),{resolvedPath:b,isSymlink:R}=Qo(r,t);return R?b:null}catch{return null}}function Se(e,i){return nr(i?e:vo(ee(),e))}function ye(e,i){return nr(i?Ao.basename(e):To(e))}async function So(e){let{tool:i,input:o,remoteWorkspace:t,remoteOldContent:r}=e;if(i===Uy){let d=Uy.inputSchema.parse(o),_=d.old_string.length>Y||d.new_string.length>Y,u=!_&&(lk(d.old_string)||lk(d.new_string)),w=_||u;return{title:"Edit file",subtitle:Se(d.file_path,t),question:{kind:"file-action",verbPhrase:"make this edit to",fileName:ye(d.file_path,t)},content:_?{kind:"no-changes",message:"Proposed edit is too large to show \u2014 cannot be reviewed, so approval is one-time only (deny unless expected)."}:u?{kind:"no-changes",message:"Proposed edit cannot be shown in full \u2014 cannot be reviewed, so approval is one-time only (deny unless expected)."}:{kind:"file-edit-diff",filePath:d.file_path,edits:[{old_string:d.old_string,new_string:d.new_string,replace_all:d.replace_all||!1}],remoteOldContent:r??void 0,skipLocalRead:t},contentWithheld:w}}if(i===Y_){let d=Y_.inputSchema.parse(o),_="",u=!1,w=!1,P,f;if(t)if(typeof r==="string")_=r,u=!0,P="Overwrite file",f="overwrite";else if(r===null)P="Create file",f="create";else P="Write file",f="write to",w=!0;else{let E=Qi(d.file_path)||_r(d.file_path);if(!E)try{_=(await db(d.file_path,Efe)).content,u=!0}catch(F){if(mj(F))u=!0,w=!0;else if(!X(F)&&!Boe(F))throw F}if(E)w=!0,P="Write file",f="write to";else P=u?"Overwrite file":"Create file",f=u?"overwrite":"create"}let x=d.content.length>Y,T=!x&&lk(d.content),A=x||T,v=u&&J4n(_),k=u&&!v&&lk(_),I=A||w||v||k;return{title:P,subtitle:Se(d.file_path,t),question:{kind:"file-action",verbPhrase:f,fileName:ye(d.file_path,t)},content:x?{kind:"no-changes",message:"Proposed content is too large to show \u2014 cannot be reviewed, so approval is one-time only (deny unless expected)."}:T?{kind:"no-changes",message:"Proposed content cannot be shown in full \u2014 cannot be reviewed, so approval is one-time only (deny unless expected)."}:w?{kind:"no-changes",message:u?`Existing file is too large to preview \u2014 approving will overwrite ${nr(d.file_path)}.`:t?`The remote file could not be checked \u2014 approving will write to ${nr(d.file_path)}.`:`File is on a network path that cannot be previewed \u2014 approving will write to ${nr(d.file_path)}.`}:v?{kind:"no-changes",message:`Current contents of ${nr(d.file_path)} cannot be shown in full \u2014 the overwrite cannot be reviewed, so approval is one-time only (deny unless expected).`}:{kind:"file-write-diff",filePath:d.file_path,content:d.content,fileExists:u,oldContent:_,...k&&{notice:`Current contents of ${nr(d.file_path)} cannot be shown in full \u2014 the overwrite cannot be fully reviewed, so approval is one-time only (deny unless expected).`}},contentWithheld:I}}if(i===b7){let d=b7.inputSchema.parse(o),_=d.edit_mode==="insert"?"insert this cell into":d.edit_mode==="delete"?"delete this cell from":"make this edit to",u=(d.new_source?.length??0)>Y||lk(d.new_source??""),w=d.edit_mode!=="insert",P,f;if(w)if(t)if(typeof r==="string"){let T=Van(r,d.cell_id);if(T.kind==="found")if(T.source.length>Y||lk(T.source))f="the current cell contents cannot be shown in full";else P=T.source;else f=T.kind==="unparsable"?"the notebook could not be parsed for preview":"the target cell was not found in the notebook"}else if(r===null)f="the notebook was not found in the remote workspace";else f="the remote notebook could not be fetched";else if(Qi(d.notebook_path)||_r(d.notebook_path))f="the notebook is on a network path";else try{if(!(await le().stat(d.notebook_path)).isFile())f="the notebook could not be read";else{let A=await le().readFileBytes(d.notebook_path,Cv+1);if(A.length>Cv)f="the notebook is too large to preview";else{let v=Van(A.toString("utf-8"),d.cell_id);if(v.kind==="found")if(v.source.length>Y||lk(v.source))f="the current cell contents cannot be shown in full";else P=v.source;else f=v.kind==="unparsable"?"the notebook could not be parsed for preview":"the target cell was not found in the notebook"}}}catch{f="the notebook could not be read"}let x=u||f!==void 0;return{title:"Edit notebook",subtitle:void 0,question:{kind:"file-action",verbPhrase:_,fileName:ye(d.notebook_path,t)},content:u?{kind:"no-changes",message:"Proposed cell content is too large to show \u2014 cannot be reviewed, so approval is one-time only (deny unless expected)."}:f!==void 0?{kind:"no-changes",message:`Current cell contents cannot be shown (${f}) \u2014 the ${d.edit_mode==="delete"?"deletion":"edit"} cannot be reviewed, so approval is one-time only (deny unless expected).`}:{kind:"notebook-edit-diff",notebookPath:d.notebook_path,cellId:d.cell_id,newSource:d.new_source,cellType:d.cell_type,editMode:d.edit_mode,remoteOldContent:r??void 0,skipLocalRead:t,oldCellSource:P},contentWithheld:x}}return{title:`${i.isReadOnly(o)?"Read":"Edit"} file`,subtitle:void 0,question:{kind:"plain",text:"Do you want to proceed?"},content:{kind:"tool-use-line"}}}async function Lhe(e){let i=WR(e),o=e.tool;if(!fit(o))throw Error(`buildFilePermissionDescriptor called with non-file tool: ${e.tool.name}`);let t=e.remoteWorkspace===!0,r=o.isReadOnly(e.input)?"read":"write",{title:b,subtitle:R,question:d,content:_,contentWithheld:u}=await So({tool:o,input:e.input,remoteWorkspace:t,remoteOldContent:e.remoteOldContent}),w=oo(e.filePath,r,t);return{...i,title:b,subtitle:R,question:d,content:_,contentWithheld:u,filePath:e.filePath,operationType:r,symlinkTarget:w}}function to(e,i,o){if(e===Uy)return{completion_type:"str_replace_single",language_name:gIe(o)};if(e===Y_)return{completion_type:"write_file_single",language_name:gIe(o)};if(e===b7)return{completion_type:"tool_use_single",language_name:i.cell_type==="markdown"?"markdown":"python"};return{completion_type:"tool_use_single",language_name:gIe(o)}}async function Ee(e){let i=WR(e),o=e.sedInfo.filePath,t=gt(o),r=(Bn(o)||Bn(t))&&!(Ms(o)||Ms(t))||_r(o)||_r(t),b=!_T(t,{...e.toolPermissionContext,mode:"acceptEdits"},"write").allowed,R=b&&!r&&await le().lstat(gt(o)).then((I)=>I.isSymbolicLink(),()=>!1),d="",_=!1,u=!1;if(!r&&!b)try{d=(await db(t,Efe)).content,_=!0}catch(I){if(mj(I))_=!0,u=!0;else if(!X(I)&&!Boe(I))throw I}let w="",P=!1,f=d.length>Y;if(!f)try{w=z4n(d,e.sedInfo)}catch{P=!0}let x=f||P||w.length>Y||lk(d)||lk(w),T=r||b||u||x||d===w?[]:[{old_string:d,new_string:w,replace_all:!1}],A=r?`Network path \u2014 diff not previewed. The sed command will run against ${ae(t)} on approval.`:R?`${ae(gt(o))} is a symbolic link whose target is not editable in place here \u2014 not previewed. On approval the sed command runs as written: \`sed -i\` reads THROUGH the link and writes the result as a regular file in the link's place (the target's edited contents land there); the target itself is not modified.`:b?`Not previewable as an in-place edit here \u2014 the sed command will run against ${ae(t)} on approval.`:u?`Existing file is too large to preview \u2014 the sed command will run against ${ae(t)} on approval.`:x?`The edit is too large to preview \u2014 the sed command will run against ${ae(t)} on approval.`:_?"Pattern did not match any content":"File does not exist",v=oo(t,"write",!1),k=r||b||u||x?{...e.input}:{...e.input,_simulatedSedEdit:{filePath:t,newContent:w,baseHash:Nn(d)}};return{...i,input:k,title:"Edit file",subtitle:Se(t,!1),question:{kind:"file-action",verbPhrase:"make this edit to",fileName:ye(t,!1)},content:T.length>0?{kind:"file-edit-diff",filePath:t,edits:T}:{kind:"no-changes",message:A},contentWithheld:u||r||x||b,filePath:t,operationType:"write",symlinkTarget:v}}function io(e){return{completion_type:"str_replace_single",language_name:gIe(e)}}function ae(e){return Ku(nr(e),Eo)}var Eo=160;var git=go({kind:"permission_monitor",payload:m(()=>Np((e)=>typeof e==="object"&&e!==null&&("requestId"in e)&&("toolName"in e)&&("permissionResult"in e)&&("intervalMs"in e))),result:m(()=>Np((e)=>typeof e==="object"&&e!==null&&("behavior"in e))),default:{behavior:"cancelled"},yieldsToPanels:!0});var hit=go({kind:"permission_powershell",payload:m(()=>Np((e)=>typeof e==="object"&&e!==null&&("requestId"in e)&&("toolName"in e)&&("permissionResult"in e)&&("command"in e))),result:m(()=>Np((e)=>typeof e==="object"&&e!==null&&("behavior"in e))),default:{behavior:"cancelled"},yieldsToPanels:!0});var _it=go({kind:"permission_skill",payload:m(()=>Np((e)=>typeof e==="object"&&e!==null&&("requestId"in e)&&("toolName"in e)&&("permissionResult"in e)&&("skill"in e))),result:m(()=>Np((e)=>typeof e==="object"&&e!==null&&("behavior"in e))),default:{behavior:"cancelled"},yieldsToPanels:!0});var yit=go({kind:"permission_webfetch",payload:m(()=>Np((e)=>typeof e==="object"&&e!==null&&("requestId"in e)&&("toolName"in e)&&("permissionResult"in e)&&("hostname"in e))),result:m(()=>Np((e)=>typeof e==="object"&&e!==null&&("behavior"in e))),default:{behavior:"cancelled"},yieldsToPanels:!0});var no=jC(()=>fi.autoDenyPresence);async function Ce(e){s("tengu_unary_event",{event:c(e.event),completion_type:c(e.completion_type),language_name:await e.metadata.language_name,message_id:ve(e.metadata.message_id),platform:nP(e.metadata.platform),...e.metadata.hasFeedback!==void 0&&{hasFeedback:e.metadata.hasFeedback}})}import{randomUUID as Fo}from"crypto";import{basename as Mo}from"path";function ro(e,i,o,t){let r=t==="single",b=iSe({filePath:e,oldContent:i,newContent:o,singleHunk:r});if(b.length===0)return[];if(r&&b.length>1)h(Error(`Unexpected number of hunks: ${b.length}. Expected 1 hunk.`));return lqn(b)}async function so(e,i,o,t,r){let b=!1,R=gt(e),d="";try{d=(await db(R)).content}catch(P){if(!X(P)&&!Boe(P))throw P}function _(){if(o.abortController.signal.aborted||r())throw new Ze}_();async function u(){if(b)return;b=!0;try{await xe(t,w)}catch(P){n(`Failed to close diff tab in IDE: ${P instanceof Error?P.message:String(P)}`,{level:"error"})}process.off("beforeExit",u),o.abortController.signal.removeEventListener("abort",u)}o.abortController.signal.addEventListener("abort",u),process.on("beforeExit",u);let w=Ok(o.options.mcpClients);try{let{updatedFile:P}=Kan({filePath:R,fileContents:d,edits:i});if(!w||w.type!=="connected")throw Error("IDE client not available");let f=R,x=w.config.ideRunningInWindows===!0;if(D()==="wsl"&&x&&a.WSL_DISTRO_NAME)f=await new que(a.WSL_DISTRO_NAME).toIDEPath(R),_();let T=await Mjt("openDiff",{old_file_path:f,new_file_path:f,new_file_contents:P,tab_name:t},w),A=Array.isArray(T)?T:[T];if(Io(A))return u(),{oldContent:d,newContent:A[1].text};else if(Co(A))return u(),{oldContent:d,newContent:P};else if(xo(A))return u(),{oldContent:d,newContent:d};throw Error("Not accepted")}catch(P){if(!It(P))n(`Failed to show diff in IDE: ${P instanceof Error?P.message:String(P)}`,{level:"error"});throw u(),P}}async function xe(e,i){try{if(!i||i.type!=="connected")throw Error("IDE client not available");await Mjt("close_tab",{tab_name:e},i),y("ide_close_diff_tab")}catch(o){n(`Failed to close diff tab in IDE: ${o instanceof Error?o.message:String(o)}`,{level:"error"}),g("ide_close_diff_tab","ide_close_diff_tab_failed")}}function Co(e){return Array.isArray(e)&&typeof e[0]==="object"&&e[0]!==null&&"type"in e[0]&&e[0].type==="text"&&"text"in e[0]&&e[0].text==="TAB_CLOSED"}function xo(e){return Array.isArray(e)&&typeof e[0]==="object"&&e[0]!==null&&"type"in e[0]&&e[0].type==="text"&&"text"in e[0]&&e[0].text==="DIFF_REJECTED"}function Io(e){return Array.isArray(e)&&e[0]?.type==="text"&&e[0].text==="FILE_SAVED"&&typeof e[1].text==="string"}function jo(e,i){if(e===Uy){let o=Uy.inputSchema.parse(i);return{filePath:o.file_path,edits:[{old_string:o.old_string,new_string:o.new_string,replace_all:o.replace_all||!1}]}}if(e===Y_){let o=Y_.inputSchema.parse(i),t=gt(o.file_path),r="";if((!(Bn(o.file_path)||Bn(t))||Ms(o.file_path)||Ms(t))&&!_r(o.file_path)&&!_r(t))try{r=SR(t,aSe)}catch(b){if(mj(b))return null;if(!X(b)&&!Boe(b))throw b}return{filePath:o.file_path,edits:[{old_string:r,new_string:o.content,replace_all:!1}]}}return null}function Uo(e,i,o){let t=o[0];if(!t)return i;if(e===Uy)return{...i,old_string:t.old_string,new_string:t.new_string,replace_all:t.replace_all||!1};if(e===Y_)return{...i,content:t.new_string};return i}function lo(e,i,o){if(e!==Uy&&e!==Y_)return null;if(o.forRemoteExecution===!0)return null;if(ow(i))return null;let t=o.options.mcpClients;if(!RTe(t))return null;if(ie().diffTool!=="auto")return null;let r=jo(e,i);if(r===null)return null;let b=gt(r.filePath);if((Bn(r.filePath)||Bn(b))&&!(Ms(r.filePath)||Ms(b))||_r(r.filePath)||_r(b))return null;if(fJ(r.filePath)||fJ(b))return null;let R=Ok(t);if(!R)return null;return{ideName:o_t(t)??"IDE",ideClient:R,filePath:r.filePath,edits:r.edits}}function ao(e){if(e.permissionResult.localDisplayOnly===!0)return{closeTab:()=>{}};if(e.ctx.toolUseContext.forRemoteExecution===!0||ow(e.input))return{closeTab:()=>{}};let{ctx:i,tool:o,input:t,permissionResult:r,permissionPromptStartTimeMs:b,eligibility:R,claim:d,notifyBridge:_,dismissAndTeardown:u,resolveOnce:w}=e,{filePath:P,edits:f,ideName:x,ideClient:T}=R,A=Fo().slice(0,6),v=`\u273B [Claude Code] ${Mo(P)} (${A}) \u29C9`,k=!1;function I(){if(k)return;k=!0,xe(v,T).catch((F)=>{n(`closeTabInIDE failed: ${F}`,{level:"error"})})}let E={ideName:x,toolName:Un(o.name),editCount:f.length};return s("tengu_ext_will_show_diff",{}),so(P,f,i.toolUseContext,v,()=>k).then(({oldContent:F,newContent:B})=>{let M=ro(P,F,B,"single"),H={...E,isNewFile:F===""};if(M.length===0){if(k||!d())return;I(),s("tengu_ext_diff_rejected",H),y("ide_diff_view"),_({behavior:"deny",message:"User denied via IDE"}),u(),i.logDecision({decision:"reject",source:{type:"user_reject",hasFeedback:!1}},{permissionPromptStartTimeMs:b}),w(i.cancelAndAbort(void 0));return}if(k||!d())return;if(I(),r.denialLimitFallback!==void 0)rpt(i.toolUseContext),y("permission_auto_mode_denial_fallback",{autoDenied:!1});let S=Uo(o,t,M);s("tengu_ext_diff_accepted",H),y("ide_diff_view"),_({behavior:"allow",updatedInput:S,updatedPermissions:[]}),u(),i.logDecision({decision:"accept",source:{type:"user",permanent:!1}},{permissionPromptStartTimeMs:b}),w(i.handleUserAllow(S,[],{permissionPromptStartTimeMs:b,decisionReason:r.decisionReason,matchedAskRule:r.matchedAskRule}))}).catch((F)=>{if(k||i.toolUseContext.abortController.signal.aborted)return;n(`IDE diff view failed: ${F instanceof Error?F.message:String(F)}`,{level:"error"}),g("ide_diff_view","ide_diff_view_failed")}),{closeTab:I}}import{randomUUID as Oo}from"crypto";function No(e,i){if(i.length===0)return;if(e.toolUseContext.forRemoteExecution===!0||E$(e.toolUseContext))return;let o=[];for(let t of i)if(t.type==="setMode"){let r=e.setModeFromBridge(t.mode);if(!r.ok)n(`bridge setMode '${t.mode}' rejected (${r.error}); falling back to 'default'`),e.setModeFromBridge("default")}else o.push(t);if(o.length>0)e.persistPermissions(o)}function mo(e){let{ctx:i,description:o,result:t,displayInput:r,permissionPromptStartTimeMs:b,awaitAutomatedChecksBeforeDialog:R,bridgeCallbacks:d,channelCallbacks:_,claim:u,isResolved:w,onWin:P,onReprompt:f}=e,x=t.localDisplayOnly||t.denialLimitFallback!==void 0||i.toolUseContext.forRemoteExecution===!0,T=x?void 0:d,A=x?void 0:_,{setClassifierApprovals:v}=i,k=T?Oo():void 0,I,E,F;function B(S){if(T&&k){if(S)T.sendResponse(k,S);T.cancelRequest(k)}I?.(),E?.()}if(T&&k){let S="";if(i.tool.name!==Qe&&i.tool.name!==Bt)try{S=i.tool.getToolUseSummary?.(r)??i.tool.getActivityDescription?.(r)??""}catch{S=""}T.sendRequest(k,i.tool.name,r,i.toolUseID,ctn(co(S)),t.suggestions,t.blockedPath,i.tool.requiresUserInteraction?.());let W=i.toolUseContext.abortController.signal;I=T.onResponse(k,i.tool.name,(U)=>{if(!u())return;if(U.updatedPermissionsDropped)g("permission_bridge_relay","updated_permissions_malformed");else y("permission_bridge_relay");if(I)W.removeEventListener("abort",I);if(V8(v,i.toolUseID),E?.(),U.behavior==="allow"){let j=i.tool.suppressesAllPermissionUpdates?.(r)===!0?_D(U.updatedPermissions??[]):i.tool.suppressesAlwaysAllowRule?.(r)===!0||t.suppressAlwaysAllowRule===!0?a9(U.updatedPermissions??[],i.tool,he(i.toolUseContext)):U.updatedPermissions??[];if(No(i,j),j.length)nPt(j);i.logDecision({decision:"accept",source:{type:"user",permanent:!!j.length}},{input:U.updatedInput??r,permissionPromptStartTimeMs:b}),P(i.buildAllow(U.updatedInput??r))}else i.logDecision({decision:"reject",source:{type:"user_reject",hasFeedback:!!U.message}},{permissionPromptStartTimeMs:b}),P(i.cancelAndAbort(U.message,void 0,void 0,{feedbackIsFromUser:!0}))}),W.addEventListener("abort",I,{once:!0})}if(A&&!i.tool.requiresUserInteraction?.()){let S=jUn(i.toolUseID),W=hf(),U=qUn(i.toolUseContext.getMcp().clients,(j)=>hZ(j,W)!==void 0,(j)=>A.isServerRegistered(j));if(U.length>0){let j={request_id:S,tool_name:i.tool.name,description:ctn($fe(o)),input_preview:WUn(r)};for(let q of U){if(q.type!=="connected")continue;yJn(q,{method:dtn,params:j}).catch((G)=>{p("permission_channel_relay","permission_channel_relay_send_failed"),n(`Channel permission_request failed for ${q.name}: ${l(G)}`,{level:"error"})})}let z=i.toolUseContext.abortController.signal,pe=A.onResponse(S,(q)=>{if(!u())return;if(y("permission_channel_relay"),E?.(),V8(v,i.toolUseID),T&&k)T.cancelRequest(k);if(I?.(),q.behavior==="allow")i.logDecision({decision:"accept",source:{type:"user",permanent:!1}},{permissionPromptStartTimeMs:b}),P(i.buildAllow(r));else i.logDecision({decision:"reject",source:{type:"user_reject",hasFeedback:!1}},{permissionPromptStartTimeMs:b}),P(i.cancelAndAbort(`Denied via channel ${q.fromServer}`))});E=()=>{pe(),z.removeEventListener("abort",E)},z.addEventListener("abort",E,{once:!0})}}let M=t.serverApprovalWatch,L=M?QUn():null,H=M&&L?.isEnabled()?L.createObserver(M,i.toolUseContext.toolState,i.toolUseContext.credentials):null;if(M&&H){let S=i.toolUseContext.abortController.signal,W=!1;F=()=>{W=!0},(async()=>{let U=await H.poll(),j=3000,z=15000;while(!U&&!w()&&!S.aborted&&!W){if(await ne(j,S),w()||S.aborted||W)return;if(U=await H.poll(),!U){j=Math.min(Math.round(j*1.5),z);continue}if(he(i.toolUseContext).mode==="plan"){n("Server approval observed but parked: session is in plan mode"),U=!1,j=Math.min(Math.round(j*1.5),z);continue}if(W||!u())return;if(V8(v,i.toolUseID),T&&k)T.cancelRequest(k);I?.(),E?.(),y("permission_server_approval_watch"),i.logDecision({decision:"accept",source:{type:"user",permanent:!1}},{permissionPromptStartTimeMs:b}),P(i.buildAllow({...t.updatedInput??r,__projectGrantServerObserved:!0}));return}})().catch((U)=>{p("permission_server_approval_watch","watcher_stopped"),n(`Server-approval watcher stopped (${l(U)})`)})}if(!R)(async()=>{if(w())return;let S=await i.runHooks(he(i.toolUseContext).mode,t.suggestions,t.updatedInput,b);if(S&&"reprompted"in S){if(w())return;if(V8(v,i.toolUseID),T&&k)T.cancelRequest(k),k=void 0;I?.(),E?.(),F?.(),f(S.finalInput,S.reprompted.decisionReason,S.reprompted);return}if(!S||!u())return;if(T&&k)T.cancelRequest(k);I?.(),E?.(),P(S)})().catch((S)=>{if(S instanceof la){n("PermissionRequest hooks cancelled (control stream closed)");return}h(S)});return{notifyBridgeAndTeardown:B}}var po=null,uo=null,Pe=import.meta.require("/$bunfs/root/chunk-rph32sgj.js").WorkflowTool,fo=import.meta.require("/$bunfs/root/chunk-d8cf5aj4.js").workflowPermissionDialog,yo=import.meta.require("/$bunfs/root/chunk-zps7zpen.js"),Wo=import.meta.require("/$bunfs/root/chunk-3qjkzrw8.js").MonitorTool;function Q(e){return e}var Lo=[Q({matches:(e)=>e===tg,dialog:yit,build:Ve}),Q({matches:(e)=>e.name.startsWith(uI),dialog:dit,build:He}),Q({matches:(e)=>e===Gle,dialog:Dhe,build:ze}),Q({matches:(e)=>e===HFt,dialog:pit,build:WR}),Q({matches:(e)=>e===e2,dialog:Cje,build:eo}),Q({matches:(e)=>e===P4e,dialog:_it,build:Ke}),...[],Q({matches:(e)=>e.name===Bt,dialog:hit,build:Ye}),Q({matches:(e)=>e===Wo,dialog:git,build:Ge}),...po!==null&&uo!==null?[Q({matches:(e)=>e===po,dialog:uo,build:Je})]:[],...Pe!==null&&fo!==null?[Q({matches:(e)=>e===Pe,dialog:fo,build:Xe})]:[]];function ltn(e){return Lo.find((i)=>i.matches(e))}async function Rje(e,i){let{ctx:o,description:t,result:r}=e,b=Ae(o.toolUseContext),R=Pe!==null&&yo!==null&&o.tool===Pe?(A)=>{if(A.behavior==="allow")yo.recordWorkflowUsageConsent(o.toolUseContext.session.workflowUsageConsent,o.toolUseContext.storageV5);i(A)}:i,{resolve:d,isResolved:_,claim:u}=tPt(R),w={resolve:d,isResolved:_,claim:u},P="dark",f={tool:o.tool,description:t,toolUseID:o.toolUseID,assistantMessage:o.assistantMessage,theme:"dark",requestSource:b};function x(){de(e,w,{dialog:kre,buildDescriptor:({input:A,permissionResult:v})=>WR({...f,input:A,permissionResult:v})})}let T=ltn(o.tool);if(T!==void 0){let A=!!(e.bridgeCallbacks||e.channelCallbacks&&!o.tool.requiresUserInteraction?.());de(e,w,{dialog:T.dialog,buildDescriptor:({input:v,permissionResult:k})=>T.build({...f,input:v,permissionResult:k,hasExternalRacer:A})});return}if(fit(o.tool)){let A=r.updatedInput??o.input,v=mit(o.tool,A);if(v!==null){let k=lo(o.tool,A,o.toolUseContext),I=Date.now(),E,F=o.toolUseContext.forRemoteExecution===!0||ow(A),B=await Lhe({...f,input:A,permissionResult:r,filePath:v,remoteWorkspace:F});if(o.resolveIfAborted(w.resolve))return;de(e,w,{dialog:Ohe,buildDescriptor:({input:M,permissionResult:L})=>{if(E?.isReprompted()!==!0){if(k!==null)return{...B,permissionResult:L,showingDiffInIDE:!0,ideName:k.ideName};return{...B,permissionResult:L}}return async function*(){try{let S=mit(o.tool,M);if(S===null)throw Error("no file path could be derived from the hook-rewritten input");yield await Lhe({...f,input:M,permissionResult:L,filePath:S,remoteWorkspace:o.toolUseContext.forRemoteExecution===!0||ow(M)})}catch(S){if(n(`File permission reprompt: cannot preview the hook-rewritten input of ${o.tool.name} (${l(S)}); denying instead of showing a stale preview`,{level:"error"}),u())E?.dismissAndTeardown(),E?.logRepromptDenyDecision(),d(o.cancelAndAbort(`Failed to preview the hook-rewritten file operation: ${l(S)}`))}}()},unaryEvent:to(o.tool,A,v),onRacersReady:(M)=>{if(E=M,k===null)return;let{closeTab:L}=ao({ctx:o,tool:o.tool,input:A,permissionResult:r,permissionPromptStartTimeMs:I,eligibility:k,claim:w.claim,notifyBridge:M.notifyBridge,dismissAndTeardown:M.dismissAndTeardown,resolveOnce:w.resolve});M.addTeardown(L)}});return}x();return}if(o.tool===_i){let A=r.updatedInput??o.input,v=typeof A.command==="string"?A.command:"",k=o.toolUseContext.forRemoteExecution===!0||ow(A)?null:qee(v);if(k!==null){let E=await Ee({...f,input:A,permissionResult:r,sedInfo:k,toolPermissionContext:he(o.toolUseContext)});if(o.resolveIfAborted(w.resolve))return;let F;de(e,w,{dialog:Ohe,buildDescriptor:({input:B,permissionResult:M})=>{if(F?.isReprompted()!==!0)return{...E,permissionResult:M};return async function*(){let H=typeof B.command==="string"?B.command:"",S=qee(H);if(S===null){if(n("Sed-edit permission reprompt: rewritten command no longer parses as a sed edit; denying instead of showing a stale preview",{level:"error"}),u())F?.dismissAndTeardown(),F?.logRepromptDenyDecision(),d(o.cancelAndAbort("The hook rewrote this sed edit into a command that cannot be previewed as a file edit. Re-run the rewritten command directly if intended."));return}try{yield await Ee({...f,input:B,permissionResult:M,sedInfo:S,toolPermissionContext:he(o.toolUseContext)})}catch(W){if(n(`Sed-edit permission reprompt: descriptor rebuild failed (${l(W)}); denying instead of executing a stale simulation`,{level:"error"}),u())F?.dismissAndTeardown(),F?.logRepromptDenyDecision(),d(o.cancelAndAbort(`Failed to preview the hook-rewritten sed edit: ${l(W)}`))}}()},unaryEvent:io(k.filePath),onRacersReady:(B)=>{F=B}});return}let I=he(o.toolUseContext);de(e,w,{dialog:V0e,buildDescriptor:({input:E,permissionResult:F})=>ZIt({...f,input:E,permissionResult:F,classifierState:"none",toolPermissionContext:I})});return}x()}function de(e,i,o){let{ctx:t,description:r,result:b,awaitAutomatedChecksBeforeDialog:R,bridgeCallbacks:d,channelCallbacks:_}=e,{resolve:u,isResolved:w,claim:P}=i,f=t.toolUseContext.requestDialog;if(f===void 0)return;let x=f,T=t.toolUseContext.agentContext,A=kbt(t.toolUseContext),v=Date.now(),k=b.updatedInput??t.input,I=b.decisionReason,E=b,F=0,B,M=[];function L(){if(M.length===0)return;let C=M.splice(0,M.length);for(let O of C)try{O()}catch(J){n(`Dialog teardown failed: ${l(J)}`,{level:"error"})}}let H=!1,S=o.unaryEvent??{completion_type:"tool_use_single",language_name:"none"},W=t.toolUseContext.abortController.signal;function U(){if(H)return;H=!0;let C=t.permissionMode;t.toolUseContext.applyAttributionOp({kind:"incrementPermissionPrompt"}),s("tengu_tool_use_show_permission_request",{messageID:ve(t.messageId),toolName:Un(t.tool.name),isMcp:t.tool.isMcp??!1,decisionReasonType:ke(E.decisionReason?.type),sandboxEnabled:pt.isSandboxingEnabled(),permissionMode:c(C),requestSource:ke(Ae(t.toolUseContext)?.type),originAgentType:c(EC(T)&&T.isMainSession?"main":T.agentType)}),Ce({completion_type:S.completion_type,event:"response",metadata:{language_name:S.language_name,message_id:t.assistantMessage.message.id,platform:a.platform}})}function j(C){Ce({completion_type:S.completion_type,event:C,metadata:{language_name:S.language_name,message_id:t.assistantMessage.message.id,platform:a.platform}})}function z(){B?.abort(),ck.clearHookFailure(t.toolUseID),ck.emit(null),Re(),L()}let pe=0,{notifyBridgeAndTeardown:q}=mo({ctx:t,description:r,result:b,displayInput:k,permissionPromptStartTimeMs:v,awaitAutomatedChecksBeforeDialog:R,bridgeCallbacks:d,channelCallbacks:_,claim:P,isResolved:w,onWin(C){z(),u(C)},onReprompt(C,O,J){pe+=1,k=C,I=O,E=E.denialLimitFallback!==void 0?{...J,denialLimitFallback:E.denialLimitFallback}:J,B?.abort(),L(),Fe()}}),G=!1,be,De,ue,_e,oe,Ie=()=>{if(G||w())return;if(be?.(),oe!==void 0)_e?.({...oe,permissionResult:E})},Re=m7.subscribe(()=>{if(w())return;if(be!==void 0&&!G&&!Qy(HH(t.tool,he(t.toolUseContext))))Ie();if(t.tool.requiresUserInteraction?.())return;if(b.forcedByCaller===!0)return;Ld(t.tool,t.input,t.toolUseContext,t.assistantMessage,t.toolUseID).then((C)=>{if(C.behavior!=="allow")return;if(!P())return;Re(),q(),B?.abort(),ck.clearHookFailure(t.toolUseID),ck.emit(null),L(),t.logDecision({decision:"accept",source:"config"}),u(t.buildAllow(C.updatedInput??t.input,{decisionReason:C.decisionReason}))}).catch((C)=>{if(!It(C))h(ft(we(C),"permissionRecheckSignal: hasPermissionsToUseTool failed"))})});function Fe(){let C=++F;oe=void 0,wo();let O=new AbortController;B=O;let J=()=>O.abort();if(W.aborted)O.abort();else W.addEventListener("abort",J,{once:!0});let ge=o.buildDescriptor({input:k,permissionResult:E}),K,Ue=!1,Oe=[],Ne=(N)=>{if(G)N={...N,permissionResult:E};if(oe=N,K!==void 0){let se=K;K=void 0,se({value:N,done:!1})}else Oe.push(N)},Be=(N)=>{if(Kwn(N))(async()=>{try{for await(let se of N){if(O.signal.aborted)return;Ne(se)}}catch{}})();else Ne(N)};_e=Be;let ko={[Symbol.asyncIterator](){return{next:()=>{if(Ue)return Promise.resolve({value:void 0,done:!0});let N=Oe.shift();if(N!==void 0)return Promise.resolve({value:N,done:!1});return new Promise((se)=>{K=se})},return:()=>{let N={value:void 0,done:!0};return K?.(N),K=void 0,Promise.resolve(N)}}}};U(),ck.emit({...qe({tool:t.tool,input:k}),toolUseID:t.toolUseID});let We=Z!==void 0&&!A&&!G,Le=()=>{Ue=!0,K?.({value:void 0,done:!0}),K=void 0};if(We){if(O.signal.aborted)Le();else O.signal.addEventListener("abort",Le,{once:!0});Be(ge)}x(o.dialog,We?ko:ge,{signal:O.signal,queueBehind:A,armInputGrace:A}).then((N)=>{if(W.removeEventListener("abort",J),C!==F)return;if(!P())return;bo(N)})}function bo(C){switch(ck.clearHookFailure(t.toolUseID),ck.emit(null),Re(),L(),C.behavior){case"allow":{if(b.denialLimitFallback!==void 0)rpt(t.toolUseContext),y("permission_auto_mode_denial_fallback",{autoDenied:!1});q({behavior:"allow",updatedInput:C.updatedInput,updatedPermissions:[...C.permissionUpdates??[]]}),j("accept"),u(t.handleUserAllow(C.updatedInput,C.permissionUpdates??[],{feedback:C.feedback,permissionPromptStartTimeMs:v,contentBlocks:C.contentBlocks,decisionReason:I,matchedAskRule:E.matchedAskRule}));return}case"deny":{if(b.denialLimitFallback!==void 0)y("permission_auto_mode_denial_fallback",{autoDenied:!1});q({behavior:"deny",message:C.feedback??"User denied permission"}),j("reject"),t.logDecision({decision:"reject",source:{type:"user_reject",hasFeedback:!!C.feedback}},{permissionPromptStartTimeMs:v,input:k}),u(t.cancelAndAbort(C.feedback,void 0,C.contentBlocks,{feedbackIsFromUser:!0}));return}case"cancelled":{if(q({behavior:"deny",message:"User aborted"}),j("reject"),t.logCancelled(),t.logDecision({decision:"reject",source:{type:"user_abort"}},{permissionPromptStartTimeMs:v,input:k}),A){u({behavior:"ask",message:rI});return}u(t.cancelAndAbort(void 0,!0));return}}}let Z=b.denialLimitFallback?.autoDenyAfterMs,te=b.denialLimitFallback?.autoDenyResolution,fe,re;function Me(){if(Z===void 0||G||w())return;if(fe=Date.now()+Z,je(Z,fe),oe!==void 0)_e?.({...oe,permissionResult:E})}function je(C,O){if(te===void 0)return;clearTimeout(re),E={...E,denialLimitFallback:sqn(E.denialLimitFallback,O)};let J=Math.max(0,O-Date.now()),ge=te.message;re=setTimeout(()=>{if(Jbe(o.dialog.kind)){Me();return}if(!P())return;z(),q({behavior:"deny",message:ge}),s("tengu_auto_mode_denial_dialog_auto_denied",{toolName:Un(t.tool.name),isMcp:t.tool.isMcp??!1,timeoutMs:C}),y("permission_auto_mode_denial_fallback",{autoDenied:!0}),j("reject"),t.logDecision({decision:"reject",source:"config"},{permissionPromptStartTimeMs:v,input:k}),e.onClassifierDenyDelivered?.(te),u(te)},J),re.unref?.()}function wo(){if(Z===void 0||te===void 0||A||G)return;fe??=Date.now()+Z,je(Z,fe),M.push(()=>clearTimeout(re)),be=()=>{G=!0,clearTimeout(re);let O=E.denialLimitFallback;if(O!==void 0)E={...E,denialLimitFallback:aqn(O)}},De?.(),De=no.subscribe(()=>{Ie()}),M.push(()=>De?.()),ue?.();let C=Jbe(o.dialog.kind);ue=QBt(()=>{let O=Jbe(o.dialog.kind);if(C&&!O)Me();C=O}),M.push(()=>{ue?.(),ue=void 0})}o.onRacersReady?.({dismissAndTeardown:z,notifyBridge:q,isReprompted:()=>pe>0,addTeardown:(C)=>{M.push(C)},logRepromptDenyDecision:()=>{j("reject"),t.logDecision({decision:"reject",source:{type:"hook"}},{permissionPromptStartTimeMs:v,input:k})}}),Fe()}function Po(e,i){let{live:o,notice:t}=eSe(e,{suppressDropTelemetry:!0}),r=xfn(o),b=-1;for(let _=o.length-1;_>=0;_--){let u=o[_];if(u&&xgt(u)){b=_;break}}let R=new Set;for(let _=b+1;_<o.length;_++){let u=o[_];if(!u||u.type!=="assistant")continue;for(let w of u.message.content)if(w.type==="tool_use"&&w.name===Xr)R.add(w.id)}let d=new Map;for(let _=b+1;_<o.length;_++){let u=o[_];if(!u||u.type!=="user"||typeof u.message.content==="string")continue;for(let w of u.message.content)if(w.type==="tool_result"&&R.has(w.tool_use_id))d.set(w.tool_use_id,w.is_error!==!0&&!qo(w.content))}for(let _=o.length-1;_>=0;_--){let u=o[_];if(!u)continue;if(xgt(u))break;if(u.type!=="assistant"||u.isApiErrorMessage)continue;if(u.message.content.some((f)=>f.type==="tool_use"&&f.name===Xr&&typeof f.input==="object"&&f.input!==null&&("to"in f.input)&&typeof f.input.to==="string"&&(f.input.to===vi||f.input.to===yp)&&d.get(f.id)===!0)){if(i?.emitTelemetry===!0)g("swarm_idle_result_delivery","suppressed_lead_dm");return{result:void 0,summary:r}}if(!jIe(u.message.content))continue;let P=u.message.content.flatMap((f)=>f.type==="text"&&typeof f.text==="string"?[f.text]:[]).join(`
-`);if(P){let f=oF(P).sanitized;return{result:t?`\u26A0 ${t.content}
+import { jC, Mn, hf } from "/$bunfs/root/chunk-f9h0bg01.js";
+import { ne } from "/$bunfs/root/chunk-tx16jn0x.js";
+import { s } from "/$bunfs/root/chunk-r53tkxrh.js";
+import { c, ke } from "/$bunfs/root/chunk-4xj01xwv.js";
+import { y, p, g } from "/$bunfs/root/chunk-ca80fke8.js";
+import { Ze, la, It, ft, we, l, X } from "/$bunfs/root/chunk-ypdw393e.js";
+import { h } from "/$bunfs/root/chunk-wkxx62a2.js";
+import { V, Qo, le, co, $fe, n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { ce, Ku } from "/$bunfs/root/chunk-4ddxwr9r.js";
+import { m } from "/$bunfs/root/chunk-bzx56g36.js";
+import { HH, Qe, Bt, ve, $tr, E$, GV, kre, EC, kbt, A$, Un, nP, ie } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import {
+  V8,
+  gIe,
+  I9n,
+  Hee,
+  tg,
+  jIe,
+  eSe,
+  m7,
+  X0,
+  e2,
+  Y0,
+  J0,
+  oF,
+  qee,
+  z4n,
+  iSe,
+  aSe,
+  Y_,
+  jle,
+  Dm,
+  Od,
+  t2,
+  Gee,
+  GA,
+  t9,
+  cSe,
+  Y4n,
+  Edt,
+  es,
+  Om,
+  lk,
+  J4n,
+  Bo,
+  Cv,
+  Van,
+  b7,
+  Gle,
+  HFt,
+  P4e,
+  sqn,
+  aqn,
+  Kan,
+  lqn,
+  Pdt,
+  w7,
+  ck,
+  Uy,
+  _i,
+  rpt,
+  a9,
+  _D,
+  pPe,
+  Ld,
+  Jx,
+  tm,
+  f2,
+  sT,
+  mk,
+  rI,
+  S9,
+} from "/$bunfs/root/chunk-zze8764r.js";
+import { a } from "/$bunfs/root/chunk-fec4384a.js";
+import { ee } from "/$bunfs/root/chunk-4fwj3vnx.js";
+import { gt, fJ, Efe } from "/$bunfs/root/chunk-q14dgq5g.js";
+import { Yi } from "/$bunfs/root/chunk-98tgyb1d.js";
+import { Rgn, he } from "/$bunfs/root/chunk-h605j25g.js";
+import { ELe, cWt, yH, ade, FM } from "/$bunfs/root/chunk-2n1hsggr.js";
+import { Ci } from "/$bunfs/root/chunk-cds31m36.js";
+import { Dp, Bh, BM } from "/$bunfs/root/chunk-nkjrjh5n.js";
+import { Qy } from "/$bunfs/root/chunk-wgz3g40p.js";
+import { ow } from "/$bunfs/root/chunk-1mp2j0tx.js";
+import { Jbe, QBt } from "/$bunfs/root/chunk-308krgtb.js";
+import { xgt, xfn } from "/$bunfs/root/chunk-da857b4g.js";
+import { yJn } from "/$bunfs/root/chunk-x06p1jhb.js";
+import { Ok, RTe, o_t, Mjt } from "/$bunfs/root/chunk-vx3kc9d2.js";
+import { pt } from "/$bunfs/root/chunk-w3c6n7jh.js";
+import { _T } from "/$bunfs/root/chunk-91315wj5.js";
+import { fi } from "/$bunfs/root/chunk-8td9ks9h.js";
+import { uI } from "/$bunfs/root/chunk-986hvegp.js";
+import { dtn, hZ } from "/$bunfs/root/chunk-ndav7ebh.js";
+import { nPt } from "/$bunfs/root/chunk-chwy8rna.js";
+import { jUn, ctn, WUn, qUn } from "/$bunfs/root/chunk-tp60f6ta.js";
+import { QUn } from "/$bunfs/root/chunk-5vzrk7mr.js";
+import { htn, aPt } from "/$bunfs/root/chunk-p26tvkqz.js";
+import { nr } from "/$bunfs/root/chunk-8asdkt5r.js";
+import { a9e } from "/$bunfs/root/chunk-ak3rzqa8.js";
+import { Xr } from "/$bunfs/root/chunk-p8c745fb.js";
+import { que } from "/$bunfs/root/chunk-61nasexv.js";
+import { Wh } from "/$bunfs/root/chunk-h6vcz0m0.js";
+import { yp } from "/$bunfs/root/chunk-b40bn863.js";
+import { Np, go, Kwn } from "/$bunfs/root/chunk-gpvgrng0.js";
+import { vi } from "/$bunfs/root/chunk-75bjbbtd.js";
+import { Nn } from "/$bunfs/root/chunk-c48t1p6v.js";
+import { Boe, mj, SR, db } from "/$bunfs/root/chunk-052zvbpg.js";
+import { D } from "/$bunfs/root/chunk-7s7jqj2f.js";
+import { Bn, _r, Ms, Qi } from "/$bunfs/root/chunk-56sxk8k2.js";
+async function Aje(e) {
+  let { ctx: i, updatedInput: o, suggestions: t, permissionMode: r } = e,
+    b = !1;
+  try {
+    let R = await i.runHooks(r, t, o);
+    if (R && !("reprompted" in R)) return R;
+  } catch (R) {
+    if (((b = !0), R instanceof Error)) h(ft(R, "coordinator automated permission check failed"));
+    else
+      h(
+        ft(
+          Error(`Automated permission check failed: ${String(R)}`),
+          "coordinator automated permission check failed (non-Error throw)",
+        ),
+      );
+  } finally {
+    if (b) p("permission_coordinator_check", "permission_coordinator_check_failed");
+    else y("permission_coordinator_check");
+  }
+  return null;
+}
+function ePt({ feedback: e, contentBlocks: i, isSubagent: o }) {
+  return !e && !i?.length && !o;
+}
+function tPt(e) {
+  let i = !1,
+    o = !1;
+  return {
+    resolve(t) {
+      if (o) return;
+      (o = !0), (i = !0), e(t);
+    },
+    isResolved() {
+      return i;
+    },
+    claim() {
+      if (i) return !1;
+      return (i = !0), !0;
+    },
+  };
+}
+function vje(e, i, o, t, r, b, R) {
+  let d = t.message.id,
+    _ = he(o).mode;
+  function u(P, f) {
+    I9n(
+      { tool: e, input: f?.input ?? i, toolUseContext: o, messageId: d, toolUseID: r, permissionMode: _ },
+      P,
+      f?.permissionPromptStartTimeMs,
+    );
+  }
+  return Object.freeze({
+    tool: e,
+    input: i,
+    toolUseContext: o,
+    assistantMessage: t,
+    messageId: d,
+    toolUseID: r,
+    setClassifierApprovals: b,
+    permissionMode: _,
+    logDecision: u,
+    logCancelled() {
+      s("tengu_tool_use_cancelled", { messageID: ve(d), toolName: Un(e.name) });
+    },
+    persistPermissions(P) {
+      if (P.length === 0 || E$(o)) return !1;
+      if ((FM(P, o.storageV5).catch(h), R !== void 0)) R(yH(Rgn(he(o)), P));
+      else
+        o.setSessionToolPermissionContext((f) => yH(f, P)),
+          setImmediate(() => {
+            m7.emit();
+          });
+      return P.some((f) => ade(f.destination));
+    },
+    setModeFromBridge(P) {
+      return X0(P, he(o), o.setToolPermissionContext);
+    },
+    resolveIfAborted(P) {
+      if (!o.abortController.signal.aborted) return !1;
+      return this.logCancelled(), P(this.cancelAndAbort(void 0, !0)), !0;
+    },
+    cancelAndAbort(P, f, x, T) {
+      let A = !!o.agentId,
+        v = P ? `${A ? S9 : mk}${P}` : A ? rI : sT,
+        k = A ? v : f2(v);
+      if (f || ePt({ feedback: P, contentBlocks: x, isSubagent: A }))
+        n(`Aborting: tool=${e.name} isAbort=${f} hasFeedback=${!!P} isSubagent=${A}`), o.abortController.abort();
+      return { behavior: "ask", message: k, contentBlocks: x, ...(T?.feedbackIsFromUser && P && { userFeedback: P }) };
+    },
+    async runHooks(P, f, x, T) {
+      if (o.forRemoteExecution === !0) return null;
+      for await (let A of Hee(e.name, r, i, o, P, f, o.abortController.signal))
+        if (A.permissionRequestResult) {
+          let v = A.permissionRequestResult;
+          if (v.behavior === "allow") {
+            let k = v.updatedInput ?? x ?? i;
+            if (!v.updatedInput && e.requiresUserInteraction?.()) return null;
+            if (v.updatedInput) {
+              let I = pPe(await Jx(e, k, { ...o, toolUseId: r }, { hookUpdatedInput: v.updatedInput }), e.name);
+              if (I?.behavior === "deny")
+                return (
+                  this.logDecision(
+                    { decision: "reject", source: "config" },
+                    { input: k, permissionPromptStartTimeMs: T },
+                  ),
+                  { ...I, decideLocation: "ask-path" }
+                );
+              if (I?.behavior === "ask") return { reprompted: I, finalInput: k };
+            }
+            return this.handleHookAllow(k, v.updatedPermissions ?? [], T);
+          } else if (v.behavior === "deny") {
+            if (
+              (this.logDecision({ decision: "reject", source: { type: "hook" } }, { permissionPromptStartTimeMs: T }),
+              v.interrupt)
+            )
+              n(`Hook interrupt: tool=${e.name} hookMessage=${v.message}`), o.abortController.abort();
+            return this.buildDeny(v.message || "Permission denied by hook", {
+              type: "hook",
+              hookName: "PermissionRequest",
+              reason: v.message,
+            });
+          }
+        }
+      return null;
+    },
+    buildAllow(P, f) {
+      return {
+        behavior: "allow",
+        updatedInput: P,
+        userModified: f?.userModified ?? !1,
+        ...(f?.decisionReason && { decisionReason: f.decisionReason }),
+        ...(f?.acceptFeedback && { acceptFeedback: f.acceptFeedback }),
+        ...(f?.contentBlocks && f.contentBlocks.length > 0 && { contentBlocks: f.contentBlocks }),
+        ...(f?.matchedAskRule && { matchedAskRule: f.matchedAskRule }),
+      };
+    },
+    buildDeny(P, f) {
+      return { behavior: "deny", message: P, decisionReason: f, decideLocation: "ask-path" };
+    },
+    handleUserAllow(P, f, x) {
+      let T = cWt(f),
+        A =
+          o.forRemoteExecution === !0 || E$(o)
+            ? []
+            : e.suppressesAllPermissionUpdates?.(i) === !0
+              ? _D(T)
+              : e.suppressesAlwaysAllowRule?.(i) === !0 || x?.askSuppressesAlwaysAllowRule === !0
+                ? a9([...T], e, he(o))
+                : T,
+        v = this.persistPermissions(A);
+      nPt(A),
+        this.logDecision(
+          { decision: "accept", source: { type: "user", permanent: v } },
+          { input: P, permissionPromptStartTimeMs: x?.permissionPromptStartTimeMs },
+        );
+      let k = e.inputsEquivalent ? !e.inputsEquivalent(i, P) : !1,
+        I = x?.feedback?.trim();
+      return this.buildAllow(P, {
+        userModified: k,
+        decisionReason: x?.decisionReason,
+        acceptFeedback: I || void 0,
+        contentBlocks: x?.contentBlocks,
+        matchedAskRule: x?.matchedAskRule,
+      });
+    },
+    handleHookAllow(P, f, x) {
+      let T = this.persistPermissions(
+        o.forRemoteExecution === !0 ? [] : e.suppressesAllPermissionUpdates?.(i) === !0 ? _D(cWt(f)) : cWt(f),
+      );
+      return (
+        this.logDecision(
+          { decision: "accept", source: { type: "hook", permanent: T } },
+          { input: P, permissionPromptStartTimeMs: x },
+        ),
+        this.buildAllow(P, { decisionReason: { type: "hook", hookName: "PermissionRequest" } })
+      );
+    },
+  });
+}
+function qe(e) {
+  let i = e.input;
+  if (e.tool.name === Yi) return Pdt(i);
+  if (e.tool.name === Wh) return { text: "approve plan" };
+  let o = e.tool.userFacingName(e.input).trim(),
+    t =
+      typeof i?.command === "string"
+        ? i.command
+        : typeof i?.file_path === "string"
+          ? i.file_path
+          : typeof i?.url === "string"
+            ? i.url
+            : "",
+    r = o || e.tool.name;
+  return { text: t && !r.includes(t) ? w7(`approve ${r}: ${t}`) : `approve ${r}` };
+}
+var Dhe = go({
+  kind: "permission_ask_user_question",
+  payload: m(() =>
+    Np(
+      (e) =>
+        typeof e === "object" &&
+        e !== null &&
+        "requestId" in e &&
+        "toolName" in e &&
+        "permissionResult" in e &&
+        "questions" in e,
+    ),
+  ),
+  result: m(() => Np((e) => typeof e === "object" && e !== null && "behavior" in e)),
+  default: { behavior: "cancelled" },
+  yieldsToPanels: !0,
+});
+var V0e = go({
+  kind: "permission_bash",
+  payload: m(() =>
+    Np(
+      (e) =>
+        typeof e === "object" &&
+        e !== null &&
+        "requestId" in e &&
+        "toolName" in e &&
+        "permissionResult" in e &&
+        "command" in e &&
+        "classifierState" in e,
+    ),
+  ),
+  result: m(() => Np((e) => typeof e === "object" && e !== null && "behavior" in e)),
+  default: { behavior: "cancelled" },
+  yieldsToPanels: !0,
+});
+var dit = go({
+  kind: "permission_browser",
+  payload: m(() =>
+    Np(
+      (e) =>
+        typeof e === "object" &&
+        e !== null &&
+        "requestId" in e &&
+        "toolName" in e &&
+        "permissionResult" in e &&
+        "verbPhrase" in e,
+    ),
+  ),
+  result: m(() => Np((e) => typeof e === "object" && e !== null && "behavior" in e)),
+  default: { behavior: "cancelled" },
+  yieldsToPanels: !0,
+});
+var pit = go({
+  kind: "permission_enter_plan_mode",
+  payload: m(() =>
+    Np((e) => typeof e === "object" && e !== null && "requestId" in e && "toolName" in e && "permissionResult" in e),
+  ),
+  result: m(() => Np((e) => typeof e === "object" && e !== null && "behavior" in e)),
+  default: { behavior: "cancelled" },
+  yieldsToPanels: !0,
+});
+var Cje = go({
+  kind: "permission_exit_plan_mode_v2",
+  payload: m(() =>
+    Np(
+      (e) =>
+        typeof e === "object" &&
+        e !== null &&
+        "requestId" in e &&
+        "toolName" in e &&
+        "permissionResult" in e &&
+        "plan" in e,
+    ),
+  ),
+  result: m(() => Np((e) => typeof e === "object" && e !== null && "behavior" in e)),
+  default: { behavior: "cancelled" },
+  yieldsToPanels: !0,
+});
+var Ohe = go({
+  kind: "permission_file",
+  payload: m(() =>
+    Np(
+      (e) =>
+        typeof e === "object" &&
+        e !== null &&
+        "requestId" in e &&
+        "toolName" in e &&
+        "permissionResult" in e &&
+        "filePath" in e &&
+        "operationType" in e,
+    ),
+  ),
+  result: m(() => Np((e) => typeof e === "object" && e !== null && "behavior" in e)),
+  default: { behavior: "cancelled" },
+  yieldsToPanels: !0,
+});
+import { basename as To, posix as Ao, relative as vo } from "path";
+var Do = new Set(["date-time"]);
+function _o(e) {
+  let i = e?.properties;
+  if (i === null || typeof i !== "object" || Array.isArray(i)) return;
+  let o;
+  for (let [t, r] of Object.entries(i)) {
+    if (r === null || typeof r !== "object" || !("format" in r)) continue;
+    let b = r.format;
+    if (typeof b === "string" && Do.has(b)) (o ??= {}), (o[t] = b);
+  }
+  return o;
+}
+function WR(e) {
+  let i = e.tool.isMcp === !0 ? e.tool.mcpInfo : void 0,
+    o = e.tool.isMcp === !0,
+    t;
+  if (i) t = Y4n(i);
+  else {
+    let R;
+    try {
+      R = e.tool.userFacingName(e.input) || e.tool.name;
+    } catch {
+      R = e.tool.name;
+    }
+    let d = e.tool.isMcp === !0 && R.endsWith(" (MCP)") ? R.slice(0, -6) : R;
+    t = Edt(d);
+  }
+  let r = "",
+    b;
+  if (e.tool.isMcp !== !0)
+    try {
+      let R = e.tool.renderToolUseMessage?.(e.input, { theme: e.theme, verbose: !0 }) ?? null;
+      r = typeof R === "string" ? Ci(R) : R;
+    } catch {
+      (r = "parameters could not be rendered \u2014 deny unless expected"), (b = !0);
+    }
+  return {
+    requestId: e.toolUseID,
+    toolName: e.tool.name,
+    input: e.input,
+    description: es(e.description).text,
+    permissionResult: e.permissionResult,
+    userFacingName: t,
+    hasMcpSuffix: o,
+    renderedToolUseMessage: r,
+    toolUseRenderFailed: b,
+    paramFormatHints: _o(e.tool.inputJSONSchema),
+    messageId: e.assistantMessage.message.id,
+    isMcp: e.tool.isMcp ?? !1,
+    isAskCappedByOrg: e.tool.mcpInfo?.effectiveMaxPermission === "ask",
+    showAlwaysAllow:
+      ELe() &&
+      !(e.permissionResult.behavior === "ask" && e.permissionResult.suppressAlwaysAllowRule === !0) &&
+      e.tool.suppressesAlwaysAllowRule?.(e.input) !== !0 &&
+      e.tool.suppressesAllPermissionUpdates?.(e.input) !== !0 &&
+      !GV(e.requestSource),
+    requestSource: e.requestSource,
+    hasExternalRacer: e.hasExternalRacer ?? !1,
+  };
+}
+function Ae(e) {
+  if (e.forRemoteExecution === !0) return { type: "remote-agent" };
+  let i = $tr(e);
+  if (i !== void 0) return { type: "plugin", pluginName: i };
+  if (E$(e)) return { type: "plugin" };
+  let o = e.spawnedByWorkflowRunId;
+  if (o !== void 0)
+    return {
+      type: "workflow-agent",
+      workflowName: Object.values(e.taskRegistry.all()).find(
+        (b) => b.type === "local_workflow" && b.workflowRunId === o,
+      )?.workflowName,
+    };
+  let t = e.agentContext;
+  if (t.agentType === "teammate") return { type: "subagent", agentName: t.agentName };
+  if (EC(t) && A$(t)) return { type: "subagent", agentName: t.displayName ?? t.subagentName };
+  return;
+}
+function He(e) {
+  let i = WR(e),
+    o = e.permissionResult.metadata?.command?.chrome;
+  if (!o && typeof e.input.url === "string")
+    try {
+      let t = new URL(e.input.url);
+      if (t.host) o = { host: t.host, url: t.href };
+    } catch {}
+  return { ...i, chrome: o, verbPhrase: a9e(e.tool.name, e.input) };
+}
+function Ve(e) {
+  let i = WR(e),
+    o = e.input.url,
+    t = "";
+  if (typeof o === "string")
+    try {
+      t = new URL(o).hostname;
+    } catch {
+      t = "";
+    }
+  return { ...i, hostname: t };
+}
+function ze(e) {
+  let i = WR(e),
+    o = Gle.inputSchema.safeParse(e.input),
+    t = o.success ? (o.data.questions ?? []) : [],
+    r = o.success ? o.data.metadata?.source : void 0;
+  return { ...i, questions: t, metadataSource: r };
+}
+function Ro(e) {
+  if (!("args" in e) || e.args === void 0) return;
+  return Om(e.args, { scrub: "key", maxUnits: Dm });
+}
+function Ge(e) {
+  let i = WR(e),
+    o = typeof e.input.command === "string" ? Om(e.input.command, { maxUnits: Dm }) : void 0,
+    t = Te(e.input.mcp, "server"),
+    r = Te(e.input.mcp, "tool"),
+    b =
+      t !== void 0 && r !== void 0
+        ? { server: $e(t, "(unnamed server)"), tool: $e(r, "(unnamed tool)"), argsDisplay: Ro(e.input.mcp) }
+        : void 0,
+    R = Te(e.input.ws, "url"),
+    d = htn(e.input.ws),
+    _ =
+      R !== void 0
+        ? {
+            url: Om(K0e(R), { maxUnits: Dm }),
+            protocols: d?.map((P, f) => (f < aPt ? Bo(jle(ce(P, GA))) : "")),
+            protocolsWithheld: d?.slice(0, aPt).some((P) => {
+              let f = ce(P, GA);
+              return Od(f) !== f;
+            }),
+          }
+        : void 0,
+    u = typeof e.input.interval_ms === "number" ? e.input.interval_ms : 30000,
+    w = typeof e.input.description === "string" ? es(e.input.description).text : void 0;
+  return { ...i, command: o, mcp: b, ws: _, intervalMs: u, monitorDescription: w };
+}
+function $e(e, i) {
+  let o = Bo(Gee(ce(e, GA)))
+    .replace(/\s+/g, " ")
+    .trim();
+  return t2(o) ? o : i;
+}
+function Te(e, i) {
+  if (e === null || typeof e !== "object" || !(i in e)) return;
+  let o = e[i];
+  return typeof o === "string" ? o : void 0;
+}
+function K0e(e) {
+  try {
+    return new URL(e).href;
+  } catch {
+    return e;
+  }
+}
+function Xe(e) {
+  let i = WR(e),
+    o = typeof e.input.runId === "string" && typeof e.input.script !== "string",
+    t =
+      typeof e.input.script === "string"
+        ? e.input.script
+        : o && typeof i.renderedToolUseMessage === "string"
+          ? i.renderedToolUseMessage
+          : "",
+    r = e.input.script !== void 0 && typeof e.input.script !== "string",
+    b =
+      typeof e.input.name === "string" &&
+      e.input.name !== "" &&
+      !e.input.scriptPath &&
+      Ci(e.input.name) === e.input.name
+        ? e.input.name
+        : void 0,
+    R = typeof i.renderedToolUseMessage === "string" ? Ci(i.renderedToolUseMessage) : i.renderedToolUseMessage,
+    d = e.input.args;
+  return { ...i, renderedToolUseMessage: R, script: t, scriptForged: r, workflowName: b, args: d };
+}
+function Je(e) {
+  let i = WR(e),
+    o = typeof e.input.filePath === "string" ? e.input.filePath : "",
+    t = typeof e.input.title === "string" ? e.input.title : "",
+    r = cSe(t) ? "" : t9(t),
+    R = (Array.isArray(e.input.options) ? e.input.options : [])
+      .filter(
+        (u) =>
+          u !== null &&
+          typeof u === "object" &&
+          "label" in u &&
+          typeof u.label === "string" &&
+          "description" in u &&
+          typeof u.description === "string" &&
+          "value" in u &&
+          typeof u.value === "string",
+      )
+      .map((u) => ({ label: cSe(u.label) ? "" : t9(u.label), description: es(u.description).text, value: u.value })),
+    d,
+    _ = !1;
+  if (Qi(o) || _r(o)) (d = `(Network path \u2014 content not previewed: ${o})`), (_ = !0);
+  else
+    try {
+      d = SR(o, Efe);
+    } catch (u) {
+      if (mj(u)) d = `(Artifact too large for preview: ${o})`;
+      else d = X(u) ? `(File not found: ${o})` : `(Error reading file: ${String(u)})`;
+      _ = !0;
+    }
+  return { ...i, filePath: o, artifactTitle: r, artifactOptions: R, fileContent: d, contentWithheld: _ };
+}
+function Ke(e) {
+  let i = WR(e),
+    o = e.permissionResult.metadata,
+    t =
+      o !== null && typeof o === "object" && "command" in o && o.command !== null && typeof o.command === "object"
+        ? o.command
+        : void 0,
+    r = t !== void 0 && typeof t.name === "string" ? t.name : void 0,
+    b = t !== void 0 && typeof t.description === "string" ? t.description : void 0,
+    d = (typeof e.input.skill === "string" ? e.input.skill : void 0) ?? r ?? "";
+  return { ...i, skill: d, skillDescription: b };
+}
+function Ye(e) {
+  let i = WR(e),
+    o = typeof e.input.command === "string" && e.input.command.length <= Dm ? Ci(e.input.command) : "",
+    t = typeof i.renderedToolUseMessage === "string" ? Ci(i.renderedToolUseMessage) : i.renderedToolUseMessage;
+  return { ...i, renderedToolUseMessage: t, command: o };
+}
+function eo(e) {
+  let i = WR(e),
+    o = Bh();
+  Dp(o);
+  let t = BM() ?? "",
+    r = e.assistantMessage.message.usage,
+    b =
+      r && typeof r.input_tokens === "number"
+        ? {
+            input_tokens: r.input_tokens,
+            cache_creation_input_tokens: r.cache_creation_input_tokens,
+            cache_read_input_tokens: r.cache_read_input_tokens,
+          }
+        : void 0;
+  return { ...i, plan: t, planFilePath: o, usage: b };
+}
+function ZIt(e) {
+  let i = WR(e),
+    o = typeof e.input.command === "string" && e.input.command.length <= Dm ? Ci(e.input.command) : "",
+    t = typeof i.renderedToolUseMessage === "string" ? Ci(i.renderedToolUseMessage) : i.renderedToolUseMessage;
+  return {
+    ...i,
+    renderedToolUseMessage: t,
+    command: o,
+    classifierState: e.classifierState,
+    existingAllowDescriptions: [],
+  };
+}
+var Y = 200000;
+function fit(e) {
+  switch (e) {
+    case Uy:
+    case Y_:
+    case b7:
+    case Y0:
+    case J0:
+    case tm:
+      return !0;
+    default:
+      return !1;
+  }
+}
+function NUn(e) {
+  switch (e) {
+    case Uy:
+    case Y_:
+    case b7:
+      return !0;
+    default:
+      return !1;
+  }
+}
+function mit(e, i) {
+  try {
+    let o = e;
+    if (typeof o.getPath !== "function") return null;
+    let t = o.getPath(i);
+    return typeof t === "string" && t !== "" ? t : null;
+  } catch {
+    return null;
+  }
+}
+function oo(e, i, o) {
+  if (i === "read" || o) return null;
+  try {
+    let t = gt(e),
+      r = le(),
+      { resolvedPath: b, isSymlink: R } = Qo(r, t);
+    return R ? b : null;
+  } catch {
+    return null;
+  }
+}
+function Se(e, i) {
+  return nr(i ? e : vo(ee(), e));
+}
+function ye(e, i) {
+  return nr(i ? Ao.basename(e) : To(e));
+}
+async function So(e) {
+  let { tool: i, input: o, remoteWorkspace: t, remoteOldContent: r } = e;
+  if (i === Uy) {
+    let d = Uy.inputSchema.parse(o),
+      _ = d.old_string.length > Y || d.new_string.length > Y,
+      u = !_ && (lk(d.old_string) || lk(d.new_string)),
+      w = _ || u;
+    return {
+      title: "Edit file",
+      subtitle: Se(d.file_path, t),
+      question: { kind: "file-action", verbPhrase: "make this edit to", fileName: ye(d.file_path, t) },
+      content: _
+        ? {
+            kind: "no-changes",
+            message:
+              "Proposed edit is too large to show \u2014 cannot be reviewed, so approval is one-time only (deny unless expected).",
+          }
+        : u
+          ? {
+              kind: "no-changes",
+              message:
+                "Proposed edit cannot be shown in full \u2014 cannot be reviewed, so approval is one-time only (deny unless expected).",
+            }
+          : {
+              kind: "file-edit-diff",
+              filePath: d.file_path,
+              edits: [{ old_string: d.old_string, new_string: d.new_string, replace_all: d.replace_all || !1 }],
+              remoteOldContent: r ?? void 0,
+              skipLocalRead: t,
+            },
+      contentWithheld: w,
+    };
+  }
+  if (i === Y_) {
+    let d = Y_.inputSchema.parse(o),
+      _ = "",
+      u = !1,
+      w = !1,
+      P,
+      f;
+    if (t)
+      if (typeof r === "string") (_ = r), (u = !0), (P = "Overwrite file"), (f = "overwrite");
+      else if (r === null) (P = "Create file"), (f = "create");
+      else (P = "Write file"), (f = "write to"), (w = !0);
+    else {
+      let E = Qi(d.file_path) || _r(d.file_path);
+      if (!E)
+        try {
+          (_ = (await db(d.file_path, Efe)).content), (u = !0);
+        } catch (F) {
+          if (mj(F)) (u = !0), (w = !0);
+          else if (!X(F) && !Boe(F)) throw F;
+        }
+      if (E) (w = !0), (P = "Write file"), (f = "write to");
+      else (P = u ? "Overwrite file" : "Create file"), (f = u ? "overwrite" : "create");
+    }
+    let x = d.content.length > Y,
+      T = !x && lk(d.content),
+      A = x || T,
+      v = u && J4n(_),
+      k = u && !v && lk(_),
+      I = A || w || v || k;
+    return {
+      title: P,
+      subtitle: Se(d.file_path, t),
+      question: { kind: "file-action", verbPhrase: f, fileName: ye(d.file_path, t) },
+      content: x
+        ? {
+            kind: "no-changes",
+            message:
+              "Proposed content is too large to show \u2014 cannot be reviewed, so approval is one-time only (deny unless expected).",
+          }
+        : T
+          ? {
+              kind: "no-changes",
+              message:
+                "Proposed content cannot be shown in full \u2014 cannot be reviewed, so approval is one-time only (deny unless expected).",
+            }
+          : w
+            ? {
+                kind: "no-changes",
+                message: u
+                  ? `Existing file is too large to preview \u2014 approving will overwrite ${nr(d.file_path)}.`
+                  : t
+                    ? `The remote file could not be checked \u2014 approving will write to ${nr(d.file_path)}.`
+                    : `File is on a network path that cannot be previewed \u2014 approving will write to ${nr(d.file_path)}.`,
+              }
+            : v
+              ? {
+                  kind: "no-changes",
+                  message: `Current contents of ${nr(d.file_path)} cannot be shown in full \u2014 the overwrite cannot be reviewed, so approval is one-time only (deny unless expected).`,
+                }
+              : {
+                  kind: "file-write-diff",
+                  filePath: d.file_path,
+                  content: d.content,
+                  fileExists: u,
+                  oldContent: _,
+                  ...(k && {
+                    notice: `Current contents of ${nr(d.file_path)} cannot be shown in full \u2014 the overwrite cannot be fully reviewed, so approval is one-time only (deny unless expected).`,
+                  }),
+                },
+      contentWithheld: I,
+    };
+  }
+  if (i === b7) {
+    let d = b7.inputSchema.parse(o),
+      _ =
+        d.edit_mode === "insert"
+          ? "insert this cell into"
+          : d.edit_mode === "delete"
+            ? "delete this cell from"
+            : "make this edit to",
+      u = (d.new_source?.length ?? 0) > Y || lk(d.new_source ?? ""),
+      w = d.edit_mode !== "insert",
+      P,
+      f;
+    if (w)
+      if (t)
+        if (typeof r === "string") {
+          let T = Van(r, d.cell_id);
+          if (T.kind === "found")
+            if (T.source.length > Y || lk(T.source)) f = "the current cell contents cannot be shown in full";
+            else P = T.source;
+          else
+            f =
+              T.kind === "unparsable"
+                ? "the notebook could not be parsed for preview"
+                : "the target cell was not found in the notebook";
+        } else if (r === null) f = "the notebook was not found in the remote workspace";
+        else f = "the remote notebook could not be fetched";
+      else if (Qi(d.notebook_path) || _r(d.notebook_path)) f = "the notebook is on a network path";
+      else
+        try {
+          if (!(await le().stat(d.notebook_path)).isFile()) f = "the notebook could not be read";
+          else {
+            let A = await le().readFileBytes(d.notebook_path, Cv + 1);
+            if (A.length > Cv) f = "the notebook is too large to preview";
+            else {
+              let v = Van(A.toString("utf-8"), d.cell_id);
+              if (v.kind === "found")
+                if (v.source.length > Y || lk(v.source)) f = "the current cell contents cannot be shown in full";
+                else P = v.source;
+              else
+                f =
+                  v.kind === "unparsable"
+                    ? "the notebook could not be parsed for preview"
+                    : "the target cell was not found in the notebook";
+            }
+          }
+        } catch {
+          f = "the notebook could not be read";
+        }
+    let x = u || f !== void 0;
+    return {
+      title: "Edit notebook",
+      subtitle: void 0,
+      question: { kind: "file-action", verbPhrase: _, fileName: ye(d.notebook_path, t) },
+      content: u
+        ? {
+            kind: "no-changes",
+            message:
+              "Proposed cell content is too large to show \u2014 cannot be reviewed, so approval is one-time only (deny unless expected).",
+          }
+        : f !== void 0
+          ? {
+              kind: "no-changes",
+              message: `Current cell contents cannot be shown (${f}) \u2014 the ${d.edit_mode === "delete" ? "deletion" : "edit"} cannot be reviewed, so approval is one-time only (deny unless expected).`,
+            }
+          : {
+              kind: "notebook-edit-diff",
+              notebookPath: d.notebook_path,
+              cellId: d.cell_id,
+              newSource: d.new_source,
+              cellType: d.cell_type,
+              editMode: d.edit_mode,
+              remoteOldContent: r ?? void 0,
+              skipLocalRead: t,
+              oldCellSource: P,
+            },
+      contentWithheld: x,
+    };
+  }
+  return {
+    title: `${i.isReadOnly(o) ? "Read" : "Edit"} file`,
+    subtitle: void 0,
+    question: { kind: "plain", text: "Do you want to proceed?" },
+    content: { kind: "tool-use-line" },
+  };
+}
+async function Lhe(e) {
+  let i = WR(e),
+    o = e.tool;
+  if (!fit(o)) throw Error(`buildFilePermissionDescriptor called with non-file tool: ${e.tool.name}`);
+  let t = e.remoteWorkspace === !0,
+    r = o.isReadOnly(e.input) ? "read" : "write",
+    {
+      title: b,
+      subtitle: R,
+      question: d,
+      content: _,
+      contentWithheld: u,
+    } = await So({ tool: o, input: e.input, remoteWorkspace: t, remoteOldContent: e.remoteOldContent }),
+    w = oo(e.filePath, r, t);
+  return {
+    ...i,
+    title: b,
+    subtitle: R,
+    question: d,
+    content: _,
+    contentWithheld: u,
+    filePath: e.filePath,
+    operationType: r,
+    symlinkTarget: w,
+  };
+}
+function to(e, i, o) {
+  if (e === Uy) return { completion_type: "str_replace_single", language_name: gIe(o) };
+  if (e === Y_) return { completion_type: "write_file_single", language_name: gIe(o) };
+  if (e === b7)
+    return { completion_type: "tool_use_single", language_name: i.cell_type === "markdown" ? "markdown" : "python" };
+  return { completion_type: "tool_use_single", language_name: gIe(o) };
+}
+async function Ee(e) {
+  let i = WR(e),
+    o = e.sedInfo.filePath,
+    t = gt(o),
+    r = ((Bn(o) || Bn(t)) && !(Ms(o) || Ms(t))) || _r(o) || _r(t),
+    b = !_T(t, { ...e.toolPermissionContext, mode: "acceptEdits" }, "write").allowed,
+    R =
+      b &&
+      !r &&
+      (await le()
+        .lstat(gt(o))
+        .then(
+          (I) => I.isSymbolicLink(),
+          () => !1,
+        )),
+    d = "",
+    _ = !1,
+    u = !1;
+  if (!r && !b)
+    try {
+      (d = (await db(t, Efe)).content), (_ = !0);
+    } catch (I) {
+      if (mj(I)) (_ = !0), (u = !0);
+      else if (!X(I) && !Boe(I)) throw I;
+    }
+  let w = "",
+    P = !1,
+    f = d.length > Y;
+  if (!f)
+    try {
+      w = z4n(d, e.sedInfo);
+    } catch {
+      P = !0;
+    }
+  let x = f || P || w.length > Y || lk(d) || lk(w),
+    T = r || b || u || x || d === w ? [] : [{ old_string: d, new_string: w, replace_all: !1 }],
+    A = r
+      ? `Network path \u2014 diff not previewed. The sed command will run against ${ae(t)} on approval.`
+      : R
+        ? `${ae(gt(o))} is a symbolic link whose target is not editable in place here \u2014 not previewed. On approval the sed command runs as written: \`sed -i\` reads THROUGH the link and writes the result as a regular file in the link's place (the target's edited contents land there); the target itself is not modified.`
+        : b
+          ? `Not previewable as an in-place edit here \u2014 the sed command will run against ${ae(t)} on approval.`
+          : u
+            ? `Existing file is too large to preview \u2014 the sed command will run against ${ae(t)} on approval.`
+            : x
+              ? `The edit is too large to preview \u2014 the sed command will run against ${ae(t)} on approval.`
+              : _
+                ? "Pattern did not match any content"
+                : "File does not exist",
+    v = oo(t, "write", !1),
+    k =
+      r || b || u || x
+        ? { ...e.input }
+        : { ...e.input, _simulatedSedEdit: { filePath: t, newContent: w, baseHash: Nn(d) } };
+  return {
+    ...i,
+    input: k,
+    title: "Edit file",
+    subtitle: Se(t, !1),
+    question: { kind: "file-action", verbPhrase: "make this edit to", fileName: ye(t, !1) },
+    content: T.length > 0 ? { kind: "file-edit-diff", filePath: t, edits: T } : { kind: "no-changes", message: A },
+    contentWithheld: u || r || x || b,
+    filePath: t,
+    operationType: "write",
+    symlinkTarget: v,
+  };
+}
+function io(e) {
+  return { completion_type: "str_replace_single", language_name: gIe(e) };
+}
+function ae(e) {
+  return Ku(nr(e), Eo);
+}
+var Eo = 160;
+var git = go({
+  kind: "permission_monitor",
+  payload: m(() =>
+    Np(
+      (e) =>
+        typeof e === "object" &&
+        e !== null &&
+        "requestId" in e &&
+        "toolName" in e &&
+        "permissionResult" in e &&
+        "intervalMs" in e,
+    ),
+  ),
+  result: m(() => Np((e) => typeof e === "object" && e !== null && "behavior" in e)),
+  default: { behavior: "cancelled" },
+  yieldsToPanels: !0,
+});
+var hit = go({
+  kind: "permission_powershell",
+  payload: m(() =>
+    Np(
+      (e) =>
+        typeof e === "object" &&
+        e !== null &&
+        "requestId" in e &&
+        "toolName" in e &&
+        "permissionResult" in e &&
+        "command" in e,
+    ),
+  ),
+  result: m(() => Np((e) => typeof e === "object" && e !== null && "behavior" in e)),
+  default: { behavior: "cancelled" },
+  yieldsToPanels: !0,
+});
+var _it = go({
+  kind: "permission_skill",
+  payload: m(() =>
+    Np(
+      (e) =>
+        typeof e === "object" &&
+        e !== null &&
+        "requestId" in e &&
+        "toolName" in e &&
+        "permissionResult" in e &&
+        "skill" in e,
+    ),
+  ),
+  result: m(() => Np((e) => typeof e === "object" && e !== null && "behavior" in e)),
+  default: { behavior: "cancelled" },
+  yieldsToPanels: !0,
+});
+var yit = go({
+  kind: "permission_webfetch",
+  payload: m(() =>
+    Np(
+      (e) =>
+        typeof e === "object" &&
+        e !== null &&
+        "requestId" in e &&
+        "toolName" in e &&
+        "permissionResult" in e &&
+        "hostname" in e,
+    ),
+  ),
+  result: m(() => Np((e) => typeof e === "object" && e !== null && "behavior" in e)),
+  default: { behavior: "cancelled" },
+  yieldsToPanels: !0,
+});
+var no = jC(() => fi.autoDenyPresence);
+async function Ce(e) {
+  s("tengu_unary_event", {
+    event: c(e.event),
+    completion_type: c(e.completion_type),
+    language_name: await e.metadata.language_name,
+    message_id: ve(e.metadata.message_id),
+    platform: nP(e.metadata.platform),
+    ...(e.metadata.hasFeedback !== void 0 && { hasFeedback: e.metadata.hasFeedback }),
+  });
+}
+import { randomUUID as Fo } from "crypto";
+import { basename as Mo } from "path";
+function ro(e, i, o, t) {
+  let r = t === "single",
+    b = iSe({ filePath: e, oldContent: i, newContent: o, singleHunk: r });
+  if (b.length === 0) return [];
+  if (r && b.length > 1) h(Error(`Unexpected number of hunks: ${b.length}. Expected 1 hunk.`));
+  return lqn(b);
+}
+async function so(e, i, o, t, r) {
+  let b = !1,
+    R = gt(e),
+    d = "";
+  try {
+    d = (await db(R)).content;
+  } catch (P) {
+    if (!X(P) && !Boe(P)) throw P;
+  }
+  function _() {
+    if (o.abortController.signal.aborted || r()) throw new Ze();
+  }
+  _();
+  async function u() {
+    if (b) return;
+    b = !0;
+    try {
+      await xe(t, w);
+    } catch (P) {
+      n(`Failed to close diff tab in IDE: ${P instanceof Error ? P.message : String(P)}`, { level: "error" });
+    }
+    process.off("beforeExit", u), o.abortController.signal.removeEventListener("abort", u);
+  }
+  o.abortController.signal.addEventListener("abort", u), process.on("beforeExit", u);
+  let w = Ok(o.options.mcpClients);
+  try {
+    let { updatedFile: P } = Kan({ filePath: R, fileContents: d, edits: i });
+    if (!w || w.type !== "connected") throw Error("IDE client not available");
+    let f = R,
+      x = w.config.ideRunningInWindows === !0;
+    if (D() === "wsl" && x && a.WSL_DISTRO_NAME) (f = await new que(a.WSL_DISTRO_NAME).toIDEPath(R)), _();
+    let T = await Mjt("openDiff", { old_file_path: f, new_file_path: f, new_file_contents: P, tab_name: t }, w),
+      A = Array.isArray(T) ? T : [T];
+    if (Io(A)) return u(), { oldContent: d, newContent: A[1].text };
+    else if (Co(A)) return u(), { oldContent: d, newContent: P };
+    else if (xo(A)) return u(), { oldContent: d, newContent: d };
+    throw Error("Not accepted");
+  } catch (P) {
+    if (!It(P)) n(`Failed to show diff in IDE: ${P instanceof Error ? P.message : String(P)}`, { level: "error" });
+    throw (u(), P);
+  }
+}
+async function xe(e, i) {
+  try {
+    if (!i || i.type !== "connected") throw Error("IDE client not available");
+    await Mjt("close_tab", { tab_name: e }, i), y("ide_close_diff_tab");
+  } catch (o) {
+    n(`Failed to close diff tab in IDE: ${o instanceof Error ? o.message : String(o)}`, { level: "error" }),
+      g("ide_close_diff_tab", "ide_close_diff_tab_failed");
+  }
+}
+function Co(e) {
+  return (
+    Array.isArray(e) &&
+    typeof e[0] === "object" &&
+    e[0] !== null &&
+    "type" in e[0] &&
+    e[0].type === "text" &&
+    "text" in e[0] &&
+    e[0].text === "TAB_CLOSED"
+  );
+}
+function xo(e) {
+  return (
+    Array.isArray(e) &&
+    typeof e[0] === "object" &&
+    e[0] !== null &&
+    "type" in e[0] &&
+    e[0].type === "text" &&
+    "text" in e[0] &&
+    e[0].text === "DIFF_REJECTED"
+  );
+}
+function Io(e) {
+  return Array.isArray(e) && e[0]?.type === "text" && e[0].text === "FILE_SAVED" && typeof e[1].text === "string";
+}
+function jo(e, i) {
+  if (e === Uy) {
+    let o = Uy.inputSchema.parse(i);
+    return {
+      filePath: o.file_path,
+      edits: [{ old_string: o.old_string, new_string: o.new_string, replace_all: o.replace_all || !1 }],
+    };
+  }
+  if (e === Y_) {
+    let o = Y_.inputSchema.parse(i),
+      t = gt(o.file_path),
+      r = "";
+    if ((!(Bn(o.file_path) || Bn(t)) || Ms(o.file_path) || Ms(t)) && !_r(o.file_path) && !_r(t))
+      try {
+        r = SR(t, aSe);
+      } catch (b) {
+        if (mj(b)) return null;
+        if (!X(b) && !Boe(b)) throw b;
+      }
+    return { filePath: o.file_path, edits: [{ old_string: r, new_string: o.content, replace_all: !1 }] };
+  }
+  return null;
+}
+function Uo(e, i, o) {
+  let t = o[0];
+  if (!t) return i;
+  if (e === Uy) return { ...i, old_string: t.old_string, new_string: t.new_string, replace_all: t.replace_all || !1 };
+  if (e === Y_) return { ...i, content: t.new_string };
+  return i;
+}
+function lo(e, i, o) {
+  if (e !== Uy && e !== Y_) return null;
+  if (o.forRemoteExecution === !0) return null;
+  if (ow(i)) return null;
+  let t = o.options.mcpClients;
+  if (!RTe(t)) return null;
+  if (ie().diffTool !== "auto") return null;
+  let r = jo(e, i);
+  if (r === null) return null;
+  let b = gt(r.filePath);
+  if (((Bn(r.filePath) || Bn(b)) && !(Ms(r.filePath) || Ms(b))) || _r(r.filePath) || _r(b)) return null;
+  if (fJ(r.filePath) || fJ(b)) return null;
+  let R = Ok(t);
+  if (!R) return null;
+  return { ideName: o_t(t) ?? "IDE", ideClient: R, filePath: r.filePath, edits: r.edits };
+}
+function ao(e) {
+  if (e.permissionResult.localDisplayOnly === !0) return { closeTab: () => {} };
+  if (e.ctx.toolUseContext.forRemoteExecution === !0 || ow(e.input)) return { closeTab: () => {} };
+  let {
+      ctx: i,
+      tool: o,
+      input: t,
+      permissionResult: r,
+      permissionPromptStartTimeMs: b,
+      eligibility: R,
+      claim: d,
+      notifyBridge: _,
+      dismissAndTeardown: u,
+      resolveOnce: w,
+    } = e,
+    { filePath: P, edits: f, ideName: x, ideClient: T } = R,
+    A = Fo().slice(0, 6),
+    v = `\u273B [Claude Code] ${Mo(P)} (${A}) \u29C9`,
+    k = !1;
+  function I() {
+    if (k) return;
+    (k = !0),
+      xe(v, T).catch((F) => {
+        n(`closeTabInIDE failed: ${F}`, { level: "error" });
+      });
+  }
+  let E = { ideName: x, toolName: Un(o.name), editCount: f.length };
+  return (
+    s("tengu_ext_will_show_diff", {}),
+    so(P, f, i.toolUseContext, v, () => k)
+      .then(({ oldContent: F, newContent: B }) => {
+        let M = ro(P, F, B, "single"),
+          H = { ...E, isNewFile: F === "" };
+        if (M.length === 0) {
+          if (k || !d()) return;
+          I(),
+            s("tengu_ext_diff_rejected", H),
+            y("ide_diff_view"),
+            _({ behavior: "deny", message: "User denied via IDE" }),
+            u(),
+            i.logDecision(
+              { decision: "reject", source: { type: "user_reject", hasFeedback: !1 } },
+              { permissionPromptStartTimeMs: b },
+            ),
+            w(i.cancelAndAbort(void 0));
+          return;
+        }
+        if (k || !d()) return;
+        if ((I(), r.denialLimitFallback !== void 0))
+          rpt(i.toolUseContext), y("permission_auto_mode_denial_fallback", { autoDenied: !1 });
+        let S = Uo(o, t, M);
+        s("tengu_ext_diff_accepted", H),
+          y("ide_diff_view"),
+          _({ behavior: "allow", updatedInput: S, updatedPermissions: [] }),
+          u(),
+          i.logDecision(
+            { decision: "accept", source: { type: "user", permanent: !1 } },
+            { permissionPromptStartTimeMs: b },
+          ),
+          w(
+            i.handleUserAllow(S, [], {
+              permissionPromptStartTimeMs: b,
+              decisionReason: r.decisionReason,
+              matchedAskRule: r.matchedAskRule,
+            }),
+          );
+      })
+      .catch((F) => {
+        if (k || i.toolUseContext.abortController.signal.aborted) return;
+        n(`IDE diff view failed: ${F instanceof Error ? F.message : String(F)}`, { level: "error" }),
+          g("ide_diff_view", "ide_diff_view_failed");
+      }),
+    { closeTab: I }
+  );
+}
+import { randomUUID as Oo } from "crypto";
+function No(e, i) {
+  if (i.length === 0) return;
+  if (e.toolUseContext.forRemoteExecution === !0 || E$(e.toolUseContext)) return;
+  let o = [];
+  for (let t of i)
+    if (t.type === "setMode") {
+      let r = e.setModeFromBridge(t.mode);
+      if (!r.ok)
+        n(`bridge setMode '${t.mode}' rejected (${r.error}); falling back to 'default'`),
+          e.setModeFromBridge("default");
+    } else o.push(t);
+  if (o.length > 0) e.persistPermissions(o);
+}
+function mo(e) {
+  let {
+      ctx: i,
+      description: o,
+      result: t,
+      displayInput: r,
+      permissionPromptStartTimeMs: b,
+      awaitAutomatedChecksBeforeDialog: R,
+      bridgeCallbacks: d,
+      channelCallbacks: _,
+      claim: u,
+      isResolved: w,
+      onWin: P,
+      onReprompt: f,
+    } = e,
+    x = t.localDisplayOnly || t.denialLimitFallback !== void 0 || i.toolUseContext.forRemoteExecution === !0,
+    T = x ? void 0 : d,
+    A = x ? void 0 : _,
+    { setClassifierApprovals: v } = i,
+    k = T ? Oo() : void 0,
+    I,
+    E,
+    F;
+  function B(S) {
+    if (T && k) {
+      if (S) T.sendResponse(k, S);
+      T.cancelRequest(k);
+    }
+    I?.(), E?.();
+  }
+  if (T && k) {
+    let S = "";
+    if (i.tool.name !== Qe && i.tool.name !== Bt)
+      try {
+        S = i.tool.getToolUseSummary?.(r) ?? i.tool.getActivityDescription?.(r) ?? "";
+      } catch {
+        S = "";
+      }
+    T.sendRequest(
+      k,
+      i.tool.name,
+      r,
+      i.toolUseID,
+      ctn(co(S)),
+      t.suggestions,
+      t.blockedPath,
+      i.tool.requiresUserInteraction?.(),
+    );
+    let W = i.toolUseContext.abortController.signal;
+    (I = T.onResponse(k, i.tool.name, (U) => {
+      if (!u()) return;
+      if (U.updatedPermissionsDropped) g("permission_bridge_relay", "updated_permissions_malformed");
+      else y("permission_bridge_relay");
+      if (I) W.removeEventListener("abort", I);
+      if ((V8(v, i.toolUseID), E?.(), U.behavior === "allow")) {
+        let j =
+          i.tool.suppressesAllPermissionUpdates?.(r) === !0
+            ? _D(U.updatedPermissions ?? [])
+            : i.tool.suppressesAlwaysAllowRule?.(r) === !0 || t.suppressAlwaysAllowRule === !0
+              ? a9(U.updatedPermissions ?? [], i.tool, he(i.toolUseContext))
+              : (U.updatedPermissions ?? []);
+        if ((No(i, j), j.length)) nPt(j);
+        i.logDecision(
+          { decision: "accept", source: { type: "user", permanent: !!j.length } },
+          { input: U.updatedInput ?? r, permissionPromptStartTimeMs: b },
+        ),
+          P(i.buildAllow(U.updatedInput ?? r));
+      } else
+        i.logDecision(
+          { decision: "reject", source: { type: "user_reject", hasFeedback: !!U.message } },
+          { permissionPromptStartTimeMs: b },
+        ),
+          P(i.cancelAndAbort(U.message, void 0, void 0, { feedbackIsFromUser: !0 }));
+    })),
+      W.addEventListener("abort", I, { once: !0 });
+  }
+  if (A && !i.tool.requiresUserInteraction?.()) {
+    let S = jUn(i.toolUseID),
+      W = hf(),
+      U = qUn(
+        i.toolUseContext.getMcp().clients,
+        (j) => hZ(j, W) !== void 0,
+        (j) => A.isServerRegistered(j),
+      );
+    if (U.length > 0) {
+      let j = { request_id: S, tool_name: i.tool.name, description: ctn($fe(o)), input_preview: WUn(r) };
+      for (let q of U) {
+        if (q.type !== "connected") continue;
+        yJn(q, { method: dtn, params: j }).catch((G) => {
+          p("permission_channel_relay", "permission_channel_relay_send_failed"),
+            n(`Channel permission_request failed for ${q.name}: ${l(G)}`, { level: "error" });
+        });
+      }
+      let z = i.toolUseContext.abortController.signal,
+        pe = A.onResponse(S, (q) => {
+          if (!u()) return;
+          if ((y("permission_channel_relay"), E?.(), V8(v, i.toolUseID), T && k)) T.cancelRequest(k);
+          if ((I?.(), q.behavior === "allow"))
+            i.logDecision(
+              { decision: "accept", source: { type: "user", permanent: !1 } },
+              { permissionPromptStartTimeMs: b },
+            ),
+              P(i.buildAllow(r));
+          else
+            i.logDecision(
+              { decision: "reject", source: { type: "user_reject", hasFeedback: !1 } },
+              { permissionPromptStartTimeMs: b },
+            ),
+              P(i.cancelAndAbort(`Denied via channel ${q.fromServer}`));
+        });
+      (E = () => {
+        pe(), z.removeEventListener("abort", E);
+      }),
+        z.addEventListener("abort", E, { once: !0 });
+    }
+  }
+  let M = t.serverApprovalWatch,
+    L = M ? QUn() : null,
+    H = M && L?.isEnabled() ? L.createObserver(M, i.toolUseContext.toolState, i.toolUseContext.credentials) : null;
+  if (M && H) {
+    let S = i.toolUseContext.abortController.signal,
+      W = !1;
+    (F = () => {
+      W = !0;
+    }),
+      (async () => {
+        let U = await H.poll(),
+          j = 3000,
+          z = 15000;
+        while (!U && !w() && !S.aborted && !W) {
+          if ((await ne(j, S), w() || S.aborted || W)) return;
+          if (((U = await H.poll()), !U)) {
+            j = Math.min(Math.round(j * 1.5), z);
+            continue;
+          }
+          if (he(i.toolUseContext).mode === "plan") {
+            n("Server approval observed but parked: session is in plan mode"),
+              (U = !1),
+              (j = Math.min(Math.round(j * 1.5), z));
+            continue;
+          }
+          if (W || !u()) return;
+          if ((V8(v, i.toolUseID), T && k)) T.cancelRequest(k);
+          I?.(),
+            E?.(),
+            y("permission_server_approval_watch"),
+            i.logDecision(
+              { decision: "accept", source: { type: "user", permanent: !1 } },
+              { permissionPromptStartTimeMs: b },
+            ),
+            P(i.buildAllow({ ...(t.updatedInput ?? r), __projectGrantServerObserved: !0 }));
+          return;
+        }
+      })().catch((U) => {
+        p("permission_server_approval_watch", "watcher_stopped"), n(`Server-approval watcher stopped (${l(U)})`);
+      });
+  }
+  if (!R)
+    (async () => {
+      if (w()) return;
+      let S = await i.runHooks(he(i.toolUseContext).mode, t.suggestions, t.updatedInput, b);
+      if (S && "reprompted" in S) {
+        if (w()) return;
+        if ((V8(v, i.toolUseID), T && k)) T.cancelRequest(k), (k = void 0);
+        I?.(), E?.(), F?.(), f(S.finalInput, S.reprompted.decisionReason, S.reprompted);
+        return;
+      }
+      if (!S || !u()) return;
+      if (T && k) T.cancelRequest(k);
+      I?.(), E?.(), P(S);
+    })().catch((S) => {
+      if (S instanceof la) {
+        n("PermissionRequest hooks cancelled (control stream closed)");
+        return;
+      }
+      h(S);
+    });
+  return { notifyBridgeAndTeardown: B };
+}
+var po = null,
+  uo = null,
+  Pe = import.meta.require("/$bunfs/root/chunk-rph32sgj.js").WorkflowTool,
+  fo = import.meta.require("/$bunfs/root/chunk-d8cf5aj4.js").workflowPermissionDialog,
+  yo = import.meta.require("/$bunfs/root/chunk-zps7zpen.js"),
+  Wo = import.meta.require("/$bunfs/root/chunk-3qjkzrw8.js").MonitorTool;
+function Q(e) {
+  return e;
+}
+var Lo = [
+  Q({ matches: (e) => e === tg, dialog: yit, build: Ve }),
+  Q({ matches: (e) => e.name.startsWith(uI), dialog: dit, build: He }),
+  Q({ matches: (e) => e === Gle, dialog: Dhe, build: ze }),
+  Q({ matches: (e) => e === HFt, dialog: pit, build: WR }),
+  Q({ matches: (e) => e === e2, dialog: Cje, build: eo }),
+  Q({ matches: (e) => e === P4e, dialog: _it, build: Ke }),
+  ...[],
+  Q({ matches: (e) => e.name === Bt, dialog: hit, build: Ye }),
+  Q({ matches: (e) => e === Wo, dialog: git, build: Ge }),
+  ...(po !== null && uo !== null ? [Q({ matches: (e) => e === po, dialog: uo, build: Je })] : []),
+  ...(Pe !== null && fo !== null ? [Q({ matches: (e) => e === Pe, dialog: fo, build: Xe })] : []),
+];
+function ltn(e) {
+  return Lo.find((i) => i.matches(e));
+}
+async function Rje(e, i) {
+  let { ctx: o, description: t, result: r } = e,
+    b = Ae(o.toolUseContext),
+    R =
+      Pe !== null && yo !== null && o.tool === Pe
+        ? (A) => {
+            if (A.behavior === "allow")
+              yo.recordWorkflowUsageConsent(o.toolUseContext.session.workflowUsageConsent, o.toolUseContext.storageV5);
+            i(A);
+          }
+        : i,
+    { resolve: d, isResolved: _, claim: u } = tPt(R),
+    w = { resolve: d, isResolved: _, claim: u },
+    P = "dark",
+    f = {
+      tool: o.tool,
+      description: t,
+      toolUseID: o.toolUseID,
+      assistantMessage: o.assistantMessage,
+      theme: "dark",
+      requestSource: b,
+    };
+  function x() {
+    de(e, w, {
+      dialog: kre,
+      buildDescriptor: ({ input: A, permissionResult: v }) => WR({ ...f, input: A, permissionResult: v }),
+    });
+  }
+  let T = ltn(o.tool);
+  if (T !== void 0) {
+    let A = !!(e.bridgeCallbacks || (e.channelCallbacks && !o.tool.requiresUserInteraction?.()));
+    de(e, w, {
+      dialog: T.dialog,
+      buildDescriptor: ({ input: v, permissionResult: k }) =>
+        T.build({ ...f, input: v, permissionResult: k, hasExternalRacer: A }),
+    });
+    return;
+  }
+  if (fit(o.tool)) {
+    let A = r.updatedInput ?? o.input,
+      v = mit(o.tool, A);
+    if (v !== null) {
+      let k = lo(o.tool, A, o.toolUseContext),
+        I = Date.now(),
+        E,
+        F = o.toolUseContext.forRemoteExecution === !0 || ow(A),
+        B = await Lhe({ ...f, input: A, permissionResult: r, filePath: v, remoteWorkspace: F });
+      if (o.resolveIfAborted(w.resolve)) return;
+      de(e, w, {
+        dialog: Ohe,
+        buildDescriptor: ({ input: M, permissionResult: L }) => {
+          if (E?.isReprompted() !== !0) {
+            if (k !== null) return { ...B, permissionResult: L, showingDiffInIDE: !0, ideName: k.ideName };
+            return { ...B, permissionResult: L };
+          }
+          return (async function* () {
+            try {
+              let S = mit(o.tool, M);
+              if (S === null) throw Error("no file path could be derived from the hook-rewritten input");
+              yield await Lhe({
+                ...f,
+                input: M,
+                permissionResult: L,
+                filePath: S,
+                remoteWorkspace: o.toolUseContext.forRemoteExecution === !0 || ow(M),
+              });
+            } catch (S) {
+              if (
+                (n(
+                  `File permission reprompt: cannot preview the hook-rewritten input of ${o.tool.name} (${l(S)}); denying instead of showing a stale preview`,
+                  { level: "error" },
+                ),
+                u())
+              )
+                E?.dismissAndTeardown(),
+                  E?.logRepromptDenyDecision(),
+                  d(o.cancelAndAbort(`Failed to preview the hook-rewritten file operation: ${l(S)}`));
+            }
+          })();
+        },
+        unaryEvent: to(o.tool, A, v),
+        onRacersReady: (M) => {
+          if (((E = M), k === null)) return;
+          let { closeTab: L } = ao({
+            ctx: o,
+            tool: o.tool,
+            input: A,
+            permissionResult: r,
+            permissionPromptStartTimeMs: I,
+            eligibility: k,
+            claim: w.claim,
+            notifyBridge: M.notifyBridge,
+            dismissAndTeardown: M.dismissAndTeardown,
+            resolveOnce: w.resolve,
+          });
+          M.addTeardown(L);
+        },
+      });
+      return;
+    }
+    x();
+    return;
+  }
+  if (o.tool === _i) {
+    let A = r.updatedInput ?? o.input,
+      v = typeof A.command === "string" ? A.command : "",
+      k = o.toolUseContext.forRemoteExecution === !0 || ow(A) ? null : qee(v);
+    if (k !== null) {
+      let E = await Ee({
+        ...f,
+        input: A,
+        permissionResult: r,
+        sedInfo: k,
+        toolPermissionContext: he(o.toolUseContext),
+      });
+      if (o.resolveIfAborted(w.resolve)) return;
+      let F;
+      de(e, w, {
+        dialog: Ohe,
+        buildDescriptor: ({ input: B, permissionResult: M }) => {
+          if (F?.isReprompted() !== !0) return { ...E, permissionResult: M };
+          return (async function* () {
+            let H = typeof B.command === "string" ? B.command : "",
+              S = qee(H);
+            if (S === null) {
+              if (
+                (n(
+                  "Sed-edit permission reprompt: rewritten command no longer parses as a sed edit; denying instead of showing a stale preview",
+                  { level: "error" },
+                ),
+                u())
+              )
+                F?.dismissAndTeardown(),
+                  F?.logRepromptDenyDecision(),
+                  d(
+                    o.cancelAndAbort(
+                      "The hook rewrote this sed edit into a command that cannot be previewed as a file edit. Re-run the rewritten command directly if intended.",
+                    ),
+                  );
+              return;
+            }
+            try {
+              yield await Ee({
+                ...f,
+                input: B,
+                permissionResult: M,
+                sedInfo: S,
+                toolPermissionContext: he(o.toolUseContext),
+              });
+            } catch (W) {
+              if (
+                (n(
+                  `Sed-edit permission reprompt: descriptor rebuild failed (${l(W)}); denying instead of executing a stale simulation`,
+                  { level: "error" },
+                ),
+                u())
+              )
+                F?.dismissAndTeardown(),
+                  F?.logRepromptDenyDecision(),
+                  d(o.cancelAndAbort(`Failed to preview the hook-rewritten sed edit: ${l(W)}`));
+            }
+          })();
+        },
+        unaryEvent: io(k.filePath),
+        onRacersReady: (B) => {
+          F = B;
+        },
+      });
+      return;
+    }
+    let I = he(o.toolUseContext);
+    de(e, w, {
+      dialog: V0e,
+      buildDescriptor: ({ input: E, permissionResult: F }) =>
+        ZIt({ ...f, input: E, permissionResult: F, classifierState: "none", toolPermissionContext: I }),
+    });
+    return;
+  }
+  x();
+}
+function de(e, i, o) {
+  let {
+      ctx: t,
+      description: r,
+      result: b,
+      awaitAutomatedChecksBeforeDialog: R,
+      bridgeCallbacks: d,
+      channelCallbacks: _,
+    } = e,
+    { resolve: u, isResolved: w, claim: P } = i,
+    f = t.toolUseContext.requestDialog;
+  if (f === void 0) return;
+  let x = f,
+    T = t.toolUseContext.agentContext,
+    A = kbt(t.toolUseContext),
+    v = Date.now(),
+    k = b.updatedInput ?? t.input,
+    I = b.decisionReason,
+    E = b,
+    F = 0,
+    B,
+    M = [];
+  function L() {
+    if (M.length === 0) return;
+    let C = M.splice(0, M.length);
+    for (let O of C)
+      try {
+        O();
+      } catch (J) {
+        n(`Dialog teardown failed: ${l(J)}`, { level: "error" });
+      }
+  }
+  let H = !1,
+    S = o.unaryEvent ?? { completion_type: "tool_use_single", language_name: "none" },
+    W = t.toolUseContext.abortController.signal;
+  function U() {
+    if (H) return;
+    H = !0;
+    let C = t.permissionMode;
+    t.toolUseContext.applyAttributionOp({ kind: "incrementPermissionPrompt" }),
+      s("tengu_tool_use_show_permission_request", {
+        messageID: ve(t.messageId),
+        toolName: Un(t.tool.name),
+        isMcp: t.tool.isMcp ?? !1,
+        decisionReasonType: ke(E.decisionReason?.type),
+        sandboxEnabled: pt.isSandboxingEnabled(),
+        permissionMode: c(C),
+        requestSource: ke(Ae(t.toolUseContext)?.type),
+        originAgentType: c(EC(T) && T.isMainSession ? "main" : T.agentType),
+      }),
+      Ce({
+        completion_type: S.completion_type,
+        event: "response",
+        metadata: { language_name: S.language_name, message_id: t.assistantMessage.message.id, platform: a.platform },
+      });
+  }
+  function j(C) {
+    Ce({
+      completion_type: S.completion_type,
+      event: C,
+      metadata: { language_name: S.language_name, message_id: t.assistantMessage.message.id, platform: a.platform },
+    });
+  }
+  function z() {
+    B?.abort(), ck.clearHookFailure(t.toolUseID), ck.emit(null), Re(), L();
+  }
+  let pe = 0,
+    { notifyBridgeAndTeardown: q } = mo({
+      ctx: t,
+      description: r,
+      result: b,
+      displayInput: k,
+      permissionPromptStartTimeMs: v,
+      awaitAutomatedChecksBeforeDialog: R,
+      bridgeCallbacks: d,
+      channelCallbacks: _,
+      claim: P,
+      isResolved: w,
+      onWin(C) {
+        z(), u(C);
+      },
+      onReprompt(C, O, J) {
+        (pe += 1),
+          (k = C),
+          (I = O),
+          (E = E.denialLimitFallback !== void 0 ? { ...J, denialLimitFallback: E.denialLimitFallback } : J),
+          B?.abort(),
+          L(),
+          Fe();
+      },
+    }),
+    G = !1,
+    be,
+    De,
+    ue,
+    _e,
+    oe,
+    Ie = () => {
+      if (G || w()) return;
+      if ((be?.(), oe !== void 0)) _e?.({ ...oe, permissionResult: E });
+    },
+    Re = m7.subscribe(() => {
+      if (w()) return;
+      if (be !== void 0 && !G && !Qy(HH(t.tool, he(t.toolUseContext)))) Ie();
+      if (t.tool.requiresUserInteraction?.()) return;
+      if (b.forcedByCaller === !0) return;
+      Ld(t.tool, t.input, t.toolUseContext, t.assistantMessage, t.toolUseID)
+        .then((C) => {
+          if (C.behavior !== "allow") return;
+          if (!P()) return;
+          Re(),
+            q(),
+            B?.abort(),
+            ck.clearHookFailure(t.toolUseID),
+            ck.emit(null),
+            L(),
+            t.logDecision({ decision: "accept", source: "config" }),
+            u(t.buildAllow(C.updatedInput ?? t.input, { decisionReason: C.decisionReason }));
+        })
+        .catch((C) => {
+          if (!It(C)) h(ft(we(C), "permissionRecheckSignal: hasPermissionsToUseTool failed"));
+        });
+    });
+  function Fe() {
+    let C = ++F;
+    (oe = void 0), wo();
+    let O = new AbortController();
+    B = O;
+    let J = () => O.abort();
+    if (W.aborted) O.abort();
+    else W.addEventListener("abort", J, { once: !0 });
+    let ge = o.buildDescriptor({ input: k, permissionResult: E }),
+      K,
+      Ue = !1,
+      Oe = [],
+      Ne = (N) => {
+        if (G) N = { ...N, permissionResult: E };
+        if (((oe = N), K !== void 0)) {
+          let se = K;
+          (K = void 0), se({ value: N, done: !1 });
+        } else Oe.push(N);
+      },
+      Be = (N) => {
+        if (Kwn(N))
+          (async () => {
+            try {
+              for await (let se of N) {
+                if (O.signal.aborted) return;
+                Ne(se);
+              }
+            } catch {}
+          })();
+        else Ne(N);
+      };
+    _e = Be;
+    let ko = {
+      [Symbol.asyncIterator]() {
+        return {
+          next: () => {
+            if (Ue) return Promise.resolve({ value: void 0, done: !0 });
+            let N = Oe.shift();
+            if (N !== void 0) return Promise.resolve({ value: N, done: !1 });
+            return new Promise((se) => {
+              K = se;
+            });
+          },
+          return: () => {
+            let N = { value: void 0, done: !0 };
+            return K?.(N), (K = void 0), Promise.resolve(N);
+          },
+        };
+      },
+    };
+    U(), ck.emit({ ...qe({ tool: t.tool, input: k }), toolUseID: t.toolUseID });
+    let We = Z !== void 0 && !A && !G,
+      Le = () => {
+        (Ue = !0), K?.({ value: void 0, done: !0 }), (K = void 0);
+      };
+    if (We) {
+      if (O.signal.aborted) Le();
+      else O.signal.addEventListener("abort", Le, { once: !0 });
+      Be(ge);
+    }
+    x(o.dialog, We ? ko : ge, { signal: O.signal, queueBehind: A, armInputGrace: A }).then((N) => {
+      if ((W.removeEventListener("abort", J), C !== F)) return;
+      if (!P()) return;
+      bo(N);
+    });
+  }
+  function bo(C) {
+    switch ((ck.clearHookFailure(t.toolUseID), ck.emit(null), Re(), L(), C.behavior)) {
+      case "allow": {
+        if (b.denialLimitFallback !== void 0)
+          rpt(t.toolUseContext), y("permission_auto_mode_denial_fallback", { autoDenied: !1 });
+        q({ behavior: "allow", updatedInput: C.updatedInput, updatedPermissions: [...(C.permissionUpdates ?? [])] }),
+          j("accept"),
+          u(
+            t.handleUserAllow(C.updatedInput, C.permissionUpdates ?? [], {
+              feedback: C.feedback,
+              permissionPromptStartTimeMs: v,
+              contentBlocks: C.contentBlocks,
+              decisionReason: I,
+              matchedAskRule: E.matchedAskRule,
+            }),
+          );
+        return;
+      }
+      case "deny": {
+        if (b.denialLimitFallback !== void 0) y("permission_auto_mode_denial_fallback", { autoDenied: !1 });
+        q({ behavior: "deny", message: C.feedback ?? "User denied permission" }),
+          j("reject"),
+          t.logDecision(
+            { decision: "reject", source: { type: "user_reject", hasFeedback: !!C.feedback } },
+            { permissionPromptStartTimeMs: v, input: k },
+          ),
+          u(t.cancelAndAbort(C.feedback, void 0, C.contentBlocks, { feedbackIsFromUser: !0 }));
+        return;
+      }
+      case "cancelled": {
+        if (
+          (q({ behavior: "deny", message: "User aborted" }),
+          j("reject"),
+          t.logCancelled(),
+          t.logDecision(
+            { decision: "reject", source: { type: "user_abort" } },
+            { permissionPromptStartTimeMs: v, input: k },
+          ),
+          A)
+        ) {
+          u({ behavior: "ask", message: rI });
+          return;
+        }
+        u(t.cancelAndAbort(void 0, !0));
+        return;
+      }
+    }
+  }
+  let Z = b.denialLimitFallback?.autoDenyAfterMs,
+    te = b.denialLimitFallback?.autoDenyResolution,
+    fe,
+    re;
+  function Me() {
+    if (Z === void 0 || G || w()) return;
+    if (((fe = Date.now() + Z), je(Z, fe), oe !== void 0)) _e?.({ ...oe, permissionResult: E });
+  }
+  function je(C, O) {
+    if (te === void 0) return;
+    clearTimeout(re), (E = { ...E, denialLimitFallback: sqn(E.denialLimitFallback, O) });
+    let J = Math.max(0, O - Date.now()),
+      ge = te.message;
+    (re = setTimeout(() => {
+      if (Jbe(o.dialog.kind)) {
+        Me();
+        return;
+      }
+      if (!P()) return;
+      z(),
+        q({ behavior: "deny", message: ge }),
+        s("tengu_auto_mode_denial_dialog_auto_denied", {
+          toolName: Un(t.tool.name),
+          isMcp: t.tool.isMcp ?? !1,
+          timeoutMs: C,
+        }),
+        y("permission_auto_mode_denial_fallback", { autoDenied: !0 }),
+        j("reject"),
+        t.logDecision({ decision: "reject", source: "config" }, { permissionPromptStartTimeMs: v, input: k }),
+        e.onClassifierDenyDelivered?.(te),
+        u(te);
+    }, J)),
+      re.unref?.();
+  }
+  function wo() {
+    if (Z === void 0 || te === void 0 || A || G) return;
+    (fe ??= Date.now() + Z),
+      je(Z, fe),
+      M.push(() => clearTimeout(re)),
+      (be = () => {
+        (G = !0), clearTimeout(re);
+        let O = E.denialLimitFallback;
+        if (O !== void 0) E = { ...E, denialLimitFallback: aqn(O) };
+      }),
+      De?.(),
+      (De = no.subscribe(() => {
+        Ie();
+      })),
+      M.push(() => De?.()),
+      ue?.();
+    let C = Jbe(o.dialog.kind);
+    (ue = QBt(() => {
+      let O = Jbe(o.dialog.kind);
+      if (C && !O) Me();
+      C = O;
+    })),
+      M.push(() => {
+        ue?.(), (ue = void 0);
+      });
+  }
+  o.onRacersReady?.({
+    dismissAndTeardown: z,
+    notifyBridge: q,
+    isReprompted: () => pe > 0,
+    addTeardown: (C) => {
+      M.push(C);
+    },
+    logRepromptDenyDecision: () => {
+      j("reject"),
+        t.logDecision({ decision: "reject", source: { type: "hook" } }, { permissionPromptStartTimeMs: v, input: k });
+    },
+  }),
+    Fe();
+}
+function Po(e, i) {
+  let { live: o, notice: t } = eSe(e, { suppressDropTelemetry: !0 }),
+    r = xfn(o),
+    b = -1;
+  for (let _ = o.length - 1; _ >= 0; _--) {
+    let u = o[_];
+    if (u && xgt(u)) {
+      b = _;
+      break;
+    }
+  }
+  let R = new Set();
+  for (let _ = b + 1; _ < o.length; _++) {
+    let u = o[_];
+    if (!u || u.type !== "assistant") continue;
+    for (let w of u.message.content) if (w.type === "tool_use" && w.name === Xr) R.add(w.id);
+  }
+  let d = new Map();
+  for (let _ = b + 1; _ < o.length; _++) {
+    let u = o[_];
+    if (!u || u.type !== "user" || typeof u.message.content === "string") continue;
+    for (let w of u.message.content)
+      if (w.type === "tool_result" && R.has(w.tool_use_id)) d.set(w.tool_use_id, w.is_error !== !0 && !qo(w.content));
+  }
+  for (let _ = o.length - 1; _ >= 0; _--) {
+    let u = o[_];
+    if (!u) continue;
+    if (xgt(u)) break;
+    if (u.type !== "assistant" || u.isApiErrorMessage) continue;
+    if (
+      u.message.content.some(
+        (f) =>
+          f.type === "tool_use" &&
+          f.name === Xr &&
+          typeof f.input === "object" &&
+          f.input !== null &&
+          "to" in f.input &&
+          typeof f.input.to === "string" &&
+          (f.input.to === vi || f.input.to === yp) &&
+          d.get(f.id) === !0,
+      )
+    ) {
+      if (i?.emitTelemetry === !0) g("swarm_idle_result_delivery", "suppressed_lead_dm");
+      return { result: void 0, summary: r };
+    }
+    if (!jIe(u.message.content)) continue;
+    let P = u.message.content
+      .flatMap((f) => (f.type === "text" && typeof f.text === "string" ? [f.text] : []))
+      .join(`
+`);
+    if (P) {
+      let f = oF(P).sanitized;
+      return {
+        result: t
+          ? `\u26A0 ${t.content}
 
-${f}`:f,summary:r}}}return{result:void 0,summary:r}}function FUn(e){return Po(e).result}function Mhe(e,i){try{return Po(e,i)}catch(o){return h(o),{result:void 0,summary:void 0}}}function qo(e){let i=[];if(typeof e==="string")i.push(e);else if(Array.isArray(e)){for(let o of e)if(o!==null&&typeof o==="object"&&"type"in o&&o.type==="text"&&"text"in o&&typeof o.text==="string")i.push(o.text)}for(let o of i){if(!o.startsWith("{"))continue;try{let t=V(o);if(t!==null&&typeof t==="object"&&"success"in t&&t.success===!1)return!0}catch{}}return!1}class ho{permissionContextSetter=null;registerSetter(e){this.permissionContextSetter=e}unregisterSetter(){this.permissionContextSetter=null}}var Sit=new Mn(()=>new ho);
-export{Aje,Dhe,V0e,dit,pit,Cje,Ohe,WR,K0e,ZIt,fit,NUn,mit,Lhe,git,hit,_it,yit,ePt,tPt,vje,ltn,Rje,FUn,Mhe,Sit};
+${f}`
+          : f,
+        summary: r,
+      };
+    }
+  }
+  return { result: void 0, summary: r };
+}
+function FUn(e) {
+  return Po(e).result;
+}
+function Mhe(e, i) {
+  try {
+    return Po(e, i);
+  } catch (o) {
+    return h(o), { result: void 0, summary: void 0 };
+  }
+}
+function qo(e) {
+  let i = [];
+  if (typeof e === "string") i.push(e);
+  else if (Array.isArray(e)) {
+    for (let o of e)
+      if (
+        o !== null &&
+        typeof o === "object" &&
+        "type" in o &&
+        o.type === "text" &&
+        "text" in o &&
+        typeof o.text === "string"
+      )
+        i.push(o.text);
+  }
+  for (let o of i) {
+    if (!o.startsWith("{")) continue;
+    try {
+      let t = V(o);
+      if (t !== null && typeof t === "object" && "success" in t && t.success === !1) return !0;
+    } catch {}
+  }
+  return !1;
+}
+class ho {
+  permissionContextSetter = null;
+  registerSetter(e) {
+    this.permissionContextSetter = e;
+  }
+  unregisterSetter() {
+    this.permissionContextSetter = null;
+  }
+}
+var Sit = new Mn(() => new ho());
+export {
+  Aje,
+  Dhe,
+  V0e,
+  dit,
+  pit,
+  Cje,
+  Ohe,
+  WR,
+  K0e,
+  ZIt,
+  fit,
+  NUn,
+  mit,
+  Lhe,
+  git,
+  hit,
+  _it,
+  yit,
+  ePt,
+  tPt,
+  vje,
+  ltn,
+  Rje,
+  FUn,
+  Mhe,
+  Sit,
+};

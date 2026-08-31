@@ -8,5 +8,20 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-function jce(e,n){return{...e,endedByModel:n}}function Hte(e){return e?.endedByModel}function nmt(){return!1}function Rdn(){return""}function wk(e){let n=Rdn();return n===""?e:`${e} ${n}`}
-export{jce,Hte,nmt,Rdn,wk};
+function jce(e, n) {
+  return { ...e, endedByModel: n };
+}
+function Hte(e) {
+  return e?.endedByModel;
+}
+function nmt() {
+  return !1;
+}
+function Rdn() {
+  return "";
+}
+function wk(e) {
+  let n = Rdn();
+  return n === "" ? e : `${e} ${n}`;
+}
+export { jce, Hte, nmt, Rdn, wk };

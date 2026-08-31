@@ -8,5 +8,8 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{S,ue}from"/$bunfs/root/chunk-yz031c9r.js";var Zxn=S(function(A,H){H.exports=ue("/$bunfs/root/computer-use-input.node")});
-export{Zxn};
+import { S, ue } from "/$bunfs/root/chunk-yz031c9r.js";
+var Zxn = S(function (A, H) {
+  H.exports = ue("/$bunfs/root/computer-use-input.node");
+});
+export { Zxn };

@@ -8,11 +8,1611 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Kr,J,ts,G,K,nc,Aj,AU}from"/$bunfs/root/chunk-f9h0bg01.js";import{ne}from"/$bunfs/root/chunk-tx16jn0x.js";import{mI}from"/$bunfs/root/chunk-mvz9fsh3.js";import{Zt,Te}from"/$bunfs/root/chunk-jpf4kat5.js";import{s}from"/$bunfs/root/chunk-r53tkxrh.js";import{w,c}from"/$bunfs/root/chunk-4xj01xwv.js";import{R,l,E,uo,n1,X}from"/$bunfs/root/chunk-ypdw393e.js";import{Ii,Rfe,KAt,Wn}from"/$bunfs/root/chunk-nqmqabr8.js";import{iu,Ge,b,V,co,n}from"/$bunfs/root/chunk-fv016jr6.js";import{h}from"/$bunfs/root/chunk-wkxx62a2.js";import{m}from"/$bunfs/root/chunk-bzx56g36.js";import{a}from"/$bunfs/root/chunk-fec4384a.js";import{qVn,uX,hF,cT}from"/$bunfs/root/chunk-krety1hw.js";import{i4}from"/$bunfs/root/chunk-5rt2mvvk.js";import{_Y,Ot,_bn,O3t,Kh}from"/$bunfs/root/chunk-8tgj5dp2.js";import{ms,Bwn,Bm}from"/$bunfs/root/chunk-tzhtxm67.js";import{ene}from"/$bunfs/root/chunk-d5s7a9by.js";import{VCe}from"/$bunfs/root/chunk-f5hrzy3k.js";import{OGe}from"/$bunfs/root/chunk-6ywvv1q0.js";import{Bu}from"/$bunfs/root/chunk-bj904w9w.js";import{Ne}from"/$bunfs/root/chunk-82w4mtvq.js";import{Us}from"/$bunfs/root/chunk-v7yhn7cf.js";import{Gi}from"/$bunfs/root/chunk-4rh74qms.js";import{qX}from"/$bunfs/root/chunk-83h0j7w2.js";import{i,v,q,_e,H,f,De,oe,N}from"/$bunfs/root/chunk-saay52v7.js";import{zm}from"/$bunfs/root/chunk-13198prn.js";import{T}from"/$bunfs/root/chunk-ma6kk3k0.js";import{SS}from"/$bunfs/root/chunk-56sxk8k2.js";import{O}from"/$bunfs/root/chunk-dqkj2bph.js";import{Q}from"/$bunfs/root/chunk-wag5ye9w.js";import{lstat as Z,mkdir as pe,readdir as Se,readFile as re,rm as te,stat as Le}from"fs/promises";import{basename as B,dirname as Ue,isAbsolute as ye,join as F,relative as Je}from"path";function he(e){if(e===void 0||!e.kinds.includes("session_cron"))return!1;let t=e.wake;if(t===void 0)return!0;return t.fires>=1&&t.keepalive!==!0}function Ice(e){if(!e||e.target<=0)return-1;return Math.floor(20*e.spent/e.target)}function Pce(e){if(!e||e.length===0)return"";return e.map((t)=>{let r=`${t.id??t.label}:${t.doneAt??"-"}:${t.failed?"x":""}`;return t.kind==="todo"?`${r}:${t.startedAt??"-"}`:r}).join("|")}function lDe(){let{tasks:e,queued:t,kinds:r,drainableMonitors:o,wake:d}=mI().inFlightSnapshot;return{tasks:e,queued:t,kinds:r,...o!==void 0&&{drainableMonitors:o},...d!==void 0&&{wake:d}}}function edn(e){mI().publishInFlightSnapshot(e)}function cDe(){return{...mI().inFlightSnapshot}}function MVn(e){return mI().inFlightSnapshotChanged.subscribe(e)}async function Pft(e,t){if(!ms(e))return"dead_pid";if(!await Bm(e,t))return"procstart_mismatch";if(await Bwn(e))return"zombie";return"live"}async function kGe(e,t){return await Pft(e,t)==="live"}var Fe=/^-|^[A-Za-z][A-Za-z0-9+.-]+:\/\//;function b2(e){return!Fe.test(e)&&!e.includes("\x00")}function tdn(){let e=nc();if(e===void 0||Ne()==="mantle")return;if(e===null)return"default";if(!e)return;if(_Y(Ot(e)))return;if(Aj()?.fallbackModel===e)return;if(!b2(e))return;return e}function NVn(){return AU().includes("--restricted")}function lX(e,t){let r=we(e.additionalWorkingDirectories),o=[],d=!1;for(let k of AU())if(d)d=!1;else if(k==="--add-dir")d=!0;else o.push(k);let g=qX(t),p=tdn(),S=e.isBypassPermissionsModeAvailable&&!o.includes("--allow-dangerously-skip-permissions");return[...o,...S?["--allow-dangerously-skip-permissions"]:[],...r.flatMap((k)=>["--add-dir",k]),...p!==void 0?["--model",p]:[],...g!==void 0?["--effort",g]:[],"--permission-mode",e.mode]}function ndn(e){let t=Bu([e]);return t.length===1&&t[0]===e&&b2(e)}function E9(e,t){return[...t?[`launch flags: ${OGe}`]:[],...(e.alwaysDenyRules.session??[]).length>0||(e.alwaysAskRules.session??[]).length>0?["permission rules set for this session only"]:[],...(e.alwaysAskRules.cliArg??[]).length>0?["ask-before-running rules with no command-line form"]:[],...[...e.alwaysAllowRules.cliArg??[],...e.alwaysDenyRules.cliArg??[]].some((r)=>!ndn(r))?["permission rules a command line cannot carry intact"]:[],...we(e.additionalWorkingDirectories).some((r)=>!b2(r))?["added directories a command line cannot carry intact"]:[]]}function cX(e,t){return[...(e.alwaysAllowRules.cliArg??[]).flatMap((r)=>["--allowed-tools",r]),...(e.alwaysDenyRules.cliArg??[]).flatMap((r)=>["--disallowed-tools",r]),...qb("--agent",t.agent),...qb("--agents",t.agents),...qb("--append-system-prompt",t.appendSystemPrompt)]}function qb(e,t){if(!t)return[];return b2(t)?[e,t]:[`${e}=${t}`]}function we(e){return Array.from(e.values()).filter((t)=>t.source==="cliArg"||t.source==="session").map((t)=>t.path)}var HE="(ungrouped)",Q_="(earlier)",$hr=64,Be=new Set(["pinned","ungrouped",HE,"past",Q_]);function HGe(e){return Be.has(e.toLowerCase())}function vBt(e){return i4(e).slice(0,$hr)}function RBt(e){if(e===void 0)return;let t=vBt(e);return t&&!HGe(t)?t:void 0}class ce{#e=new Map;#t=new Set;#n=new Set;#i=new Set;#r=new Set;peek(e){return this.#e.get(e)}invalidate(e){this.#e.delete(e)}noteAbsent(e){this.#e.delete(e),this.#t.delete(e)}noteRejected(e,t){this.#e.set(e,{mtimeKey:t,state:null})}noteParsed(e,t,r){if(this.#e.size>1000)this.#e.clear();this.#e.set(e,{mtimeKey:t,state:r}),this.#t.delete(e)}noteHit(e){this.#t.delete(e)}shouldReportTransient(e){if(this.#t.has(e))return!1;return this.#t.add(e),!0}shouldReportRecovered(e){if(this.#n.has(e))return!1;return this.#n.add(e),!0}noteCleanRead(e){this.#n.delete(e)}shouldReportPruned(e){if(this.#i.has(e))return!1;return this.#i.add(e),!0}notePruneCandidateLive(e){this.#i.delete(e)}shouldLogSidecarFallback(e){if(this.#r.has(e))return!1;return this.#r.add(e),!0}}class be{drafts=new Map;pins=new Map}var ABt=new J(()=>new be);async function CBt(e,t,{cap:r,screens:o,screenKey:d,heal:g}){if(o.get(d)!=="ok"){let k=await e.statMeta(t);if(!k.ok){if(k.error.code!=="NotFound")o.set(d,"refused"),await g?.();return null}if(k.value.size>r)return o.set(d,"refused"),null;o.set(d,"ok")}let p=await e.readText([{key:t,offset:0,length:r+1}]);if(!p.ok)return o.delete(d),await g?.(),null;let S=p.value.items[0];if(!S.found)return null;if(S.totalBytes>r)return o.set(d,"refused"),null;return S.value}var ie=()=>i().transform(SS),ve=/^[a-f0-9]{8}$/,Me=/^(cse_|session_)[A-Za-z0-9_-]{1,128}$/;function ee(e,t){return(r)=>{if(t(r))return r;n(`[jobs] dropped malformed ${e} from persisted job state`,{level:"warn"});return}}var le=m(()=>f({state:i(),detail:i(),tempo:oe(["active","idle","blocked"]).optional().catch(void 0),inFlight:f({tasks:v(),queued:v(),kinds:H(i()),drainableMonitors:v().int().nonnegative().optional(),wake:f({at:v().optional(),reason:i().optional(),fires:v().int().nonnegative(),keepalive:N(!0).optional()}).optional().catch(void 0)}).optional(),selfWake:q().optional().catch(void 0),fan:H(f({id:i().optional(),kind:oe(["agent","workflow","shell","monitor","mcp","todo"]).optional().catch(void 0),label:i(),startedAt:v().optional(),doneAt:v().optional(),failed:q().optional(),group:i().optional()})).optional(),budget:f({spent:v(),target:v()}).optional(),tokens:v().optional(),needs_you:q().optional(),needs:i().optional(),block:f({questions:H(f({question:i(),options:H(f({label:i(),description:i()}))}))}).optional(),suggestedReply:i().optional(),output:De(i(),i()).nullable().default(null),structuredResult:De(i(),_e()).optional(),children:H(f({id:i(),href:i(),kind:oe(["pr","frame"]).optional().catch(void 0),title:i().optional().catch(void 0)})).nullable().default(null),linkScanOffset:v().default(0),linkScanPath:ie().transform(ee("linkScanPath",(e)=>ye(e)&&e.endsWith(".jsonl")&&Kr(B(e,".jsonl"))!==null)).optional(),template:i(),routine:i().optional(),respawnFlags:H(i()).default([]).transform((e)=>hF(uX(e))),bgIsolation:oe(["none","worktree"]).optional().catch(void 0),providerEnv:De(i(),i()).transform((e)=>{let t=qVn(e);return t&&ts(t,SS)}).optional(),sessionPermissionRules:f({allow:H(i()),deny:H(i())}).optional(),memoryToggledOff:q().optional(),forkSourceAlive:q().optional(),forkBoundaryAt:i().optional(),forkSessionId:i().optional(),forkParentSessionId:i().optional(),interactiveLineage:q().optional(),intent:i(),displayIntent:i().optional(),initialPrompt:i().optional(),queuedPrompt:i().optional(),name:i().optional(),nameSource:oe(["user","auto","collision"]).optional().catch(void 0),color:i().optional(),sessionId:ie(),resumeSessionId:i().transform(ee("resumeSessionId",(e)=>Kr(e)!==null)).optional(),daemonShort:i().transform(ee("daemonShort",(e)=>ve.test(e))).optional(),cliVersion:i().optional(),cwd:ie(),createdAt:i(),updatedAt:i(),firstTerminalAt:i().nullable().default(null),worktreePath:ie().optional(),worktreeBranch:i().optional(),worktreeHookBased:q().optional(),originCwd:ie().optional(),bridgeSessionId:i().transform(ee("bridgeSessionId",(e)=>Me.test(e))).optional(),bridgeOwnerAccountUuid:i().optional(),bridgeOwnerOrganizationUuid:i().optional(),bridgeNoHistoryBackfill:q().optional(),bridgeOutboundOnly:q().optional(),bridgeSessionGroupingId:i().transform(ee("bridgeSessionGroupingId",(e)=>/^sgrp_[A-Za-z0-9_]{1,128}$/.test(e))).optional(),bridgeSessionSeq:v().transform(ee("bridgeSessionSeq",(e)=>Number.isInteger(e)&&e>=0)).optional(),backend:oe(["daemon","peer","remote"]).catch("daemon").default("daemon").transform((e)=>{if(e==="daemon")return e;return n(`[jobs] coerced persisted backend '${e}' to 'daemon' \u2014 peer/remote rows are never written to disk`,{level:"warn"}),"daemon"}),sock:i().optional(),pid:v().optional(),sortOrder:v().optional(),stateSortOrder:v().optional(),group:i().optional(),pinned:q().optional(),reapedMidWorkAt:i().optional(),reapedUnsettledAt:i().optional(),deadEpochReapedAt:i().optional(),sessionIdTaken:q().optional().catch(void 0)}).transform(({needs_you:e,...t})=>{let r=t.bridgeOwnerAccountUuid!==void 0&&!VCe(t.bridgeOwnerAccountUuid)||t.bridgeOwnerOrganizationUuid!==void 0&&!VCe(t.bridgeOwnerOrganizationUuid);return{...t,...r&&{bridgeOwnerAccountUuid:void 0,bridgeOwnerOrganizationUuid:void 0},tempo:t.tempo??(e?"blocked":"idle")}})),W="state.json",D=8388608;function Gb(){return _bn()}function cr(e){return F(Gb(),e)}async function ICr(e){if(e){let t=await Oe(e);if(!t.ok)throw new R(`listJobDirectoryNames: v5 list failed: ${t.error.code}`,"listJobDirectoryNames: v5 list failed");if(t.ids.length===0){let r;try{r=await Le(Gb())}catch(o){if(!X(o))throw o}if(r!==void 0&&!r.isDirectory())throw Error("listJobDirectoryNames: jobs root is not a directory")}return t.ids}return Se(Gb(),{withFileTypes:!0}).then((t)=>t.filter((r)=>r.isDirectory()).map((r)=>r.name)).catch((t)=>{if(X(t))return[];throw t})}function fu(){let e=a.CLAUDE_JOB_DIR;if(e)return B(e);let t=Kh();if(t)return B(t.jobDir);return K().slice(0,8)}function Ae(e,t){return Zt(e)?Te.job(e,t):void 0}function Ibe(e,t){return O3t(e,t)}function Dft(e){return Te.job(e,[W])}function rdn(e,t){let r=F(cr(e),W),o=!1,d=Number.NaN;function g(A){if(o)return;if(Number.isNaN(d)){d=A;return}if(A===d)return;u(),t()}function p(){Z(r).then((A)=>g(A.mtimeMs),()=>g(-1))}p();let S=setInterval(p,200),k=setTimeout(u,1e4);function u(){if(o)return;o=!0,clearInterval(S),clearTimeout(k)}return u}function kBt(){return mI().ownStateWriteDepth>0}async function xs(e,t,r){let o=t.inFlight?.kinds.includes("session_cron")===!0,d=o&&!t.selfWake&&he(t.inFlight)?{...t,selfWake:!0}:!o&&t.selfWake&&Xi(t)?{...t,selfWake:void 0}:t,{pinned:g,sortOrder:p,stateSortOrder:S,group:k,...u}=d,A=r?Ibe(e,[W]):void 0,P=mI();P.ownStateWriteDepth++;try{if(r&&A){let C=await r.write(A,b(u,null,2),{mode:384,parent:"mustExist"});if(!C.ok){let y=iu(C.error);throw Object.assign(new R(`[jobs] v5 state write failed: ${Ge(C.error)}`,"[jobs] v5 state write failed"),y!==void 0?{code:y}:{})}}else await Wn(F(e,W),b(u,null,2),384)}finally{P.ownStateWriteDepth--,hd(e)}}function Aa(e){let t=E(e);if(t&&(n1.has(t)||t==="ENOENT")){n(`[jobs] state write failed (${t}): ${l(e)}`,{level:"error"});return}h(e)}function xGe(e,t){let r=t!==void 0&&t.id===e?.bridgeSessionId;return{ownerAccountUuid:r?t.ownerAccountUuid:void 0,ownerOrganizationUuid:r?t.ownerOrganizationUuid:void 0,noHistoryBackfill:e?.noHistoryBackfill||(t!==void 0&&!r?!0:t?.noHistoryBackfill)}}function lz(e,t,r,o,d){if(!e)return;let g={CLAUDE_BRIDGE_REATTACH_SESSION:e};if(t!==void 0&&t>0)g.CLAUDE_BRIDGE_REATTACH_SEQ=String(t);if(o)g.CLAUDE_BRIDGE_REATTACH_GROUPING=o;if(d?.ownerAccountUuid)g.CLAUDE_BRIDGE_REATTACH_OWNER_ACCT=d.ownerAccountUuid;if(d?.ownerOrganizationUuid)g.CLAUDE_BRIDGE_REATTACH_OWNER_ORG=d.ownerOrganizationUuid;if(d?.noHistoryBackfill)g.CLAUDE_BRIDGE_REATTACH_NO_BACKFILL="1";if(r!==!1)g.CLAUDE_BRIDGE_REATTACH_OUTBOUND_ONLY="1";return g}var _=new ce;function de(e,t){return t?.onReadFailure==="null"?null:e?.state??null}var $e=[15,45],je=new Set(["ELOOP","ENXIO","EISDIR"]);function ue(e){if(e.code!=="Failed"||e.telemetryCode===void 0)return;if(e.telemetryCode==="EFBIG")return"oversize";return je.has(e.telemetryCode)?"non-regular":void 0}function Re(e){return e.code==="Failed"&&e.key!==void 0&&e.key.namespace==="job"&&e.key.relPath[0]!==W}var We=new Set(["invariant","permission","environment"]);function He(e){if(e.code==="Unavailable")return!0;return e.code==="Failed"&&!We.has(e.failureClass)&&ue(e)===void 0&&!Re(e)}async function Ke(e,t){let r=await t(),o=1;for(let d of $e){if(r.ok||!He(r.error))break;await ne(d),r=await t(),o++}if(r.ok){if(o===1)_.noteCleanRead(e);else if(_.shouldReportRecovered(e))s("tengu_bg_state_read_recovered",{attempts:o})}return r}function ke(e,t,r){let o=_.peek(e);if(!(o?.mtimeKey.startsWith("rejected:")&&o.state===null))n(`[jobs] skipping ${B(e)}: state.json is ${r}`,{level:"warn"});return _.noteRejected(e,`rejected:${t}`),null}function hd(e){_.invalidate(e)}async function qe(e,t,r){let o=B(t),d=_.peek(t);if(d===void 0||d.mtimeKey.startsWith("rejected:")){let I=await e.statMeta(Dft(o));if(!I.ok){if(I.error.code==="NotFound")return _.noteAbsent(t),null;let j=ue(I.error);if(j!==void 0)return ke(t,j,j==="oversize"?"too large":"not a regular file")}else if(I.value.size>D){let j=`rejected:${I.value.mtimeMs}:${I.value.size}`;if(_.peek(t)?.mtimeKey!==j)n(`[jobs] skipping ${B(t)}: state.json is too large (${I.value.size} bytes)`,{level:"warn"}),_.noteRejected(t,j);return null}}let g=Dft(o),S=await Ke(t,()=>e.read([g,Te.job(o,["order"]),Te.job(o,["stateOrder"]),Te.job(o,["group"])]));if(!S.ok&&Re(S.error)){if(_.shouldLogSidecarFallback(t))n(`[jobs] ${B(t)}: a sidecar could not be read as a regular file; using state.json alone`);let I=await e.read([g]);S=I.ok?{ok:!0,value:{items:[I.value.items[0],{found:!1},{found:!1},{found:!1}]}}:I}let k=_.peek(t);if(!S.ok){let I=ue(S.error);if(I!==void 0)return ke(t,I,I==="oversize"?"too large":"not a regular file");if(n(`[jobs] ${B(t)}: v5 state read failed \u2014 ${S.error.code}`,{level:"warn"}),_.shouldReportTransient(t))s("tengu_bg_state_read_transient",{errno:c(S.error.code),had_cache:k!==void 0});return de(k,r)}let[u,A,P,C]=S.value.items;if(!u.found)return _.noteAbsent(t),null;if(u.totalBytes>D){let I=`rejected:${u.mtimeMs}:${u.totalBytes}`;if(k?.mtimeKey===I)return null;return n(`[jobs] skipping ${B(t)}: state.json is too large (${u.totalBytes} bytes)`,{level:"warn"}),_.noteRejected(t,I),null}let y=(I)=>Buffer.from(I.value.buffer,I.value.byteOffset,I.value.byteLength).toString("utf-8"),x=(I)=>I.found&&I.totalBytes<=D?y(I):null,z=(I)=>I.found&&I.totalBytes<=D?I.version:0,U=`v5:${u.version}:${z(A)}:${z(P)}:${z(C)}`;if(k?.mtimeKey===U)return _.noteHit(t),k.state;return Xe(t,U,y(u),x(A),x(P),x(C),k,r)}function Xe(e,t,r,o,d,g,p,S){try{let k=V(r),u=le().safeParse(k);if(!u.success)return n(`[jobs] skipping ${B(e)}: state.json schema validation failed \u2014 ${u.error.message}`,{level:"warn"}),_.noteRejected(e,t),null;let A=o!==null?Number(o):void 0,P=d!==null?Number(d):void 0,C=le().in.shape,y=k!==null&&typeof k==="object"?Object.entries(k).filter(([z])=>!Object.hasOwn(C,z)):[],x={...Object.fromEntries(y),...u.data};if(Number.isFinite(A))x={...x,sortOrder:A};if(Number.isFinite(P))x={...x,stateSortOrder:P};if(g!==null&&g.trim())x={...x,group:g.trim()};if(x.group!==void 0)x={...x,group:RBt(x.group)};return _.noteParsed(e,t,x),x}catch(k){if(n(`[jobs] ${B(e)}: state.json read/parse failed \u2014 ${k instanceof Error?k.message:String(k)}`,{level:"warn"}),_.shouldReportTransient(e))s("tengu_bg_state_read_transient",{errno:uo(k)??w("unknown"),had_cache:p!==void 0});return de(p,S)}}async function odn(e,t){return xe(e,t,{onReadFailure:"null"})}async function fr(e,t){return xe(e,t,void 0)}async function xe(e,t,r){if(t!==void 0&&Ibe(e,[W])!==void 0)return qe(t,e,r);let o=F(e,W),d=F(e,"order"),g=F(e,"stateOrder"),p=F(e,"group"),S,k;try{let[A,P,C,y]=await Promise.all([Z(o),Z(d).catch(()=>null),Z(g).catch(()=>null),Z(p).catch(()=>null)]);if(!A.isFile()||A.size>D){let z=`rejected:${A.mtimeMs}:${A.size}`;if(_.peek(e)?.mtimeKey===z)return null;return n(`[jobs] skipping ${B(e)}: state.json is ${A.isFile()?`too large (${A.size} bytes)`:"not a regular file"}`,{level:"warn"}),_.noteRejected(e,z),null}let x=(z)=>z!==null&&z.isFile()&&z.size<=D;k={order:x(P),stateOrder:x(C),group:x(y)},S=`${A.mtimeMs}:${k.order?P.mtimeMs:0}:${k.stateOrder?C.mtimeMs:0}:${k.group?y.mtimeMs:0}`}catch(A){if(X(A))return _.noteAbsent(e),null;n(`[jobs] ${B(e)}: state.json stat failed \u2014 ${A instanceof Error?A.message:String(A)}`,{level:"warn"});let P=_.peek(e);if(_.shouldReportTransient(e))s("tengu_bg_state_read_transient",{errno:uo(A)??w("unknown"),had_cache:P!==void 0});return de(P,r)}let u=_.peek(e);if(u?.mtimeKey===S)return _.noteHit(e),u.state;try{let[A,P,C,y]=await Promise.all([re(o,"utf-8"),k.order?re(d,"utf-8").catch(()=>null):Promise.resolve(null),k.stateOrder?re(g,"utf-8").catch(()=>null):Promise.resolve(null),k.group?re(p,"utf-8").catch(()=>null):Promise.resolve(null)]),x=V(A),z=le().safeParse(x);if(!z.success)return n(`[jobs] skipping ${B(e)}: state.json schema validation failed \u2014 ${z.error.message}`,{level:"warn"}),_.noteRejected(e,S),null;let U=P!==null?Number(P):void 0,I=C!==null?Number(C):void 0,j=le().in.shape,Ce=x!==null&&typeof x==="object"?Object.entries(x).filter(([ze])=>!Object.hasOwn(j,ze)):[],L={...Object.fromEntries(Ce),...z.data};if(Number.isFinite(U))L={...L,sortOrder:U};if(Number.isFinite(I))L={...L,stateSortOrder:I};if(y!==null&&y.trim())L={...L,group:y.trim()};if(L.group!==void 0)L={...L,group:RBt(L.group)};return _.noteParsed(e,S,L),L}catch(A){if(X(A))return _.noteAbsent(e),null;if(n(`[jobs] ${B(e)}: state.json read/parse failed \u2014 ${A instanceof Error?A.message:String(A)}`,{level:"warn"}),_.shouldReportTransient(e))s("tengu_bg_state_read_transient",{errno:uo(A)??w("unknown"),had_cache:u!==void 0});return de(u,r)}}async function Oft(e,t){hd(e);let r=await fr(e,t).catch(()=>null);if(r!==null&&r.state!=="done"&&r.state!=="stopped"&&r.state!=="blocked"&&r.state!=="failed")await ne(50),hd(e),r=await fr(e,t).catch(()=>null)??r;return r}function M(){return F(Gb(),"pins.json")}var Uhr=5000;async function Dce(e){if(e)return Ye(e);try{let t=await Z(M());if(!t.isFile()||t.size>D){if(!t.isFile())await ae();return new Set}return ge(await re(M(),"utf-8"))}catch(t){if(X(t))return await Wn(M(),b([])).catch((r)=>{if(!X(r))Aa(r)}),new Set;return new Set}}async function Ye(e){let t=await CBt(e,Te.jobPins(),{cap:D,screens:Ie(),screenKey:M(),heal:ae});return ge(t??void 0)}function Ie(){return ABt.of(G().host).pins}function ge(e){if(e===void 0||e.length>D)return new Set;let t;try{t=V(e)}catch{return new Set}if(!Array.isArray(t))return new Set;return new Set(t.filter((r)=>typeof r==="string"))}async function ae(e){let t=await Z(M()).catch(()=>{return});if(t===void 0||t.isFile()&&!(e?.evenRegular&&t.size>D))return!1;return await te(M(),{recursive:!0,force:!0}).catch(()=>{}),!0}async function iM(e,t,r,o,d){let g=cr(e),p=await fr(g,o);if(!p)return!1;if(p.name===t)return!0;hd(g);let S=await fr(g,o)??p;if(S.name===t||r==="auto"&&S.name)return!0;if(!Pe(S,d))return!1;return xs(g,{...S,name:t,nameSource:r,updatedAt:new Date().toISOString()},o).then(()=>!0,(k)=>{if(!X(k))Aa(k);return!1})}async function IGe(e,t,r){let o=cr(e),d=await fr(o,r);if(!d)return!1;if(d.color===t)return!0;hd(o);let g=await fr(o,r)??d;if(g.color===t)return!0;return xs(o,{...g,color:t,updatedAt:new Date().toISOString()},r).then(()=>!0,(p)=>{if(!X(p))Aa(p);return!1})}function HBt(){return mI().relocatedCwd}async function idn(e,t){let r=a.CLAUDE_JOB_DIR;if(!r||a.CLAUDE_CODE_SESSION_KIND!=="bg")return;mI().relocatedCwd=e,hd(r);let o=await fr(r,t),d=o?.worktreePath?o.originCwd:e;if(!o||o.cwd===e&&o.originCwd===d)return;hd(r);let g=await fr(r,t)??o;await xs(r,{...g,cwd:e,originCwd:g.worktreePath?g.originCwd:e,updatedAt:new Date().toISOString()},t).catch((p)=>{if(!X(p))Aa(p)})}async function sdn(e,t,r){let o=a.CLAUDE_JOB_DIR;if(!o||a.CLAUDE_CODE_SESSION_KIND!=="bg")return;hd(o);let d=await fr(o,r);if(!d||d.resumeSessionId===e&&d.linkScanPath===t)return;hd(o);let g=await fr(o,r)??d;await xs(o,{...g,resumeSessionId:e,linkScanPath:t,linkScanOffset:0,updatedAt:new Date().toISOString()},r).catch((p)=>{if(!X(p))Aa(p)})}async function Ate(e,t){let r=a.CLAUDE_JOB_DIR;if(!r||a.CLAUDE_CODE_SESSION_KIND!=="bg")return;await PGe(async()=>{hd(r);let o=await fr(r,t);if(!o?.inFlight||Xi(o)||o.tempo==="active")return;let d=o.inFlight;if(e.count===d.tasks&&(e.drainableMonitors??0)===(d.drainableMonitors??0)&&e.kinds.length===d.kinds.length&&e.kinds.every((g)=>d.kinds.includes(g)))return;await xs(r,{...o,inFlight:{tasks:e.count,queued:d.queued,kinds:[...e.kinds],...e.drainableMonitors!==void 0&&e.drainableMonitors>0&&{drainableMonitors:e.drainableMonitors},...d.wake!==void 0&&{wake:d.wake}},updatedAt:new Date().toISOString()},t).catch((g)=>{if(!X(g))Aa(g)})})}function Pe(e,t){if(t===void 0||!e.name)return!0;if(e.nameSource==="auto"||e.nameSource==="collision")return!0;return t.includes(Us(e.name))}async function kD(e,t,r,o,d,g){let p=a.CLAUDE_JOB_DIR;if(!p||a.CLAUDE_CODE_SESSION_KIND!=="bg")return;hd(p);let S=await fr(p,d);if(!S?.respawnFlags)return;let k=[e,...t],u=(y)=>{let x=[];for(let z=0;z<y.length;z++){let U=y[z];if(k.some((I)=>U===I||U.startsWith(`${I}=`))){if(U.indexOf("=")===-1&&y[z+1]!==void 0)z++;continue}x.push(U)}if(r===null)return x;return[...x,...qb(e,r)]},A=u(S.respawnFlags);if(A.length===S.respawnFlags.length&&A.every((y,x)=>y===S.respawnFlags[x]))return;hd(p);let P=await fr(p,d)??S,C=Pe(P,g);await xs(p,{...P,...C?o:{},respawnFlags:u(P.respawnFlags??S.respawnFlags),updatedAt:new Date().toISOString()},d).catch((y)=>{if(!X(y))Aa(y)})}async function adn(e,t,r){let o=a.CLAUDE_JOB_DIR;if(!o||a.CLAUDE_CODE_SESSION_KIND!=="bg")return;hd(o);let d=await fr(o,r);if(!d?.respawnFlags)return;let g=qb(e,t);for(let S=0;S<=d.respawnFlags.length-g.length;S++)if(g.every((k,u)=>d.respawnFlags[S+u]===k))return;hd(o);let p=await fr(o,r)??d;await xs(o,{...p,respawnFlags:[...p.respawnFlags??[],...g],updatedAt:new Date().toISOString()},r).catch((S)=>{if(!X(S))Aa(S)})}async function fe(e,t){await te(e,{force:!0});let r=await Rfe(e,t);try{await Ii(r,e)}catch(o){throw await te(r,{force:!0}).catch(()=>{}),o}}async function me(e,t,r){let o=await e.write(t,r,{parent:"mustExist",mode:438&~process.umask()});if(!o.ok){let d=iu(o.error);throw Object.assign(new R(`[jobs] v5 sidecar write failed: ${Ge(o.error)}`,"[jobs] v5 sidecar write failed"),d!==void 0?{code:d}:{})}}async function ldn(e,t,r){let o=O()&&r?Ibe(e,["order"]):void 0;if(r&&o)await me(r,o,String(t));else await fe(F(e,"order"),String(t));hd(e)}async function cdn(e,t,r){let o=O()&&r?Ibe(e,["stateOrder"]):void 0;if(r&&o)await me(r,o,String(t));else await fe(F(e,"stateOrder"),String(t));hd(e)}async function Lft(e,t,r){let o=F(e,"group"),d=RBt(t),g=O()&&r?Ibe(e,["group"]):void 0;if(r&&g)if(d)await me(r,g,d);else{let p=await r.delete(g);if(!p.ok)throw new R(`[jobs] v5 sidecar delete failed: ${p.error.code}`,"[jobs] v5 sidecar delete failed")}else if(d)await fe(o,d);else await te(o,{force:!0});hd(e)}async function udn(e){let t=F(Gb(),".order");await pe(Gb(),{recursive:!0});await using r=await Gi(t,{realpath:!1,stale:5000,retries:{retries:5,minTimeout:20},onCompromised:(o)=>n(`jobs/.order lock compromised (likely process suspend or slow fs): ${o}`,{level:"error"})});return await e()}var Ee=zm();function PGe(e){return Ee.run("own-state.json",e)}function Mft(e,t,r){return Ee.run("pins.json",async()=>{if(O()&&r)return Ze(e,t,r);let o=M();await pe(Ue(o),{recursive:!0});await using d=await Gi(o,{realpath:!1,stale:Uhr,retries:{retries:5,minTimeout:20},onCompromised:(p)=>n(`pins.json lock compromised (likely process suspend or slow fs): ${p}`,{level:"error"})});let g=await Dce();if(t?g.has(e):!g.has(e))return;if(t)g.add(e);else g.delete(e),await te(F(cr(e),"order")).catch((p)=>{if(!X(p))throw p}),hd(cr(e));await Wn(o,b([...g],null,2))})}async function Ze(e,t,r){let o=(k)=>{let u=ge(k?.value);if(t?u.has(e):!u.has(e))return{skip:!0,result:!1};if(t)u.add(e);else u.delete(e);return{write:b([...u],null,2),result:!0}},d=Ie(),g=await r.statMeta(Te.jobPins());if(g.ok&&g.value.size>D)await ae({evenRegular:!0}),d.delete(M());else if(!g.ok&&ue(g.error)!==void 0)await ae(),d.delete(M());let p={publishDiscipline:"atomic",mode:438&~process.umask()},S=await r.updateText(Te.jobPins(),o,p);if(!S.ok&&await ae())S=await r.updateText(Te.jobPins(),o,p);if(!S.ok)throw new R(`[jobs] v5 pins update failed: ${S.error.code}`,"[jobs] v5 pins update failed");if(!t&&S.value.result===!0){let k=Ae(e,["order"]);if(k){let u=await r.delete(k);if(!u.ok)n(`[jobs] v5 order sidecar release failed after unpin: ${u.error.code}`,{level:"warn"})}else await te(F(cr(e),"order")).catch((u)=>{if(!X(u))n(`[jobs] order sidecar release failed after unpin: ${l(u)}`,{level:"warn"})});hd(cr(e))}}async function d_(e,t){if(t)return Qe(t,e);let r;try{r=await Se(Gb(),{withFileTypes:!0})}catch{return[]}let[o,d]=await Promise.all([Dce(),Promise.all(r.filter((p)=>p.isDirectory()).map(async(p)=>{let S=await fr(F(Gb(),p.name));return S?{id:p.name,state:S}:null}))]),g=d.filter((p)=>p!==null).map((p)=>o.has(p.id)?{...p,state:{...p.state,pinned:!0}}:p);return e?Pbe(g,e):g}async function Oe(e){let t=[],r;do{let o=await e.listEntries({namespace:"job"},r===void 0?{skipScopeStats:!0}:{cursor:r,skipScopeStats:!0});if(!o.ok)return{ok:!1,error:o.error};for(let d of o.value.items)if(d.kind==="scope"&&d.scope.namespace==="job"&&d.scope.jobId!==void 0&&d.scope.relPath===void 0&&Zt(d.scope.jobId))t.push(d.scope.jobId);r=o.value.cursor}while(r!==void 0);return{ok:!0,ids:t}}async function Qe(e,t){let r=await Oe(e);if(!r.ok)return[];let o=r.ids,[d,g]=await Promise.all([Dce(e),Promise.all(o.map(async(S)=>{let k=await fr(cr(S),e);return k?{id:S,state:k}:null}))]),p=g.filter((S)=>S!==null).map((S)=>d.has(S.id)?{...S,state:{...S.state,pinned:!0}}:S);return t?Pbe(p,t):p}function Pbe(e,t){let r=Date.now();return e.map((o)=>{if(Xi(o.state))return o;if(t.has(o.id))return o;if(r-Date.parse(o.state.createdAt)<Ve)return o;return{...o,state:Bhr(o.state)}})}var Ve=5000;function Bhr(e){if(uDe(e))return{...e,tempo:"blocked",inFlight:void 0};return{...e,state:"failed",tempo:"idle",needs:void 0,block:void 0,inFlight:void 0,detail:e.detail.replace(/; respawning$/,"")}}var Dbe="starting\u2026",Mg="send a prompt to start",Obe=`(idle \u2014 ${Mg})`,Lbe=["starting","resuming","adopted","crashed"],xBt=172800000,jhr="ended while the background service was off";function cz(e){let t=new Date().toISOString();return{state:"working",detail:e.detail!==void 0?co(e.detail):Dbe,tempo:e.tempo??"active",needs:e.needs,inFlight:e.inFlight,output:null,children:null,linkScanOffset:0,linkScanPath:e.linkScanPath,template:e.template.name,routine:e.routine,respawnFlags:e.respawnFlags??[],bgIsolation:e.bgIsolation,providerEnv:e.providerEnv,sessionPermissionRules:e.sessionPermissionRules,memoryToggledOff:e.memoryToggledOff,forkSourceAlive:e.forkSourceAlive,forkBoundaryAt:e.forkBoundaryAt,forkSessionId:e.forkSessionId,forkParentSessionId:e.forkParentSessionId,interactiveLineage:e.interactiveLineage,intent:e.intent,displayIntent:e.displayIntent,name:e.name,nameSource:e.nameSource,color:ene({userOverride:e.color,agentDefinitionColor:e.template.color}),initialPrompt:e.template.initialPrompt,sessionId:e.sessionId,resumeSessionId:e.sessionId,daemonShort:e.sessionId.slice(0,8),cwd:e.cwd,createdAt:t,updatedAt:t,firstTerminalAt:null,worktreePath:e.worktreePath,worktreeBranch:e.worktreeBranch,worktreeHookBased:e.worktreeHookBased,originCwd:e.originCwd,backend:"daemon"}}async function ddn(e,t,r){if(t.length===0)return e;let o=new Set(e.map((u)=>u.id)),d=t.filter((u)=>ve.test(u.short)&&!o.has(u.short)&&u.source!=="spare"&&!u.dying);if(d.length===0)return e;let g=await cT({silent:!0},r),p=await Promise.all(d.map((u)=>{let A=g.workers[u.short];return Pft(u.pid,A?.pid===u.pid?A.procStart:void 0)}));for(let[u,A]of d.entries())if(p[u]!=="live"){if(n(`[adoptRosterOrphans] pruned dead record ${A.short} (${p[u]})`),_.shouldReportPruned(A.short))s("tengu_bg_roster_orphan_pruned",{reason:c(p[u]??"dead_pid")})}else _.notePruneCandidateLive(A.short);let S=d.filter((u,A)=>p[A]==="live");if(S.length===0)return e;let k=S.map((u)=>{let A={...cz({template:{name:u.agent??"bg",description:""},routine:u.routine,intent:u.intent,name:u.name,detail:u.detail,...u.tempo==="active"&&(u.state==="running"||Lbe.includes(u.state))?u.routine?{tempo:"idle"}:{tempo:"blocked",needs:Mg}:{tempo:u.tempo,needs:u.needs},sessionId:SS(u.sessionId),cwd:SS(u.cwd),worktreePath:u.worktreePath===void 0?void 0:SS(u.worktreePath)}),createdAt:new Date(u.createdAt??u.startedAt).toISOString(),daemonShort:u.short,state:Lbe.includes(u.state)?"working":u.state,...xE(u.state)&&{inFlight:{tasks:0,queued:0,kinds:[]}}},P=cr(u.short),C=r?Ae(u.short,[W]):void 0;if(r&&C)r.write(C,b(A),{precondition:{type:"ifAbsent"},mode:384}).then((y)=>{if(y.ok)s("tengu_bg_roster_orphan_adopted",{});else if(y.error.code!=="AlreadyExists")Aa(new R(`[jobs] v5 orphan seed write failed: ${y.error.code}`,"[jobs] v5 orphan seed write failed"))});else pe(P,{recursive:!0}).then(()=>KAt(F(P,"state.json"),b(A),384)).then(()=>s("tengu_bg_roster_orphan_adopted",{})).catch((y)=>{if(E(y)!=="EEXIST")Aa(y)});return{id:u.short,state:A}});return[...e,...k]}function am(e){if(e==="done")return"success";if(e==="failed")return"failure";if(e==="stopped")return"stopped";return null}function xE(e){return am(e)!==null}function Xi(e){return xE(e.state)&&e.tempo!=="active"}function zb(e){return e.template==="exec"&&e.respawnFlags.length===0}function uDe(e){return e.state==="blocked"&&!zb(e)}function Nft(e){return e.backend==="daemon"&&!zb(e)}function w2(e){let t=e.originCwd||(e.cwd.match(/^(.+?)[/\\]\.claude[/\\]worktrees[/\\]/)?.[1]??e.cwd);return SS(t)}function DGe(e,t){if(e.backend==="remote")return!0;let r=Je(t,w2(e));return r.split(/[/\\]/,1)[0]!==".."&&!ye(r)}function Mbe(e){let t=(r)=>r?.trim().toLowerCase().startsWith("/loop")??!1;return t(e.intent)||t(e.initialPrompt)}function HD(e){return e.routine!==void 0||e.selfWake===!0||(e.inFlight?.kinds.includes("session_cron")??!1)||Mbe(e)}function Oce(e,t,r,o,d){let g=cr(e);return fr(g,d).then(async(p)=>{if(!p||Xi(p)||t==="failed"&&uDe(p))return"none";let S=Date.now(),k=new Date(S).toISOString(),u=o?.resumable==="auto-resume"&&t==="failed"&&!zb(p)&&S-Date.parse(p.updatedAt)>xBt;return await xs(g,{...p,state:u?"stopped":t==="crashed"?"failed":t,detail:u?jhr:t==="stopped"?"stopped":t==="failed"?(p.detail||r).replace(/; respawning$/,""):r,tempo:"idle",inFlight:void 0,needs:void 0,updatedAt:k,firstTerminalAt:p.firstTerminalAt??(u?p.updatedAt:k),...o?.resumable==="auto-resume"&&t==="failed"&&(u?{deadEpochReapedAt:k}:{reapedMidWorkAt:p.updatedAt}),...o?.resumable==="wake-only"&&t==="failed"&&{reapedUnsettledAt:p.updatedAt}},d),u?"dead-epoch":"settled"}).catch((p)=>(Aa(p),"none"))}var et=m(()=>T.object({state:T.string().nullish(),detail:T.string().nullish(),tempo:T.string().nullish(),needs:T.string().nullish(),output:T.record(T.string(),T.unknown()).nullish()})),tt={working:"actively progressing on the task \u2014 narrating plans, calling tools, or writing code; no pending question for the user",blocked:'the last message ends on a direct question or explicit request for the user ("want me to\u2026?", "which do you prefer?", "approve this?", "needs input: \u2026") \u2014 nothing will happen until the user replies',done:'the task the user asked for is fully delivered and there is no further work the agent plans to do \u2014 not just a progress update, not "almost done", not "let me know what you think"',failed:"the agent has given up or hit something unrecoverable \u2014 missing credential, broken build it cannot fix, wrong repo, task impossible as framed; distinct from blocked (user can unblock) and done (succeeded)"},nt={result:"one short sentence naming the finished deliverable \u2014 no sub-clauses or bullet summaries"},Hp=800,FVn=2000,it=new Set(["done","failed","stopped"]);function yl(e,t){if(e.length<=t)return e;let r=t-1,o=e.charCodeAt(r-1);if(o>=55296&&o<=56319)r--;return e.slice(0,r)+"\u2026"}function Y(e,t){let r=null,o=0,d=0;while(d<t){let g=e.indexOf("```",d),p=e.indexOf("~~~",d),S=g===-1?p:p===-1?g:Math.min(g,p);if(S===-1||S>=t)break;let k=e[S],u=S-1,A=0;while(u>=0&&e[u]===" "&&A<3)u--,A++;let P=u<0||e[u]===`
-`,C=3;d=S+3;while(e[d]===k)d++,C++;if(!P)continue;if(r===null)r=k,o=C;else if(r===k&&C>=o)r=null,o=0}return r!==null}function $Vn(e,t="",r){if(r==="dlp_request_denied")return{state:"failed",needs:"API error"};switch(e){case"authentication_failed":return{state:"blocked",needs:"login required \u2014 run /login"};case"oauth_org_not_allowed":return{state:"blocked",needs:"org disabled OAuth \u2014 use API key or ask admin"};case"account_on_hold":return{state:"blocked",needs:"account on hold \u2014 see detail"};case"billing_error":return{state:"blocked",needs:"usage limit reached \u2014 check plan"};case"rate_limit":return{state:"blocked",needs:"rate limited \u2014 wait and retry"};case"overloaded":return{state:"blocked",needs:"API overloaded \u2014 wait and retry"};case"server_error":return{state:"blocked",needs:"API unavailable \u2014 retry"};case"invalid_request":return/\b(too long|too large|exceeds|token limit|prompt is too long)\b/i.test(t)?{state:"blocked",needs:"request too large \u2014 /compact or trim"}:{state:"blocked",needs:"invalid API request \u2014 see detail"};case"max_output_tokens":return null;case void 0:return{state:"blocked",needs:"API error \u2014 see detail"};case"unknown":default:return{state:"failed",needs:"API error"}}}var rt=/(?:^|\n)\s*failed\s*[:\u2014\u2013-]\s*(.{3,200}?)(?=\n|$)/gi,ot=/(?:^|\n)\s*needs input\s*[:\u2014\u2013-]\s*(.{3,200}?)(?=\n|$)/gi,at=/(?:^|\n)\s*blocked\s*[:\u2014\u2013-]\s*(.{3,200}?)(?=\n|$)/gi,st=/\bI'?m blocked\s*[:\u2014\u2013-]\s*(.{3,200}?)(?=\n|$)/gi;function lt(e,t,r){let o;for(let[d,g]of[["failed",rt],["blocked",ot],["blocked",at],["blocked",st]])for(let p of t.matchAll(g)){if(Y(e,r+p.index))continue;if(!o||p.index>o.index)o={state:d,capture:p[1].trim(),index:p.index,end:p.index+p[0].length}}return o}function UVn(e){let t=e.trim();if(!t)return"empty";if(Y(t,t.length))return"code-fence";let r=t.slice(-800),o=t.length-r.length;for(let g of r.matchAll(/(?:^|\n)\s*result:\s*\S/gi))if(!Y(t,o+g.index))return"result-line";for(let g of r.matchAll(/(?:^|\n)\s*failed:\s*\S/gi))if(!Y(t,o+g.index))return"failed-line";if(/[?\uFF1F]\s*$/.test(t))return"trailing-q";let d=t.slice(-200);if(/(?:^|\n)\s*(?:[-*\u2022]|\d+\.|[|])\s/.test(d))return"list-or-table";return"declarative"}function Fft(e){let t=e.trim();if(!t)return null;let r=t.slice(-800),o;for(let y of r.matchAll(/(?:^|\n)\s*result:\s*(.+?)\s*(?:\n|$)/gi))if(!Y(t,t.length-r.length+y.index))o=y;let d=r,g=t.length-r.length;if(o){let y=o.index+o[0].length;d=r.slice(y),g=t.length-r.length+y}let p=lt(t,d,g);if(o&&!p){let y=yl(o[1],Hp);if([...d.matchAll(/(?:^|\n)\s*next:\s*\S/gi)].some((z)=>!Y(t,g+z.index)))return{branch:"result-then-next",state:"working",tempo:"idle",detail:y,output:{result:y}};return{branch:"result-marker",state:"done",tempo:"idle",detail:y,output:{result:y}}}if(p?.state==="failed")return{branch:"failed-marker",state:"failed",tempo:"idle",detail:yl(p.capture,Hp),output:{}};if(p?.state==="blocked"){let y=d.slice(p.end);if(Q(y.split(/\n\s*\n/),(x)=>x.trim().length>0)>=3)return null;if(!/\bnothing (?:needed|required) from you\b|\bno(?: user)? action (?:needed|required)\b/i.test(d)){let x=yl(p.capture,Hp);return{branch:"blocked-marker",state:"blocked",tempo:"blocked",needs:x,detail:x}}if(o){let x=yl(o[1],Hp);return{branch:"blocked-disclaimed",state:"done",tempo:"idle",detail:x,output:{result:x}}}return null}if(/[?\uFF1F]\s*$/.test(r)&&r.replace(/[?\uFF1F\s]+$/,"").length>=4){let y=Math.max(r.lastIndexOf(`
-`),r.lastIndexOf(". "),r.lastIndexOf("! "),r.lastIndexOf("? ",r.length-2));if(!Y(t,t.length-r.length+y)){let x=yl(r.slice(y+1).trim(),Hp);if(dt.test(x))return null;return{branch:"trailing-q",state:"blocked",tempo:"blocked",needs:x,detail:x}}}let S=Math.max(0,r.lastIndexOf(". "),r.lastIndexOf("! "),r.lastIndexOf("? "),r.lastIndexOf(`
-`)),k=r.slice(S).replace(/^[.!?\s]+/,""),u=Y(t,t.length-r.length+S),A=/\b(?:waiting (?:for|on)|pending)\s+(?:the\s+)?(?:CI|build|tests?|reviewer|deploy(?:ment)?|workflow|checks?|rollout|merge queue)\b/i.exec(k);if(A&&!u)return{branch:"wait-external",state:"working",tempo:"idle",detail:yl(A[0],Hp),output:{}};let P=/\b(?:awaiting|waiting (?:for|on)|pending)\s+(?:your\s+(?:feedback|input|decision|response|approval|direction|guidance|go-ahead)|you\b|the user\b)/i.exec(k);if(P&&!u){let y=yl(k.slice(P.index).trim(),Hp);return{branch:"awaiting-user",state:"blocked",tempo:"blocked",needs:y,detail:y}}let C=/\b(please (?:run|provide|confirm|clarify|choose|let me know)|let me know (?:which|what|how|when)|which (?:option|approach|one)|should I (?:proceed|continue|use))\b/i.exec(k);if(C&&!u){let y=yl(k.slice(C.index).trim(),Hp);return{branch:"ask-verb",state:"blocked",tempo:"blocked",needs:y,detail:y}}if(!u&&/\b(not logged in|please run \/login|authentication failed|invalid api key|oauth token (?:expired|revoked)|credit balance (?:is )?too low|usage limit reached|mcp (?:server )?(?:authentication|auth|authorization|unauthorized)|mcp (?:server )?(?:credential|token) (?:missing|expired|invalid)|401 unauthorized|403 forbidden|token (?:has )?expired|bad credentials|gh auth login|gcloud auth login|aws (?:sso )?login)\b/i.test(k))return{branch:"auth-prose",state:"blocked",tempo:"blocked",needs:yl(k,Hp),detail:"authentication required"};if(!u&&ut.test(k)&&!ct.test(k))return{branch:"working-verb",state:"working",tempo:"active",detail:yl(k,Hp),output:{}};if(!u&&pt.test(k))return{branch:"agents-status",state:"working",tempo:"idle",detail:yl(k,Hp)};if(!u&&gt.test(k))return{branch:"will-check-back",state:"working",tempo:"idle",detail:yl(k,Hp)};if(!u&&ft.test(k)){let y=yl(k,Hp);return{branch:"cant-proceed",state:"blocked",tempo:"blocked",detail:y,needs:y}}if(!u&&mt.test(k))return{branch:"giving-up",state:"failed",tempo:"idle",detail:yl(k,Hp)};if(!u&&ht.test(k)){let y=yl(k,Hp);return{branch:"pushed-committed",state:"done",tempo:"idle",detail:y,output:{result:y}}}if(!u&&wt.test(k))return{branch:"ready-for",state:"done",tempo:"idle",detail:yl(k,Hp)};if(!u&&bt.test(k)){let y=yl(k,Hp);return{branch:"verdict-marker",state:"done",tempo:"idle",detail:y,output:{result:y}}}if(!u&&kt.test(k)){let y=yl(k,Hp);return{branch:"please-do-x",state:"blocked",tempo:"blocked",detail:y,needs:y}}if(!u&&St.test(k)){let y=yl(k,Hp);return{branch:"stopping-here",state:"blocked",tempo:"blocked",detail:y,needs:y}}return null}function pdn(e){let t=e.split(`
-`).map((r)=>r.trim()).findLast(Boolean);return{branch:"heuristic",state:"working",tempo:"idle",detail:t?yl(t,Hp):"\u2014"}}var dt=/\b(?:want|like) me to\b|\b(?:shall|should) I also\b/i,ut=/^(?:(?:Now|Next|Then|Alright|OK|Okay|Right|Good|First|Also),?\s+)?(?:Let me (?!know\b)|(?:I(?:'?ll| will) |I'?m going to |Going to )(?!need\b|require\b|wait\b|leave\b|hold\b|skip\b|stop\b)|Proceeding |Moving (?:on|to)\b|Continuing |Starting |Trying |Checking |Looking |Searching |Reading |Investigating |Running |Re-?running |Building |Rebuilding |Installing |Fetching |Applying |Fixing |Patching |Updating |Adding |Removing |Deleting |Importing |Refactoring |Rewriting |Writing |Grepping |Scanning |Wrapping |Switching |Testing |Verifying |Regenerating |Pushing |Pulling |Reviewing |Examining |Loading |Compiling |Parsing |Analyzing |Tracing |Exploring )/i,ct=/\b(?:once |when |after |until |as soon as )(?:you|it|the|that|this|they)\b|\bagain in\b|\bcheck back\b|\bin ~?\d+\s*(?:s(?:ec(?:ond)?s?)?|m(?:in(?:ute)?s?)?|h(?:ours?|rs?)?)\b|\bthen\.?\s*$|\bwhichever you\b|\bhold(?:ing)? for your\b|\b(?:to|and) wait for\b|\bgive it (?:more |some )?time\b|\bif (?:you(?:'d| want| prefer| need|'re)?|that(?:'s| helps| works)?|useful|needed|helpful|desired)\b|\b(?:isn'?t|not|won'?t) going to work\b/i,pt=/^(?:(?:\*\*)?[1-9]\d* (?:agent|cron|task|fork|job|worker|PR|check)s? (?:in flight|remaining|active|still (?:running|working)|pending|running|launched)\b|(?:Continuous )?(?:[Ll]oop|[Cc]rons?|[Bb]abysit) (?:active|healthy|continuing|running|will keep|continues)\b|Waiting for (?:the )?(?:agent|cron|task|fork|worker|job|remaining|them)s?\b|Agents? will report back\b|Waiting\.?$)/,gt=/^(?:I will|I'll|Will) (?:check back|re-?check|poll|look again|retry|re-?run|try again) (?:(?:when|once|after|until) (?!your?\b)|in\b|again\b)/i,ft=/^I (?:can(?:'?t|not)|am unable to) (?:proceed|continue|make (?:any )?progress|complete|fix this)\b/i,mt=/^(?:Giving up|I(?:'m| am) giving up|The task is not actionable)\b/i,ht=/^(?:Pushed (?:to `|`[0-9a-f]{7,})|Committed as `?[0-9a-f]{7,}\b|Commit: `?[0-9a-f]{7,}\b|(?:Opened|Created) PR #?\d)/,wt=/^Ready (?:for review|to (?:upload|merge|ship|land))\b/,bt=/^VERDICT: (?:PASS|FAIL)\b/,kt=/^Please (?:start|run|provide|grant|export|add|install|configure|give me|paste|point me|set (?:the |up |`?[A-Z][A-Z0-9_]+\b))/,St=/^(?:Stopping here|I've stopped here|Parked (?:the|this) branch|Paused here)(?:\.|$| \u2014| -| until| pending| since| because)/i,BVn=`A user kicked off a Claude Code agent to do a coding task and walked away. Read the tail of what the agent just said and decide which of four states it's in, so the system knows whether to notify the user.
+import { Kr, J, ts, G, K, nc, Aj, AU } from "/$bunfs/root/chunk-f9h0bg01.js";
+import { ne } from "/$bunfs/root/chunk-tx16jn0x.js";
+import { mI } from "/$bunfs/root/chunk-mvz9fsh3.js";
+import { Zt, Te } from "/$bunfs/root/chunk-jpf4kat5.js";
+import { s } from "/$bunfs/root/chunk-r53tkxrh.js";
+import { w, c } from "/$bunfs/root/chunk-4xj01xwv.js";
+import { R, l, E, uo, n1, X } from "/$bunfs/root/chunk-ypdw393e.js";
+import { Ii, Rfe, KAt, Wn } from "/$bunfs/root/chunk-nqmqabr8.js";
+import { iu, Ge, b, V, co, n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { h } from "/$bunfs/root/chunk-wkxx62a2.js";
+import { m } from "/$bunfs/root/chunk-bzx56g36.js";
+import { a } from "/$bunfs/root/chunk-fec4384a.js";
+import { qVn, uX, hF, cT } from "/$bunfs/root/chunk-krety1hw.js";
+import { i4 } from "/$bunfs/root/chunk-5rt2mvvk.js";
+import { _Y, Ot, _bn, O3t, Kh } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { ms, Bwn, Bm } from "/$bunfs/root/chunk-tzhtxm67.js";
+import { ene } from "/$bunfs/root/chunk-d5s7a9by.js";
+import { VCe } from "/$bunfs/root/chunk-f5hrzy3k.js";
+import { OGe } from "/$bunfs/root/chunk-6ywvv1q0.js";
+import { Bu } from "/$bunfs/root/chunk-bj904w9w.js";
+import { Ne } from "/$bunfs/root/chunk-82w4mtvq.js";
+import { Us } from "/$bunfs/root/chunk-v7yhn7cf.js";
+import { Gi } from "/$bunfs/root/chunk-4rh74qms.js";
+import { qX } from "/$bunfs/root/chunk-83h0j7w2.js";
+import { i, v, q, _e, H, f, De, oe, N } from "/$bunfs/root/chunk-saay52v7.js";
+import { zm } from "/$bunfs/root/chunk-13198prn.js";
+import { T } from "/$bunfs/root/chunk-ma6kk3k0.js";
+import { SS } from "/$bunfs/root/chunk-56sxk8k2.js";
+import { O } from "/$bunfs/root/chunk-dqkj2bph.js";
+import { Q } from "/$bunfs/root/chunk-wag5ye9w.js";
+import { lstat as Z, mkdir as pe, readdir as Se, readFile as re, rm as te, stat as Le } from "fs/promises";
+import { basename as B, dirname as Ue, isAbsolute as ye, join as F, relative as Je } from "path";
+function he(e) {
+  if (e === void 0 || !e.kinds.includes("session_cron")) return !1;
+  let t = e.wake;
+  if (t === void 0) return !0;
+  return t.fires >= 1 && t.keepalive !== !0;
+}
+function Ice(e) {
+  if (!e || e.target <= 0) return -1;
+  return Math.floor((20 * e.spent) / e.target);
+}
+function Pce(e) {
+  if (!e || e.length === 0) return "";
+  return e
+    .map((t) => {
+      let r = `${t.id ?? t.label}:${t.doneAt ?? "-"}:${t.failed ? "x" : ""}`;
+      return t.kind === "todo" ? `${r}:${t.startedAt ?? "-"}` : r;
+    })
+    .join("|");
+}
+function lDe() {
+  let { tasks: e, queued: t, kinds: r, drainableMonitors: o, wake: d } = mI().inFlightSnapshot;
+  return {
+    tasks: e,
+    queued: t,
+    kinds: r,
+    ...(o !== void 0 && { drainableMonitors: o }),
+    ...(d !== void 0 && { wake: d }),
+  };
+}
+function edn(e) {
+  mI().publishInFlightSnapshot(e);
+}
+function cDe() {
+  return { ...mI().inFlightSnapshot };
+}
+function MVn(e) {
+  return mI().inFlightSnapshotChanged.subscribe(e);
+}
+async function Pft(e, t) {
+  if (!ms(e)) return "dead_pid";
+  if (!(await Bm(e, t))) return "procstart_mismatch";
+  if (await Bwn(e)) return "zombie";
+  return "live";
+}
+async function kGe(e, t) {
+  return (await Pft(e, t)) === "live";
+}
+var Fe = /^-|^[A-Za-z][A-Za-z0-9+.-]+:\/\//;
+function b2(e) {
+  return !Fe.test(e) && !e.includes("\x00");
+}
+function tdn() {
+  let e = nc();
+  if (e === void 0 || Ne() === "mantle") return;
+  if (e === null) return "default";
+  if (!e) return;
+  if (_Y(Ot(e))) return;
+  if (Aj()?.fallbackModel === e) return;
+  if (!b2(e)) return;
+  return e;
+}
+function NVn() {
+  return AU().includes("--restricted");
+}
+function lX(e, t) {
+  let r = we(e.additionalWorkingDirectories),
+    o = [],
+    d = !1;
+  for (let k of AU())
+    if (d) d = !1;
+    else if (k === "--add-dir") d = !0;
+    else o.push(k);
+  let g = qX(t),
+    p = tdn(),
+    S = e.isBypassPermissionsModeAvailable && !o.includes("--allow-dangerously-skip-permissions");
+  return [
+    ...o,
+    ...(S ? ["--allow-dangerously-skip-permissions"] : []),
+    ...r.flatMap((k) => ["--add-dir", k]),
+    ...(p !== void 0 ? ["--model", p] : []),
+    ...(g !== void 0 ? ["--effort", g] : []),
+    "--permission-mode",
+    e.mode,
+  ];
+}
+function ndn(e) {
+  let t = Bu([e]);
+  return t.length === 1 && t[0] === e && b2(e);
+}
+function E9(e, t) {
+  return [
+    ...(t ? [`launch flags: ${OGe}`] : []),
+    ...((e.alwaysDenyRules.session ?? []).length > 0 || (e.alwaysAskRules.session ?? []).length > 0
+      ? ["permission rules set for this session only"]
+      : []),
+    ...((e.alwaysAskRules.cliArg ?? []).length > 0 ? ["ask-before-running rules with no command-line form"] : []),
+    ...([...(e.alwaysAllowRules.cliArg ?? []), ...(e.alwaysDenyRules.cliArg ?? [])].some((r) => !ndn(r))
+      ? ["permission rules a command line cannot carry intact"]
+      : []),
+    ...(we(e.additionalWorkingDirectories).some((r) => !b2(r))
+      ? ["added directories a command line cannot carry intact"]
+      : []),
+  ];
+}
+function cX(e, t) {
+  return [
+    ...(e.alwaysAllowRules.cliArg ?? []).flatMap((r) => ["--allowed-tools", r]),
+    ...(e.alwaysDenyRules.cliArg ?? []).flatMap((r) => ["--disallowed-tools", r]),
+    ...qb("--agent", t.agent),
+    ...qb("--agents", t.agents),
+    ...qb("--append-system-prompt", t.appendSystemPrompt),
+  ];
+}
+function qb(e, t) {
+  if (!t) return [];
+  return b2(t) ? [e, t] : [`${e}=${t}`];
+}
+function we(e) {
+  return Array.from(e.values())
+    .filter((t) => t.source === "cliArg" || t.source === "session")
+    .map((t) => t.path);
+}
+var HE = "(ungrouped)",
+  Q_ = "(earlier)",
+  $hr = 64,
+  Be = new Set(["pinned", "ungrouped", HE, "past", Q_]);
+function HGe(e) {
+  return Be.has(e.toLowerCase());
+}
+function vBt(e) {
+  return i4(e).slice(0, $hr);
+}
+function RBt(e) {
+  if (e === void 0) return;
+  let t = vBt(e);
+  return t && !HGe(t) ? t : void 0;
+}
+class ce {
+  #e = new Map();
+  #t = new Set();
+  #n = new Set();
+  #i = new Set();
+  #r = new Set();
+  peek(e) {
+    return this.#e.get(e);
+  }
+  invalidate(e) {
+    this.#e.delete(e);
+  }
+  noteAbsent(e) {
+    this.#e.delete(e), this.#t.delete(e);
+  }
+  noteRejected(e, t) {
+    this.#e.set(e, { mtimeKey: t, state: null });
+  }
+  noteParsed(e, t, r) {
+    if (this.#e.size > 1000) this.#e.clear();
+    this.#e.set(e, { mtimeKey: t, state: r }), this.#t.delete(e);
+  }
+  noteHit(e) {
+    this.#t.delete(e);
+  }
+  shouldReportTransient(e) {
+    if (this.#t.has(e)) return !1;
+    return this.#t.add(e), !0;
+  }
+  shouldReportRecovered(e) {
+    if (this.#n.has(e)) return !1;
+    return this.#n.add(e), !0;
+  }
+  noteCleanRead(e) {
+    this.#n.delete(e);
+  }
+  shouldReportPruned(e) {
+    if (this.#i.has(e)) return !1;
+    return this.#i.add(e), !0;
+  }
+  notePruneCandidateLive(e) {
+    this.#i.delete(e);
+  }
+  shouldLogSidecarFallback(e) {
+    if (this.#r.has(e)) return !1;
+    return this.#r.add(e), !0;
+  }
+}
+class be {
+  drafts = new Map();
+  pins = new Map();
+}
+var ABt = new J(() => new be());
+async function CBt(e, t, { cap: r, screens: o, screenKey: d, heal: g }) {
+  if (o.get(d) !== "ok") {
+    let k = await e.statMeta(t);
+    if (!k.ok) {
+      if (k.error.code !== "NotFound") o.set(d, "refused"), await g?.();
+      return null;
+    }
+    if (k.value.size > r) return o.set(d, "refused"), null;
+    o.set(d, "ok");
+  }
+  let p = await e.readText([{ key: t, offset: 0, length: r + 1 }]);
+  if (!p.ok) return o.delete(d), await g?.(), null;
+  let S = p.value.items[0];
+  if (!S.found) return null;
+  if (S.totalBytes > r) return o.set(d, "refused"), null;
+  return S.value;
+}
+var ie = () => i().transform(SS),
+  ve = /^[a-f0-9]{8}$/,
+  Me = /^(cse_|session_)[A-Za-z0-9_-]{1,128}$/;
+function ee(e, t) {
+  return (r) => {
+    if (t(r)) return r;
+    n(`[jobs] dropped malformed ${e} from persisted job state`, { level: "warn" });
+    return;
+  };
+}
+var le = m(() =>
+    f({
+      state: i(),
+      detail: i(),
+      tempo: oe(["active", "idle", "blocked"])
+        .optional()
+        .catch(void 0),
+      inFlight: f({
+        tasks: v(),
+        queued: v(),
+        kinds: H(i()),
+        drainableMonitors: v().int().nonnegative().optional(),
+        wake: f({
+          at: v().optional(),
+          reason: i().optional(),
+          fires: v().int().nonnegative(),
+          keepalive: N(!0).optional(),
+        })
+          .optional()
+          .catch(void 0),
+      }).optional(),
+      selfWake: q()
+        .optional()
+        .catch(void 0),
+      fan: H(
+        f({
+          id: i().optional(),
+          kind: oe(["agent", "workflow", "shell", "monitor", "mcp", "todo"])
+            .optional()
+            .catch(void 0),
+          label: i(),
+          startedAt: v().optional(),
+          doneAt: v().optional(),
+          failed: q().optional(),
+          group: i().optional(),
+        }),
+      ).optional(),
+      budget: f({ spent: v(), target: v() }).optional(),
+      tokens: v().optional(),
+      needs_you: q().optional(),
+      needs: i().optional(),
+      block: f({ questions: H(f({ question: i(), options: H(f({ label: i(), description: i() })) })) }).optional(),
+      suggestedReply: i().optional(),
+      output: De(i(), i()).nullable().default(null),
+      structuredResult: De(i(), _e()).optional(),
+      children: H(
+        f({
+          id: i(),
+          href: i(),
+          kind: oe(["pr", "frame"])
+            .optional()
+            .catch(void 0),
+          title: i()
+            .optional()
+            .catch(void 0),
+        }),
+      )
+        .nullable()
+        .default(null),
+      linkScanOffset: v().default(0),
+      linkScanPath: ie()
+        .transform(ee("linkScanPath", (e) => ye(e) && e.endsWith(".jsonl") && Kr(B(e, ".jsonl")) !== null))
+        .optional(),
+      template: i(),
+      routine: i().optional(),
+      respawnFlags: H(i())
+        .default([])
+        .transform((e) => hF(uX(e))),
+      bgIsolation: oe(["none", "worktree"])
+        .optional()
+        .catch(void 0),
+      providerEnv: De(i(), i())
+        .transform((e) => {
+          let t = qVn(e);
+          return t && ts(t, SS);
+        })
+        .optional(),
+      sessionPermissionRules: f({ allow: H(i()), deny: H(i()) }).optional(),
+      memoryToggledOff: q().optional(),
+      forkSourceAlive: q().optional(),
+      forkBoundaryAt: i().optional(),
+      forkSessionId: i().optional(),
+      forkParentSessionId: i().optional(),
+      interactiveLineage: q().optional(),
+      intent: i(),
+      displayIntent: i().optional(),
+      initialPrompt: i().optional(),
+      queuedPrompt: i().optional(),
+      name: i().optional(),
+      nameSource: oe(["user", "auto", "collision"])
+        .optional()
+        .catch(void 0),
+      color: i().optional(),
+      sessionId: ie(),
+      resumeSessionId: i()
+        .transform(ee("resumeSessionId", (e) => Kr(e) !== null))
+        .optional(),
+      daemonShort: i()
+        .transform(ee("daemonShort", (e) => ve.test(e)))
+        .optional(),
+      cliVersion: i().optional(),
+      cwd: ie(),
+      createdAt: i(),
+      updatedAt: i(),
+      firstTerminalAt: i().nullable().default(null),
+      worktreePath: ie().optional(),
+      worktreeBranch: i().optional(),
+      worktreeHookBased: q().optional(),
+      originCwd: ie().optional(),
+      bridgeSessionId: i()
+        .transform(ee("bridgeSessionId", (e) => Me.test(e)))
+        .optional(),
+      bridgeOwnerAccountUuid: i().optional(),
+      bridgeOwnerOrganizationUuid: i().optional(),
+      bridgeNoHistoryBackfill: q().optional(),
+      bridgeOutboundOnly: q().optional(),
+      bridgeSessionGroupingId: i()
+        .transform(ee("bridgeSessionGroupingId", (e) => /^sgrp_[A-Za-z0-9_]{1,128}$/.test(e)))
+        .optional(),
+      bridgeSessionSeq: v()
+        .transform(ee("bridgeSessionSeq", (e) => Number.isInteger(e) && e >= 0))
+        .optional(),
+      backend: oe(["daemon", "peer", "remote"])
+        .catch("daemon")
+        .default("daemon")
+        .transform((e) => {
+          if (e === "daemon") return e;
+          return (
+            n(`[jobs] coerced persisted backend '${e}' to 'daemon' \u2014 peer/remote rows are never written to disk`, {
+              level: "warn",
+            }),
+            "daemon"
+          );
+        }),
+      sock: i().optional(),
+      pid: v().optional(),
+      sortOrder: v().optional(),
+      stateSortOrder: v().optional(),
+      group: i().optional(),
+      pinned: q().optional(),
+      reapedMidWorkAt: i().optional(),
+      reapedUnsettledAt: i().optional(),
+      deadEpochReapedAt: i().optional(),
+      sessionIdTaken: q()
+        .optional()
+        .catch(void 0),
+    }).transform(({ needs_you: e, ...t }) => {
+      let r =
+        (t.bridgeOwnerAccountUuid !== void 0 && !VCe(t.bridgeOwnerAccountUuid)) ||
+        (t.bridgeOwnerOrganizationUuid !== void 0 && !VCe(t.bridgeOwnerOrganizationUuid));
+      return {
+        ...t,
+        ...(r && { bridgeOwnerAccountUuid: void 0, bridgeOwnerOrganizationUuid: void 0 }),
+        tempo: t.tempo ?? (e ? "blocked" : "idle"),
+      };
+    }),
+  ),
+  W = "state.json",
+  D = 8388608;
+function Gb() {
+  return _bn();
+}
+function cr(e) {
+  return F(Gb(), e);
+}
+async function ICr(e) {
+  if (e) {
+    let t = await Oe(e);
+    if (!t.ok)
+      throw new R(`listJobDirectoryNames: v5 list failed: ${t.error.code}`, "listJobDirectoryNames: v5 list failed");
+    if (t.ids.length === 0) {
+      let r;
+      try {
+        r = await Le(Gb());
+      } catch (o) {
+        if (!X(o)) throw o;
+      }
+      if (r !== void 0 && !r.isDirectory()) throw Error("listJobDirectoryNames: jobs root is not a directory");
+    }
+    return t.ids;
+  }
+  return Se(Gb(), { withFileTypes: !0 })
+    .then((t) => t.filter((r) => r.isDirectory()).map((r) => r.name))
+    .catch((t) => {
+      if (X(t)) return [];
+      throw t;
+    });
+}
+function fu() {
+  let e = a.CLAUDE_JOB_DIR;
+  if (e) return B(e);
+  let t = Kh();
+  if (t) return B(t.jobDir);
+  return K().slice(0, 8);
+}
+function Ae(e, t) {
+  return Zt(e) ? Te.job(e, t) : void 0;
+}
+function Ibe(e, t) {
+  return O3t(e, t);
+}
+function Dft(e) {
+  return Te.job(e, [W]);
+}
+function rdn(e, t) {
+  let r = F(cr(e), W),
+    o = !1,
+    d = Number.NaN;
+  function g(A) {
+    if (o) return;
+    if (Number.isNaN(d)) {
+      d = A;
+      return;
+    }
+    if (A === d) return;
+    u(), t();
+  }
+  function p() {
+    Z(r).then(
+      (A) => g(A.mtimeMs),
+      () => g(-1),
+    );
+  }
+  p();
+  let S = setInterval(p, 200),
+    k = setTimeout(u, 1e4);
+  function u() {
+    if (o) return;
+    (o = !0), clearInterval(S), clearTimeout(k);
+  }
+  return u;
+}
+function kBt() {
+  return mI().ownStateWriteDepth > 0;
+}
+async function xs(e, t, r) {
+  let o = t.inFlight?.kinds.includes("session_cron") === !0,
+    d =
+      o && !t.selfWake && he(t.inFlight)
+        ? { ...t, selfWake: !0 }
+        : !o && t.selfWake && Xi(t)
+          ? { ...t, selfWake: void 0 }
+          : t,
+    { pinned: g, sortOrder: p, stateSortOrder: S, group: k, ...u } = d,
+    A = r ? Ibe(e, [W]) : void 0,
+    P = mI();
+  P.ownStateWriteDepth++;
+  try {
+    if (r && A) {
+      let C = await r.write(A, b(u, null, 2), { mode: 384, parent: "mustExist" });
+      if (!C.ok) {
+        let y = iu(C.error);
+        throw Object.assign(
+          new R(`[jobs] v5 state write failed: ${Ge(C.error)}`, "[jobs] v5 state write failed"),
+          y !== void 0 ? { code: y } : {},
+        );
+      }
+    } else await Wn(F(e, W), b(u, null, 2), 384);
+  } finally {
+    P.ownStateWriteDepth--, hd(e);
+  }
+}
+function Aa(e) {
+  let t = E(e);
+  if (t && (n1.has(t) || t === "ENOENT")) {
+    n(`[jobs] state write failed (${t}): ${l(e)}`, { level: "error" });
+    return;
+  }
+  h(e);
+}
+function xGe(e, t) {
+  let r = t !== void 0 && t.id === e?.bridgeSessionId;
+  return {
+    ownerAccountUuid: r ? t.ownerAccountUuid : void 0,
+    ownerOrganizationUuid: r ? t.ownerOrganizationUuid : void 0,
+    noHistoryBackfill: e?.noHistoryBackfill || (t !== void 0 && !r ? !0 : t?.noHistoryBackfill),
+  };
+}
+function lz(e, t, r, o, d) {
+  if (!e) return;
+  let g = { CLAUDE_BRIDGE_REATTACH_SESSION: e };
+  if (t !== void 0 && t > 0) g.CLAUDE_BRIDGE_REATTACH_SEQ = String(t);
+  if (o) g.CLAUDE_BRIDGE_REATTACH_GROUPING = o;
+  if (d?.ownerAccountUuid) g.CLAUDE_BRIDGE_REATTACH_OWNER_ACCT = d.ownerAccountUuid;
+  if (d?.ownerOrganizationUuid) g.CLAUDE_BRIDGE_REATTACH_OWNER_ORG = d.ownerOrganizationUuid;
+  if (d?.noHistoryBackfill) g.CLAUDE_BRIDGE_REATTACH_NO_BACKFILL = "1";
+  if (r !== !1) g.CLAUDE_BRIDGE_REATTACH_OUTBOUND_ONLY = "1";
+  return g;
+}
+var _ = new ce();
+function de(e, t) {
+  return t?.onReadFailure === "null" ? null : (e?.state ?? null);
+}
+var $e = [15, 45],
+  je = new Set(["ELOOP", "ENXIO", "EISDIR"]);
+function ue(e) {
+  if (e.code !== "Failed" || e.telemetryCode === void 0) return;
+  if (e.telemetryCode === "EFBIG") return "oversize";
+  return je.has(e.telemetryCode) ? "non-regular" : void 0;
+}
+function Re(e) {
+  return e.code === "Failed" && e.key !== void 0 && e.key.namespace === "job" && e.key.relPath[0] !== W;
+}
+var We = new Set(["invariant", "permission", "environment"]);
+function He(e) {
+  if (e.code === "Unavailable") return !0;
+  return e.code === "Failed" && !We.has(e.failureClass) && ue(e) === void 0 && !Re(e);
+}
+async function Ke(e, t) {
+  let r = await t(),
+    o = 1;
+  for (let d of $e) {
+    if (r.ok || !He(r.error)) break;
+    await ne(d), (r = await t()), o++;
+  }
+  if (r.ok) {
+    if (o === 1) _.noteCleanRead(e);
+    else if (_.shouldReportRecovered(e)) s("tengu_bg_state_read_recovered", { attempts: o });
+  }
+  return r;
+}
+function ke(e, t, r) {
+  let o = _.peek(e);
+  if (!(o?.mtimeKey.startsWith("rejected:") && o.state === null))
+    n(`[jobs] skipping ${B(e)}: state.json is ${r}`, { level: "warn" });
+  return _.noteRejected(e, `rejected:${t}`), null;
+}
+function hd(e) {
+  _.invalidate(e);
+}
+async function qe(e, t, r) {
+  let o = B(t),
+    d = _.peek(t);
+  if (d === void 0 || d.mtimeKey.startsWith("rejected:")) {
+    let I = await e.statMeta(Dft(o));
+    if (!I.ok) {
+      if (I.error.code === "NotFound") return _.noteAbsent(t), null;
+      let j = ue(I.error);
+      if (j !== void 0) return ke(t, j, j === "oversize" ? "too large" : "not a regular file");
+    } else if (I.value.size > D) {
+      let j = `rejected:${I.value.mtimeMs}:${I.value.size}`;
+      if (_.peek(t)?.mtimeKey !== j)
+        n(`[jobs] skipping ${B(t)}: state.json is too large (${I.value.size} bytes)`, { level: "warn" }),
+          _.noteRejected(t, j);
+      return null;
+    }
+  }
+  let g = Dft(o),
+    S = await Ke(t, () => e.read([g, Te.job(o, ["order"]), Te.job(o, ["stateOrder"]), Te.job(o, ["group"])]));
+  if (!S.ok && Re(S.error)) {
+    if (_.shouldLogSidecarFallback(t))
+      n(`[jobs] ${B(t)}: a sidecar could not be read as a regular file; using state.json alone`);
+    let I = await e.read([g]);
+    S = I.ok ? { ok: !0, value: { items: [I.value.items[0], { found: !1 }, { found: !1 }, { found: !1 }] } } : I;
+  }
+  let k = _.peek(t);
+  if (!S.ok) {
+    let I = ue(S.error);
+    if (I !== void 0) return ke(t, I, I === "oversize" ? "too large" : "not a regular file");
+    if (
+      (n(`[jobs] ${B(t)}: v5 state read failed \u2014 ${S.error.code}`, { level: "warn" }), _.shouldReportTransient(t))
+    )
+      s("tengu_bg_state_read_transient", { errno: c(S.error.code), had_cache: k !== void 0 });
+    return de(k, r);
+  }
+  let [u, A, P, C] = S.value.items;
+  if (!u.found) return _.noteAbsent(t), null;
+  if (u.totalBytes > D) {
+    let I = `rejected:${u.mtimeMs}:${u.totalBytes}`;
+    if (k?.mtimeKey === I) return null;
+    return (
+      n(`[jobs] skipping ${B(t)}: state.json is too large (${u.totalBytes} bytes)`, { level: "warn" }),
+      _.noteRejected(t, I),
+      null
+    );
+  }
+  let y = (I) => Buffer.from(I.value.buffer, I.value.byteOffset, I.value.byteLength).toString("utf-8"),
+    x = (I) => (I.found && I.totalBytes <= D ? y(I) : null),
+    z = (I) => (I.found && I.totalBytes <= D ? I.version : 0),
+    U = `v5:${u.version}:${z(A)}:${z(P)}:${z(C)}`;
+  if (k?.mtimeKey === U) return _.noteHit(t), k.state;
+  return Xe(t, U, y(u), x(A), x(P), x(C), k, r);
+}
+function Xe(e, t, r, o, d, g, p, S) {
+  try {
+    let k = V(r),
+      u = le().safeParse(k);
+    if (!u.success)
+      return (
+        n(`[jobs] skipping ${B(e)}: state.json schema validation failed \u2014 ${u.error.message}`, { level: "warn" }),
+        _.noteRejected(e, t),
+        null
+      );
+    let A = o !== null ? Number(o) : void 0,
+      P = d !== null ? Number(d) : void 0,
+      C = le().in.shape,
+      y = k !== null && typeof k === "object" ? Object.entries(k).filter(([z]) => !Object.hasOwn(C, z)) : [],
+      x = { ...Object.fromEntries(y), ...u.data };
+    if (Number.isFinite(A)) x = { ...x, sortOrder: A };
+    if (Number.isFinite(P)) x = { ...x, stateSortOrder: P };
+    if (g !== null && g.trim()) x = { ...x, group: g.trim() };
+    if (x.group !== void 0) x = { ...x, group: RBt(x.group) };
+    return _.noteParsed(e, t, x), x;
+  } catch (k) {
+    if (
+      (n(`[jobs] ${B(e)}: state.json read/parse failed \u2014 ${k instanceof Error ? k.message : String(k)}`, {
+        level: "warn",
+      }),
+      _.shouldReportTransient(e))
+    )
+      s("tengu_bg_state_read_transient", { errno: uo(k) ?? w("unknown"), had_cache: p !== void 0 });
+    return de(p, S);
+  }
+}
+async function odn(e, t) {
+  return xe(e, t, { onReadFailure: "null" });
+}
+async function fr(e, t) {
+  return xe(e, t, void 0);
+}
+async function xe(e, t, r) {
+  if (t !== void 0 && Ibe(e, [W]) !== void 0) return qe(t, e, r);
+  let o = F(e, W),
+    d = F(e, "order"),
+    g = F(e, "stateOrder"),
+    p = F(e, "group"),
+    S,
+    k;
+  try {
+    let [A, P, C, y] = await Promise.all([
+      Z(o),
+      Z(d).catch(() => null),
+      Z(g).catch(() => null),
+      Z(p).catch(() => null),
+    ]);
+    if (!A.isFile() || A.size > D) {
+      let z = `rejected:${A.mtimeMs}:${A.size}`;
+      if (_.peek(e)?.mtimeKey === z) return null;
+      return (
+        n(
+          `[jobs] skipping ${B(e)}: state.json is ${A.isFile() ? `too large (${A.size} bytes)` : "not a regular file"}`,
+          { level: "warn" },
+        ),
+        _.noteRejected(e, z),
+        null
+      );
+    }
+    let x = (z) => z !== null && z.isFile() && z.size <= D;
+    (k = { order: x(P), stateOrder: x(C), group: x(y) }),
+      (S = `${A.mtimeMs}:${k.order ? P.mtimeMs : 0}:${k.stateOrder ? C.mtimeMs : 0}:${k.group ? y.mtimeMs : 0}`);
+  } catch (A) {
+    if (X(A)) return _.noteAbsent(e), null;
+    n(`[jobs] ${B(e)}: state.json stat failed \u2014 ${A instanceof Error ? A.message : String(A)}`, { level: "warn" });
+    let P = _.peek(e);
+    if (_.shouldReportTransient(e))
+      s("tengu_bg_state_read_transient", { errno: uo(A) ?? w("unknown"), had_cache: P !== void 0 });
+    return de(P, r);
+  }
+  let u = _.peek(e);
+  if (u?.mtimeKey === S) return _.noteHit(e), u.state;
+  try {
+    let [A, P, C, y] = await Promise.all([
+        re(o, "utf-8"),
+        k.order ? re(d, "utf-8").catch(() => null) : Promise.resolve(null),
+        k.stateOrder ? re(g, "utf-8").catch(() => null) : Promise.resolve(null),
+        k.group ? re(p, "utf-8").catch(() => null) : Promise.resolve(null),
+      ]),
+      x = V(A),
+      z = le().safeParse(x);
+    if (!z.success)
+      return (
+        n(`[jobs] skipping ${B(e)}: state.json schema validation failed \u2014 ${z.error.message}`, { level: "warn" }),
+        _.noteRejected(e, S),
+        null
+      );
+    let U = P !== null ? Number(P) : void 0,
+      I = C !== null ? Number(C) : void 0,
+      j = le().in.shape,
+      Ce = x !== null && typeof x === "object" ? Object.entries(x).filter(([ze]) => !Object.hasOwn(j, ze)) : [],
+      L = { ...Object.fromEntries(Ce), ...z.data };
+    if (Number.isFinite(U)) L = { ...L, sortOrder: U };
+    if (Number.isFinite(I)) L = { ...L, stateSortOrder: I };
+    if (y !== null && y.trim()) L = { ...L, group: y.trim() };
+    if (L.group !== void 0) L = { ...L, group: RBt(L.group) };
+    return _.noteParsed(e, S, L), L;
+  } catch (A) {
+    if (X(A)) return _.noteAbsent(e), null;
+    if (
+      (n(`[jobs] ${B(e)}: state.json read/parse failed \u2014 ${A instanceof Error ? A.message : String(A)}`, {
+        level: "warn",
+      }),
+      _.shouldReportTransient(e))
+    )
+      s("tengu_bg_state_read_transient", { errno: uo(A) ?? w("unknown"), had_cache: u !== void 0 });
+    return de(u, r);
+  }
+}
+async function Oft(e, t) {
+  hd(e);
+  let r = await fr(e, t).catch(() => null);
+  if (r !== null && r.state !== "done" && r.state !== "stopped" && r.state !== "blocked" && r.state !== "failed")
+    await ne(50), hd(e), (r = (await fr(e, t).catch(() => null)) ?? r);
+  return r;
+}
+function M() {
+  return F(Gb(), "pins.json");
+}
+var Uhr = 5000;
+async function Dce(e) {
+  if (e) return Ye(e);
+  try {
+    let t = await Z(M());
+    if (!t.isFile() || t.size > D) {
+      if (!t.isFile()) await ae();
+      return new Set();
+    }
+    return ge(await re(M(), "utf-8"));
+  } catch (t) {
+    if (X(t))
+      return (
+        await Wn(M(), b([])).catch((r) => {
+          if (!X(r)) Aa(r);
+        }),
+        new Set()
+      );
+    return new Set();
+  }
+}
+async function Ye(e) {
+  let t = await CBt(e, Te.jobPins(), { cap: D, screens: Ie(), screenKey: M(), heal: ae });
+  return ge(t ?? void 0);
+}
+function Ie() {
+  return ABt.of(G().host).pins;
+}
+function ge(e) {
+  if (e === void 0 || e.length > D) return new Set();
+  let t;
+  try {
+    t = V(e);
+  } catch {
+    return new Set();
+  }
+  if (!Array.isArray(t)) return new Set();
+  return new Set(t.filter((r) => typeof r === "string"));
+}
+async function ae(e) {
+  let t = await Z(M()).catch(() => {
+    return;
+  });
+  if (t === void 0 || (t.isFile() && !(e?.evenRegular && t.size > D))) return !1;
+  return await te(M(), { recursive: !0, force: !0 }).catch(() => {}), !0;
+}
+async function iM(e, t, r, o, d) {
+  let g = cr(e),
+    p = await fr(g, o);
+  if (!p) return !1;
+  if (p.name === t) return !0;
+  hd(g);
+  let S = (await fr(g, o)) ?? p;
+  if (S.name === t || (r === "auto" && S.name)) return !0;
+  if (!Pe(S, d)) return !1;
+  return xs(g, { ...S, name: t, nameSource: r, updatedAt: new Date().toISOString() }, o).then(
+    () => !0,
+    (k) => {
+      if (!X(k)) Aa(k);
+      return !1;
+    },
+  );
+}
+async function IGe(e, t, r) {
+  let o = cr(e),
+    d = await fr(o, r);
+  if (!d) return !1;
+  if (d.color === t) return !0;
+  hd(o);
+  let g = (await fr(o, r)) ?? d;
+  if (g.color === t) return !0;
+  return xs(o, { ...g, color: t, updatedAt: new Date().toISOString() }, r).then(
+    () => !0,
+    (p) => {
+      if (!X(p)) Aa(p);
+      return !1;
+    },
+  );
+}
+function HBt() {
+  return mI().relocatedCwd;
+}
+async function idn(e, t) {
+  let r = a.CLAUDE_JOB_DIR;
+  if (!r || a.CLAUDE_CODE_SESSION_KIND !== "bg") return;
+  (mI().relocatedCwd = e), hd(r);
+  let o = await fr(r, t),
+    d = o?.worktreePath ? o.originCwd : e;
+  if (!o || (o.cwd === e && o.originCwd === d)) return;
+  hd(r);
+  let g = (await fr(r, t)) ?? o;
+  await xs(
+    r,
+    { ...g, cwd: e, originCwd: g.worktreePath ? g.originCwd : e, updatedAt: new Date().toISOString() },
+    t,
+  ).catch((p) => {
+    if (!X(p)) Aa(p);
+  });
+}
+async function sdn(e, t, r) {
+  let o = a.CLAUDE_JOB_DIR;
+  if (!o || a.CLAUDE_CODE_SESSION_KIND !== "bg") return;
+  hd(o);
+  let d = await fr(o, r);
+  if (!d || (d.resumeSessionId === e && d.linkScanPath === t)) return;
+  hd(o);
+  let g = (await fr(o, r)) ?? d;
+  await xs(
+    o,
+    { ...g, resumeSessionId: e, linkScanPath: t, linkScanOffset: 0, updatedAt: new Date().toISOString() },
+    r,
+  ).catch((p) => {
+    if (!X(p)) Aa(p);
+  });
+}
+async function Ate(e, t) {
+  let r = a.CLAUDE_JOB_DIR;
+  if (!r || a.CLAUDE_CODE_SESSION_KIND !== "bg") return;
+  await PGe(async () => {
+    hd(r);
+    let o = await fr(r, t);
+    if (!o?.inFlight || Xi(o) || o.tempo === "active") return;
+    let d = o.inFlight;
+    if (
+      e.count === d.tasks &&
+      (e.drainableMonitors ?? 0) === (d.drainableMonitors ?? 0) &&
+      e.kinds.length === d.kinds.length &&
+      e.kinds.every((g) => d.kinds.includes(g))
+    )
+      return;
+    await xs(
+      r,
+      {
+        ...o,
+        inFlight: {
+          tasks: e.count,
+          queued: d.queued,
+          kinds: [...e.kinds],
+          ...(e.drainableMonitors !== void 0 && e.drainableMonitors > 0 && { drainableMonitors: e.drainableMonitors }),
+          ...(d.wake !== void 0 && { wake: d.wake }),
+        },
+        updatedAt: new Date().toISOString(),
+      },
+      t,
+    ).catch((g) => {
+      if (!X(g)) Aa(g);
+    });
+  });
+}
+function Pe(e, t) {
+  if (t === void 0 || !e.name) return !0;
+  if (e.nameSource === "auto" || e.nameSource === "collision") return !0;
+  return t.includes(Us(e.name));
+}
+async function kD(e, t, r, o, d, g) {
+  let p = a.CLAUDE_JOB_DIR;
+  if (!p || a.CLAUDE_CODE_SESSION_KIND !== "bg") return;
+  hd(p);
+  let S = await fr(p, d);
+  if (!S?.respawnFlags) return;
+  let k = [e, ...t],
+    u = (y) => {
+      let x = [];
+      for (let z = 0; z < y.length; z++) {
+        let U = y[z];
+        if (k.some((I) => U === I || U.startsWith(`${I}=`))) {
+          if (U.indexOf("=") === -1 && y[z + 1] !== void 0) z++;
+          continue;
+        }
+        x.push(U);
+      }
+      if (r === null) return x;
+      return [...x, ...qb(e, r)];
+    },
+    A = u(S.respawnFlags);
+  if (A.length === S.respawnFlags.length && A.every((y, x) => y === S.respawnFlags[x])) return;
+  hd(p);
+  let P = (await fr(p, d)) ?? S,
+    C = Pe(P, g);
+  await xs(
+    p,
+    { ...P, ...(C ? o : {}), respawnFlags: u(P.respawnFlags ?? S.respawnFlags), updatedAt: new Date().toISOString() },
+    d,
+  ).catch((y) => {
+    if (!X(y)) Aa(y);
+  });
+}
+async function adn(e, t, r) {
+  let o = a.CLAUDE_JOB_DIR;
+  if (!o || a.CLAUDE_CODE_SESSION_KIND !== "bg") return;
+  hd(o);
+  let d = await fr(o, r);
+  if (!d?.respawnFlags) return;
+  let g = qb(e, t);
+  for (let S = 0; S <= d.respawnFlags.length - g.length; S++)
+    if (g.every((k, u) => d.respawnFlags[S + u] === k)) return;
+  hd(o);
+  let p = (await fr(o, r)) ?? d;
+  await xs(o, { ...p, respawnFlags: [...(p.respawnFlags ?? []), ...g], updatedAt: new Date().toISOString() }, r).catch(
+    (S) => {
+      if (!X(S)) Aa(S);
+    },
+  );
+}
+async function fe(e, t) {
+  await te(e, { force: !0 });
+  let r = await Rfe(e, t);
+  try {
+    await Ii(r, e);
+  } catch (o) {
+    throw (await te(r, { force: !0 }).catch(() => {}), o);
+  }
+}
+async function me(e, t, r) {
+  let o = await e.write(t, r, { parent: "mustExist", mode: 438 & ~process.umask() });
+  if (!o.ok) {
+    let d = iu(o.error);
+    throw Object.assign(
+      new R(`[jobs] v5 sidecar write failed: ${Ge(o.error)}`, "[jobs] v5 sidecar write failed"),
+      d !== void 0 ? { code: d } : {},
+    );
+  }
+}
+async function ldn(e, t, r) {
+  let o = O() && r ? Ibe(e, ["order"]) : void 0;
+  if (r && o) await me(r, o, String(t));
+  else await fe(F(e, "order"), String(t));
+  hd(e);
+}
+async function cdn(e, t, r) {
+  let o = O() && r ? Ibe(e, ["stateOrder"]) : void 0;
+  if (r && o) await me(r, o, String(t));
+  else await fe(F(e, "stateOrder"), String(t));
+  hd(e);
+}
+async function Lft(e, t, r) {
+  let o = F(e, "group"),
+    d = RBt(t),
+    g = O() && r ? Ibe(e, ["group"]) : void 0;
+  if (r && g)
+    if (d) await me(r, g, d);
+    else {
+      let p = await r.delete(g);
+      if (!p.ok) throw new R(`[jobs] v5 sidecar delete failed: ${p.error.code}`, "[jobs] v5 sidecar delete failed");
+    }
+  else if (d) await fe(o, d);
+  else await te(o, { force: !0 });
+  hd(e);
+}
+async function udn(e) {
+  let t = F(Gb(), ".order");
+  await pe(Gb(), { recursive: !0 });
+  await using r = await Gi(t, {
+    realpath: !1,
+    stale: 5000,
+    retries: { retries: 5, minTimeout: 20 },
+    onCompromised: (o) =>
+      n(`jobs/.order lock compromised (likely process suspend or slow fs): ${o}`, { level: "error" }),
+  });
+  return await e();
+}
+var Ee = zm();
+function PGe(e) {
+  return Ee.run("own-state.json", e);
+}
+function Mft(e, t, r) {
+  return Ee.run("pins.json", async () => {
+    if (O() && r) return Ze(e, t, r);
+    let o = M();
+    await pe(Ue(o), { recursive: !0 });
+    await using d = await Gi(o, {
+      realpath: !1,
+      stale: Uhr,
+      retries: { retries: 5, minTimeout: 20 },
+      onCompromised: (p) =>
+        n(`pins.json lock compromised (likely process suspend or slow fs): ${p}`, { level: "error" }),
+    });
+    let g = await Dce();
+    if (t ? g.has(e) : !g.has(e)) return;
+    if (t) g.add(e);
+    else
+      g.delete(e),
+        await te(F(cr(e), "order")).catch((p) => {
+          if (!X(p)) throw p;
+        }),
+        hd(cr(e));
+    await Wn(o, b([...g], null, 2));
+  });
+}
+async function Ze(e, t, r) {
+  let o = (k) => {
+      let u = ge(k?.value);
+      if (t ? u.has(e) : !u.has(e)) return { skip: !0, result: !1 };
+      if (t) u.add(e);
+      else u.delete(e);
+      return { write: b([...u], null, 2), result: !0 };
+    },
+    d = Ie(),
+    g = await r.statMeta(Te.jobPins());
+  if (g.ok && g.value.size > D) await ae({ evenRegular: !0 }), d.delete(M());
+  else if (!g.ok && ue(g.error) !== void 0) await ae(), d.delete(M());
+  let p = { publishDiscipline: "atomic", mode: 438 & ~process.umask() },
+    S = await r.updateText(Te.jobPins(), o, p);
+  if (!S.ok && (await ae())) S = await r.updateText(Te.jobPins(), o, p);
+  if (!S.ok) throw new R(`[jobs] v5 pins update failed: ${S.error.code}`, "[jobs] v5 pins update failed");
+  if (!t && S.value.result === !0) {
+    let k = Ae(e, ["order"]);
+    if (k) {
+      let u = await r.delete(k);
+      if (!u.ok) n(`[jobs] v5 order sidecar release failed after unpin: ${u.error.code}`, { level: "warn" });
+    } else
+      await te(F(cr(e), "order")).catch((u) => {
+        if (!X(u)) n(`[jobs] order sidecar release failed after unpin: ${l(u)}`, { level: "warn" });
+      });
+    hd(cr(e));
+  }
+}
+async function d_(e, t) {
+  if (t) return Qe(t, e);
+  let r;
+  try {
+    r = await Se(Gb(), { withFileTypes: !0 });
+  } catch {
+    return [];
+  }
+  let [o, d] = await Promise.all([
+      Dce(),
+      Promise.all(
+        r
+          .filter((p) => p.isDirectory())
+          .map(async (p) => {
+            let S = await fr(F(Gb(), p.name));
+            return S ? { id: p.name, state: S } : null;
+          }),
+      ),
+    ]),
+    g = d.filter((p) => p !== null).map((p) => (o.has(p.id) ? { ...p, state: { ...p.state, pinned: !0 } } : p));
+  return e ? Pbe(g, e) : g;
+}
+async function Oe(e) {
+  let t = [],
+    r;
+  do {
+    let o = await e.listEntries(
+      { namespace: "job" },
+      r === void 0 ? { skipScopeStats: !0 } : { cursor: r, skipScopeStats: !0 },
+    );
+    if (!o.ok) return { ok: !1, error: o.error };
+    for (let d of o.value.items)
+      if (
+        d.kind === "scope" &&
+        d.scope.namespace === "job" &&
+        d.scope.jobId !== void 0 &&
+        d.scope.relPath === void 0 &&
+        Zt(d.scope.jobId)
+      )
+        t.push(d.scope.jobId);
+    r = o.value.cursor;
+  } while (r !== void 0);
+  return { ok: !0, ids: t };
+}
+async function Qe(e, t) {
+  let r = await Oe(e);
+  if (!r.ok) return [];
+  let o = r.ids,
+    [d, g] = await Promise.all([
+      Dce(e),
+      Promise.all(
+        o.map(async (S) => {
+          let k = await fr(cr(S), e);
+          return k ? { id: S, state: k } : null;
+        }),
+      ),
+    ]),
+    p = g.filter((S) => S !== null).map((S) => (d.has(S.id) ? { ...S, state: { ...S.state, pinned: !0 } } : S));
+  return t ? Pbe(p, t) : p;
+}
+function Pbe(e, t) {
+  let r = Date.now();
+  return e.map((o) => {
+    if (Xi(o.state)) return o;
+    if (t.has(o.id)) return o;
+    if (r - Date.parse(o.state.createdAt) < Ve) return o;
+    return { ...o, state: Bhr(o.state) };
+  });
+}
+var Ve = 5000;
+function Bhr(e) {
+  if (uDe(e)) return { ...e, tempo: "blocked", inFlight: void 0 };
+  return {
+    ...e,
+    state: "failed",
+    tempo: "idle",
+    needs: void 0,
+    block: void 0,
+    inFlight: void 0,
+    detail: e.detail.replace(/; respawning$/, ""),
+  };
+}
+var Dbe = "starting\u2026",
+  Mg = "send a prompt to start",
+  Obe = `(idle \u2014 ${Mg})`,
+  Lbe = ["starting", "resuming", "adopted", "crashed"],
+  xBt = 172800000,
+  jhr = "ended while the background service was off";
+function cz(e) {
+  let t = new Date().toISOString();
+  return {
+    state: "working",
+    detail: e.detail !== void 0 ? co(e.detail) : Dbe,
+    tempo: e.tempo ?? "active",
+    needs: e.needs,
+    inFlight: e.inFlight,
+    output: null,
+    children: null,
+    linkScanOffset: 0,
+    linkScanPath: e.linkScanPath,
+    template: e.template.name,
+    routine: e.routine,
+    respawnFlags: e.respawnFlags ?? [],
+    bgIsolation: e.bgIsolation,
+    providerEnv: e.providerEnv,
+    sessionPermissionRules: e.sessionPermissionRules,
+    memoryToggledOff: e.memoryToggledOff,
+    forkSourceAlive: e.forkSourceAlive,
+    forkBoundaryAt: e.forkBoundaryAt,
+    forkSessionId: e.forkSessionId,
+    forkParentSessionId: e.forkParentSessionId,
+    interactiveLineage: e.interactiveLineage,
+    intent: e.intent,
+    displayIntent: e.displayIntent,
+    name: e.name,
+    nameSource: e.nameSource,
+    color: ene({ userOverride: e.color, agentDefinitionColor: e.template.color }),
+    initialPrompt: e.template.initialPrompt,
+    sessionId: e.sessionId,
+    resumeSessionId: e.sessionId,
+    daemonShort: e.sessionId.slice(0, 8),
+    cwd: e.cwd,
+    createdAt: t,
+    updatedAt: t,
+    firstTerminalAt: null,
+    worktreePath: e.worktreePath,
+    worktreeBranch: e.worktreeBranch,
+    worktreeHookBased: e.worktreeHookBased,
+    originCwd: e.originCwd,
+    backend: "daemon",
+  };
+}
+async function ddn(e, t, r) {
+  if (t.length === 0) return e;
+  let o = new Set(e.map((u) => u.id)),
+    d = t.filter((u) => ve.test(u.short) && !o.has(u.short) && u.source !== "spare" && !u.dying);
+  if (d.length === 0) return e;
+  let g = await cT({ silent: !0 }, r),
+    p = await Promise.all(
+      d.map((u) => {
+        let A = g.workers[u.short];
+        return Pft(u.pid, A?.pid === u.pid ? A.procStart : void 0);
+      }),
+    );
+  for (let [u, A] of d.entries())
+    if (p[u] !== "live") {
+      if ((n(`[adoptRosterOrphans] pruned dead record ${A.short} (${p[u]})`), _.shouldReportPruned(A.short)))
+        s("tengu_bg_roster_orphan_pruned", { reason: c(p[u] ?? "dead_pid") });
+    } else _.notePruneCandidateLive(A.short);
+  let S = d.filter((u, A) => p[A] === "live");
+  if (S.length === 0) return e;
+  let k = S.map((u) => {
+    let A = {
+        ...cz({
+          template: { name: u.agent ?? "bg", description: "" },
+          routine: u.routine,
+          intent: u.intent,
+          name: u.name,
+          detail: u.detail,
+          ...(u.tempo === "active" && (u.state === "running" || Lbe.includes(u.state))
+            ? u.routine
+              ? { tempo: "idle" }
+              : { tempo: "blocked", needs: Mg }
+            : { tempo: u.tempo, needs: u.needs }),
+          sessionId: SS(u.sessionId),
+          cwd: SS(u.cwd),
+          worktreePath: u.worktreePath === void 0 ? void 0 : SS(u.worktreePath),
+        }),
+        createdAt: new Date(u.createdAt ?? u.startedAt).toISOString(),
+        daemonShort: u.short,
+        state: Lbe.includes(u.state) ? "working" : u.state,
+        ...(xE(u.state) && { inFlight: { tasks: 0, queued: 0, kinds: [] } }),
+      },
+      P = cr(u.short),
+      C = r ? Ae(u.short, [W]) : void 0;
+    if (r && C)
+      r.write(C, b(A), { precondition: { type: "ifAbsent" }, mode: 384 }).then((y) => {
+        if (y.ok) s("tengu_bg_roster_orphan_adopted", {});
+        else if (y.error.code !== "AlreadyExists")
+          Aa(new R(`[jobs] v5 orphan seed write failed: ${y.error.code}`, "[jobs] v5 orphan seed write failed"));
+      });
+    else
+      pe(P, { recursive: !0 })
+        .then(() => KAt(F(P, "state.json"), b(A), 384))
+        .then(() => s("tengu_bg_roster_orphan_adopted", {}))
+        .catch((y) => {
+          if (E(y) !== "EEXIST") Aa(y);
+        });
+    return { id: u.short, state: A };
+  });
+  return [...e, ...k];
+}
+function am(e) {
+  if (e === "done") return "success";
+  if (e === "failed") return "failure";
+  if (e === "stopped") return "stopped";
+  return null;
+}
+function xE(e) {
+  return am(e) !== null;
+}
+function Xi(e) {
+  return xE(e.state) && e.tempo !== "active";
+}
+function zb(e) {
+  return e.template === "exec" && e.respawnFlags.length === 0;
+}
+function uDe(e) {
+  return e.state === "blocked" && !zb(e);
+}
+function Nft(e) {
+  return e.backend === "daemon" && !zb(e);
+}
+function w2(e) {
+  let t = e.originCwd || (e.cwd.match(/^(.+?)[/\\]\.claude[/\\]worktrees[/\\]/)?.[1] ?? e.cwd);
+  return SS(t);
+}
+function DGe(e, t) {
+  if (e.backend === "remote") return !0;
+  let r = Je(t, w2(e));
+  return r.split(/[/\\]/, 1)[0] !== ".." && !ye(r);
+}
+function Mbe(e) {
+  let t = (r) => r?.trim().toLowerCase().startsWith("/loop") ?? !1;
+  return t(e.intent) || t(e.initialPrompt);
+}
+function HD(e) {
+  return e.routine !== void 0 || e.selfWake === !0 || (e.inFlight?.kinds.includes("session_cron") ?? !1) || Mbe(e);
+}
+function Oce(e, t, r, o, d) {
+  let g = cr(e);
+  return fr(g, d)
+    .then(async (p) => {
+      if (!p || Xi(p) || (t === "failed" && uDe(p))) return "none";
+      let S = Date.now(),
+        k = new Date(S).toISOString(),
+        u = o?.resumable === "auto-resume" && t === "failed" && !zb(p) && S - Date.parse(p.updatedAt) > xBt;
+      return (
+        await xs(
+          g,
+          {
+            ...p,
+            state: u ? "stopped" : t === "crashed" ? "failed" : t,
+            detail: u
+              ? jhr
+              : t === "stopped"
+                ? "stopped"
+                : t === "failed"
+                  ? (p.detail || r).replace(/; respawning$/, "")
+                  : r,
+            tempo: "idle",
+            inFlight: void 0,
+            needs: void 0,
+            updatedAt: k,
+            firstTerminalAt: p.firstTerminalAt ?? (u ? p.updatedAt : k),
+            ...(o?.resumable === "auto-resume" &&
+              t === "failed" &&
+              (u ? { deadEpochReapedAt: k } : { reapedMidWorkAt: p.updatedAt })),
+            ...(o?.resumable === "wake-only" && t === "failed" && { reapedUnsettledAt: p.updatedAt }),
+          },
+          d,
+        ),
+        u ? "dead-epoch" : "settled"
+      );
+    })
+    .catch((p) => (Aa(p), "none"));
+}
+var et = m(() =>
+    T.object({
+      state: T.string().nullish(),
+      detail: T.string().nullish(),
+      tempo: T.string().nullish(),
+      needs: T.string().nullish(),
+      output: T.record(T.string(), T.unknown()).nullish(),
+    }),
+  ),
+  tt = {
+    working:
+      "actively progressing on the task \u2014 narrating plans, calling tools, or writing code; no pending question for the user",
+    blocked:
+      'the last message ends on a direct question or explicit request for the user ("want me to\u2026?", "which do you prefer?", "approve this?", "needs input: \u2026") \u2014 nothing will happen until the user replies',
+    done: 'the task the user asked for is fully delivered and there is no further work the agent plans to do \u2014 not just a progress update, not "almost done", not "let me know what you think"',
+    failed:
+      "the agent has given up or hit something unrecoverable \u2014 missing credential, broken build it cannot fix, wrong repo, task impossible as framed; distinct from blocked (user can unblock) and done (succeeded)",
+  },
+  nt = { result: "one short sentence naming the finished deliverable \u2014 no sub-clauses or bullet summaries" },
+  Hp = 800,
+  FVn = 2000,
+  it = new Set(["done", "failed", "stopped"]);
+function yl(e, t) {
+  if (e.length <= t) return e;
+  let r = t - 1,
+    o = e.charCodeAt(r - 1);
+  if (o >= 55296 && o <= 56319) r--;
+  return e.slice(0, r) + "\u2026";
+}
+function Y(e, t) {
+  let r = null,
+    o = 0,
+    d = 0;
+  while (d < t) {
+    let g = e.indexOf("```", d),
+      p = e.indexOf("~~~", d),
+      S = g === -1 ? p : p === -1 ? g : Math.min(g, p);
+    if (S === -1 || S >= t) break;
+    let k = e[S],
+      u = S - 1,
+      A = 0;
+    while (u >= 0 && e[u] === " " && A < 3) u--, A++;
+    let P =
+        u < 0 ||
+        e[u] ===
+          `
+`,
+      C = 3;
+    d = S + 3;
+    while (e[d] === k) d++, C++;
+    if (!P) continue;
+    if (r === null) (r = k), (o = C);
+    else if (r === k && C >= o) (r = null), (o = 0);
+  }
+  return r !== null;
+}
+function $Vn(e, t = "", r) {
+  if (r === "dlp_request_denied") return { state: "failed", needs: "API error" };
+  switch (e) {
+    case "authentication_failed":
+      return { state: "blocked", needs: "login required \u2014 run /login" };
+    case "oauth_org_not_allowed":
+      return { state: "blocked", needs: "org disabled OAuth \u2014 use API key or ask admin" };
+    case "account_on_hold":
+      return { state: "blocked", needs: "account on hold \u2014 see detail" };
+    case "billing_error":
+      return { state: "blocked", needs: "usage limit reached \u2014 check plan" };
+    case "rate_limit":
+      return { state: "blocked", needs: "rate limited \u2014 wait and retry" };
+    case "overloaded":
+      return { state: "blocked", needs: "API overloaded \u2014 wait and retry" };
+    case "server_error":
+      return { state: "blocked", needs: "API unavailable \u2014 retry" };
+    case "invalid_request":
+      return /\b(too long|too large|exceeds|token limit|prompt is too long)\b/i.test(t)
+        ? { state: "blocked", needs: "request too large \u2014 /compact or trim" }
+        : { state: "blocked", needs: "invalid API request \u2014 see detail" };
+    case "max_output_tokens":
+      return null;
+    case void 0:
+      return { state: "blocked", needs: "API error \u2014 see detail" };
+    case "unknown":
+    default:
+      return { state: "failed", needs: "API error" };
+  }
+}
+var rt = /(?:^|\n)\s*failed\s*[:\u2014\u2013-]\s*(.{3,200}?)(?=\n|$)/gi,
+  ot = /(?:^|\n)\s*needs input\s*[:\u2014\u2013-]\s*(.{3,200}?)(?=\n|$)/gi,
+  at = /(?:^|\n)\s*blocked\s*[:\u2014\u2013-]\s*(.{3,200}?)(?=\n|$)/gi,
+  st = /\bI'?m blocked\s*[:\u2014\u2013-]\s*(.{3,200}?)(?=\n|$)/gi;
+function lt(e, t, r) {
+  let o;
+  for (let [d, g] of [
+    ["failed", rt],
+    ["blocked", ot],
+    ["blocked", at],
+    ["blocked", st],
+  ])
+    for (let p of t.matchAll(g)) {
+      if (Y(e, r + p.index)) continue;
+      if (!o || p.index > o.index) o = { state: d, capture: p[1].trim(), index: p.index, end: p.index + p[0].length };
+    }
+  return o;
+}
+function UVn(e) {
+  let t = e.trim();
+  if (!t) return "empty";
+  if (Y(t, t.length)) return "code-fence";
+  let r = t.slice(-800),
+    o = t.length - r.length;
+  for (let g of r.matchAll(/(?:^|\n)\s*result:\s*\S/gi)) if (!Y(t, o + g.index)) return "result-line";
+  for (let g of r.matchAll(/(?:^|\n)\s*failed:\s*\S/gi)) if (!Y(t, o + g.index)) return "failed-line";
+  if (/[?\uFF1F]\s*$/.test(t)) return "trailing-q";
+  let d = t.slice(-200);
+  if (/(?:^|\n)\s*(?:[-*\u2022]|\d+\.|[|])\s/.test(d)) return "list-or-table";
+  return "declarative";
+}
+function Fft(e) {
+  let t = e.trim();
+  if (!t) return null;
+  let r = t.slice(-800),
+    o;
+  for (let y of r.matchAll(/(?:^|\n)\s*result:\s*(.+?)\s*(?:\n|$)/gi)) if (!Y(t, t.length - r.length + y.index)) o = y;
+  let d = r,
+    g = t.length - r.length;
+  if (o) {
+    let y = o.index + o[0].length;
+    (d = r.slice(y)), (g = t.length - r.length + y);
+  }
+  let p = lt(t, d, g);
+  if (o && !p) {
+    let y = yl(o[1], Hp);
+    if ([...d.matchAll(/(?:^|\n)\s*next:\s*\S/gi)].some((z) => !Y(t, g + z.index)))
+      return { branch: "result-then-next", state: "working", tempo: "idle", detail: y, output: { result: y } };
+    return { branch: "result-marker", state: "done", tempo: "idle", detail: y, output: { result: y } };
+  }
+  if (p?.state === "failed")
+    return { branch: "failed-marker", state: "failed", tempo: "idle", detail: yl(p.capture, Hp), output: {} };
+  if (p?.state === "blocked") {
+    let y = d.slice(p.end);
+    if (Q(y.split(/\n\s*\n/), (x) => x.trim().length > 0) >= 3) return null;
+    if (!/\bnothing (?:needed|required) from you\b|\bno(?: user)? action (?:needed|required)\b/i.test(d)) {
+      let x = yl(p.capture, Hp);
+      return { branch: "blocked-marker", state: "blocked", tempo: "blocked", needs: x, detail: x };
+    }
+    if (o) {
+      let x = yl(o[1], Hp);
+      return { branch: "blocked-disclaimed", state: "done", tempo: "idle", detail: x, output: { result: x } };
+    }
+    return null;
+  }
+  if (/[?\uFF1F]\s*$/.test(r) && r.replace(/[?\uFF1F\s]+$/, "").length >= 4) {
+    let y = Math.max(
+      r.lastIndexOf(`
+`),
+      r.lastIndexOf(". "),
+      r.lastIndexOf("! "),
+      r.lastIndexOf("? ", r.length - 2),
+    );
+    if (!Y(t, t.length - r.length + y)) {
+      let x = yl(r.slice(y + 1).trim(), Hp);
+      if (dt.test(x)) return null;
+      return { branch: "trailing-q", state: "blocked", tempo: "blocked", needs: x, detail: x };
+    }
+  }
+  let S = Math.max(
+      0,
+      r.lastIndexOf(". "),
+      r.lastIndexOf("! "),
+      r.lastIndexOf("? "),
+      r.lastIndexOf(`
+`),
+    ),
+    k = r.slice(S).replace(/^[.!?\s]+/, ""),
+    u = Y(t, t.length - r.length + S),
+    A =
+      /\b(?:waiting (?:for|on)|pending)\s+(?:the\s+)?(?:CI|build|tests?|reviewer|deploy(?:ment)?|workflow|checks?|rollout|merge queue)\b/i.exec(
+        k,
+      );
+  if (A && !u) return { branch: "wait-external", state: "working", tempo: "idle", detail: yl(A[0], Hp), output: {} };
+  let P =
+    /\b(?:awaiting|waiting (?:for|on)|pending)\s+(?:your\s+(?:feedback|input|decision|response|approval|direction|guidance|go-ahead)|you\b|the user\b)/i.exec(
+      k,
+    );
+  if (P && !u) {
+    let y = yl(k.slice(P.index).trim(), Hp);
+    return { branch: "awaiting-user", state: "blocked", tempo: "blocked", needs: y, detail: y };
+  }
+  let C =
+    /\b(please (?:run|provide|confirm|clarify|choose|let me know)|let me know (?:which|what|how|when)|which (?:option|approach|one)|should I (?:proceed|continue|use))\b/i.exec(
+      k,
+    );
+  if (C && !u) {
+    let y = yl(k.slice(C.index).trim(), Hp);
+    return { branch: "ask-verb", state: "blocked", tempo: "blocked", needs: y, detail: y };
+  }
+  if (
+    !u &&
+    /\b(not logged in|please run \/login|authentication failed|invalid api key|oauth token (?:expired|revoked)|credit balance (?:is )?too low|usage limit reached|mcp (?:server )?(?:authentication|auth|authorization|unauthorized)|mcp (?:server )?(?:credential|token) (?:missing|expired|invalid)|401 unauthorized|403 forbidden|token (?:has )?expired|bad credentials|gh auth login|gcloud auth login|aws (?:sso )?login)\b/i.test(
+      k,
+    )
+  )
+    return {
+      branch: "auth-prose",
+      state: "blocked",
+      tempo: "blocked",
+      needs: yl(k, Hp),
+      detail: "authentication required",
+    };
+  if (!u && ut.test(k) && !ct.test(k))
+    return { branch: "working-verb", state: "working", tempo: "active", detail: yl(k, Hp), output: {} };
+  if (!u && pt.test(k)) return { branch: "agents-status", state: "working", tempo: "idle", detail: yl(k, Hp) };
+  if (!u && gt.test(k)) return { branch: "will-check-back", state: "working", tempo: "idle", detail: yl(k, Hp) };
+  if (!u && ft.test(k)) {
+    let y = yl(k, Hp);
+    return { branch: "cant-proceed", state: "blocked", tempo: "blocked", detail: y, needs: y };
+  }
+  if (!u && mt.test(k)) return { branch: "giving-up", state: "failed", tempo: "idle", detail: yl(k, Hp) };
+  if (!u && ht.test(k)) {
+    let y = yl(k, Hp);
+    return { branch: "pushed-committed", state: "done", tempo: "idle", detail: y, output: { result: y } };
+  }
+  if (!u && wt.test(k)) return { branch: "ready-for", state: "done", tempo: "idle", detail: yl(k, Hp) };
+  if (!u && bt.test(k)) {
+    let y = yl(k, Hp);
+    return { branch: "verdict-marker", state: "done", tempo: "idle", detail: y, output: { result: y } };
+  }
+  if (!u && kt.test(k)) {
+    let y = yl(k, Hp);
+    return { branch: "please-do-x", state: "blocked", tempo: "blocked", detail: y, needs: y };
+  }
+  if (!u && St.test(k)) {
+    let y = yl(k, Hp);
+    return { branch: "stopping-here", state: "blocked", tempo: "blocked", detail: y, needs: y };
+  }
+  return null;
+}
+function pdn(e) {
+  let t = e
+    .split(`
+`)
+    .map((r) => r.trim())
+    .findLast(Boolean);
+  return { branch: "heuristic", state: "working", tempo: "idle", detail: t ? yl(t, Hp) : "\u2014" };
+}
+var dt = /\b(?:want|like) me to\b|\b(?:shall|should) I also\b/i,
+  ut =
+    /^(?:(?:Now|Next|Then|Alright|OK|Okay|Right|Good|First|Also),?\s+)?(?:Let me (?!know\b)|(?:I(?:'?ll| will) |I'?m going to |Going to )(?!need\b|require\b|wait\b|leave\b|hold\b|skip\b|stop\b)|Proceeding |Moving (?:on|to)\b|Continuing |Starting |Trying |Checking |Looking |Searching |Reading |Investigating |Running |Re-?running |Building |Rebuilding |Installing |Fetching |Applying |Fixing |Patching |Updating |Adding |Removing |Deleting |Importing |Refactoring |Rewriting |Writing |Grepping |Scanning |Wrapping |Switching |Testing |Verifying |Regenerating |Pushing |Pulling |Reviewing |Examining |Loading |Compiling |Parsing |Analyzing |Tracing |Exploring )/i,
+  ct =
+    /\b(?:once |when |after |until |as soon as )(?:you|it|the|that|this|they)\b|\bagain in\b|\bcheck back\b|\bin ~?\d+\s*(?:s(?:ec(?:ond)?s?)?|m(?:in(?:ute)?s?)?|h(?:ours?|rs?)?)\b|\bthen\.?\s*$|\bwhichever you\b|\bhold(?:ing)? for your\b|\b(?:to|and) wait for\b|\bgive it (?:more |some )?time\b|\bif (?:you(?:'d| want| prefer| need|'re)?|that(?:'s| helps| works)?|useful|needed|helpful|desired)\b|\b(?:isn'?t|not|won'?t) going to work\b/i,
+  pt =
+    /^(?:(?:\*\*)?[1-9]\d* (?:agent|cron|task|fork|job|worker|PR|check)s? (?:in flight|remaining|active|still (?:running|working)|pending|running|launched)\b|(?:Continuous )?(?:[Ll]oop|[Cc]rons?|[Bb]abysit) (?:active|healthy|continuing|running|will keep|continues)\b|Waiting for (?:the )?(?:agent|cron|task|fork|worker|job|remaining|them)s?\b|Agents? will report back\b|Waiting\.?$)/,
+  gt =
+    /^(?:I will|I'll|Will) (?:check back|re-?check|poll|look again|retry|re-?run|try again) (?:(?:when|once|after|until) (?!your?\b)|in\b|again\b)/i,
+  ft = /^I (?:can(?:'?t|not)|am unable to) (?:proceed|continue|make (?:any )?progress|complete|fix this)\b/i,
+  mt = /^(?:Giving up|I(?:'m| am) giving up|The task is not actionable)\b/i,
+  ht =
+    /^(?:Pushed (?:to `|`[0-9a-f]{7,})|Committed as `?[0-9a-f]{7,}\b|Commit: `?[0-9a-f]{7,}\b|(?:Opened|Created) PR #?\d)/,
+  wt = /^Ready (?:for review|to (?:upload|merge|ship|land))\b/,
+  bt = /^VERDICT: (?:PASS|FAIL)\b/,
+  kt =
+    /^Please (?:start|run|provide|grant|export|add|install|configure|give me|paste|point me|set (?:the |up |`?[A-Z][A-Z0-9_]+\b))/,
+  St =
+    /^(?:Stopping here|I've stopped here|Parked (?:the|this) branch|Paused here)(?:\.|$| \u2014| -| until| pending| since| because)/i,
+  BVn = `A user kicked off a Claude Code agent to do a coding task and walked away. Read the tail of what the agent just said and decide which of four states it's in, so the system knows whether to notify the user.
 
 The classification drives a phone notification: "blocked" pings the user to come back; everything else doesn't. So the question you're really answering is: does the user need to come back right now, and if not, is the work finished or still going? A false "blocked" is an annoying interruption for nothing. A false "done" or "working" when the agent is actually stuck waiting on the user means the work sits idle until they happen to check.
 
@@ -190,10 +1790,140 @@ OUTPUT \u2014 respond with ONLY this JSON, no code fences:
 "needs": when blocked, the exact action the user should take, copied as closely as possible from the tail \u2014 they'll act on this text without reading the transcript. Omit otherwise.
 
 "output.result": one-sentence headline naming a finished deliverable (direct answer, URL/path the agent produced, command the user should run). If the tail has \`result:\` on its own line, that line IS the result. Omit ({}) when still working, or when it would just restate the state.
-`;function jVn(e){let{tail:t,prev:r,latestAsk:o,toolSummary:d,minsInState:g}=e;return`Current state: ${r} (for ${g}m)
-Tool calls so far: ${d||"none"}${o?`
-User's most recent ask: "${o}"`:""}
+`;
+function jVn(e) {
+  let { tail: t, prev: r, latestAsk: o, toolSummary: d, minsInState: g } = e;
+  return `Current state: ${r} (for ${g}m)
+Tool calls so far: ${d || "none"}${
+    o
+      ? `
+User's most recent ask: "${o}"`
+      : ""
+  }
 
 Assistant message tail (last ${t.length} chars):
-${t}`}function WVn(e){let t=e.replace(/^```(?:json)?\s*/i,"").replace(/\s*```\s*$/,""),r=t.indexOf("{"),o=t.lastIndexOf("}");if(r<0||o<0)return null;let d;try{d=V(t.slice(r,o+1))}catch{return null}let g=et().safeParse(d);return g.success?g.data:null}function se(e){return typeof e==="string"&&e?e:void 0}function $ft(e,t,r){let o=se(e.state),d=o&&Object.hasOwn(tt,o)?o:r?.state??t,g=se(e.tempo),p=it.has(d)?"idle":g==="active"||g==="idle"||g==="blocked"?g:r?.tempo??"active",S={},k=e.output??r?.output;if(k&&typeof k==="object")for(let[A,P]of Object.entries(k)){let C=se(P);if(C&&Object.hasOwn(nt,A))S[A]=yl(C,Hp)}let u=se(e.needs)??(p==="blocked"?r?.needs:void 0);return{state:d,detail:se(e.detail)??r?.detail??"",tempo:p,needs:u,output:S,branch:r?.branch}}
-export{ABt,CBt,Ice,Pce,lDe,edn,cDe,MVn,Pft,kGe,b2,tdn,NVn,lX,ndn,E9,cX,qb,HE,Q_,$hr,HGe,vBt,RBt,Gb,cr,ICr,fu,Ibe,Dft,rdn,kBt,xs,Aa,xGe,lz,hd,odn,fr,Oft,Uhr,Dce,iM,IGe,HBt,idn,sdn,Ate,kD,adn,ldn,cdn,Lft,udn,PGe,Mft,d_,Pbe,Bhr,Dbe,Mg,Obe,Lbe,xBt,jhr,cz,ddn,am,xE,Xi,zb,uDe,Nft,w2,DGe,Mbe,HD,Oce,Hp,FVn,yl,$Vn,UVn,Fft,pdn,BVn,jVn,WVn,$ft};
+${t}`;
+}
+function WVn(e) {
+  let t = e.replace(/^```(?:json)?\s*/i, "").replace(/\s*```\s*$/, ""),
+    r = t.indexOf("{"),
+    o = t.lastIndexOf("}");
+  if (r < 0 || o < 0) return null;
+  let d;
+  try {
+    d = V(t.slice(r, o + 1));
+  } catch {
+    return null;
+  }
+  let g = et().safeParse(d);
+  return g.success ? g.data : null;
+}
+function se(e) {
+  return typeof e === "string" && e ? e : void 0;
+}
+function $ft(e, t, r) {
+  let o = se(e.state),
+    d = o && Object.hasOwn(tt, o) ? o : (r?.state ?? t),
+    g = se(e.tempo),
+    p = it.has(d) ? "idle" : g === "active" || g === "idle" || g === "blocked" ? g : (r?.tempo ?? "active"),
+    S = {},
+    k = e.output ?? r?.output;
+  if (k && typeof k === "object")
+    for (let [A, P] of Object.entries(k)) {
+      let C = se(P);
+      if (C && Object.hasOwn(nt, A)) S[A] = yl(C, Hp);
+    }
+  let u = se(e.needs) ?? (p === "blocked" ? r?.needs : void 0);
+  return { state: d, detail: se(e.detail) ?? r?.detail ?? "", tempo: p, needs: u, output: S, branch: r?.branch };
+}
+export {
+  ABt,
+  CBt,
+  Ice,
+  Pce,
+  lDe,
+  edn,
+  cDe,
+  MVn,
+  Pft,
+  kGe,
+  b2,
+  tdn,
+  NVn,
+  lX,
+  ndn,
+  E9,
+  cX,
+  qb,
+  HE,
+  Q_,
+  $hr,
+  HGe,
+  vBt,
+  RBt,
+  Gb,
+  cr,
+  ICr,
+  fu,
+  Ibe,
+  Dft,
+  rdn,
+  kBt,
+  xs,
+  Aa,
+  xGe,
+  lz,
+  hd,
+  odn,
+  fr,
+  Oft,
+  Uhr,
+  Dce,
+  iM,
+  IGe,
+  HBt,
+  idn,
+  sdn,
+  Ate,
+  kD,
+  adn,
+  ldn,
+  cdn,
+  Lft,
+  udn,
+  PGe,
+  Mft,
+  d_,
+  Pbe,
+  Bhr,
+  Dbe,
+  Mg,
+  Obe,
+  Lbe,
+  xBt,
+  jhr,
+  cz,
+  ddn,
+  am,
+  xE,
+  Xi,
+  zb,
+  uDe,
+  Nft,
+  w2,
+  DGe,
+  Mbe,
+  HD,
+  Oce,
+  Hp,
+  FVn,
+  yl,
+  $Vn,
+  UVn,
+  Fft,
+  pdn,
+  BVn,
+  jVn,
+  WVn,
+  $ft,
+};

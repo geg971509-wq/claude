@@ -8,5 +8,25 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{J,G}from"/$bunfs/root/chunk-f9h0bg01.js";class o{#o=!1;#s=!1;get backgroundTasksDisabled(){return this.#o}get unsandboxedCommandsDisabled(){return this.#s}disableBackgroundTasks(){this.#o=!0}disableUnsandboxedCommands(){this.#s=!0}}var s=new J(()=>new o);function z2(){return s.of(G().host)}
-export{z2};
+import { J, G } from "/$bunfs/root/chunk-f9h0bg01.js";
+class o {
+  #o = !1;
+  #s = !1;
+  get backgroundTasksDisabled() {
+    return this.#o;
+  }
+  get unsandboxedCommandsDisabled() {
+    return this.#s;
+  }
+  disableBackgroundTasks() {
+    this.#o = !0;
+  }
+  disableUnsandboxedCommands() {
+    this.#s = !0;
+  }
+}
+var s = new J(() => new o());
+function z2() {
+  return s.of(G().host);
+}
+export { z2 };

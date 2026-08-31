@@ -8,5 +8,33 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{mi,GC}from"/$bunfs/root/chunk-f9h0bg01.js";import{a}from"/$bunfs/root/chunk-fec4384a.js";import{nAn,zY,KNe,BT}from"/$bunfs/root/chunk-6k63g5t6.js";import{qg,Yl,cAe}from"/$bunfs/root/chunk-8tgj5dp2.js";import{Ne,jo}from"/$bunfs/root/chunk-82w4mtvq.js";function wV(){nAn()}function QD(){let r=KNe();if(r!==void 0)return r;if(BT())return zY(!0);if(Ne()==="gateway"){let e=GC(mi());return zY(e,e?void 0:"unpinned_gateway")}if(Ne()!=="firstParty")return zY(!1,"third_party_provider");if(!jo())return zY(!1,"custom_base_url");let t=a.CLAUDE_CODE_ENTRYPOINT;if(t==="local-agent"||t==="remote_cowork"||t?.startsWith("claude-coworker"))return zY(!1,"sandboxed_entrypoint");if(Yl()&&cAe()===null)return zY(!0);if(Yl()&&(cAe()==="enterprise"||cAe()==="team"))return zY(!0);try{let{key:e}=qg({skipRetrievingKeyFromApiKeyHelper:!0});if(e)return zY(!0)}catch{}return zY(!1,Yl()?"unsupported_subscription":"no_auth")}
-export{wV,QD};
+import { mi, GC } from "/$bunfs/root/chunk-f9h0bg01.js";
+import { a } from "/$bunfs/root/chunk-fec4384a.js";
+import { nAn, zY, KNe, BT } from "/$bunfs/root/chunk-6k63g5t6.js";
+import { qg, Yl, cAe } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { Ne, jo } from "/$bunfs/root/chunk-82w4mtvq.js";
+function wV() {
+  nAn();
+}
+function QD() {
+  let r = KNe();
+  if (r !== void 0) return r;
+  if (BT()) return zY(!0);
+  if (Ne() === "gateway") {
+    let e = GC(mi());
+    return zY(e, e ? void 0 : "unpinned_gateway");
+  }
+  if (Ne() !== "firstParty") return zY(!1, "third_party_provider");
+  if (!jo()) return zY(!1, "custom_base_url");
+  let t = a.CLAUDE_CODE_ENTRYPOINT;
+  if (t === "local-agent" || t === "remote_cowork" || t?.startsWith("claude-coworker"))
+    return zY(!1, "sandboxed_entrypoint");
+  if (Yl() && cAe() === null) return zY(!0);
+  if (Yl() && (cAe() === "enterprise" || cAe() === "team")) return zY(!0);
+  try {
+    let { key: e } = qg({ skipRetrievingKeyFromApiKeyHelper: !0 });
+    if (e) return zY(!0);
+  } catch {}
+  return zY(!1, Yl() ? "unsupported_subscription" : "no_auth");
+}
+export { wV, QD };

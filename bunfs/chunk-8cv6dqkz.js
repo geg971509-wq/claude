@@ -8,5 +8,12 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{KR}from"/$bunfs/root/chunk-syabrr2b.js";import{We,F}from"/$bunfs/root/chunk-twm95mhz.js";F();function xt(){let o=We(KR);if(!o)throw Error("useClock must be used within a ClockProvider");return o}
-export{xt};
+import { KR } from "/$bunfs/root/chunk-syabrr2b.js";
+import { We, F } from "/$bunfs/root/chunk-twm95mhz.js";
+F();
+function xt() {
+  let o = We(KR);
+  if (!o) throw Error("useClock must be used within a ClockProvider");
+  return o;
+}
+export { xt };

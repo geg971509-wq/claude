@@ -8,8 +8,331 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{sc}from"/$bunfs/root/chunk-vfy57cpd.js";import{w,Vo}from"/$bunfs/root/chunk-4xj01xwv.js";class zJ extends Error{constructor(n){super(n);this.name=this.constructor.name}}class kP extends Error{}class Qd extends Error{name="CliUserError"}class Ze extends Error{constructor(n){super(n);this.name="AbortError"}}class la extends Ze{}function It(n){try{return n instanceof Ze||n instanceof sc||n instanceof Error&&(n.name==="AbortError"||("__CANCEL__"in n)&&Boolean(n.__CANCEL__))}catch{return!1}}class xR extends Error{filePath;defaultConfig;constructor(n,e,r){super(n);this.name="ConfigParseError",this.filePath=e,this.defaultConfig=r}}class dx extends Error{stdout;stderr;code;interrupted;hadSandboxViolation;constructor(n){super("Shell command failed");this.name="ShellError",this.stdout=n.stdout,this.stderr=n.stderr,this.code=n.code,this.interrupted=n.interrupted,this.hadSandboxViolation=n.hadSandboxViolation??!1}}class Hu extends Error{formattedMessage;constructor(n,e){super(n);this.formattedMessage=e;this.name="TeleportOperationError"}}class R extends Error{telemetryMessage;errorClass;constructor(n,e,r){super(n);this.name="TelemetrySafeError",this.telemetryMessage=e??n,this.errorClass=r}}class js extends R{}var ft=(n,e)=>{try{if(n!==null&&typeof n==="object"&&!("telemetryMessage"in n)&&Object.isExtensible(n))Object.assign(n,{telemetryMessage:e})}catch{}return n},eL=(n,e)=>{try{if(n!==null&&typeof n==="object"&&Object.isExtensible(n)){let r=n,t=Object.entries(e).filter(([o,s])=>s!==void 0&&!(o in r));Object.assign(r,Object.fromEntries(t))}}catch{}return n};function fme(n){try{if(n!==null&&typeof n==="object"&&"telemetryMessage"in n&&typeof n.telemetryMessage==="string")return n.telemetryMessage}catch{}return}function KC(n,e){return n instanceof Error&&n.message===e}function we(n){return n instanceof Error?n:Error(String(n))}function l(n){return n instanceof Error?n.message:String(n)}function E(n){if(n&&typeof n==="object"&&"code"in n&&typeof n.code==="string")return n.code;return}function uo(n){return nvt(E(n))}function nvt(n){return n&&/^[A-Z][A-Z0-9_]{0,63}$/.test(n)?Vo(n):void 0}var mme="did not become reachable within",gme="exited before it became reachable",pZe="The socket connection was closed unexpectedly";function rvt(n){return[...n.matchAll(/\bE\d?[A-Z]{2,14}\b/g)].filter((e)=>!"/\\".includes(n[e.index-1]??".")).map((e)=>e[0])}function px(n){let e=n?.name;return typeof e==="string"&&/^[A-Z][a-zA-Z]{0,63}$/.test(e)?Vo(e):void 0}function Rg(n){return uo(n)??px(n)}function VJ(n){return Vo(uo(n)?.toLowerCase()??"other")}function Oj(n){return px(n)}function bie(n){return n!==void 0&&/^[A-Z][A-Za-z0-9_]{0,63}$/.test(n)?Vo(n):void 0}function IR(n){return typeof n==="string"&&/^[A-Z][a-zA-Z]{0,63}$/.test(n)?Vo(n):void 0}function fZe(n){return typeof n==="string"&&/^[a-z][a-z_]{0,39}$/.test(n)?Vo(n):w("unparseable")}function oK(n){return/^[a-z][a-z0-9_]{0,39}$/.test(n)?Vo(n):w("unparseable")}function eIn(n){return IR(n)}function mZe(n){let e=n?.constructor?.name;return typeof e==="string"&&/^[A-Za-z][A-Za-z0-9_]{0,39}$/.test(e)?Vo(e):w("unparseable")}function tIn(n){return/^[^/\\]+:\d+:\d+$/.test(n)?Vo(n):void 0}var n1=new Set(["ENOSPC","EDQUOT","ENFILE","EMFILE"]),nIn=new Set(["EACCES","EPERM","EROFS"]);function $o(n){return n!==null&&typeof n==="object"&&"errno"in n&&typeof n.errno==="number"}function iK(n,e,r=5){let t=n;for(let o=0;o<r;o++){if(!(t instanceof Error))return;if(e(t))return t;t=t.cause}return}function X(n){return E(n)==="ENOENT"}function z4(n){return E(n)==="EISDIR"}function rIn(n){return E(n)==="E2BIG"}function oIn(n){try{if(E(n)!=="ECONNRESET")return!1;let e=n instanceof Error?n.stack:void 0;if(typeof e!=="string")return!1;let r=e.split(`
-`).find((t)=>t.trim().startsWith("at "));return r!==void 0&&r.includes("node:_http_server")}catch{return!1}}function iIn(n){if(n&&typeof n==="object"&&"path"in n&&typeof n.path==="string")return n.path;return}function sIn(n,e=5){if(!(n instanceof Error))return String(n);if(!n.stack)return n.message;let r=n.stack.split(`
-`),t=r[0]??n.message,o=r.slice(1).filter((s)=>s.trim().startsWith("at "));if(o.length<=e)return n.stack;return[t,...o.slice(0,e)].join(`
-`)}var i=new Set(["ENOENT","EACCES","EPERM","ENOTDIR","ELOOP","ENAMETOOLONG","EROFS"]);function Ht(n){return TA(E(n))}function TA(n){return n!==void 0&&i.has(n)}function r1(n){let e=n instanceof Error?n.cause:void 0;if(typeof e!=="object"||e===null||!("telemetryCode"in e))return;return typeof e.telemetryCode==="string"?e.telemetryCode:void 0}var u=new Set(["ENOSPC","EDQUOT","ENFILE","EIO"]);function Vp(n){return F5t(E(n))}function F5t(n){return n==="EDEADLK"||n==="EINTR"||n==="ENXIO"||n==="ENODEV"||n==="ECANCELED"||n==="ENEEDAUTH"||n==="ESTALE"||n==="EUNKNOWN"||n==="ENOMEM"||n!==void 0&&a(n)}function a(n){return n==="UNKNOWN"||n.startsWith("Unknown system error")}function o1(n){if(typeof n!=="string")return;return/^E[A-Z0-9]+$/.test(n)||a(n)?n:void 0}function aIn(n){let e=E(n);return e!==void 0&&u.has(e)}function Zd(n){return _$e(E(n))}function _$e(n){return n!==void 0&&(i.has(n)||n==="EISDIR"||u.has(n))}function ic(n,e){if(e?.(n))return!0;if(!n||typeof n!=="object"||!("isAxiosError"in n)||!n.isAxiosError)return!1;let r=n.response?.status;return r===void 0||r===401||r===403||r===429}function os(n){let e=l(n);if(!n||typeof n!=="object"||!("isAxiosError"in n)||!n.isAxiosError)return{kind:"other",message:e};let r=n,t=r.response?.status;if(t===401||t===403)return{kind:"auth",status:t,message:e};if(r.code==="ECONNABORTED")return{kind:"timeout",status:t,message:e};if(r.code==="ECONNREFUSED"||r.code==="ENOTFOUND")return{kind:"network",status:t,message:e};return{kind:"http",status:t,message:e}}
-export{zJ,kP,Qd,Ze,la,It,xR,dx,Hu,R,js,ft,eL,fme,KC,we,l,E,uo,nvt,mme,gme,pZe,rvt,px,Rg,VJ,Oj,bie,IR,fZe,oK,eIn,mZe,tIn,n1,nIn,$o,iK,X,z4,rIn,oIn,iIn,sIn,Ht,TA,r1,Vp,F5t,o1,aIn,Zd,_$e,ic,os};
+import { sc } from "/$bunfs/root/chunk-vfy57cpd.js";
+import { w, Vo } from "/$bunfs/root/chunk-4xj01xwv.js";
+class zJ extends Error {
+  constructor(n) {
+    super(n);
+    this.name = this.constructor.name;
+  }
+}
+class kP extends Error {}
+class Qd extends Error {
+  name = "CliUserError";
+}
+class Ze extends Error {
+  constructor(n) {
+    super(n);
+    this.name = "AbortError";
+  }
+}
+class la extends Ze {}
+function It(n) {
+  try {
+    return (
+      n instanceof Ze ||
+      n instanceof sc ||
+      (n instanceof Error && (n.name === "AbortError" || ("__CANCEL__" in n && Boolean(n.__CANCEL__))))
+    );
+  } catch {
+    return !1;
+  }
+}
+class xR extends Error {
+  filePath;
+  defaultConfig;
+  constructor(n, e, r) {
+    super(n);
+    (this.name = "ConfigParseError"), (this.filePath = e), (this.defaultConfig = r);
+  }
+}
+class dx extends Error {
+  stdout;
+  stderr;
+  code;
+  interrupted;
+  hadSandboxViolation;
+  constructor(n) {
+    super("Shell command failed");
+    (this.name = "ShellError"),
+      (this.stdout = n.stdout),
+      (this.stderr = n.stderr),
+      (this.code = n.code),
+      (this.interrupted = n.interrupted),
+      (this.hadSandboxViolation = n.hadSandboxViolation ?? !1);
+  }
+}
+class Hu extends Error {
+  formattedMessage;
+  constructor(n, e) {
+    super(n);
+    this.formattedMessage = e;
+    this.name = "TeleportOperationError";
+  }
+}
+class R extends Error {
+  telemetryMessage;
+  errorClass;
+  constructor(n, e, r) {
+    super(n);
+    (this.name = "TelemetrySafeError"), (this.telemetryMessage = e ?? n), (this.errorClass = r);
+  }
+}
+class js extends R {}
+var ft = (n, e) => {
+    try {
+      if (n !== null && typeof n === "object" && !("telemetryMessage" in n) && Object.isExtensible(n))
+        Object.assign(n, { telemetryMessage: e });
+    } catch {}
+    return n;
+  },
+  eL = (n, e) => {
+    try {
+      if (n !== null && typeof n === "object" && Object.isExtensible(n)) {
+        let r = n,
+          t = Object.entries(e).filter(([o, s]) => s !== void 0 && !(o in r));
+        Object.assign(r, Object.fromEntries(t));
+      }
+    } catch {}
+    return n;
+  };
+function fme(n) {
+  try {
+    if (n !== null && typeof n === "object" && "telemetryMessage" in n && typeof n.telemetryMessage === "string")
+      return n.telemetryMessage;
+  } catch {}
+  return;
+}
+function KC(n, e) {
+  return n instanceof Error && n.message === e;
+}
+function we(n) {
+  return n instanceof Error ? n : Error(String(n));
+}
+function l(n) {
+  return n instanceof Error ? n.message : String(n);
+}
+function E(n) {
+  if (n && typeof n === "object" && "code" in n && typeof n.code === "string") return n.code;
+  return;
+}
+function uo(n) {
+  return nvt(E(n));
+}
+function nvt(n) {
+  return n && /^[A-Z][A-Z0-9_]{0,63}$/.test(n) ? Vo(n) : void 0;
+}
+var mme = "did not become reachable within",
+  gme = "exited before it became reachable",
+  pZe = "The socket connection was closed unexpectedly";
+function rvt(n) {
+  return [...n.matchAll(/\bE\d?[A-Z]{2,14}\b/g)].filter((e) => !"/\\".includes(n[e.index - 1] ?? ".")).map((e) => e[0]);
+}
+function px(n) {
+  let e = n?.name;
+  return typeof e === "string" && /^[A-Z][a-zA-Z]{0,63}$/.test(e) ? Vo(e) : void 0;
+}
+function Rg(n) {
+  return uo(n) ?? px(n);
+}
+function VJ(n) {
+  return Vo(uo(n)?.toLowerCase() ?? "other");
+}
+function Oj(n) {
+  return px(n);
+}
+function bie(n) {
+  return n !== void 0 && /^[A-Z][A-Za-z0-9_]{0,63}$/.test(n) ? Vo(n) : void 0;
+}
+function IR(n) {
+  return typeof n === "string" && /^[A-Z][a-zA-Z]{0,63}$/.test(n) ? Vo(n) : void 0;
+}
+function fZe(n) {
+  return typeof n === "string" && /^[a-z][a-z_]{0,39}$/.test(n) ? Vo(n) : w("unparseable");
+}
+function oK(n) {
+  return /^[a-z][a-z0-9_]{0,39}$/.test(n) ? Vo(n) : w("unparseable");
+}
+function eIn(n) {
+  return IR(n);
+}
+function mZe(n) {
+  let e = n?.constructor?.name;
+  return typeof e === "string" && /^[A-Za-z][A-Za-z0-9_]{0,39}$/.test(e) ? Vo(e) : w("unparseable");
+}
+function tIn(n) {
+  return /^[^/\\]+:\d+:\d+$/.test(n) ? Vo(n) : void 0;
+}
+var n1 = new Set(["ENOSPC", "EDQUOT", "ENFILE", "EMFILE"]),
+  nIn = new Set(["EACCES", "EPERM", "EROFS"]);
+function $o(n) {
+  return n !== null && typeof n === "object" && "errno" in n && typeof n.errno === "number";
+}
+function iK(n, e, r = 5) {
+  let t = n;
+  for (let o = 0; o < r; o++) {
+    if (!(t instanceof Error)) return;
+    if (e(t)) return t;
+    t = t.cause;
+  }
+  return;
+}
+function X(n) {
+  return E(n) === "ENOENT";
+}
+function z4(n) {
+  return E(n) === "EISDIR";
+}
+function rIn(n) {
+  return E(n) === "E2BIG";
+}
+function oIn(n) {
+  try {
+    if (E(n) !== "ECONNRESET") return !1;
+    let e = n instanceof Error ? n.stack : void 0;
+    if (typeof e !== "string") return !1;
+    let r = e
+      .split(`
+`)
+      .find((t) => t.trim().startsWith("at "));
+    return r !== void 0 && r.includes("node:_http_server");
+  } catch {
+    return !1;
+  }
+}
+function iIn(n) {
+  if (n && typeof n === "object" && "path" in n && typeof n.path === "string") return n.path;
+  return;
+}
+function sIn(n, e = 5) {
+  if (!(n instanceof Error)) return String(n);
+  if (!n.stack) return n.message;
+  let r = n.stack.split(`
+`),
+    t = r[0] ?? n.message,
+    o = r.slice(1).filter((s) => s.trim().startsWith("at "));
+  if (o.length <= e) return n.stack;
+  return [t, ...o.slice(0, e)].join(`
+`);
+}
+var i = new Set(["ENOENT", "EACCES", "EPERM", "ENOTDIR", "ELOOP", "ENAMETOOLONG", "EROFS"]);
+function Ht(n) {
+  return TA(E(n));
+}
+function TA(n) {
+  return n !== void 0 && i.has(n);
+}
+function r1(n) {
+  let e = n instanceof Error ? n.cause : void 0;
+  if (typeof e !== "object" || e === null || !("telemetryCode" in e)) return;
+  return typeof e.telemetryCode === "string" ? e.telemetryCode : void 0;
+}
+var u = new Set(["ENOSPC", "EDQUOT", "ENFILE", "EIO"]);
+function Vp(n) {
+  return F5t(E(n));
+}
+function F5t(n) {
+  return (
+    n === "EDEADLK" ||
+    n === "EINTR" ||
+    n === "ENXIO" ||
+    n === "ENODEV" ||
+    n === "ECANCELED" ||
+    n === "ENEEDAUTH" ||
+    n === "ESTALE" ||
+    n === "EUNKNOWN" ||
+    n === "ENOMEM" ||
+    (n !== void 0 && a(n))
+  );
+}
+function a(n) {
+  return n === "UNKNOWN" || n.startsWith("Unknown system error");
+}
+function o1(n) {
+  if (typeof n !== "string") return;
+  return /^E[A-Z0-9]+$/.test(n) || a(n) ? n : void 0;
+}
+function aIn(n) {
+  let e = E(n);
+  return e !== void 0 && u.has(e);
+}
+function Zd(n) {
+  return _$e(E(n));
+}
+function _$e(n) {
+  return n !== void 0 && (i.has(n) || n === "EISDIR" || u.has(n));
+}
+function ic(n, e) {
+  if (e?.(n)) return !0;
+  if (!n || typeof n !== "object" || !("isAxiosError" in n) || !n.isAxiosError) return !1;
+  let r = n.response?.status;
+  return r === void 0 || r === 401 || r === 403 || r === 429;
+}
+function os(n) {
+  let e = l(n);
+  if (!n || typeof n !== "object" || !("isAxiosError" in n) || !n.isAxiosError) return { kind: "other", message: e };
+  let r = n,
+    t = r.response?.status;
+  if (t === 401 || t === 403) return { kind: "auth", status: t, message: e };
+  if (r.code === "ECONNABORTED") return { kind: "timeout", status: t, message: e };
+  if (r.code === "ECONNREFUSED" || r.code === "ENOTFOUND") return { kind: "network", status: t, message: e };
+  return { kind: "http", status: t, message: e };
+}
+export {
+  zJ,
+  kP,
+  Qd,
+  Ze,
+  la,
+  It,
+  xR,
+  dx,
+  Hu,
+  R,
+  js,
+  ft,
+  eL,
+  fme,
+  KC,
+  we,
+  l,
+  E,
+  uo,
+  nvt,
+  mme,
+  gme,
+  pZe,
+  rvt,
+  px,
+  Rg,
+  VJ,
+  Oj,
+  bie,
+  IR,
+  fZe,
+  oK,
+  eIn,
+  mZe,
+  tIn,
+  n1,
+  nIn,
+  $o,
+  iK,
+  X,
+  z4,
+  rIn,
+  oIn,
+  iIn,
+  sIn,
+  Ht,
+  TA,
+  r1,
+  Vp,
+  F5t,
+  o1,
+  aIn,
+  Zd,
+  _$e,
+  ic,
+  os,
+};

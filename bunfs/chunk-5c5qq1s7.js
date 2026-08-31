@@ -8,5 +8,44 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{fO,ie}from"/$bunfs/root/chunk-8tgj5dp2.js";import{$T,ye,rn}from"/$bunfs/root/chunk-988p40e0.js";import{xi}from"/$bunfs/root/chunk-0spqrdaj.js";var wEe=["theme","editorMode","verbose","preferredNotifChannel","autoCompactEnabled","autoScrollEnabled","fileCheckpointingEnabled","showTurnDuration","showMessageTimestamps","terminalProgressBarEnabled","todoFeatureEnabled","teammateMode","remoteControlAtStartup","autoUploadSessions","inputNeededNotifEnabled","agentPushNotifEnabled"];function Lo(n,s){let o=xi(),r=o.includes("userSettings")&&$T();for(let t=o.length-1;t>=0;t--){let e=o[t];if(e==="projectSettings"&&r)continue;let i=ye(e)?.[n];if(i!==void 0)return{value:i,source:e}}if(wEe.includes(n)){let t=n,e=ie()[t];if(e!==void 0&&e!==fO[t])return{value:e,source:"legacyGlobalConfig"}}return{value:s,source:"default"}}function TH(n,s,o){rn("userSettings",{[n]:s},void 0,o)}
-export{wEe,Lo,TH};
+import { fO, ie } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { $T, ye, rn } from "/$bunfs/root/chunk-988p40e0.js";
+import { xi } from "/$bunfs/root/chunk-0spqrdaj.js";
+var wEe = [
+  "theme",
+  "editorMode",
+  "verbose",
+  "preferredNotifChannel",
+  "autoCompactEnabled",
+  "autoScrollEnabled",
+  "fileCheckpointingEnabled",
+  "showTurnDuration",
+  "showMessageTimestamps",
+  "terminalProgressBarEnabled",
+  "todoFeatureEnabled",
+  "teammateMode",
+  "remoteControlAtStartup",
+  "autoUploadSessions",
+  "inputNeededNotifEnabled",
+  "agentPushNotifEnabled",
+];
+function Lo(n, s) {
+  let o = xi(),
+    r = o.includes("userSettings") && $T();
+  for (let t = o.length - 1; t >= 0; t--) {
+    let e = o[t];
+    if (e === "projectSettings" && r) continue;
+    let i = ye(e)?.[n];
+    if (i !== void 0) return { value: i, source: e };
+  }
+  if (wEe.includes(n)) {
+    let t = n,
+      e = ie()[t];
+    if (e !== void 0 && e !== fO[t]) return { value: e, source: "legacyGlobalConfig" };
+  }
+  return { value: s, source: "default" };
+}
+function TH(n, s, o) {
+  rn("userSettings", { [n]: s }, void 0, o);
+}
+export { wEe, Lo, TH };

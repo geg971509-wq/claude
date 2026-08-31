@@ -8,5 +8,20 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-var l1n=new Set(["agents.md","agents.override.md","gemini.md"]),r={instructions:0,setting:1,subagent:2,command:3,mcp:4,skill:5};function n0e(e){return e.scope==="user"&&!e.warning&&e.kind!=="skill"}function Hse(e){if(e.scope==="project")return"project";if(e.warning||e.kind==="skill")return"warned";return null}function FJt(e,t){let n=r[e.kind]-r[t.kind];if(n!==0)return n;if(e.scope!==t.scope)return e.scope==="project"?-1:1;return e.label.localeCompare(t.label)}
-export{l1n,n0e,Hse,FJt};
+var l1n = new Set(["agents.md", "agents.override.md", "gemini.md"]),
+  r = { instructions: 0, setting: 1, subagent: 2, command: 3, mcp: 4, skill: 5 };
+function n0e(e) {
+  return e.scope === "user" && !e.warning && e.kind !== "skill";
+}
+function Hse(e) {
+  if (e.scope === "project") return "project";
+  if (e.warning || e.kind === "skill") return "warned";
+  return null;
+}
+function FJt(e, t) {
+  let n = r[e.kind] - r[t.kind];
+  if (n !== 0) return n;
+  if (e.scope !== t.scope) return e.scope === "project" ? -1 : 1;
+  return e.label.localeCompare(t.label);
+}
+export { l1n, n0e, Hse, FJt };

@@ -8,5 +8,32 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{ber,Fl,Lbt,Tt,On,Fn,ie}from"/$bunfs/root/chunk-8tgj5dp2.js";import{a}from"/$bunfs/root/chunk-fec4384a.js";function f2t(){if(a.DISABLE_COST_WARNINGS)return!1;let o=Tt();if(o&&iH())return!0;if(o)return!1;let n=Fl(),i=Lbt();if(!n.hasToken&&!i)return!1;let e=ie(),r=e.oauthAccount?.organizationRole,t=e.oauthAccount?.workspaceRole;if(!r||!t)return!1;return["admin","billing"].includes(r)||["workspace_admin","workspace_billing"].includes(t)}function vf(){let o=ber();if(o!==null)return o;if(!Tt())return!1;let n=Fn();if(n==="max"||n==="pro")return!0;let e=ie().oauthAccount?.organizationRole;return!!e&&["admin","billing","owner","primary_owner"].includes(e)}function iH(){return On()?.billingType==="usage_based"}
-export{f2t,vf,iH};
+import { ber, Fl, Lbt, Tt, On, Fn, ie } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { a } from "/$bunfs/root/chunk-fec4384a.js";
+function f2t() {
+  if (a.DISABLE_COST_WARNINGS) return !1;
+  let o = Tt();
+  if (o && iH()) return !0;
+  if (o) return !1;
+  let n = Fl(),
+    i = Lbt();
+  if (!n.hasToken && !i) return !1;
+  let e = ie(),
+    r = e.oauthAccount?.organizationRole,
+    t = e.oauthAccount?.workspaceRole;
+  if (!r || !t) return !1;
+  return ["admin", "billing"].includes(r) || ["workspace_admin", "workspace_billing"].includes(t);
+}
+function vf() {
+  let o = ber();
+  if (o !== null) return o;
+  if (!Tt()) return !1;
+  let n = Fn();
+  if (n === "max" || n === "pro") return !0;
+  let e = ie().oauthAccount?.organizationRole;
+  return !!e && ["admin", "billing", "owner", "primary_owner"].includes(e);
+}
+function iH() {
+  return On()?.billingType === "usage_based";
+}
+export { f2t, vf, iH };

@@ -8,5 +8,26 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-function rK(n,e){return n.flatMap((r,t)=>t?[e(t),r]:[r])}function Q(n,e){let r=0;for(let t of n)r+=+!!e(t);return r}function te(n){return[...new Set(n)]}function g$e(n,e){return n.map((t,o)=>e(t,o))}function Lve(n,e){if(e.length!==n.length)return;return[...e]}function lu(n){if(!Array.isArray(n))return[];return n.every((e)=>typeof e==="string")?n:n.filter((e)=>typeof e==="string")}
-export{rK,Q,te,g$e,Lve,lu};
+function rK(n, e) {
+  return n.flatMap((r, t) => (t ? [e(t), r] : [r]));
+}
+function Q(n, e) {
+  let r = 0;
+  for (let t of n) r += +!!e(t);
+  return r;
+}
+function te(n) {
+  return [...new Set(n)];
+}
+function g$e(n, e) {
+  return n.map((t, o) => e(t, o));
+}
+function Lve(n, e) {
+  if (e.length !== n.length) return;
+  return [...e];
+}
+function lu(n) {
+  if (!Array.isArray(n)) return [];
+  return n.every((e) => typeof e === "string") ? n : n.filter((e) => typeof e === "string");
+}
+export { rK, Q, te, g$e, Lve, lu };

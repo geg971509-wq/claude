@@ -8,5 +8,79 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{et}from"/$bunfs/root/chunk-f9h0bg01.js";function MKn(n,e){return n!==void 0&&n.mode==="poll-event"&&n.pollEvent?.wake===!0&&!e}function Lpn(n){return n==="prompt"||n==="orphaned-permission"||n==="task-notification"||n==="poll-event"}function mu(n){return n.agentId===et()}var NKn={kind:"task-notification",source:"goal-checkin"};function FKn(n){return n.origin?.kind==="task-notification"&&n.origin.source==="goal-checkin"}var $Kn={kind:"task-notification",source:"worker-checkin"};function fwe(n){return n.origin?.kind==="task-notification"&&(n.origin.source==="goal-checkin"||n.origin.source==="worker-checkin")}function UKn(n){return mu(n)&&n.mode==="task-notification"}function R2(n){if(n?.kind!=="task-notification")return n;return{kind:"task-notification",...n.subkind!==void 0&&{subkind:n.subkind}}}function Oze(n){let e=n.queueOrigin??n.origin;return fwe({origin:e})?R2(e):e}function Mpn(n){return n.queueMode??t(Oze(n))}function IDe(n){return n.queueSkipAttachments===!0||Mpn(n)==="task-notification"?!0:void 0}function t(n){return n?.kind==="task-notification"?"task-notification":"prompt"}import{AsyncLocalStorage as o}from"async_hooks";var PDe="X-CCR-Turn-Id",u=128,d=/^[\x21-\x7e]+$/,r=new o;function BKn(n,e){return r.run({id:n},e)}function Lze(){return r.getStore()?.id}function Vmt(){let n=r.getStore();if(n)n.id=void 0}function DDe(n){let e=Lze();if(e===void 0)return;if(n.some((i)=>i.ccrTurnId!==e))Vmt()}function jKn(n,{isRelayHuman:e}){if(!e)return;if(typeof n!=="object"||n===null||!("turn_id"in n))return;let i=n.turn_id;if(typeof i!=="string"||i===""||i.length>u||!d.test(i))return;return i}function Kmt(n){if(n.length>0)Vmt()}function WKn(n){let e=n[0]?.ccrTurnId;return n.every((i)=>i.ccrTurnId===e)?e:void 0}
-export{MKn,Lpn,mu,NKn,FKn,$Kn,fwe,UKn,R2,Oze,Mpn,IDe,PDe,BKn,Lze,Vmt,DDe,jKn,Kmt,WKn};
+import { et } from "/$bunfs/root/chunk-f9h0bg01.js";
+function MKn(n, e) {
+  return n !== void 0 && n.mode === "poll-event" && n.pollEvent?.wake === !0 && !e;
+}
+function Lpn(n) {
+  return n === "prompt" || n === "orphaned-permission" || n === "task-notification" || n === "poll-event";
+}
+function mu(n) {
+  return n.agentId === et();
+}
+var NKn = { kind: "task-notification", source: "goal-checkin" };
+function FKn(n) {
+  return n.origin?.kind === "task-notification" && n.origin.source === "goal-checkin";
+}
+var $Kn = { kind: "task-notification", source: "worker-checkin" };
+function fwe(n) {
+  return (
+    n.origin?.kind === "task-notification" &&
+    (n.origin.source === "goal-checkin" || n.origin.source === "worker-checkin")
+  );
+}
+function UKn(n) {
+  return mu(n) && n.mode === "task-notification";
+}
+function R2(n) {
+  if (n?.kind !== "task-notification") return n;
+  return { kind: "task-notification", ...(n.subkind !== void 0 && { subkind: n.subkind }) };
+}
+function Oze(n) {
+  let e = n.queueOrigin ?? n.origin;
+  return fwe({ origin: e }) ? R2(e) : e;
+}
+function Mpn(n) {
+  return n.queueMode ?? t(Oze(n));
+}
+function IDe(n) {
+  return n.queueSkipAttachments === !0 || Mpn(n) === "task-notification" ? !0 : void 0;
+}
+function t(n) {
+  return n?.kind === "task-notification" ? "task-notification" : "prompt";
+}
+import { AsyncLocalStorage as o } from "async_hooks";
+var PDe = "X-CCR-Turn-Id",
+  u = 128,
+  d = /^[\x21-\x7e]+$/,
+  r = new o();
+function BKn(n, e) {
+  return r.run({ id: n }, e);
+}
+function Lze() {
+  return r.getStore()?.id;
+}
+function Vmt() {
+  let n = r.getStore();
+  if (n) n.id = void 0;
+}
+function DDe(n) {
+  let e = Lze();
+  if (e === void 0) return;
+  if (n.some((i) => i.ccrTurnId !== e)) Vmt();
+}
+function jKn(n, { isRelayHuman: e }) {
+  if (!e) return;
+  if (typeof n !== "object" || n === null || !("turn_id" in n)) return;
+  let i = n.turn_id;
+  if (typeof i !== "string" || i === "" || i.length > u || !d.test(i)) return;
+  return i;
+}
+function Kmt(n) {
+  if (n.length > 0) Vmt();
+}
+function WKn(n) {
+  let e = n[0]?.ccrTurnId;
+  return n.every((i) => i.ccrTurnId === e) ? e : void 0;
+}
+export { MKn, Lpn, mu, NKn, FKn, $Kn, fwe, UKn, R2, Oze, Mpn, IDe, PDe, BKn, Lze, Vmt, DDe, jKn, Kmt, WKn };

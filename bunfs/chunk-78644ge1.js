@@ -8,5 +8,134 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{ht}from"/$bunfs/root/chunk-ek4tmwbt.js";import{c_}from"/$bunfs/root/chunk-htrft0p0.js";import{ie}from"/$bunfs/root/chunk-8tgj5dp2.js";import{y}from"/$bunfs/root/chunk-ca80fke8.js";import{Gue,zue,a_t,l_t}from"/$bunfs/root/chunk-ky33xsw7.js";import{A,br,C,u,F}from"/$bunfs/root/chunk-twm95mhz.js";import{FN}from"/$bunfs/root/chunk-manh1369.js";function QOn(e){if(e.wheelUp||e.wheelDown||e.escape)return!1;if(e.pageUp||e.pageDown)return!1;if((e.home||e.end)&&e.ctrl)return!1;if((e.leftArrow||e.rightArrow||e.upArrow||e.downArrow||e.home||e.end)&&(e.shift||e.meta||e.super))return!1;return!0}function p(e){if(e.name==="escape"||e.name==="pageup"||e.name==="pagedown")return!1;if((e.name==="home"||e.name==="end")&&e.ctrl)return!1;if((e.name==="left"||e.name==="right"||e.name==="up"||e.name==="down"||e.name==="home"||e.name==="end")&&(e.shift||e.meta||e.superKey))return!1;return!0}function ZOn(e,t){return(o)=>{if(!e.hasSelection())return;if(o.key==="c"&&!o.meta&&(o.ctrl||o.superKey)){if(t)e.clearSelection();else e.copySelection();o.consume();return}if(p(o))e.clearSelection()}}function Itt(e,t=!0){ht({"selection:clear":()=>{if(!e.hasSelection())return!1;e.clearSelection()}},{context:"Scroll",isActive:t})}F();function Ptt(e){let t=zue(),o=FN(e),r=o===1?"char":"chars",n;switch(t){case"native":n=`copied ${o} ${r} to clipboard`;break;case"tmux-buffer":n=`copied ${o} ${r} to tmux buffer \xB7 paste with prefix + ]`;break;case"osc52":n=`sent ${o} ${r} via OSC 52 \xB7 if paste fails, hold ${Gue()} while selecting for native copy`;break}let i=l_t(e);if(i)n=`\u26A0 ${i} \xB7 ${n}`;return{key:"selection-copied",kind:"feedback",text:n,color:"suggestion",priority:"immediate",timeoutMs:i?6000:t==="native"?2000:4000}}function Dtt(e,t,o){let r=C(!1),n=C(null),[i]=u(()=>({peek:()=>n.current,invalidate:()=>{n.current=null}})),a=br((c)=>o?.(c));return A(()=>{if(!t)return;return a_t(),e.subscribe(()=>{let l=e.getState(),f=e.hasSelection();if(l?.isDragging){r.current=!1,n.current=null;return}if(!f){r.current=!1,n.current=null;return}if(r.current){n.current=null;return}if(!(ie().copyOnSelect??!0))return;let s=e.copySelectionNoClear();if(!s||!s.trim()){r.current=!0;return}r.current=!0,n.current=s,y("clipboard_write"),a(s)})},[t,e]),i}function Ott(e){let t=c_();A(()=>{e.setSelectionBgColor(t.selectionBg)},[e,t.selectionBg])}
-export{QOn,ZOn,Itt,Ptt,Dtt,Ott};
+import { ht } from "/$bunfs/root/chunk-ek4tmwbt.js";
+import { c_ } from "/$bunfs/root/chunk-htrft0p0.js";
+import { ie } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { y } from "/$bunfs/root/chunk-ca80fke8.js";
+import { Gue, zue, a_t, l_t } from "/$bunfs/root/chunk-ky33xsw7.js";
+import { A, br, C, u, F } from "/$bunfs/root/chunk-twm95mhz.js";
+import { FN } from "/$bunfs/root/chunk-manh1369.js";
+function QOn(e) {
+  if (e.wheelUp || e.wheelDown || e.escape) return !1;
+  if (e.pageUp || e.pageDown) return !1;
+  if ((e.home || e.end) && e.ctrl) return !1;
+  if ((e.leftArrow || e.rightArrow || e.upArrow || e.downArrow || e.home || e.end) && (e.shift || e.meta || e.super))
+    return !1;
+  return !0;
+}
+function p(e) {
+  if (e.name === "escape" || e.name === "pageup" || e.name === "pagedown") return !1;
+  if ((e.name === "home" || e.name === "end") && e.ctrl) return !1;
+  if (
+    (e.name === "left" ||
+      e.name === "right" ||
+      e.name === "up" ||
+      e.name === "down" ||
+      e.name === "home" ||
+      e.name === "end") &&
+    (e.shift || e.meta || e.superKey)
+  )
+    return !1;
+  return !0;
+}
+function ZOn(e, t) {
+  return (o) => {
+    if (!e.hasSelection()) return;
+    if (o.key === "c" && !o.meta && (o.ctrl || o.superKey)) {
+      if (t) e.clearSelection();
+      else e.copySelection();
+      o.consume();
+      return;
+    }
+    if (p(o)) e.clearSelection();
+  };
+}
+function Itt(e, t = !0) {
+  ht(
+    {
+      "selection:clear": () => {
+        if (!e.hasSelection()) return !1;
+        e.clearSelection();
+      },
+    },
+    { context: "Scroll", isActive: t },
+  );
+}
+F();
+function Ptt(e) {
+  let t = zue(),
+    o = FN(e),
+    r = o === 1 ? "char" : "chars",
+    n;
+  switch (t) {
+    case "native":
+      n = `copied ${o} ${r} to clipboard`;
+      break;
+    case "tmux-buffer":
+      n = `copied ${o} ${r} to tmux buffer \xB7 paste with prefix + ]`;
+      break;
+    case "osc52":
+      n = `sent ${o} ${r} via OSC 52 \xB7 if paste fails, hold ${Gue()} while selecting for native copy`;
+      break;
+  }
+  let i = l_t(e);
+  if (i) n = `\u26A0 ${i} \xB7 ${n}`;
+  return {
+    key: "selection-copied",
+    kind: "feedback",
+    text: n,
+    color: "suggestion",
+    priority: "immediate",
+    timeoutMs: i ? 6000 : t === "native" ? 2000 : 4000,
+  };
+}
+function Dtt(e, t, o) {
+  let r = C(!1),
+    n = C(null),
+    [i] = u(() => ({
+      peek: () => n.current,
+      invalidate: () => {
+        n.current = null;
+      },
+    })),
+    a = br((c) => o?.(c));
+  return (
+    A(() => {
+      if (!t) return;
+      return (
+        a_t(),
+        e.subscribe(() => {
+          let l = e.getState(),
+            f = e.hasSelection();
+          if (l?.isDragging) {
+            (r.current = !1), (n.current = null);
+            return;
+          }
+          if (!f) {
+            (r.current = !1), (n.current = null);
+            return;
+          }
+          if (r.current) {
+            n.current = null;
+            return;
+          }
+          if (!(ie().copyOnSelect ?? !0)) return;
+          let s = e.copySelectionNoClear();
+          if (!s || !s.trim()) {
+            r.current = !0;
+            return;
+          }
+          (r.current = !0), (n.current = s), y("clipboard_write"), a(s);
+        })
+      );
+    }, [t, e]),
+    i
+  );
+}
+function Ott(e) {
+  let t = c_();
+  A(() => {
+    e.setSelectionBgColor(t.selectionBg);
+  }, [e, t.selectionBg]);
+}
+export { QOn, ZOn, Itt, Ptt, Dtt, Ott };

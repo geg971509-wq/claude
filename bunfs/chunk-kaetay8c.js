@@ -8,5 +8,18 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Er}from"/$bunfs/root/chunk-d7nfr7mk.js";import{MA}from"/$bunfs/root/chunk-wz9hxxhj.js";function Aae(r){return r instanceof Error&&"code"in r&&r.code==="CLAUDEAI_BEARER_REJECTED"}function Mst(r){if(r instanceof MA)return!0;if(Aae(r))return!1;if(r instanceof Error&&!(r instanceof Er)&&"code"in r){if(r.code===403)return!r.message.includes("Server returned 403 after trying upscoping");if(r.code===401)return!r.message.includes("Server returned 401 after successful authentication")}return!1}
-export{Aae,Mst};
+import { Er } from "/$bunfs/root/chunk-d7nfr7mk.js";
+import { MA } from "/$bunfs/root/chunk-wz9hxxhj.js";
+function Aae(r) {
+  return r instanceof Error && "code" in r && r.code === "CLAUDEAI_BEARER_REJECTED";
+}
+function Mst(r) {
+  if (r instanceof MA) return !0;
+  if (Aae(r)) return !1;
+  if (r instanceof Error && !(r instanceof Er) && "code" in r) {
+    if (r.code === 403) return !r.message.includes("Server returned 403 after trying upscoping");
+    if (r.code === 401) return !r.message.includes("Server returned 401 after successful authentication");
+  }
+  return !1;
+}
+export { Aae, Mst };

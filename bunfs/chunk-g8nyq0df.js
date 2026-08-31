@@ -8,7 +8,930 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{a}from"/$bunfs/root/chunk-fec4384a.js";import{c}from"/$bunfs/root/chunk-4xj01xwv.js";import{X}from"/$bunfs/root/chunk-ypdw393e.js";import{n}from"/$bunfs/root/chunk-fv016jr6.js";import{Vu,ku,St}from"/$bunfs/root/chunk-4ddxwr9r.js";import{y,p,g}from"/$bunfs/root/chunk-ca80fke8.js";import{sa}from"/$bunfs/root/chunk-qcx34e4j.js";import{u5,CO}from"/$bunfs/root/chunk-rf51999f.js";import{bt}from"/$bunfs/root/chunk-8tgj5dp2.js";import{mJe,Dl}from"/$bunfs/root/chunk-kxyny47c.js";import{Oi,Qwn,kn,zd}from"/$bunfs/root/chunk-4t3vsqt7.js";import{ULe}from"/$bunfs/root/chunk-0mrbtv3q.js";import{de}from"/$bunfs/root/chunk-xgfepdf4.js";import{Vq,yB,d8,Ax,D1,Hnn,Kq,hae,zhe,p8,op,GR,Yu,wHe}from"/$bunfs/root/chunk-pj035rka.js";import{NPt,Im,ann,Wq,_He,gae,zq}from"/$bunfs/root/chunk-qaaw3n80.js";import{FD}from"/$bunfs/root/chunk-tveh0k24.js";import{qr,Mgt,U8n,wVe,TVe,EVe,g6t,D2,$gt,Wfn,Lwe,Mwe,j9}from"/$bunfs/root/chunk-dt5bt1kc.js";import{US,yTe,STe}from"/$bunfs/root/chunk-rxqmmxnb.js";import{ef}from"/$bunfs/root/chunk-gdhqsw8a.js";import{gp}from"/$bunfs/root/chunk-g5y4mxg8.js";import{Sc,_r,Qi}from"/$bunfs/root/chunk-56sxk8k2.js";async function a8(e,t){let s=Buffer.alloc(t+1),r=0;while(r<s.length){let{bytesRead:i}=await e.read(s,r,s.length-r,r);if(i===0)break;r+=i}return r===t?s.subarray(0,t):null}import{lstat as te,open as ge,readlink as he,realpath as G,stat as pe}from"fs/promises";import{constants as Y}from"fs";import{dirname as re,isAbsolute as D,join as V,normalize as N,relative as me,sep as C}from"path";function H(e){return Qi(e)||_r(e)}var SW=512,bZ=255;function ye(e){return JSON.stringify(e).replace(/[\p{Cc}\p{Cf}\p{Co}\p{Cs}]/gu,(t)=>t.split("").map((s)=>`\\u${s.charCodeAt(0).toString(16).padStart(4,"0")}`).join(""))}function z(e,t){if(e.length===0)return{errMsg:`${t} may not be empty`};if(e.length>SW)return{errMsg:`${t} is longer than ${SW} characters`};let s=e.normalize("NFC");if(/[\p{Cc}\p{Cf}\p{Co}]/u.test(s)||!ku(s))return{errMsg:`${t} ${ye(e)} contains control, formatting, or private-use characters, or a malformed one`};if(s.includes("\\"))return{errMsg:`${t} ${JSON.stringify(e)} contains a backslash \u2014 published paths use forward slashes on every platform`};if(/[?#%]/.test(s))return{errMsg:`${t} ${JSON.stringify(e)} contains characters that cannot appear in a served URL path ("?", "#", "%")`};if(s.startsWith("/"))return{errMsg:`${t} ${JSON.stringify(e)} is absolute \u2014 published paths are relative to the artifact root`};let r=s.split("/");if(r.some((i)=>i===""))return{errMsg:`${t} ${JSON.stringify(e)} has an empty path segment`};if(r.some((i)=>i==="."||i===".."))return{errMsg:`${t} ${JSON.stringify(e)} contains "." or ".." segments \u2014 pass the plain served path`};if(r.some((i)=>i==="__proto__"||i==="constructor"||i==="prototype"))return{errMsg:`${t} ${JSON.stringify(e)} contains a reserved name ("__proto__", "constructor", "prototype")`};if(/[:;]/.test(s))return{errMsg:`${t} ${JSON.stringify(e)} contains ":" or ";", which no published path may`};return{nfc:s}}function Pit(e){let t=z(e,"files: published path");if("errMsg"in t)return t;let{nfc:s}=t;if(s==="index.html")return{errMsg:'files: "index.html" cannot be a published path \u2014 the `html` argument is always the index. Pass that file\'s content as `html` and remove the "index.html" mapping.'};if(s.startsWith("_"))return{errMsg:`files: published path ${JSON.stringify(e)} starts with "_", which the artifact service reserves for its own names \u2014 rename the file or its top-level directory`};return{key:s}}function Dit(e){let t=z(e,"path");if("errMsg"in t)return t;let{nfc:s}=t;if(s.startsWith("_")||s==="index.html.json")return{errMsg:`path ${JSON.stringify(e)} names one of the artifact service's own views, not a published file; list_files shows the readable paths`};return{key:s}}var _Bn=1048576,_e=/\.(?:png|jpe?g)$/i;function yBn(e){let t=z(e,"thumbnail href");if("errMsg"in t)return t;if(!_e.test(t.nfc))return{errMsg:`thumbnail href ${JSON.stringify(e)} is not a .png, .jpg or .jpeg file \u2014 custom thumbnails are PNG or JPEG images`};return{rel:t.nfc}}function Bje(e,t,s){return e===t||e.startsWith(t+C)||e===s||e.startsWith(s+C)}function Ktn(e,t,s){let r=K(N(t));if(r===s)return e;if(e===r)return s;return e.startsWith(r+C)?s+e.slice(r.length):e}function K(e){let t=e.replace(/\/+$/,"");return t===""?e:t}function jje(e,t){if(H(e))return null;if(e==="~"||e.startsWith(`~${C}`)||e.startsWith("~/"))return null;if(D(e)){let r=N(e);return H(r)?null:r}let s=N(e);if(s===".."||s.startsWith(`..${C}`))return null;return V(t,s)}async function aHe(e){let t=K(e);for(let s=0;s<40;s++){let r;try{r=await he(t)}catch{return!1}if(Sc(r,re(t)))return!0;if(r.split(/\/+/).includes(".."))return!0;if(t=K(D(r)?N(r):V(re(t),r)),H(t))return!0}return!0}async function be(e,t,s){let r=await G(e);if(t===void 0)return{realCwd:r,realRoot:r,lexRoot:N(e)};if(H(t))return{errMsg:`root: ${JSON.stringify(t)} is a network path \u2014 the publish base must lie within the working directory`};let i=N(t);if(!D(i)&&(i===".."||i.startsWith(`..${C}`)))return{errMsg:`root: ${JSON.stringify(t)} escapes the working directory \u2014 `+"the publish base must lie within it"};if(D(i)&&!Bje(i,e,r))return{errMsg:`root: ${JSON.stringify(t)} is outside the working directory \u2014 pass a working-directory-relative path`};let d=D(i)?i:V(r,i),o=s?.denyPath?.(d,!1,t);if(o!==void 0)return{errMsg:o};if(await aHe(d))return{errMsg:`root: ${JSON.stringify(t)} is a symlink whose chain cannot be safely resolved (network target, a \`..\` segment in link text, or too many links) \u2014 pass the target directory itself`};let m;try{m=await G(d)}catch{return{errMsg:`root: ${JSON.stringify(t)} not found`}}if(H(m))return{errMsg:`root: ${JSON.stringify(t)} resolves to a network path \u2014 the publish base must lie within the working directory`};if(m!==r&&!m.startsWith(r+C))return{errMsg:`root: ${JSON.stringify(t)} resolves outside the working `+"directory \u2014 the publish base must lie within it"};let f;try{f=await pe(m)}catch{return{errMsg:`root: ${JSON.stringify(t)} not found`}}if(!f.isDirectory())return{errMsg:`root: ${JSON.stringify(t)} is not a directory`};let w=K(D(i)?i:V(N(e),i));return{realCwd:r,realRoot:m,lexRoot:w}}async function Xtn(e,t,s,r){let i=await be(t,s,r);if("errMsg"in i)return i;let{realCwd:d,realRoot:o,lexRoot:m}=i;if(r?.expectedRealRoot!==void 0&&r.expectedRealRoot!==o)return{errMsg:"root: the publish base resolves to a different location than "+"was approved \u2014 it changed between approval and publishing; "+"retry the publish"};if(e.length===0)return{errMsg:"files: the file map is empty \u2014 list at least one file"};if(e.length>bZ)return{errMsg:`files: ${e.length} files + index.html exceeds the ${bZ+1}-entry manifest limit`};let f=[],w=new Set,_=0;for(let O of e){let S=Pit(O.to);if("errMsg"in S)return S;let A=S.key;if(w.has(A))return{errMsg:`files: published path ${JSON.stringify(A)} appears more than once`};w.add(A);let u=O.from;if(H(u))return{errMsg:`files: ${JSON.stringify(u)} is a network path \u2014 only files under the working directory can be published`};if(u==="~"||u.startsWith(`~${C}`)||u.startsWith("~/"))return{errMsg:`files: ${JSON.stringify(u)} \u2014 "~" is not expanded here; pass a base-relative or absolute path`};let T=D(u)?void 0:N(u);if(T!==void 0&&(T===".."||T.startsWith(`..${C}`)))return{errMsg:`files: ${JSON.stringify(u)} escapes the publish base \u2014 `+"only files under the working directory can be published"};let E=jje(u,o);if(E===null)return{errMsg:`files: ${JSON.stringify(u)} cannot be resolved`};if(D(u)&&!Bje(E,d,N(t)))return{errMsg:`files: ${JSON.stringify(u)} is outside the working directory \u2014 pass a path under it`};let I=r?.denyPath?.(E,!1,u);if(I!==void 0)return{errMsg:I};if(m!==o){let b=T??(E.startsWith(o+C)?me(o,E):void 0);if(b!==void 0){let k=r?.denyPath?.(V(m,b),!0,u);if(k!==void 0)return{errMsg:k}}}if(await aHe(E))return{errMsg:`files: ${JSON.stringify(u)} is a symlink whose chain cannot be safely resolved (network target, a \`..\` segment in link text, or too many links) \u2014 list the link's target path instead`};let v;try{v=await G(E)}catch(b){return{errMsg:`files: ${JSON.stringify(u)} not found`,...X(b)&&{missing:!0}}}if(H(v))return{errMsg:`files: ${JSON.stringify(u)} resolves to a network path \u2014 only files under the working directory can be published`};if(v!==d&&!v.startsWith(d+C))return{errMsg:`files: ${JSON.stringify(u)} resolves outside the working `+"directory (symlink?) \u2014 only files under it can be published"};if(v!==E){let b=r?.denyPath?.(v,!0,u);if(b!==void 0)return{errMsg:b}}try{let b=await te(v);if(b.isSymbolicLink())return{errMsg:`files: ${JSON.stringify(u)} changed to a symlink after it was checked \u2014 retry the publish`};if(!b.isFile())return{errMsg:`files: ${JSON.stringify(u)} is not a regular file`}}catch(b){return{errMsg:`files: ${JSON.stringify(u)} not found`,...X(b)&&{missing:!0}}}let P;try{P=await ge(v,Y.O_RDONLY|(Y.O_NOFOLLOW|Y.O_NONBLOCK))}catch(b){if(b?.code==="ELOOP")return{errMsg:`files: ${JSON.stringify(u)} changed to a symlink after it was checked \u2014 retry the publish`};return{errMsg:`files: ${JSON.stringify(u)} not found`,...X(b)&&{missing:!0}}}let U,L;try{try{if((await te(v)).isSymbolicLink())return{errMsg:`files: ${JSON.stringify(u)} changed to a symlink after it was checked \u2014 retry the publish`}}catch(k){return{errMsg:`files: ${JSON.stringify(u)} not found`,...X(k)&&{missing:!0}}}let b=await P.stat();if(!b.isFile())return{errMsg:`files: ${JSON.stringify(u)} is not a regular file`};if(a.CLAUDE_CODE_EVAL_CONFINED&&b.nlink>1)return{errMsg:`files: ${JSON.stringify(u)} has more than one hard link`};if(b.size>Im)return{errMsg:`files: ${JSON.stringify(u)} is ${Math.ceil(b.size/1024/1024)}MB (per-file max ${Im/1024/1024}MB)`,tooLarge:!0};if(_+=b.size,_>gae)return{errMsg:`files: total content exceeds ${gae/1024/1024}MB at ${JSON.stringify(u)} \u2014 a version's files may total at most that`};if(L=O.contentType??ULe(A),L===void 0)return{errMsg:`files: ${JSON.stringify(A)} has no known content type for its `+"extension \u2014 pass contentType explicitly (it must be a servable "+'type, e.g. "application/json", "image/png")'};try{let k=await a8(P,b.size);if(k===null)return{errMsg:`files: ${JSON.stringify(u)} changed while it was read \u2014 retry the publish`};U=k}catch{return{errMsg:`files: ${JSON.stringify(u)} could not be read`}}f.push({path:A,content:U,contentType:L,...O.live!==void 0&&{live:O.live},...O.reseed===!0&&{reseed:!0}})}finally{await P.close()}}return{files:f}}async function SBn(e,t,s,r){let i=/\.png$/i.test(t)?".png":".jpg",d=await Xtn([{to:`thumbnail${i}`,from:t}],s,void 0,r);if("errMsg"in d)return{errMsg:`thumbnail ${JSON.stringify(e)}: ${d.errMsg.replace(/^files: /,"")}`,missing:d.missing===!0,tooLarge:d.tooLarge===!0};let o=d.files[0].content;return{content:typeof o==="string"?Buffer.from(o):o}}var bBn=524288,ne=3149824;function se(e){let t=e.length;while(t>0&&` 	\r
-`.includes(e[t-1]))t--;let s=e.slice(0,t);if(!s.endsWith("</script>"))return e;let r=s.slice(0,s.length-9),i=r.lastIndexOf('<script type="application/json" id="__frame_comments__">');if(i===-1)return e;let d=r.slice(i+56);if(d.includes("<"))return e;let o;try{o=JSON.parse(d)}catch{return e}if(typeof o!=="object"||o===null||Array.isArray(o))return e;let m=o;if(typeof m.mac!=="string"||m.mac.length===0)return e;if(!Object.hasOwn(o,"payload"))return e;let f=r.slice(0,i);if(f.endsWith(`
-`))f=f.slice(0,-1);return f}function CPt(e){if(!Wq())return;return e.subscriptionToken||void 0}function TL(e,t={}){let s=kn(e);if(s===null)return{ok:!1,message:t.notUrlMessage??Qwn(e),errorCode:4};let r=Oi();if(s.env!==r){let i=t.envHint?` \u2014 ${t.envHint(r)}`:"";return{ok:!1,message:`that artifact URL is for ${s.env}, but this session targets ${r} claude.ai${i}`,errorCode:5}}return{ok:!0,parsed:s}}function l8(e){return e.gone===!0}function mB(e){return e.otherOrg===!0}var we=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;function Se(e){return typeof e==="object"&&e!==null&&zq(e)?.reason==="org_mismatch"&&"owner_org"in e&&typeof e.owner_org==="string"&&we.test(e.owner_org)}var aae="this Artifact is in another of the user's organizations, not the one this session is signed in to",lae="the user runs /login and signs in to that organization",Re=`${aae} \u2014 it opens here only after ${lae}`,vPt=15000;async function RPt({slug:e,env:t},s,{relayOnly:r=!1,agentPeer:i=!1,credentials:d}){let o=Oi();if(t!==o)return{err:`that artifact URL is for ${t} claude.ai, but this session targets ${o}`,errorCode:"env_mismatch"};let f=`/api/frame/${e}?${i?"via=model_read&peer=agent":"via=model_read"}`,w={refreshOAuth:!0,credentials:d,headers:Yu(),timeout:vPt,signal:s},_,O=Date.now();try{_=r?await op.getRelayOnly(f,w):await op.get(f,w)}catch(E){if(sa(E))throw E;return{err:"artifact read failed (network error)",errorCode:"boot_request_error"}}if(!_.ok){if(_.reason==="relay-unavailable")return{err:`artifact read failed (relay unavailable${_.status?`, HTTP ${_.status}`:""})`,..._.status!==0&&{status:_.status},errorCode:"boot_relay_error"};if(_.reason==="relay-not-served")return{err:"artifact read failed (the session gateway does not serve this session)",errorCode:"boot_relay_not_served"};return{err:_.reason==="no-auth"?gp(_.detail):`artifact read unavailable: ${_.reason}`,errorCode:_.reason.replace(/-/g,"_")}}if(!_.fromFrame)return{err:`artifact read failed (relay HTTP ${_.status})`,status:_.status,errorCode:"boot_relay_error"};if(_.status===404)return{err:"artifact not found \u2014 it may have been deleted, or it has not been shared with you",status:404,...Vq(_.data)&&{gone:!0},errorCode:"boot_404"};if(_.status===403&&Se(_.data))return{err:Re,status:403,otherOrg:!0,errorCode:EVe};if(_.status<200||_.status>=300)return{err:`artifact read failed (HTTP ${_.status})`,status:_.status,errorCode:"boot_failed"};let S=_.data??{},{ver:A,assetToken:u}=S,T=S.mode==="public"||S.kind==="public";if(!A||!u&&!T)return{err:"artifact read failed: incomplete boot response",errorCode:"boot_incomplete"};if(!wHe.test(A))return{err:"artifact read failed: malformed boot response",errorCode:"boot_bad_ver"};return Mgt(e,S.artifactKind),wVe(e,NPt(S),O),U8n(e,S.cowritten),{err:null,data:S,ver:A,assetToken:u||void 0}}async function qR(e,t,s,{gatePublicRead:r=!0,relayOnly:i=!1,agentPeer:d=!1,speculative:o=!1,credentials:m}){let f=o?g:p,w=await RPt(e,s,{relayOnly:i,agentPeer:d,credentials:m});if(w.err!==null)return f(t,w.errorCode),{err:w.err,...w.status!==void 0&&{status:w.status},...w.gone&&{gone:!0},...w.otherOrg&&{otherOrg:!0},errorCode:w.errorCode};let _=w;if(r&&_.assetToken===void 0&&!ann())return f(t,"public_read_disabled"),{err:"artifact read failed: this artifact is served to you as a public (non-member) reader, and reading public artifacts that way is not enabled yet",errorCode:"public_read_disabled"};return _}async function wBn(e,t,s){let r=Oi(),i=await qR({slug:e,env:r},"artifact_live_subscribe",t,{credentials:s});if(i.err!==null)return{err:i.err,...i.status&&{status:i.status},...i.otherOrg&&{otherOrg:!0},...Wje(i.status)&&{unavailable:!0},...i.errorCode==="boot_request_error"&&{noAnswer:!0}};let d=CPt(i.data);return{err:null,token:d,ver:i.ver,editor:ke(i),tokenExp:ue(i.data.subscriptionTokenExp),renewable:d!==void 0&&i.data.watchTokenRenewEnabled===!0}}function ue(e){return typeof e==="number"&&Number.isFinite(e)?e:void 0}function Wje(e){return e!==void 0&&(e>=500||e===429||e===408)}async function TBn(e,t,s){let r;try{r=await op.post(`/api/frame/watch-token/${e}`,{},{refreshOAuth:!0,credentials:s,headers:Yu(),timeout:vPt,signal:t})}catch(o){if(sa(o))throw o;return{err:"renew_miss"}}if(!r.ok||!r.fromFrame||r.status<200||r.status>=300)return{err:"renew_miss",...r.ok&&{status:r.status}};let i=r.data??{},d=CPt(i);if(!i.ver||!wHe.test(i.ver)||d===void 0)return{err:"renew_miss",status:r.status};return{err:null,token:d,ver:i.ver,editor:void 0,tokenExp:ue(i.subscriptionTokenExp),renewable:!0}}function ke(e){return e.assetToken!==void 0&&le(e.data.perm?.role)}function le(e){return e==="owner"||e==="writer"}async function Oit(e,t,s){let r=await RPt(e,t,{credentials:s});if(r.err!==null)return{err:r.err,errorCode:r.errorCode};let i=r.assetToken===void 0,d=r.data.perm?.role;return{err:null,mode:i?"public":r.data.perm?.mode??r.data.mode,shared:r.data.shared,role:i&&d==="owner"?void 0:d,cowritten:r.data.cowritten===!0,...typeof r.data.title==="string"&&{title:r.data.title}}}var fe=Im+_He+ne+65536,Bhe=GR+_He+1,ie={relayed:!1,why:"the session gateway declined an artifact read a few minutes ago, so this read did not retry it",code:"declined"};async function Ee(e,t){let s=(d,o,m)=>{if(m===404&&!e.fileRead&&!Hnn(US)&&(d8()||!hae(US)))D1(US);return{relayed:!1,why:d,code:o,...m!==void 0&&{status:m}}},r;try{r=await bt.get(yTe(e.slug,e.servedPath),{host:"ccr-gateway",auth:"session-jwt",headers:STe(e.token),timeout:30000,responseType:"arraybuffer",maxRedirects:0,maxContentLength:e.fileRead?Bhe:fe,validateStatus:()=>!0,signal:e.signal})}catch(d){if(sa(d))throw d;return p8(),s("the gateway request failed in transport","request_error")}if(!r.ok)return r.reason==="no-auth"?s("this session holds no gateway credential","no_auth"):s(`the gateway request was skipped (${r.reason})`,"client_policy");if(zhe(r.status))return s("artifact reads through the session gateway are not enabled for this session","not_served",r.status);if(r.status===404&&e.fileRead)return p(e.feature,"asset_file_not_found",{relay:!0}),{relayed:!0,result:{err:"no file is published at that path in the served version \u2014 or artifact reads through the session gateway are not enabled for this session",status:404}};if(r.status===404)return s("artifact reads through the session gateway are not enabled for this session, or the artifact service no longer serves this version","not_served",404);if(r.status<200||r.status>=300)return p8(r.status),s(`the gateway refused the relay with HTTP ${r.status}`,"http",r.status);Kq(US);let i=r.response.headers;return{relayed:!0,result:t(Buffer.from(r.data??new ArrayBuffer(0)),i?.["x-frame-asset-content-type"]??i?.["content-type"])}}function ve(e){if(e===void 0)return"";if(!ku(e)||Buffer.byteLength(e,"utf8")>512)return;let t=e.split("/");for(let s of t)if(s===""||s==="."||s===".."||/[\\%\x00-\x1f\x7f]/.test(s))return;return t.map(encodeURIComponent).join("/")}function GP(e,t,s,r="artifact_webfetch_read"){return Me(e,t,r,e.file,s)}async function Me(e,t,s,r,i){let d=ve(r);if(d===void 0)return p(s,"invalid_file_path"),{err:"artifact file path is not a clean relative path"};let o=await qR(e,s,t,{credentials:i});if(o.err!==null)return o;let{ver:m,assetToken:f}=o,w=`/_f/${m}/${d}`,{title:_,favicon:O,perm:S,cowritten:A}=o.data,u=o.data.artifactKind===FD||qr(e.slug)?.artifactKind===FD,T=f===void 0?"public":S?.mode,E=S?.role==="owner"?"owner":S?.role==="writer"?"writer":"reader",I=(h,l,M=()=>y(s))=>{M();let F=r===void 0?"text/html":typeof l==="string"?St(l,";").trim().toLowerCase():"",W=h.toString("utf-8"),J=F==="text/html"?se(W):W;return{err:null,html:J,contentType:F,raw:h,role:E,cowritten:A===!0||u||qr(e.slug)?.cowritten===!0,publicRead:f===void 0,sameChannel:S?.sameChannel===!0&&E==="writer",typeLocked:o.data.type!=null&&typeof o.data.type==="object",...T!==void 0&&(()=>{let j=TVe(T,o.data.shared),B=le(S?.role);return{audience:j.mode,...B&&j.mode!=="owner"&&{audienceView:(o.data.shared??"")===""?"live":o.data.shared===m?"pinned-current":"pinned-earlier"}}})(),bytes:F==="text/html"?Buffer.byteLength(J,"utf8"):h.length,title:_??"",...O!==void 0&&{favicon:O},ver:m}};if(u&&r===void 0){let h=await de().liveReplicas.renderLevel?.(e.slug,o.data.headSeq,t);if(h!==void 0){n(`[artifact] read served from the local replica at seq ${h.head} slug=${e.slug}`);let l=I(Buffer.from(h.html,"utf8"),"text/html");return l.err===null?{...l,localReplica:{head:h.head}}:l}}let v=`${e.slug}.frame.${e.env==="staging"?"staging.":""}claudeusercontent.com`,P=e.env==="staging"?"*.frame.staging.claudeusercontent.com":"*.frame.claudeusercontent.com",U=ef()?`To allow direct artifact reads here, add ${P} to the environment's allowed domains: environment settings \u2192 Code \u2192 Network access \u2192 Custom \u2192 Allowed domains. An admin can add the same entry to a shared environment from admin settings \u2192 Cloud environments; sessions that run in that environment get the access.`:a.CLAUDE_CODE_REMOTE?`To allow artifact reads here, add ${P} to the network allowlist of the environment this remote session runs in.`:`To allow artifact reads here, add ${P} to the network allowlist this session runs behind \u2014 the sandbox's allowed domains, or the Claude desktop app's network settings (Settings \u2192 Capabilities; a workspace admin can add it on Team/Enterprise).`,L=(h,l)=>(p(s,"asset_egress_blocked",{relay:c(h.code),...h.status!==void 0&&{relay_status:h.status},...!l&&{connect:!0}}),{err:`this environment's network allowlist blocks ${v}, and the session gateway could not serve the read either (${h.why}); your access to the artifact itself is fine (the permission check passed). ${U}`,status:403,...l&&{deterministic:"egress-blocked"}}),b=(h,l)=>Ee({slug:e.slug,servedPath:w,fileRead:r!==void 0,feature:s,token:h,signal:t},(M,F)=>I(M,F,()=>g(s,l))),k;if(f!==void 0&&de().contentHostEgressDenied.has(e.env)&&yB()&&!Ax(US)){let h=await b(f,"asset_egress_relayed");if(h.relayed)return h.result;k=h}let Q=void 0,Z=Q??`https://${v}`,ce=f===void 0?`${Z}${w}`:`${Z}${w}?__frame_t=${encodeURIComponent(f)}`,ee=async(h)=>{de().contentHostEgressDenied.add(e.env);let l=yB();if(f!==void 0&&l){if(k!==void 0)return L(k,h);if(Ax(US))return L(ie,h);let M=await b(f,"asset_egress_relayed");return M.relayed?M.result:L(M,h)}return p(s,"asset_egress_blocked",{...!h&&{connect:!0}}),{err:f===void 0&&l?`this environment's network allowlist blocks ${v}, and public (tokenless) artifacts are not served through the session gateway, so the artifact's content cannot be fetched (your access to the artifact itself is fine \u2014 the permission check passed). ${U}`:`this environment's network allowlist blocks ${v}, so the artifact's content cannot be fetched (your access to the artifact itself is fine \u2014 the permission check passed). ${U}`,status:403,...h&&{deterministic:"egress-blocked"}}},R;try{R=await Dl.get(ce,{signal:t,timeout:30000,responseType:"arraybuffer",maxRedirects:0,maxContentLength:r===void 0?fe:Bhe,validateStatus:()=>!0,...Q&&{headers:{Host:`${e.slug}.frame.localhost`}}})}catch(h){if(sa(h))throw h;if($gt(h))return ee(!1);let l=CO(h),M=l===void 0?void 0:Mwe(l.headers)??j9(l.headers),F=mJe(h),W=l!==void 0?`proxy refused the connection: ${u5(l.connectStatus)}${M===void 0?"":`, ${M}`}`:F?"network error":"read failed",J=(x)=>x===void 0?"":`, and the session gateway could not serve the read either (${x.why})`,j=(x)=>x!==void 0&&{relay:c(x.code),...x.status!==void 0&&{relay_status:x.status}};if(l!==void 0&&l.connectStatus===407)return p(s,"asset_proxy_refused",{status:l.connectStatus,...j(k)}),{err:`artifact content fetch failed (${W})${J(k)}`,status:l.connectStatus,...M!==void 0&&{respondent:!0,safeErr:`artifact content fetch failed (proxy refused the connection: ${u5(l.connectStatus)})${J(k)}`}};let B=k;if(f!==void 0&&B===void 0&&F&&yB())if(Ax(US))B=ie;else{let x=await b(f,"asset_unreachable_relayed");if(x.relayed)return x.result;B=x}return p(s,"asset_request_error",{...l!==void 0&&{status:l.connectStatus},...j(B)}),{err:`artifact content fetch failed (${W})${J(B)}`,...l!==void 0&&l.connectStatus!==0&&{status:l.connectStatus},...l!==void 0&&M!==void 0&&{respondent:!0,safeErr:`artifact content fetch failed (proxy refused the connection: ${u5(l.connectStatus)})${J(B)}`}}}if(D2(R.status,R.headers))return ee(!0);if(de().contentHostEgressDenied.delete(e.env),R.status<200||R.status>=300){let h=g6t(R.headers,R.data,(M)=>qje(M,f));if(R.status===403&&f===void 0&&Oe(R.headers,h))return p(s,"public_asset_forbidden"),{err:"artifact is not publicly readable at this version",status:403};if(R.status===404&&d!==""&&f!==void 0&&Ae(R.headers,h))return g(s,"file_not_in_manifest"),{err:"this version of the artifact has no file at that path",status:404,missingFile:!0};let l=Wfn(R.status,h);return p(s,l??"asset_failed"),{err:`artifact content fetch failed (${$e(R.status,R.headers,h)})`,status:R.status,respondent:!0,...l!==void 0&&{safeErr:Lwe[l],proxyDeny:l}}}return I(Buffer.from(R.data),R.headers?.["content-type"])}function Ae(e,t){return t.mediaType==="text/plain"&&t.reason==="not found"&&t.proxyError===void 0&&j9(e)===void 0}function Oe(e,t){return t.mediaType==="text/plain"&&t.reason==="forbidden"&&t.proxyError===void 0&&j9(e)===void 0}function $e(e,t,s){let r=[`HTTP ${e}`],i=j9(t);if(i===void 0&&s.reason!==void 0)r.push(`response body: "${zd(s.reason.replaceAll('"',"'"))}"`);else if(i!==void 0)r.push(`the environment's egress proxy reported: ${i}`);else if(s.proxyError!==void 0)r.push(`x-proxy-error header: "${zd(s.proxyError.replaceAll('"',"'"))}"`);if(s.requestId!==void 0)r.push(`x-request-id: ${s.requestId}`);return r.join("; ")}function wZ(e){return e.respondent?e.safeErr??`artifact content fetch failed (HTTP ${e.status??"error"})`:e.err}function qje(e,t){let s=e.replace(/(?:_|%(?:25)*5f){2}frame(?:_|%(?:25)*5f)t(?:=|%(?:25)*3d)["']?[^\s&"'<>]*/gi,"__frame_t=[redacted]");if(t!==void 0&&t!==""){s=ae(s,t,"g");let r=encodeURIComponent(t);if(r!==t)s=ae(s,r,"gi")}return s}var q=16,oe=/[A-Za-z0-9._~%-]/;function ae(e,t,s){if(t.length<=q)return e.replaceAll(t,"[redacted]");let r=new Set;for(let m=0;m+q<=t.length;m++)r.add(Vu(t.slice(m,m+q)));let i=new RegExp(`(?:${[...r].join("|")})${oe.source}*`,s),d="",o=0;for(let m of e.matchAll(i)){let f=m.index;while(f>o&&oe.test(e.charAt(f-1)))f--;d+=`${e.slice(o,f)}[redacted]`,o=m.index+m[0].length}return d+e.slice(o)}function EBn(e,t){let s=Object.freeze({slug:e,html:t});return de().mintedStoredPageProbes.add(s),s}function ABn(e){return typeof e==="object"&&e!==null&&de().mintedStoredPageProbes.has(e)}
-export{a8,SW,bZ,Pit,Dit,_Bn,yBn,Bje,Ktn,jje,aHe,Xtn,SBn,bBn,CPt,TL,l8,mB,aae,lae,vPt,RPt,qR,wBn,Wje,TBn,Oit,Bhe,GP,wZ,qje,EBn,ABn};
+import { a } from "/$bunfs/root/chunk-fec4384a.js";
+import { c } from "/$bunfs/root/chunk-4xj01xwv.js";
+import { X } from "/$bunfs/root/chunk-ypdw393e.js";
+import { n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { Vu, ku, St } from "/$bunfs/root/chunk-4ddxwr9r.js";
+import { y, p, g } from "/$bunfs/root/chunk-ca80fke8.js";
+import { sa } from "/$bunfs/root/chunk-qcx34e4j.js";
+import { u5, CO } from "/$bunfs/root/chunk-rf51999f.js";
+import { bt } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { mJe, Dl } from "/$bunfs/root/chunk-kxyny47c.js";
+import { Oi, Qwn, kn, zd } from "/$bunfs/root/chunk-4t3vsqt7.js";
+import { ULe } from "/$bunfs/root/chunk-0mrbtv3q.js";
+import { de } from "/$bunfs/root/chunk-xgfepdf4.js";
+import { Vq, yB, d8, Ax, D1, Hnn, Kq, hae, zhe, p8, op, GR, Yu, wHe } from "/$bunfs/root/chunk-pj035rka.js";
+import { NPt, Im, ann, Wq, _He, gae, zq } from "/$bunfs/root/chunk-qaaw3n80.js";
+import { FD } from "/$bunfs/root/chunk-tveh0k24.js";
+import { qr, Mgt, U8n, wVe, TVe, EVe, g6t, D2, $gt, Wfn, Lwe, Mwe, j9 } from "/$bunfs/root/chunk-dt5bt1kc.js";
+import { US, yTe, STe } from "/$bunfs/root/chunk-rxqmmxnb.js";
+import { ef } from "/$bunfs/root/chunk-gdhqsw8a.js";
+import { gp } from "/$bunfs/root/chunk-g5y4mxg8.js";
+import { Sc, _r, Qi } from "/$bunfs/root/chunk-56sxk8k2.js";
+async function a8(e, t) {
+  let s = Buffer.alloc(t + 1),
+    r = 0;
+  while (r < s.length) {
+    let { bytesRead: i } = await e.read(s, r, s.length - r, r);
+    if (i === 0) break;
+    r += i;
+  }
+  return r === t ? s.subarray(0, t) : null;
+}
+import { lstat as te, open as ge, readlink as he, realpath as G, stat as pe } from "fs/promises";
+import { constants as Y } from "fs";
+import { dirname as re, isAbsolute as D, join as V, normalize as N, relative as me, sep as C } from "path";
+function H(e) {
+  return Qi(e) || _r(e);
+}
+var SW = 512,
+  bZ = 255;
+function ye(e) {
+  return JSON.stringify(e).replace(/[\p{Cc}\p{Cf}\p{Co}\p{Cs}]/gu, (t) =>
+    t
+      .split("")
+      .map((s) => `\\u${s.charCodeAt(0).toString(16).padStart(4, "0")}`)
+      .join(""),
+  );
+}
+function z(e, t) {
+  if (e.length === 0) return { errMsg: `${t} may not be empty` };
+  if (e.length > SW) return { errMsg: `${t} is longer than ${SW} characters` };
+  let s = e.normalize("NFC");
+  if (/[\p{Cc}\p{Cf}\p{Co}]/u.test(s) || !ku(s))
+    return { errMsg: `${t} ${ye(e)} contains control, formatting, or private-use characters, or a malformed one` };
+  if (s.includes("\\"))
+    return {
+      errMsg: `${t} ${JSON.stringify(e)} contains a backslash \u2014 published paths use forward slashes on every platform`,
+    };
+  if (/[?#%]/.test(s))
+    return {
+      errMsg: `${t} ${JSON.stringify(e)} contains characters that cannot appear in a served URL path ("?", "#", "%")`,
+    };
+  if (s.startsWith("/"))
+    return { errMsg: `${t} ${JSON.stringify(e)} is absolute \u2014 published paths are relative to the artifact root` };
+  let r = s.split("/");
+  if (r.some((i) => i === "")) return { errMsg: `${t} ${JSON.stringify(e)} has an empty path segment` };
+  if (r.some((i) => i === "." || i === ".."))
+    return { errMsg: `${t} ${JSON.stringify(e)} contains "." or ".." segments \u2014 pass the plain served path` };
+  if (r.some((i) => i === "__proto__" || i === "constructor" || i === "prototype"))
+    return { errMsg: `${t} ${JSON.stringify(e)} contains a reserved name ("__proto__", "constructor", "prototype")` };
+  if (/[:;]/.test(s)) return { errMsg: `${t} ${JSON.stringify(e)} contains ":" or ";", which no published path may` };
+  return { nfc: s };
+}
+function Pit(e) {
+  let t = z(e, "files: published path");
+  if ("errMsg" in t) return t;
+  let { nfc: s } = t;
+  if (s === "index.html")
+    return {
+      errMsg:
+        'files: "index.html" cannot be a published path \u2014 the `html` argument is always the index. Pass that file\'s content as `html` and remove the "index.html" mapping.',
+    };
+  if (s.startsWith("_"))
+    return {
+      errMsg: `files: published path ${JSON.stringify(e)} starts with "_", which the artifact service reserves for its own names \u2014 rename the file or its top-level directory`,
+    };
+  return { key: s };
+}
+function Dit(e) {
+  let t = z(e, "path");
+  if ("errMsg" in t) return t;
+  let { nfc: s } = t;
+  if (s.startsWith("_") || s === "index.html.json")
+    return {
+      errMsg: `path ${JSON.stringify(e)} names one of the artifact service's own views, not a published file; list_files shows the readable paths`,
+    };
+  return { key: s };
+}
+var _Bn = 1048576,
+  _e = /\.(?:png|jpe?g)$/i;
+function yBn(e) {
+  let t = z(e, "thumbnail href");
+  if ("errMsg" in t) return t;
+  if (!_e.test(t.nfc))
+    return {
+      errMsg: `thumbnail href ${JSON.stringify(e)} is not a .png, .jpg or .jpeg file \u2014 custom thumbnails are PNG or JPEG images`,
+    };
+  return { rel: t.nfc };
+}
+function Bje(e, t, s) {
+  return e === t || e.startsWith(t + C) || e === s || e.startsWith(s + C);
+}
+function Ktn(e, t, s) {
+  let r = K(N(t));
+  if (r === s) return e;
+  if (e === r) return s;
+  return e.startsWith(r + C) ? s + e.slice(r.length) : e;
+}
+function K(e) {
+  let t = e.replace(/\/+$/, "");
+  return t === "" ? e : t;
+}
+function jje(e, t) {
+  if (H(e)) return null;
+  if (e === "~" || e.startsWith(`~${C}`) || e.startsWith("~/")) return null;
+  if (D(e)) {
+    let r = N(e);
+    return H(r) ? null : r;
+  }
+  let s = N(e);
+  if (s === ".." || s.startsWith(`..${C}`)) return null;
+  return V(t, s);
+}
+async function aHe(e) {
+  let t = K(e);
+  for (let s = 0; s < 40; s++) {
+    let r;
+    try {
+      r = await he(t);
+    } catch {
+      return !1;
+    }
+    if (Sc(r, re(t))) return !0;
+    if (r.split(/\/+/).includes("..")) return !0;
+    if (((t = K(D(r) ? N(r) : V(re(t), r))), H(t))) return !0;
+  }
+  return !0;
+}
+async function be(e, t, s) {
+  let r = await G(e);
+  if (t === void 0) return { realCwd: r, realRoot: r, lexRoot: N(e) };
+  if (H(t))
+    return {
+      errMsg: `root: ${JSON.stringify(t)} is a network path \u2014 the publish base must lie within the working directory`,
+    };
+  let i = N(t);
+  if (!D(i) && (i === ".." || i.startsWith(`..${C}`)))
+    return {
+      errMsg:
+        `root: ${JSON.stringify(t)} escapes the working directory \u2014 ` + "the publish base must lie within it",
+    };
+  if (D(i) && !Bje(i, e, r))
+    return {
+      errMsg: `root: ${JSON.stringify(t)} is outside the working directory \u2014 pass a working-directory-relative path`,
+    };
+  let d = D(i) ? i : V(r, i),
+    o = s?.denyPath?.(d, !1, t);
+  if (o !== void 0) return { errMsg: o };
+  if (await aHe(d))
+    return {
+      errMsg: `root: ${JSON.stringify(t)} is a symlink whose chain cannot be safely resolved (network target, a \`..\` segment in link text, or too many links) \u2014 pass the target directory itself`,
+    };
+  let m;
+  try {
+    m = await G(d);
+  } catch {
+    return { errMsg: `root: ${JSON.stringify(t)} not found` };
+  }
+  if (H(m))
+    return {
+      errMsg: `root: ${JSON.stringify(t)} resolves to a network path \u2014 the publish base must lie within the working directory`,
+    };
+  if (m !== r && !m.startsWith(r + C))
+    return {
+      errMsg:
+        `root: ${JSON.stringify(t)} resolves outside the working ` +
+        "directory \u2014 the publish base must lie within it",
+    };
+  let f;
+  try {
+    f = await pe(m);
+  } catch {
+    return { errMsg: `root: ${JSON.stringify(t)} not found` };
+  }
+  if (!f.isDirectory()) return { errMsg: `root: ${JSON.stringify(t)} is not a directory` };
+  let w = K(D(i) ? i : V(N(e), i));
+  return { realCwd: r, realRoot: m, lexRoot: w };
+}
+async function Xtn(e, t, s, r) {
+  let i = await be(t, s, r);
+  if ("errMsg" in i) return i;
+  let { realCwd: d, realRoot: o, lexRoot: m } = i;
+  if (r?.expectedRealRoot !== void 0 && r.expectedRealRoot !== o)
+    return {
+      errMsg:
+        "root: the publish base resolves to a different location than " +
+        "was approved \u2014 it changed between approval and publishing; " +
+        "retry the publish",
+    };
+  if (e.length === 0) return { errMsg: "files: the file map is empty \u2014 list at least one file" };
+  if (e.length > bZ)
+    return { errMsg: `files: ${e.length} files + index.html exceeds the ${bZ + 1}-entry manifest limit` };
+  let f = [],
+    w = new Set(),
+    _ = 0;
+  for (let O of e) {
+    let S = Pit(O.to);
+    if ("errMsg" in S) return S;
+    let A = S.key;
+    if (w.has(A)) return { errMsg: `files: published path ${JSON.stringify(A)} appears more than once` };
+    w.add(A);
+    let u = O.from;
+    if (H(u))
+      return {
+        errMsg: `files: ${JSON.stringify(u)} is a network path \u2014 only files under the working directory can be published`,
+      };
+    if (u === "~" || u.startsWith(`~${C}`) || u.startsWith("~/"))
+      return {
+        errMsg: `files: ${JSON.stringify(u)} \u2014 "~" is not expanded here; pass a base-relative or absolute path`,
+      };
+    let T = D(u) ? void 0 : N(u);
+    if (T !== void 0 && (T === ".." || T.startsWith(`..${C}`)))
+      return {
+        errMsg:
+          `files: ${JSON.stringify(u)} escapes the publish base \u2014 ` +
+          "only files under the working directory can be published",
+      };
+    let E = jje(u, o);
+    if (E === null) return { errMsg: `files: ${JSON.stringify(u)} cannot be resolved` };
+    if (D(u) && !Bje(E, d, N(t)))
+      return { errMsg: `files: ${JSON.stringify(u)} is outside the working directory \u2014 pass a path under it` };
+    let I = r?.denyPath?.(E, !1, u);
+    if (I !== void 0) return { errMsg: I };
+    if (m !== o) {
+      let b = T ?? (E.startsWith(o + C) ? me(o, E) : void 0);
+      if (b !== void 0) {
+        let k = r?.denyPath?.(V(m, b), !0, u);
+        if (k !== void 0) return { errMsg: k };
+      }
+    }
+    if (await aHe(E))
+      return {
+        errMsg: `files: ${JSON.stringify(u)} is a symlink whose chain cannot be safely resolved (network target, a \`..\` segment in link text, or too many links) \u2014 list the link's target path instead`,
+      };
+    let v;
+    try {
+      v = await G(E);
+    } catch (b) {
+      return { errMsg: `files: ${JSON.stringify(u)} not found`, ...(X(b) && { missing: !0 }) };
+    }
+    if (H(v))
+      return {
+        errMsg: `files: ${JSON.stringify(u)} resolves to a network path \u2014 only files under the working directory can be published`,
+      };
+    if (v !== d && !v.startsWith(d + C))
+      return {
+        errMsg:
+          `files: ${JSON.stringify(u)} resolves outside the working ` +
+          "directory (symlink?) \u2014 only files under it can be published",
+      };
+    if (v !== E) {
+      let b = r?.denyPath?.(v, !0, u);
+      if (b !== void 0) return { errMsg: b };
+    }
+    try {
+      let b = await te(v);
+      if (b.isSymbolicLink())
+        return {
+          errMsg: `files: ${JSON.stringify(u)} changed to a symlink after it was checked \u2014 retry the publish`,
+        };
+      if (!b.isFile()) return { errMsg: `files: ${JSON.stringify(u)} is not a regular file` };
+    } catch (b) {
+      return { errMsg: `files: ${JSON.stringify(u)} not found`, ...(X(b) && { missing: !0 }) };
+    }
+    let P;
+    try {
+      P = await ge(v, Y.O_RDONLY | (Y.O_NOFOLLOW | Y.O_NONBLOCK));
+    } catch (b) {
+      if (b?.code === "ELOOP")
+        return {
+          errMsg: `files: ${JSON.stringify(u)} changed to a symlink after it was checked \u2014 retry the publish`,
+        };
+      return { errMsg: `files: ${JSON.stringify(u)} not found`, ...(X(b) && { missing: !0 }) };
+    }
+    let U, L;
+    try {
+      try {
+        if ((await te(v)).isSymbolicLink())
+          return {
+            errMsg: `files: ${JSON.stringify(u)} changed to a symlink after it was checked \u2014 retry the publish`,
+          };
+      } catch (k) {
+        return { errMsg: `files: ${JSON.stringify(u)} not found`, ...(X(k) && { missing: !0 }) };
+      }
+      let b = await P.stat();
+      if (!b.isFile()) return { errMsg: `files: ${JSON.stringify(u)} is not a regular file` };
+      if (a.CLAUDE_CODE_EVAL_CONFINED && b.nlink > 1)
+        return { errMsg: `files: ${JSON.stringify(u)} has more than one hard link` };
+      if (b.size > Im)
+        return {
+          errMsg: `files: ${JSON.stringify(u)} is ${Math.ceil(b.size / 1024 / 1024)}MB (per-file max ${Im / 1024 / 1024}MB)`,
+          tooLarge: !0,
+        };
+      if (((_ += b.size), _ > gae))
+        return {
+          errMsg: `files: total content exceeds ${gae / 1024 / 1024}MB at ${JSON.stringify(u)} \u2014 a version's files may total at most that`,
+        };
+      if (((L = O.contentType ?? ULe(A)), L === void 0))
+        return {
+          errMsg:
+            `files: ${JSON.stringify(A)} has no known content type for its ` +
+            "extension \u2014 pass contentType explicitly (it must be a servable " +
+            'type, e.g. "application/json", "image/png")',
+        };
+      try {
+        let k = await a8(P, b.size);
+        if (k === null)
+          return { errMsg: `files: ${JSON.stringify(u)} changed while it was read \u2014 retry the publish` };
+        U = k;
+      } catch {
+        return { errMsg: `files: ${JSON.stringify(u)} could not be read` };
+      }
+      f.push({
+        path: A,
+        content: U,
+        contentType: L,
+        ...(O.live !== void 0 && { live: O.live }),
+        ...(O.reseed === !0 && { reseed: !0 }),
+      });
+    } finally {
+      await P.close();
+    }
+  }
+  return { files: f };
+}
+async function SBn(e, t, s, r) {
+  let i = /\.png$/i.test(t) ? ".png" : ".jpg",
+    d = await Xtn([{ to: `thumbnail${i}`, from: t }], s, void 0, r);
+  if ("errMsg" in d)
+    return {
+      errMsg: `thumbnail ${JSON.stringify(e)}: ${d.errMsg.replace(/^files: /, "")}`,
+      missing: d.missing === !0,
+      tooLarge: d.tooLarge === !0,
+    };
+  let o = d.files[0].content;
+  return { content: typeof o === "string" ? Buffer.from(o) : o };
+}
+var bBn = 524288,
+  ne = 3149824;
+function se(e) {
+  let t = e.length;
+  while (
+    t > 0 &&
+    ` 	\r
+`.includes(e[t - 1])
+  )
+    t--;
+  let s = e.slice(0, t);
+  if (!s.endsWith("</script>")) return e;
+  let r = s.slice(0, s.length - 9),
+    i = r.lastIndexOf('<script type="application/json" id="__frame_comments__">');
+  if (i === -1) return e;
+  let d = r.slice(i + 56);
+  if (d.includes("<")) return e;
+  let o;
+  try {
+    o = JSON.parse(d);
+  } catch {
+    return e;
+  }
+  if (typeof o !== "object" || o === null || Array.isArray(o)) return e;
+  let m = o;
+  if (typeof m.mac !== "string" || m.mac.length === 0) return e;
+  if (!Object.hasOwn(o, "payload")) return e;
+  let f = r.slice(0, i);
+  if (
+    f.endsWith(`
+`)
+  )
+    f = f.slice(0, -1);
+  return f;
+}
+function CPt(e) {
+  if (!Wq()) return;
+  return e.subscriptionToken || void 0;
+}
+function TL(e, t = {}) {
+  let s = kn(e);
+  if (s === null) return { ok: !1, message: t.notUrlMessage ?? Qwn(e), errorCode: 4 };
+  let r = Oi();
+  if (s.env !== r) {
+    let i = t.envHint ? ` \u2014 ${t.envHint(r)}` : "";
+    return {
+      ok: !1,
+      message: `that artifact URL is for ${s.env}, but this session targets ${r} claude.ai${i}`,
+      errorCode: 5,
+    };
+  }
+  return { ok: !0, parsed: s };
+}
+function l8(e) {
+  return e.gone === !0;
+}
+function mB(e) {
+  return e.otherOrg === !0;
+}
+var we = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+function Se(e) {
+  return (
+    typeof e === "object" &&
+    e !== null &&
+    zq(e)?.reason === "org_mismatch" &&
+    "owner_org" in e &&
+    typeof e.owner_org === "string" &&
+    we.test(e.owner_org)
+  );
+}
+var aae = "this Artifact is in another of the user's organizations, not the one this session is signed in to",
+  lae = "the user runs /login and signs in to that organization",
+  Re = `${aae} \u2014 it opens here only after ${lae}`,
+  vPt = 15000;
+async function RPt({ slug: e, env: t }, s, { relayOnly: r = !1, agentPeer: i = !1, credentials: d }) {
+  let o = Oi();
+  if (t !== o)
+    return { err: `that artifact URL is for ${t} claude.ai, but this session targets ${o}`, errorCode: "env_mismatch" };
+  let f = `/api/frame/${e}?${i ? "via=model_read&peer=agent" : "via=model_read"}`,
+    w = { refreshOAuth: !0, credentials: d, headers: Yu(), timeout: vPt, signal: s },
+    _,
+    O = Date.now();
+  try {
+    _ = r ? await op.getRelayOnly(f, w) : await op.get(f, w);
+  } catch (E) {
+    if (sa(E)) throw E;
+    return { err: "artifact read failed (network error)", errorCode: "boot_request_error" };
+  }
+  if (!_.ok) {
+    if (_.reason === "relay-unavailable")
+      return {
+        err: `artifact read failed (relay unavailable${_.status ? `, HTTP ${_.status}` : ""})`,
+        ...(_.status !== 0 && { status: _.status }),
+        errorCode: "boot_relay_error",
+      };
+    if (_.reason === "relay-not-served")
+      return {
+        err: "artifact read failed (the session gateway does not serve this session)",
+        errorCode: "boot_relay_not_served",
+      };
+    return {
+      err: _.reason === "no-auth" ? gp(_.detail) : `artifact read unavailable: ${_.reason}`,
+      errorCode: _.reason.replace(/-/g, "_"),
+    };
+  }
+  if (!_.fromFrame)
+    return { err: `artifact read failed (relay HTTP ${_.status})`, status: _.status, errorCode: "boot_relay_error" };
+  if (_.status === 404)
+    return {
+      err: "artifact not found \u2014 it may have been deleted, or it has not been shared with you",
+      status: 404,
+      ...(Vq(_.data) && { gone: !0 }),
+      errorCode: "boot_404",
+    };
+  if (_.status === 403 && Se(_.data)) return { err: Re, status: 403, otherOrg: !0, errorCode: EVe };
+  if (_.status < 200 || _.status >= 300)
+    return { err: `artifact read failed (HTTP ${_.status})`, status: _.status, errorCode: "boot_failed" };
+  let S = _.data ?? {},
+    { ver: A, assetToken: u } = S,
+    T = S.mode === "public" || S.kind === "public";
+  if (!A || (!u && !T)) return { err: "artifact read failed: incomplete boot response", errorCode: "boot_incomplete" };
+  if (!wHe.test(A)) return { err: "artifact read failed: malformed boot response", errorCode: "boot_bad_ver" };
+  return (
+    Mgt(e, S.artifactKind),
+    wVe(e, NPt(S), O),
+    U8n(e, S.cowritten),
+    { err: null, data: S, ver: A, assetToken: u || void 0 }
+  );
+}
+async function qR(
+  e,
+  t,
+  s,
+  { gatePublicRead: r = !0, relayOnly: i = !1, agentPeer: d = !1, speculative: o = !1, credentials: m },
+) {
+  let f = o ? g : p,
+    w = await RPt(e, s, { relayOnly: i, agentPeer: d, credentials: m });
+  if (w.err !== null)
+    return (
+      f(t, w.errorCode),
+      {
+        err: w.err,
+        ...(w.status !== void 0 && { status: w.status }),
+        ...(w.gone && { gone: !0 }),
+        ...(w.otherOrg && { otherOrg: !0 }),
+        errorCode: w.errorCode,
+      }
+    );
+  let _ = w;
+  if (r && _.assetToken === void 0 && !ann())
+    return (
+      f(t, "public_read_disabled"),
+      {
+        err: "artifact read failed: this artifact is served to you as a public (non-member) reader, and reading public artifacts that way is not enabled yet",
+        errorCode: "public_read_disabled",
+      }
+    );
+  return _;
+}
+async function wBn(e, t, s) {
+  let r = Oi(),
+    i = await qR({ slug: e, env: r }, "artifact_live_subscribe", t, { credentials: s });
+  if (i.err !== null)
+    return {
+      err: i.err,
+      ...(i.status && { status: i.status }),
+      ...(i.otherOrg && { otherOrg: !0 }),
+      ...(Wje(i.status) && { unavailable: !0 }),
+      ...(i.errorCode === "boot_request_error" && { noAnswer: !0 }),
+    };
+  let d = CPt(i.data);
+  return {
+    err: null,
+    token: d,
+    ver: i.ver,
+    editor: ke(i),
+    tokenExp: ue(i.data.subscriptionTokenExp),
+    renewable: d !== void 0 && i.data.watchTokenRenewEnabled === !0,
+  };
+}
+function ue(e) {
+  return typeof e === "number" && Number.isFinite(e) ? e : void 0;
+}
+function Wje(e) {
+  return e !== void 0 && (e >= 500 || e === 429 || e === 408);
+}
+async function TBn(e, t, s) {
+  let r;
+  try {
+    r = await op.post(
+      `/api/frame/watch-token/${e}`,
+      {},
+      { refreshOAuth: !0, credentials: s, headers: Yu(), timeout: vPt, signal: t },
+    );
+  } catch (o) {
+    if (sa(o)) throw o;
+    return { err: "renew_miss" };
+  }
+  if (!r.ok || !r.fromFrame || r.status < 200 || r.status >= 300)
+    return { err: "renew_miss", ...(r.ok && { status: r.status }) };
+  let i = r.data ?? {},
+    d = CPt(i);
+  if (!i.ver || !wHe.test(i.ver) || d === void 0) return { err: "renew_miss", status: r.status };
+  return { err: null, token: d, ver: i.ver, editor: void 0, tokenExp: ue(i.subscriptionTokenExp), renewable: !0 };
+}
+function ke(e) {
+  return e.assetToken !== void 0 && le(e.data.perm?.role);
+}
+function le(e) {
+  return e === "owner" || e === "writer";
+}
+async function Oit(e, t, s) {
+  let r = await RPt(e, t, { credentials: s });
+  if (r.err !== null) return { err: r.err, errorCode: r.errorCode };
+  let i = r.assetToken === void 0,
+    d = r.data.perm?.role;
+  return {
+    err: null,
+    mode: i ? "public" : (r.data.perm?.mode ?? r.data.mode),
+    shared: r.data.shared,
+    role: i && d === "owner" ? void 0 : d,
+    cowritten: r.data.cowritten === !0,
+    ...(typeof r.data.title === "string" && { title: r.data.title }),
+  };
+}
+var fe = Im + _He + ne + 65536,
+  Bhe = GR + _He + 1,
+  ie = {
+    relayed: !1,
+    why: "the session gateway declined an artifact read a few minutes ago, so this read did not retry it",
+    code: "declined",
+  };
+async function Ee(e, t) {
+  let s = (d, o, m) => {
+      if (m === 404 && !e.fileRead && !Hnn(US) && (d8() || !hae(US))) D1(US);
+      return { relayed: !1, why: d, code: o, ...(m !== void 0 && { status: m }) };
+    },
+    r;
+  try {
+    r = await bt.get(yTe(e.slug, e.servedPath), {
+      host: "ccr-gateway",
+      auth: "session-jwt",
+      headers: STe(e.token),
+      timeout: 30000,
+      responseType: "arraybuffer",
+      maxRedirects: 0,
+      maxContentLength: e.fileRead ? Bhe : fe,
+      validateStatus: () => !0,
+      signal: e.signal,
+    });
+  } catch (d) {
+    if (sa(d)) throw d;
+    return p8(), s("the gateway request failed in transport", "request_error");
+  }
+  if (!r.ok)
+    return r.reason === "no-auth"
+      ? s("this session holds no gateway credential", "no_auth")
+      : s(`the gateway request was skipped (${r.reason})`, "client_policy");
+  if (zhe(r.status))
+    return s("artifact reads through the session gateway are not enabled for this session", "not_served", r.status);
+  if (r.status === 404 && e.fileRead)
+    return (
+      p(e.feature, "asset_file_not_found", { relay: !0 }),
+      {
+        relayed: !0,
+        result: {
+          err: "no file is published at that path in the served version \u2014 or artifact reads through the session gateway are not enabled for this session",
+          status: 404,
+        },
+      }
+    );
+  if (r.status === 404)
+    return s(
+      "artifact reads through the session gateway are not enabled for this session, or the artifact service no longer serves this version",
+      "not_served",
+      404,
+    );
+  if (r.status < 200 || r.status >= 300)
+    return p8(r.status), s(`the gateway refused the relay with HTTP ${r.status}`, "http", r.status);
+  Kq(US);
+  let i = r.response.headers;
+  return {
+    relayed: !0,
+    result: t(Buffer.from(r.data ?? new ArrayBuffer(0)), i?.["x-frame-asset-content-type"] ?? i?.["content-type"]),
+  };
+}
+function ve(e) {
+  if (e === void 0) return "";
+  if (!ku(e) || Buffer.byteLength(e, "utf8") > 512) return;
+  let t = e.split("/");
+  for (let s of t) if (s === "" || s === "." || s === ".." || /[\\%\x00-\x1f\x7f]/.test(s)) return;
+  return t.map(encodeURIComponent).join("/");
+}
+function GP(e, t, s, r = "artifact_webfetch_read") {
+  return Me(e, t, r, e.file, s);
+}
+async function Me(e, t, s, r, i) {
+  let d = ve(r);
+  if (d === void 0) return p(s, "invalid_file_path"), { err: "artifact file path is not a clean relative path" };
+  let o = await qR(e, s, t, { credentials: i });
+  if (o.err !== null) return o;
+  let { ver: m, assetToken: f } = o,
+    w = `/_f/${m}/${d}`,
+    { title: _, favicon: O, perm: S, cowritten: A } = o.data,
+    u = o.data.artifactKind === FD || qr(e.slug)?.artifactKind === FD,
+    T = f === void 0 ? "public" : S?.mode,
+    E = S?.role === "owner" ? "owner" : S?.role === "writer" ? "writer" : "reader",
+    I = (h, l, M = () => y(s)) => {
+      M();
+      let F = r === void 0 ? "text/html" : typeof l === "string" ? St(l, ";").trim().toLowerCase() : "",
+        W = h.toString("utf-8"),
+        J = F === "text/html" ? se(W) : W;
+      return {
+        err: null,
+        html: J,
+        contentType: F,
+        raw: h,
+        role: E,
+        cowritten: A === !0 || u || qr(e.slug)?.cowritten === !0,
+        publicRead: f === void 0,
+        sameChannel: S?.sameChannel === !0 && E === "writer",
+        typeLocked: o.data.type != null && typeof o.data.type === "object",
+        ...(T !== void 0 &&
+          (() => {
+            let j = TVe(T, o.data.shared),
+              B = le(S?.role);
+            return {
+              audience: j.mode,
+              ...(B &&
+                j.mode !== "owner" && {
+                  audienceView:
+                    (o.data.shared ?? "") === "" ? "live" : o.data.shared === m ? "pinned-current" : "pinned-earlier",
+                }),
+            };
+          })()),
+        bytes: F === "text/html" ? Buffer.byteLength(J, "utf8") : h.length,
+        title: _ ?? "",
+        ...(O !== void 0 && { favicon: O }),
+        ver: m,
+      };
+    };
+  if (u && r === void 0) {
+    let h = await de().liveReplicas.renderLevel?.(e.slug, o.data.headSeq, t);
+    if (h !== void 0) {
+      n(`[artifact] read served from the local replica at seq ${h.head} slug=${e.slug}`);
+      let l = I(Buffer.from(h.html, "utf8"), "text/html");
+      return l.err === null ? { ...l, localReplica: { head: h.head } } : l;
+    }
+  }
+  let v = `${e.slug}.frame.${e.env === "staging" ? "staging." : ""}claudeusercontent.com`,
+    P = e.env === "staging" ? "*.frame.staging.claudeusercontent.com" : "*.frame.claudeusercontent.com",
+    U = ef()
+      ? `To allow direct artifact reads here, add ${P} to the environment's allowed domains: environment settings \u2192 Code \u2192 Network access \u2192 Custom \u2192 Allowed domains. An admin can add the same entry to a shared environment from admin settings \u2192 Cloud environments; sessions that run in that environment get the access.`
+      : a.CLAUDE_CODE_REMOTE
+        ? `To allow artifact reads here, add ${P} to the network allowlist of the environment this remote session runs in.`
+        : `To allow artifact reads here, add ${P} to the network allowlist this session runs behind \u2014 the sandbox's allowed domains, or the Claude desktop app's network settings (Settings \u2192 Capabilities; a workspace admin can add it on Team/Enterprise).`,
+    L = (h, l) => (
+      p(s, "asset_egress_blocked", {
+        relay: c(h.code),
+        ...(h.status !== void 0 && { relay_status: h.status }),
+        ...(!l && { connect: !0 }),
+      }),
+      {
+        err: `this environment's network allowlist blocks ${v}, and the session gateway could not serve the read either (${h.why}); your access to the artifact itself is fine (the permission check passed). ${U}`,
+        status: 403,
+        ...(l && { deterministic: "egress-blocked" }),
+      }
+    ),
+    b = (h, l) =>
+      Ee({ slug: e.slug, servedPath: w, fileRead: r !== void 0, feature: s, token: h, signal: t }, (M, F) =>
+        I(M, F, () => g(s, l)),
+      ),
+    k;
+  if (f !== void 0 && de().contentHostEgressDenied.has(e.env) && yB() && !Ax(US)) {
+    let h = await b(f, "asset_egress_relayed");
+    if (h.relayed) return h.result;
+    k = h;
+  }
+  let Q = void 0,
+    Z = Q ?? `https://${v}`,
+    ce = f === void 0 ? `${Z}${w}` : `${Z}${w}?__frame_t=${encodeURIComponent(f)}`,
+    ee = async (h) => {
+      de().contentHostEgressDenied.add(e.env);
+      let l = yB();
+      if (f !== void 0 && l) {
+        if (k !== void 0) return L(k, h);
+        if (Ax(US)) return L(ie, h);
+        let M = await b(f, "asset_egress_relayed");
+        return M.relayed ? M.result : L(M, h);
+      }
+      return (
+        p(s, "asset_egress_blocked", { ...(!h && { connect: !0 }) }),
+        {
+          err:
+            f === void 0 && l
+              ? `this environment's network allowlist blocks ${v}, and public (tokenless) artifacts are not served through the session gateway, so the artifact's content cannot be fetched (your access to the artifact itself is fine \u2014 the permission check passed). ${U}`
+              : `this environment's network allowlist blocks ${v}, so the artifact's content cannot be fetched (your access to the artifact itself is fine \u2014 the permission check passed). ${U}`,
+          status: 403,
+          ...(h && { deterministic: "egress-blocked" }),
+        }
+      );
+    },
+    R;
+  try {
+    R = await Dl.get(ce, {
+      signal: t,
+      timeout: 30000,
+      responseType: "arraybuffer",
+      maxRedirects: 0,
+      maxContentLength: r === void 0 ? fe : Bhe,
+      validateStatus: () => !0,
+      ...(Q && { headers: { Host: `${e.slug}.frame.localhost` } }),
+    });
+  } catch (h) {
+    if (sa(h)) throw h;
+    if ($gt(h)) return ee(!1);
+    let l = CO(h),
+      M = l === void 0 ? void 0 : (Mwe(l.headers) ?? j9(l.headers)),
+      F = mJe(h),
+      W =
+        l !== void 0
+          ? `proxy refused the connection: ${u5(l.connectStatus)}${M === void 0 ? "" : `, ${M}`}`
+          : F
+            ? "network error"
+            : "read failed",
+      J = (x) => (x === void 0 ? "" : `, and the session gateway could not serve the read either (${x.why})`),
+      j = (x) => x !== void 0 && { relay: c(x.code), ...(x.status !== void 0 && { relay_status: x.status }) };
+    if (l !== void 0 && l.connectStatus === 407)
+      return (
+        p(s, "asset_proxy_refused", { status: l.connectStatus, ...j(k) }),
+        {
+          err: `artifact content fetch failed (${W})${J(k)}`,
+          status: l.connectStatus,
+          ...(M !== void 0 && {
+            respondent: !0,
+            safeErr: `artifact content fetch failed (proxy refused the connection: ${u5(l.connectStatus)})${J(k)}`,
+          }),
+        }
+      );
+    let B = k;
+    if (f !== void 0 && B === void 0 && F && yB())
+      if (Ax(US)) B = ie;
+      else {
+        let x = await b(f, "asset_unreachable_relayed");
+        if (x.relayed) return x.result;
+        B = x;
+      }
+    return (
+      p(s, "asset_request_error", { ...(l !== void 0 && { status: l.connectStatus }), ...j(B) }),
+      {
+        err: `artifact content fetch failed (${W})${J(B)}`,
+        ...(l !== void 0 && l.connectStatus !== 0 && { status: l.connectStatus }),
+        ...(l !== void 0 &&
+          M !== void 0 && {
+            respondent: !0,
+            safeErr: `artifact content fetch failed (proxy refused the connection: ${u5(l.connectStatus)})${J(B)}`,
+          }),
+      }
+    );
+  }
+  if (D2(R.status, R.headers)) return ee(!0);
+  if ((de().contentHostEgressDenied.delete(e.env), R.status < 200 || R.status >= 300)) {
+    let h = g6t(R.headers, R.data, (M) => qje(M, f));
+    if (R.status === 403 && f === void 0 && Oe(R.headers, h))
+      return p(s, "public_asset_forbidden"), { err: "artifact is not publicly readable at this version", status: 403 };
+    if (R.status === 404 && d !== "" && f !== void 0 && Ae(R.headers, h))
+      return (
+        g(s, "file_not_in_manifest"),
+        { err: "this version of the artifact has no file at that path", status: 404, missingFile: !0 }
+      );
+    let l = Wfn(R.status, h);
+    return (
+      p(s, l ?? "asset_failed"),
+      {
+        err: `artifact content fetch failed (${$e(R.status, R.headers, h)})`,
+        status: R.status,
+        respondent: !0,
+        ...(l !== void 0 && { safeErr: Lwe[l], proxyDeny: l }),
+      }
+    );
+  }
+  return I(Buffer.from(R.data), R.headers?.["content-type"]);
+}
+function Ae(e, t) {
+  return t.mediaType === "text/plain" && t.reason === "not found" && t.proxyError === void 0 && j9(e) === void 0;
+}
+function Oe(e, t) {
+  return t.mediaType === "text/plain" && t.reason === "forbidden" && t.proxyError === void 0 && j9(e) === void 0;
+}
+function $e(e, t, s) {
+  let r = [`HTTP ${e}`],
+    i = j9(t);
+  if (i === void 0 && s.reason !== void 0) r.push(`response body: "${zd(s.reason.replaceAll('"', "'"))}"`);
+  else if (i !== void 0) r.push(`the environment's egress proxy reported: ${i}`);
+  else if (s.proxyError !== void 0) r.push(`x-proxy-error header: "${zd(s.proxyError.replaceAll('"', "'"))}"`);
+  if (s.requestId !== void 0) r.push(`x-request-id: ${s.requestId}`);
+  return r.join("; ");
+}
+function wZ(e) {
+  return e.respondent ? (e.safeErr ?? `artifact content fetch failed (HTTP ${e.status ?? "error"})`) : e.err;
+}
+function qje(e, t) {
+  let s = e.replace(
+    /(?:_|%(?:25)*5f){2}frame(?:_|%(?:25)*5f)t(?:=|%(?:25)*3d)["']?[^\s&"'<>]*/gi,
+    "__frame_t=[redacted]",
+  );
+  if (t !== void 0 && t !== "") {
+    s = ae(s, t, "g");
+    let r = encodeURIComponent(t);
+    if (r !== t) s = ae(s, r, "gi");
+  }
+  return s;
+}
+var q = 16,
+  oe = /[A-Za-z0-9._~%-]/;
+function ae(e, t, s) {
+  if (t.length <= q) return e.replaceAll(t, "[redacted]");
+  let r = new Set();
+  for (let m = 0; m + q <= t.length; m++) r.add(Vu(t.slice(m, m + q)));
+  let i = new RegExp(`(?:${[...r].join("|")})${oe.source}*`, s),
+    d = "",
+    o = 0;
+  for (let m of e.matchAll(i)) {
+    let f = m.index;
+    while (f > o && oe.test(e.charAt(f - 1))) f--;
+    (d += `${e.slice(o, f)}[redacted]`), (o = m.index + m[0].length);
+  }
+  return d + e.slice(o);
+}
+function EBn(e, t) {
+  let s = Object.freeze({ slug: e, html: t });
+  return de().mintedStoredPageProbes.add(s), s;
+}
+function ABn(e) {
+  return typeof e === "object" && e !== null && de().mintedStoredPageProbes.has(e);
+}
+export {
+  a8,
+  SW,
+  bZ,
+  Pit,
+  Dit,
+  _Bn,
+  yBn,
+  Bje,
+  Ktn,
+  jje,
+  aHe,
+  Xtn,
+  SBn,
+  bBn,
+  CPt,
+  TL,
+  l8,
+  mB,
+  aae,
+  lae,
+  vPt,
+  RPt,
+  qR,
+  wBn,
+  Wje,
+  TBn,
+  Oit,
+  Bhe,
+  GP,
+  wZ,
+  qje,
+  EBn,
+  ABn,
+};

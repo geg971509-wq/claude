@@ -8,5 +8,20 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-class o{gate=null;register(e){this.gate=e}isOpen(){return this.gate?.()===!0}}var r=new o;function SZn(e){r.register(e)}function bZn(){return r.isOpen()}
-export{SZn,bZn};
+class o {
+  gate = null;
+  register(e) {
+    this.gate = e;
+  }
+  isOpen() {
+    return this.gate?.() === !0;
+  }
+}
+var r = new o();
+function SZn(e) {
+  r.register(e);
+}
+function bZn() {
+  return r.isOpen();
+}
+export { SZn, bZn };

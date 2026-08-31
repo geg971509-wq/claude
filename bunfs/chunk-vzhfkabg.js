@@ -8,4 +8,6 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{J}from"/$bunfs/root/chunk-f9h0bg01.js";import{Ue}from"/$bunfs/root/chunk-qq1mdtb5.js";var E=new J(()=>Ue());
+import { J } from "/$bunfs/root/chunk-f9h0bg01.js";
+import { Ue } from "/$bunfs/root/chunk-qq1mdtb5.js";
+var E = new J(() => Ue());

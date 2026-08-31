@@ -8,5 +8,7 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-function Fge(n){return typeof n==="number"&&Number.isInteger(n)&&n>0?n:void 0}
-export{Fge};
+function Fge(n) {
+  return typeof n === "number" && Number.isInteger(n) && n > 0 ? n : void 0;
+}
+export { Fge };

@@ -8,5 +8,36 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{sg}from"/$bunfs/root/chunk-q75cm02t.js";import{Oh,Md}from"/$bunfs/root/chunk-3qvtfvqg.js";function ZZ(t,r){return`${sg(t)??""}/${sg(r)??""}`}function Ajn({serverName:t,toolName:r,mcpTaskId:s,toolUseId:o,pollIntervalMs:n,abortController:a,protocol:i,driveAbortController:p,ttlExpiresAt:l}){let e=Oh("mcp_task");return{...Md(e,"mcp_task",ZZ(t,r),o),type:"mcp_task",status:"running",serverName:t,toolName:r,mcpTaskId:s??e,mcpStatus:"working",pollIntervalMs:n,abortController:a,protocol:i,driveAbortController:p,ttlExpiresAt:l}}
-export{ZZ,Ajn};
+import { sg } from "/$bunfs/root/chunk-q75cm02t.js";
+import { Oh, Md } from "/$bunfs/root/chunk-3qvtfvqg.js";
+function ZZ(t, r) {
+  return `${sg(t) ?? ""}/${sg(r) ?? ""}`;
+}
+function Ajn({
+  serverName: t,
+  toolName: r,
+  mcpTaskId: s,
+  toolUseId: o,
+  pollIntervalMs: n,
+  abortController: a,
+  protocol: i,
+  driveAbortController: p,
+  ttlExpiresAt: l,
+}) {
+  let e = Oh("mcp_task");
+  return {
+    ...Md(e, "mcp_task", ZZ(t, r), o),
+    type: "mcp_task",
+    status: "running",
+    serverName: t,
+    toolName: r,
+    mcpTaskId: s ?? e,
+    mcpStatus: "working",
+    pollIntervalMs: n,
+    abortController: a,
+    protocol: i,
+    driveAbortController: p,
+    ttlExpiresAt: l,
+  };
+}
+export { ZZ, Ajn };

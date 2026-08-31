@@ -8,4 +8,9 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{IX}from"/$bunfs/root/chunk-zfjmcnyh.js";var d="/$bunfs/root/chart.umd.min.js";function H(){return IX(d,import.meta.dirname)}export{H as loadChartBundleJs};
+import { IX } from "/$bunfs/root/chunk-zfjmcnyh.js";
+var d = "/$bunfs/root/chart.umd.min.js";
+function H() {
+  return IX(d, import.meta.dirname);
+}
+export { H as loadChartBundleJs };

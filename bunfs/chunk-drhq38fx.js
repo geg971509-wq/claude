@@ -8,5 +8,12 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Je}from"/$bunfs/root/chunk-988p40e0.js";import{Hk,as}from"/$bunfs/root/chunk-anwgkcw5.js";function hnt(){let e=Je().defaultShell;if(e==="bash"&&!as())return"powershell";if(e==="powershell"&&!Hk())return"bash";return e??(as()?"bash":"powershell")}
-export{hnt};
+import { Je } from "/$bunfs/root/chunk-988p40e0.js";
+import { Hk, as } from "/$bunfs/root/chunk-anwgkcw5.js";
+function hnt() {
+  let e = Je().defaultShell;
+  if (e === "bash" && !as()) return "powershell";
+  if (e === "powershell" && !Hk()) return "bash";
+  return e ?? (as() ? "bash" : "powershell");
+}
+export { hnt };

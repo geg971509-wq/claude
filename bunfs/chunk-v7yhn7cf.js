@@ -8,5 +8,108 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{An}from"/$bunfs/root/chunk-5rt2mvvk.js";var N=/hooks\.slack\.com\/(?:services|workflows|triggers)\/[A-Za-z0-9/_-]+/gi;var a={bearer:[/\bBearer\s+[A-Za-z0-9._~+/=-]{8,}/gi,"Bearer <token>"],basic:[/(:\s*)Basic\s+[A-Za-z0-9+/=]{8,}/gi,"$1Basic <token>"],sk:[/\bsk-[A-Za-z0-9_-]{20,}/g,"<token>"]},p=[/\bBearer\s{1,512}(?=[A-Za-z0-9._~+/=-]{16})(?:eyJ|(?=[A-Za-z0-9._~+/=-]{0,64}[0-9=]))/i,/:\s{0,512}Basic\s{1,512}(?=[A-Za-z0-9+/=]{16})(?=[A-Za-z0-9+/=]{0,64}[0-9=])/i,/\bsk-(?=[A-Za-z0-9_-]{20})(?=[A-Za-z0-9_-]{0,64}[0-9])/],znr=4096;var K=new RegExp(`(?:\\b(?:xox[abe-z](?:\\.xox[a-z])?|xapp|xwfp)-${t("[A-Za-z0-9+/=%_-]")}|\\bxox[cd]-|(?:xox[abe-z](?:\\.xox[a-z])?|xapp|xwfp)-(?=[0-9])|xox[cd]-${t("[A-Za-z0-9+/=%_-]")}(?=[A-Za-z0-9+/=%_-]{16}))`,"i"),c=[[o("sk-ant-","[A-Za-z0-9_-]",8,i(8)),"<token>"],[o("sk-(?:proj|svcacct|admin)-","[A-Za-z0-9_-]",20,i(20)),"<token>"]],R=[[/(^|[^A-Za-z0-9+])AKIA[A-Z0-9]{16}(?![A-Za-z0-9+=])/g,"$1<token>"],[/(^|[^A-Za-z0-9+])ASIA[A-Z0-9]{16}(?![A-Za-z0-9+=])/g,"$1<token>"]],T=[[o("gh[opusr]_","[A-Za-z0-9]",20,t("[A-Za-z0-9]")),"<token>"],[/github_pat_[A-Za-z0-9_]{82,}/g,"<token>"],[/sq0(?:atp|csp)-[A-Za-z0-9_-]{22,}/g,"<token>"],[/(^|[^A-Za-z0-9+/])EAAA[A-Za-z0-9+/=%_-]{56,}/g,"$1<token>"],[o("gl(?:pat|dt|rt|ft|soat|oas|agent|ptt|cbt|imt|ffct)-","[A-Za-z0-9_=-]",20,t("[A-Za-z0-9_=-]"),"(?:\\.[0-9a-z]{9})?"),"<token>"],[o("(?:xox[abe-z](?:\\.xox[a-z])?|xapp|xwfp)-","[A-Za-z0-9+/=%_-]",10,"(?=[0-9])","",t("[A-Za-z0-9+/=%_-]"),"gi"),"<token>"],[new RegExp(`(?:\\bxox[cd]-[A-Za-z0-9+/=%_-]{10,}|xox[cd]-${t("[A-Za-z0-9+/=%_-]")}[A-Za-z0-9+/=%_-]{16,})`,"gi"),"<token>"],[N,"hooks.slack.com/<redacted>"]],l=[/\bey[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}/g,"<jwt>"],u=/\beyJ(?:[A-Za-z0-9_-]{256}|[A-Za-z0-9_-]{8,2048}\.[A-Za-z0-9_-]{10})/,Own=[a.bearer,a.basic,...c,a.sk,...R],Lwn=[...T,l];function q3(e){return[...Own,...Lwn].reduce((n,[s,_])=>n.replace(s,_),String(e))}var I=[...p,...[...c,...R,...T].map(([e])=>new RegExp(e.source,e.flags.replaceAll("g",""))),u];function Mwn(e){return I.some((n)=>n.test(e))}function o(e,n,s,_,O="",g="",S="g"){let E=`${n}{${s},}${O}`;return new RegExp(`(?:\\b${e}${g}${E}|${e}${_}${E})`,S)}function t(e){return`(?=${e}{0,64}[0-9])`}function i(e){return`(?=[A-Za-z0-9_-]{0,64}?(?=[A-Za-z0-9]{${e}})(?=[A-Za-z0-9]{0,64}[0-9])(?=[A-Za-z0-9]{0,64}[A-Za-z]))`}var DT=200;function C(e){return[...e.replace(/[\x00-\x1f\x7f-\x9f]/g,"")].slice(0,DT).join("")}function Us(e){return C(An(e.trim())).trim()}var Nwn=["signed_out","identity_changed","transient","refresh_failed"];function Vnr(e){return Nwn.some((n)=>n===e)}var r=0,A;function Knr(e){r++,A={reason:e,generation:r}}function Xnr(){r++,A=void 0}function Fwn(){return A}function Zbt(){return r}
-export{znr,Own,Lwn,q3,Mwn,Nwn,Vnr,Knr,Xnr,Fwn,Zbt,DT,Us};
+import { An } from "/$bunfs/root/chunk-5rt2mvvk.js";
+var N = /hooks\.slack\.com\/(?:services|workflows|triggers)\/[A-Za-z0-9/_-]+/gi;
+var a = {
+    bearer: [/\bBearer\s+[A-Za-z0-9._~+/=-]{8,}/gi, "Bearer <token>"],
+    basic: [/(:\s*)Basic\s+[A-Za-z0-9+/=]{8,}/gi, "$1Basic <token>"],
+    sk: [/\bsk-[A-Za-z0-9_-]{20,}/g, "<token>"],
+  },
+  p = [
+    /\bBearer\s{1,512}(?=[A-Za-z0-9._~+/=-]{16})(?:eyJ|(?=[A-Za-z0-9._~+/=-]{0,64}[0-9=]))/i,
+    /:\s{0,512}Basic\s{1,512}(?=[A-Za-z0-9+/=]{16})(?=[A-Za-z0-9+/=]{0,64}[0-9=])/i,
+    /\bsk-(?=[A-Za-z0-9_-]{20})(?=[A-Za-z0-9_-]{0,64}[0-9])/,
+  ],
+  znr = 4096;
+var K = new RegExp(
+    `(?:\\b(?:xox[abe-z](?:\\.xox[a-z])?|xapp|xwfp)-${t("[A-Za-z0-9+/=%_-]")}|\\bxox[cd]-|(?:xox[abe-z](?:\\.xox[a-z])?|xapp|xwfp)-(?=[0-9])|xox[cd]-${t("[A-Za-z0-9+/=%_-]")}(?=[A-Za-z0-9+/=%_-]{16}))`,
+    "i",
+  ),
+  c = [
+    [o("sk-ant-", "[A-Za-z0-9_-]", 8, i(8)), "<token>"],
+    [o("sk-(?:proj|svcacct|admin)-", "[A-Za-z0-9_-]", 20, i(20)), "<token>"],
+  ],
+  R = [
+    [/(^|[^A-Za-z0-9+])AKIA[A-Z0-9]{16}(?![A-Za-z0-9+=])/g, "$1<token>"],
+    [/(^|[^A-Za-z0-9+])ASIA[A-Z0-9]{16}(?![A-Za-z0-9+=])/g, "$1<token>"],
+  ],
+  T = [
+    [o("gh[opusr]_", "[A-Za-z0-9]", 20, t("[A-Za-z0-9]")), "<token>"],
+    [/github_pat_[A-Za-z0-9_]{82,}/g, "<token>"],
+    [/sq0(?:atp|csp)-[A-Za-z0-9_-]{22,}/g, "<token>"],
+    [/(^|[^A-Za-z0-9+/])EAAA[A-Za-z0-9+/=%_-]{56,}/g, "$1<token>"],
+    [
+      o(
+        "gl(?:pat|dt|rt|ft|soat|oas|agent|ptt|cbt|imt|ffct)-",
+        "[A-Za-z0-9_=-]",
+        20,
+        t("[A-Za-z0-9_=-]"),
+        "(?:\\.[0-9a-z]{9})?",
+      ),
+      "<token>",
+    ],
+    [
+      o(
+        "(?:xox[abe-z](?:\\.xox[a-z])?|xapp|xwfp)-",
+        "[A-Za-z0-9+/=%_-]",
+        10,
+        "(?=[0-9])",
+        "",
+        t("[A-Za-z0-9+/=%_-]"),
+        "gi",
+      ),
+      "<token>",
+    ],
+    [
+      new RegExp(`(?:\\bxox[cd]-[A-Za-z0-9+/=%_-]{10,}|xox[cd]-${t("[A-Za-z0-9+/=%_-]")}[A-Za-z0-9+/=%_-]{16,})`, "gi"),
+      "<token>",
+    ],
+    [N, "hooks.slack.com/<redacted>"],
+  ],
+  l = [/\bey[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}/g, "<jwt>"],
+  u = /\beyJ(?:[A-Za-z0-9_-]{256}|[A-Za-z0-9_-]{8,2048}\.[A-Za-z0-9_-]{10})/,
+  Own = [a.bearer, a.basic, ...c, a.sk, ...R],
+  Lwn = [...T, l];
+function q3(e) {
+  return [...Own, ...Lwn].reduce((n, [s, _]) => n.replace(s, _), String(e));
+}
+var I = [...p, ...[...c, ...R, ...T].map(([e]) => new RegExp(e.source, e.flags.replaceAll("g", ""))), u];
+function Mwn(e) {
+  return I.some((n) => n.test(e));
+}
+function o(e, n, s, _, O = "", g = "", S = "g") {
+  let E = `${n}{${s},}${O}`;
+  return new RegExp(`(?:\\b${e}${g}${E}|${e}${_}${E})`, S);
+}
+function t(e) {
+  return `(?=${e}{0,64}[0-9])`;
+}
+function i(e) {
+  return `(?=[A-Za-z0-9_-]{0,64}?(?=[A-Za-z0-9]{${e}})(?=[A-Za-z0-9]{0,64}[0-9])(?=[A-Za-z0-9]{0,64}[A-Za-z]))`;
+}
+var DT = 200;
+function C(e) {
+  return [...e.replace(/[\x00-\x1f\x7f-\x9f]/g, "")].slice(0, DT).join("");
+}
+function Us(e) {
+  return C(An(e.trim())).trim();
+}
+var Nwn = ["signed_out", "identity_changed", "transient", "refresh_failed"];
+function Vnr(e) {
+  return Nwn.some((n) => n === e);
+}
+var r = 0,
+  A;
+function Knr(e) {
+  r++, (A = { reason: e, generation: r });
+}
+function Xnr() {
+  r++, (A = void 0);
+}
+function Fwn() {
+  return A;
+}
+function Zbt() {
+  return r;
+}
+export { znr, Own, Lwn, q3, Mwn, Nwn, Vnr, Knr, Xnr, Fwn, Zbt, DT, Us };

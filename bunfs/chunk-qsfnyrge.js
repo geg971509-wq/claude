@@ -8,7 +8,344 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{ae}from"/$bunfs/root/chunk-386w1sy8.js";import{VZ,o,t,md,KZ}from"/$bunfs/root/chunk-he2phymk.js";import{mn,glt}from"/$bunfs/root/chunk-htrft0p0.js";import{_}from"/$bunfs/root/chunk-haan6f8z.js";import{l_}from"/$bunfs/root/chunk-kez2zndg.js";import{Nt}from"/$bunfs/root/chunk-z9bhq3k9.js";import{UYn}from"/$bunfs/root/chunk-2204t1q0.js";import{Usn}from"/$bunfs/root/chunk-zze8764r.js";import{dge,Zie,aMn}from"/$bunfs/root/chunk-m6r337am.js";import{Ts}from"/$bunfs/root/chunk-b6a5y1qe.js";import{e,r}from"/$bunfs/root/chunk-8s7kcbyw.js";import{du,z,F}from"/$bunfs/root/chunk-twm95mhz.js";import{se}from"/$bunfs/root/chunk-q1fyd2qk.js";F();F();function ke(He,Ae){return e(o,{children:He},Ae)}var pe=0.4;function G($e){let oe=_(10),{patch:j,dim:ee,width:te}=$e,[ne]=mn(),he;if(oe[0]!==ee||oe[1]!==j.lines||oe[2]!==j.oldStart||oe[3]!==ne||oe[4]!==te)he=ie(j.lines,j.oldStart,te,ee,ne),oe[0]=ee,oe[1]=j.lines,oe[2]=j.oldStart,oe[3]=ne,oe[4]=te,oe[5]=he;else he=oe[5];let re=he,Y;if(oe[6]!==re)Y=re.map(ke),oe[6]=re,oe[7]=Y;else Y=oe[7];let ge;if(oe[8]!==Y)ge=e(o,{flexDirection:"column",flexGrow:1,children:Y}),oe[8]=Y,oe[9]=ge;else ge=oe[9];return ge}function xe(i){return i.map((c)=>{let d=c.startsWith("+")?"add":c.startsWith("-")?"remove":"nochange",{code:n,truncatedChars:a}=dge(c,1);return{code:n,i:0,type:d,originalCode:n,truncatedChars:a}})}function Ce(i){let c=[],d=0;while(d<i.length){let n=i[d];if(!n){d++;continue}if(n.type==="remove"){let a=[n],s=d+1;while(s<i.length&&i[s]?.type==="remove"){let u=i[s];if(u)a.push(u);s++}let l=[];while(s<i.length&&i[s]?.type==="add"){let u=i[s];if(u)l.push(u);s++}if(a.length>0&&l.length>0){let u=Math.min(a.length,l.length);for(let g=0;g<u;g++){let D=a[g],m=l[g];if(D&&m)D.wordDiff=!0,m.wordDiff=!0,D.matchedLine=m,m.matchedLine=D}c.push(...a.filter(Boolean)),c.push(...l.filter(Boolean)),d=s}else c.push(n),d++}else c.push(n),d++}return c}function be(i,c){return Usn(i,c,{ignoreCase:!1})}function Le(i,c,d,n,a){let{type:s,i:l,wordDiff:u,matchedLine:g,originalCode:D}=i;if(!u||!g)return null;let m=s==="remove"?D:g.originalCode,p=s==="remove"?g.originalCode:D,f=be(m,p),W=m.length+p.length;if(f.filter((L)=>L.added||L.removed).reduce((L,A)=>L+A.value.length,0)/W>pe||n)return null;let w=s==="add"?"+":"-",x=w.length,R=Math.max(1,c-d-1-x),C=[],b=[],h=0;if(f.forEach((L,A)=>{let v=!1,P;if(s==="add"){if(L.added)v=!0,P="diffAddedWord";else if(!L.removed)v=!0}else if(s==="remove"){if(L.removed)v=!0,P="diffRemovedWord";else if(!L.added)v=!0}if(!v)return;l_(L.value,R,"wrap").split(`
-`).forEach((N,H)=>{if(!N)return;if(H>0||h+se(N)>R){if(b.length>0)C.push({content:[...b],contentWidth:h}),b=[],h=0}b.push(e(t,{backgroundColor:P,children:N},`part-${A}-${H}`)),h+=se(N)})}),b.length>0)C.push({content:b,contentWidth:h});let T=i.truncatedChars>0?Zie(i.truncatedChars):"",y=-1;if(T&&C.length>0){if(C.at(-1).contentWidth+se(T)>R)C.push({content:[],contentWidth:0});y=C.length-1}return C.map(({content:L,contentWidth:A},v)=>{let P=`${s}-${l}-${v}`,O=s==="add"?n?"diffAddedDimmed":"diffAdded":n?"diffRemovedDimmed":"diffRemoved",E=v===0?l:void 0,N=(E!==void 0?E.toString().padStart(d):" ".repeat(d))+" ",H=v===y?T:"",B=N.length+x+A+se(H),me=Math.max(0,c-B);return r(o,{flexDirection:"row",children:[e(md,{fromLeftEdge:!0,children:r(t,{color:a?"text":void 0,backgroundColor:O,dimColor:n,children:[N,w]})}),e(t,{color:a?"text":void 0,backgroundColor:O,dimColor:n,children:L}),H?e(t,{dimColor:!0,children:H}):null,e(t,{color:a?"text":void 0,backgroundColor:O,dimColor:n,children:" ".repeat(me)})]},P)})}function ie(i,c,d,n,a){let s=Math.max(1,Math.floor(d)),l=xe(i),u=Ce(l),g=De(u,c),D=Math.max(...g.map(({i:p})=>p),0),m=Math.max(D.toString().length+1,0);return g.flatMap((p)=>{let{type:f,code:W,i:S,wordDiff:k,matchedLine:w}=p;if(k&&w){let y=Le(p,s,m,n,a);if(y!==null)return y}let x=2,R=Math.max(1,s-m-1-x),b=l_(W,R,"wrap").split(`
-`),h=p.truncatedChars>0?Zie(p.truncatedChars):"",T=-1;if(h&&b.length>0){let y=b.at(-1);if(se(y)+se(h)>R)b.push("");T=b.length-1}return b.map((y,L)=>{let A=`${f}-${S}-${L}`,v=L===0?S:void 0,P=(v!==void 0?v.toString().padStart(m):" ".repeat(m))+" ",O=f==="add"?"+":f==="remove"?"-":" ",E=L===T?h:"",N=P.length+1+se(y)+se(E),H=Math.max(0,s-N),B=f==="add"?n?"diffAddedDimmed":"diffAdded":f==="remove"?n?"diffRemovedDimmed":"diffRemoved":void 0;return r(o,{flexDirection:"row",children:[e(md,{fromLeftEdge:!0,children:r(t,{color:a?"text":void 0,backgroundColor:B,dimColor:n||f==="nochange",children:[P,O]})}),e(t,{color:a?"text":void 0,backgroundColor:B,dimColor:n,children:y}),E?e(t,{dimColor:!0,children:E}):null,e(t,{color:a?"text":void 0,backgroundColor:B,dimColor:n,children:" ".repeat(H)})]},A)})})}function De(i,c){let d=c,n=[],a=[...i];while(a.length>0){let s=a.shift(),{code:l,type:u,originalCode:g,truncatedChars:D,wordDiff:m,matchedLine:p}=s,f={code:l,type:u,i:d,originalCode:g,truncatedChars:D,wordDiff:m,matchedLine:p};switch(u){case"nochange":d++,n.push(f);break;case"add":d++,n.push(f);break;case"remove":{n.push(f);let W=0;while(a[0]?.type==="remove"){d++;let S=a.shift(),{code:k,type:w,originalCode:x,truncatedChars:R,wordDiff:C,matchedLine:b}=S,h={code:k,type:w,i:d,originalCode:x,truncatedChars:R,wordDiff:C,matchedLine:b};n.push(h),W++}d-=W;break}}}return n}function we(i){return Math.max(i.oldStart+i.oldLines-1,i.newStart+i.newLines-1,1).toString().length+3}var ue=["diffAdded","diffRemoved","diffAddedDimmed","diffRemovedDimmed","diffAddedWord","diffRemovedWord"];function fe(i){if(!i)return;let c;for(let d of ue){let n=i[d];if(n!==void 0)c??={},c[d]=n}return c}function le(i,c,d,n,a,s,l,u,g,D){let m=aMn();if(!m)return null;let p=D?we(c):0,f=p>0&&p<u?p:0,W=l?ue.map((h)=>l[h]??"").join(","):"",S=`${s}|${W}|${u}|${g?1:0}|${f}|${ae.level}|${d??""}|${n}`,k=i.get(c),w=k?.get(S);if(w)return w;let x=new m(c,d,n,a).render(s,u,g,l);if(x===null)return null;let R=null,C=null;if(f>0){R=Array(x.length),C=Array(x.length);for(let h=0;h<x.length;h++){let[T,y]=UYn(x[h]??"",f);R[h]=T,C[h]=y}}let b={lines:x,gutterWidth:f,gutters:R,contents:C};if(!k)k=new Map,i.set(c,k);if(k.size>=4)k.clear();return k.set(S,b),b}var gx=du(function(Je){let q=_(16),{patch:J,dim:Q,filePath:Qe,firstLine:Ue,fileContent:Xe,width:U,skipHighlighting:Re}=Je,Ze=Re===void 0?!1:Re,[Ie]=mn(),et=fe(glt()),tt=Ts().syntaxHighlightingDisabled??!1,K=Math.max(1,Math.floor(U)),nt=Nt(),{structuredDiff:ot}=VZ(),ye=Ze||tt?null:le(ot,J,Ue,Qe,Xe??null,Ie,et,K,Q,nt);if(!ye){let M;if(q[0]!==Q||q[1]!==J||q[2]!==U)M=e(o,{children:e(G,{patch:J,dim:Q,width:U})}),q[0]=Q,q[1]=J,q[2]=U,q[3]=M;else M=q[3];return M}let{lines:de,gutterWidth:V,gutters:X,contents:Z}=ye;if(V>0&&X&&Z){let M;if(q[4]!==V||q[5]!==X)M=e(md,{fromLeftEdge:!0,flexShrink:0,children:e(KZ,{lines:X,width:V})}),q[4]=V,q[5]=X,q[6]=M;else M=q[6];const ce=K-V;let I;if(q[7]!==Z||q[8]!==ce)I=e(KZ,{lines:Z,width:ce}),q[7]=Z,q[8]=ce,q[9]=I;else I=q[9];let ve;if(q[10]!==M||q[11]!==I)ve=r(o,{flexDirection:"row",children:[M,I]}),q[10]=M,q[11]=I,q[12]=ve;else ve=q[12];return ve}let M;if(q[13]!==de||q[14]!==K)M=e(o,{children:e(KZ,{lines:de,width:K})}),q[13]=de,q[14]=K,q[15]=M;else M=q[15];return M});
-export{gx};
+import { ae } from "/$bunfs/root/chunk-386w1sy8.js";
+import { VZ, o, t, md, KZ } from "/$bunfs/root/chunk-he2phymk.js";
+import { mn, glt } from "/$bunfs/root/chunk-htrft0p0.js";
+import { _ } from "/$bunfs/root/chunk-haan6f8z.js";
+import { l_ } from "/$bunfs/root/chunk-kez2zndg.js";
+import { Nt } from "/$bunfs/root/chunk-z9bhq3k9.js";
+import { UYn } from "/$bunfs/root/chunk-2204t1q0.js";
+import { Usn } from "/$bunfs/root/chunk-zze8764r.js";
+import { dge, Zie, aMn } from "/$bunfs/root/chunk-m6r337am.js";
+import { Ts } from "/$bunfs/root/chunk-b6a5y1qe.js";
+import { e, r } from "/$bunfs/root/chunk-8s7kcbyw.js";
+import { du, z, F } from "/$bunfs/root/chunk-twm95mhz.js";
+import { se } from "/$bunfs/root/chunk-q1fyd2qk.js";
+F();
+F();
+function ke(He, Ae) {
+  return e(o, { children: He }, Ae);
+}
+var pe = 0.4;
+function G($e) {
+  let oe = _(10),
+    { patch: j, dim: ee, width: te } = $e,
+    [ne] = mn(),
+    he;
+  if (oe[0] !== ee || oe[1] !== j.lines || oe[2] !== j.oldStart || oe[3] !== ne || oe[4] !== te)
+    (he = ie(j.lines, j.oldStart, te, ee, ne)),
+      (oe[0] = ee),
+      (oe[1] = j.lines),
+      (oe[2] = j.oldStart),
+      (oe[3] = ne),
+      (oe[4] = te),
+      (oe[5] = he);
+  else he = oe[5];
+  let re = he,
+    Y;
+  if (oe[6] !== re) (Y = re.map(ke)), (oe[6] = re), (oe[7] = Y);
+  else Y = oe[7];
+  let ge;
+  if (oe[8] !== Y) (ge = e(o, { flexDirection: "column", flexGrow: 1, children: Y })), (oe[8] = Y), (oe[9] = ge);
+  else ge = oe[9];
+  return ge;
+}
+function xe(i) {
+  return i.map((c) => {
+    let d = c.startsWith("+") ? "add" : c.startsWith("-") ? "remove" : "nochange",
+      { code: n, truncatedChars: a } = dge(c, 1);
+    return { code: n, i: 0, type: d, originalCode: n, truncatedChars: a };
+  });
+}
+function Ce(i) {
+  let c = [],
+    d = 0;
+  while (d < i.length) {
+    let n = i[d];
+    if (!n) {
+      d++;
+      continue;
+    }
+    if (n.type === "remove") {
+      let a = [n],
+        s = d + 1;
+      while (s < i.length && i[s]?.type === "remove") {
+        let u = i[s];
+        if (u) a.push(u);
+        s++;
+      }
+      let l = [];
+      while (s < i.length && i[s]?.type === "add") {
+        let u = i[s];
+        if (u) l.push(u);
+        s++;
+      }
+      if (a.length > 0 && l.length > 0) {
+        let u = Math.min(a.length, l.length);
+        for (let g = 0; g < u; g++) {
+          let D = a[g],
+            m = l[g];
+          if (D && m) (D.wordDiff = !0), (m.wordDiff = !0), (D.matchedLine = m), (m.matchedLine = D);
+        }
+        c.push(...a.filter(Boolean)), c.push(...l.filter(Boolean)), (d = s);
+      } else c.push(n), d++;
+    } else c.push(n), d++;
+  }
+  return c;
+}
+function be(i, c) {
+  return Usn(i, c, { ignoreCase: !1 });
+}
+function Le(i, c, d, n, a) {
+  let { type: s, i: l, wordDiff: u, matchedLine: g, originalCode: D } = i;
+  if (!u || !g) return null;
+  let m = s === "remove" ? D : g.originalCode,
+    p = s === "remove" ? g.originalCode : D,
+    f = be(m, p),
+    W = m.length + p.length;
+  if (f.filter((L) => L.added || L.removed).reduce((L, A) => L + A.value.length, 0) / W > pe || n) return null;
+  let w = s === "add" ? "+" : "-",
+    x = w.length,
+    R = Math.max(1, c - d - 1 - x),
+    C = [],
+    b = [],
+    h = 0;
+  if (
+    (f.forEach((L, A) => {
+      let v = !1,
+        P;
+      if (s === "add") {
+        if (L.added) (v = !0), (P = "diffAddedWord");
+        else if (!L.removed) v = !0;
+      } else if (s === "remove") {
+        if (L.removed) (v = !0), (P = "diffRemovedWord");
+        else if (!L.added) v = !0;
+      }
+      if (!v) return;
+      l_(L.value, R, "wrap")
+        .split(`
+`)
+        .forEach((N, H) => {
+          if (!N) return;
+          if (H > 0 || h + se(N) > R) {
+            if (b.length > 0) C.push({ content: [...b], contentWidth: h }), (b = []), (h = 0);
+          }
+          b.push(e(t, { backgroundColor: P, children: N }, `part-${A}-${H}`)), (h += se(N));
+        });
+    }),
+    b.length > 0)
+  )
+    C.push({ content: b, contentWidth: h });
+  let T = i.truncatedChars > 0 ? Zie(i.truncatedChars) : "",
+    y = -1;
+  if (T && C.length > 0) {
+    if (C.at(-1).contentWidth + se(T) > R) C.push({ content: [], contentWidth: 0 });
+    y = C.length - 1;
+  }
+  return C.map(({ content: L, contentWidth: A }, v) => {
+    let P = `${s}-${l}-${v}`,
+      O = s === "add" ? (n ? "diffAddedDimmed" : "diffAdded") : n ? "diffRemovedDimmed" : "diffRemoved",
+      E = v === 0 ? l : void 0,
+      N = (E !== void 0 ? E.toString().padStart(d) : " ".repeat(d)) + " ",
+      H = v === y ? T : "",
+      B = N.length + x + A + se(H),
+      me = Math.max(0, c - B);
+    return r(
+      o,
+      {
+        flexDirection: "row",
+        children: [
+          e(md, {
+            fromLeftEdge: !0,
+            children: r(t, { color: a ? "text" : void 0, backgroundColor: O, dimColor: n, children: [N, w] }),
+          }),
+          e(t, { color: a ? "text" : void 0, backgroundColor: O, dimColor: n, children: L }),
+          H ? e(t, { dimColor: !0, children: H }) : null,
+          e(t, { color: a ? "text" : void 0, backgroundColor: O, dimColor: n, children: " ".repeat(me) }),
+        ],
+      },
+      P,
+    );
+  });
+}
+function ie(i, c, d, n, a) {
+  let s = Math.max(1, Math.floor(d)),
+    l = xe(i),
+    u = Ce(l),
+    g = De(u, c),
+    D = Math.max(...g.map(({ i: p }) => p), 0),
+    m = Math.max(D.toString().length + 1, 0);
+  return g.flatMap((p) => {
+    let { type: f, code: W, i: S, wordDiff: k, matchedLine: w } = p;
+    if (k && w) {
+      let y = Le(p, s, m, n, a);
+      if (y !== null) return y;
+    }
+    let x = 2,
+      R = Math.max(1, s - m - 1 - x),
+      b = l_(W, R, "wrap").split(`
+`),
+      h = p.truncatedChars > 0 ? Zie(p.truncatedChars) : "",
+      T = -1;
+    if (h && b.length > 0) {
+      let y = b.at(-1);
+      if (se(y) + se(h) > R) b.push("");
+      T = b.length - 1;
+    }
+    return b.map((y, L) => {
+      let A = `${f}-${S}-${L}`,
+        v = L === 0 ? S : void 0,
+        P = (v !== void 0 ? v.toString().padStart(m) : " ".repeat(m)) + " ",
+        O = f === "add" ? "+" : f === "remove" ? "-" : " ",
+        E = L === T ? h : "",
+        N = P.length + 1 + se(y) + se(E),
+        H = Math.max(0, s - N),
+        B =
+          f === "add"
+            ? n
+              ? "diffAddedDimmed"
+              : "diffAdded"
+            : f === "remove"
+              ? n
+                ? "diffRemovedDimmed"
+                : "diffRemoved"
+              : void 0;
+      return r(
+        o,
+        {
+          flexDirection: "row",
+          children: [
+            e(md, {
+              fromLeftEdge: !0,
+              children: r(t, {
+                color: a ? "text" : void 0,
+                backgroundColor: B,
+                dimColor: n || f === "nochange",
+                children: [P, O],
+              }),
+            }),
+            e(t, { color: a ? "text" : void 0, backgroundColor: B, dimColor: n, children: y }),
+            E ? e(t, { dimColor: !0, children: E }) : null,
+            e(t, { color: a ? "text" : void 0, backgroundColor: B, dimColor: n, children: " ".repeat(H) }),
+          ],
+        },
+        A,
+      );
+    });
+  });
+}
+function De(i, c) {
+  let d = c,
+    n = [],
+    a = [...i];
+  while (a.length > 0) {
+    let s = a.shift(),
+      { code: l, type: u, originalCode: g, truncatedChars: D, wordDiff: m, matchedLine: p } = s,
+      f = { code: l, type: u, i: d, originalCode: g, truncatedChars: D, wordDiff: m, matchedLine: p };
+    switch (u) {
+      case "nochange":
+        d++, n.push(f);
+        break;
+      case "add":
+        d++, n.push(f);
+        break;
+      case "remove": {
+        n.push(f);
+        let W = 0;
+        while (a[0]?.type === "remove") {
+          d++;
+          let S = a.shift(),
+            { code: k, type: w, originalCode: x, truncatedChars: R, wordDiff: C, matchedLine: b } = S,
+            h = { code: k, type: w, i: d, originalCode: x, truncatedChars: R, wordDiff: C, matchedLine: b };
+          n.push(h), W++;
+        }
+        d -= W;
+        break;
+      }
+    }
+  }
+  return n;
+}
+function we(i) {
+  return Math.max(i.oldStart + i.oldLines - 1, i.newStart + i.newLines - 1, 1).toString().length + 3;
+}
+var ue = ["diffAdded", "diffRemoved", "diffAddedDimmed", "diffRemovedDimmed", "diffAddedWord", "diffRemovedWord"];
+function fe(i) {
+  if (!i) return;
+  let c;
+  for (let d of ue) {
+    let n = i[d];
+    if (n !== void 0) (c ??= {}), (c[d] = n);
+  }
+  return c;
+}
+function le(i, c, d, n, a, s, l, u, g, D) {
+  let m = aMn();
+  if (!m) return null;
+  let p = D ? we(c) : 0,
+    f = p > 0 && p < u ? p : 0,
+    W = l ? ue.map((h) => l[h] ?? "").join(",") : "",
+    S = `${s}|${W}|${u}|${g ? 1 : 0}|${f}|${ae.level}|${d ?? ""}|${n}`,
+    k = i.get(c),
+    w = k?.get(S);
+  if (w) return w;
+  let x = new m(c, d, n, a).render(s, u, g, l);
+  if (x === null) return null;
+  let R = null,
+    C = null;
+  if (f > 0) {
+    (R = Array(x.length)), (C = Array(x.length));
+    for (let h = 0; h < x.length; h++) {
+      let [T, y] = UYn(x[h] ?? "", f);
+      (R[h] = T), (C[h] = y);
+    }
+  }
+  let b = { lines: x, gutterWidth: f, gutters: R, contents: C };
+  if (!k) (k = new Map()), i.set(c, k);
+  if (k.size >= 4) k.clear();
+  return k.set(S, b), b;
+}
+var gx = du(function (Je) {
+  let q = _(16),
+    { patch: J, dim: Q, filePath: Qe, firstLine: Ue, fileContent: Xe, width: U, skipHighlighting: Re } = Je,
+    Ze = Re === void 0 ? !1 : Re,
+    [Ie] = mn(),
+    et = fe(glt()),
+    tt = Ts().syntaxHighlightingDisabled ?? !1,
+    K = Math.max(1, Math.floor(U)),
+    nt = Nt(),
+    { structuredDiff: ot } = VZ(),
+    ye = Ze || tt ? null : le(ot, J, Ue, Qe, Xe ?? null, Ie, et, K, Q, nt);
+  if (!ye) {
+    let M;
+    if (q[0] !== Q || q[1] !== J || q[2] !== U)
+      (M = e(o, { children: e(G, { patch: J, dim: Q, width: U }) })), (q[0] = Q), (q[1] = J), (q[2] = U), (q[3] = M);
+    else M = q[3];
+    return M;
+  }
+  let { lines: de, gutterWidth: V, gutters: X, contents: Z } = ye;
+  if (V > 0 && X && Z) {
+    let M;
+    if (q[4] !== V || q[5] !== X)
+      (M = e(md, { fromLeftEdge: !0, flexShrink: 0, children: e(KZ, { lines: X, width: V }) })),
+        (q[4] = V),
+        (q[5] = X),
+        (q[6] = M);
+    else M = q[6];
+    const ce = K - V;
+    let I;
+    if (q[7] !== Z || q[8] !== ce) (I = e(KZ, { lines: Z, width: ce })), (q[7] = Z), (q[8] = ce), (q[9] = I);
+    else I = q[9];
+    let ve;
+    if (q[10] !== M || q[11] !== I)
+      (ve = r(o, { flexDirection: "row", children: [M, I] })), (q[10] = M), (q[11] = I), (q[12] = ve);
+    else ve = q[12];
+    return ve;
+  }
+  let M;
+  if (q[13] !== de || q[14] !== K)
+    (M = e(o, { children: e(KZ, { lines: de, width: K }) })), (q[13] = de), (q[14] = K), (q[15] = M);
+  else M = q[15];
+  return M;
+});
+export { gx };

@@ -8,5 +8,23 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-class r{resetters=[];lazy(e){let t;return this.resetters.push(()=>{t=void 0}),()=>t??=e()}reset(){for(let e of this.resetters)e()}}var s=new r;function m(e){return s.lazy(e)}
-export{m};
+class r {
+  resetters = [];
+  lazy(e) {
+    let t;
+    return (
+      this.resetters.push(() => {
+        t = void 0;
+      }),
+      () => (t ??= e())
+    );
+  }
+  reset() {
+    for (let e of this.resetters) e();
+  }
+}
+var s = new r();
+function m(e) {
+  return s.lazy(e);
+}
+export { m };

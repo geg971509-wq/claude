@@ -8,5 +8,87 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{st}from"/$bunfs/root/chunk-qcx34e4j.js";import{m}from"/$bunfs/root/chunk-bzx56g36.js";import{b,V}from"/$bunfs/root/chunk-fv016jr6.js";import{wm}from"/$bunfs/root/chunk-492vgtnr.js";import{i,v,H,un,De,N}from"/$bunfs/root/chunk-saay52v7.js";var o=m(()=>un({version:N(1),session_ingress_token:i().min(1),api_base_url:i(),sources:H(un({type:i(),git_info:un({type:i(),repo:i(),ref:i().nullish()}).optional()})).optional().catch(void 0),auth:H(un({type:i(),token:i()})).optional().catch(void 0),claude_code_args:De(i(),i()).optional().catch(void 0),mcp_config:un({content:i(),path:i().optional(),mode:v().optional()}).optional().catch(void 0),environment_variables:De(i(),i()).optional().catch(void 0)})),a={secret_did_not_decode:"Work secret is not valid JSON",unsupported_version:"Unsupported work secret version",missing_session_ingress_token:"Invalid work secret: missing or empty session_ingress_token",missing_api_base_url:"Invalid work secret: missing api_base_url"};class N0e extends Error{verdict;constructor(e){super(a[e]);this.verdict=e;this.name="WorkSecretShapeError"}}function Xot(e){let r;try{r=V(Buffer.from(e,"base64url").toString("utf-8"))}catch{throw new N0e("secret_did_not_decode")}let s=o().safeParse(r);if(s.success)return s.data;let t=new Set(s.error.issues.map((n)=>n.path[0]));if(t.has(void 0)||t.has("version"))throw new N0e("unsupported_version");if(t.has("session_ingress_token"))throw new N0e("missing_session_ingress_token");throw new N0e("missing_api_base_url")}function F0e(e,r){if(e===r)return!0;let s=e.slice(e.lastIndexOf("_")+1),t=r.slice(r.lastIndexOf("_")+1);return s.length>=4&&s===t}function Qse(e,r){return wm(r,"sessionId"),`${e.replace(/\/+$/,"")}/v1/code/sessions/${r}`}async function Ahe(e,r){let s=await st.post(`${e}/worker/register`,{},{headers:{Authorization:`Bearer ${r}`,"Content-Type":"application/json","anthropic-version":"2023-06-01"},timeout:1e4}),t=s.data?.worker_epoch,n=typeof t==="string"?Number(t):t;if(typeof n!=="number"||!Number.isFinite(n)||!Number.isSafeInteger(n))throw Error(`registerWorker: invalid worker_epoch in response: ${b(s.data)}`);return n}
-export{N0e,Xot,F0e,Qse,Ahe};
+import { st } from "/$bunfs/root/chunk-qcx34e4j.js";
+import { m } from "/$bunfs/root/chunk-bzx56g36.js";
+import { b, V } from "/$bunfs/root/chunk-fv016jr6.js";
+import { wm } from "/$bunfs/root/chunk-492vgtnr.js";
+import { i, v, H, un, De, N } from "/$bunfs/root/chunk-saay52v7.js";
+var o = m(() =>
+    un({
+      version: N(1),
+      session_ingress_token: i().min(1),
+      api_base_url: i(),
+      sources: H(un({ type: i(), git_info: un({ type: i(), repo: i(), ref: i().nullish() }).optional() }))
+        .optional()
+        .catch(void 0),
+      auth: H(un({ type: i(), token: i() }))
+        .optional()
+        .catch(void 0),
+      claude_code_args: De(i(), i())
+        .optional()
+        .catch(void 0),
+      mcp_config: un({ content: i(), path: i().optional(), mode: v().optional() })
+        .optional()
+        .catch(void 0),
+      environment_variables: De(i(), i())
+        .optional()
+        .catch(void 0),
+    }),
+  ),
+  a = {
+    secret_did_not_decode: "Work secret is not valid JSON",
+    unsupported_version: "Unsupported work secret version",
+    missing_session_ingress_token: "Invalid work secret: missing or empty session_ingress_token",
+    missing_api_base_url: "Invalid work secret: missing api_base_url",
+  };
+class N0e extends Error {
+  verdict;
+  constructor(e) {
+    super(a[e]);
+    this.verdict = e;
+    this.name = "WorkSecretShapeError";
+  }
+}
+function Xot(e) {
+  let r;
+  try {
+    r = V(Buffer.from(e, "base64url").toString("utf-8"));
+  } catch {
+    throw new N0e("secret_did_not_decode");
+  }
+  let s = o().safeParse(r);
+  if (s.success) return s.data;
+  let t = new Set(s.error.issues.map((n) => n.path[0]));
+  if (t.has(void 0) || t.has("version")) throw new N0e("unsupported_version");
+  if (t.has("session_ingress_token")) throw new N0e("missing_session_ingress_token");
+  throw new N0e("missing_api_base_url");
+}
+function F0e(e, r) {
+  if (e === r) return !0;
+  let s = e.slice(e.lastIndexOf("_") + 1),
+    t = r.slice(r.lastIndexOf("_") + 1);
+  return s.length >= 4 && s === t;
+}
+function Qse(e, r) {
+  return wm(r, "sessionId"), `${e.replace(/\/+$/, "")}/v1/code/sessions/${r}`;
+}
+async function Ahe(e, r) {
+  let s = await st.post(
+      `${e}/worker/register`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${r}`,
+          "Content-Type": "application/json",
+          "anthropic-version": "2023-06-01",
+        },
+        timeout: 1e4,
+      },
+    ),
+    t = s.data?.worker_epoch,
+    n = typeof t === "string" ? Number(t) : t;
+  if (typeof n !== "number" || !Number.isFinite(n) || !Number.isSafeInteger(n))
+    throw Error(`registerWorker: invalid worker_epoch in response: ${b(s.data)}`);
+  return n;
+}
+export { N0e, Xot, F0e, Qse, Ahe };

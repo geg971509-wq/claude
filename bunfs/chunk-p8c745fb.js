@@ -8,5 +8,7 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-var Xr="SendMessage",uTe=200,Qmn=["type","recipient","content","request_id","approve"];
-export{Xr,uTe,Qmn};
+var Xr = "SendMessage",
+  uTe = 200,
+  Qmn = ["type", "recipient", "content", "request_id", "approve"];
+export { Xr, uTe, Qmn };

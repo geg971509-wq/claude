@@ -8,7 +8,14 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-var Knt="/extra-usage is now /usage-credits",YTr=async(a,t)=>{let{call:e}=await import("/$bunfs/root/chunk-ffa6h5h0.js");return{type:"text",value:`/extra-usage is now /usage-credits
+var Knt = "/extra-usage is now /usage-credits",
+  YTr = async (a, t) => {
+    let { call: e } = await import("/$bunfs/root/chunk-ffa6h5h0.js");
+    return {
+      type: "text",
+      value: `/extra-usage is now /usage-credits
 
-${(await e(a,t)).value}`}};
-export{Knt,YTr};
+${(await e(a, t)).value}`,
+    };
+  };
+export { Knt, YTr };

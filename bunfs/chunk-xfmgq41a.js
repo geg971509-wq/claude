@@ -8,5 +8,27 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{jee}from"/$bunfs/root/chunk-zze8764r.js";function AYt(r,t){let e=[...t].sort(),n=jee(r,e.map((a)=>({name:a})),{maxEditDistance:2});if(n)return`No MCP server named "${r}". Did you mean "${n}"? Run \`claude mcp list\` to see all.`;if(e.length===0)return`No MCP server named "${r}". Run \`claude mcp add\` to add one.`;let o=8,s=e.slice(0,o).join(", "),i=e.length>o?` (and ${e.length-o} more \u2014 run \`claude mcp list\` to see all)`:"";return`No MCP server named "${r}". Configured servers: ${s}${i}`}function Unt(r,t,e){if(e&&t.length===0)return`No MCP server named "${r}". ${".mcp.json servers are awaiting approval \u2014 run `claude` in this directory to review them."}`;return AYt(r,t)+(e?` (${".mcp.json servers are awaiting approval \u2014 run `claude` in this directory to review them."})`:"")}
-export{AYt,Unt};
+import { jee } from "/$bunfs/root/chunk-zze8764r.js";
+function AYt(r, t) {
+  let e = [...t].sort(),
+    n = jee(
+      r,
+      e.map((a) => ({ name: a })),
+      { maxEditDistance: 2 },
+    );
+  if (n) return `No MCP server named "${r}". Did you mean "${n}"? Run \`claude mcp list\` to see all.`;
+  if (e.length === 0) return `No MCP server named "${r}". Run \`claude mcp add\` to add one.`;
+  let o = 8,
+    s = e.slice(0, o).join(", "),
+    i = e.length > o ? ` (and ${e.length - o} more \u2014 run \`claude mcp list\` to see all)` : "";
+  return `No MCP server named "${r}". Configured servers: ${s}${i}`;
+}
+function Unt(r, t, e) {
+  if (e && t.length === 0)
+    return `No MCP server named "${r}". ${".mcp.json servers are awaiting approval \u2014 run `claude` in this directory to review them."}`;
+  return (
+    AYt(r, t) +
+    (e ? ` (${".mcp.json servers are awaiting approval \u2014 run `claude` in this directory to review them."})` : "")
+  );
+}
+export { AYt, Unt };

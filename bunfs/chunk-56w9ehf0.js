@@ -8,4 +8,27 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Ir,Er}from"/$bunfs/root/chunk-d7nfr7mk.js";var o=new Set([-32002,Ir.InvalidParams]);function e(n){return n instanceof Er?n.code:void 0}function t(n){return n instanceof Er&&n.code===Ir.MethodNotFound}function i(n){return n instanceof Er&&o.has(n.code)}function c(n){return n instanceof Er&&n.code===Ir.InvalidParams}function u(n){return n instanceof Er&&n.code===Ir.UrlElicitationRequired}export{e as getMcpErrorCode,t as isMcpMethodNotFoundError,c as isMcpNotADirectoryError,i as isMcpResourceNotFoundError,u as isUrlElicitationRequiredMcpError};
+import { Ir, Er } from "/$bunfs/root/chunk-d7nfr7mk.js";
+var o = new Set([-32002, Ir.InvalidParams]);
+function e(n) {
+  return n instanceof Er ? n.code : void 0;
+}
+function t(n) {
+  return n instanceof Er && n.code === Ir.MethodNotFound;
+}
+function i(n) {
+  return n instanceof Er && o.has(n.code);
+}
+function c(n) {
+  return n instanceof Er && n.code === Ir.InvalidParams;
+}
+function u(n) {
+  return n instanceof Er && n.code === Ir.UrlElicitationRequired;
+}
+export {
+  e as getMcpErrorCode,
+  t as isMcpMethodNotFoundError,
+  c as isMcpNotADirectoryError,
+  i as isMcpResourceNotFoundError,
+  u as isUrlElicitationRequiredMcpError,
+};

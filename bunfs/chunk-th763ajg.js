@@ -8,7 +8,120 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import"/$bunfs/root/chunk-qq1mdtb5.js";import"/$bunfs/root/chunk-tx16jn0x.js";import"/$bunfs/root/chunk-gcks6mn0.js";import"/$bunfs/root/chunk-bzx56g36.js";import"/$bunfs/root/chunk-eqdctte5.js";import{Wl,a}from"/$bunfs/root/chunk-fec4384a.js";import"/$bunfs/root/chunk-f9h0bg01.js";import"/$bunfs/root/chunk-qm65zb83.js";import"/$bunfs/root/chunk-vfy57cpd.js";import"/$bunfs/root/chunk-4xj01xwv.js";import"/$bunfs/root/chunk-ypdw393e.js";import{b,ER}from"/$bunfs/root/chunk-fv016jr6.js";import"/$bunfs/root/chunk-qk7r0t2g.js";import"/$bunfs/root/chunk-4ddxwr9r.js";import"/$bunfs/root/chunk-wkxx62a2.js";import"/$bunfs/root/chunk-ps6pc7xd.js";import"/$bunfs/root/chunk-386w1sy8.js";import{Vi}from"/$bunfs/root/chunk-n71q9jb8.js";import"/$bunfs/root/chunk-r53tkxrh.js";import{Zs,Pn}from"/$bunfs/root/chunk-ca80fke8.js";import{Hre,lR,iP}from"/$bunfs/root/chunk-8tgj5dp2.js";import"/$bunfs/root/chunk-amem41jf.js";import"/$bunfs/root/chunk-0pgyw7te.js";import"/$bunfs/root/chunk-ax6dy60b.js";import"/$bunfs/root/chunk-6k63g5t6.js";import"/$bunfs/root/chunk-4fwj3vnx.js";import"/$bunfs/root/chunk-nqmqabr8.js";import"/$bunfs/root/chunk-q14dgq5g.js";import"/$bunfs/root/chunk-f5hrzy3k.js";import"/$bunfs/root/chunk-s7e0px8j.js";import"/$bunfs/root/chunk-s28wf80n.js";import"/$bunfs/root/chunk-3bbym8ct.js";import"/$bunfs/root/chunk-cf8qhmdc.js";import"/$bunfs/root/chunk-2masxyqj.js";import"/$bunfs/root/chunk-rgw52f13.js";import"/$bunfs/root/chunk-2rx5nghb.js";import"/$bunfs/root/chunk-z0z1xzkg.js";import"/$bunfs/root/chunk-c47snwm2.js";import"/$bunfs/root/chunk-jpf4kat5.js";import"/$bunfs/root/chunk-s4vc7est.js";import"/$bunfs/root/chunk-hyh5wcm1.js";import"/$bunfs/root/chunk-ntyhd04p.js";import"/$bunfs/root/chunk-8qsdea2c.js";import"/$bunfs/root/chunk-988p40e0.js";import"/$bunfs/root/chunk-0spqrdaj.js";import"/$bunfs/root/chunk-5rt2mvvk.js";import"/$bunfs/root/chunk-1yr12dqr.js";import"/$bunfs/root/chunk-2mmw62jx.js";import"/$bunfs/root/chunk-z2bvp3sv.js";import"/$bunfs/root/chunk-keb644xg.js";import"/$bunfs/root/chunk-bj904w9w.js";import"/$bunfs/root/chunk-18bck2pp.js";import"/$bunfs/root/chunk-dwwpyy7b.js";import"/$bunfs/root/chunk-jck8t8fq.js";import"/$bunfs/root/chunk-qcx34e4j.js";import"/$bunfs/root/chunk-psdymar6.js";import"/$bunfs/root/chunk-0r9wzh7g.js";import"/$bunfs/root/chunk-sxxp6vcr.js";import"/$bunfs/root/chunk-rf51999f.js";import"/$bunfs/root/chunk-82w4mtvq.js";import"/$bunfs/root/chunk-v7yhn7cf.js";import"/$bunfs/root/chunk-kxyny47c.js";import"/$bunfs/root/chunk-e7rq8w09.js";import"/$bunfs/root/chunk-fbp3w46j.js";import"/$bunfs/root/chunk-gtv2468w.js";import"/$bunfs/root/chunk-4r03fm98.js";import"/$bunfs/root/chunk-s4smmnta.js";import"/$bunfs/root/chunk-z9ex1x2t.js";import"/$bunfs/root/chunk-k4a21mkt.js";import"/$bunfs/root/chunk-4rh74qms.js";import"/$bunfs/root/chunk-r3qa2s4k.js";import"/$bunfs/root/chunk-1evht33z.js";import"/$bunfs/root/chunk-gkfy5ggn.js";import"/$bunfs/root/chunk-qk6zade1.js";import"/$bunfs/root/chunk-4t3vsqt7.js";import"/$bunfs/root/chunk-ejdwrhgv.js";import"/$bunfs/root/chunk-zkvj62rn.js";import"/$bunfs/root/chunk-492vgtnr.js";import"/$bunfs/root/chunk-0g6cj4h1.js";import"/$bunfs/root/chunk-a48rnvhj.js";import"/$bunfs/root/chunk-tzhtxm67.js";import"/$bunfs/root/chunk-mznd09c6.js";import"/$bunfs/root/chunk-ghara6r1.js";import"/$bunfs/root/chunk-97wwdfyx.js";import"/$bunfs/root/chunk-167jjb66.js";import{M1}from"/$bunfs/root/chunk-ck269khx.js";import"/$bunfs/root/chunk-7ghw796y.js";import{av}from"/$bunfs/root/chunk-gpacdhd4.js";import{eae}from"/$bunfs/root/chunk-aq1dyfzt.js";import"/$bunfs/root/chunk-30e2jew7.js";import"/$bunfs/root/chunk-bp3j8sq3.js";import"/$bunfs/root/chunk-qekzccch.js";import"/$bunfs/root/chunk-51qp0385.js";import"/$bunfs/root/chunk-xmz34fj0.js";import{ixe}from"/$bunfs/root/chunk-x0z7cbhc.js";import"/$bunfs/root/chunk-cbn30h5b.js";import"/$bunfs/root/chunk-g01aac1k.js";import"/$bunfs/root/chunk-szz73wxx.js";import"/$bunfs/root/chunk-b40bn863.js";import"/$bunfs/root/chunk-6mgs10s2.js";import"/$bunfs/root/chunk-6s9ybdq1.js";import"/$bunfs/root/chunk-74qqwjhx.js";import"/$bunfs/root/chunk-1hh0bg14.js";import"/$bunfs/root/chunk-052zvbpg.js";import"/$bunfs/root/chunk-werv747a.js";import"/$bunfs/root/chunk-jzh4kg5x.js";import"/$bunfs/root/chunk-7s7jqj2f.js";import"/$bunfs/root/chunk-56sxk8k2.js";import{O}from"/$bunfs/root/chunk-dqkj2bph.js";import"/$bunfs/root/chunk-a4q326ap.js";import{spawnSync as f}from"child_process";function l(e){let r=new URL(e).host;return`You are diagnosing a **self-hosted runner** deployment for Claude Code on the web. Work through the diagnostic categories below, gather evidence with the typed \`self_hosted_runner_*\` read tools (admin-API state, \`/healthz\`, \`/metrics\`, redacted log tail) and Bash for everything else, fix what you can, and escalate cleanly when you can't.
+import "/$bunfs/root/chunk-qq1mdtb5.js";
+import "/$bunfs/root/chunk-tx16jn0x.js";
+import "/$bunfs/root/chunk-gcks6mn0.js";
+import "/$bunfs/root/chunk-bzx56g36.js";
+import "/$bunfs/root/chunk-eqdctte5.js";
+import { Wl, a } from "/$bunfs/root/chunk-fec4384a.js";
+import "/$bunfs/root/chunk-f9h0bg01.js";
+import "/$bunfs/root/chunk-qm65zb83.js";
+import "/$bunfs/root/chunk-vfy57cpd.js";
+import "/$bunfs/root/chunk-4xj01xwv.js";
+import "/$bunfs/root/chunk-ypdw393e.js";
+import { b, ER } from "/$bunfs/root/chunk-fv016jr6.js";
+import "/$bunfs/root/chunk-qk7r0t2g.js";
+import "/$bunfs/root/chunk-4ddxwr9r.js";
+import "/$bunfs/root/chunk-wkxx62a2.js";
+import "/$bunfs/root/chunk-ps6pc7xd.js";
+import "/$bunfs/root/chunk-386w1sy8.js";
+import { Vi } from "/$bunfs/root/chunk-n71q9jb8.js";
+import "/$bunfs/root/chunk-r53tkxrh.js";
+import { Zs, Pn } from "/$bunfs/root/chunk-ca80fke8.js";
+import { Hre, lR, iP } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import "/$bunfs/root/chunk-amem41jf.js";
+import "/$bunfs/root/chunk-0pgyw7te.js";
+import "/$bunfs/root/chunk-ax6dy60b.js";
+import "/$bunfs/root/chunk-6k63g5t6.js";
+import "/$bunfs/root/chunk-4fwj3vnx.js";
+import "/$bunfs/root/chunk-nqmqabr8.js";
+import "/$bunfs/root/chunk-q14dgq5g.js";
+import "/$bunfs/root/chunk-f5hrzy3k.js";
+import "/$bunfs/root/chunk-s7e0px8j.js";
+import "/$bunfs/root/chunk-s28wf80n.js";
+import "/$bunfs/root/chunk-3bbym8ct.js";
+import "/$bunfs/root/chunk-cf8qhmdc.js";
+import "/$bunfs/root/chunk-2masxyqj.js";
+import "/$bunfs/root/chunk-rgw52f13.js";
+import "/$bunfs/root/chunk-2rx5nghb.js";
+import "/$bunfs/root/chunk-z0z1xzkg.js";
+import "/$bunfs/root/chunk-c47snwm2.js";
+import "/$bunfs/root/chunk-jpf4kat5.js";
+import "/$bunfs/root/chunk-s4vc7est.js";
+import "/$bunfs/root/chunk-hyh5wcm1.js";
+import "/$bunfs/root/chunk-ntyhd04p.js";
+import "/$bunfs/root/chunk-8qsdea2c.js";
+import "/$bunfs/root/chunk-988p40e0.js";
+import "/$bunfs/root/chunk-0spqrdaj.js";
+import "/$bunfs/root/chunk-5rt2mvvk.js";
+import "/$bunfs/root/chunk-1yr12dqr.js";
+import "/$bunfs/root/chunk-2mmw62jx.js";
+import "/$bunfs/root/chunk-z2bvp3sv.js";
+import "/$bunfs/root/chunk-keb644xg.js";
+import "/$bunfs/root/chunk-bj904w9w.js";
+import "/$bunfs/root/chunk-18bck2pp.js";
+import "/$bunfs/root/chunk-dwwpyy7b.js";
+import "/$bunfs/root/chunk-jck8t8fq.js";
+import "/$bunfs/root/chunk-qcx34e4j.js";
+import "/$bunfs/root/chunk-psdymar6.js";
+import "/$bunfs/root/chunk-0r9wzh7g.js";
+import "/$bunfs/root/chunk-sxxp6vcr.js";
+import "/$bunfs/root/chunk-rf51999f.js";
+import "/$bunfs/root/chunk-82w4mtvq.js";
+import "/$bunfs/root/chunk-v7yhn7cf.js";
+import "/$bunfs/root/chunk-kxyny47c.js";
+import "/$bunfs/root/chunk-e7rq8w09.js";
+import "/$bunfs/root/chunk-fbp3w46j.js";
+import "/$bunfs/root/chunk-gtv2468w.js";
+import "/$bunfs/root/chunk-4r03fm98.js";
+import "/$bunfs/root/chunk-s4smmnta.js";
+import "/$bunfs/root/chunk-z9ex1x2t.js";
+import "/$bunfs/root/chunk-k4a21mkt.js";
+import "/$bunfs/root/chunk-4rh74qms.js";
+import "/$bunfs/root/chunk-r3qa2s4k.js";
+import "/$bunfs/root/chunk-1evht33z.js";
+import "/$bunfs/root/chunk-gkfy5ggn.js";
+import "/$bunfs/root/chunk-qk6zade1.js";
+import "/$bunfs/root/chunk-4t3vsqt7.js";
+import "/$bunfs/root/chunk-ejdwrhgv.js";
+import "/$bunfs/root/chunk-zkvj62rn.js";
+import "/$bunfs/root/chunk-492vgtnr.js";
+import "/$bunfs/root/chunk-0g6cj4h1.js";
+import "/$bunfs/root/chunk-a48rnvhj.js";
+import "/$bunfs/root/chunk-tzhtxm67.js";
+import "/$bunfs/root/chunk-mznd09c6.js";
+import "/$bunfs/root/chunk-ghara6r1.js";
+import "/$bunfs/root/chunk-97wwdfyx.js";
+import "/$bunfs/root/chunk-167jjb66.js";
+import { M1 } from "/$bunfs/root/chunk-ck269khx.js";
+import "/$bunfs/root/chunk-7ghw796y.js";
+import { av } from "/$bunfs/root/chunk-gpacdhd4.js";
+import { eae } from "/$bunfs/root/chunk-aq1dyfzt.js";
+import "/$bunfs/root/chunk-30e2jew7.js";
+import "/$bunfs/root/chunk-bp3j8sq3.js";
+import "/$bunfs/root/chunk-qekzccch.js";
+import "/$bunfs/root/chunk-51qp0385.js";
+import "/$bunfs/root/chunk-xmz34fj0.js";
+import { ixe } from "/$bunfs/root/chunk-x0z7cbhc.js";
+import "/$bunfs/root/chunk-cbn30h5b.js";
+import "/$bunfs/root/chunk-g01aac1k.js";
+import "/$bunfs/root/chunk-szz73wxx.js";
+import "/$bunfs/root/chunk-b40bn863.js";
+import "/$bunfs/root/chunk-6mgs10s2.js";
+import "/$bunfs/root/chunk-6s9ybdq1.js";
+import "/$bunfs/root/chunk-74qqwjhx.js";
+import "/$bunfs/root/chunk-1hh0bg14.js";
+import "/$bunfs/root/chunk-052zvbpg.js";
+import "/$bunfs/root/chunk-werv747a.js";
+import "/$bunfs/root/chunk-jzh4kg5x.js";
+import "/$bunfs/root/chunk-7s7jqj2f.js";
+import "/$bunfs/root/chunk-56sxk8k2.js";
+import { O } from "/$bunfs/root/chunk-dqkj2bph.js";
+import "/$bunfs/root/chunk-a4q326ap.js";
+import { spawnSync as f } from "child_process";
+function l(e) {
+  let r = new URL(e).host;
+  return `You are diagnosing a **self-hosted runner** deployment for Claude Code on the web. Work through the diagnostic categories below, gather evidence with the typed \`self_hosted_runner_*\` read tools (admin-API state, \`/healthz\`, \`/metrics\`, redacted log tail) and Bash for everything else, fix what you can, and escalate cleanly when you can't.
 
 ## Step 0 \u2014 Detect context
 
@@ -152,7 +265,31 @@ When you can't fix it, or the operator asks to escalate:
    > Diagnostic bundle: \`./runner-diag-<ts>.tar.gz\`
    > Please review it (open the tarball \u2014 no secrets should be present), then share it with Anthropic via your shared Slack Connect channel or account team.
 
-**Never auto-upload customer logs.** The operator reviews and sends.`}var g=["Bash","Read","Write","TodoWrite","TaskCreate","TaskGet","TaskList","TaskUpdate","self_hosted_runner_get_pool","self_hosted_runner_list_runners","self_hosted_runner_list_sessions","self_hosted_runner_list_secrets","self_hosted_runner_read_health","self_hosted_runner_read_metrics","self_hosted_runner_tail_log","self_hosted_runner_requeue_session"].join(","),m="Start the self-hosted runner doctor wizard. Greet me, then ask me to describe the symptom or pick from the 8 diagnostic categories. Work through it one step at a time.";async function z(e,r){if(e.includes("--help")||e.includes("-h")){console.log(`Usage: claude self-hosted-runner doctor [args...]
+**Never auto-upload customer logs.** The operator reviews and sends.`;
+}
+var g = [
+    "Bash",
+    "Read",
+    "Write",
+    "TodoWrite",
+    "TaskCreate",
+    "TaskGet",
+    "TaskList",
+    "TaskUpdate",
+    "self_hosted_runner_get_pool",
+    "self_hosted_runner_list_runners",
+    "self_hosted_runner_list_sessions",
+    "self_hosted_runner_list_secrets",
+    "self_hosted_runner_read_health",
+    "self_hosted_runner_read_metrics",
+    "self_hosted_runner_tail_log",
+    "self_hosted_runner_requeue_session",
+  ].join(","),
+  m =
+    "Start the self-hosted runner doctor wizard. Greet me, then ask me to describe the symptom or pick from the 8 diagnostic categories. Work through it one step at a time.";
+async function z(e, r) {
+  if (e.includes("--help") || e.includes("-h")) {
+    console.log(`Usage: claude self-hosted-runner doctor [args...]
 
 Interactive wizard: diagnoses a self-hosted runner deployment. Walks the
 diagnostic decision tree (auth chain, network, lifecycle, session
@@ -160,4 +297,51 @@ execution, queue, version, observability), gathers evidence
 from /healthz, runner logs, and the admin API, fixes what it can, and
 generates a redacted diagnostic bundle for escalation.
 
-Any extra args are passed to the underlying Claude Code session.`);return}await ixe(r),M1();let o=av(r);if(Hre(o),O()&&o!==void 0){ER({storageV5:o}),lR(o);let[{composePolicyLimitsClient:n,primePolicyLimitsCache:d},{credentialsStoreFor:u},{primeFastPathCredentials:p}]=await Promise.all([import("/$bunfs/root/chunk-qvdq8j6c.js"),import("/$bunfs/root/chunk-gbqdry83.js"),import("/$bunfs/root/chunk-f9k2gea5.js")]);n({storageV5:o}),await p(u(o)),await d(o),await iP(o)}let s=l(eae()),h=Wl()?[]:[process.argv[1]],c=e.length>0&&!e[0].startsWith("-")?[]:[m],i=[...h,...c,"--append-system-prompt",s,"--tools",g,"--permission-mode","default",...e];if(a.DEBUG)console.error("[self-hosted-runner:doctor] spawning:",b({argv:[process.execPath,...i.map((n)=>n===s?`<${s.length} chars>`:n)]}));let t=f(process.execPath,i,{stdio:"inherit"});if(t.error)return console.error(`[self-hosted-runner:doctor] failed to spawn child: ${t.error.message}`),await Pn("cli_self_hosted_doctor","spawn_failed"),Vi(1);if(t.status!==null&&t.status!==0||t.signal)console.error(`[self-hosted-runner:doctor] child exited with status ${t.status??"(null)"}${t.signal?`, signal ${t.signal}`:""}`),await Pn("cli_self_hosted_doctor",t.signal?"child_signal":"child_nonzero");else await Zs("cli_self_hosted_doctor");return console.error("[self-hosted-runner:doctor] To continue diagnosis, re-run `claude self-hosted-runner doctor` \u2014 resuming the session with `claude --resume`/`-c` will not re-enable the doctor tools."),Vi(t.status!==null?t.status:1)}export{z as selfHostedRunnerDoctorMain};
+Any extra args are passed to the underlying Claude Code session.`);
+    return;
+  }
+  await ixe(r), M1();
+  let o = av(r);
+  if ((Hre(o), O() && o !== void 0)) {
+    ER({ storageV5: o }), lR(o);
+    let [
+      { composePolicyLimitsClient: n, primePolicyLimitsCache: d },
+      { credentialsStoreFor: u },
+      { primeFastPathCredentials: p },
+    ] = await Promise.all([
+      import("/$bunfs/root/chunk-qvdq8j6c.js"),
+      import("/$bunfs/root/chunk-gbqdry83.js"),
+      import("/$bunfs/root/chunk-f9k2gea5.js"),
+    ]);
+    n({ storageV5: o }), await p(u(o)), await d(o), await iP(o);
+  }
+  let s = l(eae()),
+    h = Wl() ? [] : [process.argv[1]],
+    c = e.length > 0 && !e[0].startsWith("-") ? [] : [m],
+    i = [...h, ...c, "--append-system-prompt", s, "--tools", g, "--permission-mode", "default", ...e];
+  if (a.DEBUG)
+    console.error(
+      "[self-hosted-runner:doctor] spawning:",
+      b({ argv: [process.execPath, ...i.map((n) => (n === s ? `<${s.length} chars>` : n))] }),
+    );
+  let t = f(process.execPath, i, { stdio: "inherit" });
+  if (t.error)
+    return (
+      console.error(`[self-hosted-runner:doctor] failed to spawn child: ${t.error.message}`),
+      await Pn("cli_self_hosted_doctor", "spawn_failed"),
+      Vi(1)
+    );
+  if ((t.status !== null && t.status !== 0) || t.signal)
+    console.error(
+      `[self-hosted-runner:doctor] child exited with status ${t.status ?? "(null)"}${t.signal ? `, signal ${t.signal}` : ""}`,
+    ),
+      await Pn("cli_self_hosted_doctor", t.signal ? "child_signal" : "child_nonzero");
+  else await Zs("cli_self_hosted_doctor");
+  return (
+    console.error(
+      "[self-hosted-runner:doctor] To continue diagnosis, re-run `claude self-hosted-runner doctor` \u2014 resuming the session with `claude --resume`/`-c` will not re-enable the doctor tools.",
+    ),
+    Vi(t.status !== null ? t.status : 1)
+  );
+}
+export { z as selfHostedRunnerDoctorMain };

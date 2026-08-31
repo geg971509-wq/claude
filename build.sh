@@ -93,7 +93,7 @@ function rewrite(text, from) {
     .replace(/\bue\((["'])\/\$bunfs\/root\/([^"']+\.(?:md|txt))\1\)/g, (all, _quote, target) =>
       textResources.has(target) ? JSON.stringify(textResources.get(target)) : all,
     )
-    .replace(/import\.meta\.require\((["'])\/\$bunfs\/root\/([^"']+\.js)\1\)/g, (all, _quote, target) =>
+    .replace(/import\.meta\s*\.require\(\s*(["'])\/\$bunfs\/root\/([^"']+\.js)\1\s*,?\s*\)/g, (all, _quote, target) =>
       moduleMap.has(target) ? `require(${JSON.stringify(relativeModule(from, moduleMap.get(target)))})` : all,
     )
     .replace(/((?:from|import)\s*(?:\(\s*)?)(["'])\/\$bunfs\/root\/([^"']+\.js)\2/g, (all, head, quote, target) =>

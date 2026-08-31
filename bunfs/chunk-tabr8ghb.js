@@ -8,5 +8,9 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-var Do="Skill",Hne="skill__";function HYn(l){return"skill__"+l.replaceAll(":","__").replace(/[^a-zA-Z0-9_-]/g,"_")}
-export{Do,Hne,HYn};
+var Do = "Skill",
+  Hne = "skill__";
+function HYn(l) {
+  return "skill__" + l.replaceAll(":", "__").replace(/[^a-zA-Z0-9_-]/g, "_");
+}
+export { Do, Hne, HYn };

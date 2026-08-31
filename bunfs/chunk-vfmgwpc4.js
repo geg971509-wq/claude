@@ -8,5 +8,117 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{_}from"/$bunfs/root/chunk-haan6f8z.js";import{M}from"/$bunfs/root/chunk-y2r26k83.js";import{o,t}from"/$bunfs/root/chunk-he2phymk.js";import{Pe}from"/$bunfs/root/chunk-q903htrr.js";import{i_}from"/$bunfs/root/chunk-57xdxj10.js";import{kdt,bSe}from"/$bunfs/root/chunk-zze8764r.js";import{Gj}from"/$bunfs/root/chunk-hw3pw1fv.js";import{U,e,r}from"/$bunfs/root/chunk-8s7kcbyw.js";import{d,fn}from"/$bunfs/root/chunk-yz031c9r.js";function P(n){if(!n.match(/<sandbox_violations>([\s\S]*?)<\/sandbox_violations>/))return{cleanedStderr:n};return{cleanedStderr:bSe(n).trim()}}function V(n){let s=n.match(kdt);if(!s)return{cleanedStderr:n,cwdResetWarning:null};let f=s[1]??null;return{cleanedStderr:n.replace(kdt,"").trim(),cwdResetWarning:f}}function gq(Y){let c=_(34),{content:Z,verbose:m,timeoutMs:S}=Y,{stdout:I,stderr:L,isImage:w,returnCodeInterpretation:B,noOutputExpected:y,backgroundTaskId:D}=Z,i=I===void 0?"":I,N=L===void 0?"":L,R,a,u,b,g,v,O;if(c[0]!==w||c[1]!==N||c[2]!==i||c[3]!==m){O=fn;bb0:{let{cleanedStderr:tt}=P(N);({cleanedStderr:u,cwdResetWarning:a}=V(tt));if(w){let l;if(c[11]===d)l=e(Pe,{height:1,children:e(t,{dimColor:!0,children:"[Image data detected and sent to Claude]"})}),c[11]=l;else l=c[11];O=l;break bb0}R=o;b="column";if(c[12]!==i||c[13]!==m)g=i!==""?e(i_,{content:i,verbose:m}):null,c[12]=i,c[13]=m,c[14]=g;else g=c[14];v=u.trim()!==""?e(i_,{content:u,verbose:m,isError:!0}):null}c[0]=w,c[1]=N,c[2]=i,c[3]=m,c[4]=R,c[5]=a,c[6]=u,c[7]=b,c[8]=g,c[9]=v,c[10]=O}else R=c[4],a=c[5],u=c[6],b=c[7],g=c[8],v=c[9],O=c[10];if(O!==fn)return O;let l;if(c[15]!==a)l=a?e(Pe,{children:e(t,{dimColor:!0,children:a})}):null,c[15]=a,c[16]=l;else l=c[16];let x;if(c[17]!==D||c[18]!==a||c[19]!==y||c[20]!==B||c[21]!==u||c[22]!==i)x=i===""&&u.trim()===""&&!a?e(Pe,{height:1,children:e(t,{dimColor:!0,children:D?r(U,{children:["Running in the background"," ",e(M,{chord:"down",action:"manage",parens:!0})]}):B||(y?"Done":"(No output)")})}):null,c[17]=D,c[18]=a,c[19]=y,c[20]=B,c[21]=u,c[22]=i,c[23]=x;else x=c[23];let T;if(c[24]!==S)T=S&&e(Pe,{children:e(Gj,{timeoutMs:S})}),c[24]=S,c[25]=T;else T=c[25];let j;if(c[26]!==R||c[27]!==T||c[28]!==b||c[29]!==g||c[30]!==v||c[31]!==l||c[32]!==x)j=r(R,{flexDirection:b,children:[g,v,l,x,T]}),c[26]=R,c[27]=T,c[28]=b,c[29]=g,c[30]=v,c[31]=l,c[32]=x,c[33]=j;else j=c[33];return j}
-export{gq};
+import { _ } from "/$bunfs/root/chunk-haan6f8z.js";
+import { M } from "/$bunfs/root/chunk-y2r26k83.js";
+import { o, t } from "/$bunfs/root/chunk-he2phymk.js";
+import { Pe } from "/$bunfs/root/chunk-q903htrr.js";
+import { i_ } from "/$bunfs/root/chunk-57xdxj10.js";
+import { kdt, bSe } from "/$bunfs/root/chunk-zze8764r.js";
+import { Gj } from "/$bunfs/root/chunk-hw3pw1fv.js";
+import { U, e, r } from "/$bunfs/root/chunk-8s7kcbyw.js";
+import { d, fn } from "/$bunfs/root/chunk-yz031c9r.js";
+function P(n) {
+  if (!n.match(/<sandbox_violations>([\s\S]*?)<\/sandbox_violations>/)) return { cleanedStderr: n };
+  return { cleanedStderr: bSe(n).trim() };
+}
+function V(n) {
+  let s = n.match(kdt);
+  if (!s) return { cleanedStderr: n, cwdResetWarning: null };
+  let f = s[1] ?? null;
+  return { cleanedStderr: n.replace(kdt, "").trim(), cwdResetWarning: f };
+}
+function gq(Y) {
+  let c = _(34),
+    { content: Z, verbose: m, timeoutMs: S } = Y,
+    { stdout: I, stderr: L, isImage: w, returnCodeInterpretation: B, noOutputExpected: y, backgroundTaskId: D } = Z,
+    i = I === void 0 ? "" : I,
+    N = L === void 0 ? "" : L,
+    R,
+    a,
+    u,
+    b,
+    g,
+    v,
+    O;
+  if (c[0] !== w || c[1] !== N || c[2] !== i || c[3] !== m) {
+    O = fn;
+    bb0: {
+      let { cleanedStderr: tt } = P(N);
+      ({ cleanedStderr: u, cwdResetWarning: a } = V(tt));
+      if (w) {
+        let l;
+        if (c[11] === d)
+          (l = e(Pe, {
+            height: 1,
+            children: e(t, { dimColor: !0, children: "[Image data detected and sent to Claude]" }),
+          })),
+            (c[11] = l);
+        else l = c[11];
+        O = l;
+        break bb0;
+      }
+      R = o;
+      b = "column";
+      if (c[12] !== i || c[13] !== m)
+        (g = i !== "" ? e(i_, { content: i, verbose: m }) : null), (c[12] = i), (c[13] = m), (c[14] = g);
+      else g = c[14];
+      v = u.trim() !== "" ? e(i_, { content: u, verbose: m, isError: !0 }) : null;
+    }
+    (c[0] = w),
+      (c[1] = N),
+      (c[2] = i),
+      (c[3] = m),
+      (c[4] = R),
+      (c[5] = a),
+      (c[6] = u),
+      (c[7] = b),
+      (c[8] = g),
+      (c[9] = v),
+      (c[10] = O);
+  } else (R = c[4]), (a = c[5]), (u = c[6]), (b = c[7]), (g = c[8]), (v = c[9]), (O = c[10]);
+  if (O !== fn) return O;
+  let l;
+  if (c[15] !== a) (l = a ? e(Pe, { children: e(t, { dimColor: !0, children: a }) }) : null), (c[15] = a), (c[16] = l);
+  else l = c[16];
+  let x;
+  if (c[17] !== D || c[18] !== a || c[19] !== y || c[20] !== B || c[21] !== u || c[22] !== i)
+    (x =
+      i === "" && u.trim() === "" && !a
+        ? e(Pe, {
+            height: 1,
+            children: e(t, {
+              dimColor: !0,
+              children: D
+                ? r(U, {
+                    children: ["Running in the background", " ", e(M, { chord: "down", action: "manage", parens: !0 })],
+                  })
+                : B || (y ? "Done" : "(No output)"),
+            }),
+          })
+        : null),
+      (c[17] = D),
+      (c[18] = a),
+      (c[19] = y),
+      (c[20] = B),
+      (c[21] = u),
+      (c[22] = i),
+      (c[23] = x);
+  else x = c[23];
+  let T;
+  if (c[24] !== S) (T = S && e(Pe, { children: e(Gj, { timeoutMs: S }) })), (c[24] = S), (c[25] = T);
+  else T = c[25];
+  let j;
+  if (c[26] !== R || c[27] !== T || c[28] !== b || c[29] !== g || c[30] !== v || c[31] !== l || c[32] !== x)
+    (j = r(R, { flexDirection: b, children: [g, v, l, x, T] })),
+      (c[26] = R),
+      (c[27] = T),
+      (c[28] = b),
+      (c[29] = g),
+      (c[30] = v),
+      (c[31] = l),
+      (c[32] = x),
+      (c[33] = j);
+  else j = c[33];
+  return j;
+}
+export { gq };

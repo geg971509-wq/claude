@@ -8,5 +8,7 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-var kK="cloudPluginsForwarded",MLn=["enabledPlugins","extraKnownMarketplaces"],fBe="plugin_forwarding_disabled";
-export{kK,MLn,fBe};
+var kK = "cloudPluginsForwarded",
+  MLn = ["enabledPlugins", "extraKnownMarketplaces"],
+  fBe = "plugin_forwarding_disabled";
+export { kK, MLn, fBe };

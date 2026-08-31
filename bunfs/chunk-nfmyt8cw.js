@@ -8,5 +8,192 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{rc}from"/$bunfs/root/chunk-f9h0bg01.js";import{oi,Ad,Tr,_Ye}from"/$bunfs/root/chunk-492vgtnr.js";import{n}from"/$bunfs/root/chunk-fv016jr6.js";import{QS,QEe,Ebt,M3}from"/$bunfs/root/chunk-8tgj5dp2.js";import{sd}from"/$bunfs/root/chunk-1yr12dqr.js";import{_St,ySt}from"/$bunfs/root/chunk-dc4hb8f7.js";function a(e,i){let t=oi().dropSenderWriterByHandle;if(e!==null&&e!==i){let o=t.get(e);if(o)ySt(o)}if(i!==null&&i!==e&&!i.outboundOnly){let o=t.get(i);if(!o)o=(s)=>{i.writeSdkMessages([s])},t.set(i,o);_St(o)}}function RVe(e,i){let t=oi(),o=f(e),s=t.sdkHostedHandle;t.sdkHostedHandle=o,Ebt(o?Ad(o.bridgeSessionId):null,i).catch(()=>{}),t.lastReportedPermissionMode=void 0,t.lastKnownPermissionMode=void 0,t.lastReportedEffort=void 0,t.lastKnownEffort=void 0,t.lastReportedCrossSessionInbound=void 0,t.lastKnownCrossSessionInbound=void 0,a(s,o)}function PF(){return oi().sdkHostedHandle}function Vgt(e,i){let t=oi(),o=f(e),s=t.replHandle;t.replHandle=o,t.lastReportedPermissionMode=void 0,t.lastKnownPermissionMode=void 0,t.lastReportedEffort=void 0,t.lastKnownEffort=void 0,t.lastReportedCrossSessionInbound=void 0,t.lastKnownCrossSessionInbound=void 0,a(s,o);let r=o?Ad(o.bridgeSessionId):void 0;if(r!==void 0)process.env.CLAUDE_CODE_BRIDGE_SESSION_ID=r;else delete process.env.CLAUDE_CODE_BRIDGE_SESSION_ID;Ebt(r??null,i).catch(()=>{});let d=s!==null&&!s.outboundOnly,l=o!==null&&!o.outboundOnly;if(d!==l||d&&l&&s?.bridgeSessionId!==o?.bridgeSessionId)M3()}function Oa(){return oi().replHandle}function w6t(e,i){let t=oi();if(t.retiredHandles.add(e),t.replHandle===e)Vgt(null,i);if(t.sdkHostedHandle===e)RVe(null,i)}function cne(e,i){let t=oi(),o=t.replHandle??t.sdkHostedHandle;if(!o||o.outboundOnly)return;if(t.lastKnownPermissionMode=e,e==="bypassPermissions")return;let s=sd(e);if(t.lastReportedPermissionMode===s)return;t.lastReportedPermissionMode=s,o.reportMetadata({permission_mode:s,...i!==void 0&&{is_ultraplan_mode:i}})}function Vfn(){let e=oi();if(e.lastReportedPermissionMode=void 0,e.lastKnownPermissionMode!==void 0)cne(e.lastKnownPermissionMode)}function Kfn(e,i,t){let o=_Ye(e);if(!o)n("[bridge] supervised session id refused (not a safe bridge id) \u2014 this child has no Remote Control identity for the peer surface",{level:"warn"});oi().supervisedBridgeSession=o?{bridgeSessionId:e,owner:t,selfTitle:void 0}:null,Ebt(o?Ad(e):null,i).catch(()=>{})}function jCr(){return oi().supervisedBridgeSession?.bridgeSessionId}function Xfn(e){let i=oi().supervisedBridgeSession;if(i===null||Oa()!==null||PF()!==null)return;i.selfTitle=p(e)}function p(e){return typeof e==="string"&&QS(e)!==""?e:void 0}function u(e){let i=a_r(),t=oi(),o=t.peerIdentityKey;if(o!==null&&o.host===e&&o.credential===i)return o;let s={host:e,credential:i};return t.peerIdentityKey=s,s}function a_r(){let{sameOwnerAccount:e}=import.meta.require("/$bunfs/root/chunk-r7k9wyxs.js"),i=c(),t=oi(),o=t.walkCredentialKey;if(o!==null&&e(o.owner,i))return o;let s={owner:i};return t.walkCredentialKey=s,s}function c(){let{sessionsApiBearerFingerprint:e}=import.meta.require("/$bunfs/root/chunk-f3y3fqnb.js"),{getStoredOauthAccountInfo:i}=import.meta.require("/$bunfs/root/chunk-r7k9wyxs.js"),{env:t}=import.meta.require("/$bunfs/root/chunk-8qwqm1zf.js"),o=e();return{accountUuid:o?`bearer:${o}`:void 0,organizationUuid:t.CLAUDE_CODE_ORGANIZATION_UUID||i()?.organizationUuid}}async function Yfn({refresh:e,credentials:i}){let{isCrossSessionMessagingEnabled:t}=import.meta.require("/$bunfs/root/chunk-gcqd14q9.js");if(!t())return;if(!(Oa()!==null||PF()!==null||oi().supervisedBridgeSession!==null)){let{hasCloudPeerAccess:l}=import.meta.require("/$bunfs/root/chunk-n0j43nf0.js");if(!l())return}let{primeSessionsApiBearer:s}=import.meta.require("/$bunfs/root/chunk-f3y3fqnb.js"),r=s({refresh:e,credentials:i}).catch(()=>{});if(e){await r;return}let{withDeadline:d}=import.meta.require("/$bunfs/root/chunk-j3e3xnzy.js");await d(r,g)}var g=750;function jwe(){let e=Oa()??PF();if(e)return{key:u(e),bridgeSessionId:e.bridgeSessionId,selfTitle:e.selfTitle,live:rc()};let i=oi().supervisedBridgeSession;return i?{key:u(i),bridgeSessionId:i.bridgeSessionId,selfTitle:i.selfTitle,live:!0}:null}function dOe(e){let i=oi(),t=i.replHandle??i.sdkHostedHandle;if(!t||t.outboundOnly)return;i.lastKnownCrossSessionInbound=e;let o=e?"available":"unavailable";if(i.lastReportedCrossSessionInbound===o)return;i.lastReportedCrossSessionInbound=o,t.reportMetadata({cross_session_inbound:o})}function Jfn(){let e=oi();if(e.lastReportedCrossSessionInbound=void 0,e.lastKnownCrossSessionInbound!==void 0)dOe(e.lastKnownCrossSessionInbound)}function Kgt(){let e=jwe();return e?Ad(e.bridgeSessionId):void 0}function kVe(){let e=Kgt();return e?QEe(e):void 0}function Qfn(){let e=Oa();return e&&!e.outboundOnly?Ad(e.bridgeSessionId):void 0}function Zfn(){return jwe()?.selfTitle}function une(e,i){let t=Oa()??PF();if(t&&Tr(t.bridgeSessionId)===Tr(e))t.selfTitle=p(i)}function f(e){return e!==null&&oi().retiredHandles.has(e)?null:e}
-export{RVe,PF,Vgt,Oa,w6t,cne,Vfn,Kfn,jCr,Xfn,a_r,Yfn,jwe,dOe,Jfn,Kgt,kVe,Qfn,Zfn,une};
+import { rc } from "/$bunfs/root/chunk-f9h0bg01.js";
+import { oi, Ad, Tr, _Ye } from "/$bunfs/root/chunk-492vgtnr.js";
+import { n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { QS, QEe, Ebt, M3 } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { sd } from "/$bunfs/root/chunk-1yr12dqr.js";
+import { _St, ySt } from "/$bunfs/root/chunk-dc4hb8f7.js";
+function a(e, i) {
+  let t = oi().dropSenderWriterByHandle;
+  if (e !== null && e !== i) {
+    let o = t.get(e);
+    if (o) ySt(o);
+  }
+  if (i !== null && i !== e && !i.outboundOnly) {
+    let o = t.get(i);
+    if (!o)
+      (o = (s) => {
+        i.writeSdkMessages([s]);
+      }),
+        t.set(i, o);
+    _St(o);
+  }
+}
+function RVe(e, i) {
+  let t = oi(),
+    o = f(e),
+    s = t.sdkHostedHandle;
+  (t.sdkHostedHandle = o),
+    Ebt(o ? Ad(o.bridgeSessionId) : null, i).catch(() => {}),
+    (t.lastReportedPermissionMode = void 0),
+    (t.lastKnownPermissionMode = void 0),
+    (t.lastReportedEffort = void 0),
+    (t.lastKnownEffort = void 0),
+    (t.lastReportedCrossSessionInbound = void 0),
+    (t.lastKnownCrossSessionInbound = void 0),
+    a(s, o);
+}
+function PF() {
+  return oi().sdkHostedHandle;
+}
+function Vgt(e, i) {
+  let t = oi(),
+    o = f(e),
+    s = t.replHandle;
+  (t.replHandle = o),
+    (t.lastReportedPermissionMode = void 0),
+    (t.lastKnownPermissionMode = void 0),
+    (t.lastReportedEffort = void 0),
+    (t.lastKnownEffort = void 0),
+    (t.lastReportedCrossSessionInbound = void 0),
+    (t.lastKnownCrossSessionInbound = void 0),
+    a(s, o);
+  let r = o ? Ad(o.bridgeSessionId) : void 0;
+  if (r !== void 0) process.env.CLAUDE_CODE_BRIDGE_SESSION_ID = r;
+  else delete process.env.CLAUDE_CODE_BRIDGE_SESSION_ID;
+  Ebt(r ?? null, i).catch(() => {});
+  let d = s !== null && !s.outboundOnly,
+    l = o !== null && !o.outboundOnly;
+  if (d !== l || (d && l && s?.bridgeSessionId !== o?.bridgeSessionId)) M3();
+}
+function Oa() {
+  return oi().replHandle;
+}
+function w6t(e, i) {
+  let t = oi();
+  if ((t.retiredHandles.add(e), t.replHandle === e)) Vgt(null, i);
+  if (t.sdkHostedHandle === e) RVe(null, i);
+}
+function cne(e, i) {
+  let t = oi(),
+    o = t.replHandle ?? t.sdkHostedHandle;
+  if (!o || o.outboundOnly) return;
+  if (((t.lastKnownPermissionMode = e), e === "bypassPermissions")) return;
+  let s = sd(e);
+  if (t.lastReportedPermissionMode === s) return;
+  (t.lastReportedPermissionMode = s),
+    o.reportMetadata({ permission_mode: s, ...(i !== void 0 && { is_ultraplan_mode: i }) });
+}
+function Vfn() {
+  let e = oi();
+  if (((e.lastReportedPermissionMode = void 0), e.lastKnownPermissionMode !== void 0)) cne(e.lastKnownPermissionMode);
+}
+function Kfn(e, i, t) {
+  let o = _Ye(e);
+  if (!o)
+    n(
+      "[bridge] supervised session id refused (not a safe bridge id) \u2014 this child has no Remote Control identity for the peer surface",
+      { level: "warn" },
+    );
+  (oi().supervisedBridgeSession = o ? { bridgeSessionId: e, owner: t, selfTitle: void 0 } : null),
+    Ebt(o ? Ad(e) : null, i).catch(() => {});
+}
+function jCr() {
+  return oi().supervisedBridgeSession?.bridgeSessionId;
+}
+function Xfn(e) {
+  let i = oi().supervisedBridgeSession;
+  if (i === null || Oa() !== null || PF() !== null) return;
+  i.selfTitle = p(e);
+}
+function p(e) {
+  return typeof e === "string" && QS(e) !== "" ? e : void 0;
+}
+function u(e) {
+  let i = a_r(),
+    t = oi(),
+    o = t.peerIdentityKey;
+  if (o !== null && o.host === e && o.credential === i) return o;
+  let s = { host: e, credential: i };
+  return (t.peerIdentityKey = s), s;
+}
+function a_r() {
+  let { sameOwnerAccount: e } = import.meta.require("/$bunfs/root/chunk-r7k9wyxs.js"),
+    i = c(),
+    t = oi(),
+    o = t.walkCredentialKey;
+  if (o !== null && e(o.owner, i)) return o;
+  let s = { owner: i };
+  return (t.walkCredentialKey = s), s;
+}
+function c() {
+  let { sessionsApiBearerFingerprint: e } = import.meta.require("/$bunfs/root/chunk-f3y3fqnb.js"),
+    { getStoredOauthAccountInfo: i } = import.meta.require("/$bunfs/root/chunk-r7k9wyxs.js"),
+    { env: t } = import.meta.require("/$bunfs/root/chunk-8qwqm1zf.js"),
+    o = e();
+  return {
+    accountUuid: o ? `bearer:${o}` : void 0,
+    organizationUuid: t.CLAUDE_CODE_ORGANIZATION_UUID || i()?.organizationUuid,
+  };
+}
+async function Yfn({ refresh: e, credentials: i }) {
+  let { isCrossSessionMessagingEnabled: t } = import.meta.require("/$bunfs/root/chunk-gcqd14q9.js");
+  if (!t()) return;
+  if (!(Oa() !== null || PF() !== null || oi().supervisedBridgeSession !== null)) {
+    let { hasCloudPeerAccess: l } = import.meta.require("/$bunfs/root/chunk-n0j43nf0.js");
+    if (!l()) return;
+  }
+  let { primeSessionsApiBearer: s } = import.meta.require("/$bunfs/root/chunk-f3y3fqnb.js"),
+    r = s({ refresh: e, credentials: i }).catch(() => {});
+  if (e) {
+    await r;
+    return;
+  }
+  let { withDeadline: d } = import.meta.require("/$bunfs/root/chunk-j3e3xnzy.js");
+  await d(r, g);
+}
+var g = 750;
+function jwe() {
+  let e = Oa() ?? PF();
+  if (e) return { key: u(e), bridgeSessionId: e.bridgeSessionId, selfTitle: e.selfTitle, live: rc() };
+  let i = oi().supervisedBridgeSession;
+  return i ? { key: u(i), bridgeSessionId: i.bridgeSessionId, selfTitle: i.selfTitle, live: !0 } : null;
+}
+function dOe(e) {
+  let i = oi(),
+    t = i.replHandle ?? i.sdkHostedHandle;
+  if (!t || t.outboundOnly) return;
+  i.lastKnownCrossSessionInbound = e;
+  let o = e ? "available" : "unavailable";
+  if (i.lastReportedCrossSessionInbound === o) return;
+  (i.lastReportedCrossSessionInbound = o), t.reportMetadata({ cross_session_inbound: o });
+}
+function Jfn() {
+  let e = oi();
+  if (((e.lastReportedCrossSessionInbound = void 0), e.lastKnownCrossSessionInbound !== void 0))
+    dOe(e.lastKnownCrossSessionInbound);
+}
+function Kgt() {
+  let e = jwe();
+  return e ? Ad(e.bridgeSessionId) : void 0;
+}
+function kVe() {
+  let e = Kgt();
+  return e ? QEe(e) : void 0;
+}
+function Qfn() {
+  let e = Oa();
+  return e && !e.outboundOnly ? Ad(e.bridgeSessionId) : void 0;
+}
+function Zfn() {
+  return jwe()?.selfTitle;
+}
+function une(e, i) {
+  let t = Oa() ?? PF();
+  if (t && Tr(t.bridgeSessionId) === Tr(e)) t.selfTitle = p(i);
+}
+function f(e) {
+  return e !== null && oi().retiredHandles.has(e) ? null : e;
+}
+export { RVe, PF, Vgt, Oa, w6t, cne, Vfn, Kfn, jCr, Xfn, a_r, Yfn, jwe, dOe, Jfn, Kgt, kVe, Qfn, Zfn, une };

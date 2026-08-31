@@ -8,7 +8,26 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{sc}from"/$bunfs/root/chunk-vfy57cpd.js";import{gr,w_}from"/$bunfs/root/chunk-dck778n3.js";import{eSe,rT,Qc,xe,zr}from"/$bunfs/root/chunk-zze8764r.js";import{hp}from"/$bunfs/root/chunk-dc4hb8f7.js";var b=/^\/btw\b/gi;function SXt(t){let r=[],n=t.matchAll(b);for(let e of n)if(e.index!==void 0)r.push({word:e[0],start:e.index,end:e.index+e[0].length});return r}async function rke({question:t,cacheSafeParams:r,parentController:n,onRetry:e,threadHistory:s=!0,history:a}){let f=`<system-reminder>This is a side question from the user. You must answer this question directly in a single response.
+import { sc } from "/$bunfs/root/chunk-vfy57cpd.js";
+import { gr, w_ } from "/$bunfs/root/chunk-dck778n3.js";
+import { eSe, rT, Qc, xe, zr } from "/$bunfs/root/chunk-zze8764r.js";
+import { hp } from "/$bunfs/root/chunk-dc4hb8f7.js";
+var b = /^\/btw\b/gi;
+function SXt(t) {
+  let r = [],
+    n = t.matchAll(b);
+  for (let e of n) if (e.index !== void 0) r.push({ word: e[0], start: e.index, end: e.index + e[0].length });
+  return r;
+}
+async function rke({
+  question: t,
+  cacheSafeParams: r,
+  parentController: n,
+  onRetry: e,
+  threadHistory: s = !0,
+  history: a,
+}) {
+  let f = `<system-reminder>This is a side question from the user. You must answer this question directly in a single response.
 
 IMPORTANT CONTEXT:
 - You are a separate, lightweight agent spawned to answer this one question
@@ -25,9 +44,78 @@ CRITICAL CONSTRAINTS:
 
 Simply answer the question with the information you have.</system-reminder>
 
-${t}`,y=n?w_(n):gr(),c=s?r.toolUseContext.session.btwHistory:null,h=(a??c?.exchanges??[]).flatMap((o)=>[xe({content:o.question}),Qc({content:o.fallbackNotice?`\u26A0 ${o.fallbackNotice}
+${t}`,
+    y = n ? w_(n) : gr(),
+    c = s ? r.toolUseContext.session.btwHistory : null,
+    h = (a ?? c?.exchanges ?? []).flatMap((o) => [
+      xe({ content: o.question }),
+      Qc({
+        content: o.fallbackNotice
+          ? `\u26A0 ${o.fallbackNotice}
 
-${o.response}`:o.response})]);try{let o=await rT({promptMessages:[...h,xe({content:f})],cacheSafeParams:r,canUseTool:async()=>({behavior:"deny",message:"Side questions cannot use tools",decisionReason:{type:"other",reason:"side_question"}}),querySource:"side_question",forkLabel:"side_question",maxTurns:1,skipCacheWrite:!0,skipTranscript:!0,overrides:{abortController:y},onMessage:e?(i)=>{if(m(i))e({retryAttempt:i.retryAttempt,maxRetries:i.maxRetries,retryInMs:i.retryInMs,status:i.error.status})}:void 0}),{live:g,notice:l}=eSe(o.messages),{response:u,synthetic:p}=w(g),d=l&&{originalModel:l.originalModel,fallbackModel:l.fallbackModel,content:l.content};if(c&&u&&!p)c.append(t,u,d?.content);return{response:u,synthetic:p,usage:o.totalUsage,...d&&!p&&{refusalFallback:d}}}catch(o){if(o instanceof sc||y.signal.aborted)return{response:null,synthetic:!1,usage:hp,aborted:!0};throw o}}function w(t){let r=t.flatMap((e)=>e.type==="assistant"?e.message.content:[]);if(r.length>0){let e=zr(r,`
+${o.response}`
+          : o.response,
+      }),
+    ]);
+  try {
+    let o = await rT({
+        promptMessages: [...h, xe({ content: f })],
+        cacheSafeParams: r,
+        canUseTool: async () => ({
+          behavior: "deny",
+          message: "Side questions cannot use tools",
+          decisionReason: { type: "other", reason: "side_question" },
+        }),
+        querySource: "side_question",
+        forkLabel: "side_question",
+        maxTurns: 1,
+        skipCacheWrite: !0,
+        skipTranscript: !0,
+        overrides: { abortController: y },
+        onMessage: e
+          ? (i) => {
+              if (m(i))
+                e({
+                  retryAttempt: i.retryAttempt,
+                  maxRetries: i.maxRetries,
+                  retryInMs: i.retryInMs,
+                  status: i.error.status,
+                });
+            }
+          : void 0,
+      }),
+      { live: g, notice: l } = eSe(o.messages),
+      { response: u, synthetic: p } = w(g),
+      d = l && { originalModel: l.originalModel, fallbackModel: l.fallbackModel, content: l.content };
+    if (c && u && !p) c.append(t, u, d?.content);
+    return { response: u, synthetic: p, usage: o.totalUsage, ...(d && !p && { refusalFallback: d }) };
+  } catch (o) {
+    if (o instanceof sc || y.signal.aborted) return { response: null, synthetic: !1, usage: hp, aborted: !0 };
+    throw o;
+  }
+}
+function w(t) {
+  let r = t.flatMap((e) => (e.type === "assistant" ? e.message.content : []));
+  if (r.length > 0) {
+    let e = zr(
+      r,
+      `
 
-`).trim();if(e)return{response:e,synthetic:!1};let s=r.find((a)=>a.type==="tool_use");if(s)return{response:`(The model tried to call ${"name"in s?s.name:"a tool"} instead of answering directly. Try rephrasing or ask in the main conversation.)`,synthetic:!0}}let n=t.find(m);if(n)return{response:`(API error: ${n.error.formatted})`,synthetic:!0};return{response:null,synthetic:!1}}function m(t){return t.type==="system"&&"subtype"in t&&t.subtype==="api_error"}
-export{SXt,rke};
+`,
+    ).trim();
+    if (e) return { response: e, synthetic: !1 };
+    let s = r.find((a) => a.type === "tool_use");
+    if (s)
+      return {
+        response: `(The model tried to call ${"name" in s ? s.name : "a tool"} instead of answering directly. Try rephrasing or ask in the main conversation.)`,
+        synthetic: !0,
+      };
+  }
+  let n = t.find(m);
+  if (n) return { response: `(API error: ${n.error.formatted})`, synthetic: !0 };
+  return { response: null, synthetic: !1 };
+}
+function m(t) {
+  return t.type === "system" && "subtype" in t && t.subtype === "api_error";
+}
+export { SXt, rke };

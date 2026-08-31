@@ -8,4 +8,7 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Myr}from"/$bunfs/root/chunk-qjw893de.js";import"/$bunfs/root/chunk-40gjqkz9.js";import"/$bunfs/root/chunk-3bbym8ct.js";export{Myr as packExtension};
+import { Myr } from "/$bunfs/root/chunk-qjw893de.js";
+import "/$bunfs/root/chunk-40gjqkz9.js";
+import "/$bunfs/root/chunk-3bbym8ct.js";
+export { Myr as packExtension };

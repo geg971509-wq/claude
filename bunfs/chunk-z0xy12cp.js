@@ -8,102 +8,1022 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import"/$bunfs/root/chunk-qq1mdtb5.js";import"/$bunfs/root/chunk-tx16jn0x.js";import"/$bunfs/root/chunk-gcks6mn0.js";import"/$bunfs/root/chunk-bzx56g36.js";import"/$bunfs/root/chunk-eqdctte5.js";import{a}from"/$bunfs/root/chunk-fec4384a.js";import"/$bunfs/root/chunk-f9h0bg01.js";import"/$bunfs/root/chunk-qm65zb83.js";import"/$bunfs/root/chunk-vfy57cpd.js";import"/$bunfs/root/chunk-4xj01xwv.js";import"/$bunfs/root/chunk-ypdw393e.js";import{n}from"/$bunfs/root/chunk-fv016jr6.js";import{er}from"/$bunfs/root/chunk-qk7r0t2g.js";import"/$bunfs/root/chunk-4ddxwr9r.js";import"/$bunfs/root/chunk-wkxx62a2.js";import"/$bunfs/root/chunk-ps6pc7xd.js";import{ae}from"/$bunfs/root/chunk-386w1sy8.js";import{ff,ph,_$,us,Ae,ie}from"/$bunfs/root/chunk-8tgj5dp2.js";import{s}from"/$bunfs/root/chunk-r53tkxrh.js";import{p}from"/$bunfs/root/chunk-ca80fke8.js";import"/$bunfs/root/chunk-4fwj3vnx.js";import"/$bunfs/root/chunk-s7e0px8j.js";import"/$bunfs/root/chunk-s28wf80n.js";import"/$bunfs/root/chunk-3bbym8ct.js";import"/$bunfs/root/chunk-cf8qhmdc.js";import"/$bunfs/root/chunk-0pgyw7te.js";import"/$bunfs/root/chunk-2masxyqj.js";import"/$bunfs/root/chunk-rgw52f13.js";import"/$bunfs/root/chunk-2rx5nghb.js";import"/$bunfs/root/chunk-f5hrzy3k.js";import"/$bunfs/root/chunk-nqmqabr8.js";import"/$bunfs/root/chunk-z0z1xzkg.js";import"/$bunfs/root/chunk-c47snwm2.js";import"/$bunfs/root/chunk-jpf4kat5.js";import"/$bunfs/root/chunk-s4vc7est.js";import"/$bunfs/root/chunk-hyh5wcm1.js";import"/$bunfs/root/chunk-ntyhd04p.js";import"/$bunfs/root/chunk-6k63g5t6.js";import"/$bunfs/root/chunk-q14dgq5g.js";import"/$bunfs/root/chunk-8qsdea2c.js";import{ye,Je}from"/$bunfs/root/chunk-988p40e0.js";import"/$bunfs/root/chunk-0spqrdaj.js";import"/$bunfs/root/chunk-5rt2mvvk.js";import"/$bunfs/root/chunk-1yr12dqr.js";import"/$bunfs/root/chunk-2mmw62jx.js";import"/$bunfs/root/chunk-z2bvp3sv.js";import"/$bunfs/root/chunk-keb644xg.js";import"/$bunfs/root/chunk-bj904w9w.js";import"/$bunfs/root/chunk-18bck2pp.js";import"/$bunfs/root/chunk-dwwpyy7b.js";import"/$bunfs/root/chunk-jck8t8fq.js";import"/$bunfs/root/chunk-a48rnvhj.js";import"/$bunfs/root/chunk-492vgtnr.js";import"/$bunfs/root/chunk-qk6zade1.js";import"/$bunfs/root/chunk-0g6cj4h1.js";import"/$bunfs/root/chunk-amem41jf.js";import"/$bunfs/root/chunk-e7rq8w09.js";import"/$bunfs/root/chunk-82w4mtvq.js";import"/$bunfs/root/chunk-ax6dy60b.js";import"/$bunfs/root/chunk-qcx34e4j.js";import"/$bunfs/root/chunk-psdymar6.js";import"/$bunfs/root/chunk-0r9wzh7g.js";import"/$bunfs/root/chunk-sxxp6vcr.js";import"/$bunfs/root/chunk-rf51999f.js";import"/$bunfs/root/chunk-v7yhn7cf.js";import"/$bunfs/root/chunk-kxyny47c.js";import"/$bunfs/root/chunk-ghara6r1.js";import"/$bunfs/root/chunk-4r03fm98.js";import"/$bunfs/root/chunk-r3qa2s4k.js";import"/$bunfs/root/chunk-k4a21mkt.js";import"/$bunfs/root/chunk-4rh74qms.js";import"/$bunfs/root/chunk-1evht33z.js";import"/$bunfs/root/chunk-fbp3w46j.js";import"/$bunfs/root/chunk-gtv2468w.js";import"/$bunfs/root/chunk-s4smmnta.js";import"/$bunfs/root/chunk-z9ex1x2t.js";import"/$bunfs/root/chunk-gkfy5ggn.js";import"/$bunfs/root/chunk-4t3vsqt7.js";import"/$bunfs/root/chunk-ejdwrhgv.js";import"/$bunfs/root/chunk-zkvj62rn.js";import"/$bunfs/root/chunk-tzhtxm67.js";import"/$bunfs/root/chunk-mznd09c6.js";import"/$bunfs/root/chunk-167jjb66.js";import"/$bunfs/root/chunk-97wwdfyx.js";import"/$bunfs/root/chunk-5c5qq1s7.js";import{EV}from"/$bunfs/root/chunk-hkzwg35z.js";import"/$bunfs/root/chunk-tz5bx4mb.js";import{sMn}from"/$bunfs/root/chunk-bhx96yqb.js";import{Ln}from"/$bunfs/root/chunk-zze8764r.js";import"/$bunfs/root/chunk-6w72z84m.js";import"/$bunfs/root/chunk-fs02hzwy.js";import"/$bunfs/root/chunk-nkf7ctf5.js";import"/$bunfs/root/chunk-38mxah2g.js";import"/$bunfs/root/chunk-z9bhq3k9.js";import"/$bunfs/root/chunk-c6k0ecxv.js";import"/$bunfs/root/chunk-2n1hsggr.js";import"/$bunfs/root/chunk-s0xdwab3.js";import"/$bunfs/root/chunk-c76q2y0e.js";import"/$bunfs/root/chunk-cds31m36.js";import"/$bunfs/root/chunk-z15hpjf9.js";import"/$bunfs/root/chunk-1pn2pk9v.js";import"/$bunfs/root/chunk-hebj76vj.js";import"/$bunfs/root/chunk-0mrbtv3q.js";import"/$bunfs/root/chunk-5n1tbe50.js";import"/$bunfs/root/chunk-twwd9fep.js";import"/$bunfs/root/chunk-a2an01ph.js";import"/$bunfs/root/chunk-dck778n3.js";import"/$bunfs/root/chunk-nkjrjh5n.js";import"/$bunfs/root/chunk-bp3j8sq3.js";import"/$bunfs/root/chunk-qekzccch.js";import"/$bunfs/root/chunk-s2ac0z44.js";import"/$bunfs/root/chunk-wgz3g40p.js";import"/$bunfs/root/chunk-1mp2j0tx.js";import"/$bunfs/root/chunk-6a5ggyw4.js";import"/$bunfs/root/chunk-0m39033q.js";import"/$bunfs/root/chunk-308krgtb.js";import"/$bunfs/root/chunk-nf8aaj8a.js";import"/$bunfs/root/chunk-a6xhjq7b.js";import"/$bunfs/root/chunk-qnrh4abv.js";import"/$bunfs/root/chunk-6nmk3t6g.js";import"/$bunfs/root/chunk-jwrz2gmg.js";import"/$bunfs/root/chunk-98tgyb1d.js";import"/$bunfs/root/chunk-h7dkgq01.js";import"/$bunfs/root/chunk-tveh0k24.js";import"/$bunfs/root/chunk-699y5x28.js";import"/$bunfs/root/chunk-37pvmyqb.js";import"/$bunfs/root/chunk-btcxpqw5.js";import"/$bunfs/root/chunk-k8xha1qv.js";import"/$bunfs/root/chunk-30e2jew7.js";import"/$bunfs/root/chunk-51qp0385.js";import"/$bunfs/root/chunk-wjr8v4tx.js";import"/$bunfs/root/chunk-kbyvkqye.js";import"/$bunfs/root/chunk-dd55s64p.js";import"/$bunfs/root/chunk-83h0j7w2.js";import"/$bunfs/root/chunk-qg6z8ah8.js";import"/$bunfs/root/chunk-vq9g7y26.js";import"/$bunfs/root/chunk-w3c6n7jh.js";import"/$bunfs/root/chunk-gvnqpbsf.js";import"/$bunfs/root/chunk-d1d8xqks.js";import"/$bunfs/root/chunk-5wecjdtm.js";import"/$bunfs/root/chunk-rgh8hav6.js";import"/$bunfs/root/chunk-qd35gw0c.js";import"/$bunfs/root/chunk-ky33xsw7.js";import"/$bunfs/root/chunk-p1awcxk1.js";import"/$bunfs/root/chunk-vzc4dhqq.js";import"/$bunfs/root/chunk-x06p1jhb.js";import"/$bunfs/root/chunk-91315wj5.js";import"/$bunfs/root/chunk-e17gvevg.js";import"/$bunfs/root/chunk-da857b4g.js";import"/$bunfs/root/chunk-anwgkcw5.js";import"/$bunfs/root/chunk-hz299nfa.js";import"/$bunfs/root/chunk-1v3848mh.js";import"/$bunfs/root/chunk-fctnm902.js";import"/$bunfs/root/chunk-e53y7x75.js";import"/$bunfs/root/chunk-d5s7a9by.js";import"/$bunfs/root/chunk-5g92v3fd.js";import"/$bunfs/root/chunk-76gryyye.js";import"/$bunfs/root/chunk-h605j25g.js";import"/$bunfs/root/chunk-4sw5yxwb.js";import"/$bunfs/root/chunk-vx3kc9d2.js";import"/$bunfs/root/chunk-eb5y4yrx.js";import"/$bunfs/root/chunk-4c3hecm4.js";import"/$bunfs/root/chunk-xgfepdf4.js";import"/$bunfs/root/chunk-50g10fz0.js";import"/$bunfs/root/chunk-8td9ks9h.js";import"/$bunfs/root/chunk-9y48by1e.js";import"/$bunfs/root/chunk-cfqs035d.js";import"/$bunfs/root/chunk-9tey6wcd.js";import"/$bunfs/root/chunk-86v6b72m.js";import"/$bunfs/root/chunk-c2kqvv3h.js";import"/$bunfs/root/chunk-cgy998p5.js";import"/$bunfs/root/chunk-hzjjsb0j.js";import"/$bunfs/root/chunk-trte0v0g.js";import"/$bunfs/root/chunk-gmgmb4mg.js";import"/$bunfs/root/chunk-avrc9gay.js";import"/$bunfs/root/chunk-pbd9yggs.js";import"/$bunfs/root/chunk-fvkzpeqe.js";import"/$bunfs/root/chunk-96xrtyd5.js";import"/$bunfs/root/chunk-k7v7xwvs.js";import"/$bunfs/root/chunk-pzvxycbq.js";import"/$bunfs/root/chunk-dzv4k86d.js";import"/$bunfs/root/chunk-rt5p4yax.js";import"/$bunfs/root/chunk-jn7d47r1.js";import"/$bunfs/root/chunk-dc4hb8f7.js";import"/$bunfs/root/chunk-z9jgt14c.js";import"/$bunfs/root/chunk-rsp0anqd.js";import"/$bunfs/root/chunk-y8sx7bf9.js";import"/$bunfs/root/chunk-q2gyteg0.js";import"/$bunfs/root/chunk-0manfhn2.js";import"/$bunfs/root/chunk-r6ppzf4r.js";import"/$bunfs/root/chunk-4399d2v0.js";import"/$bunfs/root/chunk-y79sc2hm.js";import"/$bunfs/root/chunk-2t3rnt88.js";import"/$bunfs/root/chunk-986hvegp.js";import"/$bunfs/root/chunk-8jsj2mx0.js";import"/$bunfs/root/chunk-dt5bt1kc.js";import"/$bunfs/root/chunk-z9rrv31w.js";import"/$bunfs/root/chunk-5djs3wbb.js";import"/$bunfs/root/chunk-r4m4cqz1.js";import"/$bunfs/root/chunk-mq8h2tk8.js";import"/$bunfs/root/chunk-pdf5n9dy.js";import"/$bunfs/root/chunk-rntp2fy5.js";import"/$bunfs/root/chunk-p18e2918.js";import"/$bunfs/root/chunk-a9vrr0nr.js";import"/$bunfs/root/chunk-nfmyt8cw.js";import"/$bunfs/root/chunk-6var9pwd.js";import"/$bunfs/root/chunk-gmj1vprd.js";import"/$bunfs/root/chunk-ht15rw3x.js";import"/$bunfs/root/chunk-gay9hbs8.js";import"/$bunfs/root/chunk-mvz9fsh3.js";import"/$bunfs/root/chunk-ddbk6aje.js";import"/$bunfs/root/chunk-krety1hw.js";import"/$bunfs/root/chunk-6ywvv1q0.js";import"/$bunfs/root/chunk-wn1jrcrk.js";import"/$bunfs/root/chunk-zk5v8tw6.js";import"/$bunfs/root/chunk-kdtcyk0z.js";import"/$bunfs/root/chunk-q75cm02t.js";import"/$bunfs/root/chunk-dxqac26z.js";import"/$bunfs/root/chunk-2204t1q0.js";import"/$bunfs/root/chunk-kfdrcvxr.js";import"/$bunfs/root/chunk-fd2h00ye.js";import"/$bunfs/root/chunk-vm4xrmr7.js";import"/$bunfs/root/chunk-mkweh3a4.js";import"/$bunfs/root/chunk-z6m3k8w5.js";import"/$bunfs/root/chunk-v94qfg1j.js";import{Q_e,ree,oee,Qae,NMt,tye,j9e,ele,nye}from"/$bunfs/root/chunk-qwp18h36.js";import"/$bunfs/root/chunk-93max1bs.js";import"/$bunfs/root/chunk-sypj25ha.js";import{Yae,$lt,Y_e,tee,J_e}from"/$bunfs/root/chunk-5g669xdp.js";import{Flt,Xae,xxe}from"/$bunfs/root/chunk-7rcn0da5.js";import{OP}from"/$bunfs/root/chunk-q3evfmyc.js";import{OXt}from"/$bunfs/root/chunk-ngn87vcm.js";import"/$bunfs/root/chunk-p4y4qj90.js";import"/$bunfs/root/chunk-d5bnjcbw.js";import"/$bunfs/root/chunk-6nsyrmhg.js";import"/$bunfs/root/chunk-jjkewjsg.js";import"/$bunfs/root/chunk-4r71nj50.js";import"/$bunfs/root/chunk-3qvtfvqg.js";import"/$bunfs/root/chunk-r7t0evh2.js";import"/$bunfs/root/chunk-6xz0kht6.js";import"/$bunfs/root/chunk-2am7kb6k.js";import"/$bunfs/root/chunk-9kr4hqvs.js";import"/$bunfs/root/chunk-xvwx3w83.js";import"/$bunfs/root/chunk-y9akj3mq.js";import"/$bunfs/root/chunk-gdk3p0b3.js";import"/$bunfs/root/chunk-qy75zxb2.js";import"/$bunfs/root/chunk-r6t6p0zm.js";import"/$bunfs/root/chunk-qpj83ec7.js";import"/$bunfs/root/chunk-f77e8yef.js";import"/$bunfs/root/chunk-f7y0mdt6.js";import"/$bunfs/root/chunk-jb2pzt3t.js";import"/$bunfs/root/chunk-9yzzw213.js";import"/$bunfs/root/chunk-mknyj0qp.js";import"/$bunfs/root/chunk-81defen8.js";import"/$bunfs/root/chunk-mpg6r2j0.js";import"/$bunfs/root/chunk-3dh32z3c.js";import"/$bunfs/root/chunk-n8ecp4gs.js";import"/$bunfs/root/chunk-406nxetx.js";import"/$bunfs/root/chunk-2zf9m1zh.js";import"/$bunfs/root/chunk-rxqmmxnb.js";import"/$bunfs/root/chunk-gdhqsw8a.js";import"/$bunfs/root/chunk-5xr818a0.js";import"/$bunfs/root/chunk-fgavb5x0.js";import"/$bunfs/root/chunk-sqa0bs5e.js";import"/$bunfs/root/chunk-fveqn4y7.js";import"/$bunfs/root/chunk-4zsxhey6.js";import"/$bunfs/root/chunk-61nasexv.js";import"/$bunfs/root/chunk-m1andcps.js";import"/$bunfs/root/chunk-61hbq2wc.js";import"/$bunfs/root/chunk-rq65wazg.js";import"/$bunfs/root/chunk-5tdaspnd.js";import"/$bunfs/root/chunk-rr0yj5sq.js";import"/$bunfs/root/chunk-a7wreksn.js";import"/$bunfs/root/chunk-8sbwe0jk.js";import"/$bunfs/root/chunk-nwb64bac.js";import"/$bunfs/root/chunk-g5y4mxg8.js";import"/$bunfs/root/chunk-cbn30h5b.js";import"/$bunfs/root/chunk-g01aac1k.js";import"/$bunfs/root/chunk-3fwkz19s.js";import"/$bunfs/root/chunk-9319g175.js";import"/$bunfs/root/chunk-szz73wxx.js";import"/$bunfs/root/chunk-b40bn863.js";import"/$bunfs/root/chunk-6mgs10s2.js";import"/$bunfs/root/chunk-6s9ybdq1.js";import"/$bunfs/root/chunk-74qqwjhx.js";import"/$bunfs/root/chunk-1hh0bg14.js";import"/$bunfs/root/chunk-052zvbpg.js";import"/$bunfs/root/chunk-werv747a.js";import"/$bunfs/root/chunk-jzh4kg5x.js";import"/$bunfs/root/chunk-7s7jqj2f.js";import"/$bunfs/root/chunk-56sxk8k2.js";import"/$bunfs/root/chunk-7jz6r17g.js";import"/$bunfs/root/chunk-a4q326ap.js";import{basename as _,dirname as O}from"path";async function te(o){if(a.DISABLE_UPDATES)er(`Updates are disabled by your administrator. Contact your IT team to get the latest version.
-`),await Ln(0);s("tengu_update_check",{}),er(`Current version: ${{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION}
-`);let y=OP(),m=Y_e(),l=m?m==="claude-code@latest"?"latest":"stable":$lt()?"stable":y,f=l==="rc"?"slow":l;er(`Checking for updates to ${f} version...
-`),n("update: Starting update check"),n("update: Running diagnostic");let r=await J_e({storageV5:o});if(n(`update: Installation type: ${r.installationType}`),n(`update: Config install method: ${r.configInstallMethod}`),r.multipleInstallations.length>1){er(`
-`),er(ae.yellow("Warning: Multiple installations found")+`
-`);for(let e of r.multipleInstallations){let t=r.installationType===e.type?" (currently running)":"";er(`- ${e.type} at ${e.path}${t}
-`)}}if(r.warnings.length>0){er(`
-`);for(let e of r.warnings)n(`update: Warning detected: ${e.issue}`),n(`update: Showing warning: ${e.issue}`),er(ae.yellow(`Warning: ${e.issue}
-`)),er(ae.bold(`Fix: ${e.fix.replaceAll("`","")}
-`))}let b=ie();if(!b.installMethod&&r.installationType!=="package-manager"){er(`
-`),er(`Updating configuration to track installation method...
-`);let e="unknown";switch(r.installationType){case"npm-local":e="local";break;case"native":e="native";break;case"npm-global":e="global";break;default:e="unknown"}Ae((t)=>({...t,installMethod:e}),o),er(`Installation method set to: ${e}
-`)}if(r.installationType==="development")er(`
-`),er(ae.yellow("Warning: Cannot update development build")+`
-`),await Ln(1);if(r.installationType==="package-manager"){let e=await tee();if(er(`
-`),e==="homebrew"){er(`Claude is managed by Homebrew.
-`);let t=`brew upgrade ${m??"claude-code"}`,R=await j9e(m??"claude-code",l);if(R===null)er(`Could not check for updates (network check skipped or unavailable).
-`),er(`To update manually, run:
-`),er(ae.bold(`  ${t}`)+`
-`);else if(!ph({ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION,R))er(`Update available: ${{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION} \u2192 ${R}
-`),er(`
-`),er(`To update, run:
-`),er(ae.bold(`  ${t}`)+`
-`);else er(`Claude is up to date!
-`);if(m!=="claude-code@latest")er(`
-`),er(ae.dim(`Tip: For more frequent updates, use the claude-code@latest cask:
-`)),er(ae.dim(`  brew uninstall --cask ${m??"claude-code"} && brew install --cask claude-code@latest`)+`
-`)}else if(e==="winget"){er(`Claude is managed by winget.
-`);let t=await tye(l);if(t&&!ph({ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION,t))er(`Update available: ${{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION} \u2192 ${t}
-`),er(`
-`),er(`To update, run:
-`),er(ae.bold("  winget upgrade Anthropic.ClaudeCode")+`
-`);else er(`Claude is up to date!
-`)}else if(e==="apk"){er(`Claude is managed by apk.
-`);let t=await tye(l);if(t&&!ph({ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION,t))er(`Update available: ${{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION} \u2192 ${t}
-`),er(`
-`),er(`To update, run:
-`),er(ae.bold("  apk upgrade claude-code")+`
-`);else er(`Claude is up to date!
-`)}else er(`Claude is managed by a package manager.
-`),er(`Please use your package manager to update.
-`);await Ln(0)}if(b.installMethod&&r.configInstallMethod!=="not set"&&r.installationType!=="package-manager"){let{installationType:e,configInstallMethod:t}=r,k={"npm-local":"local","npm-global":"global",native:"native",development:"development",unknown:"unknown"}[e]||e;if(k!==t&&t!=="unknown")er(`
-`),er(ae.yellow("Warning: Configuration mismatch")+`
-`),er(`Config expects: ${t} installation
-`),er(`Currently running: ${e}
-`),er(ae.yellow(`Updating the ${e} installation you are currently using`)+`
-`),Ae((I)=>({...I,installMethod:k}),o),er(`Config updated to reflect current installation method: ${k}
-`)}if(r.installationType==="native"){if(n("update: Detected native installation, using native updater"),Je()?.minimumVersion||ye("policySettings")?.requiredMaximumVersion){let e=await Flt(l).catch(()=>null),t=e?NMt(e):null;if(e&&t)er(ae.yellow(`The ${f} channel is at ${e}, which is ${t}. Staying on ${{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION}.`)+`
-`),await Ln(0)}Flt(l).then((e)=>{if(e&&e!=={ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION)er(`Updating to ${e}...
-`)}).catch(()=>{});try{let e=await Xae(l,!1,o);if(e.lockFailed){let t=e.lockHolderPid?` (PID ${e.lockHolderPid})`:"";er(ae.yellow(`Another Claude process${t} is currently running. Please try again in a moment.`)+`
-`),await Ln(0)}if(!e.latestVersion)process.stderr.write(`Failed to check for updates
-`),await Ln(1);if(e.wasUpdated&&e.latestVersion!=={ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION)er(ae.green(`Successfully updated from ${{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION} to version ${e.latestVersion}`)+`
-`),await OXt(),await A(e.latestVersion,o);else er(ae.green(`Claude Code is up to date (${{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION})`)+`
-`);await Ln(0)}catch(e){process.stderr.write(`Error: Failed to install native update
-`),process.stderr.write(String(e)+`
-`),process.stderr.write(`Try running "claude doctor" for diagnostics
-`),await Ln(1)}}if(b.installMethod!=="native")await xxe();n("update: Checking npm registry for latest version"),n(`update: Package URL: ${{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.PACKAGE_URL}`);let S=l==="stable"?"stable":"latest",M=`npm view ${{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.PACKAGE_URL}@${S} version`;n(`update: Running: ${M}`);let g=await tye(l);if(n(`update: Latest version from npm: ${g||"FAILED"}`),!g){if(n("update: Failed to get latest version from npm registry"),process.stderr.write(ae.red("Failed to check for updates")+`
-`),process.stderr.write(`Unable to fetch latest version from npm registry
-`),process.stderr.write(`
-`),process.stderr.write(`Possible causes:
-`),process.stderr.write(`  \u2022 Network connectivity issues
-`),process.stderr.write(`  \u2022 npm registry is unreachable
-`),process.stderr.write(`  \u2022 Corporate proxy/firewall blocking npm
-`),{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.PACKAGE_URL&&!{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.PACKAGE_URL.startsWith("@anthropic"))process.stderr.write(`  \u2022 Internal/development build not published to npm
-`);process.stderr.write(`
-`),process.stderr.write(`Try:
-`),process.stderr.write(`  \u2022 Check your internet connection
-`),process.stderr.write(`  \u2022 Run with --debug flag for more details
-`);let e={ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.PACKAGE_URL||"@anthropic-ai/claude-code";process.stderr.write(`  \u2022 Manually check: npm view ${e} version
-`),process.stderr.write(`  \u2022 Check if you need to login: npm whoami
-`),await Ln(1)}let{maxVersion:d,forceDowngradeEnabled:E}=await oee(),i=g,h=!1;if(E&&d&&Qae({ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION,d,"auto_updater"))i=d,h=!0;else if(d&&g&&ff(g,d))n(`update: maxVersion ${d} is set, capping update from ${g} to ${d}`),i=ff(d,{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION)?d:{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION;let v=i?NMt(i):null;if(i&&v){let e=i===g?`The ${f} channel is at ${i}`:`The update target is capped at ${i} by a server-side version policy`;er(ae.yellow(`${e}, which is ${v}. Staying on ${{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION}.`)+`
-`),await Ln(0)}if(i==={ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION)er(ae.green(`Claude Code is up to date (${{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION})`)+`
-`),await Ln(0);if(!h&&i&&_$(i,{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION))er(ae.yellow(`You're running ${{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION}, which is newer than the ${f} channel's ${i}. Skipping update. To switch back to the channel version, run claude install ${i}.`)+`
-`),await Ln(0);if(h)s("tengu_auto_updater_forced_downgrade",{from_version:us({ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION),to_version:us(i)}),er(ae.yellow(`Downgrading to ${i} (current: ${{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION}) \u2014 required by a server-side version policy.`)+`
-`);else er(`New version available: ${i} (current: ${{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION})
-`);er(`Installing update...
-`);let c=!1,w="";switch(r.installationType){case"npm-local":c=!0,w="local";break;case"npm-global":c=!1,w="global";break;case"unknown":{let e=await ree();c=e,w=e?"local":"global",er(ae.yellow("Warning: Could not determine installation type")+`
-`),er(`Attempting ${w} update based on file detection...
-`);break}default:p("update_apply","update_apply_unsupported_install_type"),process.stderr.write(`Error: Cannot update ${r.installationType} installation
-`),await Ln(1)}er(`Using ${w} installation update method...
-`),n(`update: Update method determined: ${w}`),n(`update: useLocalUpdate: ${c}`);let u,C;if(c)n("update: Calling installOrUpdateClaudePackage() for local update"),u=await Q_e(l,i,o);else n("update: Calling installGlobalPackage() for global update"),C=await nye(i,o),u=C.status;if(n(`update: Installation status: ${u}`),u!=="in_progress")await Yae({timestamp:new Date().toISOString(),path:c?"npm-local":"npm-global",outcome:u==="success"?"success":"failed",status:u,version_from:{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION,version_to:i,error_code:u==="install_failed"&&ele()?"update_apply_restore_failed":C?.failureHint==="windows_running_exe_lock"?"update_apply_exe_locked":null},o);switch(u){case"success":er(ae.green(h?`Successfully downgraded from ${{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION} to version ${i}`:`Successfully updated from ${{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION} to version ${i}`)+`
-`),await OXt(),await A(i,o);break;case"no_permissions":if(process.stderr.write(`Error: Insufficient permissions to install update
-`),c)process.stderr.write(`Try manually updating with:
-`),process.stderr.write(`  cd ~/.claude/local && npm update ${{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.PACKAGE_URL}
-`);else process.stderr.write(`Try running with sudo or fix npm permissions
-`),process.stderr.write(`Or consider using native installation with: claude install
-`);await Ln(1);break;case"install_failed":{let e=ele();if(!e&&C?.failureHint==="windows_running_exe_lock"){process.stderr.write(`Error: Update failed because claude.exe is in use. Close other Claude Code sessions (including VS Code), then run claude update again, or run claude doctor.
-`),await Ln(1);break}if(process.stderr.write(`Error: Failed to install update
-`),e)if(e.preservedPath)if(process.stderr.write(`Your Claude Code executable could not be restored after the failed update. It was preserved at ${e.preservedPath}
-`),O(e.preservedPath)===O(e.originalPath))process.stderr.write(`Rename it back to ${_(e.originalPath)}, or reinstall with: npm i -g ${{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.PACKAGE_URL}
-`);else process.stderr.write(`Copy it back to ${e.originalPath}, or reinstall with: npm i -g ${{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.PACKAGE_URL}
-`);else process.stderr.write(`Your Claude Code executable could not be restored after the failed update and no preserved copy was found. Reinstall with: npm i -g ${{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.PACKAGE_URL}
-`);else if(c)process.stderr.write(`Try manually updating with:
-`),process.stderr.write(`  cd ~/.claude/local && npm update ${{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.PACKAGE_URL}
-`);else process.stderr.write(`Or consider using native installation with: claude install
-`);await Ln(1);break}case"in_progress":process.stderr.write(`Error: Another instance is currently performing an update
-`),process.stderr.write(`Please wait and try again later
-`),await Ln(1);break}await Ln(0)}async function A(o,y){if(await sMn(o,y))er(ae.dim(`${EV()} will restart on the new version shortly; background jobs continue uninterrupted`)+`
-`)}export{te as update};
+import "/$bunfs/root/chunk-qq1mdtb5.js";
+import "/$bunfs/root/chunk-tx16jn0x.js";
+import "/$bunfs/root/chunk-gcks6mn0.js";
+import "/$bunfs/root/chunk-bzx56g36.js";
+import "/$bunfs/root/chunk-eqdctte5.js";
+import { a } from "/$bunfs/root/chunk-fec4384a.js";
+import "/$bunfs/root/chunk-f9h0bg01.js";
+import "/$bunfs/root/chunk-qm65zb83.js";
+import "/$bunfs/root/chunk-vfy57cpd.js";
+import "/$bunfs/root/chunk-4xj01xwv.js";
+import "/$bunfs/root/chunk-ypdw393e.js";
+import { n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { er } from "/$bunfs/root/chunk-qk7r0t2g.js";
+import "/$bunfs/root/chunk-4ddxwr9r.js";
+import "/$bunfs/root/chunk-wkxx62a2.js";
+import "/$bunfs/root/chunk-ps6pc7xd.js";
+import { ae } from "/$bunfs/root/chunk-386w1sy8.js";
+import { ff, ph, _$, us, Ae, ie } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { s } from "/$bunfs/root/chunk-r53tkxrh.js";
+import { p } from "/$bunfs/root/chunk-ca80fke8.js";
+import "/$bunfs/root/chunk-4fwj3vnx.js";
+import "/$bunfs/root/chunk-s7e0px8j.js";
+import "/$bunfs/root/chunk-s28wf80n.js";
+import "/$bunfs/root/chunk-3bbym8ct.js";
+import "/$bunfs/root/chunk-cf8qhmdc.js";
+import "/$bunfs/root/chunk-0pgyw7te.js";
+import "/$bunfs/root/chunk-2masxyqj.js";
+import "/$bunfs/root/chunk-rgw52f13.js";
+import "/$bunfs/root/chunk-2rx5nghb.js";
+import "/$bunfs/root/chunk-f5hrzy3k.js";
+import "/$bunfs/root/chunk-nqmqabr8.js";
+import "/$bunfs/root/chunk-z0z1xzkg.js";
+import "/$bunfs/root/chunk-c47snwm2.js";
+import "/$bunfs/root/chunk-jpf4kat5.js";
+import "/$bunfs/root/chunk-s4vc7est.js";
+import "/$bunfs/root/chunk-hyh5wcm1.js";
+import "/$bunfs/root/chunk-ntyhd04p.js";
+import "/$bunfs/root/chunk-6k63g5t6.js";
+import "/$bunfs/root/chunk-q14dgq5g.js";
+import "/$bunfs/root/chunk-8qsdea2c.js";
+import { ye, Je } from "/$bunfs/root/chunk-988p40e0.js";
+import "/$bunfs/root/chunk-0spqrdaj.js";
+import "/$bunfs/root/chunk-5rt2mvvk.js";
+import "/$bunfs/root/chunk-1yr12dqr.js";
+import "/$bunfs/root/chunk-2mmw62jx.js";
+import "/$bunfs/root/chunk-z2bvp3sv.js";
+import "/$bunfs/root/chunk-keb644xg.js";
+import "/$bunfs/root/chunk-bj904w9w.js";
+import "/$bunfs/root/chunk-18bck2pp.js";
+import "/$bunfs/root/chunk-dwwpyy7b.js";
+import "/$bunfs/root/chunk-jck8t8fq.js";
+import "/$bunfs/root/chunk-a48rnvhj.js";
+import "/$bunfs/root/chunk-492vgtnr.js";
+import "/$bunfs/root/chunk-qk6zade1.js";
+import "/$bunfs/root/chunk-0g6cj4h1.js";
+import "/$bunfs/root/chunk-amem41jf.js";
+import "/$bunfs/root/chunk-e7rq8w09.js";
+import "/$bunfs/root/chunk-82w4mtvq.js";
+import "/$bunfs/root/chunk-ax6dy60b.js";
+import "/$bunfs/root/chunk-qcx34e4j.js";
+import "/$bunfs/root/chunk-psdymar6.js";
+import "/$bunfs/root/chunk-0r9wzh7g.js";
+import "/$bunfs/root/chunk-sxxp6vcr.js";
+import "/$bunfs/root/chunk-rf51999f.js";
+import "/$bunfs/root/chunk-v7yhn7cf.js";
+import "/$bunfs/root/chunk-kxyny47c.js";
+import "/$bunfs/root/chunk-ghara6r1.js";
+import "/$bunfs/root/chunk-4r03fm98.js";
+import "/$bunfs/root/chunk-r3qa2s4k.js";
+import "/$bunfs/root/chunk-k4a21mkt.js";
+import "/$bunfs/root/chunk-4rh74qms.js";
+import "/$bunfs/root/chunk-1evht33z.js";
+import "/$bunfs/root/chunk-fbp3w46j.js";
+import "/$bunfs/root/chunk-gtv2468w.js";
+import "/$bunfs/root/chunk-s4smmnta.js";
+import "/$bunfs/root/chunk-z9ex1x2t.js";
+import "/$bunfs/root/chunk-gkfy5ggn.js";
+import "/$bunfs/root/chunk-4t3vsqt7.js";
+import "/$bunfs/root/chunk-ejdwrhgv.js";
+import "/$bunfs/root/chunk-zkvj62rn.js";
+import "/$bunfs/root/chunk-tzhtxm67.js";
+import "/$bunfs/root/chunk-mznd09c6.js";
+import "/$bunfs/root/chunk-167jjb66.js";
+import "/$bunfs/root/chunk-97wwdfyx.js";
+import "/$bunfs/root/chunk-5c5qq1s7.js";
+import { EV } from "/$bunfs/root/chunk-hkzwg35z.js";
+import "/$bunfs/root/chunk-tz5bx4mb.js";
+import { sMn } from "/$bunfs/root/chunk-bhx96yqb.js";
+import { Ln } from "/$bunfs/root/chunk-zze8764r.js";
+import "/$bunfs/root/chunk-6w72z84m.js";
+import "/$bunfs/root/chunk-fs02hzwy.js";
+import "/$bunfs/root/chunk-nkf7ctf5.js";
+import "/$bunfs/root/chunk-38mxah2g.js";
+import "/$bunfs/root/chunk-z9bhq3k9.js";
+import "/$bunfs/root/chunk-c6k0ecxv.js";
+import "/$bunfs/root/chunk-2n1hsggr.js";
+import "/$bunfs/root/chunk-s0xdwab3.js";
+import "/$bunfs/root/chunk-c76q2y0e.js";
+import "/$bunfs/root/chunk-cds31m36.js";
+import "/$bunfs/root/chunk-z15hpjf9.js";
+import "/$bunfs/root/chunk-1pn2pk9v.js";
+import "/$bunfs/root/chunk-hebj76vj.js";
+import "/$bunfs/root/chunk-0mrbtv3q.js";
+import "/$bunfs/root/chunk-5n1tbe50.js";
+import "/$bunfs/root/chunk-twwd9fep.js";
+import "/$bunfs/root/chunk-a2an01ph.js";
+import "/$bunfs/root/chunk-dck778n3.js";
+import "/$bunfs/root/chunk-nkjrjh5n.js";
+import "/$bunfs/root/chunk-bp3j8sq3.js";
+import "/$bunfs/root/chunk-qekzccch.js";
+import "/$bunfs/root/chunk-s2ac0z44.js";
+import "/$bunfs/root/chunk-wgz3g40p.js";
+import "/$bunfs/root/chunk-1mp2j0tx.js";
+import "/$bunfs/root/chunk-6a5ggyw4.js";
+import "/$bunfs/root/chunk-0m39033q.js";
+import "/$bunfs/root/chunk-308krgtb.js";
+import "/$bunfs/root/chunk-nf8aaj8a.js";
+import "/$bunfs/root/chunk-a6xhjq7b.js";
+import "/$bunfs/root/chunk-qnrh4abv.js";
+import "/$bunfs/root/chunk-6nmk3t6g.js";
+import "/$bunfs/root/chunk-jwrz2gmg.js";
+import "/$bunfs/root/chunk-98tgyb1d.js";
+import "/$bunfs/root/chunk-h7dkgq01.js";
+import "/$bunfs/root/chunk-tveh0k24.js";
+import "/$bunfs/root/chunk-699y5x28.js";
+import "/$bunfs/root/chunk-37pvmyqb.js";
+import "/$bunfs/root/chunk-btcxpqw5.js";
+import "/$bunfs/root/chunk-k8xha1qv.js";
+import "/$bunfs/root/chunk-30e2jew7.js";
+import "/$bunfs/root/chunk-51qp0385.js";
+import "/$bunfs/root/chunk-wjr8v4tx.js";
+import "/$bunfs/root/chunk-kbyvkqye.js";
+import "/$bunfs/root/chunk-dd55s64p.js";
+import "/$bunfs/root/chunk-83h0j7w2.js";
+import "/$bunfs/root/chunk-qg6z8ah8.js";
+import "/$bunfs/root/chunk-vq9g7y26.js";
+import "/$bunfs/root/chunk-w3c6n7jh.js";
+import "/$bunfs/root/chunk-gvnqpbsf.js";
+import "/$bunfs/root/chunk-d1d8xqks.js";
+import "/$bunfs/root/chunk-5wecjdtm.js";
+import "/$bunfs/root/chunk-rgh8hav6.js";
+import "/$bunfs/root/chunk-qd35gw0c.js";
+import "/$bunfs/root/chunk-ky33xsw7.js";
+import "/$bunfs/root/chunk-p1awcxk1.js";
+import "/$bunfs/root/chunk-vzc4dhqq.js";
+import "/$bunfs/root/chunk-x06p1jhb.js";
+import "/$bunfs/root/chunk-91315wj5.js";
+import "/$bunfs/root/chunk-e17gvevg.js";
+import "/$bunfs/root/chunk-da857b4g.js";
+import "/$bunfs/root/chunk-anwgkcw5.js";
+import "/$bunfs/root/chunk-hz299nfa.js";
+import "/$bunfs/root/chunk-1v3848mh.js";
+import "/$bunfs/root/chunk-fctnm902.js";
+import "/$bunfs/root/chunk-e53y7x75.js";
+import "/$bunfs/root/chunk-d5s7a9by.js";
+import "/$bunfs/root/chunk-5g92v3fd.js";
+import "/$bunfs/root/chunk-76gryyye.js";
+import "/$bunfs/root/chunk-h605j25g.js";
+import "/$bunfs/root/chunk-4sw5yxwb.js";
+import "/$bunfs/root/chunk-vx3kc9d2.js";
+import "/$bunfs/root/chunk-eb5y4yrx.js";
+import "/$bunfs/root/chunk-4c3hecm4.js";
+import "/$bunfs/root/chunk-xgfepdf4.js";
+import "/$bunfs/root/chunk-50g10fz0.js";
+import "/$bunfs/root/chunk-8td9ks9h.js";
+import "/$bunfs/root/chunk-9y48by1e.js";
+import "/$bunfs/root/chunk-cfqs035d.js";
+import "/$bunfs/root/chunk-9tey6wcd.js";
+import "/$bunfs/root/chunk-86v6b72m.js";
+import "/$bunfs/root/chunk-c2kqvv3h.js";
+import "/$bunfs/root/chunk-cgy998p5.js";
+import "/$bunfs/root/chunk-hzjjsb0j.js";
+import "/$bunfs/root/chunk-trte0v0g.js";
+import "/$bunfs/root/chunk-gmgmb4mg.js";
+import "/$bunfs/root/chunk-avrc9gay.js";
+import "/$bunfs/root/chunk-pbd9yggs.js";
+import "/$bunfs/root/chunk-fvkzpeqe.js";
+import "/$bunfs/root/chunk-96xrtyd5.js";
+import "/$bunfs/root/chunk-k7v7xwvs.js";
+import "/$bunfs/root/chunk-pzvxycbq.js";
+import "/$bunfs/root/chunk-dzv4k86d.js";
+import "/$bunfs/root/chunk-rt5p4yax.js";
+import "/$bunfs/root/chunk-jn7d47r1.js";
+import "/$bunfs/root/chunk-dc4hb8f7.js";
+import "/$bunfs/root/chunk-z9jgt14c.js";
+import "/$bunfs/root/chunk-rsp0anqd.js";
+import "/$bunfs/root/chunk-y8sx7bf9.js";
+import "/$bunfs/root/chunk-q2gyteg0.js";
+import "/$bunfs/root/chunk-0manfhn2.js";
+import "/$bunfs/root/chunk-r6ppzf4r.js";
+import "/$bunfs/root/chunk-4399d2v0.js";
+import "/$bunfs/root/chunk-y79sc2hm.js";
+import "/$bunfs/root/chunk-2t3rnt88.js";
+import "/$bunfs/root/chunk-986hvegp.js";
+import "/$bunfs/root/chunk-8jsj2mx0.js";
+import "/$bunfs/root/chunk-dt5bt1kc.js";
+import "/$bunfs/root/chunk-z9rrv31w.js";
+import "/$bunfs/root/chunk-5djs3wbb.js";
+import "/$bunfs/root/chunk-r4m4cqz1.js";
+import "/$bunfs/root/chunk-mq8h2tk8.js";
+import "/$bunfs/root/chunk-pdf5n9dy.js";
+import "/$bunfs/root/chunk-rntp2fy5.js";
+import "/$bunfs/root/chunk-p18e2918.js";
+import "/$bunfs/root/chunk-a9vrr0nr.js";
+import "/$bunfs/root/chunk-nfmyt8cw.js";
+import "/$bunfs/root/chunk-6var9pwd.js";
+import "/$bunfs/root/chunk-gmj1vprd.js";
+import "/$bunfs/root/chunk-ht15rw3x.js";
+import "/$bunfs/root/chunk-gay9hbs8.js";
+import "/$bunfs/root/chunk-mvz9fsh3.js";
+import "/$bunfs/root/chunk-ddbk6aje.js";
+import "/$bunfs/root/chunk-krety1hw.js";
+import "/$bunfs/root/chunk-6ywvv1q0.js";
+import "/$bunfs/root/chunk-wn1jrcrk.js";
+import "/$bunfs/root/chunk-zk5v8tw6.js";
+import "/$bunfs/root/chunk-kdtcyk0z.js";
+import "/$bunfs/root/chunk-q75cm02t.js";
+import "/$bunfs/root/chunk-dxqac26z.js";
+import "/$bunfs/root/chunk-2204t1q0.js";
+import "/$bunfs/root/chunk-kfdrcvxr.js";
+import "/$bunfs/root/chunk-fd2h00ye.js";
+import "/$bunfs/root/chunk-vm4xrmr7.js";
+import "/$bunfs/root/chunk-mkweh3a4.js";
+import "/$bunfs/root/chunk-z6m3k8w5.js";
+import "/$bunfs/root/chunk-v94qfg1j.js";
+import { Q_e, ree, oee, Qae, NMt, tye, j9e, ele, nye } from "/$bunfs/root/chunk-qwp18h36.js";
+import "/$bunfs/root/chunk-93max1bs.js";
+import "/$bunfs/root/chunk-sypj25ha.js";
+import { Yae, $lt, Y_e, tee, J_e } from "/$bunfs/root/chunk-5g669xdp.js";
+import { Flt, Xae, xxe } from "/$bunfs/root/chunk-7rcn0da5.js";
+import { OP } from "/$bunfs/root/chunk-q3evfmyc.js";
+import { OXt } from "/$bunfs/root/chunk-ngn87vcm.js";
+import "/$bunfs/root/chunk-p4y4qj90.js";
+import "/$bunfs/root/chunk-d5bnjcbw.js";
+import "/$bunfs/root/chunk-6nsyrmhg.js";
+import "/$bunfs/root/chunk-jjkewjsg.js";
+import "/$bunfs/root/chunk-4r71nj50.js";
+import "/$bunfs/root/chunk-3qvtfvqg.js";
+import "/$bunfs/root/chunk-r7t0evh2.js";
+import "/$bunfs/root/chunk-6xz0kht6.js";
+import "/$bunfs/root/chunk-2am7kb6k.js";
+import "/$bunfs/root/chunk-9kr4hqvs.js";
+import "/$bunfs/root/chunk-xvwx3w83.js";
+import "/$bunfs/root/chunk-y9akj3mq.js";
+import "/$bunfs/root/chunk-gdk3p0b3.js";
+import "/$bunfs/root/chunk-qy75zxb2.js";
+import "/$bunfs/root/chunk-r6t6p0zm.js";
+import "/$bunfs/root/chunk-qpj83ec7.js";
+import "/$bunfs/root/chunk-f77e8yef.js";
+import "/$bunfs/root/chunk-f7y0mdt6.js";
+import "/$bunfs/root/chunk-jb2pzt3t.js";
+import "/$bunfs/root/chunk-9yzzw213.js";
+import "/$bunfs/root/chunk-mknyj0qp.js";
+import "/$bunfs/root/chunk-81defen8.js";
+import "/$bunfs/root/chunk-mpg6r2j0.js";
+import "/$bunfs/root/chunk-3dh32z3c.js";
+import "/$bunfs/root/chunk-n8ecp4gs.js";
+import "/$bunfs/root/chunk-406nxetx.js";
+import "/$bunfs/root/chunk-2zf9m1zh.js";
+import "/$bunfs/root/chunk-rxqmmxnb.js";
+import "/$bunfs/root/chunk-gdhqsw8a.js";
+import "/$bunfs/root/chunk-5xr818a0.js";
+import "/$bunfs/root/chunk-fgavb5x0.js";
+import "/$bunfs/root/chunk-sqa0bs5e.js";
+import "/$bunfs/root/chunk-fveqn4y7.js";
+import "/$bunfs/root/chunk-4zsxhey6.js";
+import "/$bunfs/root/chunk-61nasexv.js";
+import "/$bunfs/root/chunk-m1andcps.js";
+import "/$bunfs/root/chunk-61hbq2wc.js";
+import "/$bunfs/root/chunk-rq65wazg.js";
+import "/$bunfs/root/chunk-5tdaspnd.js";
+import "/$bunfs/root/chunk-rr0yj5sq.js";
+import "/$bunfs/root/chunk-a7wreksn.js";
+import "/$bunfs/root/chunk-8sbwe0jk.js";
+import "/$bunfs/root/chunk-nwb64bac.js";
+import "/$bunfs/root/chunk-g5y4mxg8.js";
+import "/$bunfs/root/chunk-cbn30h5b.js";
+import "/$bunfs/root/chunk-g01aac1k.js";
+import "/$bunfs/root/chunk-3fwkz19s.js";
+import "/$bunfs/root/chunk-9319g175.js";
+import "/$bunfs/root/chunk-szz73wxx.js";
+import "/$bunfs/root/chunk-b40bn863.js";
+import "/$bunfs/root/chunk-6mgs10s2.js";
+import "/$bunfs/root/chunk-6s9ybdq1.js";
+import "/$bunfs/root/chunk-74qqwjhx.js";
+import "/$bunfs/root/chunk-1hh0bg14.js";
+import "/$bunfs/root/chunk-052zvbpg.js";
+import "/$bunfs/root/chunk-werv747a.js";
+import "/$bunfs/root/chunk-jzh4kg5x.js";
+import "/$bunfs/root/chunk-7s7jqj2f.js";
+import "/$bunfs/root/chunk-56sxk8k2.js";
+import "/$bunfs/root/chunk-7jz6r17g.js";
+import "/$bunfs/root/chunk-a4q326ap.js";
+import { basename as _, dirname as O } from "path";
+async function te(o) {
+  if (a.DISABLE_UPDATES)
+    er(`Updates are disabled by your administrator. Contact your IT team to get the latest version.
+`),
+      await Ln(0);
+  s("tengu_update_check", {}),
+    er(`Current version: ${{ ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues", PACKAGE_URL: "@anthropic-ai/claude-code", README_URL: "https://code.claude.com/docs/en/overview", VERSION: "2.1.252", FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues", BUILD_TIME: "2026-08-31T16:02:57Z", GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548", HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js", DD_SOURCEMAP_GROUP: "darwin" }.VERSION}
+`);
+  let y = OP(),
+    m = Y_e(),
+    l = m ? (m === "claude-code@latest" ? "latest" : "stable") : $lt() ? "stable" : y,
+    f = l === "rc" ? "slow" : l;
+  er(`Checking for updates to ${f} version...
+`),
+    n("update: Starting update check"),
+    n("update: Running diagnostic");
+  let r = await J_e({ storageV5: o });
+  if (
+    (n(`update: Installation type: ${r.installationType}`),
+    n(`update: Config install method: ${r.configInstallMethod}`),
+    r.multipleInstallations.length > 1)
+  ) {
+    er(`
+`),
+      er(
+        ae.yellow("Warning: Multiple installations found") +
+          `
+`,
+      );
+    for (let e of r.multipleInstallations) {
+      let t = r.installationType === e.type ? " (currently running)" : "";
+      er(`- ${e.type} at ${e.path}${t}
+`);
+    }
+  }
+  if (r.warnings.length > 0) {
+    er(`
+`);
+    for (let e of r.warnings)
+      n(`update: Warning detected: ${e.issue}`),
+        n(`update: Showing warning: ${e.issue}`),
+        er(
+          ae.yellow(`Warning: ${e.issue}
+`),
+        ),
+        er(
+          ae.bold(`Fix: ${e.fix.replaceAll("`", "")}
+`),
+        );
+  }
+  let b = ie();
+  if (!b.installMethod && r.installationType !== "package-manager") {
+    er(`
+`),
+      er(`Updating configuration to track installation method...
+`);
+    let e = "unknown";
+    switch (r.installationType) {
+      case "npm-local":
+        e = "local";
+        break;
+      case "native":
+        e = "native";
+        break;
+      case "npm-global":
+        e = "global";
+        break;
+      default:
+        e = "unknown";
+    }
+    Ae((t) => ({ ...t, installMethod: e }), o),
+      er(`Installation method set to: ${e}
+`);
+  }
+  if (r.installationType === "development")
+    er(`
+`),
+      er(
+        ae.yellow("Warning: Cannot update development build") +
+          `
+`,
+      ),
+      await Ln(1);
+  if (r.installationType === "package-manager") {
+    let e = await tee();
+    if (
+      (er(`
+`),
+      e === "homebrew")
+    ) {
+      er(`Claude is managed by Homebrew.
+`);
+      let t = `brew upgrade ${m ?? "claude-code"}`,
+        R = await j9e(m ?? "claude-code", l);
+      if (R === null)
+        er(`Could not check for updates (network check skipped or unavailable).
+`),
+          er(`To update manually, run:
+`),
+          er(
+            ae.bold(`  ${t}`) +
+              `
+`,
+          );
+      else if (
+        !ph(
+          {
+            ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues",
+            PACKAGE_URL: "@anthropic-ai/claude-code",
+            README_URL: "https://code.claude.com/docs/en/overview",
+            VERSION: "2.1.252",
+            FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues",
+            BUILD_TIME: "2026-08-31T16:02:57Z",
+            GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548",
+            HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",
+            DD_SOURCEMAP_GROUP: "darwin",
+          }.VERSION,
+          R,
+        )
+      )
+        er(`Update available: ${{ ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues", PACKAGE_URL: "@anthropic-ai/claude-code", README_URL: "https://code.claude.com/docs/en/overview", VERSION: "2.1.252", FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues", BUILD_TIME: "2026-08-31T16:02:57Z", GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548", HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js", DD_SOURCEMAP_GROUP: "darwin" }.VERSION} \u2192 ${R}
+`),
+          er(`
+`),
+          er(`To update, run:
+`),
+          er(
+            ae.bold(`  ${t}`) +
+              `
+`,
+          );
+      else
+        er(`Claude is up to date!
+`);
+      if (m !== "claude-code@latest")
+        er(`
+`),
+          er(
+            ae.dim(`Tip: For more frequent updates, use the claude-code@latest cask:
+`),
+          ),
+          er(
+            ae.dim(`  brew uninstall --cask ${m ?? "claude-code"} && brew install --cask claude-code@latest`) +
+              `
+`,
+          );
+    } else if (e === "winget") {
+      er(`Claude is managed by winget.
+`);
+      let t = await tye(l);
+      if (
+        t &&
+        !ph(
+          {
+            ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues",
+            PACKAGE_URL: "@anthropic-ai/claude-code",
+            README_URL: "https://code.claude.com/docs/en/overview",
+            VERSION: "2.1.252",
+            FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues",
+            BUILD_TIME: "2026-08-31T16:02:57Z",
+            GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548",
+            HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",
+            DD_SOURCEMAP_GROUP: "darwin",
+          }.VERSION,
+          t,
+        )
+      )
+        er(`Update available: ${{ ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues", PACKAGE_URL: "@anthropic-ai/claude-code", README_URL: "https://code.claude.com/docs/en/overview", VERSION: "2.1.252", FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues", BUILD_TIME: "2026-08-31T16:02:57Z", GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548", HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js", DD_SOURCEMAP_GROUP: "darwin" }.VERSION} \u2192 ${t}
+`),
+          er(`
+`),
+          er(`To update, run:
+`),
+          er(
+            ae.bold("  winget upgrade Anthropic.ClaudeCode") +
+              `
+`,
+          );
+      else
+        er(`Claude is up to date!
+`);
+    } else if (e === "apk") {
+      er(`Claude is managed by apk.
+`);
+      let t = await tye(l);
+      if (
+        t &&
+        !ph(
+          {
+            ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues",
+            PACKAGE_URL: "@anthropic-ai/claude-code",
+            README_URL: "https://code.claude.com/docs/en/overview",
+            VERSION: "2.1.252",
+            FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues",
+            BUILD_TIME: "2026-08-31T16:02:57Z",
+            GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548",
+            HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",
+            DD_SOURCEMAP_GROUP: "darwin",
+          }.VERSION,
+          t,
+        )
+      )
+        er(`Update available: ${{ ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues", PACKAGE_URL: "@anthropic-ai/claude-code", README_URL: "https://code.claude.com/docs/en/overview", VERSION: "2.1.252", FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues", BUILD_TIME: "2026-08-31T16:02:57Z", GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548", HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js", DD_SOURCEMAP_GROUP: "darwin" }.VERSION} \u2192 ${t}
+`),
+          er(`
+`),
+          er(`To update, run:
+`),
+          er(
+            ae.bold("  apk upgrade claude-code") +
+              `
+`,
+          );
+      else
+        er(`Claude is up to date!
+`);
+    } else
+      er(`Claude is managed by a package manager.
+`),
+        er(`Please use your package manager to update.
+`);
+    await Ln(0);
+  }
+  if (b.installMethod && r.configInstallMethod !== "not set" && r.installationType !== "package-manager") {
+    let { installationType: e, configInstallMethod: t } = r,
+      k =
+        {
+          "npm-local": "local",
+          "npm-global": "global",
+          native: "native",
+          development: "development",
+          unknown: "unknown",
+        }[e] || e;
+    if (k !== t && t !== "unknown")
+      er(`
+`),
+        er(
+          ae.yellow("Warning: Configuration mismatch") +
+            `
+`,
+        ),
+        er(`Config expects: ${t} installation
+`),
+        er(`Currently running: ${e}
+`),
+        er(
+          ae.yellow(`Updating the ${e} installation you are currently using`) +
+            `
+`,
+        ),
+        Ae((I) => ({ ...I, installMethod: k }), o),
+        er(`Config updated to reflect current installation method: ${k}
+`);
+  }
+  if (r.installationType === "native") {
+    if (
+      (n("update: Detected native installation, using native updater"),
+      Je()?.minimumVersion || ye("policySettings")?.requiredMaximumVersion)
+    ) {
+      let e = await Flt(l).catch(() => null),
+        t = e ? NMt(e) : null;
+      if (e && t)
+        er(
+          ae.yellow(
+            `The ${f} channel is at ${e}, which is ${t}. Staying on ${{ ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues", PACKAGE_URL: "@anthropic-ai/claude-code", README_URL: "https://code.claude.com/docs/en/overview", VERSION: "2.1.252", FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues", BUILD_TIME: "2026-08-31T16:02:57Z", GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548", HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js", DD_SOURCEMAP_GROUP: "darwin" }.VERSION}.`,
+          ) +
+            `
+`,
+        ),
+          await Ln(0);
+    }
+    Flt(l)
+      .then((e) => {
+        if (
+          e &&
+          e !==
+            {
+              ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues",
+              PACKAGE_URL: "@anthropic-ai/claude-code",
+              README_URL: "https://code.claude.com/docs/en/overview",
+              VERSION: "2.1.252",
+              FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues",
+              BUILD_TIME: "2026-08-31T16:02:57Z",
+              GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548",
+              HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",
+              DD_SOURCEMAP_GROUP: "darwin",
+            }.VERSION
+        )
+          er(`Updating to ${e}...
+`);
+      })
+      .catch(() => {});
+    try {
+      let e = await Xae(l, !1, o);
+      if (e.lockFailed) {
+        let t = e.lockHolderPid ? ` (PID ${e.lockHolderPid})` : "";
+        er(
+          ae.yellow(`Another Claude process${t} is currently running. Please try again in a moment.`) +
+            `
+`,
+        ),
+          await Ln(0);
+      }
+      if (!e.latestVersion)
+        process.stderr.write(`Failed to check for updates
+`),
+          await Ln(1);
+      if (
+        e.wasUpdated &&
+        e.latestVersion !==
+          {
+            ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues",
+            PACKAGE_URL: "@anthropic-ai/claude-code",
+            README_URL: "https://code.claude.com/docs/en/overview",
+            VERSION: "2.1.252",
+            FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues",
+            BUILD_TIME: "2026-08-31T16:02:57Z",
+            GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548",
+            HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",
+            DD_SOURCEMAP_GROUP: "darwin",
+          }.VERSION
+      )
+        er(
+          ae.green(
+            `Successfully updated from ${{ ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues", PACKAGE_URL: "@anthropic-ai/claude-code", README_URL: "https://code.claude.com/docs/en/overview", VERSION: "2.1.252", FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues", BUILD_TIME: "2026-08-31T16:02:57Z", GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548", HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js", DD_SOURCEMAP_GROUP: "darwin" }.VERSION} to version ${e.latestVersion}`,
+          ) +
+            `
+`,
+        ),
+          await OXt(),
+          await A(e.latestVersion, o);
+      else
+        er(
+          ae.green(
+            `Claude Code is up to date (${{ ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues", PACKAGE_URL: "@anthropic-ai/claude-code", README_URL: "https://code.claude.com/docs/en/overview", VERSION: "2.1.252", FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues", BUILD_TIME: "2026-08-31T16:02:57Z", GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548", HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js", DD_SOURCEMAP_GROUP: "darwin" }.VERSION})`,
+          ) +
+            `
+`,
+        );
+      await Ln(0);
+    } catch (e) {
+      process.stderr.write(`Error: Failed to install native update
+`),
+        process.stderr.write(
+          String(e) +
+            `
+`,
+        ),
+        process.stderr.write(`Try running "claude doctor" for diagnostics
+`),
+        await Ln(1);
+    }
+  }
+  if (b.installMethod !== "native") await xxe();
+  n("update: Checking npm registry for latest version"),
+    n(
+      `update: Package URL: ${{ ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues", PACKAGE_URL: "@anthropic-ai/claude-code", README_URL: "https://code.claude.com/docs/en/overview", VERSION: "2.1.252", FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues", BUILD_TIME: "2026-08-31T16:02:57Z", GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548", HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js", DD_SOURCEMAP_GROUP: "darwin" }.PACKAGE_URL}`,
+    );
+  let S = l === "stable" ? "stable" : "latest",
+    M = `npm view ${{ ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues", PACKAGE_URL: "@anthropic-ai/claude-code", README_URL: "https://code.claude.com/docs/en/overview", VERSION: "2.1.252", FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues", BUILD_TIME: "2026-08-31T16:02:57Z", GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548", HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js", DD_SOURCEMAP_GROUP: "darwin" }.PACKAGE_URL}@${S} version`;
+  n(`update: Running: ${M}`);
+  let g = await tye(l);
+  if ((n(`update: Latest version from npm: ${g || "FAILED"}`), !g)) {
+    if (
+      (n("update: Failed to get latest version from npm registry"),
+      process.stderr.write(
+        ae.red("Failed to check for updates") +
+          `
+`,
+      ),
+      process.stderr.write(`Unable to fetch latest version from npm registry
+`),
+      process.stderr.write(`
+`),
+      process.stderr.write(`Possible causes:
+`),
+      process.stderr.write(`  \u2022 Network connectivity issues
+`),
+      process.stderr.write(`  \u2022 npm registry is unreachable
+`),
+      process.stderr.write(`  \u2022 Corporate proxy/firewall blocking npm
+`),
+      {
+        ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues",
+        PACKAGE_URL: "@anthropic-ai/claude-code",
+        README_URL: "https://code.claude.com/docs/en/overview",
+        VERSION: "2.1.252",
+        FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues",
+        BUILD_TIME: "2026-08-31T16:02:57Z",
+        GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548",
+        HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",
+        DD_SOURCEMAP_GROUP: "darwin",
+      }.PACKAGE_URL &&
+        !{
+          ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues",
+          PACKAGE_URL: "@anthropic-ai/claude-code",
+          README_URL: "https://code.claude.com/docs/en/overview",
+          VERSION: "2.1.252",
+          FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues",
+          BUILD_TIME: "2026-08-31T16:02:57Z",
+          GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548",
+          HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",
+          DD_SOURCEMAP_GROUP: "darwin",
+        }.PACKAGE_URL.startsWith("@anthropic"))
+    )
+      process.stderr.write(`  \u2022 Internal/development build not published to npm
+`);
+    process.stderr.write(`
+`),
+      process.stderr.write(`Try:
+`),
+      process.stderr.write(`  \u2022 Check your internet connection
+`),
+      process.stderr.write(`  \u2022 Run with --debug flag for more details
+`);
+    let e =
+      {
+        ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues",
+        PACKAGE_URL: "@anthropic-ai/claude-code",
+        README_URL: "https://code.claude.com/docs/en/overview",
+        VERSION: "2.1.252",
+        FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues",
+        BUILD_TIME: "2026-08-31T16:02:57Z",
+        GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548",
+        HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",
+        DD_SOURCEMAP_GROUP: "darwin",
+      }.PACKAGE_URL || "@anthropic-ai/claude-code";
+    process.stderr.write(`  \u2022 Manually check: npm view ${e} version
+`),
+      process.stderr.write(`  \u2022 Check if you need to login: npm whoami
+`),
+      await Ln(1);
+  }
+  let { maxVersion: d, forceDowngradeEnabled: E } = await oee(),
+    i = g,
+    h = !1;
+  if (
+    E &&
+    d &&
+    Qae(
+      {
+        ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues",
+        PACKAGE_URL: "@anthropic-ai/claude-code",
+        README_URL: "https://code.claude.com/docs/en/overview",
+        VERSION: "2.1.252",
+        FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues",
+        BUILD_TIME: "2026-08-31T16:02:57Z",
+        GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548",
+        HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",
+        DD_SOURCEMAP_GROUP: "darwin",
+      }.VERSION,
+      d,
+      "auto_updater",
+    )
+  )
+    (i = d), (h = !0);
+  else if (d && g && ff(g, d))
+    n(`update: maxVersion ${d} is set, capping update from ${g} to ${d}`),
+      (i = ff(
+        d,
+        {
+          ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues",
+          PACKAGE_URL: "@anthropic-ai/claude-code",
+          README_URL: "https://code.claude.com/docs/en/overview",
+          VERSION: "2.1.252",
+          FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues",
+          BUILD_TIME: "2026-08-31T16:02:57Z",
+          GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548",
+          HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",
+          DD_SOURCEMAP_GROUP: "darwin",
+        }.VERSION,
+      )
+        ? d
+        : {
+            ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues",
+            PACKAGE_URL: "@anthropic-ai/claude-code",
+            README_URL: "https://code.claude.com/docs/en/overview",
+            VERSION: "2.1.252",
+            FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues",
+            BUILD_TIME: "2026-08-31T16:02:57Z",
+            GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548",
+            HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",
+            DD_SOURCEMAP_GROUP: "darwin",
+          }.VERSION);
+  let v = i ? NMt(i) : null;
+  if (i && v) {
+    let e =
+      i === g ? `The ${f} channel is at ${i}` : `The update target is capped at ${i} by a server-side version policy`;
+    er(
+      ae.yellow(
+        `${e}, which is ${v}. Staying on ${{ ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues", PACKAGE_URL: "@anthropic-ai/claude-code", README_URL: "https://code.claude.com/docs/en/overview", VERSION: "2.1.252", FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues", BUILD_TIME: "2026-08-31T16:02:57Z", GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548", HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js", DD_SOURCEMAP_GROUP: "darwin" }.VERSION}.`,
+      ) +
+        `
+`,
+    ),
+      await Ln(0);
+  }
+  if (
+    i ===
+    {
+      ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues",
+      PACKAGE_URL: "@anthropic-ai/claude-code",
+      README_URL: "https://code.claude.com/docs/en/overview",
+      VERSION: "2.1.252",
+      FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues",
+      BUILD_TIME: "2026-08-31T16:02:57Z",
+      GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548",
+      HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",
+      DD_SOURCEMAP_GROUP: "darwin",
+    }.VERSION
+  )
+    er(
+      ae.green(
+        `Claude Code is up to date (${{ ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues", PACKAGE_URL: "@anthropic-ai/claude-code", README_URL: "https://code.claude.com/docs/en/overview", VERSION: "2.1.252", FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues", BUILD_TIME: "2026-08-31T16:02:57Z", GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548", HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js", DD_SOURCEMAP_GROUP: "darwin" }.VERSION})`,
+      ) +
+        `
+`,
+    ),
+      await Ln(0);
+  if (
+    !h &&
+    i &&
+    _$(
+      i,
+      {
+        ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues",
+        PACKAGE_URL: "@anthropic-ai/claude-code",
+        README_URL: "https://code.claude.com/docs/en/overview",
+        VERSION: "2.1.252",
+        FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues",
+        BUILD_TIME: "2026-08-31T16:02:57Z",
+        GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548",
+        HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",
+        DD_SOURCEMAP_GROUP: "darwin",
+      }.VERSION,
+    )
+  )
+    er(
+      ae.yellow(
+        `You're running ${{ ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues", PACKAGE_URL: "@anthropic-ai/claude-code", README_URL: "https://code.claude.com/docs/en/overview", VERSION: "2.1.252", FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues", BUILD_TIME: "2026-08-31T16:02:57Z", GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548", HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js", DD_SOURCEMAP_GROUP: "darwin" }.VERSION}, which is newer than the ${f} channel's ${i}. Skipping update. To switch back to the channel version, run claude install ${i}.`,
+      ) +
+        `
+`,
+    ),
+      await Ln(0);
+  if (h)
+    s("tengu_auto_updater_forced_downgrade", {
+      from_version: us(
+        {
+          ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues",
+          PACKAGE_URL: "@anthropic-ai/claude-code",
+          README_URL: "https://code.claude.com/docs/en/overview",
+          VERSION: "2.1.252",
+          FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues",
+          BUILD_TIME: "2026-08-31T16:02:57Z",
+          GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548",
+          HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",
+          DD_SOURCEMAP_GROUP: "darwin",
+        }.VERSION,
+      ),
+      to_version: us(i),
+    }),
+      er(
+        ae.yellow(
+          `Downgrading to ${i} (current: ${{ ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues", PACKAGE_URL: "@anthropic-ai/claude-code", README_URL: "https://code.claude.com/docs/en/overview", VERSION: "2.1.252", FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues", BUILD_TIME: "2026-08-31T16:02:57Z", GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548", HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js", DD_SOURCEMAP_GROUP: "darwin" }.VERSION}) \u2014 required by a server-side version policy.`,
+        ) +
+          `
+`,
+      );
+  else
+    er(`New version available: ${i} (current: ${{ ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues", PACKAGE_URL: "@anthropic-ai/claude-code", README_URL: "https://code.claude.com/docs/en/overview", VERSION: "2.1.252", FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues", BUILD_TIME: "2026-08-31T16:02:57Z", GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548", HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js", DD_SOURCEMAP_GROUP: "darwin" }.VERSION})
+`);
+  er(`Installing update...
+`);
+  let c = !1,
+    w = "";
+  switch (r.installationType) {
+    case "npm-local":
+      (c = !0), (w = "local");
+      break;
+    case "npm-global":
+      (c = !1), (w = "global");
+      break;
+    case "unknown": {
+      let e = await ree();
+      (c = e),
+        (w = e ? "local" : "global"),
+        er(
+          ae.yellow("Warning: Could not determine installation type") +
+            `
+`,
+        ),
+        er(`Attempting ${w} update based on file detection...
+`);
+      break;
+    }
+    default:
+      p("update_apply", "update_apply_unsupported_install_type"),
+        process.stderr.write(`Error: Cannot update ${r.installationType} installation
+`),
+        await Ln(1);
+  }
+  er(`Using ${w} installation update method...
+`),
+    n(`update: Update method determined: ${w}`),
+    n(`update: useLocalUpdate: ${c}`);
+  let u, C;
+  if (c) n("update: Calling installOrUpdateClaudePackage() for local update"), (u = await Q_e(l, i, o));
+  else n("update: Calling installGlobalPackage() for global update"), (C = await nye(i, o)), (u = C.status);
+  if ((n(`update: Installation status: ${u}`), u !== "in_progress"))
+    await Yae(
+      {
+        timestamp: new Date().toISOString(),
+        path: c ? "npm-local" : "npm-global",
+        outcome: u === "success" ? "success" : "failed",
+        status: u,
+        version_from: {
+          ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues",
+          PACKAGE_URL: "@anthropic-ai/claude-code",
+          README_URL: "https://code.claude.com/docs/en/overview",
+          VERSION: "2.1.252",
+          FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues",
+          BUILD_TIME: "2026-08-31T16:02:57Z",
+          GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548",
+          HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",
+          DD_SOURCEMAP_GROUP: "darwin",
+        }.VERSION,
+        version_to: i,
+        error_code:
+          u === "install_failed" && ele()
+            ? "update_apply_restore_failed"
+            : C?.failureHint === "windows_running_exe_lock"
+              ? "update_apply_exe_locked"
+              : null,
+      },
+      o,
+    );
+  switch (u) {
+    case "success":
+      er(
+        ae.green(
+          h
+            ? `Successfully downgraded from ${{ ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues", PACKAGE_URL: "@anthropic-ai/claude-code", README_URL: "https://code.claude.com/docs/en/overview", VERSION: "2.1.252", FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues", BUILD_TIME: "2026-08-31T16:02:57Z", GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548", HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js", DD_SOURCEMAP_GROUP: "darwin" }.VERSION} to version ${i}`
+            : `Successfully updated from ${{ ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues", PACKAGE_URL: "@anthropic-ai/claude-code", README_URL: "https://code.claude.com/docs/en/overview", VERSION: "2.1.252", FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues", BUILD_TIME: "2026-08-31T16:02:57Z", GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548", HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js", DD_SOURCEMAP_GROUP: "darwin" }.VERSION} to version ${i}`,
+        ) +
+          `
+`,
+      ),
+        await OXt(),
+        await A(i, o);
+      break;
+    case "no_permissions":
+      if (
+        (process.stderr.write(`Error: Insufficient permissions to install update
+`),
+        c)
+      )
+        process.stderr.write(`Try manually updating with:
+`),
+          process.stderr.write(`  cd ~/.claude/local && npm update ${{ ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues", PACKAGE_URL: "@anthropic-ai/claude-code", README_URL: "https://code.claude.com/docs/en/overview", VERSION: "2.1.252", FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues", BUILD_TIME: "2026-08-31T16:02:57Z", GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548", HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js", DD_SOURCEMAP_GROUP: "darwin" }.PACKAGE_URL}
+`);
+      else
+        process.stderr.write(`Try running with sudo or fix npm permissions
+`),
+          process.stderr.write(`Or consider using native installation with: claude install
+`);
+      await Ln(1);
+      break;
+    case "install_failed": {
+      let e = ele();
+      if (!e && C?.failureHint === "windows_running_exe_lock") {
+        process.stderr.write(`Error: Update failed because claude.exe is in use. Close other Claude Code sessions (including VS Code), then run claude update again, or run claude doctor.
+`),
+          await Ln(1);
+        break;
+      }
+      if (
+        (process.stderr.write(`Error: Failed to install update
+`),
+        e)
+      )
+        if (e.preservedPath)
+          if (
+            (process.stderr.write(`Your Claude Code executable could not be restored after the failed update. It was preserved at ${e.preservedPath}
+`),
+            O(e.preservedPath) === O(e.originalPath))
+          )
+            process.stderr.write(`Rename it back to ${_(e.originalPath)}, or reinstall with: npm i -g ${{ ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues", PACKAGE_URL: "@anthropic-ai/claude-code", README_URL: "https://code.claude.com/docs/en/overview", VERSION: "2.1.252", FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues", BUILD_TIME: "2026-08-31T16:02:57Z", GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548", HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js", DD_SOURCEMAP_GROUP: "darwin" }.PACKAGE_URL}
+`);
+          else
+            process.stderr.write(`Copy it back to ${e.originalPath}, or reinstall with: npm i -g ${{ ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues", PACKAGE_URL: "@anthropic-ai/claude-code", README_URL: "https://code.claude.com/docs/en/overview", VERSION: "2.1.252", FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues", BUILD_TIME: "2026-08-31T16:02:57Z", GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548", HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js", DD_SOURCEMAP_GROUP: "darwin" }.PACKAGE_URL}
+`);
+        else
+          process.stderr.write(`Your Claude Code executable could not be restored after the failed update and no preserved copy was found. Reinstall with: npm i -g ${{ ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues", PACKAGE_URL: "@anthropic-ai/claude-code", README_URL: "https://code.claude.com/docs/en/overview", VERSION: "2.1.252", FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues", BUILD_TIME: "2026-08-31T16:02:57Z", GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548", HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js", DD_SOURCEMAP_GROUP: "darwin" }.PACKAGE_URL}
+`);
+      else if (c)
+        process.stderr.write(`Try manually updating with:
+`),
+          process.stderr.write(`  cd ~/.claude/local && npm update ${{ ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues", PACKAGE_URL: "@anthropic-ai/claude-code", README_URL: "https://code.claude.com/docs/en/overview", VERSION: "2.1.252", FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues", BUILD_TIME: "2026-08-31T16:02:57Z", GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548", HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js", DD_SOURCEMAP_GROUP: "darwin" }.PACKAGE_URL}
+`);
+      else
+        process.stderr.write(`Or consider using native installation with: claude install
+`);
+      await Ln(1);
+      break;
+    }
+    case "in_progress":
+      process.stderr.write(`Error: Another instance is currently performing an update
+`),
+        process.stderr.write(`Please wait and try again later
+`),
+        await Ln(1);
+      break;
+  }
+  await Ln(0);
+}
+async function A(o, y) {
+  if (await sMn(o, y))
+    er(
+      ae.dim(`${EV()} will restart on the new version shortly; background jobs continue uninterrupted`) +
+        `
+`,
+    );
+}
+export { te as update };

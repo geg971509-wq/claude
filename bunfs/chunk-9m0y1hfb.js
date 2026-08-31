@@ -8,4 +8,5 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{atn}from"/$bunfs/root/chunk-ksj158tv.js";export{atn as TEAMMATE_SYSTEM_PROMPT_ADDENDUM};
+import { atn } from "/$bunfs/root/chunk-ksj158tv.js";
+export { atn as TEAMMATE_SYSTEM_PROMPT_ADDENDUM };

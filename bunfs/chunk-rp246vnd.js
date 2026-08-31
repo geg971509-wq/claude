@@ -8,5 +8,12 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{j0}from"/$bunfs/root/chunk-pbmajbn7.js";import{We,F}from"/$bunfs/root/chunk-twm95mhz.js";F();function Ee(){let e=We(j0);if(!e)throw Error("useTerminalSize must be used within an Ink App component");return e}
-export{Ee};
+import { j0 } from "/$bunfs/root/chunk-pbmajbn7.js";
+import { We, F } from "/$bunfs/root/chunk-twm95mhz.js";
+F();
+function Ee() {
+  let e = We(j0);
+  if (!e) throw Error("useTerminalSize must be used within an Ink App component");
+  return e;
+}
+export { Ee };

@@ -8,5 +8,1118 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{c,ke}from"/$bunfs/root/chunk-4xj01xwv.js";import{Ze,l,E,X}from"/$bunfs/root/chunk-ypdw393e.js";import{ne,jt}from"/$bunfs/root/chunk-tx16jn0x.js";import{b,n}from"/$bunfs/root/chunk-fv016jr6.js";import{m}from"/$bunfs/root/chunk-bzx56g36.js";import{s}from"/$bunfs/root/chunk-r53tkxrh.js";import{Wn}from"/$bunfs/root/chunk-nqmqabr8.js";import{Ut}from"/$bunfs/root/chunk-ntyhd04p.js";import{z9,SOe,hne,tn,_ne,ey,sC,V9,LX,Rue,BD,cht}from"/$bunfs/root/chunk-y8sx7bf9.js";import{Eae,SWe,Ast,l_e,_rn}from"/$bunfs/root/chunk-802k7j4j.js";import{V2n,K2n}from"/$bunfs/root/chunk-es5p3spb.js";import{drn}from"/$bunfs/root/chunk-vqg96n7v.js";import{ea}from"/$bunfs/root/chunk-9yzzw213.js";import{i,v,q,H,f,un,dt,ps,oe,N}from"/$bunfs/root/chunk-saay52v7.js";import{D}from"/$bunfs/root/chunk-7s7jqj2f.js";import{O}from"/$bunfs/root/chunk-dqkj2bph.js";import{te}from"/$bunfs/root/chunk-wag5ye9w.js";import{watch as qe}from"fs";var ce=50;function Xe(e,t,r){let a=qe(e,{recursive:!0,persistent:!1,encoding:"utf8"},t);return a.on("error",r),a.unref(),{close:()=>{a.removeAllListeners(),a.on("error",()=>{}),a.close()}}}function Ye(e,t){if(e===null||e===void 0)return null;let r=typeof e==="string"?e:e.toString("utf8"),a=t==="\\"?r.replaceAll("\\","/"):r;return a===""||a==="."?null:a}var Ke=".claude-cloud-trash",Je=".DS_Store";function Qe(e){let t=e.split("/"),r=t.at(-1)??"",a=t.slice(0,-1);if(t.includes(".git")||t.includes(Ke)||SOe(e)||z9.has(r)||r===Je)return{kind:"drop"};if(r.endsWith(".tmp")||r.endsWith(".swp")||r.endsWith("~"))return a.length===0?{kind:"unknown"}:{kind:"path",path:a.join("/")};return{kind:"path",path:e}}function _st({root:e,watch:t=Xe,separator:r=D()==="windows"?"\\":"/",settleMs:a=ce,nowMs:u=Date.now}){let p=null,d=!1,g=0,_=0,w=!1;function S(){d=!1;let x=p;p=null;try{x?.close()}catch{}}return{start(x){S();let A=(I)=>{try{x(I)}catch(R){n(`dir-sync: change hint handler threw: ${l(R)}`)}},h=(I)=>{if(!d)return;S(),w=!0,n(`dir-sync: directory watch lost (${I}); sync points carry on without it`),A({kind:"overflow",at:u()})},B=(I,R)=>{if(!d)return;if(g+=1,g===1)n(`dir-sync: directory watch delivering events (first: ${I} ${R===null?"<unnamed>":"named"})`);let M=Ye(R,r),G=M===null?{kind:"unknown"}:Qe(M);switch(G.kind){case"drop":if(_+=1,_===1)n("dir-sync: directory watch dropping events for .git, dependency directories, the session trash or .DS_Store (first such event; counted from here)");return;case"unknown":A({kind:"unknown",at:u()});return;case"path":A({kind:"paths",paths:[G.path],at:u()});return}},P;try{d=!0,P=t(e,B,(I)=>h(`watcher error: ${l(I)}`))}catch(I){d=!1;let R=`watch unavailable: ${l(I)} (${E(I)??"no code"})`;return n(`dir-sync: ${R}`),{stop(){},started:!1,startError:R}}if(!d){try{P.close()}catch{}return{stop(){},started:!1,startError:"watcher error at start"}}return n("dir-sync: directory watch started on the synced root"),p=P,{stop(){if(p===P)S()},started:!0}},async flush(){if(d)await ne(a)},stats:()=>({events:g,dropped:_,lost:w})}}function xe(e,t){if(t===0||!e.includes("/"))return e;return t===1?e.slice(0,e.lastIndexOf("/")):e.slice(0,e.indexOf("/"))}var en=2;function Re(e,t,r){if(e.size<=r)return{paths:e,grain:t};if(t>=en)return{paths:"many",grain:t};return Re(new Set([...e].map((a)=>xe(a,t+1))),t+1,r)}var pe={setTimeout:(e,t)=>{let r=setTimeout(e,t);return r.unref(),r},clearTimeout:(e)=>clearTimeout(e)};function Te({quietMs:e,maxWaitMs:t,maxNamedPaths:r,onBurst:a,timers:u=pe}){let p=null,d=0,g=null,_=null;function w(){if(g!==null)u.clearTimeout(g),g=null;if(_!==null)u.clearTimeout(_),_=null}function S(){let x=p;if(p=null,d=0,w(),x!==null)a(x==="many"?"many":[...x])}return{touch(x){if(p===null){if(p=new Set,t!==void 0)_=u.setTimeout(S,t)}if(p!=="many"){let A=Re(p.add(xe(x,d)),d,r);p=A.paths,d=A.grain}if(g!==null)u.clearTimeout(g);g=u.setTimeout(S,e)},flush:S,cancel(){p=null,d=0,w()},pending:()=>p!==null}}var Ae=256;function Q(e){return e==="many"?"many paths":`${e.length} path(s)`}var fe="\x00",nn=3,rn=5;function O2n(e,{timers:t=pe}={}){let r=null,a=null,u=drn,p=null,d=!1,g=!0,_=-1/0,w=null,S=!1,x=-1/0,A=null,h=!1,B=0,P=0,I=!1,R=new Set,M=null,G=[],Z=!1,z=!1,we=-1/0,U=!1,ee=!1,V=!0,j=0,re=!1,Se=0,F={hints:0,bursts:0,ignoredBursts:0,watchPasses:0,ships:0,overflows:0,feedEvents:0,feedDropped:0};function ie(o,y){s("tengu_dir_sync_watch",{event:c(o),start_error:ke(y===void 0?null:y.includes("EMFILE")?"emfile":y.includes("ENOSPC")?"enospc":y.includes("ERR_FEATURE_UNAVAILABLE_ON_PLATFORM")?"unsupported":"other"),hints:F.hints,bursts:F.bursts,ignored_bursts:F.ignoredBursts,watch_passes:F.watchPasses,ships:F.ships,overflows:F.overflows,feed_events:F.feedEvents,feed_dropped:F.feedDropped,quiet_ms:u.quietMs,max_wait_ms:u.maxWaitMs,min_gap_ms:u.minGapMs})}function se(){let o=r,y=a?.stats?.();if(F.feedEvents+=y?.events??0,F.feedDropped+=y?.dropped??0,r=null,a=null,V=!0,j+=1,p?.cancel(),p=null,A!==null)t.clearTimeout(A),A=null;if(S=!1,z=!1,o!==null)o.stop(),ie("stopped")}let Y=null;function K(o){if(Y!==o)Y=o,n(`dir-sync: change hints are not streamed just now (${o}); the tree is marked changed for the next sync point`)}function $e(o){if(d||e.notRunning()!==null){K(d?"sync stopped":`sync not running: ${e.notRunning()}`);return}if(F.hints+=1,_=Math.max(_,o.at,e.nowMs()),g=!0,V=o.kind==="overflow",o.kind==="overflow")F.overflows+=1;if(U||e.nowMs()<we){K("an install's own writes");return}if(R.size>0){K("a command runs on this machine"),z=!0;return}if(!e.turnOpen()){K("no turn this machine sent is open");return}if(Y!==null)Y=null,n("dir-sync: change hints stream again");switch(o.kind){case"paths":o.paths.forEach((y)=>p?.touch(y));return;case"unknown":case"overflow":p?.touch(fe);return}}function je(o){F.bursts+=1;let y=j;We(o).then((k)=>{if(y!==j){n(`dir-sync: burst of ${Q(o)} left to the sync point that ran meanwhile`);return}if(!k){F.ignoredBursts+=1,n(`dir-sync: burst of ${Q(o)} touched only ignored paths; nothing to upload`);return}ae(Q(o))},()=>{if(y===j)ae(Q(o))})}async function We(o){if(e.inScope===void 0||re||o==="many"||o.includes(fe)||o.length>Ae)return!0;re=!0;try{return await e.inScope(o)}finally{re=!1}}function ae(o="owed"){if(d||h||R.size>0||!e.turnOpen()||e.notRunning()!==null){z||=R.size>0,S||=h,n(`dir-sync: burst of ${o} not uploaded now (${d?"stopped":h?"paused until a sync point ships":R.size>0?"a command runs here":!e.turnOpen()?"no open turn":"sync not running"})`);return}if(!g){S=!1,n(`dir-sync: burst of ${o} already carried by a pass that began after it; nothing to upload`);return}if(w!==null||A!==null){S=!0,n(`dir-sync: burst of ${o} rides the next upload (one in flight or the gap not yet passed)`);return}let y=x+u.minGapMs-e.nowMs();if(y>0){S=!0,A=t.setTimeout(()=>{A=null,J()},y);return}if(e.mayShip?.(e.facts().gen+1)===!1){S=!0,n(`dir-sync: burst of ${o} held back by the barrier ledger (the peer has not taken the last generation)`);return}F.watchPasses+=1,n(`dir-sync: burst of ${o} \u2192 upload pass queued (watch)`),w=e.send("watch").then((k)=>{if(n(`dir-sync: watch-triggered pass ended: ${k.landed?k.outcome:`not landed (${k.reason??k.outcome})`}, generation ${k.generation}`),k.landed&&k.outcome==="sent"&&k.trigger==="watch")F.ships+=1;if(!k.landed&&k.reason==="held_for_command"){z=!0;return}if(!k.landed){h=!0,n(`dir-sync: a watcher-triggered upload did not land (${k.reason??k.outcome}); the next sync point uploads instead`);return}if(!k.tookSnapshot){S=r!==null;return}if(B=k.outcome==="sent"||k.trigger!=="watch"?0:B+1,B>=nn)h=!0,n("dir-sync: the watcher keeps firing with nothing to upload; pausing it until the next sync point ships");if(k.trigger==="watch"&&k.outcome==="sent"){if(P+=1,P>=rn)I=!h,h=!0,n("dir-sync: several uploads went up with no sign of life from the cloud session; pausing the watcher until the next message or sync point lands")}},(k)=>{h=!0,n(`dir-sync: a watcher-triggered upload failed: ${l(k)}`)}).finally(()=>{w=null,x=e.nowMs(),J()})}function J(){if(S)S=!1,ae()}function be(){if(U||ee)return;let o=G;G=[],o.forEach((y)=>y())}function ye(){let o=M===null?0:e.nowMs()-M;if(M=null,Z){if(Z=!1,n(`dir-sync: install deferred while serving a command on this machine, running now (held for ${o} ms)`),!d&&e.notRunning()===null)e.pull()}if(z)z=!1,p?.touch(fe)}function Ue(o){if(!o.landed)return;if(o.tookSnapshot){if(o.trigger!=="watch"||o.outcome==="sent")h=!1,I=!1,B=0;if(o.trigger!=="watch")P=0;if(o.startedAtMs>=_)g=!1,S=!1;if(o.trigger!=="watch")x=Math.max(x,o.endedAtMs)}if(w===null&&A===null)J()}function Ve(o){let y=o.endedAtMs-o.startedAtMs;if(o.landed&&!o.tookSnapshot)return{kind:"failed",reason:"no_snapshot",gen:o.generation};if(o.landed)return o.outcome==="sent"?{kind:"shipped",gen:o.generation,files:o.files,ms:y}:{kind:"unchanged",gen:o.generation,ms:y};let k=e.notRunning();if(k!==null)return{kind:"not_running",reason:k};return o.kept?{kind:"kept_here",reason:o.reason??o.outcome,gen:o.generation}:{kind:"failed",reason:o.reason??o.outcome,gen:o.generation}}function Ee(o,y){return{trigger:"settle",landed:!1,outcome:"not_run",reason:o,kept:!1,generation:e.facts().gen,files:0,tookSnapshot:!1,startedAtMs:y,endedAtMs:e.nowMs()}}return{streaming:{start(o,y=drn){if(se(),d||e.notRunning()!==null)return;if(u=y,a=o,p=Te({quietMs:u.quietMs,maxWaitMs:u.maxWaitMs,maxNamedPaths:Ae,onBurst:je,timers:t}),r=o.start($e),r.started){V=!1,ie("started");return}ie("start_failed",r.startError),n(`dir-sync: no directory watch (${r.startError??"unknown"}); changes upload at sync points only`),r=null,a=null,p=null},async stop(){se(),await w},async settle(o,y){let k=e.nowMs();if(a!==null)await a.flush().catch((de)=>{n(`dir-sync: change feed flush failed: ${l(de)}`)});p?.cancel(),j+=1,S=!1,z=!1;let ve=e.notRunning(),le=()=>_e(Ee("aborted",k)),_e=()=>{},C=ve!==null?{kind:"not_running",reason:ve}:Ve(await(()=>{let de=new Promise((ue)=>{if(_e=ue,y?.aborted===!0)le();else y?.addEventListener("abort",le,{once:!0})});return Promise.race([e.send("settle").catch((ue)=>(n(`dir-sync: a barrier's upload failed: ${l(ue)}`),Ee("unexpected",k))),de]).finally(()=>y?.removeEventListener("abort",le))})());return x=e.nowMs(),s("tengu_dir_sync_settle",{point:c(o),outcome:c(C.kind),files:C.kind==="shipped"?C.files:0,duration_ms:C.kind==="shipped"||C.kind==="unchanged"?C.ms:0}),C},holdInstalls(o){if(R.size===0)M=e.nowMs();if(R.add(o),!U&&!ee)return Promise.resolve();return new Promise((y)=>{G.push(y)})},releaseInstalls(o){if(R.delete(o)&&R.size===0)ye()},frame(){let o=e.facts();return Se+=1,{side:"laptop",gen:o.gen,tree:o.tree,taken:o.taken,dirty:g||V||o.snapshotting||o.shipping!==null,shipping:o.shipping,takes:o.takes,instance:e.instance,seq:Se}}},deferPull(){if(R.size===0||d)return!1;return Z=!0,!0},held:()=>R.size>0&&!d,dropHolds(){if(R.size===0)return;R.clear(),ye()},peerAlive(){if(P=0,I)I=!1,h=!1,n("dir-sync: the cloud session showed a sign of life; the watcher streams again"),J()},installing(o){if(U=o,!o)we=e.nowMs()+ce,be()},takingIn(o){if(ee=o,!o)be()},passEnded:Ue,halt(){d=!0,se()}}}var on="opening";function L2n(e,t){let r=null,a=0,u=new Set,p=e.then((d)=>(r=d,u.forEach((g)=>void d?.holdInstalls(g)),u.clear(),d));return{start(d,g){p.then((_)=>_?.start(d,g))},async stop(){await(await p)?.stop()},async settle(d,g){return(r??await new Promise((w)=>{if(g?.aborted===!0){w(null);return}let S=()=>w(null);g?.addEventListener("abort",S,{once:!0}),jt(p,t).then((x)=>{g?.removeEventListener("abort",S),w(x)})}))?.settle(d,g)??{kind:"not_running",reason:"not_open"}},holdInstalls(d){if(r!==null)return r.holdInstalls(d);return u.add(d),Promise.resolve()},releaseInstalls(d){if(r!==null){r.releaseInstalls(d);return}u.delete(d)},frame(){if(r!==null){let d=r.frame();return{...d,seq:d.seq+a}}return a+=1,{side:"laptop",gen:0,tree:null,taken:0,dirty:!0,shipping:null,takes:!1,instance:on,seq:a}}}}import{lstat as sn,mkdir as an,open as ln}from"fs/promises";import{dirname as dn}from"path";var L=67108864,me=384,cn=448;async function Fe(e,t){if(O()&&t!==void 0)try{let r=await t.backend.read([{key:t.key,offset:0,length:L+1}]);if(!r.ok)return{kind:"unreadable"};let[a]=r.value.items;if(!a.found)return{kind:"absent"};return a.totalBytes>L?{kind:"unreadable"}:{kind:"ok",content:Buffer.from(a.value.buffer,a.value.byteOffset,a.value.byteLength)}}catch{return{kind:"unreadable"}}try{let r=await sn(e,{bigint:!0});if(!r.isFile())return{kind:"unreadable"};let a=await ln(e,ea());try{let u=await a.stat({bigint:!0});if(u.dev!==r.dev||u.ino!==r.ino||!u.isFile()||u.size>L)return{kind:"unreadable"};return{kind:"ok",content:await hne(a,Number(u.size))}}finally{await a.close()}}catch(r){return X(r)?{kind:"absent"}:{kind:"unreadable"}}}async function Oe(e,t,r){if(t.length>L)throw Error("session record too large to store");if(O()&&r!==void 0){let a=await r.backend.write(r.key,t,{mode:me});if(!a.ok)throw Error("dir-sync: session record write failed",{cause:a.error});return}await an(dn(e),{recursive:!0,mode:cn}),await Wn(e,t,me)}async function Ie(e,t,r){if(e.length>L)throw Error("session record too large to store");let a=!1;async function*u(){if(yield e,t.aborted)throw a=!0,new Ze}let p=await r.backend.writeFromStream(r.key,u(),{maxBytes:L,mode:me});if(p.ok)return;if(a)throw new Ze;throw Error("dir-sync: session record write failed",{cause:p.error})}var ze=1,Ne=2,yst=16,_We=4096,Ce=4096,Be=4096;function EDt(e){switch(e.kind){case"clone":return e.origin!=="remote";case"seed":return!0;case"folder":return e.seeded!==!1}}function ADt(e){switch(e.kind){case"clone":return[e.pin];case"folder":return e.seeded===!1?[]:[e.pin];case"seed":return[e.worktreeCommit,e.head]}}function M2n(e){switch(e.kind){case"clone":return[e.pin];case"folder":return e.seeded===!1?[]:[e.pin];case"seed":return[]}}var T=m(()=>i().regex(tn).refine(_ne)),W=m(()=>i().refine(l_e)),De=m(()=>dt([f({head:T(),branch:i().max(Rue).nullable().catch(null)}),T().transform((e)=>({head:e,branch:null}))])),Ge=m(()=>f({turn:v().int().positive(),notInstalled:H(dt([f({path:W(),reason:i().max(64).transform((e)=>cht(e)?e:"other")}),W().transform((e)=>({path:e,reason:"other"}))])).max(sC),truncated:q()})),pn=m(()=>f({generation:v().int().positive(),head:T(),branch:i().max(Rue).refine(BD).nullable().catch(null),indexCommit:T(),worktreeCommit:T(),indexTree:T(),worktreeTree:T(),bundle:Ast().nullable(),withheldCounts:_rn(),downApplied:H(Ge()).max(V9),fastForwardedTo:H(De()).max(LX).default(()=>[]),fastForwardedOn:H(i().max(Rue).nullable().catch(null)).max(LX).optional(),sentAtMs:v().int().nonnegative()})),he=m(()=>f({version:dt([N(ze),N(Ne)]),engine:N("git"),sessionId:i().min(1),armedAtMs:v().int().nonnegative(),start:ps("kind",[f({kind:N("clone"),pin:T(),origin:oe(["remote","bundle","overlay"]).optional().catch(void 0)}),f({kind:N("seed"),head:T(),indexCommit:T(),worktreeCommit:T()}),f({kind:N("folder"),pin:T(),seedTree:T(),seeded:N(!1).optional()})]),uploadOnly:N(!0).optional(),sent:H(pn()).max(yst).refine((e)=>e.every((t,r)=>r===0||t.generation<e[r-1].generation)),outboundEtag:i().min(1).max(Eae).nullable(),journalEtag:i().min(1).max(Eae).nullable(),announcementToken:i().min(1).max(64).nullable().optional(),announcementEtag:i().min(1).max(Eae).nullable().optional(),acked:H(T()).max(ey),received:H(f({generation:v().int().positive(),worktreeCommit:T()})).max(ey),appliedGeneration:v().int().nonnegative(),installedSinceUpload:H(f({path:W(),blobId:T().nullable(),mode:v().int().nonnegative(),turn:v().int().positive().optional()})).max(_We),installedEarlier:H(f({path:W(),blobId:T()})).max(Ce).optional().transform((e)=>e??[]),parkedRemovals:H(W()).max(Be).optional().transform((e)=>e??[]),parkedRemovalsOverflow:q().optional().transform((e)=>e??!1),downApplied:H(Ge()).max(V9),peerNeed:T().nullable(),peerBasedOn:T().nullable().default(null),fastForwardedTo:H(De()).max(LX).default(()=>[]),fastForwardedOn:H(i().max(Rue).nullable().catch(null)).max(LX).optional(),generationSpent:v().int().nonnegative().default(0),ended:f({reason:oe(SWe).catch("ended_earlier"),line:i().max(2000),atMs:v().int().nonnegative(),published:q()}).optional().catch(void 0)})),fn=m(()=>un({engine:i().optional()}));function mn(e){return e.kind==="folder"&&e.seeded===!1?Ne:ze}function Sst({sessionId:e,armedAtMs:t,start:r,uploadOnly:a=!1}){return{version:mn(r),engine:"git",sessionId:e,armedAtMs:t,start:r,...a&&{uploadOnly:!0},sent:[],outboundEtag:null,journalEtag:null,acked:[],received:[],appliedGeneration:0,installedSinceUpload:[],installedEarlier:[],parkedRemovals:[],parkedRemovalsOverflow:!1,downApplied:[],peerNeed:null,peerBasedOn:null,fastForwardedTo:[],generationSpent:0}}function hn(e,t){let r=he().safeParse(e);if(!r.success||r.data.sessionId!==t)return null;let{fastForwardedOn:a,sent:u,...p}=r.data;return{...p,fastForwardedTo:Pe(p.fastForwardedTo,a),sent:u.map(({fastForwardedOn:d,...g})=>({...g,fastForwardedTo:Pe(g.fastForwardedTo,d)}))}}function Pe(e,t){return t===void 0?[...e]:e.map((r,a)=>({head:r.head,branch:r.branch??t[a]??null}))}function Me(e){return{fastForwardedTo:e.map((t)=>t.head),fastForwardedOn:e.map((t)=>t.branch)}}function Le(e){return Buffer.from(b({...e,...Me(e.fastForwardedTo),sent:e.sent.map((t)=>({...t,...Me(t.fastForwardedTo)}))}))}async function RZ(e,t,r){let a=await Fe(e,r);if(a.kind!=="ok")return a;let u=Ut(a.content.toString("utf8"),!1),p=fn().safeParse(u);if(!p.success)return{kind:"unreadable"};switch(p.data.engine){case void 0:return V2n(u,t)!==null||K2n(u,t)!==null?{kind:"unsupported",engine:"rows"}:{kind:"unreadable"};case"git":{let d=hn(u,t);return d===null?{kind:"unreadable"}:{kind:"git",record:d}}default:return{kind:"unsupported",engine:p.data.engine}}}class bst extends Error{constructor(){super("git session record is not one its reader would accept");this.name="GitSessionRecordInvalidError"}}async function i_e(e,t,r){if(!he().safeParse(t).success)throw new bst;await Oe(e,Le(t),r)}async function N2n(e,t,r){if(!he().safeParse(e).success)throw new bst;await Ie(Le(e),t,r)}function ge(e){return Number.isSafeInteger(e)&&e>0}function kZ(e){return e.sent[0]??null}function m8(e){return Math.max(e.sent[0]?.generation??0,e.generationSpent)+1}function wst(e,t){return ge(t)&&t>e.generationSpent?{...e,generationSpent:t}:e}function F2n(e){return CDt(e).length<V9&&e.installedSinceUpload.length<_We}function CDt(e){let t=new Map;for(let r of[...[...e.sent].reverse().flatMap((a)=>a.downApplied),...e.downApplied])t.set(r.turn,r);return[...t.values()]}function $2n(e){let t=gn(e).map((r)=>r.head);return te(t.reverse()).reverse().slice(-LX)}function gn(e){return[...[...e.sent].reverse().flatMap((t)=>t.fastForwardedTo),...e.fastForwardedTo]}function U2n(e,t){let r=(u)=>u.filter((p)=>p.branch===t).at(-1)?.head??null,a=r(e.fastForwardedTo);if(a!==null)return a;for(let u of e.sent){if(u.branch===t)return u.head;let p=r(u.fastForwardedTo);if(p!==null)return p}return null}function B2n(e,t,r=null){let a=e.fastForwardedTo.at(-1);if(!tn.test(t)||!_ne(t)||a?.head===t&&a.branch===r)return e;let u=r!==null&&BD(r)?r:null,p=e.fastForwardedTo.filter((d)=>!(d.head===t&&d.branch===u));return{...e,fastForwardedTo:wn([...p,{head:t,branch:u}],LX)}}function wn(e,t){if(e.length<=t)return e;let r=new Map(e.map((g,_)=>[g.branch,_])),a=new Set(r.values()),u=e.map((g,_)=>_).filter((g)=>!a.has(g)),p=new Set(u.slice(0,e.length-t)),d=e.filter((g,_)=>!p.has(_));return d.length<=t?d:d.slice(-t)}function j2n(e,t){let r=te(t.holds.filter((w)=>tn.test(w))).slice(0,ey),a=t.need!==null&&tn.test(t.need)?t.need:null,u=t.basedOn!=null&&tn.test(t.basedOn)?t.basedOn:null,p=t.installsBankedThrough??0,d=(w)=>w.turn>p,g=p>0&&(e.downApplied.some((w)=>!d(w))||e.sent.some((w)=>w.downApplied.some((S)=>!d(S))));if(r.length===e.acked.length&&r.every((w,S)=>w===e.acked[S])&&a===e.peerNeed&&u===e.peerBasedOn&&!g)return e;let _=g?e.sent.map((w)=>w.downApplied.some((S)=>!d(S))?{...w,downApplied:w.downApplied.filter(d)}:w):e.sent;return{...e,sent:He(_,r,u),acked:r,peerNeed:a,peerBasedOn:u,downApplied:g?e.downApplied.filter(d):e.downApplied}}function W2n(e,t){if(!ge(t.generation)||!tn.test(t.worktreeCommit))return e;let r=e.received.find((a)=>a.worktreeCommit===t.worktreeCommit);if(r!==void 0&&r.generation>=t.generation)return e;return{...e,received:[t,...e.received.filter((a)=>a.worktreeCommit!==t.worktreeCommit)].slice(0,ey)}}function q2n(e,t){let r=e.downApplied.find((h)=>h.turn===t.turn);if(!ge(t.turn)||r===void 0&&e.downApplied.length>=V9)return e;let a=t.installed.filter((h)=>l_e(h.path)&&(h.blobId===null||tn.test(h.blobId)&&_ne(h.blobId))&&Number.isSafeInteger(h.mode)&&h.mode>=0),u=new Set(a.map((h)=>h.path)),p=new Map(e.installedSinceUpload.map((h)=>[h.path,h]));for(let h of a)p.delete(h.path),p.set(h.path,{...h,turn:t.turn});let d=t.notInstalled.filter((h)=>l_e(h.path)),g=t.complete,w=[...new Map([...g?[]:r?.notInstalled??[],...d].map((h)=>[h.path,h])).values()].filter((h)=>!u.has(h.path)),S={turn:t.turn,notInstalled:w.slice(0,sC),truncated:!g&&(r?.truncated??!1)||t.truncated||a.length!==t.installed.length||d.length!==t.notInstalled.length||w.length>sC||p.size>_We},x=new Map(e.installedEarlier.map((h)=>[h.path,h])),A=t.written===void 0?null:new Set(t.written);for(let h of a)if(h.blobId===null)x.delete(h.path);else if(A===null||A.has(h.path))x.delete(h.path),x.set(h.path,{path:h.path,blobId:h.blobId});return{...e,appliedGeneration:Math.max(e.appliedGeneration,t.turn),installedSinceUpload:[...p.values()].slice(-_We),installedEarlier:[...x.values()].slice(-Ce),...t.parked!==void 0&&Sn(t.parked),downApplied:r===void 0?[...e.downApplied,S]:e.downApplied.map((h)=>h.turn===t.turn?S:h)}}function Sn(e){let t=e.filter(l_e).slice(0,Be);return{parkedRemovals:t,parkedRemovalsOverflow:t.length!==e.length}}function crn(e,t,r){if(t.generation!==m8(e))return e;let a=t.branch!==null&&BD(t.branch)?t.branch:null;return{...e,sent:He([{...t,branch:a,downApplied:e.downApplied,fastForwardedTo:e.fastForwardedTo},...e.sent],e.acked,e.peerBasedOn),outboundEtag:r??e.outboundEtag,installedSinceUpload:[],downApplied:[],fastForwardedTo:[],peerNeed:null}}function He(e,t,r=null){let a=e.findIndex((d)=>t.includes(d.worktreeCommit)),u=r===null?-1:e.findIndex((d)=>d.worktreeCommit===r),p=a===-1?yst:Math.max(a,u,1)+1;return e.slice(0,Math.min(p,yst)).map((d,g)=>a===-1||g<a||d.downApplied.length===0&&d.fastForwardedTo.length===0?d:{...d,downApplied:[],fastForwardedTo:[]})}
-export{_st,O2n,L2n,yst,_We,EDt,ADt,M2n,Sst,RZ,bst,i_e,N2n,kZ,m8,wst,F2n,CDt,$2n,U2n,B2n,j2n,W2n,q2n,crn};
+import { c, ke } from "/$bunfs/root/chunk-4xj01xwv.js";
+import { Ze, l, E, X } from "/$bunfs/root/chunk-ypdw393e.js";
+import { ne, jt } from "/$bunfs/root/chunk-tx16jn0x.js";
+import { b, n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { m } from "/$bunfs/root/chunk-bzx56g36.js";
+import { s } from "/$bunfs/root/chunk-r53tkxrh.js";
+import { Wn } from "/$bunfs/root/chunk-nqmqabr8.js";
+import { Ut } from "/$bunfs/root/chunk-ntyhd04p.js";
+import { z9, SOe, hne, tn, _ne, ey, sC, V9, LX, Rue, BD, cht } from "/$bunfs/root/chunk-y8sx7bf9.js";
+import { Eae, SWe, Ast, l_e, _rn } from "/$bunfs/root/chunk-802k7j4j.js";
+import { V2n, K2n } from "/$bunfs/root/chunk-es5p3spb.js";
+import { drn } from "/$bunfs/root/chunk-vqg96n7v.js";
+import { ea } from "/$bunfs/root/chunk-9yzzw213.js";
+import { i, v, q, H, f, un, dt, ps, oe, N } from "/$bunfs/root/chunk-saay52v7.js";
+import { D } from "/$bunfs/root/chunk-7s7jqj2f.js";
+import { O } from "/$bunfs/root/chunk-dqkj2bph.js";
+import { te } from "/$bunfs/root/chunk-wag5ye9w.js";
+import { watch as qe } from "fs";
+var ce = 50;
+function Xe(e, t, r) {
+  let a = qe(e, { recursive: !0, persistent: !1, encoding: "utf8" }, t);
+  return (
+    a.on("error", r),
+    a.unref(),
+    {
+      close: () => {
+        a.removeAllListeners(), a.on("error", () => {}), a.close();
+      },
+    }
+  );
+}
+function Ye(e, t) {
+  if (e === null || e === void 0) return null;
+  let r = typeof e === "string" ? e : e.toString("utf8"),
+    a = t === "\\" ? r.replaceAll("\\", "/") : r;
+  return a === "" || a === "." ? null : a;
+}
+var Ke = ".claude-cloud-trash",
+  Je = ".DS_Store";
+function Qe(e) {
+  let t = e.split("/"),
+    r = t.at(-1) ?? "",
+    a = t.slice(0, -1);
+  if (t.includes(".git") || t.includes(Ke) || SOe(e) || z9.has(r) || r === Je) return { kind: "drop" };
+  if (r.endsWith(".tmp") || r.endsWith(".swp") || r.endsWith("~"))
+    return a.length === 0 ? { kind: "unknown" } : { kind: "path", path: a.join("/") };
+  return { kind: "path", path: e };
+}
+function _st({
+  root: e,
+  watch: t = Xe,
+  separator: r = D() === "windows" ? "\\" : "/",
+  settleMs: a = ce,
+  nowMs: u = Date.now,
+}) {
+  let p = null,
+    d = !1,
+    g = 0,
+    _ = 0,
+    w = !1;
+  function S() {
+    d = !1;
+    let x = p;
+    p = null;
+    try {
+      x?.close();
+    } catch {}
+  }
+  return {
+    start(x) {
+      S();
+      let A = (I) => {
+          try {
+            x(I);
+          } catch (R) {
+            n(`dir-sync: change hint handler threw: ${l(R)}`);
+          }
+        },
+        h = (I) => {
+          if (!d) return;
+          S(),
+            (w = !0),
+            n(`dir-sync: directory watch lost (${I}); sync points carry on without it`),
+            A({ kind: "overflow", at: u() });
+        },
+        B = (I, R) => {
+          if (!d) return;
+          if (((g += 1), g === 1))
+            n(`dir-sync: directory watch delivering events (first: ${I} ${R === null ? "<unnamed>" : "named"})`);
+          let M = Ye(R, r),
+            G = M === null ? { kind: "unknown" } : Qe(M);
+          switch (G.kind) {
+            case "drop":
+              if (((_ += 1), _ === 1))
+                n(
+                  "dir-sync: directory watch dropping events for .git, dependency directories, the session trash or .DS_Store (first such event; counted from here)",
+                );
+              return;
+            case "unknown":
+              A({ kind: "unknown", at: u() });
+              return;
+            case "path":
+              A({ kind: "paths", paths: [G.path], at: u() });
+              return;
+          }
+        },
+        P;
+      try {
+        (d = !0), (P = t(e, B, (I) => h(`watcher error: ${l(I)}`)));
+      } catch (I) {
+        d = !1;
+        let R = `watch unavailable: ${l(I)} (${E(I) ?? "no code"})`;
+        return n(`dir-sync: ${R}`), { stop() {}, started: !1, startError: R };
+      }
+      if (!d) {
+        try {
+          P.close();
+        } catch {}
+        return { stop() {}, started: !1, startError: "watcher error at start" };
+      }
+      return (
+        n("dir-sync: directory watch started on the synced root"),
+        (p = P),
+        {
+          stop() {
+            if (p === P) S();
+          },
+          started: !0,
+        }
+      );
+    },
+    async flush() {
+      if (d) await ne(a);
+    },
+    stats: () => ({ events: g, dropped: _, lost: w }),
+  };
+}
+function xe(e, t) {
+  if (t === 0 || !e.includes("/")) return e;
+  return t === 1 ? e.slice(0, e.lastIndexOf("/")) : e.slice(0, e.indexOf("/"));
+}
+var en = 2;
+function Re(e, t, r) {
+  if (e.size <= r) return { paths: e, grain: t };
+  if (t >= en) return { paths: "many", grain: t };
+  return Re(new Set([...e].map((a) => xe(a, t + 1))), t + 1, r);
+}
+var pe = {
+  setTimeout: (e, t) => {
+    let r = setTimeout(e, t);
+    return r.unref(), r;
+  },
+  clearTimeout: (e) => clearTimeout(e),
+};
+function Te({ quietMs: e, maxWaitMs: t, maxNamedPaths: r, onBurst: a, timers: u = pe }) {
+  let p = null,
+    d = 0,
+    g = null,
+    _ = null;
+  function w() {
+    if (g !== null) u.clearTimeout(g), (g = null);
+    if (_ !== null) u.clearTimeout(_), (_ = null);
+  }
+  function S() {
+    let x = p;
+    if (((p = null), (d = 0), w(), x !== null)) a(x === "many" ? "many" : [...x]);
+  }
+  return {
+    touch(x) {
+      if (p === null) {
+        if (((p = new Set()), t !== void 0)) _ = u.setTimeout(S, t);
+      }
+      if (p !== "many") {
+        let A = Re(p.add(xe(x, d)), d, r);
+        (p = A.paths), (d = A.grain);
+      }
+      if (g !== null) u.clearTimeout(g);
+      g = u.setTimeout(S, e);
+    },
+    flush: S,
+    cancel() {
+      (p = null), (d = 0), w();
+    },
+    pending: () => p !== null,
+  };
+}
+var Ae = 256;
+function Q(e) {
+  return e === "many" ? "many paths" : `${e.length} path(s)`;
+}
+var fe = "\x00",
+  nn = 3,
+  rn = 5;
+function O2n(e, { timers: t = pe } = {}) {
+  let r = null,
+    a = null,
+    u = drn,
+    p = null,
+    d = !1,
+    g = !0,
+    _ = -1 / 0,
+    w = null,
+    S = !1,
+    x = -1 / 0,
+    A = null,
+    h = !1,
+    B = 0,
+    P = 0,
+    I = !1,
+    R = new Set(),
+    M = null,
+    G = [],
+    Z = !1,
+    z = !1,
+    we = -1 / 0,
+    U = !1,
+    ee = !1,
+    V = !0,
+    j = 0,
+    re = !1,
+    Se = 0,
+    F = {
+      hints: 0,
+      bursts: 0,
+      ignoredBursts: 0,
+      watchPasses: 0,
+      ships: 0,
+      overflows: 0,
+      feedEvents: 0,
+      feedDropped: 0,
+    };
+  function ie(o, y) {
+    s("tengu_dir_sync_watch", {
+      event: c(o),
+      start_error: ke(
+        y === void 0
+          ? null
+          : y.includes("EMFILE")
+            ? "emfile"
+            : y.includes("ENOSPC")
+              ? "enospc"
+              : y.includes("ERR_FEATURE_UNAVAILABLE_ON_PLATFORM")
+                ? "unsupported"
+                : "other",
+      ),
+      hints: F.hints,
+      bursts: F.bursts,
+      ignored_bursts: F.ignoredBursts,
+      watch_passes: F.watchPasses,
+      ships: F.ships,
+      overflows: F.overflows,
+      feed_events: F.feedEvents,
+      feed_dropped: F.feedDropped,
+      quiet_ms: u.quietMs,
+      max_wait_ms: u.maxWaitMs,
+      min_gap_ms: u.minGapMs,
+    });
+  }
+  function se() {
+    let o = r,
+      y = a?.stats?.();
+    if (
+      ((F.feedEvents += y?.events ?? 0),
+      (F.feedDropped += y?.dropped ?? 0),
+      (r = null),
+      (a = null),
+      (V = !0),
+      (j += 1),
+      p?.cancel(),
+      (p = null),
+      A !== null)
+    )
+      t.clearTimeout(A), (A = null);
+    if (((S = !1), (z = !1), o !== null)) o.stop(), ie("stopped");
+  }
+  let Y = null;
+  function K(o) {
+    if (Y !== o)
+      (Y = o),
+        n(
+          `dir-sync: change hints are not streamed just now (${o}); the tree is marked changed for the next sync point`,
+        );
+  }
+  function $e(o) {
+    if (d || e.notRunning() !== null) {
+      K(d ? "sync stopped" : `sync not running: ${e.notRunning()}`);
+      return;
+    }
+    if (
+      ((F.hints += 1), (_ = Math.max(_, o.at, e.nowMs())), (g = !0), (V = o.kind === "overflow"), o.kind === "overflow")
+    )
+      F.overflows += 1;
+    if (U || e.nowMs() < we) {
+      K("an install's own writes");
+      return;
+    }
+    if (R.size > 0) {
+      K("a command runs on this machine"), (z = !0);
+      return;
+    }
+    if (!e.turnOpen()) {
+      K("no turn this machine sent is open");
+      return;
+    }
+    if (Y !== null) (Y = null), n("dir-sync: change hints stream again");
+    switch (o.kind) {
+      case "paths":
+        o.paths.forEach((y) => p?.touch(y));
+        return;
+      case "unknown":
+      case "overflow":
+        p?.touch(fe);
+        return;
+    }
+  }
+  function je(o) {
+    F.bursts += 1;
+    let y = j;
+    We(o).then(
+      (k) => {
+        if (y !== j) {
+          n(`dir-sync: burst of ${Q(o)} left to the sync point that ran meanwhile`);
+          return;
+        }
+        if (!k) {
+          (F.ignoredBursts += 1), n(`dir-sync: burst of ${Q(o)} touched only ignored paths; nothing to upload`);
+          return;
+        }
+        ae(Q(o));
+      },
+      () => {
+        if (y === j) ae(Q(o));
+      },
+    );
+  }
+  async function We(o) {
+    if (e.inScope === void 0 || re || o === "many" || o.includes(fe) || o.length > Ae) return !0;
+    re = !0;
+    try {
+      return await e.inScope(o);
+    } finally {
+      re = !1;
+    }
+  }
+  function ae(o = "owed") {
+    if (d || h || R.size > 0 || !e.turnOpen() || e.notRunning() !== null) {
+      (z ||= R.size > 0),
+        (S ||= h),
+        n(
+          `dir-sync: burst of ${o} not uploaded now (${d ? "stopped" : h ? "paused until a sync point ships" : R.size > 0 ? "a command runs here" : !e.turnOpen() ? "no open turn" : "sync not running"})`,
+        );
+      return;
+    }
+    if (!g) {
+      (S = !1), n(`dir-sync: burst of ${o} already carried by a pass that began after it; nothing to upload`);
+      return;
+    }
+    if (w !== null || A !== null) {
+      (S = !0), n(`dir-sync: burst of ${o} rides the next upload (one in flight or the gap not yet passed)`);
+      return;
+    }
+    let y = x + u.minGapMs - e.nowMs();
+    if (y > 0) {
+      (S = !0),
+        (A = t.setTimeout(() => {
+          (A = null), J();
+        }, y));
+      return;
+    }
+    if (e.mayShip?.(e.facts().gen + 1) === !1) {
+      (S = !0),
+        n(`dir-sync: burst of ${o} held back by the barrier ledger (the peer has not taken the last generation)`);
+      return;
+    }
+    (F.watchPasses += 1),
+      n(`dir-sync: burst of ${o} \u2192 upload pass queued (watch)`),
+      (w = e
+        .send("watch")
+        .then(
+          (k) => {
+            if (
+              (n(
+                `dir-sync: watch-triggered pass ended: ${k.landed ? k.outcome : `not landed (${k.reason ?? k.outcome})`}, generation ${k.generation}`,
+              ),
+              k.landed && k.outcome === "sent" && k.trigger === "watch")
+            )
+              F.ships += 1;
+            if (!k.landed && k.reason === "held_for_command") {
+              z = !0;
+              return;
+            }
+            if (!k.landed) {
+              (h = !0),
+                n(
+                  `dir-sync: a watcher-triggered upload did not land (${k.reason ?? k.outcome}); the next sync point uploads instead`,
+                );
+              return;
+            }
+            if (!k.tookSnapshot) {
+              S = r !== null;
+              return;
+            }
+            if (((B = k.outcome === "sent" || k.trigger !== "watch" ? 0 : B + 1), B >= nn))
+              (h = !0),
+                n(
+                  "dir-sync: the watcher keeps firing with nothing to upload; pausing it until the next sync point ships",
+                );
+            if (k.trigger === "watch" && k.outcome === "sent") {
+              if (((P += 1), P >= rn))
+                (I = !h),
+                  (h = !0),
+                  n(
+                    "dir-sync: several uploads went up with no sign of life from the cloud session; pausing the watcher until the next message or sync point lands",
+                  );
+            }
+          },
+          (k) => {
+            (h = !0), n(`dir-sync: a watcher-triggered upload failed: ${l(k)}`);
+          },
+        )
+        .finally(() => {
+          (w = null), (x = e.nowMs()), J();
+        }));
+  }
+  function J() {
+    if (S) (S = !1), ae();
+  }
+  function be() {
+    if (U || ee) return;
+    let o = G;
+    (G = []), o.forEach((y) => y());
+  }
+  function ye() {
+    let o = M === null ? 0 : e.nowMs() - M;
+    if (((M = null), Z)) {
+      if (
+        ((Z = !1),
+        n(`dir-sync: install deferred while serving a command on this machine, running now (held for ${o} ms)`),
+        !d && e.notRunning() === null)
+      )
+        e.pull();
+    }
+    if (z) (z = !1), p?.touch(fe);
+  }
+  function Ue(o) {
+    if (!o.landed) return;
+    if (o.tookSnapshot) {
+      if (o.trigger !== "watch" || o.outcome === "sent") (h = !1), (I = !1), (B = 0);
+      if (o.trigger !== "watch") P = 0;
+      if (o.startedAtMs >= _) (g = !1), (S = !1);
+      if (o.trigger !== "watch") x = Math.max(x, o.endedAtMs);
+    }
+    if (w === null && A === null) J();
+  }
+  function Ve(o) {
+    let y = o.endedAtMs - o.startedAtMs;
+    if (o.landed && !o.tookSnapshot) return { kind: "failed", reason: "no_snapshot", gen: o.generation };
+    if (o.landed)
+      return o.outcome === "sent"
+        ? { kind: "shipped", gen: o.generation, files: o.files, ms: y }
+        : { kind: "unchanged", gen: o.generation, ms: y };
+    let k = e.notRunning();
+    if (k !== null) return { kind: "not_running", reason: k };
+    return o.kept
+      ? { kind: "kept_here", reason: o.reason ?? o.outcome, gen: o.generation }
+      : { kind: "failed", reason: o.reason ?? o.outcome, gen: o.generation };
+  }
+  function Ee(o, y) {
+    return {
+      trigger: "settle",
+      landed: !1,
+      outcome: "not_run",
+      reason: o,
+      kept: !1,
+      generation: e.facts().gen,
+      files: 0,
+      tookSnapshot: !1,
+      startedAtMs: y,
+      endedAtMs: e.nowMs(),
+    };
+  }
+  return {
+    streaming: {
+      start(o, y = drn) {
+        if ((se(), d || e.notRunning() !== null)) return;
+        if (
+          ((u = y),
+          (a = o),
+          (p = Te({ quietMs: u.quietMs, maxWaitMs: u.maxWaitMs, maxNamedPaths: Ae, onBurst: je, timers: t })),
+          (r = o.start($e)),
+          r.started)
+        ) {
+          (V = !1), ie("started");
+          return;
+        }
+        ie("start_failed", r.startError),
+          n(`dir-sync: no directory watch (${r.startError ?? "unknown"}); changes upload at sync points only`),
+          (r = null),
+          (a = null),
+          (p = null);
+      },
+      async stop() {
+        se(), await w;
+      },
+      async settle(o, y) {
+        let k = e.nowMs();
+        if (a !== null)
+          await a.flush().catch((de) => {
+            n(`dir-sync: change feed flush failed: ${l(de)}`);
+          });
+        p?.cancel(), (j += 1), (S = !1), (z = !1);
+        let ve = e.notRunning(),
+          le = () => _e(Ee("aborted", k)),
+          _e = () => {},
+          C =
+            ve !== null
+              ? { kind: "not_running", reason: ve }
+              : Ve(
+                  await (() => {
+                    let de = new Promise((ue) => {
+                      if (((_e = ue), y?.aborted === !0)) le();
+                      else y?.addEventListener("abort", le, { once: !0 });
+                    });
+                    return Promise.race([
+                      e
+                        .send("settle")
+                        .catch((ue) => (n(`dir-sync: a barrier's upload failed: ${l(ue)}`), Ee("unexpected", k))),
+                      de,
+                    ]).finally(() => y?.removeEventListener("abort", le));
+                  })(),
+                );
+        return (
+          (x = e.nowMs()),
+          s("tengu_dir_sync_settle", {
+            point: c(o),
+            outcome: c(C.kind),
+            files: C.kind === "shipped" ? C.files : 0,
+            duration_ms: C.kind === "shipped" || C.kind === "unchanged" ? C.ms : 0,
+          }),
+          C
+        );
+      },
+      holdInstalls(o) {
+        if (R.size === 0) M = e.nowMs();
+        if ((R.add(o), !U && !ee)) return Promise.resolve();
+        return new Promise((y) => {
+          G.push(y);
+        });
+      },
+      releaseInstalls(o) {
+        if (R.delete(o) && R.size === 0) ye();
+      },
+      frame() {
+        let o = e.facts();
+        return (
+          (Se += 1),
+          {
+            side: "laptop",
+            gen: o.gen,
+            tree: o.tree,
+            taken: o.taken,
+            dirty: g || V || o.snapshotting || o.shipping !== null,
+            shipping: o.shipping,
+            takes: o.takes,
+            instance: e.instance,
+            seq: Se,
+          }
+        );
+      },
+    },
+    deferPull() {
+      if (R.size === 0 || d) return !1;
+      return (Z = !0), !0;
+    },
+    held: () => R.size > 0 && !d,
+    dropHolds() {
+      if (R.size === 0) return;
+      R.clear(), ye();
+    },
+    peerAlive() {
+      if (((P = 0), I))
+        (I = !1), (h = !1), n("dir-sync: the cloud session showed a sign of life; the watcher streams again"), J();
+    },
+    installing(o) {
+      if (((U = o), !o)) (we = e.nowMs() + ce), be();
+    },
+    takingIn(o) {
+      if (((ee = o), !o)) be();
+    },
+    passEnded: Ue,
+    halt() {
+      (d = !0), se();
+    },
+  };
+}
+var on = "opening";
+function L2n(e, t) {
+  let r = null,
+    a = 0,
+    u = new Set(),
+    p = e.then((d) => ((r = d), u.forEach((g) => void d?.holdInstalls(g)), u.clear(), d));
+  return {
+    start(d, g) {
+      p.then((_) => _?.start(d, g));
+    },
+    async stop() {
+      await (await p)?.stop();
+    },
+    async settle(d, g) {
+      return (
+        (
+          r ??
+          (await new Promise((w) => {
+            if (g?.aborted === !0) {
+              w(null);
+              return;
+            }
+            let S = () => w(null);
+            g?.addEventListener("abort", S, { once: !0 }),
+              jt(p, t).then((x) => {
+                g?.removeEventListener("abort", S), w(x);
+              });
+          }))
+        )?.settle(d, g) ?? { kind: "not_running", reason: "not_open" }
+      );
+    },
+    holdInstalls(d) {
+      if (r !== null) return r.holdInstalls(d);
+      return u.add(d), Promise.resolve();
+    },
+    releaseInstalls(d) {
+      if (r !== null) {
+        r.releaseInstalls(d);
+        return;
+      }
+      u.delete(d);
+    },
+    frame() {
+      if (r !== null) {
+        let d = r.frame();
+        return { ...d, seq: d.seq + a };
+      }
+      return (
+        (a += 1),
+        { side: "laptop", gen: 0, tree: null, taken: 0, dirty: !0, shipping: null, takes: !1, instance: on, seq: a }
+      );
+    },
+  };
+}
+import { lstat as sn, mkdir as an, open as ln } from "fs/promises";
+import { dirname as dn } from "path";
+var L = 67108864,
+  me = 384,
+  cn = 448;
+async function Fe(e, t) {
+  if (O() && t !== void 0)
+    try {
+      let r = await t.backend.read([{ key: t.key, offset: 0, length: L + 1 }]);
+      if (!r.ok) return { kind: "unreadable" };
+      let [a] = r.value.items;
+      if (!a.found) return { kind: "absent" };
+      return a.totalBytes > L
+        ? { kind: "unreadable" }
+        : { kind: "ok", content: Buffer.from(a.value.buffer, a.value.byteOffset, a.value.byteLength) };
+    } catch {
+      return { kind: "unreadable" };
+    }
+  try {
+    let r = await sn(e, { bigint: !0 });
+    if (!r.isFile()) return { kind: "unreadable" };
+    let a = await ln(e, ea());
+    try {
+      let u = await a.stat({ bigint: !0 });
+      if (u.dev !== r.dev || u.ino !== r.ino || !u.isFile() || u.size > L) return { kind: "unreadable" };
+      return { kind: "ok", content: await hne(a, Number(u.size)) };
+    } finally {
+      await a.close();
+    }
+  } catch (r) {
+    return X(r) ? { kind: "absent" } : { kind: "unreadable" };
+  }
+}
+async function Oe(e, t, r) {
+  if (t.length > L) throw Error("session record too large to store");
+  if (O() && r !== void 0) {
+    let a = await r.backend.write(r.key, t, { mode: me });
+    if (!a.ok) throw Error("dir-sync: session record write failed", { cause: a.error });
+    return;
+  }
+  await an(dn(e), { recursive: !0, mode: cn }), await Wn(e, t, me);
+}
+async function Ie(e, t, r) {
+  if (e.length > L) throw Error("session record too large to store");
+  let a = !1;
+  async function* u() {
+    if ((yield e, t.aborted)) throw ((a = !0), new Ze());
+  }
+  let p = await r.backend.writeFromStream(r.key, u(), { maxBytes: L, mode: me });
+  if (p.ok) return;
+  if (a) throw new Ze();
+  throw Error("dir-sync: session record write failed", { cause: p.error });
+}
+var ze = 1,
+  Ne = 2,
+  yst = 16,
+  _We = 4096,
+  Ce = 4096,
+  Be = 4096;
+function EDt(e) {
+  switch (e.kind) {
+    case "clone":
+      return e.origin !== "remote";
+    case "seed":
+      return !0;
+    case "folder":
+      return e.seeded !== !1;
+  }
+}
+function ADt(e) {
+  switch (e.kind) {
+    case "clone":
+      return [e.pin];
+    case "folder":
+      return e.seeded === !1 ? [] : [e.pin];
+    case "seed":
+      return [e.worktreeCommit, e.head];
+  }
+}
+function M2n(e) {
+  switch (e.kind) {
+    case "clone":
+      return [e.pin];
+    case "folder":
+      return e.seeded === !1 ? [] : [e.pin];
+    case "seed":
+      return [];
+  }
+}
+var T = m(() => i().regex(tn).refine(_ne)),
+  W = m(() => i().refine(l_e)),
+  De = m(() =>
+    dt([
+      f({ head: T(), branch: i().max(Rue).nullable().catch(null) }),
+      T().transform((e) => ({ head: e, branch: null })),
+    ]),
+  ),
+  Ge = m(() =>
+    f({
+      turn: v().int().positive(),
+      notInstalled: H(
+        dt([
+          f({
+            path: W(),
+            reason: i()
+              .max(64)
+              .transform((e) => (cht(e) ? e : "other")),
+          }),
+          W().transform((e) => ({ path: e, reason: "other" })),
+        ]),
+      ).max(sC),
+      truncated: q(),
+    }),
+  ),
+  pn = m(() =>
+    f({
+      generation: v().int().positive(),
+      head: T(),
+      branch: i().max(Rue).refine(BD).nullable().catch(null),
+      indexCommit: T(),
+      worktreeCommit: T(),
+      indexTree: T(),
+      worktreeTree: T(),
+      bundle: Ast().nullable(),
+      withheldCounts: _rn(),
+      downApplied: H(Ge()).max(V9),
+      fastForwardedTo: H(De())
+        .max(LX)
+        .default(() => []),
+      fastForwardedOn: H(i().max(Rue).nullable().catch(null)).max(LX).optional(),
+      sentAtMs: v().int().nonnegative(),
+    }),
+  ),
+  he = m(() =>
+    f({
+      version: dt([N(ze), N(Ne)]),
+      engine: N("git"),
+      sessionId: i().min(1),
+      armedAtMs: v().int().nonnegative(),
+      start: ps("kind", [
+        f({
+          kind: N("clone"),
+          pin: T(),
+          origin: oe(["remote", "bundle", "overlay"])
+            .optional()
+            .catch(void 0),
+        }),
+        f({ kind: N("seed"), head: T(), indexCommit: T(), worktreeCommit: T() }),
+        f({ kind: N("folder"), pin: T(), seedTree: T(), seeded: N(!1).optional() }),
+      ]),
+      uploadOnly: N(!0).optional(),
+      sent: H(pn())
+        .max(yst)
+        .refine((e) => e.every((t, r) => r === 0 || t.generation < e[r - 1].generation)),
+      outboundEtag: i().min(1).max(Eae).nullable(),
+      journalEtag: i().min(1).max(Eae).nullable(),
+      announcementToken: i().min(1).max(64).nullable().optional(),
+      announcementEtag: i().min(1).max(Eae).nullable().optional(),
+      acked: H(T()).max(ey),
+      received: H(f({ generation: v().int().positive(), worktreeCommit: T() })).max(ey),
+      appliedGeneration: v().int().nonnegative(),
+      installedSinceUpload: H(
+        f({ path: W(), blobId: T().nullable(), mode: v().int().nonnegative(), turn: v().int().positive().optional() }),
+      ).max(_We),
+      installedEarlier: H(f({ path: W(), blobId: T() }))
+        .max(Ce)
+        .optional()
+        .transform((e) => e ?? []),
+      parkedRemovals: H(W())
+        .max(Be)
+        .optional()
+        .transform((e) => e ?? []),
+      parkedRemovalsOverflow: q()
+        .optional()
+        .transform((e) => e ?? !1),
+      downApplied: H(Ge()).max(V9),
+      peerNeed: T().nullable(),
+      peerBasedOn: T().nullable().default(null),
+      fastForwardedTo: H(De())
+        .max(LX)
+        .default(() => []),
+      fastForwardedOn: H(i().max(Rue).nullable().catch(null)).max(LX).optional(),
+      generationSpent: v().int().nonnegative().default(0),
+      ended: f({
+        reason: oe(SWe).catch("ended_earlier"),
+        line: i().max(2000),
+        atMs: v().int().nonnegative(),
+        published: q(),
+      })
+        .optional()
+        .catch(void 0),
+    }),
+  ),
+  fn = m(() => un({ engine: i().optional() }));
+function mn(e) {
+  return e.kind === "folder" && e.seeded === !1 ? Ne : ze;
+}
+function Sst({ sessionId: e, armedAtMs: t, start: r, uploadOnly: a = !1 }) {
+  return {
+    version: mn(r),
+    engine: "git",
+    sessionId: e,
+    armedAtMs: t,
+    start: r,
+    ...(a && { uploadOnly: !0 }),
+    sent: [],
+    outboundEtag: null,
+    journalEtag: null,
+    acked: [],
+    received: [],
+    appliedGeneration: 0,
+    installedSinceUpload: [],
+    installedEarlier: [],
+    parkedRemovals: [],
+    parkedRemovalsOverflow: !1,
+    downApplied: [],
+    peerNeed: null,
+    peerBasedOn: null,
+    fastForwardedTo: [],
+    generationSpent: 0,
+  };
+}
+function hn(e, t) {
+  let r = he().safeParse(e);
+  if (!r.success || r.data.sessionId !== t) return null;
+  let { fastForwardedOn: a, sent: u, ...p } = r.data;
+  return {
+    ...p,
+    fastForwardedTo: Pe(p.fastForwardedTo, a),
+    sent: u.map(({ fastForwardedOn: d, ...g }) => ({ ...g, fastForwardedTo: Pe(g.fastForwardedTo, d) })),
+  };
+}
+function Pe(e, t) {
+  return t === void 0 ? [...e] : e.map((r, a) => ({ head: r.head, branch: r.branch ?? t[a] ?? null }));
+}
+function Me(e) {
+  return { fastForwardedTo: e.map((t) => t.head), fastForwardedOn: e.map((t) => t.branch) };
+}
+function Le(e) {
+  return Buffer.from(
+    b({ ...e, ...Me(e.fastForwardedTo), sent: e.sent.map((t) => ({ ...t, ...Me(t.fastForwardedTo) })) }),
+  );
+}
+async function RZ(e, t, r) {
+  let a = await Fe(e, r);
+  if (a.kind !== "ok") return a;
+  let u = Ut(a.content.toString("utf8"), !1),
+    p = fn().safeParse(u);
+  if (!p.success) return { kind: "unreadable" };
+  switch (p.data.engine) {
+    case void 0:
+      return V2n(u, t) !== null || K2n(u, t) !== null
+        ? { kind: "unsupported", engine: "rows" }
+        : { kind: "unreadable" };
+    case "git": {
+      let d = hn(u, t);
+      return d === null ? { kind: "unreadable" } : { kind: "git", record: d };
+    }
+    default:
+      return { kind: "unsupported", engine: p.data.engine };
+  }
+}
+class bst extends Error {
+  constructor() {
+    super("git session record is not one its reader would accept");
+    this.name = "GitSessionRecordInvalidError";
+  }
+}
+async function i_e(e, t, r) {
+  if (!he().safeParse(t).success) throw new bst();
+  await Oe(e, Le(t), r);
+}
+async function N2n(e, t, r) {
+  if (!he().safeParse(e).success) throw new bst();
+  await Ie(Le(e), t, r);
+}
+function ge(e) {
+  return Number.isSafeInteger(e) && e > 0;
+}
+function kZ(e) {
+  return e.sent[0] ?? null;
+}
+function m8(e) {
+  return Math.max(e.sent[0]?.generation ?? 0, e.generationSpent) + 1;
+}
+function wst(e, t) {
+  return ge(t) && t > e.generationSpent ? { ...e, generationSpent: t } : e;
+}
+function F2n(e) {
+  return CDt(e).length < V9 && e.installedSinceUpload.length < _We;
+}
+function CDt(e) {
+  let t = new Map();
+  for (let r of [...[...e.sent].reverse().flatMap((a) => a.downApplied), ...e.downApplied]) t.set(r.turn, r);
+  return [...t.values()];
+}
+function $2n(e) {
+  let t = gn(e).map((r) => r.head);
+  return te(t.reverse()).reverse().slice(-LX);
+}
+function gn(e) {
+  return [...[...e.sent].reverse().flatMap((t) => t.fastForwardedTo), ...e.fastForwardedTo];
+}
+function U2n(e, t) {
+  let r = (u) => u.filter((p) => p.branch === t).at(-1)?.head ?? null,
+    a = r(e.fastForwardedTo);
+  if (a !== null) return a;
+  for (let u of e.sent) {
+    if (u.branch === t) return u.head;
+    let p = r(u.fastForwardedTo);
+    if (p !== null) return p;
+  }
+  return null;
+}
+function B2n(e, t, r = null) {
+  let a = e.fastForwardedTo.at(-1);
+  if (!tn.test(t) || !_ne(t) || (a?.head === t && a.branch === r)) return e;
+  let u = r !== null && BD(r) ? r : null,
+    p = e.fastForwardedTo.filter((d) => !(d.head === t && d.branch === u));
+  return { ...e, fastForwardedTo: wn([...p, { head: t, branch: u }], LX) };
+}
+function wn(e, t) {
+  if (e.length <= t) return e;
+  let r = new Map(e.map((g, _) => [g.branch, _])),
+    a = new Set(r.values()),
+    u = e.map((g, _) => _).filter((g) => !a.has(g)),
+    p = new Set(u.slice(0, e.length - t)),
+    d = e.filter((g, _) => !p.has(_));
+  return d.length <= t ? d : d.slice(-t);
+}
+function j2n(e, t) {
+  let r = te(t.holds.filter((w) => tn.test(w))).slice(0, ey),
+    a = t.need !== null && tn.test(t.need) ? t.need : null,
+    u = t.basedOn != null && tn.test(t.basedOn) ? t.basedOn : null,
+    p = t.installsBankedThrough ?? 0,
+    d = (w) => w.turn > p,
+    g = p > 0 && (e.downApplied.some((w) => !d(w)) || e.sent.some((w) => w.downApplied.some((S) => !d(S))));
+  if (
+    r.length === e.acked.length &&
+    r.every((w, S) => w === e.acked[S]) &&
+    a === e.peerNeed &&
+    u === e.peerBasedOn &&
+    !g
+  )
+    return e;
+  let _ = g
+    ? e.sent.map((w) => (w.downApplied.some((S) => !d(S)) ? { ...w, downApplied: w.downApplied.filter(d) } : w))
+    : e.sent;
+  return {
+    ...e,
+    sent: He(_, r, u),
+    acked: r,
+    peerNeed: a,
+    peerBasedOn: u,
+    downApplied: g ? e.downApplied.filter(d) : e.downApplied,
+  };
+}
+function W2n(e, t) {
+  if (!ge(t.generation) || !tn.test(t.worktreeCommit)) return e;
+  let r = e.received.find((a) => a.worktreeCommit === t.worktreeCommit);
+  if (r !== void 0 && r.generation >= t.generation) return e;
+  return { ...e, received: [t, ...e.received.filter((a) => a.worktreeCommit !== t.worktreeCommit)].slice(0, ey) };
+}
+function q2n(e, t) {
+  let r = e.downApplied.find((h) => h.turn === t.turn);
+  if (!ge(t.turn) || (r === void 0 && e.downApplied.length >= V9)) return e;
+  let a = t.installed.filter(
+      (h) =>
+        l_e(h.path) &&
+        (h.blobId === null || (tn.test(h.blobId) && _ne(h.blobId))) &&
+        Number.isSafeInteger(h.mode) &&
+        h.mode >= 0,
+    ),
+    u = new Set(a.map((h) => h.path)),
+    p = new Map(e.installedSinceUpload.map((h) => [h.path, h]));
+  for (let h of a) p.delete(h.path), p.set(h.path, { ...h, turn: t.turn });
+  let d = t.notInstalled.filter((h) => l_e(h.path)),
+    g = t.complete,
+    w = [...new Map([...(g ? [] : (r?.notInstalled ?? [])), ...d].map((h) => [h.path, h])).values()].filter(
+      (h) => !u.has(h.path),
+    ),
+    S = {
+      turn: t.turn,
+      notInstalled: w.slice(0, sC),
+      truncated:
+        (!g && (r?.truncated ?? !1)) ||
+        t.truncated ||
+        a.length !== t.installed.length ||
+        d.length !== t.notInstalled.length ||
+        w.length > sC ||
+        p.size > _We,
+    },
+    x = new Map(e.installedEarlier.map((h) => [h.path, h])),
+    A = t.written === void 0 ? null : new Set(t.written);
+  for (let h of a)
+    if (h.blobId === null) x.delete(h.path);
+    else if (A === null || A.has(h.path)) x.delete(h.path), x.set(h.path, { path: h.path, blobId: h.blobId });
+  return {
+    ...e,
+    appliedGeneration: Math.max(e.appliedGeneration, t.turn),
+    installedSinceUpload: [...p.values()].slice(-_We),
+    installedEarlier: [...x.values()].slice(-Ce),
+    ...(t.parked !== void 0 && Sn(t.parked)),
+    downApplied: r === void 0 ? [...e.downApplied, S] : e.downApplied.map((h) => (h.turn === t.turn ? S : h)),
+  };
+}
+function Sn(e) {
+  let t = e.filter(l_e).slice(0, Be);
+  return { parkedRemovals: t, parkedRemovalsOverflow: t.length !== e.length };
+}
+function crn(e, t, r) {
+  if (t.generation !== m8(e)) return e;
+  let a = t.branch !== null && BD(t.branch) ? t.branch : null;
+  return {
+    ...e,
+    sent: He(
+      [{ ...t, branch: a, downApplied: e.downApplied, fastForwardedTo: e.fastForwardedTo }, ...e.sent],
+      e.acked,
+      e.peerBasedOn,
+    ),
+    outboundEtag: r ?? e.outboundEtag,
+    installedSinceUpload: [],
+    downApplied: [],
+    fastForwardedTo: [],
+    peerNeed: null,
+  };
+}
+function He(e, t, r = null) {
+  let a = e.findIndex((d) => t.includes(d.worktreeCommit)),
+    u = r === null ? -1 : e.findIndex((d) => d.worktreeCommit === r),
+    p = a === -1 ? yst : Math.max(a, u, 1) + 1;
+  return e
+    .slice(0, Math.min(p, yst))
+    .map((d, g) =>
+      a === -1 || g < a || (d.downApplied.length === 0 && d.fastForwardedTo.length === 0)
+        ? d
+        : { ...d, downApplied: [], fastForwardedTo: [] },
+    );
+}
+export {
+  _st,
+  O2n,
+  L2n,
+  yst,
+  _We,
+  EDt,
+  ADt,
+  M2n,
+  Sst,
+  RZ,
+  bst,
+  i_e,
+  N2n,
+  kZ,
+  m8,
+  wst,
+  F2n,
+  CDt,
+  $2n,
+  U2n,
+  B2n,
+  j2n,
+  W2n,
+  q2n,
+  crn,
+};

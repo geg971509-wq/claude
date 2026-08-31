@@ -8,5 +8,16 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{ce}from"/$bunfs/root/chunk-4ddxwr9r.js";import{Ci}from"/$bunfs/root/chunk-cds31m36.js";function $0e(n){return n.replace(/[\r\n\u2028\u2029]+/g," ")}function sZ(n,r){let e=Ci(n);if(e.length<=r)return e;let t=ce(e,r),o=Array.from(e.slice(t.length)).length;return`${t} \u2026 (${o} more characters follow that are NOT shown in this message)`}
-export{$0e,sZ};
+import { ce } from "/$bunfs/root/chunk-4ddxwr9r.js";
+import { Ci } from "/$bunfs/root/chunk-cds31m36.js";
+function $0e(n) {
+  return n.replace(/[\r\n\u2028\u2029]+/g, " ");
+}
+function sZ(n, r) {
+  let e = Ci(n);
+  if (e.length <= r) return e;
+  let t = ce(e, r),
+    o = Array.from(e.slice(t.length)).length;
+  return `${t} \u2026 (${o} more characters follow that are NOT shown in this message)`;
+}
+export { $0e, sZ };

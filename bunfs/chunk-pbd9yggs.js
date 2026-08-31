@@ -8,11 +8,44 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{OH}from"/$bunfs/root/chunk-8tgj5dp2.js";import{a}from"/$bunfs/root/chunk-fec4384a.js";import{kM}from"/$bunfs/root/chunk-avrc9gay.js";import{xI}from"/$bunfs/root/chunk-81defen8.js";import{ma}from"/$bunfs/root/chunk-4cvqk0nv.js";var lm="CronCreate",$S="CronDelete",Ene="CronList";var t=300000,UX=kM.recurringMaxAgeMs/86400000;function cC(){return!a.CLAUDE_CODE_DISABLE_CRON&&OH("tengu_kairos_cron",!0,t)}function Nz(){return OH("tengu_kairos_cron_durable",!0,t)}function jmn(e){return e?"Schedule a prompt to run at a future time \u2014 either recurring on a cron schedule, or once at a specific time. Pass durable: true to persist to .claude/scheduled_tasks.json; otherwise session-only.":"Schedule a prompt to run at a future time within this Claude session \u2014 either recurring on a cron schedule, or once at a specific time."}function Wmn(e){return e?"true = persist to .claude/scheduled_tasks.json and survive restarts. false (default) = in-memory only, dies when this Claude session ends. Use true only when the user asks the task to survive across sessions.":"Has no effect \u2014 durable persistence is not available. All jobs are session-only (in-memory, gone when this Claude session ends)."}function qmn(e){let o=e?`## Durability
+import { OH } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { a } from "/$bunfs/root/chunk-fec4384a.js";
+import { kM } from "/$bunfs/root/chunk-avrc9gay.js";
+import { xI } from "/$bunfs/root/chunk-81defen8.js";
+import { ma } from "/$bunfs/root/chunk-4cvqk0nv.js";
+var lm = "CronCreate",
+  $S = "CronDelete",
+  Ene = "CronList";
+var t = 300000,
+  UX = kM.recurringMaxAgeMs / 86400000;
+function cC() {
+  return !a.CLAUDE_CODE_DISABLE_CRON && OH("tengu_kairos_cron", !0, t);
+}
+function Nz() {
+  return OH("tengu_kairos_cron_durable", !0, t);
+}
+function jmn(e) {
+  return e
+    ? "Schedule a prompt to run at a future time \u2014 either recurring on a cron schedule, or once at a specific time. Pass durable: true to persist to .claude/scheduled_tasks.json; otherwise session-only."
+    : "Schedule a prompt to run at a future time within this Claude session \u2014 either recurring on a cron schedule, or once at a specific time.";
+}
+function Wmn(e) {
+  return e
+    ? "true = persist to .claude/scheduled_tasks.json and survive restarts. false (default) = in-memory only, dies when this Claude session ends. Use true only when the user asks the task to survive across sessions."
+    : "Has no effect \u2014 durable persistence is not available. All jobs are session-only (in-memory, gone when this Claude session ends).";
+}
+function qmn(e) {
+  let o = e
+      ? `## Durability
 
-By default (durable: false) the job lives only in this Claude session \u2014 nothing is written to disk, and the job is gone when Claude exits. Pass durable: true to write to .claude/scheduled_tasks.json so the job survives restarts. Only use durable: true when the user explicitly asks for the task to persist ("keep doing this every day", "set this up permanently"). Most "remind me in 5 minutes" / "check back in an hour" requests should stay session-only.`:`## Session-only
+By default (durable: false) the job lives only in this Claude session \u2014 nothing is written to disk, and the job is gone when Claude exits. Pass durable: true to write to .claude/scheduled_tasks.json so the job survives restarts. Only use durable: true when the user explicitly asks for the task to persist ("keep doing this every day", "set this up permanently"). Most "remind me in 5 minutes" / "check back in an hour" requests should stay session-only.`
+      : `## Session-only
 
-Jobs live only in this Claude session \u2014 nothing is written to disk, and the job is gone when Claude exits.`,s=e?"Durable jobs persist to .claude/scheduled_tasks.json and survive session restarts \u2014 on next launch they resume automatically. One-shot durable tasks that were missed while the REPL was closed are surfaced for catch-up. Session-only jobs die with the process. ":"";return`Schedule a prompt to be enqueued at a future time. Use for both recurring schedules and one-shot reminders.
+Jobs live only in this Claude session \u2014 nothing is written to disk, and the job is gone when Claude exits.`,
+    s = e
+      ? "Durable jobs persist to .claude/scheduled_tasks.json and survive session restarts \u2014 on next launch they resume automatically. One-shot durable tasks that were missed while the REPL was closed are surfaced for catch-up. Session-only jobs die with the process. "
+      : "";
+  return `Schedule a prompt to be enqueued at a future time. Use for both recurring schedules and one-shot reminders.
 
 Uses standard 5-field cron in the user's local timezone: minute hour day-of-month month day-of-week. "0 9 * * *" means 9am local \u2014 no timezone conversion needed.
 
@@ -38,16 +71,33 @@ Every user who asks for "9am" gets \`0 9\`, and every user who asks for "hourly"
 Only use minute 0 or 30 when the user names that exact time and clearly means it ("at 9:00 sharp", "at half past", coordinating with a meeting). When in doubt, nudge a few minutes early or late \u2014 the user will not notice, and the fleet will.
 
 ${o}
-${xI()?`
+${
+  xI()
+    ? `
 ## Not for live watching
 
 ${lm} re-runs a prompt at fixed wall-clock intervals. To watch a log file, process, or command output and be notified the moment something changes, use the ${ma} tool instead \u2014 ${ma} streams events as they happen; cron polls on a schedule.
-`:""}
+`
+    : ""
+}
 ## Runtime behavior
 
 Jobs only fire while the REPL is idle (not mid-query). ${s}The scheduler adds a small deterministic jitter on top of whatever you pick: recurring tasks fire up to 10% of their period late (max 15 min); one-shot tasks landing on :00 or :30 fire up to 90 s early. Picking an off-minute is still the bigger lever.
 
 Recurring tasks auto-expire after ${UX} days \u2014 they fire one final time, then are deleted. This bounds session lifetime. Tell the user about the ${UX}-day limit when scheduling recurring jobs.
 
-Returns a job ID you can pass to ${$S}.`}var Gmn="Cancel a scheduled cron job by ID";function zmn(e){return e?`Cancel a cron job previously scheduled with ${lm}. Removes it from .claude/scheduled_tasks.json (durable jobs) or the in-memory session store (session-only jobs).`:`Cancel a cron job previously scheduled with ${lm}. Removes it from the in-memory session store.`}var Vmn="List scheduled cron jobs";function Kmn(e){return e?`List all cron jobs scheduled via ${lm}, both durable (.claude/scheduled_tasks.json) and session-only.`:`List all cron jobs scheduled via ${lm} in this session.`}
-export{lm,$S,Ene,UX,cC,Nz,jmn,Wmn,qmn,Gmn,zmn,Vmn,Kmn};
+Returns a job ID you can pass to ${$S}.`;
+}
+var Gmn = "Cancel a scheduled cron job by ID";
+function zmn(e) {
+  return e
+    ? `Cancel a cron job previously scheduled with ${lm}. Removes it from .claude/scheduled_tasks.json (durable jobs) or the in-memory session store (session-only jobs).`
+    : `Cancel a cron job previously scheduled with ${lm}. Removes it from the in-memory session store.`;
+}
+var Vmn = "List scheduled cron jobs";
+function Kmn(e) {
+  return e
+    ? `List all cron jobs scheduled via ${lm}, both durable (.claude/scheduled_tasks.json) and session-only.`
+    : `List all cron jobs scheduled via ${lm} in this session.`;
+}
+export { lm, $S, Ene, UX, cC, Nz, jmn, Wmn, qmn, Gmn, zmn, Vmn, Kmn };

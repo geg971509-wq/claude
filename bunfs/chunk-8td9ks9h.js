@@ -8,5 +8,35 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Ue}from"/$bunfs/root/chunk-qq1mdtb5.js";import{Ma}from"/$bunfs/root/chunk-nwb64bac.js";var o={notice:null,shownLoggedForDraftId:null,promptedCount:0,sessionDraftCount:0,seededFromDisk:!1,seedStarted:!1,toolCallCount:0};class e{autoDenyPresence=Ue();mainLoopBusy=Ma({busy:!1});legacyDialogFocus=Ma({focus:null});blockingToolProgress=Ma({active:!1});dialogHostlessScreen=Ma({screen:null});onScreenBlockingDialog=Ma({surfaceMounted:!1,kind:null});pendingSurveyFeedbackSource=null;terminalFocus="unknown";terminalFocusGainedAt=Number.NEGATIVE_INFINITY;terminalFocusChanged=Ue();feedbackNotice=Ma(o);clawdEntranceTaken=!1;startupUpdateSummary=void 0;experimentEnrollmentsUnseen=void 0;orgMemoryWritesRowSeen=!1;orgMemoryReadRowSeen=!1;remoteHomeSettingsRowSeen=!1}var fi=new e;
-export{fi};
+import { Ue } from "/$bunfs/root/chunk-qq1mdtb5.js";
+import { Ma } from "/$bunfs/root/chunk-nwb64bac.js";
+var o = {
+  notice: null,
+  shownLoggedForDraftId: null,
+  promptedCount: 0,
+  sessionDraftCount: 0,
+  seededFromDisk: !1,
+  seedStarted: !1,
+  toolCallCount: 0,
+};
+class e {
+  autoDenyPresence = Ue();
+  mainLoopBusy = Ma({ busy: !1 });
+  legacyDialogFocus = Ma({ focus: null });
+  blockingToolProgress = Ma({ active: !1 });
+  dialogHostlessScreen = Ma({ screen: null });
+  onScreenBlockingDialog = Ma({ surfaceMounted: !1, kind: null });
+  pendingSurveyFeedbackSource = null;
+  terminalFocus = "unknown";
+  terminalFocusGainedAt = Number.NEGATIVE_INFINITY;
+  terminalFocusChanged = Ue();
+  feedbackNotice = Ma(o);
+  clawdEntranceTaken = !1;
+  startupUpdateSummary = void 0;
+  experimentEnrollmentsUnseen = void 0;
+  orgMemoryWritesRowSeen = !1;
+  orgMemoryReadRowSeen = !1;
+  remoteHomeSettingsRowSeen = !1;
+}
+var fi = new e();
+export { fi };

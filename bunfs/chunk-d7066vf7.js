@@ -8,5 +8,14 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{a}from"/$bunfs/root/chunk-fec4384a.js";function frt(_,E){if(_==="ANTHROPIC_DEFAULT_SONNET_MODEL")a.set("CLAUDE_CODE_3P_PROBE_WROTE_SONNET_DEFAULT",E);else if(_==="ANTHROPIC_DEFAULT_OPUS_MODEL")a.set("CLAUDE_CODE_3P_PROBE_WROTE_OPUS_DEFAULT",E)}function Rq(_){let E=_==="sonnet"?a.ANTHROPIC_DEFAULT_SONNET_MODEL:a.ANTHROPIC_DEFAULT_OPUS_MODEL,O=_==="sonnet"?a.CLAUDE_CODE_3P_PROBE_WROTE_SONNET_DEFAULT:a.CLAUDE_CODE_3P_PROBE_WROTE_OPUS_DEFAULT;return E!==void 0&&E===O}
-export{frt,Rq};
+import { a } from "/$bunfs/root/chunk-fec4384a.js";
+function frt(_, E) {
+  if (_ === "ANTHROPIC_DEFAULT_SONNET_MODEL") a.set("CLAUDE_CODE_3P_PROBE_WROTE_SONNET_DEFAULT", E);
+  else if (_ === "ANTHROPIC_DEFAULT_OPUS_MODEL") a.set("CLAUDE_CODE_3P_PROBE_WROTE_OPUS_DEFAULT", E);
+}
+function Rq(_) {
+  let E = _ === "sonnet" ? a.ANTHROPIC_DEFAULT_SONNET_MODEL : a.ANTHROPIC_DEFAULT_OPUS_MODEL,
+    O = _ === "sonnet" ? a.CLAUDE_CODE_3P_PROBE_WROTE_SONNET_DEFAULT : a.CLAUDE_CODE_3P_PROBE_WROTE_OPUS_DEFAULT;
+  return E !== void 0 && E === O;
+}
+export { frt, Rq };

@@ -8,5 +8,16 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-async function cu(r,t,i){let e,n=new Promise((s,o)=>{e=setTimeout((m,a,u)=>m(Error(`${a} timed out after ${u}ms`)),Math.min(t,2147483647),o,i,t)});try{return await Promise.race([r,n])}finally{if(e)clearTimeout(e);r.catch(()=>{})}}
-export{cu};
+async function cu(r, t, i) {
+  let e,
+    n = new Promise((s, o) => {
+      e = setTimeout((m, a, u) => m(Error(`${a} timed out after ${u}ms`)), Math.min(t, 2147483647), o, i, t);
+    });
+  try {
+    return await Promise.race([r, n]);
+  } finally {
+    if (e) clearTimeout(e);
+    r.catch(() => {});
+  }
+}
+export { cu };

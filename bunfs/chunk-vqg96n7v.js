@@ -8,5 +8,18 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-var urn=2147483647;function G2n(e,n){return e.takes&&n.takes&&!e.dirty&&!n.dirty&&e.shipping===null&&n.shipping===null&&n.taken===e.gen&&e.taken===n.gen}var drn={quietMs:750,maxWaitMs:4000,minGapMs:2000};
-export{urn,G2n,drn};
+var urn = 2147483647;
+function G2n(e, n) {
+  return (
+    e.takes &&
+    n.takes &&
+    !e.dirty &&
+    !n.dirty &&
+    e.shipping === null &&
+    n.shipping === null &&
+    n.taken === e.gen &&
+    e.taken === n.gen
+  );
+}
+var drn = { quietMs: 750, maxWaitMs: 4000, minGapMs: 2000 };
+export { urn, G2n, drn };

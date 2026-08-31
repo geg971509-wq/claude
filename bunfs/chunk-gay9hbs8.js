@@ -8,5 +8,18 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{s}from"/$bunfs/root/chunk-r53tkxrh.js";import{c}from"/$bunfs/root/chunk-4xj01xwv.js";import{n}from"/$bunfs/root/chunk-fv016jr6.js";function Npn(e){if(e.branchDropped&&e.warnMessage){if(s("tengu_bridge_outcome_branch_dropped",{reason:c(e.branchDropped)}),n(e.warnMessage,{level:"warn"}),e.branchDropped==="no_evidence")console.warn(e.warnMessage)}if(e.revisionGuessUsed)s("tengu_bridge_revision_guess_used",{})}
-export{Npn};
+import { s } from "/$bunfs/root/chunk-r53tkxrh.js";
+import { c } from "/$bunfs/root/chunk-4xj01xwv.js";
+import { n } from "/$bunfs/root/chunk-fv016jr6.js";
+function Npn(e) {
+  if (e.branchDropped && e.warnMessage) {
+    if (
+      (s("tengu_bridge_outcome_branch_dropped", { reason: c(e.branchDropped) }),
+      n(e.warnMessage, { level: "warn" }),
+      e.branchDropped === "no_evidence")
+    )
+      console.warn(e.warnMessage);
+  }
+  if (e.revisionGuessUsed) s("tengu_bridge_revision_guess_used", {});
+}
+export { Npn };

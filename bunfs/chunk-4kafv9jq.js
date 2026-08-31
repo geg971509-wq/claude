@@ -8,5 +8,18 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{_}from"/$bunfs/root/chunk-haan6f8z.js";import{uu}from"/$bunfs/root/chunk-jmrpkgzd.js";import{M}from"/$bunfs/root/chunk-y2r26k83.js";import{e}from"/$bunfs/root/chunk-8s7kcbyw.js";function ze(l){let R=_(5),{action:K,context:x,fallback:N,description:o,parens:n,bold:t}=l,i=uu(K,x,N),y;if(R[0]!==t||R[1]!==i||R[2]!==o||R[3]!==n)y=e(M,{chord:i,action:o,parens:n,bold:t}),R[0]=t,R[1]=i,R[2]=o,R[3]=n,R[4]=y;else y=R[4];return y}
-export{ze};
+import { _ } from "/$bunfs/root/chunk-haan6f8z.js";
+import { uu } from "/$bunfs/root/chunk-jmrpkgzd.js";
+import { M } from "/$bunfs/root/chunk-y2r26k83.js";
+import { e } from "/$bunfs/root/chunk-8s7kcbyw.js";
+function ze(l) {
+  let R = _(5),
+    { action: K, context: x, fallback: N, description: o, parens: n, bold: t } = l,
+    i = uu(K, x, N),
+    y;
+  if (R[0] !== t || R[1] !== i || R[2] !== o || R[3] !== n)
+    (y = e(M, { chord: i, action: o, parens: n, bold: t })), (R[0] = t), (R[1] = i), (R[2] = o), (R[3] = n), (R[4] = y);
+  else y = R[4];
+  return y;
+}
+export { ze };

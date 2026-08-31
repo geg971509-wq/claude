@@ -8,5 +8,48 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-function Xst(s){return"method"in s&&"id"in s&&s.id!==null}class CWe{serverName;sendMcpMessage;isClosed=!1;onclose;onerror;onmessage;constructor(s,e){this.serverName=s;this.sendMcpMessage=e}async start(){}async send(s){if(this.isClosed)throw Error("Transport is closed");let e=await this.sendMcpMessage(this.serverName,s);if(this.onmessage)this.onmessage(e)}async close(){if(this.isClosed)return;this.isClosed=!0,this.onclose?.()}}class Mrn{sendMcpMessage;isClosed=!1;constructor(s){this.sendMcpMessage=s}onclose;onerror;onmessage;async start(){}async send(s){if(this.isClosed)throw Error("Transport is closed");this.sendMcpMessage(s)}async close(){if(this.isClosed)return;this.isClosed=!0,this.onclose?.()}}
-export{Xst,CWe,Mrn};
+function Xst(s) {
+  return "method" in s && "id" in s && s.id !== null;
+}
+class CWe {
+  serverName;
+  sendMcpMessage;
+  isClosed = !1;
+  onclose;
+  onerror;
+  onmessage;
+  constructor(s, e) {
+    this.serverName = s;
+    this.sendMcpMessage = e;
+  }
+  async start() {}
+  async send(s) {
+    if (this.isClosed) throw Error("Transport is closed");
+    let e = await this.sendMcpMessage(this.serverName, s);
+    if (this.onmessage) this.onmessage(e);
+  }
+  async close() {
+    if (this.isClosed) return;
+    (this.isClosed = !0), this.onclose?.();
+  }
+}
+class Mrn {
+  sendMcpMessage;
+  isClosed = !1;
+  constructor(s) {
+    this.sendMcpMessage = s;
+  }
+  onclose;
+  onerror;
+  onmessage;
+  async start() {}
+  async send(s) {
+    if (this.isClosed) throw Error("Transport is closed");
+    this.sendMcpMessage(s);
+  }
+  async close() {
+    if (this.isClosed) return;
+    (this.isClosed = !0), this.onclose?.();
+  }
+}
+export { Xst, CWe, Mrn };

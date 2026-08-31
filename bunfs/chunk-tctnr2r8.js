@@ -8,6 +8,633 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import"/$bunfs/root/chunk-f9h0bg01.js";import"/$bunfs/root/chunk-qq1mdtb5.js";import"/$bunfs/root/chunk-tx16jn0x.js";import"/$bunfs/root/chunk-gcks6mn0.js";import"/$bunfs/root/chunk-bzx56g36.js";import"/$bunfs/root/chunk-eqdctte5.js";import"/$bunfs/root/chunk-fec4384a.js";import"/$bunfs/root/chunk-qm65zb83.js";import"/$bunfs/root/chunk-vfy57cpd.js";import"/$bunfs/root/chunk-4xj01xwv.js";import{$o}from"/$bunfs/root/chunk-ypdw393e.js";import{n}from"/$bunfs/root/chunk-fv016jr6.js";import"/$bunfs/root/chunk-qk7r0t2g.js";import{k,wr}from"/$bunfs/root/chunk-4ddxwr9r.js";import{h}from"/$bunfs/root/chunk-wkxx62a2.js";import"/$bunfs/root/chunk-ps6pc7xd.js";import"/$bunfs/root/chunk-qd35gw0c.js";import"/$bunfs/root/chunk-mhf4d4sa.js";import"/$bunfs/root/chunk-pbmajbn7.js";import"/$bunfs/root/chunk-htrft0p0.js";import{_}from"/$bunfs/root/chunk-haan6f8z.js";import"/$bunfs/root/chunk-c3bffkxg.js";import"/$bunfs/root/chunk-d1d8xqks.js";import"/$bunfs/root/chunk-jpf4kat5.js";import"/$bunfs/root/chunk-37pvmyqb.js";import"/$bunfs/root/chunk-nqmqabr8.js";import"/$bunfs/root/chunk-386w1sy8.js";import"/$bunfs/root/chunk-2mmw62jx.js";import"/$bunfs/root/chunk-fwwvmbqn.js";import"/$bunfs/root/chunk-8tgj5dp2.js";import"/$bunfs/root/chunk-amem41jf.js";import"/$bunfs/root/chunk-0pgyw7te.js";import"/$bunfs/root/chunk-r53tkxrh.js";import"/$bunfs/root/chunk-ca80fke8.js";import"/$bunfs/root/chunk-ax6dy60b.js";import"/$bunfs/root/chunk-6k63g5t6.js";import{ee}from"/$bunfs/root/chunk-4fwj3vnx.js";import{Fo}from"/$bunfs/root/chunk-q14dgq5g.js";import"/$bunfs/root/chunk-f5hrzy3k.js";import"/$bunfs/root/chunk-s7e0px8j.js";import"/$bunfs/root/chunk-s28wf80n.js";import"/$bunfs/root/chunk-3bbym8ct.js";import"/$bunfs/root/chunk-cf8qhmdc.js";import"/$bunfs/root/chunk-2masxyqj.js";import"/$bunfs/root/chunk-rgw52f13.js";import"/$bunfs/root/chunk-2rx5nghb.js";import"/$bunfs/root/chunk-z0z1xzkg.js";import"/$bunfs/root/chunk-c47snwm2.js";import"/$bunfs/root/chunk-s4vc7est.js";import"/$bunfs/root/chunk-hyh5wcm1.js";import"/$bunfs/root/chunk-ntyhd04p.js";import"/$bunfs/root/chunk-8qsdea2c.js";import"/$bunfs/root/chunk-988p40e0.js";import"/$bunfs/root/chunk-0spqrdaj.js";import"/$bunfs/root/chunk-5rt2mvvk.js";import"/$bunfs/root/chunk-1yr12dqr.js";import"/$bunfs/root/chunk-z2bvp3sv.js";import"/$bunfs/root/chunk-keb644xg.js";import"/$bunfs/root/chunk-bj904w9w.js";import"/$bunfs/root/chunk-18bck2pp.js";import"/$bunfs/root/chunk-dwwpyy7b.js";import"/$bunfs/root/chunk-jck8t8fq.js";import"/$bunfs/root/chunk-qcx34e4j.js";import"/$bunfs/root/chunk-psdymar6.js";import"/$bunfs/root/chunk-0r9wzh7g.js";import"/$bunfs/root/chunk-sxxp6vcr.js";import"/$bunfs/root/chunk-rf51999f.js";import"/$bunfs/root/chunk-82w4mtvq.js";import"/$bunfs/root/chunk-v7yhn7cf.js";import"/$bunfs/root/chunk-kxyny47c.js";import"/$bunfs/root/chunk-e7rq8w09.js";import"/$bunfs/root/chunk-fbp3w46j.js";import"/$bunfs/root/chunk-gtv2468w.js";import"/$bunfs/root/chunk-4r03fm98.js";import"/$bunfs/root/chunk-s4smmnta.js";import"/$bunfs/root/chunk-z9ex1x2t.js";import"/$bunfs/root/chunk-k4a21mkt.js";import"/$bunfs/root/chunk-4rh74qms.js";import"/$bunfs/root/chunk-r3qa2s4k.js";import"/$bunfs/root/chunk-1evht33z.js";import"/$bunfs/root/chunk-gkfy5ggn.js";import"/$bunfs/root/chunk-qk6zade1.js";import"/$bunfs/root/chunk-4t3vsqt7.js";import"/$bunfs/root/chunk-ejdwrhgv.js";import"/$bunfs/root/chunk-zkvj62rn.js";import"/$bunfs/root/chunk-492vgtnr.js";import"/$bunfs/root/chunk-0g6cj4h1.js";import"/$bunfs/root/chunk-a48rnvhj.js";import"/$bunfs/root/chunk-tzhtxm67.js";import"/$bunfs/root/chunk-mznd09c6.js";import"/$bunfs/root/chunk-ghara6r1.js";import"/$bunfs/root/chunk-97wwdfyx.js";import"/$bunfs/root/chunk-167jjb66.js";import"/$bunfs/root/chunk-5c5qq1s7.js";import{o,t}from"/$bunfs/root/chunk-he2phymk.js";import"/$bunfs/root/chunk-ka74qrx3.js";import{m9e,g9e}from"/$bunfs/root/chunk-kez2zndg.js";import"/$bunfs/root/chunk-2wxj9m3z.js";import"/$bunfs/root/chunk-z45ex17x.js";import"/$bunfs/root/chunk-tbbqkkg3.js";import"/$bunfs/root/chunk-z9bhq3k9.js";import"/$bunfs/root/chunk-0m39033q.js";import"/$bunfs/root/chunk-v94qfg1j.js";import"/$bunfs/root/chunk-q04k5ycg.js";import"/$bunfs/root/chunk-c76q2y0e.js";import"/$bunfs/root/chunk-2204t1q0.js";import"/$bunfs/root/chunk-e28mhr30.js";import"/$bunfs/root/chunk-ky33xsw7.js";import"/$bunfs/root/chunk-8td9ks9h.js";import"/$bunfs/root/chunk-zk5d9rtp.js";import"/$bunfs/root/chunk-syabrr2b.js";import"/$bunfs/root/chunk-1pn2pk9v.js";import"/$bunfs/root/chunk-93max1bs.js";import"/$bunfs/root/chunk-8cv6dqkz.js";import{Ee}from"/$bunfs/root/chunk-rp246vnd.js";import{Pe}from"/$bunfs/root/chunk-q903htrr.js";import"/$bunfs/root/chunk-98tgyb1d.js";import{VL,k4e,bdt,$r}from"/$bunfs/root/chunk-zze8764r.js";import"/$bunfs/root/chunk-h7dkgq01.js";import{vLe,RLe}from"/$bunfs/root/chunk-2n1hsggr.js";import"/$bunfs/root/chunk-s0xdwab3.js";import"/$bunfs/root/chunk-fs02hzwy.js";import"/$bunfs/root/chunk-cds31m36.js";import"/$bunfs/root/chunk-z15hpjf9.js";import"/$bunfs/root/chunk-hebj76vj.js";import"/$bunfs/root/chunk-0mrbtv3q.js";import"/$bunfs/root/chunk-5n1tbe50.js";import"/$bunfs/root/chunk-twwd9fep.js";import"/$bunfs/root/chunk-a2an01ph.js";import"/$bunfs/root/chunk-dck778n3.js";import{va}from"/$bunfs/root/chunk-nkjrjh5n.js";import"/$bunfs/root/chunk-c6k0ecxv.js";import"/$bunfs/root/chunk-bp3j8sq3.js";import"/$bunfs/root/chunk-qekzccch.js";import"/$bunfs/root/chunk-s2ac0z44.js";import"/$bunfs/root/chunk-wgz3g40p.js";import"/$bunfs/root/chunk-1mp2j0tx.js";import"/$bunfs/root/chunk-tveh0k24.js";import"/$bunfs/root/chunk-699y5x28.js";import"/$bunfs/root/chunk-6a5ggyw4.js";import"/$bunfs/root/chunk-btcxpqw5.js";import"/$bunfs/root/chunk-k8xha1qv.js";import"/$bunfs/root/chunk-30e2jew7.js";import"/$bunfs/root/chunk-51qp0385.js";import"/$bunfs/root/chunk-wjr8v4tx.js";import"/$bunfs/root/chunk-kbyvkqye.js";import"/$bunfs/root/chunk-dd55s64p.js";import"/$bunfs/root/chunk-83h0j7w2.js";import"/$bunfs/root/chunk-qg6z8ah8.js";import"/$bunfs/root/chunk-308krgtb.js";import"/$bunfs/root/chunk-nf8aaj8a.js";import"/$bunfs/root/chunk-a6xhjq7b.js";import"/$bunfs/root/chunk-qnrh4abv.js";import"/$bunfs/root/chunk-6nmk3t6g.js";import"/$bunfs/root/chunk-jwrz2gmg.js";import"/$bunfs/root/chunk-6w72z84m.js";import"/$bunfs/root/chunk-nkf7ctf5.js";import"/$bunfs/root/chunk-38mxah2g.js";import"/$bunfs/root/chunk-p18e2918.js";import"/$bunfs/root/chunk-rsp0anqd.js";import"/$bunfs/root/chunk-vq9g7y26.js";import"/$bunfs/root/chunk-w3c6n7jh.js";import"/$bunfs/root/chunk-gvnqpbsf.js";import"/$bunfs/root/chunk-5wecjdtm.js";import"/$bunfs/root/chunk-rgh8hav6.js";import"/$bunfs/root/chunk-p1awcxk1.js";import"/$bunfs/root/chunk-vzc4dhqq.js";import"/$bunfs/root/chunk-x06p1jhb.js";import"/$bunfs/root/chunk-91315wj5.js";import"/$bunfs/root/chunk-tz5bx4mb.js";import"/$bunfs/root/chunk-e17gvevg.js";import"/$bunfs/root/chunk-da857b4g.js";import"/$bunfs/root/chunk-anwgkcw5.js";import"/$bunfs/root/chunk-hz299nfa.js";import"/$bunfs/root/chunk-1v3848mh.js";import"/$bunfs/root/chunk-fctnm902.js";import"/$bunfs/root/chunk-e53y7x75.js";import"/$bunfs/root/chunk-d5s7a9by.js";import"/$bunfs/root/chunk-5g92v3fd.js";import"/$bunfs/root/chunk-76gryyye.js";import"/$bunfs/root/chunk-h605j25g.js";import"/$bunfs/root/chunk-4sw5yxwb.js";import"/$bunfs/root/chunk-vx3kc9d2.js";import"/$bunfs/root/chunk-eb5y4yrx.js";import"/$bunfs/root/chunk-4c3hecm4.js";import"/$bunfs/root/chunk-xgfepdf4.js";import"/$bunfs/root/chunk-50g10fz0.js";import"/$bunfs/root/chunk-9y48by1e.js";import"/$bunfs/root/chunk-cfqs035d.js";import"/$bunfs/root/chunk-9tey6wcd.js";import"/$bunfs/root/chunk-86v6b72m.js";import"/$bunfs/root/chunk-c2kqvv3h.js";import"/$bunfs/root/chunk-cgy998p5.js";import"/$bunfs/root/chunk-hzjjsb0j.js";import"/$bunfs/root/chunk-trte0v0g.js";import"/$bunfs/root/chunk-gmgmb4mg.js";import"/$bunfs/root/chunk-avrc9gay.js";import"/$bunfs/root/chunk-pbd9yggs.js";import"/$bunfs/root/chunk-fvkzpeqe.js";import"/$bunfs/root/chunk-96xrtyd5.js";import"/$bunfs/root/chunk-k7v7xwvs.js";import"/$bunfs/root/chunk-pzvxycbq.js";import"/$bunfs/root/chunk-dzv4k86d.js";import"/$bunfs/root/chunk-rt5p4yax.js";import"/$bunfs/root/chunk-jn7d47r1.js";import"/$bunfs/root/chunk-dc4hb8f7.js";import"/$bunfs/root/chunk-z9jgt14c.js";import"/$bunfs/root/chunk-y8sx7bf9.js";import"/$bunfs/root/chunk-q2gyteg0.js";import"/$bunfs/root/chunk-0manfhn2.js";import"/$bunfs/root/chunk-r6ppzf4r.js";import"/$bunfs/root/chunk-4399d2v0.js";import"/$bunfs/root/chunk-y79sc2hm.js";import"/$bunfs/root/chunk-2t3rnt88.js";import"/$bunfs/root/chunk-986hvegp.js";import"/$bunfs/root/chunk-8jsj2mx0.js";import"/$bunfs/root/chunk-dt5bt1kc.js";import"/$bunfs/root/chunk-z9rrv31w.js";import"/$bunfs/root/chunk-5djs3wbb.js";import"/$bunfs/root/chunk-r4m4cqz1.js";import"/$bunfs/root/chunk-mq8h2tk8.js";import"/$bunfs/root/chunk-pdf5n9dy.js";import"/$bunfs/root/chunk-rntp2fy5.js";import"/$bunfs/root/chunk-a9vrr0nr.js";import"/$bunfs/root/chunk-nfmyt8cw.js";import"/$bunfs/root/chunk-6var9pwd.js";import"/$bunfs/root/chunk-gmj1vprd.js";import"/$bunfs/root/chunk-ht15rw3x.js";import"/$bunfs/root/chunk-gay9hbs8.js";import"/$bunfs/root/chunk-mvz9fsh3.js";import"/$bunfs/root/chunk-ddbk6aje.js";import"/$bunfs/root/chunk-krety1hw.js";import"/$bunfs/root/chunk-6ywvv1q0.js";import"/$bunfs/root/chunk-wn1jrcrk.js";import"/$bunfs/root/chunk-zk5v8tw6.js";import"/$bunfs/root/chunk-kdtcyk0z.js";import"/$bunfs/root/chunk-q75cm02t.js";import"/$bunfs/root/chunk-dxqac26z.js";import"/$bunfs/root/chunk-kfdrcvxr.js";import"/$bunfs/root/chunk-fd2h00ye.js";import"/$bunfs/root/chunk-vm4xrmr7.js";import"/$bunfs/root/chunk-hkzwg35z.js";import"/$bunfs/root/chunk-mkweh3a4.js";import"/$bunfs/root/chunk-z6m3k8w5.js";import"/$bunfs/root/chunk-f9km17e9.js";import"/$bunfs/root/chunk-jmrpkgzd.js";import"/$bunfs/root/chunk-y2r26k83.js";import"/$bunfs/root/chunk-skd1pndb.js";import{Gc,Jm}from"/$bunfs/root/chunk-yzvg79ww.js";import"/$bunfs/root/chunk-gtwaztzc.js";import"/$bunfs/root/chunk-ht28m404.js";import"/$bunfs/root/chunk-86vrakk4.js";import"/$bunfs/root/chunk-m6r337am.js";import"/$bunfs/root/chunk-qsfnyrge.js";import"/$bunfs/root/chunk-tk2aqta8.js";import{o_}from"/$bunfs/root/chunk-vrtqnmsg.js";import"/$bunfs/root/chunk-m2tvdtdb.js";import{xg}from"/$bunfs/root/chunk-td8hc9sx.js";import{VU,GUe}from"/$bunfs/root/chunk-fqpemxqa.js";import"/$bunfs/root/chunk-g3nsxpwp.js";import{ep}from"/$bunfs/root/chunk-p98k6xvq.js";import"/$bunfs/root/chunk-b6a5y1qe.js";import"/$bunfs/root/chunk-pm63yfcg.js";import"/$bunfs/root/chunk-1fwtbc4t.js";import{e,r}from"/$bunfs/root/chunk-8s7kcbyw.js";import"/$bunfs/root/chunk-tfb5y7hy.js";import"/$bunfs/root/chunk-d5bnjcbw.js";import{Jn,zn,u,F}from"/$bunfs/root/chunk-twm95mhz.js";import"/$bunfs/root/chunk-31xy83wr.js";import"/$bunfs/root/chunk-g732bkj4.js";import"/$bunfs/root/chunk-zgfc288e.js";import"/$bunfs/root/chunk-6nsyrmhg.js";import"/$bunfs/root/chunk-jjkewjsg.js";import"/$bunfs/root/chunk-4r71nj50.js";import"/$bunfs/root/chunk-3qvtfvqg.js";import"/$bunfs/root/chunk-r7t0evh2.js";import"/$bunfs/root/chunk-6xz0kht6.js";import"/$bunfs/root/chunk-2am7kb6k.js";import"/$bunfs/root/chunk-9kr4hqvs.js";import"/$bunfs/root/chunk-xvwx3w83.js";import"/$bunfs/root/chunk-y9akj3mq.js";import"/$bunfs/root/chunk-gdk3p0b3.js";import"/$bunfs/root/chunk-qy75zxb2.js";import"/$bunfs/root/chunk-r6t6p0zm.js";import"/$bunfs/root/chunk-qpj83ec7.js";import"/$bunfs/root/chunk-f77e8yef.js";import"/$bunfs/root/chunk-f7y0mdt6.js";import"/$bunfs/root/chunk-jb2pzt3t.js";import"/$bunfs/root/chunk-9yzzw213.js";import"/$bunfs/root/chunk-mknyj0qp.js";import"/$bunfs/root/chunk-81defen8.js";import"/$bunfs/root/chunk-mpg6r2j0.js";import"/$bunfs/root/chunk-3dh32z3c.js";import"/$bunfs/root/chunk-n8ecp4gs.js";import"/$bunfs/root/chunk-406nxetx.js";import"/$bunfs/root/chunk-2zf9m1zh.js";import"/$bunfs/root/chunk-rxqmmxnb.js";import"/$bunfs/root/chunk-gdhqsw8a.js";import"/$bunfs/root/chunk-5xr818a0.js";import"/$bunfs/root/chunk-fgavb5x0.js";import"/$bunfs/root/chunk-sqa0bs5e.js";import"/$bunfs/root/chunk-fveqn4y7.js";import"/$bunfs/root/chunk-4zsxhey6.js";import"/$bunfs/root/chunk-61nasexv.js";import"/$bunfs/root/chunk-m1andcps.js";import"/$bunfs/root/chunk-61hbq2wc.js";import"/$bunfs/root/chunk-rq65wazg.js";import"/$bunfs/root/chunk-5tdaspnd.js";import"/$bunfs/root/chunk-rr0yj5sq.js";import"/$bunfs/root/chunk-a7wreksn.js";import"/$bunfs/root/chunk-8sbwe0jk.js";import"/$bunfs/root/chunk-nwb64bac.js";import"/$bunfs/root/chunk-g5y4mxg8.js";import"/$bunfs/root/chunk-cbn30h5b.js";import"/$bunfs/root/chunk-g01aac1k.js";import"/$bunfs/root/chunk-3fwkz19s.js";import"/$bunfs/root/chunk-9319g175.js";import"/$bunfs/root/chunk-szz73wxx.js";import"/$bunfs/root/chunk-b40bn863.js";import"/$bunfs/root/chunk-6mgs10s2.js";import"/$bunfs/root/chunk-6s9ybdq1.js";import"/$bunfs/root/chunk-74qqwjhx.js";import"/$bunfs/root/chunk-1hh0bg14.js";import"/$bunfs/root/chunk-052zvbpg.js";import"/$bunfs/root/chunk-werv747a.js";import"/$bunfs/root/chunk-jzh4kg5x.js";import"/$bunfs/root/chunk-7s7jqj2f.js";import"/$bunfs/root/chunk-56sxk8k2.js";import"/$bunfs/root/chunk-7jz6r17g.js";import"/$bunfs/root/chunk-a4q326ap.js";import{d}from"/$bunfs/root/chunk-yz031c9r.js";F();import{isAbsolute as je,relative as X,resolve as Ne}from"path";function Re(i,a,s=1/0){let l=a<=0||!Number.isFinite(a),f=0,c=0;while(c<=i.length){let p=i.indexOf(`
-`,c),T=p===-1?i.substring(c):i.substring(c,p);if(l)f++;else{let w=m9e(T);f+=w===0?1:Math.ceil(w/a)}if(f>s)return f;if(p===-1)break;c=p+1}return f}function re(i,a,s){return Re(i,a,s)>s}var b=10,P=`
-`;function O(i){let a=i.split(P);return i.endsWith(P)?a.length-1:a.length}function me(i,a){let s=g9e(i,a).height;return i.endsWith(P)?s-1:s}function N(){let mt=_(1),Te;if(mt[0]===d)Te=e(t,{dimColor:!0,children:" \u2014 previous content replaced (no diff shown)"}),mt[0]=Te;else Te=mt[0];return Te}function he(gt){let g=_(37),{filePath:D,content:Y,verbose:m,replacedUndiffedContent:Fe}=gt,oe=Fe===void 0?!1:Fe,{columns:ht}=Ee(),v=Math.max(1,ht-12),U=Y||"(No content)",ke;if(g[0]!==Y)ke=O(Y),g[0]=Y,g[1]=ke;else ke=g[1];let M=ke,we;if(g[2]!==U||g[3]!==v||g[4]!==m)we=m?U:U.split(P).slice(0,b).join(P).slice(0,b*(v+1)),g[2]=U,g[3]=v,g[4]=m,g[5]=we;else we=g[5];let ne=we,ie=m?0:me(U,v)-b,q;if(g[6]!==M)q=e(t,{bold:!0,children:M}),g[6]=M,g[7]=q;else q=g[7];let z;if(g[8]!==M)z=k(M,"line"),g[8]=M,g[9]=z;else z=g[9];let A;if(g[10]!==D||g[11]!==m)A=m?D:X(ee(),D),g[10]=D,g[11]=m,g[12]=A;else A=g[12];let G;if(g[13]!==A)G=e(t,{bold:!0,children:A}),g[13]=A,g[14]=G;else G=g[14];let J;if(g[15]!==oe)J=oe&&e(N,{}),g[15]=oe,g[16]=J;else J=g[16];let K;if(g[17]!==q||g[18]!==z||g[19]!==G||g[20]!==J)K=r(t,{children:["Wrote ",q," ",z," to"," ",G,J]}),g[17]=q,g[18]=z,g[19]=G,g[20]=J,g[21]=K;else K=g[21];const se=m?void 0:"hidden",ae=m?void 0:b;let Q;if(g[22]!==ne||g[23]!==D||g[24]!==v)Q=e(o_,{code:ne,filePath:D,width:v}),g[22]=ne,g[23]=D,g[24]=v,g[25]=Q;else Q=g[25];let Z;if(g[26]!==se||g[27]!==ae||g[28]!==Q)Z=e(o,{flexDirection:"column",overflowY:se,maxHeight:ae,children:Q}),g[26]=se,g[27]=ae,g[28]=Q,g[29]=Z;else Z=g[29];let E;if(g[30]!==ie||g[31]!==m)E=!m&&e(Jm,{count:ie,expandable:!0}),g[30]=ie,g[31]=m,g[32]=E;else E=g[32];let De;if(g[33]!==Z||g[34]!==E||g[35]!==K)De=e(Pe,{children:r(o,{flexDirection:"column",children:[K,Z,E]})}),g[33]=Z,g[34]=E,g[35]=K,g[36]=De;else De=g[36];return De}function be({type:i,content:a,structuredPatch:s,originalFile:l}){return i==="update"&&Array.isArray(s)&&s.length===0&&l===null&&typeof a==="string"&&a!==""}function lt(i,{columns:a}){let{type:s,content:l}=i;if(s!=="create"&&!be(i))return!1;if(typeof l!=="string")return!1;let f=l.endsWith(P)?b+1:b;return re(l,Math.max(1,a-12),f)}function ct(i,{verbose:a}){if(!i.file_path)return null;if(i.file_path.startsWith(va()))return"";return e(xg,{filePath:i.file_path,children:a?i.file_path:Fo(i.file_path)})}function ft({file_path:i,content:a},{style:s,verbose:l}){return e(ye,{filePath:i,content:a,style:s,verbose:l})}function ye(bt){let H=_(20),{filePath:y,content:x,style:le,verbose:W}=bt,ve;if(H[0]!==x||H[1]!==y)ve=()=>ge(y,x),H[0]=x,H[1]=y,H[2]=ve;else ve=H[2];let[ce]=u(ve),Ce;if(H[3]!==x)Ce=wr(x),H[3]=x,H[4]=Ce;else Ce=H[4];let L=Ce,Me;if(H[5]!==x||H[6]!==y||H[7]!==L||H[8]!==W)Me=e(VU,{file_path:y,operation:"write",content:x,firstLine:L,verbose:W}),H[5]=x,H[6]=y,H[7]=L,H[8]=W,H[9]=Me;else Me=H[9];let j=Me,I;if(H[10]!==j||H[11]!==ce||H[12]!==y||H[13]!==L||H[14]!==le||H[15]!==W)I=e(te,{promise:ce,filePath:y,firstLine:L,createFallback:j,style:le,verbose:W}),H[10]=j,H[11]=ce,H[12]=y,H[13]=L,H[14]=le,H[15]=W,H[16]=I;else I=H[16];let We;if(H[17]!==j||H[18]!==I)We=e(Jn,{fallback:j,children:I}),H[17]=j,H[18]=I,H[19]=We;else We=H[19];return We}function te(yt){let Le=_(8),{promise:xt,filePath:fe,firstLine:pe,createFallback:Pt,style:ue,verbose:de}=yt,R=zn(xt);if(R.type==="create"){return Pt}if(R.type==="error"){let S;if(Le[0]===d)S=e(Pe,{children:e(t,{children:"(No changes)"})}),Le[0]=S;else S=Le[0];return S}let S;if(Le[1]!==R.oldContent||Le[2]!==R.patch||Le[3]!==fe||Le[4]!==pe||Le[5]!==ue||Le[6]!==de)S=e(VU,{file_path:fe,operation:"update",patch:R.patch,firstLine:pe,fileContent:R.oldContent,style:ue,verbose:de}),Le[1]=R.oldContent,Le[2]=R.patch,Le[3]=fe,Le[4]=pe,Le[5]=ue,Le[6]=de,Le[7]=S;else S=Le[7];return S}async function ge(i,a){try{let s=je(i)?i:Ne(ee(),i),l=await k4e(s);if(l===null)return{type:"create"};let f;try{f=await bdt(l)}finally{await l.close()}if(f===null)return{type:"create"};return{type:"update",patch:VL({filePath:i,fileContents:f,edits:[{old_string:f,new_string:a,replace_all:!1}]}),oldContent:f}}catch(s){if($o(s))n(`Failed to load rejection diff for ${i}: ${s.message}`,{level:"error"});else h(s);return{type:"error"}}}function pt(i,{verbose:a}){if(!a&&typeof i==="string"&&$r(i,"tool_use_error"))return e(Pe,{children:e(t,{color:"error",children:"Error writing file"})});return e(ep,{result:i,verbose:a})}function ut(i,a,{style:s,verbose:l}){return xe(i,a,{style:s,verbose:l})}function xe(i,a,{style:s,verbose:l,replacedUndiffedContent:f=!1}){let{filePath:c="",content:p,structuredPatch:T,type:w,originalFile:B}=i;if(!c)return null;switch(w){case"create":{if(c.startsWith(va())&&!l){if(s!=="condensed")return e(Pe,{children:e(t,{dimColor:!0,children:"/plan to preview"})})}else if(s==="condensed"&&!l){let C=O(p);return r(t,{children:["Wrote ",e(t,{bold:!0,children:C})," ",k(C,"line")," to"," ",e(t,{bold:!0,children:X(ee(),c)}),f&&e(N,{})]})}else if(!l&&(vLe(c)||RLe(c))){let C=O(p);return e(Pe,{children:r(t,{children:["Wrote ",e(t,{bold:!0,children:C})," ",k(C,"line"),f&&e(N,{})," ",e(Gc,{})]})})}return e(he,{filePath:c,content:p,verbose:l,replacedUndiffedContent:f})}case"update":{if(be(i))return xe({...i,type:"create"},a,{style:s,verbose:l,replacedUndiffedContent:!0});let V=c.startsWith(va());return e(GUe,{filePath:c,structuredPatch:T,firstLine:wr(p),fileContent:B??void 0,style:s,verbose:l,previewHint:V?"/plan to preview":void 0,collapsed:!V&&(vLe(c)||RLe(c))})}}}export{O as countLines,lt as isResultTruncated,ut as renderToolResultMessage,pt as renderToolUseErrorMessage,ct as renderToolUseMessage,ft as renderToolUseRejectedMessage};
+import "/$bunfs/root/chunk-f9h0bg01.js";
+import "/$bunfs/root/chunk-qq1mdtb5.js";
+import "/$bunfs/root/chunk-tx16jn0x.js";
+import "/$bunfs/root/chunk-gcks6mn0.js";
+import "/$bunfs/root/chunk-bzx56g36.js";
+import "/$bunfs/root/chunk-eqdctte5.js";
+import "/$bunfs/root/chunk-fec4384a.js";
+import "/$bunfs/root/chunk-qm65zb83.js";
+import "/$bunfs/root/chunk-vfy57cpd.js";
+import "/$bunfs/root/chunk-4xj01xwv.js";
+import { $o } from "/$bunfs/root/chunk-ypdw393e.js";
+import { n } from "/$bunfs/root/chunk-fv016jr6.js";
+import "/$bunfs/root/chunk-qk7r0t2g.js";
+import { k, wr } from "/$bunfs/root/chunk-4ddxwr9r.js";
+import { h } from "/$bunfs/root/chunk-wkxx62a2.js";
+import "/$bunfs/root/chunk-ps6pc7xd.js";
+import "/$bunfs/root/chunk-qd35gw0c.js";
+import "/$bunfs/root/chunk-mhf4d4sa.js";
+import "/$bunfs/root/chunk-pbmajbn7.js";
+import "/$bunfs/root/chunk-htrft0p0.js";
+import { _ } from "/$bunfs/root/chunk-haan6f8z.js";
+import "/$bunfs/root/chunk-c3bffkxg.js";
+import "/$bunfs/root/chunk-d1d8xqks.js";
+import "/$bunfs/root/chunk-jpf4kat5.js";
+import "/$bunfs/root/chunk-37pvmyqb.js";
+import "/$bunfs/root/chunk-nqmqabr8.js";
+import "/$bunfs/root/chunk-386w1sy8.js";
+import "/$bunfs/root/chunk-2mmw62jx.js";
+import "/$bunfs/root/chunk-fwwvmbqn.js";
+import "/$bunfs/root/chunk-8tgj5dp2.js";
+import "/$bunfs/root/chunk-amem41jf.js";
+import "/$bunfs/root/chunk-0pgyw7te.js";
+import "/$bunfs/root/chunk-r53tkxrh.js";
+import "/$bunfs/root/chunk-ca80fke8.js";
+import "/$bunfs/root/chunk-ax6dy60b.js";
+import "/$bunfs/root/chunk-6k63g5t6.js";
+import { ee } from "/$bunfs/root/chunk-4fwj3vnx.js";
+import { Fo } from "/$bunfs/root/chunk-q14dgq5g.js";
+import "/$bunfs/root/chunk-f5hrzy3k.js";
+import "/$bunfs/root/chunk-s7e0px8j.js";
+import "/$bunfs/root/chunk-s28wf80n.js";
+import "/$bunfs/root/chunk-3bbym8ct.js";
+import "/$bunfs/root/chunk-cf8qhmdc.js";
+import "/$bunfs/root/chunk-2masxyqj.js";
+import "/$bunfs/root/chunk-rgw52f13.js";
+import "/$bunfs/root/chunk-2rx5nghb.js";
+import "/$bunfs/root/chunk-z0z1xzkg.js";
+import "/$bunfs/root/chunk-c47snwm2.js";
+import "/$bunfs/root/chunk-s4vc7est.js";
+import "/$bunfs/root/chunk-hyh5wcm1.js";
+import "/$bunfs/root/chunk-ntyhd04p.js";
+import "/$bunfs/root/chunk-8qsdea2c.js";
+import "/$bunfs/root/chunk-988p40e0.js";
+import "/$bunfs/root/chunk-0spqrdaj.js";
+import "/$bunfs/root/chunk-5rt2mvvk.js";
+import "/$bunfs/root/chunk-1yr12dqr.js";
+import "/$bunfs/root/chunk-z2bvp3sv.js";
+import "/$bunfs/root/chunk-keb644xg.js";
+import "/$bunfs/root/chunk-bj904w9w.js";
+import "/$bunfs/root/chunk-18bck2pp.js";
+import "/$bunfs/root/chunk-dwwpyy7b.js";
+import "/$bunfs/root/chunk-jck8t8fq.js";
+import "/$bunfs/root/chunk-qcx34e4j.js";
+import "/$bunfs/root/chunk-psdymar6.js";
+import "/$bunfs/root/chunk-0r9wzh7g.js";
+import "/$bunfs/root/chunk-sxxp6vcr.js";
+import "/$bunfs/root/chunk-rf51999f.js";
+import "/$bunfs/root/chunk-82w4mtvq.js";
+import "/$bunfs/root/chunk-v7yhn7cf.js";
+import "/$bunfs/root/chunk-kxyny47c.js";
+import "/$bunfs/root/chunk-e7rq8w09.js";
+import "/$bunfs/root/chunk-fbp3w46j.js";
+import "/$bunfs/root/chunk-gtv2468w.js";
+import "/$bunfs/root/chunk-4r03fm98.js";
+import "/$bunfs/root/chunk-s4smmnta.js";
+import "/$bunfs/root/chunk-z9ex1x2t.js";
+import "/$bunfs/root/chunk-k4a21mkt.js";
+import "/$bunfs/root/chunk-4rh74qms.js";
+import "/$bunfs/root/chunk-r3qa2s4k.js";
+import "/$bunfs/root/chunk-1evht33z.js";
+import "/$bunfs/root/chunk-gkfy5ggn.js";
+import "/$bunfs/root/chunk-qk6zade1.js";
+import "/$bunfs/root/chunk-4t3vsqt7.js";
+import "/$bunfs/root/chunk-ejdwrhgv.js";
+import "/$bunfs/root/chunk-zkvj62rn.js";
+import "/$bunfs/root/chunk-492vgtnr.js";
+import "/$bunfs/root/chunk-0g6cj4h1.js";
+import "/$bunfs/root/chunk-a48rnvhj.js";
+import "/$bunfs/root/chunk-tzhtxm67.js";
+import "/$bunfs/root/chunk-mznd09c6.js";
+import "/$bunfs/root/chunk-ghara6r1.js";
+import "/$bunfs/root/chunk-97wwdfyx.js";
+import "/$bunfs/root/chunk-167jjb66.js";
+import "/$bunfs/root/chunk-5c5qq1s7.js";
+import { o, t } from "/$bunfs/root/chunk-he2phymk.js";
+import "/$bunfs/root/chunk-ka74qrx3.js";
+import { m9e, g9e } from "/$bunfs/root/chunk-kez2zndg.js";
+import "/$bunfs/root/chunk-2wxj9m3z.js";
+import "/$bunfs/root/chunk-z45ex17x.js";
+import "/$bunfs/root/chunk-tbbqkkg3.js";
+import "/$bunfs/root/chunk-z9bhq3k9.js";
+import "/$bunfs/root/chunk-0m39033q.js";
+import "/$bunfs/root/chunk-v94qfg1j.js";
+import "/$bunfs/root/chunk-q04k5ycg.js";
+import "/$bunfs/root/chunk-c76q2y0e.js";
+import "/$bunfs/root/chunk-2204t1q0.js";
+import "/$bunfs/root/chunk-e28mhr30.js";
+import "/$bunfs/root/chunk-ky33xsw7.js";
+import "/$bunfs/root/chunk-8td9ks9h.js";
+import "/$bunfs/root/chunk-zk5d9rtp.js";
+import "/$bunfs/root/chunk-syabrr2b.js";
+import "/$bunfs/root/chunk-1pn2pk9v.js";
+import "/$bunfs/root/chunk-93max1bs.js";
+import "/$bunfs/root/chunk-8cv6dqkz.js";
+import { Ee } from "/$bunfs/root/chunk-rp246vnd.js";
+import { Pe } from "/$bunfs/root/chunk-q903htrr.js";
+import "/$bunfs/root/chunk-98tgyb1d.js";
+import { VL, k4e, bdt, $r } from "/$bunfs/root/chunk-zze8764r.js";
+import "/$bunfs/root/chunk-h7dkgq01.js";
+import { vLe, RLe } from "/$bunfs/root/chunk-2n1hsggr.js";
+import "/$bunfs/root/chunk-s0xdwab3.js";
+import "/$bunfs/root/chunk-fs02hzwy.js";
+import "/$bunfs/root/chunk-cds31m36.js";
+import "/$bunfs/root/chunk-z15hpjf9.js";
+import "/$bunfs/root/chunk-hebj76vj.js";
+import "/$bunfs/root/chunk-0mrbtv3q.js";
+import "/$bunfs/root/chunk-5n1tbe50.js";
+import "/$bunfs/root/chunk-twwd9fep.js";
+import "/$bunfs/root/chunk-a2an01ph.js";
+import "/$bunfs/root/chunk-dck778n3.js";
+import { va } from "/$bunfs/root/chunk-nkjrjh5n.js";
+import "/$bunfs/root/chunk-c6k0ecxv.js";
+import "/$bunfs/root/chunk-bp3j8sq3.js";
+import "/$bunfs/root/chunk-qekzccch.js";
+import "/$bunfs/root/chunk-s2ac0z44.js";
+import "/$bunfs/root/chunk-wgz3g40p.js";
+import "/$bunfs/root/chunk-1mp2j0tx.js";
+import "/$bunfs/root/chunk-tveh0k24.js";
+import "/$bunfs/root/chunk-699y5x28.js";
+import "/$bunfs/root/chunk-6a5ggyw4.js";
+import "/$bunfs/root/chunk-btcxpqw5.js";
+import "/$bunfs/root/chunk-k8xha1qv.js";
+import "/$bunfs/root/chunk-30e2jew7.js";
+import "/$bunfs/root/chunk-51qp0385.js";
+import "/$bunfs/root/chunk-wjr8v4tx.js";
+import "/$bunfs/root/chunk-kbyvkqye.js";
+import "/$bunfs/root/chunk-dd55s64p.js";
+import "/$bunfs/root/chunk-83h0j7w2.js";
+import "/$bunfs/root/chunk-qg6z8ah8.js";
+import "/$bunfs/root/chunk-308krgtb.js";
+import "/$bunfs/root/chunk-nf8aaj8a.js";
+import "/$bunfs/root/chunk-a6xhjq7b.js";
+import "/$bunfs/root/chunk-qnrh4abv.js";
+import "/$bunfs/root/chunk-6nmk3t6g.js";
+import "/$bunfs/root/chunk-jwrz2gmg.js";
+import "/$bunfs/root/chunk-6w72z84m.js";
+import "/$bunfs/root/chunk-nkf7ctf5.js";
+import "/$bunfs/root/chunk-38mxah2g.js";
+import "/$bunfs/root/chunk-p18e2918.js";
+import "/$bunfs/root/chunk-rsp0anqd.js";
+import "/$bunfs/root/chunk-vq9g7y26.js";
+import "/$bunfs/root/chunk-w3c6n7jh.js";
+import "/$bunfs/root/chunk-gvnqpbsf.js";
+import "/$bunfs/root/chunk-5wecjdtm.js";
+import "/$bunfs/root/chunk-rgh8hav6.js";
+import "/$bunfs/root/chunk-p1awcxk1.js";
+import "/$bunfs/root/chunk-vzc4dhqq.js";
+import "/$bunfs/root/chunk-x06p1jhb.js";
+import "/$bunfs/root/chunk-91315wj5.js";
+import "/$bunfs/root/chunk-tz5bx4mb.js";
+import "/$bunfs/root/chunk-e17gvevg.js";
+import "/$bunfs/root/chunk-da857b4g.js";
+import "/$bunfs/root/chunk-anwgkcw5.js";
+import "/$bunfs/root/chunk-hz299nfa.js";
+import "/$bunfs/root/chunk-1v3848mh.js";
+import "/$bunfs/root/chunk-fctnm902.js";
+import "/$bunfs/root/chunk-e53y7x75.js";
+import "/$bunfs/root/chunk-d5s7a9by.js";
+import "/$bunfs/root/chunk-5g92v3fd.js";
+import "/$bunfs/root/chunk-76gryyye.js";
+import "/$bunfs/root/chunk-h605j25g.js";
+import "/$bunfs/root/chunk-4sw5yxwb.js";
+import "/$bunfs/root/chunk-vx3kc9d2.js";
+import "/$bunfs/root/chunk-eb5y4yrx.js";
+import "/$bunfs/root/chunk-4c3hecm4.js";
+import "/$bunfs/root/chunk-xgfepdf4.js";
+import "/$bunfs/root/chunk-50g10fz0.js";
+import "/$bunfs/root/chunk-9y48by1e.js";
+import "/$bunfs/root/chunk-cfqs035d.js";
+import "/$bunfs/root/chunk-9tey6wcd.js";
+import "/$bunfs/root/chunk-86v6b72m.js";
+import "/$bunfs/root/chunk-c2kqvv3h.js";
+import "/$bunfs/root/chunk-cgy998p5.js";
+import "/$bunfs/root/chunk-hzjjsb0j.js";
+import "/$bunfs/root/chunk-trte0v0g.js";
+import "/$bunfs/root/chunk-gmgmb4mg.js";
+import "/$bunfs/root/chunk-avrc9gay.js";
+import "/$bunfs/root/chunk-pbd9yggs.js";
+import "/$bunfs/root/chunk-fvkzpeqe.js";
+import "/$bunfs/root/chunk-96xrtyd5.js";
+import "/$bunfs/root/chunk-k7v7xwvs.js";
+import "/$bunfs/root/chunk-pzvxycbq.js";
+import "/$bunfs/root/chunk-dzv4k86d.js";
+import "/$bunfs/root/chunk-rt5p4yax.js";
+import "/$bunfs/root/chunk-jn7d47r1.js";
+import "/$bunfs/root/chunk-dc4hb8f7.js";
+import "/$bunfs/root/chunk-z9jgt14c.js";
+import "/$bunfs/root/chunk-y8sx7bf9.js";
+import "/$bunfs/root/chunk-q2gyteg0.js";
+import "/$bunfs/root/chunk-0manfhn2.js";
+import "/$bunfs/root/chunk-r6ppzf4r.js";
+import "/$bunfs/root/chunk-4399d2v0.js";
+import "/$bunfs/root/chunk-y79sc2hm.js";
+import "/$bunfs/root/chunk-2t3rnt88.js";
+import "/$bunfs/root/chunk-986hvegp.js";
+import "/$bunfs/root/chunk-8jsj2mx0.js";
+import "/$bunfs/root/chunk-dt5bt1kc.js";
+import "/$bunfs/root/chunk-z9rrv31w.js";
+import "/$bunfs/root/chunk-5djs3wbb.js";
+import "/$bunfs/root/chunk-r4m4cqz1.js";
+import "/$bunfs/root/chunk-mq8h2tk8.js";
+import "/$bunfs/root/chunk-pdf5n9dy.js";
+import "/$bunfs/root/chunk-rntp2fy5.js";
+import "/$bunfs/root/chunk-a9vrr0nr.js";
+import "/$bunfs/root/chunk-nfmyt8cw.js";
+import "/$bunfs/root/chunk-6var9pwd.js";
+import "/$bunfs/root/chunk-gmj1vprd.js";
+import "/$bunfs/root/chunk-ht15rw3x.js";
+import "/$bunfs/root/chunk-gay9hbs8.js";
+import "/$bunfs/root/chunk-mvz9fsh3.js";
+import "/$bunfs/root/chunk-ddbk6aje.js";
+import "/$bunfs/root/chunk-krety1hw.js";
+import "/$bunfs/root/chunk-6ywvv1q0.js";
+import "/$bunfs/root/chunk-wn1jrcrk.js";
+import "/$bunfs/root/chunk-zk5v8tw6.js";
+import "/$bunfs/root/chunk-kdtcyk0z.js";
+import "/$bunfs/root/chunk-q75cm02t.js";
+import "/$bunfs/root/chunk-dxqac26z.js";
+import "/$bunfs/root/chunk-kfdrcvxr.js";
+import "/$bunfs/root/chunk-fd2h00ye.js";
+import "/$bunfs/root/chunk-vm4xrmr7.js";
+import "/$bunfs/root/chunk-hkzwg35z.js";
+import "/$bunfs/root/chunk-mkweh3a4.js";
+import "/$bunfs/root/chunk-z6m3k8w5.js";
+import "/$bunfs/root/chunk-f9km17e9.js";
+import "/$bunfs/root/chunk-jmrpkgzd.js";
+import "/$bunfs/root/chunk-y2r26k83.js";
+import "/$bunfs/root/chunk-skd1pndb.js";
+import { Gc, Jm } from "/$bunfs/root/chunk-yzvg79ww.js";
+import "/$bunfs/root/chunk-gtwaztzc.js";
+import "/$bunfs/root/chunk-ht28m404.js";
+import "/$bunfs/root/chunk-86vrakk4.js";
+import "/$bunfs/root/chunk-m6r337am.js";
+import "/$bunfs/root/chunk-qsfnyrge.js";
+import "/$bunfs/root/chunk-tk2aqta8.js";
+import { o_ } from "/$bunfs/root/chunk-vrtqnmsg.js";
+import "/$bunfs/root/chunk-m2tvdtdb.js";
+import { xg } from "/$bunfs/root/chunk-td8hc9sx.js";
+import { VU, GUe } from "/$bunfs/root/chunk-fqpemxqa.js";
+import "/$bunfs/root/chunk-g3nsxpwp.js";
+import { ep } from "/$bunfs/root/chunk-p98k6xvq.js";
+import "/$bunfs/root/chunk-b6a5y1qe.js";
+import "/$bunfs/root/chunk-pm63yfcg.js";
+import "/$bunfs/root/chunk-1fwtbc4t.js";
+import { e, r } from "/$bunfs/root/chunk-8s7kcbyw.js";
+import "/$bunfs/root/chunk-tfb5y7hy.js";
+import "/$bunfs/root/chunk-d5bnjcbw.js";
+import { Jn, zn, u, F } from "/$bunfs/root/chunk-twm95mhz.js";
+import "/$bunfs/root/chunk-31xy83wr.js";
+import "/$bunfs/root/chunk-g732bkj4.js";
+import "/$bunfs/root/chunk-zgfc288e.js";
+import "/$bunfs/root/chunk-6nsyrmhg.js";
+import "/$bunfs/root/chunk-jjkewjsg.js";
+import "/$bunfs/root/chunk-4r71nj50.js";
+import "/$bunfs/root/chunk-3qvtfvqg.js";
+import "/$bunfs/root/chunk-r7t0evh2.js";
+import "/$bunfs/root/chunk-6xz0kht6.js";
+import "/$bunfs/root/chunk-2am7kb6k.js";
+import "/$bunfs/root/chunk-9kr4hqvs.js";
+import "/$bunfs/root/chunk-xvwx3w83.js";
+import "/$bunfs/root/chunk-y9akj3mq.js";
+import "/$bunfs/root/chunk-gdk3p0b3.js";
+import "/$bunfs/root/chunk-qy75zxb2.js";
+import "/$bunfs/root/chunk-r6t6p0zm.js";
+import "/$bunfs/root/chunk-qpj83ec7.js";
+import "/$bunfs/root/chunk-f77e8yef.js";
+import "/$bunfs/root/chunk-f7y0mdt6.js";
+import "/$bunfs/root/chunk-jb2pzt3t.js";
+import "/$bunfs/root/chunk-9yzzw213.js";
+import "/$bunfs/root/chunk-mknyj0qp.js";
+import "/$bunfs/root/chunk-81defen8.js";
+import "/$bunfs/root/chunk-mpg6r2j0.js";
+import "/$bunfs/root/chunk-3dh32z3c.js";
+import "/$bunfs/root/chunk-n8ecp4gs.js";
+import "/$bunfs/root/chunk-406nxetx.js";
+import "/$bunfs/root/chunk-2zf9m1zh.js";
+import "/$bunfs/root/chunk-rxqmmxnb.js";
+import "/$bunfs/root/chunk-gdhqsw8a.js";
+import "/$bunfs/root/chunk-5xr818a0.js";
+import "/$bunfs/root/chunk-fgavb5x0.js";
+import "/$bunfs/root/chunk-sqa0bs5e.js";
+import "/$bunfs/root/chunk-fveqn4y7.js";
+import "/$bunfs/root/chunk-4zsxhey6.js";
+import "/$bunfs/root/chunk-61nasexv.js";
+import "/$bunfs/root/chunk-m1andcps.js";
+import "/$bunfs/root/chunk-61hbq2wc.js";
+import "/$bunfs/root/chunk-rq65wazg.js";
+import "/$bunfs/root/chunk-5tdaspnd.js";
+import "/$bunfs/root/chunk-rr0yj5sq.js";
+import "/$bunfs/root/chunk-a7wreksn.js";
+import "/$bunfs/root/chunk-8sbwe0jk.js";
+import "/$bunfs/root/chunk-nwb64bac.js";
+import "/$bunfs/root/chunk-g5y4mxg8.js";
+import "/$bunfs/root/chunk-cbn30h5b.js";
+import "/$bunfs/root/chunk-g01aac1k.js";
+import "/$bunfs/root/chunk-3fwkz19s.js";
+import "/$bunfs/root/chunk-9319g175.js";
+import "/$bunfs/root/chunk-szz73wxx.js";
+import "/$bunfs/root/chunk-b40bn863.js";
+import "/$bunfs/root/chunk-6mgs10s2.js";
+import "/$bunfs/root/chunk-6s9ybdq1.js";
+import "/$bunfs/root/chunk-74qqwjhx.js";
+import "/$bunfs/root/chunk-1hh0bg14.js";
+import "/$bunfs/root/chunk-052zvbpg.js";
+import "/$bunfs/root/chunk-werv747a.js";
+import "/$bunfs/root/chunk-jzh4kg5x.js";
+import "/$bunfs/root/chunk-7s7jqj2f.js";
+import "/$bunfs/root/chunk-56sxk8k2.js";
+import "/$bunfs/root/chunk-7jz6r17g.js";
+import "/$bunfs/root/chunk-a4q326ap.js";
+import { d } from "/$bunfs/root/chunk-yz031c9r.js";
+F();
+import { isAbsolute as je, relative as X, resolve as Ne } from "path";
+function Re(i, a, s = 1 / 0) {
+  let l = a <= 0 || !Number.isFinite(a),
+    f = 0,
+    c = 0;
+  while (c <= i.length) {
+    let p = i.indexOf(
+        `
+`,
+        c,
+      ),
+      T = p === -1 ? i.substring(c) : i.substring(c, p);
+    if (l) f++;
+    else {
+      let w = m9e(T);
+      f += w === 0 ? 1 : Math.ceil(w / a);
+    }
+    if (f > s) return f;
+    if (p === -1) break;
+    c = p + 1;
+  }
+  return f;
+}
+function re(i, a, s) {
+  return Re(i, a, s) > s;
+}
+var b = 10,
+  P = `
+`;
+function O(i) {
+  let a = i.split(P);
+  return i.endsWith(P) ? a.length - 1 : a.length;
+}
+function me(i, a) {
+  let s = g9e(i, a).height;
+  return i.endsWith(P) ? s - 1 : s;
+}
+function N() {
+  let mt = _(1),
+    Te;
+  if (mt[0] === d)
+    (Te = e(t, { dimColor: !0, children: " \u2014 previous content replaced (no diff shown)" })), (mt[0] = Te);
+  else Te = mt[0];
+  return Te;
+}
+function he(gt) {
+  let g = _(37),
+    { filePath: D, content: Y, verbose: m, replacedUndiffedContent: Fe } = gt,
+    oe = Fe === void 0 ? !1 : Fe,
+    { columns: ht } = Ee(),
+    v = Math.max(1, ht - 12),
+    U = Y || "(No content)",
+    ke;
+  if (g[0] !== Y) (ke = O(Y)), (g[0] = Y), (g[1] = ke);
+  else ke = g[1];
+  let M = ke,
+    we;
+  if (g[2] !== U || g[3] !== v || g[4] !== m)
+    (we = m
+      ? U
+      : U.split(P)
+          .slice(0, b)
+          .join(P)
+          .slice(0, b * (v + 1))),
+      (g[2] = U),
+      (g[3] = v),
+      (g[4] = m),
+      (g[5] = we);
+  else we = g[5];
+  let ne = we,
+    ie = m ? 0 : me(U, v) - b,
+    q;
+  if (g[6] !== M) (q = e(t, { bold: !0, children: M })), (g[6] = M), (g[7] = q);
+  else q = g[7];
+  let z;
+  if (g[8] !== M) (z = k(M, "line")), (g[8] = M), (g[9] = z);
+  else z = g[9];
+  let A;
+  if (g[10] !== D || g[11] !== m) (A = m ? D : X(ee(), D)), (g[10] = D), (g[11] = m), (g[12] = A);
+  else A = g[12];
+  let G;
+  if (g[13] !== A) (G = e(t, { bold: !0, children: A })), (g[13] = A), (g[14] = G);
+  else G = g[14];
+  let J;
+  if (g[15] !== oe) (J = oe && e(N, {})), (g[15] = oe), (g[16] = J);
+  else J = g[16];
+  let K;
+  if (g[17] !== q || g[18] !== z || g[19] !== G || g[20] !== J)
+    (K = r(t, { children: ["Wrote ", q, " ", z, " to", " ", G, J] })),
+      (g[17] = q),
+      (g[18] = z),
+      (g[19] = G),
+      (g[20] = J),
+      (g[21] = K);
+  else K = g[21];
+  const se = m ? void 0 : "hidden",
+    ae = m ? void 0 : b;
+  let Q;
+  if (g[22] !== ne || g[23] !== D || g[24] !== v)
+    (Q = e(o_, { code: ne, filePath: D, width: v })), (g[22] = ne), (g[23] = D), (g[24] = v), (g[25] = Q);
+  else Q = g[25];
+  let Z;
+  if (g[26] !== se || g[27] !== ae || g[28] !== Q)
+    (Z = e(o, { flexDirection: "column", overflowY: se, maxHeight: ae, children: Q })),
+      (g[26] = se),
+      (g[27] = ae),
+      (g[28] = Q),
+      (g[29] = Z);
+  else Z = g[29];
+  let E;
+  if (g[30] !== ie || g[31] !== m)
+    (E = !m && e(Jm, { count: ie, expandable: !0 })), (g[30] = ie), (g[31] = m), (g[32] = E);
+  else E = g[32];
+  let De;
+  if (g[33] !== Z || g[34] !== E || g[35] !== K)
+    (De = e(Pe, { children: r(o, { flexDirection: "column", children: [K, Z, E] }) })),
+      (g[33] = Z),
+      (g[34] = E),
+      (g[35] = K),
+      (g[36] = De);
+  else De = g[36];
+  return De;
+}
+function be({ type: i, content: a, structuredPatch: s, originalFile: l }) {
+  return i === "update" && Array.isArray(s) && s.length === 0 && l === null && typeof a === "string" && a !== "";
+}
+function lt(i, { columns: a }) {
+  let { type: s, content: l } = i;
+  if (s !== "create" && !be(i)) return !1;
+  if (typeof l !== "string") return !1;
+  let f = l.endsWith(P) ? b + 1 : b;
+  return re(l, Math.max(1, a - 12), f);
+}
+function ct(i, { verbose: a }) {
+  if (!i.file_path) return null;
+  if (i.file_path.startsWith(va())) return "";
+  return e(xg, { filePath: i.file_path, children: a ? i.file_path : Fo(i.file_path) });
+}
+function ft({ file_path: i, content: a }, { style: s, verbose: l }) {
+  return e(ye, { filePath: i, content: a, style: s, verbose: l });
+}
+function ye(bt) {
+  let H = _(20),
+    { filePath: y, content: x, style: le, verbose: W } = bt,
+    ve;
+  if (H[0] !== x || H[1] !== y) (ve = () => ge(y, x)), (H[0] = x), (H[1] = y), (H[2] = ve);
+  else ve = H[2];
+  let [ce] = u(ve),
+    Ce;
+  if (H[3] !== x) (Ce = wr(x)), (H[3] = x), (H[4] = Ce);
+  else Ce = H[4];
+  let L = Ce,
+    Me;
+  if (H[5] !== x || H[6] !== y || H[7] !== L || H[8] !== W)
+    (Me = e(VU, { file_path: y, operation: "write", content: x, firstLine: L, verbose: W })),
+      (H[5] = x),
+      (H[6] = y),
+      (H[7] = L),
+      (H[8] = W),
+      (H[9] = Me);
+  else Me = H[9];
+  let j = Me,
+    I;
+  if (H[10] !== j || H[11] !== ce || H[12] !== y || H[13] !== L || H[14] !== le || H[15] !== W)
+    (I = e(te, { promise: ce, filePath: y, firstLine: L, createFallback: j, style: le, verbose: W })),
+      (H[10] = j),
+      (H[11] = ce),
+      (H[12] = y),
+      (H[13] = L),
+      (H[14] = le),
+      (H[15] = W),
+      (H[16] = I);
+  else I = H[16];
+  let We;
+  if (H[17] !== j || H[18] !== I) (We = e(Jn, { fallback: j, children: I })), (H[17] = j), (H[18] = I), (H[19] = We);
+  else We = H[19];
+  return We;
+}
+function te(yt) {
+  let Le = _(8),
+    { promise: xt, filePath: fe, firstLine: pe, createFallback: Pt, style: ue, verbose: de } = yt,
+    R = zn(xt);
+  if (R.type === "create") {
+    return Pt;
+  }
+  if (R.type === "error") {
+    let S;
+    if (Le[0] === d) (S = e(Pe, { children: e(t, { children: "(No changes)" }) })), (Le[0] = S);
+    else S = Le[0];
+    return S;
+  }
+  let S;
+  if (Le[1] !== R.oldContent || Le[2] !== R.patch || Le[3] !== fe || Le[4] !== pe || Le[5] !== ue || Le[6] !== de)
+    (S = e(VU, {
+      file_path: fe,
+      operation: "update",
+      patch: R.patch,
+      firstLine: pe,
+      fileContent: R.oldContent,
+      style: ue,
+      verbose: de,
+    })),
+      (Le[1] = R.oldContent),
+      (Le[2] = R.patch),
+      (Le[3] = fe),
+      (Le[4] = pe),
+      (Le[5] = ue),
+      (Le[6] = de),
+      (Le[7] = S);
+  else S = Le[7];
+  return S;
+}
+async function ge(i, a) {
+  try {
+    let s = je(i) ? i : Ne(ee(), i),
+      l = await k4e(s);
+    if (l === null) return { type: "create" };
+    let f;
+    try {
+      f = await bdt(l);
+    } finally {
+      await l.close();
+    }
+    if (f === null) return { type: "create" };
+    return {
+      type: "update",
+      patch: VL({ filePath: i, fileContents: f, edits: [{ old_string: f, new_string: a, replace_all: !1 }] }),
+      oldContent: f,
+    };
+  } catch (s) {
+    if ($o(s)) n(`Failed to load rejection diff for ${i}: ${s.message}`, { level: "error" });
+    else h(s);
+    return { type: "error" };
+  }
+}
+function pt(i, { verbose: a }) {
+  if (!a && typeof i === "string" && $r(i, "tool_use_error"))
+    return e(Pe, { children: e(t, { color: "error", children: "Error writing file" }) });
+  return e(ep, { result: i, verbose: a });
+}
+function ut(i, a, { style: s, verbose: l }) {
+  return xe(i, a, { style: s, verbose: l });
+}
+function xe(i, a, { style: s, verbose: l, replacedUndiffedContent: f = !1 }) {
+  let { filePath: c = "", content: p, structuredPatch: T, type: w, originalFile: B } = i;
+  if (!c) return null;
+  switch (w) {
+    case "create": {
+      if (c.startsWith(va()) && !l) {
+        if (s !== "condensed") return e(Pe, { children: e(t, { dimColor: !0, children: "/plan to preview" }) });
+      } else if (s === "condensed" && !l) {
+        let C = O(p);
+        return r(t, {
+          children: [
+            "Wrote ",
+            e(t, { bold: !0, children: C }),
+            " ",
+            k(C, "line"),
+            " to",
+            " ",
+            e(t, { bold: !0, children: X(ee(), c) }),
+            f && e(N, {}),
+          ],
+        });
+      } else if (!l && (vLe(c) || RLe(c))) {
+        let C = O(p);
+        return e(Pe, {
+          children: r(t, {
+            children: ["Wrote ", e(t, { bold: !0, children: C }), " ", k(C, "line"), f && e(N, {}), " ", e(Gc, {})],
+          }),
+        });
+      }
+      return e(he, { filePath: c, content: p, verbose: l, replacedUndiffedContent: f });
+    }
+    case "update": {
+      if (be(i)) return xe({ ...i, type: "create" }, a, { style: s, verbose: l, replacedUndiffedContent: !0 });
+      let V = c.startsWith(va());
+      return e(GUe, {
+        filePath: c,
+        structuredPatch: T,
+        firstLine: wr(p),
+        fileContent: B ?? void 0,
+        style: s,
+        verbose: l,
+        previewHint: V ? "/plan to preview" : void 0,
+        collapsed: !V && (vLe(c) || RLe(c)),
+      });
+    }
+  }
+}
+export {
+  O as countLines,
+  lt as isResultTruncated,
+  ut as renderToolResultMessage,
+  pt as renderToolUseErrorMessage,
+  ct as renderToolUseMessage,
+  ft as renderToolUseRejectedMessage,
+};

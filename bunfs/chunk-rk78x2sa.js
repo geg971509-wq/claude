@@ -8,5 +8,20 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{I}from"/$bunfs/root/chunk-8tgj5dp2.js";import{a}from"/$bunfs/root/chunk-fec4384a.js";var pQ={heading:"Learn the moves",body:"Quick lessons on the things power users do \u2014 plan mode, undo, "+"subagents, memory. About 5 minutes. Come back any time with /powerup.",banner:"New here? Type /powerup for a 5-minute tour \u2014 modes, undo, "+"@-mentions, and how to teach Claude your rules."};function r7t(){let e=a.CLAUDE_CODE_POWERUP_ONBOARDING;if(e==="banner"||e==="step")return e;return I("tengu_birch_lantern","off")}
-export{pQ,r7t};
+import { I } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { a } from "/$bunfs/root/chunk-fec4384a.js";
+var pQ = {
+  heading: "Learn the moves",
+  body:
+    "Quick lessons on the things power users do \u2014 plan mode, undo, " +
+    "subagents, memory. About 5 minutes. Come back any time with /powerup.",
+  banner:
+    "New here? Type /powerup for a 5-minute tour \u2014 modes, undo, " +
+    "@-mentions, and how to teach Claude your rules.",
+};
+function r7t() {
+  let e = a.CLAUDE_CODE_POWERUP_ONBOARDING;
+  if (e === "banner" || e === "step") return e;
+  return I("tengu_birch_lantern", "off");
+}
+export { pQ, r7t };

@@ -8,5 +8,13 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-var xz=50000,pOe=500000;var Xgt=4,X8n=400000,Y8n=200000,mT=50,J8n=1e4,HVe=1e4,Q8n=1e5;
-export{xz,pOe,Xgt,X8n,Y8n,mT,J8n,HVe,Q8n};
+var xz = 50000,
+  pOe = 500000;
+var Xgt = 4,
+  X8n = 400000,
+  Y8n = 200000,
+  mT = 50,
+  J8n = 1e4,
+  HVe = 1e4,
+  Q8n = 1e5;
+export { xz, pOe, Xgt, X8n, Y8n, mT, J8n, HVe, Q8n };

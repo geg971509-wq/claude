@@ -8,5 +8,333 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{I,W3}from"/$bunfs/root/chunk-8tgj5dp2.js";import{ne}from"/$bunfs/root/chunk-tx16jn0x.js";import{w,c}from"/$bunfs/root/chunk-4xj01xwv.js";import{l}from"/$bunfs/root/chunk-ypdw393e.js";import{n}from"/$bunfs/root/chunk-fv016jr6.js";import{h}from"/$bunfs/root/chunk-wkxx62a2.js";import{s}from"/$bunfs/root/chunk-r53tkxrh.js";import{sn}from"/$bunfs/root/chunk-rgw52f13.js";import{or,cCe,c5}from"/$bunfs/root/chunk-z2bvp3sv.js";import{V1,dk,zl,cc,TE,ED,oT,Iv,AD,is,om}from"/$bunfs/root/chunk-zze8764r.js";import{Jt,Wne}from"/$bunfs/root/chunk-5n1tbe50.js";import{GDe,rC,Ys}from"/$bunfs/root/chunk-fctnm902.js";import{Fd,FS,Awe,hI,Ip}from"/$bunfs/root/chunk-e53y7x75.js";import{Vt}from"/$bunfs/root/chunk-x06p1jhb.js";import{Tse}from"/$bunfs/root/chunk-9pc6y6sc.js";import{hge}from"/$bunfs/root/chunk-0zt38pp0.js";import{sB}from"/$bunfs/root/chunk-6xk0dqvt.js";import{Ra}from"/$bunfs/root/chunk-1emzhzm3.js";import{O}from"/$bunfs/root/chunk-dqkj2bph.js";import{Q,te}from"/$bunfs/root/chunk-wag5ye9w.js";var B=600000;function mOn(t){let o=Jt();if(o.autoUpdateListener=t,o.pendingAutoUpdateNotification!==null)t(o.pendingAutoUpdateNotification.updated,o.pendingAutoUpdateNotification.blocked,o.pendingAutoUpdateNotification.reresolved,o.pendingAutoUpdateNotification.announce),o.pendingAutoUpdateNotification=null;return()=>{o.autoUpdateListener=null}}async function D(t){let o=await zl(t),d=dk(),r=new Set;for(let[p,u]of Object.entries(o)){if(!Ip(u.source))continue;if(c5(p,u,d[p]?.autoUpdate))r.add(p.toLowerCase())}return r}async function R(t,o,d,r,p){let u=!1,g=!1,b=null,k=null;for(let{scope:m}of o)try{let a=await hge(t,m,r??{},p);switch(a.outcome){case"updated":u=!0,n(`Plugin autoupdate: updated ${t} from ${a.oldVersion} to ${a.newVersion}`);break;case"skipped":{if(n(`Plugin autoupdate: ${t} ${a.message}`),a.skipReason==="entry_helper_deferred")k={type:"autoupdate-deferred-entry-helper",source:t,plugin:Vt(t).name,message:a.message};else if(a.blockedBy&&a.blockedBy.length>0){let y=a.blockedBy.map((e)=>Vt(e).name),_=a.blockedBy.filter((e)=>d.has(e)).map((e)=>Vt(e).name);k={type:"autoupdate-blocked-by-pinner",source:t,plugin:Vt(t).name,heldAt:a.oldVersion,blockedBy:y,disabledPinners:_}}break}case"failed":if(a.failureCode==="command_source_skipped")b=t;else if(a.failureCode==="entry_helper_disabled_by_policy"||a.failureCode==="entry_helper_remote_policy_unconsented"||a.failureCode==="plugin_policy_blocked"||a.failureCode==="command_source_refused"&&(FS()||!Awe()))k={type:"autoupdate-disabled-by-policy",source:t,plugin:Vt(t).name,message:a.message};else if(a.failureCode==="entry_helper_not_inlined")k={type:"generic-error",source:t,plugin:Vt(t).name,error:a.message},g=!0;else if(a.failureCode!=="command_source_inactive")g=!0;n(`Plugin autoupdate: failed to update ${t}: ${a.message}`,{level:"warn"});break;case"up_to_date":break}}catch(a){g=!0,n(`Plugin autoupdate: error updating ${t}: ${l(a)}`,{level:"warn"})}return{updated:u?t:null,blocked:k,failed:g,commandSourceSkipped:b}}async function L8t(t,o=new Set,{skipCommandSources:d=!1}={},r){let p=O()&&r!==void 0?await Iv(r):oT(),u=Object.keys(p.plugins);if(u.length===0)return{updated:[],blocked:[],updateFailedCount:0,commandSourceSkipped:[]};let{disabled:g}=await is(r),b=new Set(g.map((e)=>e.source)),k=await Promise.allSettled(u.map(async(e)=>{let{marketplace:i}=Vt(e);if(!i||!t.has(i.toLowerCase()))return null;if(o.has(e))return null;let f=p.plugins[e];if(!f||f.length===0)return null;let S=f.filter(AD);if(S.length===0)return null;return R(e,S,b,d?{skipCommandSources:!0}:void 0,r)})),m=[],a=[],y=[],_=0;for(let e of k){if(e.status!=="fulfilled"||e.value===null)continue;if(e.value.updated!==null)m.push(e.value.updated);if(e.value.blocked!==null)a.push(e.value.blocked);if(e.value.failed)_++;if(e.value.commandSourceSkipped!==null)y.push(e.value.commandSourceSkipped)}return{updated:m,blocked:a,updateFailedCount:_,commandSourceSkipped:y}}async function F(t){let o={attemptedCount:0,commandSourced:new Set,updated:[],blocked:[],failedCount:0},d=FS(),r=!GDe();if(d||r)n(d?"Plugin autoupdate: command-source refresh disabled by managed settings (still excluding command-sourced plugins from the regular pass)":"Plugin autoupdate: command-source refresh disabled by tengu_plugin_command_source_refresh (still excluding command-sourced plugins from the regular pass)");try{let p=O()&&t!==void 0?await Iv(t):oT(),u=new Map;for(let[m,a]of Object.entries(p.plugins)){let y=(a??[]).filter(AD),{name:_,marketplace:e}=Vt(m);if(y.length===0||!_||!e)continue;let i=u.get(e)??[];i.push({pluginId:m,name:_,installations:y}),u.set(e,i)}let g,b=new Set,k=u.size>0?await cc(t):{};for(let[m,a]of u){let y=k[m];if(hI(y?.source)){for(let{pluginId:e,installations:i}of a)if(i.some((f)=>f.sourceCommand!==void 0))o.commandSourced.add(e);continue}let _=await TE(m,t);if(!_)continue;for(let{pluginId:e,name:i,installations:f}of a){let S=_.plugins.find((P)=>P.name===i);if(!S||typeof S.source==="string"||S.source.source!=="command")continue;if(o.commandSourced.add(e),d||r)continue;if(!g)g=new Set(await Tse()),b=new Set((await is(t)).disabled.map((P)=>P.source));if(!g.has(e)||Fd(e)){n(`Plugin autoupdate: not re-resolving ${e} (disabled or blocked by policy)`);continue}let E=rC(S.source),U=f.filter((P)=>P.sourceCommand!==E);if(U.length>0){let P=U.every((C)=>C.sourceCommand===void 0),M=te(U.map((C)=>C.scope)).map((C)=>Ra("plugin update",e,`--scope ${C}`)).filter((C)=>C!==null).map((C)=>`\`${C}\``);n(`Plugin autoupdate: not re-resolving ${e}: marketplace command differs from the accepted one`,{level:"warn"}),o.blocked.push({type:"generic-error",source:e,plugin:i,error:(P?`${or(i,200)}'s marketplace entry now installs it by running a command`:`${or(i,200)}'s marketplace entry changed the command it runs`)+` (\`${or(S.source.command,cCe)}${S.source.mode==="link"?" [mode: link]":""}\`). It was not re-run in the background; ${M.length>0?`run ${M.join(" and ")}`:"an explicit per-scope plugin update is needed"} to review and accept it.`})}let A=f.filter((P)=>P.sourceCommand===E);if(A.length===0)continue;o.attemptedCount++,n(`Plugin autoupdate: re-resolving command-sourced plugin ${e}`);let v=await R(e,A,b,{skipMarketplaceRefresh:!0},t);if(v.updated!==null)o.updated.push(v.updated);if(v.blocked!==null)o.blocked.push(v.blocked);if(v.failed)o.failedCount++}}}catch(p){n(`Plugin autoupdate: command-source refresh failed: ${l(p)}`,{level:"warn"})}return o}function ZRt(t,o,d=[],{announce:r=!0}={}){if(t.length===0&&o.length===0)return;let p=Jt();if(p.autoUpdateListener)p.autoUpdateListener(t,o,d,r);else{let u=p.pendingAutoUpdateNotification;p.pendingAutoUpdateNotification={updated:te([...u?.updated??[],...t]),blocked:[...u?.blocked??[],...o],reresolved:te([...u?.reresolved??[],...d]),announce:(u?.announce??!1)||r}}}function N(){return{attemptedCount:0,commandSourced:new Set,updated:[],blocked:[],failedCount:0}}function M8t(t){let o=Jt();return o.commandSourceReresolve??=(async()=>{if(sn())return N();let d=await F(t);if(d.attemptedCount>0)Wne();try{ZRt(d.updated,d.blocked,d.updated)}catch(r){h(r)}return d})(),o.commandSourceReresolve}function gOn(t){return(async()=>{let o=await M8t(t),d=Date.now(),r={marketplaces_refreshed:0,marketplace_refresh_failed:0,marketplace_refresh_policy_skipped:0,plugins_updated:0,plugin_update_failed:0,plugins_blocked_by_pin:0,plugins_helper_deferred:0,plugins_policy_blocked:0,command_plugins_refreshed:o.attemptedCount,command_plugin_refresh_failed:o.failedCount},p=()=>{if(o.attemptedCount>0||o.failedCount>0)s("tengu_plugin_autoupdate_pass",{outcome:w("skipped"),...r,duration_ms:Date.now()-d})};if(W3()){n("Plugin autoupdate: skipped (auto-updater disabled)"),p();return}try{let u=await D(t);if(u.size===0){p();return}let g=Math.floor(Math.random()*B);await ne(g,void 0,{unref:!0}),d=Date.now();let b=I("tengu_plugin_autoupdate_allow_credential_helper",!1),k=await Promise.allSettled(Array.from(u).map(async(i)=>{try{return await ED(i,t,void 0,{disableCredentialHelper:!b}),"refreshed"}catch(f){if(f instanceof Ys)return n(`Plugin autoupdate: marketplace ${i} not refreshed (managed policy): ${l(f)}`),"policy";return n(`Plugin autoupdate: failed to refresh marketplace ${i}: ${l(f)}`,{level:"warn"}),"failed"}}));r.marketplace_refresh_failed=Q(k,(i)=>i.status==="fulfilled"&&i.value==="failed"),r.marketplace_refresh_policy_skipped=Q(k,(i)=>i.status==="fulfilled"&&i.value==="policy"),r.marketplaces_refreshed=u.size-r.marketplace_refresh_failed-r.marketplace_refresh_policy_skipped,n("Plugin autoupdate: checking installed plugins");let{updated:m,blocked:a,updateFailedCount:y}=await L8t(u,o.commandSourced,{skipCommandSources:!0},t);if(r.plugins_updated=m.length,r.plugin_update_failed=y,r.plugins_blocked_by_pin=Q(a,(i)=>i.type==="autoupdate-blocked-by-pinner"),r.plugins_helper_deferred=Q(a,(i)=>i.type==="autoupdate-deferred-entry-helper"),r.plugins_policy_blocked=Q(a,(i)=>i.type==="autoupdate-disabled-by-policy"),m.length>0)om("autoupdate dep-resolution");let{errors:_}=await is(t),e=await sB(_.filter((i)=>{if(i.type!=="dependency-unsatisfied")return!1;let f=Vt(i.source).marketplace;return f!==void 0&&u.has(f.toLowerCase())}),t);if(e.installed.length>0)n(`Plugin autoupdate: resolved ${e.installed.length} missing plugin dependencies: ${e.installed.join(", ")}`),m.push(...e.installed);ZRt(m,a),s("tengu_plugin_autoupdate_pass",{outcome:r.marketplace_refresh_failed>0||r.plugin_update_failed>0?w("partial"):w("ok"),...r,duration_ms:Date.now()-d})}catch(u){n(`Plugin autoupdate: failed: ${l(u)}`,{level:"error"}),s("tengu_plugin_autoupdate_pass",{outcome:w("failed"),error_kind:c(V1(u)),...r,duration_ms:Date.now()-d})}})()}
-export{mOn,L8t,ZRt,M8t,gOn};
+import { I, W3 } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { ne } from "/$bunfs/root/chunk-tx16jn0x.js";
+import { w, c } from "/$bunfs/root/chunk-4xj01xwv.js";
+import { l } from "/$bunfs/root/chunk-ypdw393e.js";
+import { n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { h } from "/$bunfs/root/chunk-wkxx62a2.js";
+import { s } from "/$bunfs/root/chunk-r53tkxrh.js";
+import { sn } from "/$bunfs/root/chunk-rgw52f13.js";
+import { or, cCe, c5 } from "/$bunfs/root/chunk-z2bvp3sv.js";
+import { V1, dk, zl, cc, TE, ED, oT, Iv, AD, is, om } from "/$bunfs/root/chunk-zze8764r.js";
+import { Jt, Wne } from "/$bunfs/root/chunk-5n1tbe50.js";
+import { GDe, rC, Ys } from "/$bunfs/root/chunk-fctnm902.js";
+import { Fd, FS, Awe, hI, Ip } from "/$bunfs/root/chunk-e53y7x75.js";
+import { Vt } from "/$bunfs/root/chunk-x06p1jhb.js";
+import { Tse } from "/$bunfs/root/chunk-9pc6y6sc.js";
+import { hge } from "/$bunfs/root/chunk-0zt38pp0.js";
+import { sB } from "/$bunfs/root/chunk-6xk0dqvt.js";
+import { Ra } from "/$bunfs/root/chunk-1emzhzm3.js";
+import { O } from "/$bunfs/root/chunk-dqkj2bph.js";
+import { Q, te } from "/$bunfs/root/chunk-wag5ye9w.js";
+var B = 600000;
+function mOn(t) {
+  let o = Jt();
+  if (((o.autoUpdateListener = t), o.pendingAutoUpdateNotification !== null))
+    t(
+      o.pendingAutoUpdateNotification.updated,
+      o.pendingAutoUpdateNotification.blocked,
+      o.pendingAutoUpdateNotification.reresolved,
+      o.pendingAutoUpdateNotification.announce,
+    ),
+      (o.pendingAutoUpdateNotification = null);
+  return () => {
+    o.autoUpdateListener = null;
+  };
+}
+async function D(t) {
+  let o = await zl(t),
+    d = dk(),
+    r = new Set();
+  for (let [p, u] of Object.entries(o)) {
+    if (!Ip(u.source)) continue;
+    if (c5(p, u, d[p]?.autoUpdate)) r.add(p.toLowerCase());
+  }
+  return r;
+}
+async function R(t, o, d, r, p) {
+  let u = !1,
+    g = !1,
+    b = null,
+    k = null;
+  for (let { scope: m } of o)
+    try {
+      let a = await hge(t, m, r ?? {}, p);
+      switch (a.outcome) {
+        case "updated":
+          (u = !0), n(`Plugin autoupdate: updated ${t} from ${a.oldVersion} to ${a.newVersion}`);
+          break;
+        case "skipped": {
+          if ((n(`Plugin autoupdate: ${t} ${a.message}`), a.skipReason === "entry_helper_deferred"))
+            k = { type: "autoupdate-deferred-entry-helper", source: t, plugin: Vt(t).name, message: a.message };
+          else if (a.blockedBy && a.blockedBy.length > 0) {
+            let y = a.blockedBy.map((e) => Vt(e).name),
+              _ = a.blockedBy.filter((e) => d.has(e)).map((e) => Vt(e).name);
+            k = {
+              type: "autoupdate-blocked-by-pinner",
+              source: t,
+              plugin: Vt(t).name,
+              heldAt: a.oldVersion,
+              blockedBy: y,
+              disabledPinners: _,
+            };
+          }
+          break;
+        }
+        case "failed":
+          if (a.failureCode === "command_source_skipped") b = t;
+          else if (
+            a.failureCode === "entry_helper_disabled_by_policy" ||
+            a.failureCode === "entry_helper_remote_policy_unconsented" ||
+            a.failureCode === "plugin_policy_blocked" ||
+            (a.failureCode === "command_source_refused" && (FS() || !Awe()))
+          )
+            k = { type: "autoupdate-disabled-by-policy", source: t, plugin: Vt(t).name, message: a.message };
+          else if (a.failureCode === "entry_helper_not_inlined")
+            (k = { type: "generic-error", source: t, plugin: Vt(t).name, error: a.message }), (g = !0);
+          else if (a.failureCode !== "command_source_inactive") g = !0;
+          n(`Plugin autoupdate: failed to update ${t}: ${a.message}`, { level: "warn" });
+          break;
+        case "up_to_date":
+          break;
+      }
+    } catch (a) {
+      (g = !0), n(`Plugin autoupdate: error updating ${t}: ${l(a)}`, { level: "warn" });
+    }
+  return { updated: u ? t : null, blocked: k, failed: g, commandSourceSkipped: b };
+}
+async function L8t(t, o = new Set(), { skipCommandSources: d = !1 } = {}, r) {
+  let p = O() && r !== void 0 ? await Iv(r) : oT(),
+    u = Object.keys(p.plugins);
+  if (u.length === 0) return { updated: [], blocked: [], updateFailedCount: 0, commandSourceSkipped: [] };
+  let { disabled: g } = await is(r),
+    b = new Set(g.map((e) => e.source)),
+    k = await Promise.allSettled(
+      u.map(async (e) => {
+        let { marketplace: i } = Vt(e);
+        if (!i || !t.has(i.toLowerCase())) return null;
+        if (o.has(e)) return null;
+        let f = p.plugins[e];
+        if (!f || f.length === 0) return null;
+        let S = f.filter(AD);
+        if (S.length === 0) return null;
+        return R(e, S, b, d ? { skipCommandSources: !0 } : void 0, r);
+      }),
+    ),
+    m = [],
+    a = [],
+    y = [],
+    _ = 0;
+  for (let e of k) {
+    if (e.status !== "fulfilled" || e.value === null) continue;
+    if (e.value.updated !== null) m.push(e.value.updated);
+    if (e.value.blocked !== null) a.push(e.value.blocked);
+    if (e.value.failed) _++;
+    if (e.value.commandSourceSkipped !== null) y.push(e.value.commandSourceSkipped);
+  }
+  return { updated: m, blocked: a, updateFailedCount: _, commandSourceSkipped: y };
+}
+async function F(t) {
+  let o = { attemptedCount: 0, commandSourced: new Set(), updated: [], blocked: [], failedCount: 0 },
+    d = FS(),
+    r = !GDe();
+  if (d || r)
+    n(
+      d
+        ? "Plugin autoupdate: command-source refresh disabled by managed settings (still excluding command-sourced plugins from the regular pass)"
+        : "Plugin autoupdate: command-source refresh disabled by tengu_plugin_command_source_refresh (still excluding command-sourced plugins from the regular pass)",
+    );
+  try {
+    let p = O() && t !== void 0 ? await Iv(t) : oT(),
+      u = new Map();
+    for (let [m, a] of Object.entries(p.plugins)) {
+      let y = (a ?? []).filter(AD),
+        { name: _, marketplace: e } = Vt(m);
+      if (y.length === 0 || !_ || !e) continue;
+      let i = u.get(e) ?? [];
+      i.push({ pluginId: m, name: _, installations: y }), u.set(e, i);
+    }
+    let g,
+      b = new Set(),
+      k = u.size > 0 ? await cc(t) : {};
+    for (let [m, a] of u) {
+      let y = k[m];
+      if (hI(y?.source)) {
+        for (let { pluginId: e, installations: i } of a)
+          if (i.some((f) => f.sourceCommand !== void 0)) o.commandSourced.add(e);
+        continue;
+      }
+      let _ = await TE(m, t);
+      if (!_) continue;
+      for (let { pluginId: e, name: i, installations: f } of a) {
+        let S = _.plugins.find((P) => P.name === i);
+        if (!S || typeof S.source === "string" || S.source.source !== "command") continue;
+        if ((o.commandSourced.add(e), d || r)) continue;
+        if (!g) (g = new Set(await Tse())), (b = new Set((await is(t)).disabled.map((P) => P.source)));
+        if (!g.has(e) || Fd(e)) {
+          n(`Plugin autoupdate: not re-resolving ${e} (disabled or blocked by policy)`);
+          continue;
+        }
+        let E = rC(S.source),
+          U = f.filter((P) => P.sourceCommand !== E);
+        if (U.length > 0) {
+          let P = U.every((C) => C.sourceCommand === void 0),
+            M = te(U.map((C) => C.scope))
+              .map((C) => Ra("plugin update", e, `--scope ${C}`))
+              .filter((C) => C !== null)
+              .map((C) => `\`${C}\``);
+          n(`Plugin autoupdate: not re-resolving ${e}: marketplace command differs from the accepted one`, {
+            level: "warn",
+          }),
+            o.blocked.push({
+              type: "generic-error",
+              source: e,
+              plugin: i,
+              error:
+                (P
+                  ? `${or(i, 200)}'s marketplace entry now installs it by running a command`
+                  : `${or(i, 200)}'s marketplace entry changed the command it runs`) +
+                ` (\`${or(S.source.command, cCe)}${S.source.mode === "link" ? " [mode: link]" : ""}\`). It was not re-run in the background; ${M.length > 0 ? `run ${M.join(" and ")}` : "an explicit per-scope plugin update is needed"} to review and accept it.`,
+            });
+        }
+        let A = f.filter((P) => P.sourceCommand === E);
+        if (A.length === 0) continue;
+        o.attemptedCount++, n(`Plugin autoupdate: re-resolving command-sourced plugin ${e}`);
+        let v = await R(e, A, b, { skipMarketplaceRefresh: !0 }, t);
+        if (v.updated !== null) o.updated.push(v.updated);
+        if (v.blocked !== null) o.blocked.push(v.blocked);
+        if (v.failed) o.failedCount++;
+      }
+    }
+  } catch (p) {
+    n(`Plugin autoupdate: command-source refresh failed: ${l(p)}`, { level: "warn" });
+  }
+  return o;
+}
+function ZRt(t, o, d = [], { announce: r = !0 } = {}) {
+  if (t.length === 0 && o.length === 0) return;
+  let p = Jt();
+  if (p.autoUpdateListener) p.autoUpdateListener(t, o, d, r);
+  else {
+    let u = p.pendingAutoUpdateNotification;
+    p.pendingAutoUpdateNotification = {
+      updated: te([...(u?.updated ?? []), ...t]),
+      blocked: [...(u?.blocked ?? []), ...o],
+      reresolved: te([...(u?.reresolved ?? []), ...d]),
+      announce: (u?.announce ?? !1) || r,
+    };
+  }
+}
+function N() {
+  return { attemptedCount: 0, commandSourced: new Set(), updated: [], blocked: [], failedCount: 0 };
+}
+function M8t(t) {
+  let o = Jt();
+  return (
+    (o.commandSourceReresolve ??= (async () => {
+      if (sn()) return N();
+      let d = await F(t);
+      if (d.attemptedCount > 0) Wne();
+      try {
+        ZRt(d.updated, d.blocked, d.updated);
+      } catch (r) {
+        h(r);
+      }
+      return d;
+    })()),
+    o.commandSourceReresolve
+  );
+}
+function gOn(t) {
+  return (async () => {
+    let o = await M8t(t),
+      d = Date.now(),
+      r = {
+        marketplaces_refreshed: 0,
+        marketplace_refresh_failed: 0,
+        marketplace_refresh_policy_skipped: 0,
+        plugins_updated: 0,
+        plugin_update_failed: 0,
+        plugins_blocked_by_pin: 0,
+        plugins_helper_deferred: 0,
+        plugins_policy_blocked: 0,
+        command_plugins_refreshed: o.attemptedCount,
+        command_plugin_refresh_failed: o.failedCount,
+      },
+      p = () => {
+        if (o.attemptedCount > 0 || o.failedCount > 0)
+          s("tengu_plugin_autoupdate_pass", { outcome: w("skipped"), ...r, duration_ms: Date.now() - d });
+      };
+    if (W3()) {
+      n("Plugin autoupdate: skipped (auto-updater disabled)"), p();
+      return;
+    }
+    try {
+      let u = await D(t);
+      if (u.size === 0) {
+        p();
+        return;
+      }
+      let g = Math.floor(Math.random() * B);
+      await ne(g, void 0, { unref: !0 }), (d = Date.now());
+      let b = I("tengu_plugin_autoupdate_allow_credential_helper", !1),
+        k = await Promise.allSettled(
+          Array.from(u).map(async (i) => {
+            try {
+              return await ED(i, t, void 0, { disableCredentialHelper: !b }), "refreshed";
+            } catch (f) {
+              if (f instanceof Ys)
+                return n(`Plugin autoupdate: marketplace ${i} not refreshed (managed policy): ${l(f)}`), "policy";
+              return n(`Plugin autoupdate: failed to refresh marketplace ${i}: ${l(f)}`, { level: "warn" }), "failed";
+            }
+          }),
+        );
+      (r.marketplace_refresh_failed = Q(k, (i) => i.status === "fulfilled" && i.value === "failed")),
+        (r.marketplace_refresh_policy_skipped = Q(k, (i) => i.status === "fulfilled" && i.value === "policy")),
+        (r.marketplaces_refreshed = u.size - r.marketplace_refresh_failed - r.marketplace_refresh_policy_skipped),
+        n("Plugin autoupdate: checking installed plugins");
+      let {
+        updated: m,
+        blocked: a,
+        updateFailedCount: y,
+      } = await L8t(u, o.commandSourced, { skipCommandSources: !0 }, t);
+      if (
+        ((r.plugins_updated = m.length),
+        (r.plugin_update_failed = y),
+        (r.plugins_blocked_by_pin = Q(a, (i) => i.type === "autoupdate-blocked-by-pinner")),
+        (r.plugins_helper_deferred = Q(a, (i) => i.type === "autoupdate-deferred-entry-helper")),
+        (r.plugins_policy_blocked = Q(a, (i) => i.type === "autoupdate-disabled-by-policy")),
+        m.length > 0)
+      )
+        om("autoupdate dep-resolution");
+      let { errors: _ } = await is(t),
+        e = await sB(
+          _.filter((i) => {
+            if (i.type !== "dependency-unsatisfied") return !1;
+            let f = Vt(i.source).marketplace;
+            return f !== void 0 && u.has(f.toLowerCase());
+          }),
+          t,
+        );
+      if (e.installed.length > 0)
+        n(`Plugin autoupdate: resolved ${e.installed.length} missing plugin dependencies: ${e.installed.join(", ")}`),
+          m.push(...e.installed);
+      ZRt(m, a),
+        s("tengu_plugin_autoupdate_pass", {
+          outcome: r.marketplace_refresh_failed > 0 || r.plugin_update_failed > 0 ? w("partial") : w("ok"),
+          ...r,
+          duration_ms: Date.now() - d,
+        });
+    } catch (u) {
+      n(`Plugin autoupdate: failed: ${l(u)}`, { level: "error" }),
+        s("tengu_plugin_autoupdate_pass", {
+          outcome: w("failed"),
+          error_kind: c(V1(u)),
+          ...r,
+          duration_ms: Date.now() - d,
+        });
+    }
+  })();
+}
+export { mOn, L8t, ZRt, M8t, gOn };

@@ -8,5 +8,8 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-var Gke="subscription-switch",WHt=3,qHt="cc-ce-migrate",GHt=3;
-export{Gke,WHt,qHt,GHt};
+var Gke = "subscription-switch",
+  WHt = 3,
+  qHt = "cc-ce-migrate",
+  GHt = 3;
+export { Gke, WHt, qHt, GHt };

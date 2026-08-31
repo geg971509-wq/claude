@@ -8,5 +8,74 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{c}from"/$bunfs/root/chunk-4xj01xwv.js";import{y}from"/$bunfs/root/chunk-ca80fke8.js";import{Khe,Dnn}from"/$bunfs/root/chunk-tfwtr8pv.js";import{iY}from"/$bunfs/root/chunk-nwb64bac.js";var k={startedSeen:[],completedSeen:[],startedPublishes:{},invokeT0:null},NFn=iY("workshopTelemetry",k);function FFn(t){t.set((e)=>({...e,invokeT0:performance.now()}))}function $Fn(t){if(t===void 0||t.invokeT0===null)return t;return{...t,invokeT0:null}}function S(t,e){if(t.startedSeen.includes(e))return t;return{...t,startedSeen:[...t.startedSeen,e]}}function m(t,e){if(t.completedSeen.includes(e))return t;return{...t,completedSeen:[...t.completedSeen,e]}}function UFn(t,e,a,i,r,d){if(y("workshop_turn",{artifact_slug:Khe(e),artifact_version:Dnn(a),decisions_total:r,decisions_resolved:d,state:c(i)}),i!=="started")return;let s=!0;if(t.set((n)=>(s=n.startedSeen.includes(e),S(n,e))),!s)y("workshop_build_started",{artifact_slug:Khe(e)})}function pZt(t,e,a,i,r,d){let s;t.set((l)=>{let o=l;if(o.invokeT0!==null)o={...o,invokeT0:null};if(i==="started")o=S(o,e);if(r.n>0)o=m(o,e);else if(i==="started"&&!o.completedSeen.includes(e)){let u=(o.startedPublishes[e]??0)+1;if(o={...o,startedPublishes:{...o.startedPublishes,[e]:u}},u>=2)o=m(o,e)}return s={prev:l,next:o},o});let{prev:n,next:p}=s;if(n.invokeT0!==null&&d)y("workshop_first_page",{invoke_to_publish_ms:Math.round(performance.now()-n.invokeT0),first_publish_state:c(i)});if(!n.startedSeen.includes(e)&&p.startedSeen.includes(e))y("workshop_build_started",{artifact_slug:Khe(e)});if(!n.completedSeen.includes(e)&&p.completedSeen.includes(e)){let l=r.n>0?"structural":"post_kickoff_republish";y("workshop_build_completed",{artifact_slug:Khe(e),artifact_version:Dnn(a),source:c(l),deliverables_n:r.n,deliverables_pr:r.pr,deliverables_artifact:r.artifact,deliverables_other:r.other})}}
-export{NFn,FFn,$Fn,UFn,pZt};
+import { c } from "/$bunfs/root/chunk-4xj01xwv.js";
+import { y } from "/$bunfs/root/chunk-ca80fke8.js";
+import { Khe, Dnn } from "/$bunfs/root/chunk-tfwtr8pv.js";
+import { iY } from "/$bunfs/root/chunk-nwb64bac.js";
+var k = { startedSeen: [], completedSeen: [], startedPublishes: {}, invokeT0: null },
+  NFn = iY("workshopTelemetry", k);
+function FFn(t) {
+  t.set((e) => ({ ...e, invokeT0: performance.now() }));
+}
+function $Fn(t) {
+  if (t === void 0 || t.invokeT0 === null) return t;
+  return { ...t, invokeT0: null };
+}
+function S(t, e) {
+  if (t.startedSeen.includes(e)) return t;
+  return { ...t, startedSeen: [...t.startedSeen, e] };
+}
+function m(t, e) {
+  if (t.completedSeen.includes(e)) return t;
+  return { ...t, completedSeen: [...t.completedSeen, e] };
+}
+function UFn(t, e, a, i, r, d) {
+  if (
+    (y("workshop_turn", {
+      artifact_slug: Khe(e),
+      artifact_version: Dnn(a),
+      decisions_total: r,
+      decisions_resolved: d,
+      state: c(i),
+    }),
+    i !== "started")
+  )
+    return;
+  let s = !0;
+  if ((t.set((n) => ((s = n.startedSeen.includes(e)), S(n, e))), !s))
+    y("workshop_build_started", { artifact_slug: Khe(e) });
+}
+function pZt(t, e, a, i, r, d) {
+  let s;
+  t.set((l) => {
+    let o = l;
+    if (o.invokeT0 !== null) o = { ...o, invokeT0: null };
+    if (i === "started") o = S(o, e);
+    if (r.n > 0) o = m(o, e);
+    else if (i === "started" && !o.completedSeen.includes(e)) {
+      let u = (o.startedPublishes[e] ?? 0) + 1;
+      if (((o = { ...o, startedPublishes: { ...o.startedPublishes, [e]: u } }), u >= 2)) o = m(o, e);
+    }
+    return (s = { prev: l, next: o }), o;
+  });
+  let { prev: n, next: p } = s;
+  if (n.invokeT0 !== null && d)
+    y("workshop_first_page", {
+      invoke_to_publish_ms: Math.round(performance.now() - n.invokeT0),
+      first_publish_state: c(i),
+    });
+  if (!n.startedSeen.includes(e) && p.startedSeen.includes(e)) y("workshop_build_started", { artifact_slug: Khe(e) });
+  if (!n.completedSeen.includes(e) && p.completedSeen.includes(e)) {
+    let l = r.n > 0 ? "structural" : "post_kickoff_republish";
+    y("workshop_build_completed", {
+      artifact_slug: Khe(e),
+      artifact_version: Dnn(a),
+      source: c(l),
+      deliverables_n: r.n,
+      deliverables_pr: r.pr,
+      deliverables_artifact: r.artifact,
+      deliverables_other: r.other,
+    });
+  }
+}
+export { NFn, FFn, $Fn, UFn, pZt };

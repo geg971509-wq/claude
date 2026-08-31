@@ -8,5 +8,133 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{xh,Zw,si,eh,fSe,OS,yBt}from"/$bunfs/root/chunk-zze8764r.js";import{at,_p,rN,_a}from"/$bunfs/root/chunk-8tgj5dp2.js";import{gr}from"/$bunfs/root/chunk-dck778n3.js";import{I1,pae,fae,mae}from"/$bunfs/root/chunk-qaaw3n80.js";import{Ise}from"/$bunfs/root/chunk-crzfaky3.js";import{_se,yse,UK}from"/$bunfs/root/chunk-37sc85yq.js";import{$ge,OQ,Uge}from"/$bunfs/root/chunk-dr988get.js";import{Qge}from"/$bunfs/root/chunk-5m7ykdyk.js";import{Sde}from"/$bunfs/root/chunk-nwb64bac.js";async function EHt({session:s,tools:c,mainLoopModel:i,additionalWorkingDirectories:l,customSystemPrompt:m,excludeDynamicSections:r,cacheBreakerPhrase:d,analysisOnly:f,storageV5:g,credentials:e}){let[o,t,n,y]=await Promise.all([m!==void 0?Promise.resolve([]):OS(c,i,l,{excludeDynamicSections:r,analysisOnly:f}),Zw(s,g,e),m!==void 0?Promise.resolve({}):xh(s,d),r&&m===void 0?yBt(i,l,{analysisOnly:f}):Promise.resolve({})]);if(r)return{defaultSystemPrompt:o,userContext:{...n,...t,...y},systemContext:{}};return{defaultSystemPrompt:o,userContext:t,systemContext:n}}async function FYt({session:s,messageQueue:c,tools:i,commands:l,mcpClients:m,messages:r,readFileState:d,toolState:f,sessionHooks:g,getAppState:e,setAppState:o,customSystemPrompt:t,appendSystemPrompt:n,excludeDynamicSections:y,thinkingConfig:v,agents:h,storageV5:u,credentials:k}){let a=e(),C=_p({permissionMode:a.toolPermissionContext.mode,mainLoopModel:at()}),{defaultSystemPrompt:x,userContext:P,systemContext:R}=await EHt({session:s,tools:i,mainLoopModel:C,additionalWorkingDirectories:Array.from(a.toolPermissionContext.additionalWorkingDirectories.keys()),customSystemPrompt:t,excludeDynamicSections:y,cacheBreakerPhrase:a.cacheBreakerPhrase,analysisOnly:!0,storageV5:u,credentials:k}),T=si([...typeof t==="string"?[t]:Array.isArray(t)?t:x,...n?[n]:[]]),p=r.at(-1),S=p?.type==="assistant"&&p.message.stop_reason===null?r.slice(0,-1):r,M={messageQueue:c,session:s,storageV5:u,credentials:k,agentContext:_a(),options:{commands:l,debug:!1,mainLoopModel:C,tools:i,verbose:!1,thinkingConfig:v??(rN()!==!1?{type:"adaptive"}:{type:"disabled"}),mcpClients:m,mcpResources:{},isNonInteractiveSession:!0,agentDefinitions:{activeAgents:h,allAgents:[]},customSystemPrompt:t,appendSystemPrompt:n,autoCompactWindow:a.autoCompactWindow,fastMode:a.fastMode,cacheBreakerPhrase:a.cacheBreakerPhrase},abortController:gr(),readFileState:d,toolState:f,permissionRelays:UK,getAppState:e,setAppState:o,markPrResolvedThisSession:()=>$ge(o),isUltrareviewOverageConfirmed:()=>e().ultrareviewOverageConfirmed,markUltrareviewOverageConfirmed:()=>OQ(o),getMcp:()=>e().mcp,getProactivityLevel:()=>e().proactivityLevel,getWebBrowser:()=>e().webBrowser,...Uge(o),taskRegistry:eh(e,o),queuedNotificationsRegistry:fSe(e,o,s),sessionHooksRegistry:g,setWebBrowserSlice:Ise(o),setArtifactReadVersion:pae(o),getArtifactReadObservation:I1(e),artifactRegistries:_se(e,o),setArtifactContractTarget:fae(o),getArtifactContractTarget:mae(e),agentLifecycle:Qge(e,o),teammateColors:yse(Sde(e,o,"teammateColors")),rootToolSurface:{tools:i,mainLoopModel:C},messages:S,turnStartIndex:0,getFileHistoryState:()=>{return},applyFileHistoryOp:()=>{},applyAttributionOp:()=>{}};return{systemPrompt:T,userContext:P,systemContext:R,toolUseContext:M,forkContextMessages:S}}
-export{EHt,FYt};
+import { xh, Zw, si, eh, fSe, OS, yBt } from "/$bunfs/root/chunk-zze8764r.js";
+import { at, _p, rN, _a } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { gr } from "/$bunfs/root/chunk-dck778n3.js";
+import { I1, pae, fae, mae } from "/$bunfs/root/chunk-qaaw3n80.js";
+import { Ise } from "/$bunfs/root/chunk-crzfaky3.js";
+import { _se, yse, UK } from "/$bunfs/root/chunk-37sc85yq.js";
+import { $ge, OQ, Uge } from "/$bunfs/root/chunk-dr988get.js";
+import { Qge } from "/$bunfs/root/chunk-5m7ykdyk.js";
+import { Sde } from "/$bunfs/root/chunk-nwb64bac.js";
+async function EHt({
+  session: s,
+  tools: c,
+  mainLoopModel: i,
+  additionalWorkingDirectories: l,
+  customSystemPrompt: m,
+  excludeDynamicSections: r,
+  cacheBreakerPhrase: d,
+  analysisOnly: f,
+  storageV5: g,
+  credentials: e,
+}) {
+  let [o, t, n, y] = await Promise.all([
+    m !== void 0 ? Promise.resolve([]) : OS(c, i, l, { excludeDynamicSections: r, analysisOnly: f }),
+    Zw(s, g, e),
+    m !== void 0 ? Promise.resolve({}) : xh(s, d),
+    r && m === void 0 ? yBt(i, l, { analysisOnly: f }) : Promise.resolve({}),
+  ]);
+  if (r) return { defaultSystemPrompt: o, userContext: { ...n, ...t, ...y }, systemContext: {} };
+  return { defaultSystemPrompt: o, userContext: t, systemContext: n };
+}
+async function FYt({
+  session: s,
+  messageQueue: c,
+  tools: i,
+  commands: l,
+  mcpClients: m,
+  messages: r,
+  readFileState: d,
+  toolState: f,
+  sessionHooks: g,
+  getAppState: e,
+  setAppState: o,
+  customSystemPrompt: t,
+  appendSystemPrompt: n,
+  excludeDynamicSections: y,
+  thinkingConfig: v,
+  agents: h,
+  storageV5: u,
+  credentials: k,
+}) {
+  let a = e(),
+    C = _p({ permissionMode: a.toolPermissionContext.mode, mainLoopModel: at() }),
+    {
+      defaultSystemPrompt: x,
+      userContext: P,
+      systemContext: R,
+    } = await EHt({
+      session: s,
+      tools: i,
+      mainLoopModel: C,
+      additionalWorkingDirectories: Array.from(a.toolPermissionContext.additionalWorkingDirectories.keys()),
+      customSystemPrompt: t,
+      excludeDynamicSections: y,
+      cacheBreakerPhrase: a.cacheBreakerPhrase,
+      analysisOnly: !0,
+      storageV5: u,
+      credentials: k,
+    }),
+    T = si([...(typeof t === "string" ? [t] : Array.isArray(t) ? t : x), ...(n ? [n] : [])]),
+    p = r.at(-1),
+    S = p?.type === "assistant" && p.message.stop_reason === null ? r.slice(0, -1) : r,
+    M = {
+      messageQueue: c,
+      session: s,
+      storageV5: u,
+      credentials: k,
+      agentContext: _a(),
+      options: {
+        commands: l,
+        debug: !1,
+        mainLoopModel: C,
+        tools: i,
+        verbose: !1,
+        thinkingConfig: v ?? (rN() !== !1 ? { type: "adaptive" } : { type: "disabled" }),
+        mcpClients: m,
+        mcpResources: {},
+        isNonInteractiveSession: !0,
+        agentDefinitions: { activeAgents: h, allAgents: [] },
+        customSystemPrompt: t,
+        appendSystemPrompt: n,
+        autoCompactWindow: a.autoCompactWindow,
+        fastMode: a.fastMode,
+        cacheBreakerPhrase: a.cacheBreakerPhrase,
+      },
+      abortController: gr(),
+      readFileState: d,
+      toolState: f,
+      permissionRelays: UK,
+      getAppState: e,
+      setAppState: o,
+      markPrResolvedThisSession: () => $ge(o),
+      isUltrareviewOverageConfirmed: () => e().ultrareviewOverageConfirmed,
+      markUltrareviewOverageConfirmed: () => OQ(o),
+      getMcp: () => e().mcp,
+      getProactivityLevel: () => e().proactivityLevel,
+      getWebBrowser: () => e().webBrowser,
+      ...Uge(o),
+      taskRegistry: eh(e, o),
+      queuedNotificationsRegistry: fSe(e, o, s),
+      sessionHooksRegistry: g,
+      setWebBrowserSlice: Ise(o),
+      setArtifactReadVersion: pae(o),
+      getArtifactReadObservation: I1(e),
+      artifactRegistries: _se(e, o),
+      setArtifactContractTarget: fae(o),
+      getArtifactContractTarget: mae(e),
+      agentLifecycle: Qge(e, o),
+      teammateColors: yse(Sde(e, o, "teammateColors")),
+      rootToolSurface: { tools: i, mainLoopModel: C },
+      messages: S,
+      turnStartIndex: 0,
+      getFileHistoryState: () => {
+        return;
+      },
+      applyFileHistoryOp: () => {},
+      applyAttributionOp: () => {},
+    };
+  return { systemPrompt: T, userContext: P, systemContext: R, toolUseContext: M, forkContextMessages: S };
+}
+export { EHt, FYt };

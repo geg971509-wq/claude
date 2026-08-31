@@ -8,5 +8,17 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{su}from"/$bunfs/root/chunk-fv016jr6.js";import{O}from"/$bunfs/root/chunk-dqkj2bph.js";import{isAbsolute as o,sep as t}from"path";function n(r){let e=process.cwd();return e.endsWith(t)?e+r:e+t+r}function Gwe(r){return(e)=>r.hostFiles.realPath(su.workspace(e===""||o(e)?e:n(e)),{native:!0})}function Nu(r){return r===void 0?void 0:{hoverRestOn:O(),realPath:Gwe(r)}}
-export{Gwe,Nu};
+import { su } from "/$bunfs/root/chunk-fv016jr6.js";
+import { O } from "/$bunfs/root/chunk-dqkj2bph.js";
+import { isAbsolute as o, sep as t } from "path";
+function n(r) {
+  let e = process.cwd();
+  return e.endsWith(t) ? e + r : e + t + r;
+}
+function Gwe(r) {
+  return (e) => r.hostFiles.realPath(su.workspace(e === "" || o(e) ? e : n(e)), { native: !0 });
+}
+function Nu(r) {
+  return r === void 0 ? void 0 : { hoverRestOn: O(), realPath: Gwe(r) };
+}
+export { Gwe, Nu };

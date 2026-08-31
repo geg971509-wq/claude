@@ -8,6 +8,422 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{et,Se}from"/$bunfs/root/chunk-f9h0bg01.js";import{y,g}from"/$bunfs/root/chunk-ca80fke8.js";import{ex}from"/$bunfs/root/chunk-wkxx62a2.js";import{n}from"/$bunfs/root/chunk-fv016jr6.js";import{Wa,Du,Fee,JW,Yut,lp,cp,yan,q3n,G3n,z3n,K3n,X3n,Tv,$ee,Vx,NIe}from"/$bunfs/root/chunk-zze8764r.js";import{S$,tS,W3t}from"/$bunfs/root/chunk-8tgj5dp2.js";import{Wt}from"/$bunfs/root/chunk-qk6zade1.js";import{ms}from"/$bunfs/root/chunk-tzhtxm67.js";import{Yo}from"/$bunfs/root/chunk-nf8aaj8a.js";import{Fu,II,qD,t3,POe,a5e,MF}from"/$bunfs/root/chunk-qnrh4abv.js";import{de}from"/$bunfs/root/chunk-xgfepdf4.js";import{n8,B6e,Rot,O$n,M$n,$Zt}from"/$bunfs/root/chunk-drw3nb55.js";import{Sot,NZt,$q}from"/$bunfs/root/chunk-q38mnpg0.js";import{hhe}from"/$bunfs/root/chunk-4vfft545.js";import{eZ}from"/$bunfs/root/chunk-qvvgsfrp.js";import{GD}from"/$bunfs/root/chunk-n8ecp4gs.js";import{D}from"/$bunfs/root/chunk-7s7jqj2f.js";var z=1000,Q=200,R={armable:new Set,yielded:new Set,undo:()=>{}};async function Z(){let o=(await a5e()).find((r)=>r.pid===process.pid);return o===void 0?void 0:{sessionId:o.sessionId,tmux:o.tmux}}async function mEr(e){let o=await ee(e).finally(()=>e.claim?.end());if(o.kind==="took_over")y("artifact_live_subscribe",{took_over:!0,holders:e.holders.length,armable_count:o.armable.size,yielded_count:o.yielded.size});else if(o.kind!=="disabled")g("artifact_live_subscribe",`takeover_${o.kind}`,{holders:e.holders.length});return o}async function ee(e){if(!n8())return{...R,kind:"disabled"};if(!Yo())return{...R,kind:"messaging_off"};let o=MF();if(o===void 0||e.holders.length===0)return{...R,kind:"no_inbox"};let r=tS(o),a=e.transport?.ownRecord??Z,s=await a().catch(()=>{return});if(s?.sessionId!==e.conversationId){let t=e.transport?.timers??Rot;await new Promise((d)=>void t.setTimeout(d,Q)),s=await a().catch(()=>{return})}if(s?.sessionId!==e.conversationId)return{...R,kind:"registry_stale"};let l=s.tmux;if(e.holdersIncomplete===!0&&!e.alreadyReplying)return{...R,kind:"holder_unreachable"};let f=e.slugs.filter((t)=>!(e.claim?.lost.has(t)??!1)).slice(0,B6e);if(f.length===0)return{...R,kind:"nothing_freed"};let h=[];for(let t of e.holders){if(t.sock===void 0||t.sock===""||!(t.peerFeatures?.includes(W3t)??!1)||tS(t.sock)===r||Sot(t.kind)){if(e.alreadyReplying)continue;return{...R,kind:"holder_unreachable"}}h.push({sock:t.sock,pid:t.pid})}if(h.length===0)return{...R,kind:"holder_unreachable"};let c=e.transport?.send??POe,u=e.transport?.sendControl??t3,I=e.transport?.timers??Rot,T=e.transport?.now??Date.now,G=S$(o),Y=(t)=>D()!=="windows"?{expectPeerPid:t}:{},v=[],H=new Set,{wakes:b,autoReact:X,durable:V}=de(),W=(t)=>{for(let d of t.yielded){let i=b.takenFrom.get(d)??[];if(!i.some((m)=>m.msgId===t.msgId))b.takenFrom.set(d,[...i,{sock:t.sock,pid:t.pid,msgId:t.msgId}]);if(e.alreadyReplying&&(X.userDisarmed||V.stopLatches.isStopped(d)||lp(d)&&!cp(d)))I1n(d,u)}},U=e.claim?.sentAt??T(),A=(t,d,i)=>{let m=i?.precautionary!==void 0?[...i.precautionary]:[...t.yielded].filter((p)=>d===void 0||d.has(p));if(m.length===0)return;for(let p of m)t.yielded.delete(p);y("artifact_live_subscribe",{[i?.precautionary!==void 0?"takeover_unyield_precautionary":"takeover_handed_back"]:m.length});let _={action:"unyield_artifact_replies",orig_msg_id:t.msgId,slugs:m,...i?.stopped===!0&&{stopped:!0}};u(t.sock,_,Y(t.pid)).catch((p)=>{if(n(`[reply-yield] unyield to ${Fu(t.sock)} failed: ${II(String(p))}`),qD(p)&&!ms(t.pid)){g("artifact_live_subscribe","unyield_holder_gone");return}let k=()=>void u(t.sock,_,Y(t.pid)).catch(()=>{g("artifact_live_subscribe","unyield_send_failed")});if(qD(p))I.setTimeout(k,z);else k()})},N=[];for(let t of h){let d=GD(),i={sock:t.sock,pid:t.pid,msgId:d.msg_id,yielded:new Set};v.push(i);let m=O$n(d.msg_id,f,{sentAt:U,expectPid:t.pid,...e.transport?.timeoutMs!==void 0&&{timeoutMs:e.transport.timeoutMs},...e.transport?.timers!==void 0&&{timers:e.transport.timers},onLate:(_)=>{if(_.kind!=="yielded")return;for(let k of _.yielded)i.yielded.add(k);let p=new Map([...e.claim?.lost??[],..._.lostTo]);A(i,new Set([...i.yielded].filter((k)=>p.has(k)?q(k,i,p,e.alreadyReplying===!0):!e.alreadyReplying&&!H.has(k)))),W(i)}});N.push((async()=>{try{await c(t.sock,{action:"yield_artifact_replies",from:G,session_id:e.conversationId,slugs:f,reason:e.reason,sent_at:T(),claimed_at:U,requester:{cwd:Se(),...l!==void 0&&{tmux:l}}},d,Y(t.pid))}catch(_){if(qD(_)){let p=M$n(d.msg_id),k=p.map(([J])=>J);return ms(t.pid)?{kind:"unreachable",lost:k,lostTo:p}:{kind:"gone",lost:k,lostTo:p}}}return m})())}let B=await Promise.all(N),P=new Map,x=new Map,L=new Map,S=new Map(e.claim?.lost??[]),C=!0,K=!1,O=0;B.forEach((t,d)=>{for(let[i,m]of t.lostTo)S.set(i,m);if(t.kind==="gone")return;if(O++,t.kind==="unreachable"){C=!1;return}if(t.kind==="yielded"){for(let i of t.yielded)v[d].yielded.add(i),P.set(i,(P.get(i)??0)+1);for(let i of t.notHeld)x.set(i,(x.get(i)??0)+1);for(let i of new Set([...t.yielded,...t.notHeld]))L.set(i,(L.get(i)??0)+1)}else if(C=!1,t.kind==="refused")K=!0});let w=new Set,F=new Set;if(C&&!K)for(let t of f){if(S.has(t)||(L.get(t)??0)!==O)continue;if((P.get(t)??0)>0)w.add(t),F.add(t);else if((x.get(t)??0)===O)w.add(t)}for(let t of w)H.add(t);if(e.alreadyReplying){for(let t of v)for(let d of t.yielded)if(!S.has(d))F.add(d)}for(let t of v){let d=new Set([...t.yielded].filter((i)=>S.has(i)?q(i,t,S,e.alreadyReplying===!0):!e.alreadyReplying&&!w.has(i)));if(d.size>0)A(t,d)}if(!e.alreadyReplying)B.forEach((t,d)=>{if(t.kind==="timeout")A(v[d],void 0,{precautionary:f})});for(let t of v)W(t);return{armable:w,yielded:F,kind:w.size>0?"took_over":"nothing_freed",undo:(t)=>{for(let i of v)A(i,t);let d=new Set(v.map((i)=>i.msgId));for(let i of t??f){let m=(b.takenFrom.get(i)??[]).filter((_)=>!d.has(_.msgId));if(m.length>0)b.takenFrom.set(i,m);else b.takenFrom.delete(i)}}}}function q(e,o,r,a){let s=r.get(e);return s!==void 0&&s===S$(o.sock)||!a&&!Tv(e)}function I1n(e,o=t3){j(e,!0,o)}function Idr(e,o=t3){j(e,!1,o)}function j(e,o,r){let{wakes:a}=de(),s=a.takenFrom.get(e);if(s===void 0||Tv(e))return;a.takenFrom.delete(e);for(let l of s){let f={action:"unyield_artifact_replies",orig_msg_id:l.msgId,slugs:[e],...o&&{stopped:!0}},h=D()!=="windows"?{expectPeerPid:l.pid}:{};r(l.sock,f,h).catch((c)=>{if(n(`[reply-yield] release to ${Fu(l.sock)} failed: ${II(String(c))}`),qD(c)&&!ms(l.pid))return;let u=()=>void r(l.sock,f,h).catch(()=>{g("artifact_live_subscribe","takeover_release_failed")});if(qD(c))Rot.setTimeout(u,z);else u()})}y("artifact_live_subscribe",{[o?"takeover_stop_notified":"takeover_released"]:s.length})}function M(e){let o=e.slice(0,2),r=e.length-o.length;return`${o.join(", ")}${r>0?` and ${r} more`:""}`}function EQt(e,o,r,a){let s=NZt({kind:"interactive",...typeof r.cwd==="string"&&{cwd:r.cwd},...typeof r.tmux==="string"&&{tmux:r.tmux}},a),l=o==="resume"?`the session that just resumed this conversation in ${s}`:`another session of this conversation (${s}), which just published or resumed them there`;return`Automatic replies to comments on ${M(e)} moved to ${l}; this session keeps watching for new versions only. To take them back here, publish the Artifact again or ask Claude to resume its replies.`}function AQt(e){return`Automatic replies to comments on ${M(e)} are back in this session: the other session of this conversation did not keep them (it could not take them over, or it has since exited).`}function CQt(e){return`Automatic replies to comments on ${M(e)} were stopped in the other session of this conversation, so they stay off here too. To turn them back on, publish the Artifact again or ask Claude to resume its replies.`}var te="Automatic replies to comments on the Artifact(s) this session was answering moved to another session of this same conversation on this machine, at its request; this session keeps its version watch only. Nothing to do \u2014 do not stop or re-arm a watch on your own; a publish the user asks for here takes them back.",oe="The automatic comment replies this session had handed to another session of this conversation were stopped by the user there; they stay stopped here too. Nothing to do unless the user asks to resume them or to publish again.",ne="The automatic comment replies are back with this session: the other session of this conversation did not keep them (it could not take them over, or it has since exited).";function gEr(e,o){let r=e==="yielded"?`Comment replies on ${o} Artifact(s) moved to another session of this conversation`:e==="reverted"?`Comment replies on ${o} Artifact(s) are back with this session`:`Comment replies on ${o} Artifact(s) were stopped in the other session`,a=e==="yielded"?te:e==="reverted"?ne:oe;Wa({value:Du({taskType:ex,summary:Wt(r),body:`
-<event>${Wt(a)}</event>`}),mode:"task-notification",passive:!0,priority:"next",origin:{kind:"task-notification",source:ex},agentId:et()})}function vQt(e){return $Zt((o)=>{let r=Pdr(o.slugs,o.msgId),a=r.newlyYielded;if(a.length>0)y("artifact_comments_autoreact",{yielded_to_other_session:a.length});return{yielded:r.yielded,notHeld:r.notHeld,...a.length>0&&{onDelivered:()=>{let s=a.filter((l)=>Tv(l));for(let l of s)q3n(l);if(s.length>0)e.yielded(s,o.reason,o.requester)}}}},(o,r,a)=>{for(let u of r)if(a?.stopped?.has(u)??!1)K3n(u,o);let s=new Set(r.filter((u)=>X3n(u))),l=new Set(r.filter((u)=>G3n(u))),f=Ddr(o,r),h=f.filter((u)=>l.has(u)&&!lp(u)&&E(u)&&!(a?.transferring?.has(u)??!1));if(h.length>0)e.reverted(h);let c=f.filter((u)=>l.has(u)&&s.has(u));if(c.length>0)e.stoppedElsewhere(c);return f}),()=>$Zt(null)}function Pdr(e,o){let{live:r,autoReact:a,durable:s}=de(),l=[],f=[],h=[];for(let c of e){if(Tv(c)){yan(c,o),l.push(c);continue}let u=E(c),I=cp(c)&&!$ee(c),T=a.enabledMemo!==!1&&!a.userDisarmed&&!s.stopLatches.isStopped(c)&&(!lp(c)||I);if(!u||!T){f.push(c);continue}yan(c,o),JW(c),Yut(c),Vx(r,c),l.push(c),h.push(c)}return{yielded:l,notHeld:f,newlyYielded:h}}function E(e){let{live:o}=de(),r=o.supervisors.get(e);return r!==void 0&&!r.stopped&&r.autoReactWiring!==void 0||o.inFlightWiredIntent.has(e)||eZ().has(e)}function Ddr(e,o){let{live:r}=de(),a=[];for(let s of o){if(!z3n(s,e))continue;if(Vx(r,s),lp(s)&&!cp(s))hhe(s),I1n(s);a.push(s);let l=r.supervisors.get(s);if(!lp(s)&&!E(s))Idr(s);let f=Fee(s).lastWakeArgs;if(!lp(s)&&E(s)&&l?.taskId!==void 0&&NIe(l.taskId)&&f!==null)$q({...f,seed:!1,confirm:void 0,confirmBase:void 0,confirmAfter:void 0,reentry:void 0,idlePass:void 0,suppressSummonStatus:void 0})}if(a.length>0)y("artifact_comments_autoreact",{yield_reverted:a.length});return a}
-export{mEr,I1n,Idr,EQt,AQt,CQt,gEr,vQt,Pdr,Ddr};
+import { et, Se } from "/$bunfs/root/chunk-f9h0bg01.js";
+import { y, g } from "/$bunfs/root/chunk-ca80fke8.js";
+import { ex } from "/$bunfs/root/chunk-wkxx62a2.js";
+import { n } from "/$bunfs/root/chunk-fv016jr6.js";
+import {
+  Wa,
+  Du,
+  Fee,
+  JW,
+  Yut,
+  lp,
+  cp,
+  yan,
+  q3n,
+  G3n,
+  z3n,
+  K3n,
+  X3n,
+  Tv,
+  $ee,
+  Vx,
+  NIe,
+} from "/$bunfs/root/chunk-zze8764r.js";
+import { S$, tS, W3t } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { Wt } from "/$bunfs/root/chunk-qk6zade1.js";
+import { ms } from "/$bunfs/root/chunk-tzhtxm67.js";
+import { Yo } from "/$bunfs/root/chunk-nf8aaj8a.js";
+import { Fu, II, qD, t3, POe, a5e, MF } from "/$bunfs/root/chunk-qnrh4abv.js";
+import { de } from "/$bunfs/root/chunk-xgfepdf4.js";
+import { n8, B6e, Rot, O$n, M$n, $Zt } from "/$bunfs/root/chunk-drw3nb55.js";
+import { Sot, NZt, $q } from "/$bunfs/root/chunk-q38mnpg0.js";
+import { hhe } from "/$bunfs/root/chunk-4vfft545.js";
+import { eZ } from "/$bunfs/root/chunk-qvvgsfrp.js";
+import { GD } from "/$bunfs/root/chunk-n8ecp4gs.js";
+import { D } from "/$bunfs/root/chunk-7s7jqj2f.js";
+var z = 1000,
+  Q = 200,
+  R = { armable: new Set(), yielded: new Set(), undo: () => {} };
+async function Z() {
+  let o = (await a5e()).find((r) => r.pid === process.pid);
+  return o === void 0 ? void 0 : { sessionId: o.sessionId, tmux: o.tmux };
+}
+async function mEr(e) {
+  let o = await ee(e).finally(() => e.claim?.end());
+  if (o.kind === "took_over")
+    y("artifact_live_subscribe", {
+      took_over: !0,
+      holders: e.holders.length,
+      armable_count: o.armable.size,
+      yielded_count: o.yielded.size,
+    });
+  else if (o.kind !== "disabled") g("artifact_live_subscribe", `takeover_${o.kind}`, { holders: e.holders.length });
+  return o;
+}
+async function ee(e) {
+  if (!n8()) return { ...R, kind: "disabled" };
+  if (!Yo()) return { ...R, kind: "messaging_off" };
+  let o = MF();
+  if (o === void 0 || e.holders.length === 0) return { ...R, kind: "no_inbox" };
+  let r = tS(o),
+    a = e.transport?.ownRecord ?? Z,
+    s = await a().catch(() => {
+      return;
+    });
+  if (s?.sessionId !== e.conversationId) {
+    let t = e.transport?.timers ?? Rot;
+    await new Promise((d) => void t.setTimeout(d, Q)),
+      (s = await a().catch(() => {
+        return;
+      }));
+  }
+  if (s?.sessionId !== e.conversationId) return { ...R, kind: "registry_stale" };
+  let l = s.tmux;
+  if (e.holdersIncomplete === !0 && !e.alreadyReplying) return { ...R, kind: "holder_unreachable" };
+  let f = e.slugs.filter((t) => !(e.claim?.lost.has(t) ?? !1)).slice(0, B6e);
+  if (f.length === 0) return { ...R, kind: "nothing_freed" };
+  let h = [];
+  for (let t of e.holders) {
+    if (
+      t.sock === void 0 ||
+      t.sock === "" ||
+      !(t.peerFeatures?.includes(W3t) ?? !1) ||
+      tS(t.sock) === r ||
+      Sot(t.kind)
+    ) {
+      if (e.alreadyReplying) continue;
+      return { ...R, kind: "holder_unreachable" };
+    }
+    h.push({ sock: t.sock, pid: t.pid });
+  }
+  if (h.length === 0) return { ...R, kind: "holder_unreachable" };
+  let c = e.transport?.send ?? POe,
+    u = e.transport?.sendControl ?? t3,
+    I = e.transport?.timers ?? Rot,
+    T = e.transport?.now ?? Date.now,
+    G = S$(o),
+    Y = (t) => (D() !== "windows" ? { expectPeerPid: t } : {}),
+    v = [],
+    H = new Set(),
+    { wakes: b, autoReact: X, durable: V } = de(),
+    W = (t) => {
+      for (let d of t.yielded) {
+        let i = b.takenFrom.get(d) ?? [];
+        if (!i.some((m) => m.msgId === t.msgId))
+          b.takenFrom.set(d, [...i, { sock: t.sock, pid: t.pid, msgId: t.msgId }]);
+        if (e.alreadyReplying && (X.userDisarmed || V.stopLatches.isStopped(d) || (lp(d) && !cp(d)))) I1n(d, u);
+      }
+    },
+    U = e.claim?.sentAt ?? T(),
+    A = (t, d, i) => {
+      let m =
+        i?.precautionary !== void 0 ? [...i.precautionary] : [...t.yielded].filter((p) => d === void 0 || d.has(p));
+      if (m.length === 0) return;
+      for (let p of m) t.yielded.delete(p);
+      y("artifact_live_subscribe", {
+        [i?.precautionary !== void 0 ? "takeover_unyield_precautionary" : "takeover_handed_back"]: m.length,
+      });
+      let _ = {
+        action: "unyield_artifact_replies",
+        orig_msg_id: t.msgId,
+        slugs: m,
+        ...(i?.stopped === !0 && { stopped: !0 }),
+      };
+      u(t.sock, _, Y(t.pid)).catch((p) => {
+        if ((n(`[reply-yield] unyield to ${Fu(t.sock)} failed: ${II(String(p))}`), qD(p) && !ms(t.pid))) {
+          g("artifact_live_subscribe", "unyield_holder_gone");
+          return;
+        }
+        let k = () =>
+          void u(t.sock, _, Y(t.pid)).catch(() => {
+            g("artifact_live_subscribe", "unyield_send_failed");
+          });
+        if (qD(p)) I.setTimeout(k, z);
+        else k();
+      });
+    },
+    N = [];
+  for (let t of h) {
+    let d = GD(),
+      i = { sock: t.sock, pid: t.pid, msgId: d.msg_id, yielded: new Set() };
+    v.push(i);
+    let m = O$n(d.msg_id, f, {
+      sentAt: U,
+      expectPid: t.pid,
+      ...(e.transport?.timeoutMs !== void 0 && { timeoutMs: e.transport.timeoutMs }),
+      ...(e.transport?.timers !== void 0 && { timers: e.transport.timers }),
+      onLate: (_) => {
+        if (_.kind !== "yielded") return;
+        for (let k of _.yielded) i.yielded.add(k);
+        let p = new Map([...(e.claim?.lost ?? []), ..._.lostTo]);
+        A(
+          i,
+          new Set(
+            [...i.yielded].filter((k) =>
+              p.has(k) ? q(k, i, p, e.alreadyReplying === !0) : !e.alreadyReplying && !H.has(k),
+            ),
+          ),
+        ),
+          W(i);
+      },
+    });
+    N.push(
+      (async () => {
+        try {
+          await c(
+            t.sock,
+            {
+              action: "yield_artifact_replies",
+              from: G,
+              session_id: e.conversationId,
+              slugs: f,
+              reason: e.reason,
+              sent_at: T(),
+              claimed_at: U,
+              requester: { cwd: Se(), ...(l !== void 0 && { tmux: l }) },
+            },
+            d,
+            Y(t.pid),
+          );
+        } catch (_) {
+          if (qD(_)) {
+            let p = M$n(d.msg_id),
+              k = p.map(([J]) => J);
+            return ms(t.pid) ? { kind: "unreachable", lost: k, lostTo: p } : { kind: "gone", lost: k, lostTo: p };
+          }
+        }
+        return m;
+      })(),
+    );
+  }
+  let B = await Promise.all(N),
+    P = new Map(),
+    x = new Map(),
+    L = new Map(),
+    S = new Map(e.claim?.lost ?? []),
+    C = !0,
+    K = !1,
+    O = 0;
+  B.forEach((t, d) => {
+    for (let [i, m] of t.lostTo) S.set(i, m);
+    if (t.kind === "gone") return;
+    if ((O++, t.kind === "unreachable")) {
+      C = !1;
+      return;
+    }
+    if (t.kind === "yielded") {
+      for (let i of t.yielded) v[d].yielded.add(i), P.set(i, (P.get(i) ?? 0) + 1);
+      for (let i of t.notHeld) x.set(i, (x.get(i) ?? 0) + 1);
+      for (let i of new Set([...t.yielded, ...t.notHeld])) L.set(i, (L.get(i) ?? 0) + 1);
+    } else if (((C = !1), t.kind === "refused")) K = !0;
+  });
+  let w = new Set(),
+    F = new Set();
+  if (C && !K)
+    for (let t of f) {
+      if (S.has(t) || (L.get(t) ?? 0) !== O) continue;
+      if ((P.get(t) ?? 0) > 0) w.add(t), F.add(t);
+      else if ((x.get(t) ?? 0) === O) w.add(t);
+    }
+  for (let t of w) H.add(t);
+  if (e.alreadyReplying) {
+    for (let t of v) for (let d of t.yielded) if (!S.has(d)) F.add(d);
+  }
+  for (let t of v) {
+    let d = new Set(
+      [...t.yielded].filter((i) => (S.has(i) ? q(i, t, S, e.alreadyReplying === !0) : !e.alreadyReplying && !w.has(i))),
+    );
+    if (d.size > 0) A(t, d);
+  }
+  if (!e.alreadyReplying)
+    B.forEach((t, d) => {
+      if (t.kind === "timeout") A(v[d], void 0, { precautionary: f });
+    });
+  for (let t of v) W(t);
+  return {
+    armable: w,
+    yielded: F,
+    kind: w.size > 0 ? "took_over" : "nothing_freed",
+    undo: (t) => {
+      for (let i of v) A(i, t);
+      let d = new Set(v.map((i) => i.msgId));
+      for (let i of t ?? f) {
+        let m = (b.takenFrom.get(i) ?? []).filter((_) => !d.has(_.msgId));
+        if (m.length > 0) b.takenFrom.set(i, m);
+        else b.takenFrom.delete(i);
+      }
+    },
+  };
+}
+function q(e, o, r, a) {
+  let s = r.get(e);
+  return (s !== void 0 && s === S$(o.sock)) || (!a && !Tv(e));
+}
+function I1n(e, o = t3) {
+  j(e, !0, o);
+}
+function Idr(e, o = t3) {
+  j(e, !1, o);
+}
+function j(e, o, r) {
+  let { wakes: a } = de(),
+    s = a.takenFrom.get(e);
+  if (s === void 0 || Tv(e)) return;
+  a.takenFrom.delete(e);
+  for (let l of s) {
+    let f = { action: "unyield_artifact_replies", orig_msg_id: l.msgId, slugs: [e], ...(o && { stopped: !0 }) },
+      h = D() !== "windows" ? { expectPeerPid: l.pid } : {};
+    r(l.sock, f, h).catch((c) => {
+      if ((n(`[reply-yield] release to ${Fu(l.sock)} failed: ${II(String(c))}`), qD(c) && !ms(l.pid))) return;
+      let u = () =>
+        void r(l.sock, f, h).catch(() => {
+          g("artifact_live_subscribe", "takeover_release_failed");
+        });
+      if (qD(c)) Rot.setTimeout(u, z);
+      else u();
+    });
+  }
+  y("artifact_live_subscribe", { [o ? "takeover_stop_notified" : "takeover_released"]: s.length });
+}
+function M(e) {
+  let o = e.slice(0, 2),
+    r = e.length - o.length;
+  return `${o.join(", ")}${r > 0 ? ` and ${r} more` : ""}`;
+}
+function EQt(e, o, r, a) {
+  let s = NZt(
+      {
+        kind: "interactive",
+        ...(typeof r.cwd === "string" && { cwd: r.cwd }),
+        ...(typeof r.tmux === "string" && { tmux: r.tmux }),
+      },
+      a,
+    ),
+    l =
+      o === "resume"
+        ? `the session that just resumed this conversation in ${s}`
+        : `another session of this conversation (${s}), which just published or resumed them there`;
+  return `Automatic replies to comments on ${M(e)} moved to ${l}; this session keeps watching for new versions only. To take them back here, publish the Artifact again or ask Claude to resume its replies.`;
+}
+function AQt(e) {
+  return `Automatic replies to comments on ${M(e)} are back in this session: the other session of this conversation did not keep them (it could not take them over, or it has since exited).`;
+}
+function CQt(e) {
+  return `Automatic replies to comments on ${M(e)} were stopped in the other session of this conversation, so they stay off here too. To turn them back on, publish the Artifact again or ask Claude to resume its replies.`;
+}
+var te =
+    "Automatic replies to comments on the Artifact(s) this session was answering moved to another session of this same conversation on this machine, at its request; this session keeps its version watch only. Nothing to do \u2014 do not stop or re-arm a watch on your own; a publish the user asks for here takes them back.",
+  oe =
+    "The automatic comment replies this session had handed to another session of this conversation were stopped by the user there; they stay stopped here too. Nothing to do unless the user asks to resume them or to publish again.",
+  ne =
+    "The automatic comment replies are back with this session: the other session of this conversation did not keep them (it could not take them over, or it has since exited).";
+function gEr(e, o) {
+  let r =
+      e === "yielded"
+        ? `Comment replies on ${o} Artifact(s) moved to another session of this conversation`
+        : e === "reverted"
+          ? `Comment replies on ${o} Artifact(s) are back with this session`
+          : `Comment replies on ${o} Artifact(s) were stopped in the other session`,
+    a = e === "yielded" ? te : e === "reverted" ? ne : oe;
+  Wa({
+    value: Du({
+      taskType: ex,
+      summary: Wt(r),
+      body: `
+<event>${Wt(a)}</event>`,
+    }),
+    mode: "task-notification",
+    passive: !0,
+    priority: "next",
+    origin: { kind: "task-notification", source: ex },
+    agentId: et(),
+  });
+}
+function vQt(e) {
+  return (
+    $Zt(
+      (o) => {
+        let r = Pdr(o.slugs, o.msgId),
+          a = r.newlyYielded;
+        if (a.length > 0) y("artifact_comments_autoreact", { yielded_to_other_session: a.length });
+        return {
+          yielded: r.yielded,
+          notHeld: r.notHeld,
+          ...(a.length > 0 && {
+            onDelivered: () => {
+              let s = a.filter((l) => Tv(l));
+              for (let l of s) q3n(l);
+              if (s.length > 0) e.yielded(s, o.reason, o.requester);
+            },
+          }),
+        };
+      },
+      (o, r, a) => {
+        for (let u of r) if (a?.stopped?.has(u) ?? !1) K3n(u, o);
+        let s = new Set(r.filter((u) => X3n(u))),
+          l = new Set(r.filter((u) => G3n(u))),
+          f = Ddr(o, r),
+          h = f.filter((u) => l.has(u) && !lp(u) && E(u) && !(a?.transferring?.has(u) ?? !1));
+        if (h.length > 0) e.reverted(h);
+        let c = f.filter((u) => l.has(u) && s.has(u));
+        if (c.length > 0) e.stoppedElsewhere(c);
+        return f;
+      },
+    ),
+    () => $Zt(null)
+  );
+}
+function Pdr(e, o) {
+  let { live: r, autoReact: a, durable: s } = de(),
+    l = [],
+    f = [],
+    h = [];
+  for (let c of e) {
+    if (Tv(c)) {
+      yan(c, o), l.push(c);
+      continue;
+    }
+    let u = E(c),
+      I = cp(c) && !$ee(c),
+      T = a.enabledMemo !== !1 && !a.userDisarmed && !s.stopLatches.isStopped(c) && (!lp(c) || I);
+    if (!u || !T) {
+      f.push(c);
+      continue;
+    }
+    yan(c, o), JW(c), Yut(c), Vx(r, c), l.push(c), h.push(c);
+  }
+  return { yielded: l, notHeld: f, newlyYielded: h };
+}
+function E(e) {
+  let { live: o } = de(),
+    r = o.supervisors.get(e);
+  return (r !== void 0 && !r.stopped && r.autoReactWiring !== void 0) || o.inFlightWiredIntent.has(e) || eZ().has(e);
+}
+function Ddr(e, o) {
+  let { live: r } = de(),
+    a = [];
+  for (let s of o) {
+    if (!z3n(s, e)) continue;
+    if ((Vx(r, s), lp(s) && !cp(s))) hhe(s), I1n(s);
+    a.push(s);
+    let l = r.supervisors.get(s);
+    if (!lp(s) && !E(s)) Idr(s);
+    let f = Fee(s).lastWakeArgs;
+    if (!lp(s) && E(s) && l?.taskId !== void 0 && NIe(l.taskId) && f !== null)
+      $q({
+        ...f,
+        seed: !1,
+        confirm: void 0,
+        confirmBase: void 0,
+        confirmAfter: void 0,
+        reentry: void 0,
+        idlePass: void 0,
+        suppressSummonStatus: void 0,
+      });
+  }
+  if (a.length > 0) y("artifact_comments_autoreact", { yield_reverted: a.length });
+  return a;
+}
+export { mEr, I1n, Idr, EQt, AQt, CQt, gEr, vQt, Pdr, Ddr };

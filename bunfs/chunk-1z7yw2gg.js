@@ -8,4 +8,8 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{nt}from"/$bunfs/root/chunk-zfjmcnyh.js";var t="/$bunfs/root/SKILL-2954d82b.md.zst";var l=nt(t,import.meta.dirname);var y=l;export{y as SKILL_MD};
+import { nt } from "/$bunfs/root/chunk-zfjmcnyh.js";
+var t = "/$bunfs/root/SKILL-2954d82b.md.zst";
+var l = nt(t, import.meta.dirname);
+var y = l;
+export { y as SKILL_MD };

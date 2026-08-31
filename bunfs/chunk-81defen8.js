@@ -8,12 +8,30 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{a}from"/$bunfs/root/chunk-fec4384a.js";import{z2}from"/$bunfs/root/chunk-gvnqpbsf.js";import{I}from"/$bunfs/root/chunk-8tgj5dp2.js";import{jX}from"/$bunfs/root/chunk-trte0v0g.js";import{xk}from"/$bunfs/root/chunk-cyeg83af.js";function $d(){return z2().backgroundTasksDisabled||a.CLAUDE_CODE_DISABLE_BACKGROUND_TASKS}function Xmn(){return jX()?`
+import { a } from "/$bunfs/root/chunk-fec4384a.js";
+import { z2 } from "/$bunfs/root/chunk-gvnqpbsf.js";
+import { I } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { jX } from "/$bunfs/root/chunk-trte0v0g.js";
+import { xk } from "/$bunfs/root/chunk-cyeg83af.js";
+function $d() {
+  return z2().backgroundTasksDisabled || a.CLAUDE_CODE_DISABLE_BACKGROUND_TASKS;
+}
+function Xmn() {
+  return jX()
+    ? `
 
-When an event lands that the user would want to act on now \u2014 an error appeared, the status they were waiting on flipped \u2014 send a ${xk}. Not every event is worth a push; the ones that change what they'd do next are.`:""}function xI(){return I("tengu_amber_sentinel",!1)}function Ymn(){let e=$d();return`Start a background monitor that streams events from a long-running script. Each stdout line is an event \u2014 you keep working and notifications arrive in the chat. Events arrive on their own schedule and are not replies from the user, even if one lands while you're waiting for the user to answer a question.
+When an event lands that the user would want to act on now \u2014 an error appeared, the status they were waiting on flipped \u2014 send a ${xk}. Not every event is worth a push; the ones that change what they'd do next are.`
+    : "";
+}
+function xI() {
+  return I("tengu_amber_sentinel", !1);
+}
+function Ymn() {
+  let e = $d();
+  return `Start a background monitor that streams events from a long-running script. Each stdout line is an event \u2014 you keep working and notifications arrive in the chat. Events arrive on their own schedule and are not replies from the user, even if one lands while you're waiting for the user to answer a question.
 
 Pick by how many notifications you need:
-${'- **One** ("tell me when the server is ready / the build finishes") \u2192 '+(e?'run the command in the **foreground with Bash**, exiting when the condition is true, e.g. `until grep -q "Ready in" dev.log; do sleep 0.5; done`.':'use **Bash with `run_in_background`** and a command that exits when the condition is true, e.g. `until grep -q "Ready in" dev.log; do sleep 0.5; done`. You get a single completion notification when it exits.')}
+${'- **One** ("tell me when the server is ready / the build finishes") \u2192 ' + (e ? 'run the command in the **foreground with Bash**, exiting when the condition is true, e.g. `until grep -q "Ready in" dev.log; do sleep 0.5; done`.' : 'use **Bash with `run_in_background`** and a command that exits when the condition is true, e.g. `until grep -q "Ready in" dev.log; do sleep 0.5; done`. You get a single completion notification when it exits.')}
 - **One per occurrence, indefinitely** ("tell me every time an ERROR line appears") \u2192 Monitor with an unbounded command (\`tail -f\`, \`inotifywait -m\`, \`while true\`).
 - **One per occurrence, until a known end** ("emit each CI step result, stop when the run completes") \u2192 Monitor with a command that emits lines and then exits.
 
@@ -47,7 +65,7 @@ Your script's stdout is the event stream. Each line becomes a notification. Exit
     sleep 30
   done
 
-**Don't use an unbounded command for a single notification.** \`tail -f\`, \`inotifywait -m\`, and \`while true\` never exit on their own, so the monitor stays armed until timeout even after the event has fired. For "tell me when X is ready," ${e?"use a foreground Bash `until` loop instead":"use Bash `run_in_background` with an `until` loop instead (one notification, ends in seconds)"}. Note that \`tail -f log | grep -m 1 ...\` does *not* fix this: if the log goes quiet after the match, \`tail\` never receives SIGPIPE and the pipeline hangs anyway.
+**Don't use an unbounded command for a single notification.** \`tail -f\`, \`inotifywait -m\`, and \`while true\` never exit on their own, so the monitor stays armed until timeout even after the event has fired. For "tell me when X is ready," ${e ? "use a foreground Bash `until` loop instead" : "use Bash `run_in_background` with an `until` loop instead (one notification, ends in seconds)"}. Note that \`tail -f log | grep -m 1 ...\` does *not* fix this: if the log goes quiet after the match, \`tail\` never receives SIGPIPE and the pipeline hangs anyway.
 
 **Script quality:**
 - Every pipe stage must flush per line or matches sit in its buffer unseen: \`grep\` needs \`--line-buffered\`, \`awk\` needs \`fflush()\`. \`head\` cannot flush at all \u2014 \`| head -N\` delivers nothing until N matches accumulate, then ends the stream.
@@ -70,7 +88,9 @@ For poll loops checking job state, emit on every terminal status (\`succeeded|fa
 
 Stdout lines within 200ms are batched into a single notification, so multiline output from a single event groups naturally.
 
-The script runs in the same shell environment as Bash. Exit ends the watch (exit code is reported). Timeout \u2192 killed. Set \`persistent: true\` for session-length watches (PR monitoring, log tails) \u2014 the monitor runs until you call TaskStop or the session ends. Use TaskStop to cancel early.`}var Jmn=`
+The script runs in the same shell environment as Bash. Exit ends the watch (exit code is reported). Timeout \u2192 killed. Set \`persistent: true\` for session-length watches (PR monitoring, log tails) \u2014 the monitor runs until you call TaskStop or the session ends. Use TaskStop to cancel early.`;
+}
+var Jmn = `
 **ws source** \u2014 open a WebSocket and stream each incoming text frame as an event. No shell, no polling: the server pushes, you get notified.
 
   Monitor({
@@ -81,4 +101,4 @@ The script runs in the same shell environment as Bash. Exit ends the watch (exit
 Each text frame becomes one notification (multiline frames stay as one event). Binary frames are reported as \`[binary frame, N bytes]\` rather than passed through. Socket close ends the watch with the close code surfaced; errors are surfaced before close. Same rate limiting as bash \u2014 a firehose will be suppressed and eventually stopped, so subscribe to a filtered feed where one exists.
 
 Prefer this over \`command: 'websocat wss://\u2026'\` \u2014 it avoids the extra process and line-buffering pitfalls. Use bash when you need to transform or filter frames with shell tools before they become events.`;
-export{$d,Xmn,xI,Ymn,Jmn};
+export { $d, Xmn, xI, Ymn, Jmn };

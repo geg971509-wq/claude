@@ -8,5 +8,13 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-var e;function O(){return e===!0}function lcr(t){let n=t===!0;if(e===void 0)return e=n,"pinned";return e===n?"unchanged":"conflict"}
-export{O,lcr};
+var e;
+function O() {
+  return e === !0;
+}
+function lcr(t) {
+  let n = t === !0;
+  if (e === void 0) return (e = n), "pinned";
+  return e === n ? "unchanged" : "conflict";
+}
+export { O, lcr };

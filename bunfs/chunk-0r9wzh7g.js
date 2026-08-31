@@ -8,5 +8,157 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{J,G}from"/$bunfs/root/chunk-f9h0bg01.js";import{le,n}from"/$bunfs/root/chunk-fv016jr6.js";import{a}from"/$bunfs/root/chunk-fec4384a.js";import{p0}from"/$bunfs/root/chunk-psdymar6.js";import{wR}from"/$bunfs/root/chunk-13198prn.js";import{ai}from"/$bunfs/root/chunk-56sxk8k2.js";import{createPrivateKey as _,X509Certificate as y}from"crypto";import{Agent as A}from"https";class L{clientCert=null;clientKey=null;config=ai(()=>D(this));agentCache=null}var abr=new J(()=>new L);function c(){return abr.of(G().host)}var u="-----BEGIN ";function T(e){let t=e.lastIndexOf(u);if(t===-1)return!1;let r=e.indexOf("-----",t+u.length);if(r===-1)return!1;let o=e.slice(t+u.length,r);return e.includes(`-----END ${o}-----`,r)}var uGt=/-----BEGIN CERTIFICATE-----[\s\S]*?-----END CERTIFICATE-----/g;function P(e,t){let r;try{r=_({key:t,...a.CLAUDE_CODE_CLIENT_KEY_PASSPHRASE&&{passphrase:a.CLAUDE_CODE_CLIENT_KEY_PASSPHRASE}})}catch{return!1}let o=!1,i=!1;for(let l of e.match(uGt)??[])try{if(new y(l).checkPrivateKey(r))return!1;o=!0}catch{i=!0}return o&&!i}var m=1048576;function S(e,t){if(!e.isFile()||e.size>m)return n(`mTLS: Ignoring ${t} \u2014 not a regular file or over ${m} bytes`,{level:"error"}),!1;return!0}function E(e,t){try{if(!S(le().statSync(e),t))return null;let r=le().readFileSync(e,{encoding:"utf8"});if(!T(r))return n(`mTLS: Ignoring incomplete ${t} \u2014 no PEM block`,{level:"error"}),null;return n(`mTLS: Loaded ${t}`),{path:e,content:r}}catch(r){return n(`mTLS: Failed to load ${t}: ${r}`,{level:"error"}),null}}async function p(e,t){try{if(!S(await le().stat(e),t))return null;let r=await le().readFile(e,{encoding:"utf8"});if(!T(r))return n(`mTLS: Ignoring incomplete ${t} \u2014 no PEM block`,{level:"error"}),null;return n(`mTLS: Loaded ${t}`),{path:e,content:r}}catch(r){return n(`mTLS: Failed to load ${t}: ${r}`,{level:"error"}),null}}var r4=wR(async()=>{let e=c(),t=a.CLAUDE_CODE_CLIENT_CERT,r=a.CLAUDE_CODE_CLIENT_KEY,[o,i]=await Promise.all([t?p(t,"client certificate from CLAUDE_CODE_CLIENT_CERT"):null,r?p(r,"client key from CLAUDE_CODE_CLIENT_KEY"):null]),l=Boolean(t&&!o||r&&!i),s=Boolean(!l&&o&&i&&P(o.content,i.content));if(s)n("mTLS: Ignoring mismatched client cert/key pair \u2014 mid-rotation read",{level:"error"});let f=l||s,C=t?f?e.clientCert:o:null,g=r?f?e.clientKey:i:null,d=e.clientCert?.path!==C?.path||e.clientCert?.content!==C?.content||e.clientKey?.path!==g?.path||e.clientKey?.content!==g?.content;if(e.clientCert=C,e.clientKey=g,d)h(e);return{changed:d,readFailed:f,mismatched:s}});function zAn(){let e=c();return{certPath:e.clientCert?.path,keyPath:e.clientKey?.path}}function Ew(){return c().config()}function D(e){let t={},r=a.CLAUDE_CODE_CLIENT_CERT;if(r){if(e.clientCert?.path!==r)e.clientCert=E(r,"client certificate from CLAUDE_CODE_CLIENT_CERT")??e.clientCert;if(e.clientCert?.path===r)t.cert=e.clientCert.content}let o=a.CLAUDE_CODE_CLIENT_KEY;if(o){if(e.clientKey?.path!==o)e.clientKey=E(o,"client key from CLAUDE_CODE_CLIENT_KEY")??e.clientKey;if(e.clientKey?.path===o)t.key=e.clientKey.content}let i=a.CLAUDE_CODE_CLIENT_KEY_PASSPHRASE;if(i)t.passphrase=i,n("mTLS: Using client key passphrase");if(Object.keys(t).length===0)return;return t}function VAn(){let e=c(),t=Ew(),r=p0();if(e.agentCache&&e.agentCache.config===t&&e.agentCache.ca===r)return e.agentCache.agent;let o;if(t||r){let i={...t,...r&&{ca:r},keepAlive:!0};n("mTLS: Creating HTTPS agent with custom certificates"),o=new A(i)}return e.agentCache={config:t,ca:r,agent:o},o}function lb(){let e=Ew(),t=p0();if(!e&&!t)return;return{...e,...t&&{ca:t}}}function l1e(){let e=Ew(),t=p0();if(!e&&!t)return{};return{tls:{...e,...t&&{ca:t}}}}function dGt(){h(c())}function h(e){e.config.cache.clear?.(),e.agentCache=null,n("Cleared mTLS configuration cache")}function KAn(){if(!Ew())return;if(a.NODE_EXTRA_CA_CERTS)n("NODE_EXTRA_CA_CERTS detected - Node.js will automatically append to built-in CAs")}
-export{abr,uGt,r4,zAn,Ew,VAn,lb,l1e,dGt,KAn};
+import { J, G } from "/$bunfs/root/chunk-f9h0bg01.js";
+import { le, n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { a } from "/$bunfs/root/chunk-fec4384a.js";
+import { p0 } from "/$bunfs/root/chunk-psdymar6.js";
+import { wR } from "/$bunfs/root/chunk-13198prn.js";
+import { ai } from "/$bunfs/root/chunk-56sxk8k2.js";
+import { createPrivateKey as _, X509Certificate as y } from "crypto";
+import { Agent as A } from "https";
+class L {
+  clientCert = null;
+  clientKey = null;
+  config = ai(() => D(this));
+  agentCache = null;
+}
+var abr = new J(() => new L());
+function c() {
+  return abr.of(G().host);
+}
+var u = "-----BEGIN ";
+function T(e) {
+  let t = e.lastIndexOf(u);
+  if (t === -1) return !1;
+  let r = e.indexOf("-----", t + u.length);
+  if (r === -1) return !1;
+  let o = e.slice(t + u.length, r);
+  return e.includes(`-----END ${o}-----`, r);
+}
+var uGt = /-----BEGIN CERTIFICATE-----[\s\S]*?-----END CERTIFICATE-----/g;
+function P(e, t) {
+  let r;
+  try {
+    r = _({ key: t, ...(a.CLAUDE_CODE_CLIENT_KEY_PASSPHRASE && { passphrase: a.CLAUDE_CODE_CLIENT_KEY_PASSPHRASE }) });
+  } catch {
+    return !1;
+  }
+  let o = !1,
+    i = !1;
+  for (let l of e.match(uGt) ?? [])
+    try {
+      if (new y(l).checkPrivateKey(r)) return !1;
+      o = !0;
+    } catch {
+      i = !0;
+    }
+  return o && !i;
+}
+var m = 1048576;
+function S(e, t) {
+  if (!e.isFile() || e.size > m)
+    return n(`mTLS: Ignoring ${t} \u2014 not a regular file or over ${m} bytes`, { level: "error" }), !1;
+  return !0;
+}
+function E(e, t) {
+  try {
+    if (!S(le().statSync(e), t)) return null;
+    let r = le().readFileSync(e, { encoding: "utf8" });
+    if (!T(r)) return n(`mTLS: Ignoring incomplete ${t} \u2014 no PEM block`, { level: "error" }), null;
+    return n(`mTLS: Loaded ${t}`), { path: e, content: r };
+  } catch (r) {
+    return n(`mTLS: Failed to load ${t}: ${r}`, { level: "error" }), null;
+  }
+}
+async function p(e, t) {
+  try {
+    if (!S(await le().stat(e), t)) return null;
+    let r = await le().readFile(e, { encoding: "utf8" });
+    if (!T(r)) return n(`mTLS: Ignoring incomplete ${t} \u2014 no PEM block`, { level: "error" }), null;
+    return n(`mTLS: Loaded ${t}`), { path: e, content: r };
+  } catch (r) {
+    return n(`mTLS: Failed to load ${t}: ${r}`, { level: "error" }), null;
+  }
+}
+var r4 = wR(async () => {
+  let e = c(),
+    t = a.CLAUDE_CODE_CLIENT_CERT,
+    r = a.CLAUDE_CODE_CLIENT_KEY,
+    [o, i] = await Promise.all([
+      t ? p(t, "client certificate from CLAUDE_CODE_CLIENT_CERT") : null,
+      r ? p(r, "client key from CLAUDE_CODE_CLIENT_KEY") : null,
+    ]),
+    l = Boolean((t && !o) || (r && !i)),
+    s = Boolean(!l && o && i && P(o.content, i.content));
+  if (s) n("mTLS: Ignoring mismatched client cert/key pair \u2014 mid-rotation read", { level: "error" });
+  let f = l || s,
+    C = t ? (f ? e.clientCert : o) : null,
+    g = r ? (f ? e.clientKey : i) : null,
+    d =
+      e.clientCert?.path !== C?.path ||
+      e.clientCert?.content !== C?.content ||
+      e.clientKey?.path !== g?.path ||
+      e.clientKey?.content !== g?.content;
+  if (((e.clientCert = C), (e.clientKey = g), d)) h(e);
+  return { changed: d, readFailed: f, mismatched: s };
+});
+function zAn() {
+  let e = c();
+  return { certPath: e.clientCert?.path, keyPath: e.clientKey?.path };
+}
+function Ew() {
+  return c().config();
+}
+function D(e) {
+  let t = {},
+    r = a.CLAUDE_CODE_CLIENT_CERT;
+  if (r) {
+    if (e.clientCert?.path !== r)
+      e.clientCert = E(r, "client certificate from CLAUDE_CODE_CLIENT_CERT") ?? e.clientCert;
+    if (e.clientCert?.path === r) t.cert = e.clientCert.content;
+  }
+  let o = a.CLAUDE_CODE_CLIENT_KEY;
+  if (o) {
+    if (e.clientKey?.path !== o) e.clientKey = E(o, "client key from CLAUDE_CODE_CLIENT_KEY") ?? e.clientKey;
+    if (e.clientKey?.path === o) t.key = e.clientKey.content;
+  }
+  let i = a.CLAUDE_CODE_CLIENT_KEY_PASSPHRASE;
+  if (i) (t.passphrase = i), n("mTLS: Using client key passphrase");
+  if (Object.keys(t).length === 0) return;
+  return t;
+}
+function VAn() {
+  let e = c(),
+    t = Ew(),
+    r = p0();
+  if (e.agentCache && e.agentCache.config === t && e.agentCache.ca === r) return e.agentCache.agent;
+  let o;
+  if (t || r) {
+    let i = { ...t, ...(r && { ca: r }), keepAlive: !0 };
+    n("mTLS: Creating HTTPS agent with custom certificates"), (o = new A(i));
+  }
+  return (e.agentCache = { config: t, ca: r, agent: o }), o;
+}
+function lb() {
+  let e = Ew(),
+    t = p0();
+  if (!e && !t) return;
+  return { ...e, ...(t && { ca: t }) };
+}
+function l1e() {
+  let e = Ew(),
+    t = p0();
+  if (!e && !t) return {};
+  return { tls: { ...e, ...(t && { ca: t }) } };
+}
+function dGt() {
+  h(c());
+}
+function h(e) {
+  e.config.cache.clear?.(), (e.agentCache = null), n("Cleared mTLS configuration cache");
+}
+function KAn() {
+  if (!Ew()) return;
+  if (a.NODE_EXTRA_CA_CERTS) n("NODE_EXTRA_CA_CERTS detected - Node.js will automatically append to built-in CAs");
+}
+export { abr, uGt, r4, zAn, Ew, VAn, lb, l1e, dGt, KAn };

@@ -8,4 +8,5 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{qen,Gen,zen}from"/$bunfs/root/chunk-50zmgkkj.js";export{Gen as DESCRIPTION,zen as PROMPT,qen as SEARCH_MCP_REGISTRY_TOOL_NAME};
+import { qen, Gen, zen } from "/$bunfs/root/chunk-50zmgkkj.js";
+export { Gen as DESCRIPTION, zen as PROMPT, qen as SEARCH_MCP_REGISTRY_TOOL_NAME };

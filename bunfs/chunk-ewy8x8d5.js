@@ -8,5 +8,25 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-function No(i,s){let e=0,n=[];function o(){if(e<i)return e++,Promise.resolve();return new Promise((r)=>n.push(r))}function t(){let r=n.shift();if(r)r();else e--}return async(...r)=>{await o();try{return await s(...r)}finally{t()}}}
-export{No};
+function No(i, s) {
+  let e = 0,
+    n = [];
+  function o() {
+    if (e < i) return e++, Promise.resolve();
+    return new Promise((r) => n.push(r));
+  }
+  function t() {
+    let r = n.shift();
+    if (r) r();
+    else e--;
+  }
+  return async (...r) => {
+    await o();
+    try {
+      return await s(...r);
+    } finally {
+      t();
+    }
+  };
+}
+export { No };

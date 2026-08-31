@@ -8,5 +8,8 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-var Wg="memory_list",ed="memory_read",La="memory_write",IQn=["memory_list","memory_read","memory_write"];
-export{Wg,ed,La,IQn};
+var Wg = "memory_list",
+  ed = "memory_read",
+  La = "memory_write",
+  IQn = ["memory_list", "memory_read", "memory_write"];
+export { Wg, ed, La, IQn };

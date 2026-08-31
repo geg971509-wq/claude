@@ -8,5 +8,54 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{OH}from"/$bunfs/root/chunk-8tgj5dp2.js";import{m}from"/$bunfs/root/chunk-bzx56g36.js";import{v,f}from"/$bunfs/root/chunk-saay52v7.js";var t={poll_interval_ms_not_at_capacity:2000,poll_interval_ms_at_capacity:600000,non_exclusive_heartbeat_interval_ms:0,multisession_poll_interval_ms_not_at_capacity:2000,multisession_poll_interval_ms_partial_capacity:2000,multisession_poll_interval_ms_at_capacity:600000,reclaim_older_than_ms:5000,session_keepalive_interval_v2_ms:120000};var a={message:"must be 0 (disabled) or \u2265100ms"},l=m(()=>f({poll_interval_ms_not_at_capacity:v().int().min(100),poll_interval_ms_at_capacity:v().int().refine((_)=>_===0||_>=100,a),non_exclusive_heartbeat_interval_ms:v().int().min(0).default(0),multisession_poll_interval_ms_not_at_capacity:v().int().min(100).default(t.multisession_poll_interval_ms_not_at_capacity),multisession_poll_interval_ms_partial_capacity:v().int().min(100).default(t.multisession_poll_interval_ms_partial_capacity),multisession_poll_interval_ms_at_capacity:v().int().refine((_)=>_===0||_>=100,a).default(t.multisession_poll_interval_ms_at_capacity),reclaim_older_than_ms:v().int().min(1).default(5000),session_keepalive_interval_v2_ms:v().int().min(0).default(120000)}).refine((_)=>_.non_exclusive_heartbeat_interval_ms>0||_.poll_interval_ms_at_capacity>0,{message:"at-capacity liveness requires non_exclusive_heartbeat_interval_ms > 0 or poll_interval_ms_at_capacity > 0"}).refine((_)=>_.non_exclusive_heartbeat_interval_ms>0||_.multisession_poll_interval_ms_at_capacity>0,{message:"at-capacity liveness requires non_exclusive_heartbeat_interval_ms > 0 or multisession_poll_interval_ms_at_capacity > 0"}));function mse(){let _=OH("tengu_bridge_poll_interval_config",t,300000),e=l().safeParse(_);return e.success?e.data:t}
-export{mse};
+import { OH } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { m } from "/$bunfs/root/chunk-bzx56g36.js";
+import { v, f } from "/$bunfs/root/chunk-saay52v7.js";
+var t = {
+  poll_interval_ms_not_at_capacity: 2000,
+  poll_interval_ms_at_capacity: 600000,
+  non_exclusive_heartbeat_interval_ms: 0,
+  multisession_poll_interval_ms_not_at_capacity: 2000,
+  multisession_poll_interval_ms_partial_capacity: 2000,
+  multisession_poll_interval_ms_at_capacity: 600000,
+  reclaim_older_than_ms: 5000,
+  session_keepalive_interval_v2_ms: 120000,
+};
+var a = { message: "must be 0 (disabled) or \u2265100ms" },
+  l = m(() =>
+    f({
+      poll_interval_ms_not_at_capacity: v().int().min(100),
+      poll_interval_ms_at_capacity: v()
+        .int()
+        .refine((_) => _ === 0 || _ >= 100, a),
+      non_exclusive_heartbeat_interval_ms: v().int().min(0).default(0),
+      multisession_poll_interval_ms_not_at_capacity: v()
+        .int()
+        .min(100)
+        .default(t.multisession_poll_interval_ms_not_at_capacity),
+      multisession_poll_interval_ms_partial_capacity: v()
+        .int()
+        .min(100)
+        .default(t.multisession_poll_interval_ms_partial_capacity),
+      multisession_poll_interval_ms_at_capacity: v()
+        .int()
+        .refine((_) => _ === 0 || _ >= 100, a)
+        .default(t.multisession_poll_interval_ms_at_capacity),
+      reclaim_older_than_ms: v().int().min(1).default(5000),
+      session_keepalive_interval_v2_ms: v().int().min(0).default(120000),
+    })
+      .refine((_) => _.non_exclusive_heartbeat_interval_ms > 0 || _.poll_interval_ms_at_capacity > 0, {
+        message:
+          "at-capacity liveness requires non_exclusive_heartbeat_interval_ms > 0 or poll_interval_ms_at_capacity > 0",
+      })
+      .refine((_) => _.non_exclusive_heartbeat_interval_ms > 0 || _.multisession_poll_interval_ms_at_capacity > 0, {
+        message:
+          "at-capacity liveness requires non_exclusive_heartbeat_interval_ms > 0 or multisession_poll_interval_ms_at_capacity > 0",
+      }),
+  );
+function mse() {
+  let _ = OH("tengu_bridge_poll_interval_config", t, 300000),
+    e = l().safeParse(_);
+  return e.success ? e.data : t;
+}
+export { mse };

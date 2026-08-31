@@ -8,5 +8,14 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{MHn,NHn}from"/$bunfs/root/chunk-f9h0bg01.js";import{ye}from"/$bunfs/root/chunk-988p40e0.js";function Htt(){NHn(structuredClone(ye("policySettings")))}function $Ue(){let t=MHn();if(t===void 0)return!0;return!Bun.deepEquals(t,ye("policySettings"))}
-export{Htt,$Ue};
+import { MHn, NHn } from "/$bunfs/root/chunk-f9h0bg01.js";
+import { ye } from "/$bunfs/root/chunk-988p40e0.js";
+function Htt() {
+  NHn(structuredClone(ye("policySettings")));
+}
+function $Ue() {
+  let t = MHn();
+  if (t === void 0) return !0;
+  return !Bun.deepEquals(t, ye("policySettings"));
+}
+export { Htt, $Ue };

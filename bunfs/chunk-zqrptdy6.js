@@ -8,5 +8,107 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Ht}from"/$bunfs/root/chunk-ypdw393e.js";import{readdir as p}from"fs/promises";import{homedir as h}from"os";import{join as n}from"path";var Ix="https://claude.ai/chrome",u="fcoeoabgfenejglbffodgkkbkcdhcgfn";function w(){return[u]}var f=["chrome","brave","arc","edge","chromium","vivaldi","opera"],d={chrome:{macos:["Library","Application Support","Google","Chrome"],linux:[".config","google-chrome"],windows:{path:["Google","Chrome","User Data"]}},brave:{macos:["Library","Application Support","BraveSoftware","Brave-Browser"],linux:[".config","BraveSoftware","Brave-Browser"],windows:{path:["BraveSoftware","Brave-Browser","User Data"]}},arc:{macos:["Library","Application Support","Arc","User Data"],linux:[],windows:{path:["Arc","User Data"]}},chromium:{macos:["Library","Application Support","Chromium"],linux:[".config","chromium"],windows:{path:["Chromium","User Data"]}},edge:{macos:["Library","Application Support","Microsoft Edge"],linux:[".config","microsoft-edge"],windows:{path:["Microsoft","Edge","User Data"]}},vivaldi:{macos:["Library","Application Support","Vivaldi"],linux:[".config","vivaldi"],windows:{path:["Vivaldi","User Data"]}},opera:{macos:["Library","Application Support","com.operasoftware.Opera"],linux:[".config","opera"],windows:{path:["Opera Software","Opera Stable"],useRoaming:!0}}};function U6n(){let t=h(),r=[];for(let i of f){let e=d[i],a;switch("darwin"){case"darwin":a=e.macos;break;case"linux":a=e.linux;break;case"win32":{if(e.windows.path.length>0){let s=e.windows.useRoaming?n(t,"AppData","Roaming"):n(t,"AppData","Local");r.push({browser:i,path:n(s,...e.windows.path)})}continue}}if(a&&a.length>0)r.push({browser:i,path:n(t,...a)})}return r}async function g(t,r){if(t.length===0)return r?.("[Claude in Chrome] No browser paths to check"),{isInstalled:!1,browser:null};let i=w();for(let{browser:e,path:a}of t){let s=[];try{s=await p(a,{withFileTypes:!0})}catch(o){if(Ht(o))continue;throw o}let c=s.filter((o)=>o.isDirectory()).filter((o)=>o.name==="Default"||o.name.startsWith("Profile ")).map((o)=>o.name);if(c.length>0)r?.(`[Claude in Chrome] Found ${e} profiles: ${c.join(", ")}`);for(let o of c)for(let l of i){let m=n(a,o,"Extensions",l);try{return await p(m),r?.(`[Claude in Chrome] Extension ${l} found in ${e} ${o}`),{isInstalled:!0,browser:e}}catch{}}}return r?.("[Claude in Chrome] Extension not found in any browser"),{isInstalled:!1,browser:null}}async function B6n(t,r){return(await g(t,r)).isInstalled}
-export{Ix,U6n,B6n};
+import { Ht } from "/$bunfs/root/chunk-ypdw393e.js";
+import { readdir as p } from "fs/promises";
+import { homedir as h } from "os";
+import { join as n } from "path";
+var Ix = "https://claude.ai/chrome",
+  u = "fcoeoabgfenejglbffodgkkbkcdhcgfn";
+function w() {
+  return [u];
+}
+var f = ["chrome", "brave", "arc", "edge", "chromium", "vivaldi", "opera"],
+  d = {
+    chrome: {
+      macos: ["Library", "Application Support", "Google", "Chrome"],
+      linux: [".config", "google-chrome"],
+      windows: { path: ["Google", "Chrome", "User Data"] },
+    },
+    brave: {
+      macos: ["Library", "Application Support", "BraveSoftware", "Brave-Browser"],
+      linux: [".config", "BraveSoftware", "Brave-Browser"],
+      windows: { path: ["BraveSoftware", "Brave-Browser", "User Data"] },
+    },
+    arc: {
+      macos: ["Library", "Application Support", "Arc", "User Data"],
+      linux: [],
+      windows: { path: ["Arc", "User Data"] },
+    },
+    chromium: {
+      macos: ["Library", "Application Support", "Chromium"],
+      linux: [".config", "chromium"],
+      windows: { path: ["Chromium", "User Data"] },
+    },
+    edge: {
+      macos: ["Library", "Application Support", "Microsoft Edge"],
+      linux: [".config", "microsoft-edge"],
+      windows: { path: ["Microsoft", "Edge", "User Data"] },
+    },
+    vivaldi: {
+      macos: ["Library", "Application Support", "Vivaldi"],
+      linux: [".config", "vivaldi"],
+      windows: { path: ["Vivaldi", "User Data"] },
+    },
+    opera: {
+      macos: ["Library", "Application Support", "com.operasoftware.Opera"],
+      linux: [".config", "opera"],
+      windows: { path: ["Opera Software", "Opera Stable"], useRoaming: !0 },
+    },
+  };
+function U6n() {
+  let t = h(),
+    r = [];
+  for (let i of f) {
+    let e = d[i],
+      a;
+    switch ("darwin") {
+      case "darwin":
+        a = e.macos;
+        break;
+      case "linux":
+        a = e.linux;
+        break;
+      case "win32": {
+        if (e.windows.path.length > 0) {
+          let s = e.windows.useRoaming ? n(t, "AppData", "Roaming") : n(t, "AppData", "Local");
+          r.push({ browser: i, path: n(s, ...e.windows.path) });
+        }
+        continue;
+      }
+    }
+    if (a && a.length > 0) r.push({ browser: i, path: n(t, ...a) });
+  }
+  return r;
+}
+async function g(t, r) {
+  if (t.length === 0) return r?.("[Claude in Chrome] No browser paths to check"), { isInstalled: !1, browser: null };
+  let i = w();
+  for (let { browser: e, path: a } of t) {
+    let s = [];
+    try {
+      s = await p(a, { withFileTypes: !0 });
+    } catch (o) {
+      if (Ht(o)) continue;
+      throw o;
+    }
+    let c = s
+      .filter((o) => o.isDirectory())
+      .filter((o) => o.name === "Default" || o.name.startsWith("Profile "))
+      .map((o) => o.name);
+    if (c.length > 0) r?.(`[Claude in Chrome] Found ${e} profiles: ${c.join(", ")}`);
+    for (let o of c)
+      for (let l of i) {
+        let m = n(a, o, "Extensions", l);
+        try {
+          return (
+            await p(m), r?.(`[Claude in Chrome] Extension ${l} found in ${e} ${o}`), { isInstalled: !0, browser: e }
+          );
+        } catch {}
+      }
+  }
+  return r?.("[Claude in Chrome] Extension not found in any browser"), { isInstalled: !1, browser: null };
+}
+async function B6n(t, r) {
+  return (await g(t, r)).isInstalled;
+}
+export { Ix, U6n, B6n };

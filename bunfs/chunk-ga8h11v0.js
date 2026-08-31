@@ -8,5 +8,78 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{DQe,AHn,CHn,vHn,kHn,HHn,jHn}from"/$bunfs/root/chunk-f9h0bg01.js";import{xj}from"/$bunfs/root/chunk-gcks6mn0.js";import{l,E,X,z4}from"/$bunfs/root/chunk-ypdw393e.js";import{Qo,le,n}from"/$bunfs/root/chunk-fv016jr6.js";import{Tn}from"/$bunfs/root/chunk-n71q9jb8.js";import{Ut}from"/$bunfs/root/chunk-ntyhd04p.js";import{Mr}from"/$bunfs/root/chunk-8qsdea2c.js";import{Wi}from"/$bunfs/root/chunk-rsp0anqd.js";import{pY}from"/$bunfs/root/chunk-bp3j8sq3.js";import{Hc}from"/$bunfs/root/chunk-6k63g5t6.js";import{Eor,sb}from"/$bunfs/root/chunk-0spqrdaj.js";import{Y4t,dR}from"/$bunfs/root/chunk-q3yd61z9.js";import{Boe,SR}from"/$bunfs/root/chunk-052zvbpg.js";function wcr(e){try{let t=e.trim(),a=t.startsWith("{")&&t.endsWith("}"),s;if(a){let r=Ut(t);if(!r)return Tn("Error: Invalid JSON provided to --settings");let i=JSON.stringify(r).replace(/[\u007f-\u009f]/g,(o)=>"\\u"+o.charCodeAt(0).toString(16).toUpperCase().padStart(4,"0"));s=pY("claude-settings",".json",{contentHash:i}),CHn(i)}else{let{resolvedPath:r}=Qo(le(),e),i;try{i=SR(r,sb)}catch(o){if(X(o))return Tn(`Error: Settings file not found: ${r}`);if(E(o)==="ERR_FILE_TOO_LARGE")return Tn(`Error: Settings file exceeds the ${sb/1048576}MiB limit: ${r}`);if(Boe(o)||z4(o))return Tn(`Error: Cannot use settings file (${l(o)}): ${r}`);throw o}s=r,vHn(i)}AHn(s),Hc()}catch(t){if(t instanceof Error)n(`Error processing --settings: ${l(t)}`,{level:"error"});return Tn(`Error processing settings: ${l(t)}`)}}function c(e){let t=Ut(e.trim(),!1);if(!t||typeof t!=="object"||Array.isArray(t)){n("--managed-settings ignored: invalid JSON object",{level:"warn"}),HHn(!0);return}kHn(t),Hc()}function g(e){try{let t=Eor(e);jHn(t),Hc()}catch(t){if(t instanceof Error)n(`Invalid --setting-sources flag: ${l(t)}`,{level:"error"});return Tn(`Error processing --setting-sources: ${l(t)}`)}}function G5t(){let e=performance.now();Mr("eagerLoadSettings_start");let t=Y4t("--settings");if(t)wcr(t);let a=Y4t("--managed-settings");if(a)c(a);let s=Y4t("--setting-sources");if(s!==void 0)g(s);if(dR("--restricted")||xj())g(""),DQe(!0);Mr("eagerLoadSettings_end"),Wi("settings_load_ms",performance.now()-e,e)}
-export{wcr,G5t};
+import { DQe, AHn, CHn, vHn, kHn, HHn, jHn } from "/$bunfs/root/chunk-f9h0bg01.js";
+import { xj } from "/$bunfs/root/chunk-gcks6mn0.js";
+import { l, E, X, z4 } from "/$bunfs/root/chunk-ypdw393e.js";
+import { Qo, le, n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { Tn } from "/$bunfs/root/chunk-n71q9jb8.js";
+import { Ut } from "/$bunfs/root/chunk-ntyhd04p.js";
+import { Mr } from "/$bunfs/root/chunk-8qsdea2c.js";
+import { Wi } from "/$bunfs/root/chunk-rsp0anqd.js";
+import { pY } from "/$bunfs/root/chunk-bp3j8sq3.js";
+import { Hc } from "/$bunfs/root/chunk-6k63g5t6.js";
+import { Eor, sb } from "/$bunfs/root/chunk-0spqrdaj.js";
+import { Y4t, dR } from "/$bunfs/root/chunk-q3yd61z9.js";
+import { Boe, SR } from "/$bunfs/root/chunk-052zvbpg.js";
+function wcr(e) {
+  try {
+    let t = e.trim(),
+      a = t.startsWith("{") && t.endsWith("}"),
+      s;
+    if (a) {
+      let r = Ut(t);
+      if (!r) return Tn("Error: Invalid JSON provided to --settings");
+      let i = JSON.stringify(r).replace(
+        /[\u007f-\u009f]/g,
+        (o) => "\\u" + o.charCodeAt(0).toString(16).toUpperCase().padStart(4, "0"),
+      );
+      (s = pY("claude-settings", ".json", { contentHash: i })), CHn(i);
+    } else {
+      let { resolvedPath: r } = Qo(le(), e),
+        i;
+      try {
+        i = SR(r, sb);
+      } catch (o) {
+        if (X(o)) return Tn(`Error: Settings file not found: ${r}`);
+        if (E(o) === "ERR_FILE_TOO_LARGE") return Tn(`Error: Settings file exceeds the ${sb / 1048576}MiB limit: ${r}`);
+        if (Boe(o) || z4(o)) return Tn(`Error: Cannot use settings file (${l(o)}): ${r}`);
+        throw o;
+      }
+      (s = r), vHn(i);
+    }
+    AHn(s), Hc();
+  } catch (t) {
+    if (t instanceof Error) n(`Error processing --settings: ${l(t)}`, { level: "error" });
+    return Tn(`Error processing settings: ${l(t)}`);
+  }
+}
+function c(e) {
+  let t = Ut(e.trim(), !1);
+  if (!t || typeof t !== "object" || Array.isArray(t)) {
+    n("--managed-settings ignored: invalid JSON object", { level: "warn" }), HHn(!0);
+    return;
+  }
+  kHn(t), Hc();
+}
+function g(e) {
+  try {
+    let t = Eor(e);
+    jHn(t), Hc();
+  } catch (t) {
+    if (t instanceof Error) n(`Invalid --setting-sources flag: ${l(t)}`, { level: "error" });
+    return Tn(`Error processing --setting-sources: ${l(t)}`);
+  }
+}
+function G5t() {
+  let e = performance.now();
+  Mr("eagerLoadSettings_start");
+  let t = Y4t("--settings");
+  if (t) wcr(t);
+  let a = Y4t("--managed-settings");
+  if (a) c(a);
+  let s = Y4t("--setting-sources");
+  if (s !== void 0) g(s);
+  if (dR("--restricted") || xj()) g(""), DQe(!0);
+  Mr("eagerLoadSettings_end"), Wi("settings_load_ms", performance.now() - e, e);
+}
+export { wcr, G5t };

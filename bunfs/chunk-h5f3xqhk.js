@@ -8,9 +8,3095 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Se}from"/$bunfs/root/chunk-f9h0bg01.js";import{Me,Ue}from"/$bunfs/root/chunk-qq1mdtb5.js";import{s}from"/$bunfs/root/chunk-r53tkxrh.js";import{w,c}from"/$bunfs/root/chunk-4xj01xwv.js";import{ft,we,l,X}from"/$bunfs/root/chunk-ypdw393e.js";import{V,n}from"/$bunfs/root/chunk-fv016jr6.js";import{Dr,_f}from"/$bunfs/root/chunk-gcks6mn0.js";import{Wf,k,St,Ku,ux}from"/$bunfs/root/chunk-4ddxwr9r.js";import{h,Z}from"/$bunfs/root/chunk-wkxx62a2.js";import{m}from"/$bunfs/root/chunk-bzx56g36.js";import{_}from"/$bunfs/root/chunk-haan6f8z.js";import{M}from"/$bunfs/root/chunk-y2r26k83.js";import{mn}from"/$bunfs/root/chunk-htrft0p0.js";import{ge}from"/$bunfs/root/chunk-c3bffkxg.js";import{at,Ye,Pf,Vn,bt,kH,Jde,hm,Yt,I,Ae,ie,W3}from"/$bunfs/root/chunk-8tgj5dp2.js";import{y,p,g}from"/$bunfs/root/chunk-ca80fke8.js";import{Oo,Of,DXe,Yor,Fp,id,Ope,OXe,MXe,NXe}from"/$bunfs/root/chunk-6k63g5t6.js";import{Fo}from"/$bunfs/root/chunk-q14dgq5g.js";import{ul,rt,g0,Sy}from"/$bunfs/root/chunk-2rx5nghb.js";import{ui}from"/$bunfs/root/chunk-ntyhd04p.js";import{ye,En,rn,Os}from"/$bunfs/root/chunk-988p40e0.js";import{hN,yw,xi,UH}from"/$bunfs/root/chunk-0spqrdaj.js";import{An}from"/$bunfs/root/chunk-5rt2mvvk.js";import{qH,mR}from"/$bunfs/root/chunk-1yr12dqr.js";import{aYe,Zl,Qt,gR,c5,cYe,Wm}from"/$bunfs/root/chunk-z2bvp3sv.js";import{Zo}from"/$bunfs/root/chunk-keb644xg.js";import{o,t,ut}from"/$bunfs/root/chunk-he2phymk.js";import{Ba}from"/$bunfs/root/chunk-syabrr2b.js";import{xt}from"/$bunfs/root/chunk-8cv6dqkz.js";import{fe}from"/$bunfs/root/chunk-rycvm63e.js";import{Cp}from"/$bunfs/root/chunk-ngn87vcm.js";import{tt}from"/$bunfs/root/chunk-s8gya298.js";import{Ua,Ui}from"/$bunfs/root/chunk-8ktvd0rh.js";import{Ee}from"/$bunfs/root/chunk-rp246vnd.js";import{Be,ht}from"/$bunfs/root/chunk-ek4tmwbt.js";import{Pg,Zi}from"/$bunfs/root/chunk-s0p5v53p.js";import{Hi}from"/$bunfs/root/chunk-tmxtk606.js";import{Xe}from"/$bunfs/root/chunk-gtwaztzc.js";import{W,At,Xn}from"/$bunfs/root/chunk-ht28m404.js";import{dc,gyt,mQn,fde,jne,jh,YF,bWt}from"/$bunfs/root/chunk-5n1tbe50.js";import{ei}from"/$bunfs/root/chunk-p1awcxk1.js";import{PL,aye,sct,act,Xw,lct,hv,lye,Mxe,cNt,Nb,jxe,gWn,SWn,DB,Hct,a3e,Ho,Gx,Q1,$L,JNt,QNt,oIe,iIe,tT,Kct,PG,Q8,Qu,Qln,OSe,lF,c9,Tqe,MGn,Tpt,NGn,dk,Eqe,zl,cc,jb,F7,MSe,Hv,ED,UGn,nm,Cqe,tH,_Pe,yPe,Dh,As,eI,yi}from"/$bunfs/root/chunk-zze8764r.js";import{JE,bH,wH}from"/$bunfs/root/chunk-z15hpjf9.js";import{ag,zDe,rC,Vze,Ys}from"/$bunfs/root/chunk-fctnm902.js";import{Fd,FS,hM,G2t,tVe,nVe}from"/$bunfs/root/chunk-e53y7x75.js";import{Fc}from"/$bunfs/root/chunk-tveh0k24.js";import{Lu}from"/$bunfs/root/chunk-308krgtb.js";import{Nm,nu,um,uc,BF,Ggn,MI,Vt,Zz,Ud,Vy,fp,NI,Pp}from"/$bunfs/root/chunk-x06p1jhb.js";import{mo}from"/$bunfs/root/chunk-4sw5yxwb.js";import{m1,R2e}from"/$bunfs/root/chunk-9pc6y6sc.js";import{wo}from"/$bunfs/root/chunk-hyj9nfhh.js";import{xn}from"/$bunfs/root/chunk-hb6grkjg.js";import{np,Hd}from"/$bunfs/root/chunk-dxft4b6s.js";import{x0t,PK,AMn,_nt,oke,D0t,bXt,wXt,O0t,LR,$Be,UBe,BBe,ike}from"/$bunfs/root/chunk-22a61hj3.js";import{fo,me}from"/$bunfs/root/chunk-489c3cyq.js";import{lL}from"/$bunfs/root/chunk-zm8pm0zg.js";import{vMn,rse,ske,WBe,RMn,GBe,ake,L0t,bq,lke,cke,hge,uke}from"/$bunfs/root/chunk-0zt38pp0.js";import{Ivt,Pvt}from"/$bunfs/root/chunk-87pfeb5g.js";import{fl,Ce}from"/$bunfs/root/chunk-1y0jc48h.js";import{yMn}from"/$bunfs/root/chunk-eqtc822h.js";import{ct}from"/$bunfs/root/chunk-pc41wsq4.js";import{kh,CW}from"/$bunfs/root/chunk-z3cfs4t3.js";import{Yj,cL,uL}from"/$bunfs/root/chunk-6kcz1xy0.js";import{Uie,TK}from"/$bunfs/root/chunk-2chz50s1.js";import{zs}from"/$bunfs/root/chunk-kxb2efvp.js";import{Bme,pOn,fOn}from"/$bunfs/root/chunk-0bedrwtf.js";import{j0t}from"/$bunfs/root/chunk-8h8rnma9.js";import{dse}from"/$bunfs/root/chunk-ph2x1s8t.js";import{O2e}from"/$bunfs/root/chunk-brkpapaa.js";import{L8t,ZRt}from"/$bunfs/root/chunk-s1p87x4q.js";import{yf}from"/$bunfs/root/chunk-b47sd14d.js";import{DR}from"/$bunfs/root/chunk-ebn06b52.js";import{GRe}from"/$bunfs/root/chunk-66by9x77.js";import{Ig}from"/$bunfs/root/chunk-v0p4561j.js";import{xr}from"/$bunfs/root/chunk-r9qj0qxk.js";import{Dc}from"/$bunfs/root/chunk-1ckq10h3.js";import{sr}from"/$bunfs/root/chunk-vnpdqx6v.js";import{Br}from"/$bunfs/root/chunk-2ffqgskx.js";import{rr}from"/$bunfs/root/chunk-0nfwsvfd.js";import{W0t,q0t,Ant,RQ}from"/$bunfs/root/chunk-9aea0rng.js";import{D0,NQ}from"/$bunfs/root/chunk-gce2rjvv.js";import{sB,Bke}from"/$bunfs/root/chunk-6xk0dqvt.js";import{RNn,kNn}from"/$bunfs/root/chunk-zr7ta3a4.js";import{h1,ov,D2e,$Q,irt}from"/$bunfs/root/chunk-bhaprsyw.js";import{Ase,DNn}from"/$bunfs/root/chunk-800kqn71.js";import{BQ,_1,drt}from"/$bunfs/root/chunk-k617fh7k.js";import{Rx}from"/$bunfs/root/chunk-wejc4mjk.js";import{L1}from"/$bunfs/root/chunk-c59q3nnv.js";import{lr}from"/$bunfs/root/chunk-wah81w99.js";import{zc}from"/$bunfs/root/chunk-ktmq03vw.js";import{ze}from"/$bunfs/root/chunk-4kafv9jq.js";import{U,e,r}from"/$bunfs/root/chunk-8s7kcbyw.js";import{mt}from"/$bunfs/root/chunk-d5bnjcbw.js";import{Lb,Jn,yn,z_,zn,B,We,A,br,z,C,u,F}from"/$bunfs/root/chunk-twm95mhz.js";import{Lr}from"/$bunfs/root/chunk-31xy83wr.js";import{Sk}from"/$bunfs/root/chunk-6nsyrmhg.js";import{Rr,Da,fI,Kb}from"/$bunfs/root/chunk-y9akj3mq.js";import{L}from"/$bunfs/root/chunk-v4qqyykc.js";import{pV,Ra,Uk}from"/$bunfs/root/chunk-1emzhzm3.js";import{Qn}from"/$bunfs/root/chunk-9319g175.js";import{i,q,f}from"/$bunfs/root/chunk-saay52v7.js";import{D}from"/$bunfs/root/chunk-7s7jqj2f.js";import{O}from"/$bunfs/root/chunk-dqkj2bph.js";import{Q,te}from"/$bunfs/root/chunk-wag5ye9w.js";import{d,fn}from"/$bunfs/root/chunk-yz031c9r.js";F();async function Su(a,b,S,x){let v=await xg(a,b,S,x);if(s("tengu_plugin_install_auto_activate",{activated:v===null,...v!==null&&{reason:c(v)}}),v===null)y("plugin_install_auto_activate");else if(v==="cache_impact")g("plugin_install_auto_activate","cache_impact");else p("plugin_install_auto_activate",v);if(v===null)return"activated";if(v==="plugin_load_error")return"load-failed";return b((R)=>R.plugins.needsRefresh?R:{...R,plugins:{...R.plugins,needsRefresh:!0}}),"reload-required"}async function xg(a,b,S,x){let v=S;try{if((await NQ(a())).wouldInvalidateCache)return"cache_impact";let j=await D0(b,x),K=await sB(j.errors,x);if(K.installed.length>0){if((await NQ(a())).wouldInvalidateCache)return"cache_impact";j=await D0(b,x),v=[...v,...K.installed]}if(j.error_count>j.errors.length)return"refresh_failed";if(j.errors.some((T)=>Sg(T,v)))return"plugin_load_error";return null}catch(R){return h(R),n(`activatePluginsAfterInstall: falling back to needsRefresh: ${l(R)}`,{level:"error"}),"refresh_failed"}}function Sg(a,b){if("orphan"in a&&a.orphan)return!1;if(fde(a)===void 0)return!1;let S="pluginId"in a&&a.pluginId?a.pluginId:("plugin"in a)&&a.plugin?a.plugin:void 0,x=S!==void 0&&S.includes("@")?S:a.source.includes("@")?a.source:S??a.source;return x.includes("@")?b.includes(x):b.some((v)=>St(v,"@")===x)}F();function vu({inputValue:a,setInputValue:b,cursorOffset:S,setCursorOffset:x,error:v,setError:R,result:j,setResult:K,setViewState:T,onAddComplete:N,cliMode:H=!1}){let{storageV5:G,credentials:E}=ge(),J=C(!1),[pe,ue]=u(!1),[Pe,_e]=u(""),be=async()=>{let ve=a.trim();if(!ve){R("Please enter a marketplace source");return}let Je=await _nt(ve);if(!Je){R("Invalid marketplace source format. Try: owner/repo, https://..., or ./path");return}if("error"in Je){R(Je.error);return}R(null);try{ue(!0),_e("");let{name:st,resolvedSource:Tt}=await F7(Je,(xe)=>{_e(xe)},G),{error:it}=await Eqe(st,{source:Tt},"userSettings",G);if(it)throw it;Qu(G,E),s("tengu_marketplace_added",{_PROTO_marketplace_name:st,source_type:c(Je.source),repo_hash:Je.source==="github"?Vn(Je.repo):void 0,is_official_marketplace:Pp(st)});let re=[];try{re=(await sB((await Dh(G,E)).errors,G)).installed}catch(xe){n(`marketplace add: dep auto-resolve skipped: ${l(xe)}`,{level:"warn"})}if(re.length>0)Qu(G,E);if(await N(),_e(""),ue(!1),H)K(`Successfully added marketplace: ${st}${DB(re)}`);else T({type:"browse-marketplace",targetMarketplace:st})}catch(st){let Tt=we(st);if(n(`marketplace add failed: ${l(Tt)}`,{level:"error"}),R(Tt.message),_e(""),ue(!1),H)K(`Error: ${Tt.message}`);else K(null)}};return A(()=>{if(a&&!J.current&&!v&&!j)J.current=!0,be()},[]),r(o,{flexDirection:"column",children:[r(o,{flexDirection:"column",paddingX:1,borderStyle:"round",children:[e(o,{marginBottom:1,children:e(t,{bold:!0,children:"Add Marketplace"})}),r(o,{flexDirection:"column",children:[e(t,{children:"Enter marketplace source:"}),e(t,{dimColor:!0,children:"Examples:"}),e(t,{dimColor:!0,children:" \xB7 owner/repo (GitHub)"}),e(t,{dimColor:!0,children:" \xB7 git@github.com:owner/repo.git (SSH)"}),e(t,{dimColor:!0,children:" \xB7 https://example.com/marketplace.json"}),e(t,{dimColor:!0,children:" \xB7 ./path/to/marketplace"}),e(o,{marginTop:1,children:e(xn,{value:a,onChange:b,onSubmit:be,columns:80,cursorOffset:S,onChangeCursorOffset:x,focus:!0,showCursor:!0})})]}),pe&&r(o,{marginTop:1,children:[e(wo,{}),e(t,{children:Oo(Pe)||"Adding marketplace to configuration\u2026"})]}),v&&e(o,{marginTop:1,children:e(Br,{error:Of(v)})}),j&&e(o,{marginTop:1,children:e(t,{children:Of(j)})})]}),e(o,{marginLeft:3,children:e(t,{dimColor:!0,italic:!0,children:r(fe,{children:[e(M,{chord:"enter",action:"add"}),e(ze,{action:"confirm:no",context:"Settings",fallback:"Esc",description:"cancel"})]})})})]})}F();F();F();function Eu(a,b,S,x){let v={};for(let R of a){let j=S[R],T=((b[R]??"").split(/\r\n|\r|\n/,1)[0]??"").trim();if(T===""){if(j?.sensitive===!0&&x?.[R]!==void 0)continue;if(j?.type==="number")continue;if(j?.required!==!0&&x?.[R]===void 0)continue}if(j?.type==="number"){let N=Number(T);v[R]=Number.isNaN(N)?T:N}else if(j?.type==="boolean")v[R]=Me(T);else v[R]=T}return v}function ki(Xx){let Yi=_(24),{title:wu,subtitle:Cu,configSchema:io,initialValues:Lo,onSave:Pu,onCancel:Tu}=Xx,vg;if(Yi[0]!==io)vg=Object.keys(io),Yi[0]=io,Yi[1]=vg;else vg=Yi[1];let So=vg,wg;if(Yi[2]!==io||Yi[3]!==So||Yi[4]!==Lo)wg=()=>{let Cg={};for(const Iu of So){let Tg=io[Iu]?.sensitive===!0?void 0:Lo?.[Iu];Cg[Iu]=Tg===void 0?"":String(Tg)}return Cg},Yi[2]=io,Yi[3]=So,Yi[4]=Lo,Yi[5]=wg;else wg=Yi[5];let[Ji,Zx]=u(wg),Rg;if(Yi[6]!==io||Yi[7]!==So||Yi[8]!==Lo)Rg=So.map((nl)=>{let ol=io[nl];let Eg=ol?.sensitive===!0;let Mg=Eg&&Lo?.[nl]!==void 0;return{type:"text",key:nl,label:ol?.title||nl,required:ol?.required===!0&&!Mg,mask:Eg?"*":void 0,placeholder:Mg?"(unchanged)":void 0,hint:()=>ol?.description}}),Yi[6]=io,Yi[7]=So,Yi[8]=Lo,Yi[9]=Rg;else Rg=Yi[9];let Ru=Rg;if(So.length===0){return null}let $g;if(Yi[10]===d)$g=(eS,tS)=>Zx((nS)=>({...nS,[eS]:tS})),Yi[10]=$g;else $g=Yi[10];let il;if(Yi[11]!==io||Yi[12]!==So||Yi[13]!==Lo||Yi[14]!==Pu||Yi[15]!==Ji)il=()=>Pu(Eu(So,Ji,io,Lo)),Yi[11]=io,Yi[12]=So,Yi[13]=Lo,Yi[14]=Pu,Yi[15]=Ji,Yi[16]=il;else il=Yi[16];let Dg;if(Yi[17]!==Ru||Yi[18]!==Tu||Yi[19]!==Cu||Yi[20]!==il||Yi[21]!==wu||Yi[22]!==Ji)Dg=e(lL,{title:wu,subtitle:Cu,fields:Ru,values:Ji,onChange:$g,onSubmit:il,onCancel:Tu,submitLabel:"Save configuration"}),Yi[17]=Ru,Yi[18]=Tu,Yi[19]=Cu,Yi[20]=il,Yi[21]=wu,Yi[22]=Ji,Yi[23]=Dg;else Dg=Yi[23];return Dg}function Sf(_S){return Object.keys(_S.userConfig??{}).length>0}function vf(US){return{steps:US}}function wf(){}function Cf(gf){return n(`Failed to save plugin options: ${l(gf)}`,{level:"error"}),gf??Error("save failed")}async function Sl(a,b,S){let{enabled:x,disabled:v}=await Dh(b,S);return lct([...x,...v],a)}async function xf(a,b){return Object.keys(await Mxe(a,b)).length>0||(await cNt(a,b)).length>0}async function ua(a,b,S,x){let v=await Sl(a,S,x);if(!v||!await xf(v,x))return null;let R;for(let K of xi()){let T=ye(K)?.enabledPlugins?.[a];if(T!==void 0)R=T}let j=R!==void 0?R===!1:v.manifest.defaultEnabled===!1;return{type:"plugin-options",plugin:v,pluginId:a,depNote:b?.suffix??"",alreadyInstalled:!0,depsResolved:b?.changed??!1,installedDisabled:j,installedDisabledByDefault:R===void 0&&v.manifest.defaultEnabled===!1}}function ur(vS){let ra=_(22),{viewState:wS,onInstallComplete:bi,onFinish:Mu}=vS,{plugin:zo,pluginId:vo,depNote:oa,alreadyInstalled:ia,depsResolved:CS,installedDisabled:$u,installedDisabledByDefault:Du}=wS,Xi=ia?"Already installed":"Installed",[PS,TS]=u(!1),Bg=C(!1),Ag,Og;if(ra[0]===d)Ag=()=>()=>{Bg.current=!0},Og=[],ra[0]=Ag,ra[1]=Og;else Ag=ra[0],Og=ra[1];A(Ag,Og);let er=!ia||Boolean(CS),Lg;if(ra[2]!==$u||ra[3]!==Du||ra[4]!==bi||ra[5]!==vo)Lg=async function Si(IS){if(!IS){return""}let Ng=bi?await bi([vo]):"reload-required";if($u){let _g=Ra("plugin enable",vo);let Fg=`enable it in /plugin${_g?` or run: ${_g}`:""}.`;let Ug=Ng==="load-failed"?" The plugin couldn't be loaded \u2014 see /plugin for details.":"";return Du?` This plugin is disabled by default \u2014 ${Fg}${Ug}`:` This plugin is disabled \u2014 ${Fg}${Ug}`}switch(Ng){case"activated":{return" Plugin is now active."}case"load-failed":{return" The plugin couldn't be loaded \u2014 see /plugin for details."}case"reload-required":{return" Run /reload-plugins to apply."}}},ra[2]=$u,ra[3]=Du,ra[4]=bi,ra[5]=vo,ra[6]=Lg;else Lg=ra[6];let Si=Lg;if(PS){let vi;if(ra[7]===d)vi=e(rr,{message:"Activating plugin\u2026"}),ra[7]=vi;else vi=ra[7];return vi}let vi;if(ra[8]!==Si||ra[9]!==ia||ra[10]!==er||ra[11]!==oa||ra[12]!==Mu||ra[13]!==bi||ra[14]!==zo||ra[15]!==vo||ra[16]!==Xi)vi=(RS,Vg,Bu)=>{(async()=>{TS(!0);let rl=(ES)=>{if(!Bg.current)Mu(ES)};bb50:switch(RS){case"configured":{let jg=Boolean(Bu);let MS=er||jg;rl(`\u2713 ${jg?ia?"Configured":"Installed and configured":Xi} ${id(zo)}${oa}.${await Si(MS)}`);break bb50}case"skipped":{let $S=er||Boolean(Bu);rl(`\u2713 ${Xi} ${id(zo)}${oa}.${await Si($S)}`);break bb50}case"read-error":{rl(`${Xi} ${id(zo)}${oa}, but its saved options could not be read (${Vg}).${await Si(er)}`);break bb50}case"error":{let Hg=!1;if(er||Boolean(Bu))Hg=await bi?.([vo])==="load-failed";rl(`${Xi} but failed to save config: ${Vg}${Hg?" The plugin couldn't be loaded \u2014 see /plugin for details.":""}`)}}})()},ra[8]=Si,ra[9]=ia,ra[10]=er,ra[11]=oa,ra[12]=Mu,ra[13]=bi,ra[14]=zo,ra[15]=vo,ra[16]=Xi,ra[17]=vi;else vi=ra[17];let Kg;if(ra[18]!==zo||ra[19]!==vo||ra[20]!==vi)Kg=e(or,{plugin:zo,pluginId:vo,onDone:vi}),ra[18]=zo,ra[19]=vo,ra[20]=vi,ra[21]=Kg;else Kg=ra[21];return Kg}function or(DS){let Go=_(24),{plugin:qn,pluginId:No,onDone:_o}=DS,{storageV5:al,credentials:tr}=ge(),qg;if(Go[0]!==tr||Go[1]!==qn||Go[2]!==No||Go[3]!==al)qg=async function aa(){let Au=[];let Wg=await Mxe(qn,tr);if(Object.keys(Wg).length>0)Au.push({key:"top-level",title:`Configure ${id(qn)}`,subtitle:"Plugin options",schema:Wg,load:()=>hv(No,tr),save:(BS)=>lye(No,BS,qn.manifest.userConfig,al)});let AS=await cNt(qn,tr);for(const nr of AS)Au.push({key:`channel:${nr.server}`,title:`Configure ${nr.displayName}`,subtitle:`Plugin: ${id(qn)}`,schema:nr.configSchema,load:async()=>await aye(No,nr.server,tr)??void 0,save:(OS)=>sct(No,nr.server,OS,nr.configSchema,al)});return Au},Go[0]=tr,Go[1]=qn,Go[2]=No,Go[3]=al,Go[4]=qg;else qg=Go[4];let aa=qg,zg;if(Go[5]!==aa||Go[6]!==qn.manifest.channels||Go[7]!==qn.manifest.userConfig||Go[8]!==No)zg=()=>Object.keys(qn.manifest.userConfig??{}).length>0||(qn.manifest.channels??[]).some(Sf)?aa().then(vf,(Gg)=>(ca(No,Gg),{steps:[],error:l(Gg)})):{steps:[]},Go[5]=aa,Go[6]=qn.manifest.channels,Go[7]=qn.manifest.userConfig,Go[8]=No,Go[9]=zg;else zg=Go[9];let[wi]=u(zg),Qg=C(!1),[LS,NS]=u(!1);if(!(wi instanceof Promise)){let Ci;if(Go[10]!==_o||Go[11]!==wi)Ci=e(ir,{loaded:wi,onDone:_o}),Go[10]=_o,Go[11]=wi,Go[12]=Ci;else Ci=Go[12];return Ci}if(LS){return null}let Ci;if(Go[13]!==_o)Ci=()=>{if(Qg.current){return}Qg.current=!0,NS(!0),_o("skipped",void 0,!1)},Go[13]=_o,Go[14]=Ci;else Ci=Go[14];let Yg;if(Go[15]===d)Yg=e(rr,{message:"Loading\u2026",dimColor:!0}),Go[15]=Yg;else Yg=Go[15];let ll;if(Go[16]!==Ci)ll=e(cr,{onCancel:Ci,children:Yg}),Go[16]=Ci,Go[17]=ll;else ll=Go[17];let sl;if(Go[18]!==_o||Go[19]!==wi)sl=e(bl,{steps:wi,onDone:_o}),Go[18]=_o,Go[19]=wi,Go[20]=sl;else sl=Go[20];let Jg;if(Go[21]!==ll||Go[22]!==sl)Jg=e(Jn,{fallback:ll,children:sl}),Go[21]=ll,Go[22]=sl,Go[23]=Jg;else Jg=Go[23];return Jg}function bl(VS){let HS=_(3),{steps:jS,onDone:Ou}=VS,Nu=zn(jS),Xg;if(HS[0]!==Nu||HS[1]!==Ou)Xg=e(ir,{loaded:Nu,onDone:Ou}),HS[0]=Nu,HS[1]=Ou,HS[2]=Xg;else Xg=HS[2];return Xg}function ir(KS){let Po=_(34),{loaded:qS,onDone:_u}=KS,{steps:uo,error:Co}=qS,[cl,WS]=u(0),dl=C(!1),Fu=C(!1),pl=C(!1),Zg;if(Po[0]!==_u)Zg=function Wn(...ml){let zS=ml;if(Fu.current){return}Fu.current=!0,_u(...zS)},Po[0]=_u,Po[1]=Zg;else Zg=Po[1];let Wn=Zg,ml;if(Po[2]!==Wn||Po[3]!==Co)ml=()=>{if(Co!==void 0)Wn("read-error",Co);else Wn("skipped")},Po[2]=Wn,Po[3]=Co,Po[4]=ml;else ml=Po[4];let Uu=br(ml),ef;if(Po[5]!==Co||Po[6]!==Uu||Po[7]!==uo.length)ef=()=>{if(Co!==void 0||uo.length===0)Uu()},Po[5]=Co,Po[6]=Uu,Po[7]=uo.length,Po[8]=ef;else ef=Po[8];let tf;if(Po[9]!==Co||Po[10]!==uo.length)tf=[uo.length,Co],Po[9]=Co,Po[10]=uo.length,Po[11]=tf;else tf=Po[11];A(ef,tf);let[To,nf]=u(null),of;if(Po[12]!==Wn||Po[13]!==uo.length)of=(rf,af)=>{if(pl.current=!1,nf(null),af!==void 0){Wn("error",l(af),dl.current);return}if(Object.keys(rf.values).length>0)dl.current=!0;let lf=rf.index+1;if(lf<uo.length)WS(lf);else Wn("configured",void 0,dl.current)},Po[12]=Wn,Po[13]=uo.length,Po[14]=of;else of=Po[14];let Vu=br(of),sf;if(Po[15]!==To||Po[16]!==Vu)sf=()=>{if(To===null){return}let cf=To;cf.saveOutcome.then((GS)=>Vu(cf,GS))},Po[15]=To,Po[16]=Vu,Po[17]=sf;else sf=Po[17];let uf;if(Po[18]!==To)uf=[To],Po[18]=To,Po[19]=uf;else uf=Po[19];if(A(sf,uf),uo.length===0){return null}let Bn=uo[cl],df;if(Po[20]!==Bn||Po[21]!==cl||Po[22]!==To)df=function la(pf){if(Fu.current||pl.current||To!==null){return}pl.current=!0,nf({index:cl,values:pf,saveOutcome:(async()=>Bn.save(pf))().then(wf,Cf)})},Po[20]=Bn,Po[21]=cl,Po[22]=To,Po[23]=df;else df=Po[23];let la=df,gl;if(Po[24]!==Wn)gl=()=>{if(pl.current){return}Wn("skipped",void 0,dl.current)},Po[24]=Wn,Po[25]=gl;else gl=Po[25];let mf;if(Po[26]!==Bn.key||Po[27]!==Bn.load||Po[28]!==Bn.schema||Po[29]!==Bn.subtitle||Po[30]!==Bn.title||Po[31]!==la||Po[32]!==gl)mf=e(ar,{title:Bn.title,subtitle:Bn.subtitle,configSchema:Bn.schema,load:Bn.load,onSave:la,onCancel:gl},Bn.key),Po[26]=Bn.key,Po[27]=Bn.load,Po[28]=Bn.schema,Po[29]=Bn.subtitle,Po[30]=Bn.title,Po[31]=la,Po[32]=gl,Po[33]=mf;else mf=Po[33];return mf}function ar(ju){let sa=_(14),Io,yl;if(sa[0]!==ju)({load:yl,...Io}=ju),sa[0]=ju,sa[1]=Io,sa[2]=yl;else Io=sa[1],yl=sa[2];let ff;if(sa[3]!==Io.title||sa[4]!==yl)ff=()=>Promise.resolve().then(yl).catch((QS)=>{ca(Io.title,QS)}),sa[3]=Io.title,sa[4]=yl,sa[5]=ff;else ff=sa[5];let[Hu]=u(ff),hl;if(sa[6]!==Io.onCancel)hl=e(cr,{onCancel:Io.onCancel}),sa[6]=Io.onCancel,sa[7]=hl;else hl=sa[7];let kl;if(sa[8]!==Io||sa[9]!==Hu)kl=e(xl,{dialog:Io,saved:Hu}),sa[8]=Io,sa[9]=Hu,sa[10]=kl;else kl=sa[10];let hf;if(sa[11]!==hl||sa[12]!==kl)hf=e(Jn,{fallback:hl,children:kl}),sa[11]=hl,sa[12]=kl,sa[13]=hf;else hf=sa[13];return hf}function ca(a,b){n(`Failed to read saved plugin options (${a}): ${l(b)}`,{level:"error"})}function xl(YS){let XS=_(3),{dialog:qu,saved:JS}=YS,Wu=zn(JS),kf;if(XS[0]!==qu||XS[1]!==Wu)kf=e(ki,{...qu,initialValues:Wu}),XS[0]=qu,XS[1]=Wu,XS[2]=kf;else kf=XS[2];return kf}function cr(ZS){let nv=_(1),{onCancel:ev,children:tv}=ZS,bf;if(nv[0]===d)bf={context:"Settings"},nv[0]=bf;else bf=nv[0];return Be("confirm:no",ev,bf),tv??null}F();function Pi(a){return[["Commands",a.commands.map((S)=>S.name)],["Agents",a.agents.map((S)=>S.name)],["Skills",a.skills.map((S)=>S.name)],["Hooks",a.hooks??[]],["MCP Servers",a.mcpServers??[]],["LSP Servers",a.lspServers??[]]].filter(([,S])=>S.length>0)}function da(){let zu=_(3),Tf;if(zu[0]===d)Tf=G2t(),zu[0]=Tf;else Tf=zu[0];let If=Tf,Rf;if(zu[1]===d)Rf=r(t,{color:"claude",children:[L.warning," "]}),zu[1]=Rf;else Rf=zu[1];let Ef;if(zu[2]===d)Ef=r(o,{marginBottom:1,children:[Rf,r(t,{dimColor:!0,italic:!0,children:["Make sure you trust a plugin before installing, updating, or using it. Anthropic does not control what MCP servers, files, or other software are included in plugins and cannot verify that they will work as intended or that they won't change. See each plugin's homepage for more information.",If?` ${If}`:""]})]}),zu[2]=Ef;else Ef=zu[2];return Ef}function Ty(Yv){return Yv??null}function Iy(){return null}function Ry(kd){let[Zf,ew]=kd;return r(t,{dimColor:!0,children:["\xB7 ",Zf,": ",ew.map(Oo).join(", ")]},Zf)}function Ey(){return null}function My(ka){let[,uw]=ka;return uw.length>0}function $y(ka){let[Py,dw]=ka;return r(t,{dimColor:!0,children:["\xB7 ",Py,": ",dw.map(Oo).join(", ")]},Py)}function ba(a){if(a.entry.source&&typeof a.entry.source==="object"&&"source"in a.entry.source&&a.entry.source.source==="github"&&typeof a.entry.source==="object"&&"repo"in a.entry.source)return a.entry.source.repo;return null}function Bd(a,b){let S=[{label:"Install for you (user scope)",action:"install-user"},{label:"Install for all collaborators on this repository (project scope)",action:"install-project"},{label:"Install for you, in this repo only (local scope)",action:"install-local"}];if(a)S.push({label:"Open homepage",action:"homepage"});if(b)S.push({label:"View on GitHub",action:"github"});return S.push({label:"Back to plugin list",action:"back"}),S}function fs(Nv){let Qo=_(24),{selectedPlugin:Nn,isActive:Gu,onInstall:pa,onBack:Yu}=Nv,[ro,Ju]=u(0),[Mf,_v]=u(Nn);if(Mf!==Nn)_v(Nn),Ju(0);let Xu;bb0:{if(!Nn){let Ro;if(Qo[0]===d)Ro=[],Qo[0]=Ro;else Ro=Qo[0];Xu=Ro;break bb0}let Zu=Nn.entry.homepage;let Ro;if(Qo[1]!==Zu||Qo[2]!==Nn){let Fv=ba(Nn);Ro=Bd(Zu,Fv);Qo[1]=Zu,Qo[2]=Nn,Qo[3]=Ro}else Ro=Qo[3];Xu=Ro}let Uo=Xu,Ro;if(Qo[4]!==ro)Ro=()=>{if(ro>0)Ju(ro-1)},Qo[4]=ro,Qo[5]=Ro;else Ro=Qo[5];let vl;if(Qo[6]!==ro||Qo[7]!==Uo)vl=()=>{if(ro<Uo.length-1)Ju(ro+1)},Qo[6]=ro,Qo[7]=Uo,Qo[8]=vl;else vl=Qo[8];let wl;if(Qo[9]!==ro||Qo[10]!==Uo||Qo[11]!==Yu||Qo[12]!==pa||Qo[13]!==Nn)wl=()=>{if(!Nn){return}let dr=Uo[ro]?.action;let $f=Nn.entry.homepage;let Df=ba(Nn);if(dr==="install-user")pa(Nn,"user");else if(dr==="install-project")pa(Nn,"project");else if(dr==="install-local")pa(Nn,"local");else if(dr==="homepage"&&$f)Lr($f);else if(dr==="github"&&Df)Lr(`https://github.com/${Df}`);else if(dr==="back")Yu()},Qo[9]=ro,Qo[10]=Uo,Qo[11]=Yu,Qo[12]=pa,Qo[13]=Nn,Qo[14]=wl;else wl=Qo[14];let Bf;if(Qo[15]!==Ro||Qo[16]!==vl||Qo[17]!==wl)Bf={"select:previous":Ro,"select:next":vl,"select:accept":wl},Qo[15]=Ro,Qo[16]=vl,Qo[17]=wl,Qo[18]=Bf;else Bf=Qo[18];let Af;if(Qo[19]!==Gu)Af={context:"Select",isActive:Gu},Qo[19]=Gu,Qo[20]=Af;else Af=Qo[20];ht(Bf,Af);const ed=Mf===Nn?ro:0;let Lf;if(Qo[21]!==Uo||Qo[22]!==ed)Lf={detailsMenuOptions:Uo,detailsMenuIndex:ed},Qo[21]=Uo,Qo[22]=ed,Qo[23]=Lf;else Lf=Qo[23];return Lf}function hr(Uv){let $n=_(54),{title:td,plugin:Ft,onEntryHelperShown:nd,showMarketplace:od,extraSection:rd,installError:Ti,menuOptions:ad,detailsMenuIndex:ma,isInstalling:ga,bylinePaddingLeft:ld}=Uv,Cl;if($n[0]!==td)Cl=e(o,{marginBottom:1,children:e(t,{bold:!0,children:td})}),$n[0]=td,$n[1]=Cl;else Cl=$n[1];let Pl;if($n[2]!==Ft.entry)Pl=id(Ft.entry),$n[2]=Ft.entry,$n[3]=Pl;else Pl=$n[3];let Tl;if($n[4]!==Pl)Tl=e(t,{bold:!0,children:Pl}),$n[4]=Pl,$n[5]=Tl;else Tl=$n[5];let Il;if($n[6]!==Ft.marketplaceName||$n[7]!==od)Il=od&&r(t,{dimColor:!0,children:["from ",Oo(Ft.marketplaceName)]}),$n[6]=Ft.marketplaceName,$n[7]=od,$n[8]=Il;else Il=$n[8];let Rl;if($n[9]!==Ft.entry.version)Rl=Ft.entry.version&&r(t,{dimColor:!0,children:["Version: ",Oo(Ft.entry.version)]}),$n[9]=Ft.entry.version,$n[10]=Rl;else Rl=$n[10];let El;if($n[11]!==Ft.pluginId)El=e(ss,{pluginId:Ft.pluginId}),$n[11]=Ft.pluginId,$n[12]=El;else El=$n[12];let Ml;if($n[13]!==Ft.entry.description)Ml=Ft.entry.description&&e(o,{marginTop:1,children:e(t,{children:Of(Ft.entry.description)})}),$n[13]=Ft.entry.description,$n[14]=Ml;else Ml=$n[14];let $l;if($n[15]!==Ft.entry.author)$l=Ft.entry.author&&e(o,{marginTop:1,children:r(t,{dimColor:!0,children:["By:"," ",Oo(typeof Ft.entry.author==="string"?Ft.entry.author:Ft.entry.author.name)]})}),$n[15]=Ft.entry.author,$n[16]=$l;else $l=$n[16];let Dl;if($n[17]!==Tl||$n[18]!==Il||$n[19]!==Rl||$n[20]!==El||$n[21]!==Ml||$n[22]!==$l)Dl=r(o,{flexDirection:"column",marginBottom:1,children:[Tl,Il,Rl,El,Ml,$l]}),$n[17]=Tl,$n[18]=Il,$n[19]=Rl,$n[20]=El,$n[21]=Ml,$n[22]=$l,$n[23]=Dl;else Dl=$n[23];let Bl;if($n[24]!==Ti||$n[25]!==nd||$n[26]!==Ft)Bl=e(us,{plugin:Ft,onEntryHelperShown:nd,refreshKey:Ti}),$n[24]=Ti,$n[25]=nd,$n[26]=Ft,$n[27]=Bl;else Bl=$n[27];let Al;if($n[28]!==Ft.entry)Al=e(ms,{entry:Ft.entry}),$n[28]=Ft.entry,$n[29]=Al;else Al=$n[29];let Nf;if($n[30]===d)Nf=e(da,{}),$n[30]=Nf;else Nf=$n[30];let Ol;if($n[31]!==Ti)Ol=Ti&&e(o,{marginBottom:1,children:e(Br,{error:Of(Ti)})}),$n[31]=Ti,$n[32]=Ol;else Ol=$n[32];let Ll;if($n[33]!==ma||$n[34]!==ga||$n[35]!==ad){let Ii;if($n[37]!==ma||$n[38]!==ga)Ii=(sd,Vv)=>{let Nl=ma===Vv;return r(Ig,{active:Nl,children:[Nl&&e(t,{"aria-hidden":!0,children:"> "}),!Nl&&e(t,{"aria-hidden":!0,children:"  "}),e(t,{bold:Nl,children:ga&&sd.action.startsWith("install-")?"Installing\u2026":sd.label})]},sd.action)},$n[37]=ma,$n[38]=ga,$n[39]=Ii;else Ii=$n[39];Ll=ad.map(Ii);$n[33]=ma,$n[34]=ga,$n[35]=ad,$n[36]=Ll}else Ll=$n[36];let Ii;if($n[40]!==Ll)Ii=e(o,{flexDirection:"column",children:Ll}),$n[40]=Ll,$n[41]=Ii;else Ii=$n[41];let Ff;if($n[42]===d)Ff=e(t,{dimColor:!0,children:r(fe,{children:[e(ze,{action:"select:accept",context:"Select",fallback:"Enter",description:"select"}),e(ze,{action:"confirm:no",context:"Settings",fallback:"Esc",description:"go back"})]})}),$n[42]=Ff;else Ff=$n[42];let _l;if($n[43]!==ld)_l=e(o,{marginTop:1,paddingLeft:ld,children:Ff}),$n[43]=ld,$n[44]=_l;else _l=$n[44];let Uf;if($n[45]!==rd||$n[46]!==Cl||$n[47]!==Bl||$n[48]!==Al||$n[49]!==Ol||$n[50]!==Ii||$n[51]!==_l||$n[52]!==Dl)Uf=r(o,{flexDirection:"column",children:[Cl,Dl,Bl,rd,Al,Nf,Ol,Ii,_l]}),$n[45]=rd,$n[46]=Cl,$n[47]=Bl,$n[48]=Al,$n[49]=Ol,$n[50]=Ii,$n[51]=_l,$n[52]=Dl,$n[53]=Uf;else Uf=$n[53];return Uf}function kr(jv){let pr=_(12),{hasSelection:cd,canToggle:ud,canView:dd}=jv,Fl;if(pr[0]!==cd)Fl=cd&&e(ze,{action:"plugin:install",context:"Plugin",fallback:"i",description:"install",bold:!0}),pr[0]=cd,pr[1]=Fl;else Fl=pr[1];let Vf;if(pr[2]===d)Vf=e(t,{children:"Type to search"}),pr[2]=Vf;else Vf=pr[2];let Ul;if(pr[3]!==ud)Ul=ud&&e(ze,{action:"plugin:toggle",context:"Plugin",fallback:"Space",description:"toggle"}),pr[3]=ud,pr[4]=Ul;else Ul=pr[4];let Vl;if(pr[5]!==dd)Vl=dd&&e(ze,{action:"select:accept",context:"Select",fallback:"Enter",description:"view"}),pr[5]=dd,pr[6]=Vl;else Vl=pr[6];let jf;if(pr[7]===d)jf=e(ze,{action:"confirm:no",context:"Settings",fallback:"Esc",description:"go back"}),pr[7]=jf;else jf=pr[7];let Hf;if(pr[8]!==Fl||pr[9]!==Ul||pr[10]!==Vl)Hf=e(o,{marginTop:1,children:e(t,{dimColor:!0,italic:!0,children:r(fe,{children:[Fl,Vf,Ul,Vl,jf]})})}),pr[8]=Fl,pr[9]=Ul,pr[10]=Vl,pr[11]=Hf;else Hf=pr[11];return Hf}function ss(Kv){let Wv=_(2),{pluginId:qv}=Kv,pd=gr(qv),Kf;if(Wv[0]!==pd)Kf=e(Jn,{fallback:null,children:e(cs,{entryPromise:pd})}),Wv[0]=pd,Wv[1]=Kf;else Kf=Wv[1];return Kf}function cs(zv){let qf=_(4),{entryPromise:Gv}=zv,jl=zn(Gv);if(!jl?.last_updated){return null}let zf;if(qf[0]!==jl.last_updated)zf=Ad(jl.last_updated),qf[0]=jl.last_updated,qf[1]=zf;else zf=qf[1];let Hl=zf;if(Hl===void 0){return null}let Gf;if(qf[2]!==Hl)Gf=r(t,{dimColor:!0,children:["Last updated: ",Hl]}),qf[2]=Hl,qf[3]=Gf;else Gf=qf[3];return Gf}function gr(md){let Qv=_(3),{storageV5:gd}=ge(),Qf;if(Qv[0]!==md||Qv[1]!==gd)Qf=D0t(md,gd).then(Ty).catch(Iy),Qv[0]=md,Qv[1]=gd,Qv[2]=Qf;else Qf=Qv[2];return Qf}function Ad(a){let b=new Date(a);if(Number.isNaN(b.getTime()))return;return b.toLocaleDateString(void 0,{year:"numeric",month:"short",day:"numeric"})}function us(Jv){let mr=_(17),{plugin:Gn,onEntryHelperShown:fd,refreshKey:Xv}=Jv,yd=gr(Gn.pluginId);const hd=String(Xv??"");let Kl;if(mr[0]!==fd||mr[1]!==Gn.entry||mr[2]!==Gn.pluginId||mr[3]!==hd)Kl=e(fr,{pluginId:Gn.pluginId,entry:Gn.entry,verb:"Installing",onShown:fd},hd),mr[0]=fd,mr[1]=Gn.entry,mr[2]=Gn.pluginId,mr[3]=hd,mr[4]=Kl;else Kl=mr[4];let Yf;if(mr[5]===d)Yf=e(t,{bold:!0,children:"Will install:"}),mr[5]=Yf;else Yf=mr[5];let ql;if(mr[6]!==Gn.entry)ql=e(yr,{entry:Gn.entry}),mr[6]=Gn.entry,mr[7]=ql;else ql=mr[7];let Wl;if(mr[8]!==yd||mr[9]!==Gn.entry)Wl=e(ds,{entryPromise:yd,marketplaceEntry:Gn.entry}),mr[8]=yd,mr[9]=Gn.entry,mr[10]=Wl;else Wl=mr[10];let Gl;if(mr[11]!==ql||mr[12]!==Wl)Gl=e(Jn,{fallback:ql,children:Wl}),mr[11]=ql,mr[12]=Wl,mr[13]=Gl;else Gl=mr[13];let Jf;if(mr[14]!==Kl||mr[15]!==Gl)Jf=r(o,{flexDirection:"column",marginBottom:1,children:[Kl,Yf,Gl]}),mr[14]=Kl,mr[15]=Gl,mr[16]=Jf;else Jf=mr[16];return Jf}function ds(kd){let bd=_(8),{entryPromise:Zv,marketplaceEntry:fa}=kd,Ql=zn(Zv),Yl,xd;if(bd[0]!==Ql||bd[1]!==fa){xd=fn;bb0:{let Xf=Ql?.components?Pi(Ql.components):[];if(Xf.length===0){let ya;if(bd[4]!==fa)ya=e(yr,{entry:fa}),bd[4]=fa,bd[5]=ya;else ya=bd[5];xd=ya;break bb0}Yl=Xf.map(Ry)}bd[0]=Ql,bd[1]=fa,bd[2]=Yl,bd[3]=xd}else Yl=bd[2],xd=bd[3];if(xd!==fn)return xd;let ya;if(bd[6]!==Yl)ya=e(U,{children:Yl}),bd[6]=Yl,bd[7]=ya;else ya=bd[7];return ya}function ps(tw){let Yo=_(17),{consent:Jl,verb:ey}=tw,Sd=ey===void 0?"Installing":ey;if(Jl===null){return null}let ty;if(Yo[0]!==Jl)ty=OXe(Jl),Yo[0]=Jl,Yo[1]=ty;else ty=Yo[1];let Eo=ty,ny;if(Yo[2]===d)ny=e(tt,{status:"warning",withSpace:!0}),Yo[2]=ny;else ny=Yo[2];let Xl;if(Yo[3]!==Sd)Xl=r(t,{color:"warning",children:[ny,Sd," runs a local command and sends its output as headers to:"]}),Yo[3]=Sd,Yo[4]=Xl;else Xl=Yo[4];let es;if(Yo[5]!==Eo.destination)es=r(t,{children:["  ",Eo.destination]}),Yo[5]=Eo.destination,Yo[6]=es;else es=Yo[6];let ts;if(Yo[7]!==Eo.hiddenCharactersWarning)ts=Eo.hiddenCharactersWarning&&r(t,{color:"error",children:["  ",Eo.hiddenCharactersWarning]}),Yo[7]=Eo.hiddenCharactersWarning,Yo[8]=ts;else ts=Yo[8];let oy;if(Yo[9]===d)oy=r(t,{dimColor:!0,children:["  ","The command:"]}),Yo[9]=oy;else oy=Yo[9];let ns;if(Yo[10]!==Eo.command)ns=r(t,{children:["  ",Eo.command]}),Yo[10]=Eo.command,Yo[11]=ns;else ns=Yo[11];let iy;if(Yo[12]!==Xl||Yo[13]!==es||Yo[14]!==ts||Yo[15]!==ns)iy=r(o,{flexDirection:"column",marginBottom:1,children:[Xl,es,ts,oy,ns]}),Yo[12]=Xl,Yo[13]=es,Yo[14]=ts,Yo[15]=ns,Yo[16]=iy;else iy=Yo[16];return iy}function ms(nw){let Ri=_(14),{entry:po}=nw;if(typeof po.source!=="object"||po.source.source!=="command"){return null}let ry;if(Ri[0]===d)ry=e(t,{dimColor:!0,children:"Installed by running a command on this machine:"}),Ri[0]=ry;else ry=Ri[0];let os;if(Ri[1]!==po.source.command)os=e(o,{paddingLeft:2,children:e(t,{children:po.source.command})}),Ri[1]=po.source.command,Ri[2]=os;else os=Ri[2];let is;if(Ri[3]!==po.source)is=Vze(po.source),Ri[3]=po.source,Ri[4]=is;else is=Ri[4];let rs;if(Ri[5]!==is)rs=e(t,{dimColor:!0,children:is}),Ri[5]=is,Ri[6]=rs;else rs=Ri[6];let ay;if(Ri[7]===d)ay=FS()&&e(t,{color:"warning",children:hM}),Ri[7]=ay;else ay=Ri[7];let as;if(Ri[8]!==po.source.mode)as=po.source.mode==="link"&&D()==="windows"&&e(t,{color:"warning",children:zDe}),Ri[8]=po.source.mode,Ri[9]=as;else as=Ri[9];let ly;if(Ri[10]!==os||Ri[11]!==rs||Ri[12]!==as)ly=r(o,{marginBottom:1,flexDirection:"column",children:[ry,os,rs,ay,as]}),Ri[10]=os,Ri[11]=rs,Ri[12]=as,Ri[13]=ly;else ly=Ri[13];return ly}function Sr(vd){let ha=_(6),wd=C(void 0),sy;if(ha[0]===d)sy=()=>{wd.current=void 0},ha[0]=sy;else sy=ha[0];let cy;if(ha[1]!==vd)cy=[vd],ha[1]=vd,ha[2]=cy;else cy=ha[2];A(sy,cy);let uy;if(ha[3]===d)uy=(ow)=>{wd.current=ow},ha[3]=uy;else uy=ha[3];let iw=uy,dy;if(ha[4]===d)dy=()=>wd.current??null,ha[4]=dy;else dy=ha[4];let rw=dy,py;if(ha[5]===d)py={record:iw,pinned:rw},ha[5]=py;else py=ha[5];return py}function fr(aw){let my=_(8),{pluginId:Cd,entry:Pd,verb:Td,onShown:Id}=aw,{storageV5:Rd}=ge(),gy;if(my[0]!==Pd||my[1]!==Cd||my[2]!==Rd)gy=uke(Cd,Pd,Rd).catch(Ey),my[0]=Pd,my[1]=Cd,my[2]=Rd,my[3]=gy;else gy=my[3];let Ed=gy,fy;if(my[4]!==Ed||my[5]!==Id||my[6]!==Td)fy=e(Jn,{fallback:null,children:e(gs,{consentPromise:Ed,verb:Td,onShown:Id})}),my[4]=Ed,my[5]=Id,my[6]=Td,my[7]=fy;else fy=my[7];return fy}function gs(lw){let yy=_(7),{consentPromise:sw,verb:Md,onShown:ls}=lw,Ei=zn(sw),hy,ky;if(yy[0]!==Ei||yy[1]!==ls)hy=()=>{ls(Ei)},ky=[ls,Ei],yy[0]=Ei,yy[1]=ls,yy[2]=hy,yy[3]=ky;else hy=yy[2],ky=yy[3];A(hy,ky);let by;if(yy[4]!==Ei||yy[5]!==Md)by=e(ps,{consent:Ei,verb:Md}),yy[4]=Ei,yy[5]=Md,yy[6]=by;else by=yy[6];return by}function yr(ka){let xy=_(11),{entry:vn}=ka,vy,$d;if(xy[0]!==vn.agents||xy[1]!==vn.commands||xy[2]!==vn.hooks||xy[3]!==vn.lspServers||xy[4]!==vn.mcpServers||xy[5]!==vn.skills||xy[6]!==vn.source){$d=fn;bb0:{let cw=[["Commands",Yn(vn.commands)],["Agents",Yn(vn.agents)],["Skills",Yn(vn.skills)],["Hooks",Yn(vn.hooks)],["MCP Servers",Yn(vn.mcpServers)],["LSP Servers",Yn(vn.lspServers)]];let wy=cw.filter(My);if(wy.length===0){const Dd=typeof vn.source==="object"?"\xB7 Component summary not available for remote plugin":"\xB7 Components will be discovered at installation";let Cy;if(xy[9]!==Dd)Cy=e(t,{dimColor:!0,children:Dd}),xy[9]=Dd,xy[10]=Cy;else Cy=xy[10];$d=Cy;break bb0}vy=e(U,{children:wy.map($y)})}xy[0]=vn.agents,xy[1]=vn.commands,xy[2]=vn.hooks,xy[3]=vn.lspServers,xy[4]=vn.mcpServers,xy[5]=vn.skills,xy[6]=vn.source,xy[7]=vy,xy[8]=$d}else vy=xy[7],$d=xy[8];if($d!==fn)return $d;return vy}function Yn(a){if(typeof a==="string")return[a];if(Array.isArray(a))return a.flatMap((b)=>typeof b==="string"?[b]:b&&typeof b==="object"?Object.keys(b):[]);if(a&&typeof a==="object")return Object.keys(a);return[]}var Mi=(a)=>a.error;class ys{#n=Ue();#e;constructor(a){this.#e={viewState:a,result:null,error:null}}subscribe=(a)=>this.#n.subscribe(a);getSnapshot=()=>this.#e;get viewState(){return this.#e.viewState}get result(){return this.#e.result}get error(){return this.#e.error}setViewState=(a)=>{this.#t({viewState:a})};setResult=(a)=>{this.#t({result:a})};setError=(a)=>{this.#t({error:a})};#t(a){let b=this.#e,S={...b,...a};if(Object.is(S.viewState,b.viewState)&&S.result===b.result&&S.error===b.error)return;this.#e=S,this.#n.emit()}}F();async function Od({selectedForInstall:a,availablePlugins:b,setInstallingPlugins:S,setSelectedForInstall:x,setResult:v,setError:R,setParentViewState:j,onInstallComplete:K,storageV5:T}){if(a.size===0)return;let N=b.filter((ve)=>a.has(ve.pluginId));S(new Set(N.map((ve)=>ve.pluginId)));let H=0,G=0,E=[],J=[],pe=[],ue=[];for(let ve of N){if(typeof ve.entry.source==="object"&&ve.entry.source.source==="command"){G++,E.push({name:ve.entry.name,reason:"installed by running a command on this machine \u2014 open its details (Enter) to review the command and install it from there"});continue}let Je=await yPe({pluginId:ve.pluginId,entry:ve.entry,marketplaceName:ve.marketplaceName,scope:"user",trigger:"bulk",storageV5:T});if(Je.success){if(H++,ue.push(ve.pluginId),Je.installedDisabled)(Je.installedDisabledByDefault?J:pe).push(ve.entry.name)}else G++,E.push({name:ve.entry.name,reason:Je.error})}Qu(T);let Pe=H>0&&K?await K(ue):"reload-required";S(new Set),x(new Set);let _e=(J.length>0?` Disabled by default \u2014 enable in /plugin: ${J.join(", ")}.`:"")+(pe.length>0?` Disabled in your settings: ${pe.join(", ")}.`:""),be=H-J.length-pe.length;if(G===0){let ve=Pe==="load-failed"?" Some plugins couldn't be loaded \u2014 see /plugin for details.":be===0?"":Pe==="activated"?` ${be===1?"Plugin is":"Plugins are"} now active.`:" Run /reload-plugins to activate.";v(`\u2713 Installed ${H} ${k(H,"plugin")}.${ve}${_e}`)}else if(H===0)R(`Failed to install: ${Qln(E,!0)}`);else{let ve=Pe==="load-failed"?" Some installed plugins couldn't be loaded \u2014 see /plugin for details.":be===0?"":Pe==="activated"?be===1?" The successfully installed plugin is now active.":" Successfully installed plugins are now active.":" Run /reload-plugins to activate successfully installed plugins.";v(`\u2713 Installed ${H} of ${H+G} plugins. Failed: ${Qln(E,!1)}.${ve}${_e}`)}j({type:"menu"})}async function Ld({plugin:a,scope:b="user",setIsInstalling:S,setInstallError:x,setViewState:v,setResult:R,setParentViewState:j,onInstallComplete:K,consentedEntryHelper:T,storageV5:N}){S(!0),x(null);let H=await yPe({pluginId:a.pluginId,entry:a.entry,marketplaceName:a.marketplaceName,scope:b,trigger:"user",consentedEntryHelper:T,commandSourceConsent:typeof a.entry.source==="object"&&a.entry.source.source==="command"?{kind:"shown",command:rC(a.entry.source),pluginId:a.pluginId}:void 0,storageV5:N});if(H.success){let G=await Sl(a.pluginId,N);if(G){S(!1),v({type:"plugin-options",plugin:G,pluginId:a.pluginId,depNote:H.depNote,installedDisabled:H.installedDisabled,installedDisabledByDefault:H.installedDisabledByDefault});return}let E=K?await K([a.pluginId]):"reload-required";R(H.installedDisabled?E==="load-failed"?`${H.message}. The plugin couldn't be loaded \u2014 see /plugin for details.`:H.message:E==="activated"?`${H.message} Plugin is now active.`:E==="load-failed"?`${H.message} The plugin couldn't be loaded \u2014 see /plugin for details.`:`${H.message} Run /reload-plugins to activate.`),j({type:"menu"})}else S(!1),x(H.error)}F();var Dy=5;function xa({totalItems:a,maxVisible:b=Dy,selectedIndex:S=0,firstSelectableIndex:x=0}){let v=a>b,R=C(0),j=z(()=>{if(!v)return 0;let E=R.current;if(S<E){let ue=S<=x?0:S;return R.current=ue,ue}if(S>=E+b){let ue=S-b+1;return R.current=ue,ue}let J=Math.max(0,a-b),pe=Math.min(E,J);return R.current=pe,pe},[S,b,v,a,x]),K=j,T=Math.min(j+b,a),N=B((E)=>{if(!v)return E;return E.slice(K,T)},[v,K,T]),H=B((E)=>K+E,[K]),G=B((E,J)=>{let pe=Math.max(0,Math.min(E,a-1));J(pe)},[a]);return{startIndex:K,endIndex:T,needsPagination:v,getVisibleItems:N,toActualIndex:H,handleSelectionChange:G,scrollPosition:{current:S+1,total:a,canScrollUp:j>0,canScrollDown:j+b<a}}}function Sa({screen:a,initialViewState:b,availablePlugins:S,loading:x,searchMarketplaceName:v,onInstallComplete:R,onSearchModeChange:j}){let{storageV5:K}=ge(),[T,N]=u(b),[H,G]=u(null),E=B((qe)=>{G(qe),N("plugin-details")},[]),J=B(()=>{N("plugin-list"),G(null)},[]),pe=T==="plugin-list",ue=pe&&!x,Pe=T==="plugin-details"&&!!H&&!x,_e=Xe(a,Mi),[be,ve]=u(!1),Je=()=>ve(!1),{query:st,setQuery:Tt,cursorOffset:it,setCursorOffset:re,handleKeyDown:xe,handlePaste:Ge}=np({isActive:pe&&be&&!x,onExit:Je,onExitUp:Je}),Ht=be&&st!=="";A(()=>{j(Ht)},[Ht,j]),A(()=>()=>j(!1),[j]);let Le=Ba(),{columns:ot}=Ee(),dt=z(()=>{if(!st)return S;let qe=st.toLowerCase();return S.filter((Re)=>Re.entry.name.toLowerCase().includes(qe)||Re.entry.displayName?.toLowerCase().includes(qe)||Re.entry.description?.toLowerCase().includes(qe)||v&&Re.marketplaceName.toLowerCase().includes(qe))},[S,st,v]),[pt,gt]=u(0),[se,tn]=u(new Set),[Bt,Gt]=u(new Set),Et=xa({totalItems:dt.length,selectedIndex:pt});A(()=>{gt(0)},[st]);let[In,kn]=u(!1),[Dn,$t]=u(null),Ut=()=>Od({selectedForInstall:se,availablePlugins:S,setInstallingPlugins:Gt,setSelectedForInstall:tn,setResult:a.setResult,setError:a.setError,setParentViewState:a.setViewState,onInstallComplete:R,storageV5:K}),Lt=Sr(H),le=(qe,Re="user")=>Ld({plugin:qe,scope:Re,consentedEntryHelper:Lt.pinned(),setIsInstalling:kn,setInstallError:$t,setViewState:N,setResult:a.setResult,setParentViewState:a.setViewState,onInstallComplete:R,storageV5:K});A(()=>{if(_e)a.setResult(_e)},[_e,a]);function je(qe){if(be){xe(qe);return}if(qe.ctrl||qe.meta||x)return;if(qe.key==="/")qe.preventDefault(),ve(!0),Tt("");else if(qe.key.length===1&&qe.key!==" ")qe.preventDefault(),ve(!0),Tt(qe.key)}function Qe(qe){if(be){Ge(qe);return}if(x)return;let Re=(qe.text.split(/\r\n|\r|\n/,2)[0]??"").trim();if(!Re)return;qe.preventDefault(),ve(!0),Tt(Re)}ht({"select:previous":()=>{if(pt===0){if(!x&&S.length>0)ve(!0)}else Et.handleSelectionChange(pt-1,gt)},"select:next":()=>{if(pt<dt.length-1)Et.handleSelectionChange(pt+1,gt)},"select:accept":()=>{if(pt<dt.length){let qe=dt[pt];if(qe)if(qe.isInstalled)a.setViewState({type:"manage-plugins",targetPlugin:qe.entry.name,targetMarketplace:qe.marketplaceName});else E(qe),$t(null)}}},{context:"Select",isActive:ue&&!be}),ht({"plugin:toggle":()=>{if(pt<dt.length){let qe=dt[pt];if(qe&&!qe.isInstalled){let Re=new Set(se);if(Re.has(qe.pluginId))Re.delete(qe.pluginId);else Re.add(qe.pluginId);tn(Re)}}},"plugin:install":()=>{if(se.size===0)return!1;if(Bt.size>0)return;Ut()}},{context:"Plugin",isActive:ue&&!be});let{detailsMenuOptions:kt,detailsMenuIndex:_t}=fs({selectedPlugin:H,isActive:Pe&&!In,onInstall:le,onBack:J});return{viewState:T,setViewState:N,selectedPlugin:H,openDetails:E,closeDetails:J,recordEntryHelperShown:Lt.record,isSearchMode:be,setIsSearchMode:ve,searchQuery:st,setSearchQuery:Tt,searchBoxProps:{query:st,isFocused:be,isTerminalFocused:Le,width:ot-4,cursorOffset:it,onCursorOffsetChange:re,onFocus:()=>ve(!0)},keyHintProps:{hasSelection:se.size>0,canToggle:pt<dt.length&&!dt[pt]?.isInstalled,canView:pt<dt.length},filteredPlugins:dt,selectedIndex:pt,setSelectedIndex:gt,selectedForInstall:se,setSelectedForInstall:tn,installingPlugins:Bt,pagination:Et,detailsMenuIndex:_t,isInstalling:In,installError:Dn,detailsMenuOptions:kt,handleListKeyDown:je,handleListPaste:Qe}}function Fy(){}function Vd({screen:a,onInstallComplete:b,onSearchModeChange:S,targetMarketplace:x,targetPlugin:v}){let{storageV5:R,credentials:j}=ge(),K=Xe(a,Mi),{setError:T,setResult:N}=a,H=a.setViewState,[G,E]=u(null),[J,pe]=u([]),[ue,Pe]=u([]),[_e,be]=u(!0),[ve,Je]=u("Loading\u2026"),[st,Tt]=u(null),{viewState:it,setViewState:re,selectedPlugin:xe,openDetails:Ge,closeDetails:Ht,recordEntryHelperShown:Le,isSearchMode:ot,setIsSearchMode:dt,searchQuery:pt,setSearchQuery:gt,searchBoxProps:se,keyHintProps:tn,filteredPlugins:Bt,selectedIndex:Gt,setSelectedIndex:Et,selectedForInstall:In,setSelectedForInstall:kn,installingPlugins:Dn,pagination:$t,detailsMenuIndex:Ut,isInstalling:Lt,installError:le,detailsMenuOptions:je,handleListKeyDown:Qe,handleListPaste:kt}=Sa({screen:a,initialViewState:"marketplace-list",availablePlugins:ue,loading:_e,searchMarketplaceName:!1,onInstallComplete:b,onSearchModeChange:S}),[_t,qe]=u(null),[Re,an]=u(null),Ot=B(()=>{if(it==="plugin-list")if(x)H({type:"manage-marketplaces",targetMarketplace:x});else if(J.length===1)H({type:"menu"});else re("marketplace-list"),E(null),kn(new Set),Et(0);else if(it==="plugin-details")Ht();else H({type:"menu"})},[it,re,Ht,x,H,J.length,kn,Et]);Be("confirm:no",Ot,{context:"Settings",isActive:typeof it==="string"&&!(it==="plugin-list"&&ot)}),A(()=>{let oe=!1;async function et(){try{let Dt=await zl(R),Mt;if(x&&v&&!uc(x)){Je(`Checking ${x} for new plugins\u2026`);let he=await ske(x,Dt[x],R);if(rse(he.outcome),oe)return;if(Je("Loading\u2026"),he.outcome==="refresh-failed")Mt=he.errorMessage,an(`Couldn't refresh marketplace "${x}" (${he.errorMessage}) \u2014 showing the cached catalog.`)}let{marketplaces:Jt,failures:Xt}=await c9(Dt,R);if(oe)return;let It=[];for(let{name:he,config:Ke,data:wt}of Jt)if(wt){let ke=Q(wt.plugins,(He)=>tH(lF(He.name,he)));It.push({name:he,totalPlugins:wt.plugins.length,installedCount:ke,source:OSe(Ke.source)})}It.sort((he,Ke)=>{if(he.name==="claude-plugin-directory")return-1;if(Ke.name==="claude-plugin-directory")return 1;return 0}),pe(It);let ee=Q(Jt,(he)=>he.data!==null),Ne=Tqe(Xt,ee);if(Ne)if(Ne.type==="warning")qe(Ne.message+". Showing available marketplaces.");else throw Error(Ne.message);if(It.length===1&&!x&&!v){let he=It[0];if(he)E(he.name),re("plugin-list")}if(x&&!It.some((he)=>he.name===x)){let he=Xt.find((Ke)=>Ke.name===x);T(he?`Couldn't load marketplace "${ux(x)}": ${he.error}`:`Marketplace "${ux(x)}" not found`)}else if(v){let he=null;for(let{name:Ke,data:wt}of Jt){if(x&&Ke!==x)continue;let ke=wt?.plugins.find((Nt)=>Nt.name===v);if(!ke)continue;let He=lF(ke.name,Ke);he={entry:ke,marketplaceName:Ke,pluginId:He,isInstalled:_Pe(He)};break}if(oe)return;if(he){let Ke=he.pluginId;if(_Pe(Ke)){let ke=await Bke(Ke,R),He=await ua(Ke,ke,R,j);if(oe)return;if(He)re(He);else if(ke===null)T(`Plugin '${Ke}' is already installed globally. Use '/plugin' to manage existing plugins.`);else if(ke.changed){let Nt=await b([Ke]);if(oe)return;N(`Plugin "${Ke}" is already installed${ke.suffix}${Nt==="load-failed"?". The plugin couldn't be loaded \u2014 see /plugin for details.":""}`)}else N(`Plugin "${Ke}" is already installed${ke.suffix}`)}else E(he.marketplaceName),Ge(he)}else{let Ke=x?`marketplace "${x}"`:"any marketplace",wt=Mt?`. The marketplace couldn't be refreshed (${Mt}), so its cached catalog may be out of date`:"";T(`Plugin "${v}" not found in ${Ke}${wt}`)}}else if(x)E(x),re("plugin-list")}catch(Dt){if(oe)return;T(Dt instanceof Error?Dt.message:"Failed to load marketplaces")}finally{if(!oe)be(!1)}}return et(),()=>{oe=!0}},[T,N,re,Ge,b,x,v,R,j]);let Pt=C(0);if(A(()=>{if(!G)return;let oe=!1,et=++Pt.current;async function Dt(Mt){be(!0),Je("Loading\u2026");try{let Jt=await Hv(Mt,R);if(oe)return;if(!Jt)throw Error(`Failed to load marketplace: ${Mt}`);let Xt=[];for(let It of Jt.plugins){let ee=lF(It.name,Mt);if(Fd(ee))continue;Xt.push({entry:It,marketplaceName:Mt,pluginId:ee,isInstalled:_Pe(ee)})}try{let It=await oke(R);if(oe)return;if(Tt(It),It)Xt.sort((ee,Ne)=>{let he=It.get(ee.pluginId)??0,Ke=It.get(Ne.pluginId)??0;if(he!==Ke)return Ke-he;return ee.entry.name.localeCompare(Ne.entry.name)});else Xt.sort((ee,Ne)=>ee.entry.name.localeCompare(Ne.entry.name))}catch(It){if(oe)return;n(`Failed to fetch install counts: ${l(It)}`),Xt.sort((ee,Ne)=>ee.entry.name.localeCompare(Ne.entry.name))}Pe(Xt),Et(0),kn(new Set),dt(!1),gt("")}catch(Jt){if(oe)return;T(Jt instanceof Error?Jt.message:"Failed to load plugins")}finally{if(Pt.current===et)be(!1)}}return Dt(G),()=>{oe=!0}},[G,T,gt,Et,kn,dt,R]),ht({"select:previous":()=>{if(Gt>0)Et(Gt-1)},"select:next":()=>{if(Gt<J.length-1)Et(Gt+1)},"select:accept":()=>{let oe=J[Gt];if(oe)E(oe.name),re("plugin-list")}},{context:"Select",isActive:it==="marketplace-list"&&!_e}),typeof it==="object"&&it.type==="plugin-options")return e(ur,{viewState:it,onInstallComplete:b,onFinish:(oe)=>{N(oe),H({type:"menu"})}});if(_e)return e(rr,{message:ve});if(K)return e(Br,{error:K});if(it==="marketplace-list"){if(J.length===0)return r(o,{flexDirection:"column",children:[e(o,{marginBottom:1,children:e(t,{bold:!0,children:"Select marketplace"})}),e(t,{children:"No marketplaces configured."}),r(t,{dimColor:!0,children:["Add a marketplace first using ","'Add marketplace'","."]}),e(o,{marginTop:1,paddingLeft:1,children:e(t,{dimColor:!0,children:e(ze,{action:"confirm:no",context:"Settings",fallback:"Esc",description:"go back"})})})]});return r(o,{flexDirection:"column",children:[e(o,{marginBottom:1,children:e(t,{bold:!0,children:"Select marketplace"})}),_t&&e(o,{marginBottom:1,flexDirection:"column",children:r(t,{color:"warning",children:[e(tt,{status:"warning",withSpace:!0}),_t]})}),J.map((oe,et)=>r(Ig,{active:Gt===et,flexDirection:"column",marginBottom:et<J.length-1?1:0,children:[e(o,{children:r(t,{color:Gt===et?"suggestion":void 0,children:[r(t,{"aria-hidden":!0,children:[Gt===et?L.pointer:" "," "]}),Oo(oe.name)]})}),e(o,{marginLeft:2,children:e(t,{dimColor:!0,children:r(fe,{children:[r(U,{children:[oe.totalPlugins," ",k(oe.totalPlugins,"plugin")," available"]}),oe.installedCount>0&&`${oe.installedCount} already installed`,oe.source&&Oo(oe.source)]})})})]},oe.name)),e(o,{marginTop:1,children:e(t,{dimColor:!0,italic:!0,children:r(fe,{children:[e(ze,{action:"select:accept",context:"Select",fallback:"Enter",description:"select"}),e(ze,{action:"confirm:no",context:"Settings",fallback:"Esc",description:"go back"})]})})})]})}if(it==="plugin-details"&&xe)return r(o,{flexDirection:"column",children:[Re&&e(o,{marginBottom:1,flexDirection:"column",children:r(t,{color:"warning",children:[e(tt,{status:"warning",withSpace:!0}),Re]})}),e(hr,{onEntryHelperShown:Le,title:"Plugin Details",plugin:xe,extraSection:e(jd,{pluginId:xe.pluginId}),installError:le,menuOptions:je,detailsMenuIndex:Ut,isInstalling:Lt,bylinePaddingLeft:1})]});if(ue.length===0)return r(o,{flexDirection:"column",children:[e(o,{marginBottom:1,children:e(t,{bold:!0,children:"Install plugins"})}),e(sr,{hint:"All plugins from this marketplace are already installed.",children:"No new plugins available to install."}),e(o,{marginLeft:3,children:e(t,{dimColor:!0,italic:!0,children:e(ze,{action:"confirm:no",context:"Settings",fallback:"Esc",description:"go back"})})})]});let yt=$t.getVisibleItems(Bt);return r(o,{flexDirection:"column",tabIndex:0,autoFocus:!0,onKeyDown:Qe,onPaste:kt,children:[r(o,{children:[e(t,{bold:!0,children:"Install Plugins"}),$t.needsPagination&&r(t,{dimColor:!0,children:[" ","(",$t.scrollPosition.current,"/",$t.scrollPosition.total,")"]})]}),e(o,{marginBottom:1,children:e(Hd,{...se})}),Bt.length===0&&pt&&e(o,{marginBottom:1,children:r(sr,{children:['No plugins match "',pt,'"']})}),$t.scrollPosition.canScrollUp&&e(o,{children:r(t,{dimColor:!0,children:[" ",L.arrowUp," more above"]})}),yt.map((oe,et)=>{let Dt=$t.toActualIndex(et),Mt=Gt===Dt,Jt=In.has(oe.pluginId),Xt=Dn.has(oe.pluginId),It=et===yt.length-1,ee=st?.get(oe.pluginId);return r(Ig,{active:Mt&&!ot,flexDirection:"column",marginBottom:It&&!K?0:1,children:[r(o,{children:[r(t,{"aria-hidden":!0,color:Mt&&!ot?"suggestion":void 0,children:[Mt&&!ot?L.pointer:" "," "]}),r(t,{color:oe.isInstalled?"success":void 0,children:[oe.isInstalled?L.tick:Xt?L.ellipsis:Jt?L.radioOn:L.radioOff," ",id(oe.entry),oe.entry.category&&r(t,{dimColor:!0,children:[" ","[",Oo(oe.entry.category),"]"]}),oe.entry.tags?.includes("community-managed")&&e(t,{dimColor:!0,children:" [Community Managed]"}),e(DR,{when:oe.isInstalled,children:"installed"}),ee!==void 0&&G===ag&&r(t,{dimColor:!0,children:[" \xB7 ",O0t(ee)," installs"]})]})]}),oe.entry.description&&r(o,{marginLeft:4,children:[e(t,{dimColor:!0,children:rt(Oo(oe.entry.description),60)}),oe.entry.version&&r(t,{dimColor:!0,children:[" ","\xB7 v",Oo(oe.entry.version)]})]})]},oe.pluginId)}),$t.scrollPosition.canScrollDown&&e(o,{children:r(t,{dimColor:!0,children:[" ",L.arrowDown," more below"]})}),K&&e(o,{marginTop:1,children:r(t,{color:"error",children:[e(tt,{status:"error",withSpace:!0}),K]})}),e(kr,{...tn})]})}function jd(PC){let Jo=_(22),{pluginId:hs}=PC,{storageV5:ks}=ge(),[go,By]=u(null),Ay,Oy;if(Jo[0]!==hs||Jo[1]!==ks)Ay=()=>{By(null);let Ly=!1;return wXt(hs,Ye(at()),ks).then((TC)=>{if(!Ly)By(TC)}).catch(Fy),()=>{Ly=!0}},Oy=[hs,ks],Jo[0]=hs,Jo[1]=ks,Jo[2]=Ay,Jo[3]=Oy;else Ay=Jo[2],Oy=Jo[3];if(A(Ay,Oy),go===null){return null}let Ny=go.alwaysOn>=bXt,bs;if(Jo[4]!==go.isEstimate)bs=go.isEstimate&&e(t,{dimColor:!0,children:" (estimated)"}),Jo[4]=go.isEstimate,Jo[5]=bs;else bs=Jo[5];let xs;if(Jo[6]!==bs)xs=r(t,{bold:!0,children:["Context cost",bs,":"]}),Jo[6]=bs,Jo[7]=xs;else xs=Jo[7];const Nd=Ny?"warning":void 0,_d=!Ny;let Ss;if(Jo[8]!==go.alwaysOn)Ss=g0(go.alwaysOn),Jo[8]=go.alwaysOn,Jo[9]=Ss;else Ss=Jo[9];let vs;if(Jo[10]!==Nd||Jo[11]!==_d||Jo[12]!==Ss)vs=r(t,{color:Nd,dimColor:_d,children:["\xB7 Every turn: ",Ss," tokens"]}),Jo[10]=Nd,Jo[11]=_d,Jo[12]=Ss,Jo[13]=vs;else vs=Jo[13];let ws;if(Jo[14]!==go.onInvoke)ws=g0(go.onInvoke),Jo[14]=go.onInvoke,Jo[15]=ws;else ws=Jo[15];let Cs;if(Jo[16]!==ws)Cs=r(t,{dimColor:!0,children:["\xB7 When invoked: ",ws," tokens"]}),Jo[16]=ws,Jo[17]=Cs;else Cs=Jo[17];let _y;if(Jo[18]!==Cs||Jo[19]!==xs||Jo[20]!==vs)_y=r(o,{flexDirection:"column",marginBottom:1,children:[xs,vs,Cs]}),Jo[18]=Cs,Jo[19]=xs,Jo[20]=vs,Jo[21]=_y;else _y=Jo[21];return _y}F();var Uy=(a)=>a.result;function qd({screen:a,onInstallComplete:b,onSearchModeChange:S,getSessionContext:x,grantedSuggestions:v,targetPlugin:R}){let{storageV5:j,credentials:K}=ge(),T=Xe(a,Mi),N=Xe(a,Uy),{setError:H,setResult:G}=a,E=a.setViewState,[J,pe]=u([]),[ue,Pe]=u(!0),[_e,be]=u("Loading\u2026"),[ve,Je]=u(null),[st,Tt]=u(new Map),{viewState:it,setViewState:re,selectedPlugin:xe,openDetails:Ge,closeDetails:Ht,recordEntryHelperShown:Le,isSearchMode:ot,searchQuery:dt,searchBoxProps:pt,keyHintProps:gt,filteredPlugins:se,selectedIndex:tn,selectedForInstall:Bt,installingPlugins:Gt,pagination:Et,detailsMenuIndex:In,isInstalling:kn,installError:Dn,detailsMenuOptions:$t,handleListKeyDown:Ut,handleListPaste:Lt}=Sa({screen:a,initialViewState:"plugin-list",availablePlugins:J,loading:ue,searchMarketplaceName:!0,onInstallComplete:b,onSearchModeChange:S}),[le,je]=u(null),[Qe,kt]=u(null);A(()=>{let Re=!1;async function an(){try{let Ot=await zl(j),{marketplaces:Pt,failures:yt}=await c9(Ot,j);if(Re)return;let oe=[];for(let{name:ee,data:Ne}of Pt)if(Ne)for(let he of Ne.plugins){let Ke=lF(he.name,ee);oe.push({entry:he,marketplaceName:ee,pluginId:Ke,isInstalled:tH(Ke)})}let et=oe.filter((ee)=>!ee.isInstalled&&!Fd(ee.pluginId));try{let ee=await oke(j);if(Re)return;if(Je(ee),ee)et.sort((Ne,he)=>{let Ke=ee.get(Ne.pluginId)??0,wt=ee.get(he.pluginId)??0;if(Ke!==wt)return wt-Ke;return Ne.entry.name.localeCompare(he.entry.name)});else et.sort((Ne,he)=>Ne.entry.name.localeCompare(he.entry.name))}catch(ee){n(`Failed to fetch install counts: ${l(ee)}`),et.sort((Ne,he)=>Ne.entry.name.localeCompare(he.entry.name))}let Dt=new Map;try{let ee=x?.(),Ne=new Set(tVe());for(let he of et){if(!Ne.has(he.marketplaceName))continue;if(he.marketplaceName!==ag){let ke=Ot[he.marketplaceName]?.source;if(!ke||!nVe(he.marketplaceName,ke))continue}let Ke=Ivt(he.entry.name,he.entry.relevance);if(!Ke)continue;if(RNn(he.pluginId)>0&&!v?.has(he.pluginId))continue;let wt=await Pvt(Ke,ee);if(wt)Dt.set(he.pluginId,wt)}}catch(ee){n(`Failed to compute plugin suggestions: ${l(ee)}`)}if(Re)return;Tt(Dt);let Mt=Dt.size>0?[...et.filter((ee)=>Dt.has(ee.pluginId)),...et.filter((ee)=>!Dt.has(ee.pluginId))]:et;pe(Mt);let Jt=Object.keys(Ot).length;if(et.length===0){let ee=await MGn({configuredMarketplaceCount:Jt,failedMarketplaceCount:yt.length});if(Re)return;if(ee==="all-plugins-installed"&&oe.length>0&&oe.every((Ne)=>Ne.isInstalled&&!_Pe(Ne.pluginId))&&!oe.some((Ne)=>Fd(Ne.pluginId)))ee="all-plugins-project-installed";kt(ee)}let Xt=Q(Pt,(ee)=>ee.data!==null),It=Tqe(yt,Xt);if(It)if(It.type==="warning")je(It.message+(et.length>0?". Showing available plugins.":"."));else throw Error(It.message);if(R){let ee=oe.find((ke)=>ke.entry.name===R),Ne=!1,he=!1,Ke=!1,wt=!1;if(!ee){for(let[ke,He]of Object.entries(Ot)){be(`Checking ${ke} for new plugins\u2026`);let Nt=await vMn(ke,He,j);if(Re)return;if(Nt==="refresh-failed")he=!0;else if(Nt==="refreshed")wt=!0;if(Nt!=="refreshed")continue;try{let Fn=(await Hv(ke,j)).plugins.find((ln)=>ln.name===R);if(Fn){let ln=lF(Fn.name,ke);ee={entry:Fn,marketplaceName:ke,pluginId:ln,isInstalled:tH(ln)},Ne=!0,y("plugin_install_catalog_refresh");break}}catch(Kn){Ke=!0,n(`Post-refresh reload of marketplace '${ke}' failed: ${l(Kn)}`,{level:"warn"})}if(Re)return}if(!Ne)if(he)p("plugin_install_catalog_refresh","refresh_failed");else if(Ke)p("plugin_install_catalog_refresh","reload_failed");else if(wt)g("plugin_install_catalog_refresh","not_found_after_refresh");else g("plugin_install_catalog_refresh","ineligible")}if(Re)return;if(Ne&&ee&&!ee.isInstalled&&!Fd(ee.pluginId)){let ke=ee;pe((He)=>He.some((Nt)=>Nt.pluginId===ke.pluginId)?He:[...He,ke])}if(ee)if(_Pe(ee.pluginId)){let ke=await Bke(ee.pluginId,j),He=await ua(ee.pluginId,ke,j,K);if(Re)return;if(He)re(He);else if(ke===null)H(`Plugin '${ee.pluginId}' is already installed. Use '/plugin' to manage existing plugins.`);else if(ke.changed){let Nt=await b?.([ee.pluginId]);if(Re)return;G(`Plugin "${ee.pluginId}" is already installed${ke.suffix}${Nt==="load-failed"?". The plugin couldn't be loaded \u2014 see /plugin for details.":""}`)}else G(`Plugin "${ee.pluginId}" is already installed${ke.suffix}`)}else Ge(ee);else H(`Plugin "${R}" not found in any marketplace`)}}catch(Ot){if(Re)return;H(Ot instanceof Error?Ot.message:"Failed to load plugins")}finally{if(!Re)Pe(!1)}}return an(),()=>{Re=!0}},[H,G,re,Ge,b,x,v,R,j,K]);let _t=C(!1);if(A(()=>{if(_t.current||ue||T!==null||N!==null||it!=="plugin-list"||st.size===0)return;_t.current=!0;let Re=[...st.keys()];for(let an of Re)v?.add(an);kNn(Re,j)},[ue,T,N,it,st,v,j]),Be("confirm:no",Ht,{context:"Settings",isActive:it==="plugin-details"}),Be("confirm:no",()=>{E({type:"menu"})},{context:"Settings",isActive:it==="plugin-list"&&!ot}),typeof it==="object"&&it.type==="plugin-options")return e(ur,{viewState:it,onInstallComplete:b,onFinish:(Re)=>{G(Re),E({type:"menu"})}});if(ue)return e(rr,{message:_e});if(T)return e(Br,{error:T});if(it==="plugin-details"&&xe)return e(hr,{onEntryHelperShown:Le,title:"Plugin details",plugin:xe,showMarketplace:!0,installError:Dn,menuOptions:$t,detailsMenuIndex:In,isInstalling:kn});if(J.length===0)return r(o,{flexDirection:"column",children:[e(o,{marginBottom:1,children:e(t,{bold:!0,children:"Discover plugins"})}),le&&e(o,{marginBottom:1,children:e(yf,{status:"warning",children:le})}),e(Wd,{reason:Qe}),e(o,{marginTop:1,children:e(t,{dimColor:!0,italic:!0,children:e(ze,{action:"confirm:no",context:"Settings",fallback:"Esc",description:"go back"})})})]});let qe=Et.getVisibleItems(se);return r(o,{flexDirection:"column",tabIndex:0,autoFocus:!0,onKeyDown:Ut,onPaste:Lt,children:[r(o,{children:[e(t,{bold:!0,children:"Discover plugins"}),Et.needsPagination&&r(t,{dimColor:!0,children:[" ","(",Et.scrollPosition.current,"/",Et.scrollPosition.total,")"]})]}),e(o,{marginBottom:1,children:e(Hd,{...pt})}),le&&e(o,{marginBottom:1,children:e(yf,{status:"warning",children:le})}),se.length===0&&dt&&e(o,{marginBottom:1,children:r(sr,{children:['No plugins match "',dt,'"']})}),Et.scrollPosition.canScrollUp&&e(o,{children:r(t,{dimColor:!0,children:[" ",L.arrowUp," more above"]})}),qe.map((Re,an)=>{let Ot=Et.toActualIndex(an),Pt=tn===Ot,yt=Bt.has(Re.pluginId),oe=Gt.has(Re.pluginId),et=ve?.get(Re.pluginId),Dt=st.get(Re.pluginId),Mt=an===qe.length-1;return r(Ig,{active:Pt&&!ot,flexDirection:"column",marginBottom:Mt?0:1,children:[r(o,{children:[r(t,{"aria-hidden":!0,color:Pt&&!ot?"suggestion":void 0,children:[Pt&&!ot?L.pointer:" "," "]}),r(t,{children:[oe?L.ellipsis:yt?L.radioOn:L.radioOff," ",id(Re.entry),r(t,{dimColor:!0,children:[" ","\xB7 ",Oo(Re.marketplaceName)]}),Dt&&r(t,{dimColor:!0,children:[" ","\xB7 ",jy(Dt)]}),Re.entry.tags?.includes("community-managed")&&e(t,{dimColor:!0,children:" [Community Managed]"}),et!==void 0&&Re.marketplaceName===ag&&r(t,{dimColor:!0,children:[" \xB7 ",O0t(et)," installs"]})]})]}),Re.entry.description&&e(o,{marginLeft:4,children:e(t,{dimColor:!0,children:rt(Oo(Re.entry.description),60)})})]},`${Et.startIndex}-${Re.pluginId}`)}),Et.scrollPosition.canScrollDown&&e(o,{children:r(t,{dimColor:!0,children:[" ",L.arrowDown," more below"]})}),e(kr,{...gt})]})}function Wd(dP){let $i=_(7),{reason:pP}=dP;switch(pP){case"git-not-installed":{let wn;if($i[0]===d)wn=r(U,{children:[e(t,{dimColor:!0,children:"Git is required to install marketplaces."}),e(t,{dimColor:!0,children:"Please install git and restart Claude Code."})]}),$i[0]=wn;else wn=$i[0];return wn}case"all-blocked-by-policy":{let wn;if($i[1]===d)wn=r(U,{children:[e(t,{dimColor:!0,children:"Your organization policy does not allow any external marketplaces."}),e(t,{dimColor:!0,children:"Contact your administrator."})]}),$i[1]=wn;else wn=$i[1];return wn}case"policy-restricts-sources":{let wn;if($i[2]===d)wn=r(U,{children:[e(t,{dimColor:!0,children:"Your organization restricts which marketplaces can be added."}),e(t,{dimColor:!0,children:"Switch to the Marketplaces tab to view allowed sources."})]}),$i[2]=wn;else wn=$i[2];return wn}case"all-marketplaces-failed":{let wn;if($i[3]===d)wn=r(U,{children:[e(t,{dimColor:!0,children:"Failed to load marketplace data."}),e(t,{dimColor:!0,children:"Check your network connection."})]}),$i[3]=wn;else wn=$i[3];return wn}case"all-plugins-installed":{let wn;if($i[4]===d)wn=r(U,{children:[e(t,{dimColor:!0,children:"All available plugins are already installed."}),e(t,{dimColor:!0,children:"Check for new plugins later or add more marketplaces."})]}),$i[4]=wn;else wn=$i[4];return wn}case"all-plugins-project-installed":{let wn;if($i[5]===d)wn=r(U,{children:[e(t,{dimColor:!0,children:"All available plugins are installed for this project."}),e(t,{dimColor:!0,children:"Use the Browse tab to install at user scope."})]}),$i[5]=wn;else wn=$i[5];return wn}case"no-marketplaces-configured":default:{let wn;if($i[6]===d)wn=e(sr,{hint:"Add a marketplace first using the Marketplaces tab.",children:"No plugins available."}),$i[6]=wn;else wn=$i[6];return wn}}}var Ps=32;function jy(a){switch(a.signal){case"cwd":return"suggested for this directory";case"cli":return`suggested for ${rt(a.command,Ps)} commands`;case"hosts":return`suggested for ${rt(a.host,Ps)}`;case"filesRead":return`suggested for ${Kd(a.file)}`;case"manifestDep":return`suggested from ${Kd(a.file)}`}}function Kd(a){return ul(Fo(a).replaceAll("\\","/"),Ps)}F();import{readdir as Hy,readFile as zd}from"fs/promises";import{homedir as Ky}from"os";import*as Mo from"path";var Ts=5,qy=m(()=>f({query:i().min(1),should_trigger:q()})),Is=async()=>null;async function Wy(a){let b=[],S=[],x;try{x=await Hy(a)}catch(v){if(X(v))return{queries:[],warnings:[`No evals/ folder found at ${a}. Create one with at least ${Ts} <name>.md files (frontmatter: query, should_trigger).`]};throw v}for(let v of x.filter((R)=>R.endsWith(".md")).sort()){let R=Mo.join(a,v),j;try{j=await zd(R,"utf8")}catch(G){S.push(`Could not read ${v}: ${l(G)}`);continue}j=JE(j);let K=j.match(wH);if(!K){S.push(`${v}: missing YAML frontmatter (expected ---\\nquery: \u2026\\nshould_trigger: \u2026\\n---).`);continue}let T;try{T=bH(K[1]??"")}catch(G){S.push(`${v}: invalid YAML \u2014 ${l(G)}`);continue}let N=qy().safeParse(T);if(!N.success){let G=N.error.issues.map((E)=>`${E.path.join(".")}: ${E.message}`).join("; ");S.push(`${v}: ${G}`);continue}let H=j.slice(K[0].length).trim();b.push({file:v,query:N.data.query,shouldTrigger:N.data.should_trigger,...H&&{notes:H}})}if(b.length>0&&b.length<Ts)S.push(`Only ${b.length} eval ${b.length===1?"query":"queries"} found; the spec recommends at least ${Ts} for meaningful coverage.`);return{queries:b,warnings:S}}async function zy(a){try{let b=await zd(Mo.join(a,"SKILL.md"),"utf8"),S=JE(b).match(wH);if(!S)return"";let x=bH(S[1]??"");if(x&&typeof x==="object"&&"description"in x&&typeof x.description==="string")return x.description}catch{}return""}async function Rs(a,b,S){let x=a==="~"||a.startsWith("~/")?Mo.join(Ky(),a.slice(1)):a,v=Mo.resolve(x),R=Mo.basename(v),j=await zy(v),K=Mo.join(v,"evals"),{queries:T,warnings:N}=await Wy(K),H=[];for(let G of T){if(b.aborted)break;try{let E=await S({skillName:R,description:j,query:G,signal:b});if(E===null){H.push({query:G,modelWouldTrigger:null,reason:"Model evaluation not yet wired up \u2014 tracks the plugin evaluation framework.",verdict:"skipped"});continue}H.push({query:G,modelWouldTrigger:E.wouldTrigger,reason:E.reason,verdict:E.wouldTrigger===G.shouldTrigger?"pass":"fail"})}catch(E){n(`plugin eval: trigger test for ${G.file} threw: ${l(E)}`,{level:"error"}),H.push({query:G,modelWouldTrigger:null,reason:l(E),verdict:"fail"})}}return{pluginName:R,pluginPath:v,evalsPath:K,queries:T,warnings:N,triggerResults:H,passCount:Q(H,(G)=>G.verdict==="pass"),failCount:Q(H,(G)=>G.verdict==="fail"),skippedCount:Q(H,(G)=>G.verdict==="skipped")}}function Es(a){let b=[];b.push(`Evaluating ${a.pluginName} (${a.evalsPath})`),b.push("");for(let S of a.warnings)b.push(`! ${S}`);if(a.warnings.length>0)b.push("");if(a.queries.length===0)return b.push("No eval queries to run."),b.join(`
-`);b.push("Level 1 \u2014 trigger tests:");for(let S of a.triggerResults){let x=S.verdict.toUpperCase().padEnd(7),v=S.query.shouldTrigger?"trigger":"skip";if(S.verdict==="skipped")b.push(`  [${x}] ${S.query.file} \u2014 expected ${v}`);else{let R=S.modelWouldTrigger?"trigger":"skip";if(b.push(`  [${x}] ${S.query.file} \u2014 expected ${v}, got ${R}`),S.verdict==="fail")b.push(`            ${S.reason}`)}}if(b.push(""),a.skippedCount===a.triggerResults.length)b.push("All trigger tests skipped \u2014 model evaluation not yet wired up.");else b.push(`${a.passCount}/${a.passCount+a.failCount} trigger tests passed${a.skippedCount>0?` (${a.skippedCount} skipped)`:""}.`);return b.push(""),b.push("Level 2 \u2014 interplay tests: not yet implemented. Tracks the plugin evaluation framework."),b.join(`
-`)}function $s(AP){let Gd=_(6),{onComplete:vr,target:wr}=AP,Gy;if(Gd[0]===d)Gy=new AbortController,Gd[0]=Gy;else Gy=Gd[0];let OP=C(Gy),Qy,Yy;if(Gd[1]!==vr||Gd[2]!==wr)Qy=()=>{let Jy=OP.current;let Qd=async function Qd(){if(!wr){vr(`Usage: /plugin eval [path]
+import { Se } from "/$bunfs/root/chunk-f9h0bg01.js";
+import { Me, Ue } from "/$bunfs/root/chunk-qq1mdtb5.js";
+import { s } from "/$bunfs/root/chunk-r53tkxrh.js";
+import { w, c } from "/$bunfs/root/chunk-4xj01xwv.js";
+import { ft, we, l, X } from "/$bunfs/root/chunk-ypdw393e.js";
+import { V, n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { Dr, _f } from "/$bunfs/root/chunk-gcks6mn0.js";
+import { Wf, k, St, Ku, ux } from "/$bunfs/root/chunk-4ddxwr9r.js";
+import { h, Z } from "/$bunfs/root/chunk-wkxx62a2.js";
+import { m } from "/$bunfs/root/chunk-bzx56g36.js";
+import { _ } from "/$bunfs/root/chunk-haan6f8z.js";
+import { M } from "/$bunfs/root/chunk-y2r26k83.js";
+import { mn } from "/$bunfs/root/chunk-htrft0p0.js";
+import { ge } from "/$bunfs/root/chunk-c3bffkxg.js";
+import { at, Ye, Pf, Vn, bt, kH, Jde, hm, Yt, I, Ae, ie, W3 } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { y, p, g } from "/$bunfs/root/chunk-ca80fke8.js";
+import { Oo, Of, DXe, Yor, Fp, id, Ope, OXe, MXe, NXe } from "/$bunfs/root/chunk-6k63g5t6.js";
+import { Fo } from "/$bunfs/root/chunk-q14dgq5g.js";
+import { ul, rt, g0, Sy } from "/$bunfs/root/chunk-2rx5nghb.js";
+import { ui } from "/$bunfs/root/chunk-ntyhd04p.js";
+import { ye, En, rn, Os } from "/$bunfs/root/chunk-988p40e0.js";
+import { hN, yw, xi, UH } from "/$bunfs/root/chunk-0spqrdaj.js";
+import { An } from "/$bunfs/root/chunk-5rt2mvvk.js";
+import { qH, mR } from "/$bunfs/root/chunk-1yr12dqr.js";
+import { aYe, Zl, Qt, gR, c5, cYe, Wm } from "/$bunfs/root/chunk-z2bvp3sv.js";
+import { Zo } from "/$bunfs/root/chunk-keb644xg.js";
+import { o, t, ut } from "/$bunfs/root/chunk-he2phymk.js";
+import { Ba } from "/$bunfs/root/chunk-syabrr2b.js";
+import { xt } from "/$bunfs/root/chunk-8cv6dqkz.js";
+import { fe } from "/$bunfs/root/chunk-rycvm63e.js";
+import { Cp } from "/$bunfs/root/chunk-ngn87vcm.js";
+import { tt } from "/$bunfs/root/chunk-s8gya298.js";
+import { Ua, Ui } from "/$bunfs/root/chunk-8ktvd0rh.js";
+import { Ee } from "/$bunfs/root/chunk-rp246vnd.js";
+import { Be, ht } from "/$bunfs/root/chunk-ek4tmwbt.js";
+import { Pg, Zi } from "/$bunfs/root/chunk-s0p5v53p.js";
+import { Hi } from "/$bunfs/root/chunk-tmxtk606.js";
+import { Xe } from "/$bunfs/root/chunk-gtwaztzc.js";
+import { W, At, Xn } from "/$bunfs/root/chunk-ht28m404.js";
+import { dc, gyt, mQn, fde, jne, jh, YF, bWt } from "/$bunfs/root/chunk-5n1tbe50.js";
+import { ei } from "/$bunfs/root/chunk-p1awcxk1.js";
+import {
+  PL,
+  aye,
+  sct,
+  act,
+  Xw,
+  lct,
+  hv,
+  lye,
+  Mxe,
+  cNt,
+  Nb,
+  jxe,
+  gWn,
+  SWn,
+  DB,
+  Hct,
+  a3e,
+  Ho,
+  Gx,
+  Q1,
+  $L,
+  JNt,
+  QNt,
+  oIe,
+  iIe,
+  tT,
+  Kct,
+  PG,
+  Q8,
+  Qu,
+  Qln,
+  OSe,
+  lF,
+  c9,
+  Tqe,
+  MGn,
+  Tpt,
+  NGn,
+  dk,
+  Eqe,
+  zl,
+  cc,
+  jb,
+  F7,
+  MSe,
+  Hv,
+  ED,
+  UGn,
+  nm,
+  Cqe,
+  tH,
+  _Pe,
+  yPe,
+  Dh,
+  As,
+  eI,
+  yi,
+} from "/$bunfs/root/chunk-zze8764r.js";
+import { JE, bH, wH } from "/$bunfs/root/chunk-z15hpjf9.js";
+import { ag, zDe, rC, Vze, Ys } from "/$bunfs/root/chunk-fctnm902.js";
+import { Fd, FS, hM, G2t, tVe, nVe } from "/$bunfs/root/chunk-e53y7x75.js";
+import { Fc } from "/$bunfs/root/chunk-tveh0k24.js";
+import { Lu } from "/$bunfs/root/chunk-308krgtb.js";
+import { Nm, nu, um, uc, BF, Ggn, MI, Vt, Zz, Ud, Vy, fp, NI, Pp } from "/$bunfs/root/chunk-x06p1jhb.js";
+import { mo } from "/$bunfs/root/chunk-4sw5yxwb.js";
+import { m1, R2e } from "/$bunfs/root/chunk-9pc6y6sc.js";
+import { wo } from "/$bunfs/root/chunk-hyj9nfhh.js";
+import { xn } from "/$bunfs/root/chunk-hb6grkjg.js";
+import { np, Hd } from "/$bunfs/root/chunk-dxft4b6s.js";
+import { x0t, PK, AMn, _nt, oke, D0t, bXt, wXt, O0t, LR, $Be, UBe, BBe, ike } from "/$bunfs/root/chunk-22a61hj3.js";
+import { fo, me } from "/$bunfs/root/chunk-489c3cyq.js";
+import { lL } from "/$bunfs/root/chunk-zm8pm0zg.js";
+import { vMn, rse, ske, WBe, RMn, GBe, ake, L0t, bq, lke, cke, hge, uke } from "/$bunfs/root/chunk-0zt38pp0.js";
+import { Ivt, Pvt } from "/$bunfs/root/chunk-87pfeb5g.js";
+import { fl, Ce } from "/$bunfs/root/chunk-1y0jc48h.js";
+import { yMn } from "/$bunfs/root/chunk-eqtc822h.js";
+import { ct } from "/$bunfs/root/chunk-pc41wsq4.js";
+import { kh, CW } from "/$bunfs/root/chunk-z3cfs4t3.js";
+import { Yj, cL, uL } from "/$bunfs/root/chunk-6kcz1xy0.js";
+import { Uie, TK } from "/$bunfs/root/chunk-2chz50s1.js";
+import { zs } from "/$bunfs/root/chunk-kxb2efvp.js";
+import { Bme, pOn, fOn } from "/$bunfs/root/chunk-0bedrwtf.js";
+import { j0t } from "/$bunfs/root/chunk-8h8rnma9.js";
+import { dse } from "/$bunfs/root/chunk-ph2x1s8t.js";
+import { O2e } from "/$bunfs/root/chunk-brkpapaa.js";
+import { L8t, ZRt } from "/$bunfs/root/chunk-s1p87x4q.js";
+import { yf } from "/$bunfs/root/chunk-b47sd14d.js";
+import { DR } from "/$bunfs/root/chunk-ebn06b52.js";
+import { GRe } from "/$bunfs/root/chunk-66by9x77.js";
+import { Ig } from "/$bunfs/root/chunk-v0p4561j.js";
+import { xr } from "/$bunfs/root/chunk-r9qj0qxk.js";
+import { Dc } from "/$bunfs/root/chunk-1ckq10h3.js";
+import { sr } from "/$bunfs/root/chunk-vnpdqx6v.js";
+import { Br } from "/$bunfs/root/chunk-2ffqgskx.js";
+import { rr } from "/$bunfs/root/chunk-0nfwsvfd.js";
+import { W0t, q0t, Ant, RQ } from "/$bunfs/root/chunk-9aea0rng.js";
+import { D0, NQ } from "/$bunfs/root/chunk-gce2rjvv.js";
+import { sB, Bke } from "/$bunfs/root/chunk-6xk0dqvt.js";
+import { RNn, kNn } from "/$bunfs/root/chunk-zr7ta3a4.js";
+import { h1, ov, D2e, $Q, irt } from "/$bunfs/root/chunk-bhaprsyw.js";
+import { Ase, DNn } from "/$bunfs/root/chunk-800kqn71.js";
+import { BQ, _1, drt } from "/$bunfs/root/chunk-k617fh7k.js";
+import { Rx } from "/$bunfs/root/chunk-wejc4mjk.js";
+import { L1 } from "/$bunfs/root/chunk-c59q3nnv.js";
+import { lr } from "/$bunfs/root/chunk-wah81w99.js";
+import { zc } from "/$bunfs/root/chunk-ktmq03vw.js";
+import { ze } from "/$bunfs/root/chunk-4kafv9jq.js";
+import { U, e, r } from "/$bunfs/root/chunk-8s7kcbyw.js";
+import { mt } from "/$bunfs/root/chunk-d5bnjcbw.js";
+import { Lb, Jn, yn, z_, zn, B, We, A, br, z, C, u, F } from "/$bunfs/root/chunk-twm95mhz.js";
+import { Lr } from "/$bunfs/root/chunk-31xy83wr.js";
+import { Sk } from "/$bunfs/root/chunk-6nsyrmhg.js";
+import { Rr, Da, fI, Kb } from "/$bunfs/root/chunk-y9akj3mq.js";
+import { L } from "/$bunfs/root/chunk-v4qqyykc.js";
+import { pV, Ra, Uk } from "/$bunfs/root/chunk-1emzhzm3.js";
+import { Qn } from "/$bunfs/root/chunk-9319g175.js";
+import { i, q, f } from "/$bunfs/root/chunk-saay52v7.js";
+import { D } from "/$bunfs/root/chunk-7s7jqj2f.js";
+import { O } from "/$bunfs/root/chunk-dqkj2bph.js";
+import { Q, te } from "/$bunfs/root/chunk-wag5ye9w.js";
+import { d, fn } from "/$bunfs/root/chunk-yz031c9r.js";
+F();
+async function Su(a, b, S, x) {
+  let v = await xg(a, b, S, x);
+  if (
+    (s("tengu_plugin_install_auto_activate", { activated: v === null, ...(v !== null && { reason: c(v) }) }),
+    v === null)
+  )
+    y("plugin_install_auto_activate");
+  else if (v === "cache_impact") g("plugin_install_auto_activate", "cache_impact");
+  else p("plugin_install_auto_activate", v);
+  if (v === null) return "activated";
+  if (v === "plugin_load_error") return "load-failed";
+  return (
+    b((R) => (R.plugins.needsRefresh ? R : { ...R, plugins: { ...R.plugins, needsRefresh: !0 } })), "reload-required"
+  );
+}
+async function xg(a, b, S, x) {
+  let v = S;
+  try {
+    if ((await NQ(a())).wouldInvalidateCache) return "cache_impact";
+    let j = await D0(b, x),
+      K = await sB(j.errors, x);
+    if (K.installed.length > 0) {
+      if ((await NQ(a())).wouldInvalidateCache) return "cache_impact";
+      (j = await D0(b, x)), (v = [...v, ...K.installed]);
+    }
+    if (j.error_count > j.errors.length) return "refresh_failed";
+    if (j.errors.some((T) => Sg(T, v))) return "plugin_load_error";
+    return null;
+  } catch (R) {
+    return (
+      h(R),
+      n(`activatePluginsAfterInstall: falling back to needsRefresh: ${l(R)}`, { level: "error" }),
+      "refresh_failed"
+    );
+  }
+}
+function Sg(a, b) {
+  if ("orphan" in a && a.orphan) return !1;
+  if (fde(a) === void 0) return !1;
+  let S = "pluginId" in a && a.pluginId ? a.pluginId : "plugin" in a && a.plugin ? a.plugin : void 0,
+    x = S !== void 0 && S.includes("@") ? S : a.source.includes("@") ? a.source : (S ?? a.source);
+  return x.includes("@") ? b.includes(x) : b.some((v) => St(v, "@") === x);
+}
+F();
+function vu({
+  inputValue: a,
+  setInputValue: b,
+  cursorOffset: S,
+  setCursorOffset: x,
+  error: v,
+  setError: R,
+  result: j,
+  setResult: K,
+  setViewState: T,
+  onAddComplete: N,
+  cliMode: H = !1,
+}) {
+  let { storageV5: G, credentials: E } = ge(),
+    J = C(!1),
+    [pe, ue] = u(!1),
+    [Pe, _e] = u(""),
+    be = async () => {
+      let ve = a.trim();
+      if (!ve) {
+        R("Please enter a marketplace source");
+        return;
+      }
+      let Je = await _nt(ve);
+      if (!Je) {
+        R("Invalid marketplace source format. Try: owner/repo, https://..., or ./path");
+        return;
+      }
+      if ("error" in Je) {
+        R(Je.error);
+        return;
+      }
+      R(null);
+      try {
+        ue(!0), _e("");
+        let { name: st, resolvedSource: Tt } = await F7(
+            Je,
+            (xe) => {
+              _e(xe);
+            },
+            G,
+          ),
+          { error: it } = await Eqe(st, { source: Tt }, "userSettings", G);
+        if (it) throw it;
+        Qu(G, E),
+          s("tengu_marketplace_added", {
+            _PROTO_marketplace_name: st,
+            source_type: c(Je.source),
+            repo_hash: Je.source === "github" ? Vn(Je.repo) : void 0,
+            is_official_marketplace: Pp(st),
+          });
+        let re = [];
+        try {
+          re = (await sB((await Dh(G, E)).errors, G)).installed;
+        } catch (xe) {
+          n(`marketplace add: dep auto-resolve skipped: ${l(xe)}`, { level: "warn" });
+        }
+        if (re.length > 0) Qu(G, E);
+        if ((await N(), _e(""), ue(!1), H)) K(`Successfully added marketplace: ${st}${DB(re)}`);
+        else T({ type: "browse-marketplace", targetMarketplace: st });
+      } catch (st) {
+        let Tt = we(st);
+        if ((n(`marketplace add failed: ${l(Tt)}`, { level: "error" }), R(Tt.message), _e(""), ue(!1), H))
+          K(`Error: ${Tt.message}`);
+        else K(null);
+      }
+    };
+  return (
+    A(() => {
+      if (a && !J.current && !v && !j) (J.current = !0), be();
+    }, []),
+    r(o, {
+      flexDirection: "column",
+      children: [
+        r(o, {
+          flexDirection: "column",
+          paddingX: 1,
+          borderStyle: "round",
+          children: [
+            e(o, { marginBottom: 1, children: e(t, { bold: !0, children: "Add Marketplace" }) }),
+            r(o, {
+              flexDirection: "column",
+              children: [
+                e(t, { children: "Enter marketplace source:" }),
+                e(t, { dimColor: !0, children: "Examples:" }),
+                e(t, { dimColor: !0, children: " \xB7 owner/repo (GitHub)" }),
+                e(t, { dimColor: !0, children: " \xB7 git@github.com:owner/repo.git (SSH)" }),
+                e(t, { dimColor: !0, children: " \xB7 https://example.com/marketplace.json" }),
+                e(t, { dimColor: !0, children: " \xB7 ./path/to/marketplace" }),
+                e(o, {
+                  marginTop: 1,
+                  children: e(xn, {
+                    value: a,
+                    onChange: b,
+                    onSubmit: be,
+                    columns: 80,
+                    cursorOffset: S,
+                    onChangeCursorOffset: x,
+                    focus: !0,
+                    showCursor: !0,
+                  }),
+                }),
+              ],
+            }),
+            pe &&
+              r(o, {
+                marginTop: 1,
+                children: [e(wo, {}), e(t, { children: Oo(Pe) || "Adding marketplace to configuration\u2026" })],
+              }),
+            v && e(o, { marginTop: 1, children: e(Br, { error: Of(v) }) }),
+            j && e(o, { marginTop: 1, children: e(t, { children: Of(j) }) }),
+          ],
+        }),
+        e(o, {
+          marginLeft: 3,
+          children: e(t, {
+            dimColor: !0,
+            italic: !0,
+            children: r(fe, {
+              children: [
+                e(M, { chord: "enter", action: "add" }),
+                e(ze, { action: "confirm:no", context: "Settings", fallback: "Esc", description: "cancel" }),
+              ],
+            }),
+          }),
+        }),
+      ],
+    })
+  );
+}
+F();
+F();
+F();
+function Eu(a, b, S, x) {
+  let v = {};
+  for (let R of a) {
+    let j = S[R],
+      T = ((b[R] ?? "").split(/\r\n|\r|\n/, 1)[0] ?? "").trim();
+    if (T === "") {
+      if (j?.sensitive === !0 && x?.[R] !== void 0) continue;
+      if (j?.type === "number") continue;
+      if (j?.required !== !0 && x?.[R] === void 0) continue;
+    }
+    if (j?.type === "number") {
+      let N = Number(T);
+      v[R] = Number.isNaN(N) ? T : N;
+    } else if (j?.type === "boolean") v[R] = Me(T);
+    else v[R] = T;
+  }
+  return v;
+}
+function ki(Xx) {
+  let Yi = _(24),
+    { title: wu, subtitle: Cu, configSchema: io, initialValues: Lo, onSave: Pu, onCancel: Tu } = Xx,
+    vg;
+  if (Yi[0] !== io) (vg = Object.keys(io)), (Yi[0] = io), (Yi[1] = vg);
+  else vg = Yi[1];
+  let So = vg,
+    wg;
+  if (Yi[2] !== io || Yi[3] !== So || Yi[4] !== Lo)
+    (wg = () => {
+      let Cg = {};
+      for (const Iu of So) {
+        let Tg = io[Iu]?.sensitive === !0 ? void 0 : Lo?.[Iu];
+        Cg[Iu] = Tg === void 0 ? "" : String(Tg);
+      }
+      return Cg;
+    }),
+      (Yi[2] = io),
+      (Yi[3] = So),
+      (Yi[4] = Lo),
+      (Yi[5] = wg);
+  else wg = Yi[5];
+  let [Ji, Zx] = u(wg),
+    Rg;
+  if (Yi[6] !== io || Yi[7] !== So || Yi[8] !== Lo)
+    (Rg = So.map((nl) => {
+      let ol = io[nl];
+      let Eg = ol?.sensitive === !0;
+      let Mg = Eg && Lo?.[nl] !== void 0;
+      return {
+        type: "text",
+        key: nl,
+        label: ol?.title || nl,
+        required: ol?.required === !0 && !Mg,
+        mask: Eg ? "*" : void 0,
+        placeholder: Mg ? "(unchanged)" : void 0,
+        hint: () => ol?.description,
+      };
+    })),
+      (Yi[6] = io),
+      (Yi[7] = So),
+      (Yi[8] = Lo),
+      (Yi[9] = Rg);
+  else Rg = Yi[9];
+  let Ru = Rg;
+  if (So.length === 0) {
+    return null;
+  }
+  let $g;
+  if (Yi[10] === d) ($g = (eS, tS) => Zx((nS) => ({ ...nS, [eS]: tS }))), (Yi[10] = $g);
+  else $g = Yi[10];
+  let il;
+  if (Yi[11] !== io || Yi[12] !== So || Yi[13] !== Lo || Yi[14] !== Pu || Yi[15] !== Ji)
+    (il = () => Pu(Eu(So, Ji, io, Lo))),
+      (Yi[11] = io),
+      (Yi[12] = So),
+      (Yi[13] = Lo),
+      (Yi[14] = Pu),
+      (Yi[15] = Ji),
+      (Yi[16] = il);
+  else il = Yi[16];
+  let Dg;
+  if (Yi[17] !== Ru || Yi[18] !== Tu || Yi[19] !== Cu || Yi[20] !== il || Yi[21] !== wu || Yi[22] !== Ji)
+    (Dg = e(lL, {
+      title: wu,
+      subtitle: Cu,
+      fields: Ru,
+      values: Ji,
+      onChange: $g,
+      onSubmit: il,
+      onCancel: Tu,
+      submitLabel: "Save configuration",
+    })),
+      (Yi[17] = Ru),
+      (Yi[18] = Tu),
+      (Yi[19] = Cu),
+      (Yi[20] = il),
+      (Yi[21] = wu),
+      (Yi[22] = Ji),
+      (Yi[23] = Dg);
+  else Dg = Yi[23];
+  return Dg;
+}
+function Sf(_S) {
+  return Object.keys(_S.userConfig ?? {}).length > 0;
+}
+function vf(US) {
+  return { steps: US };
+}
+function wf() {}
+function Cf(gf) {
+  return n(`Failed to save plugin options: ${l(gf)}`, { level: "error" }), gf ?? Error("save failed");
+}
+async function Sl(a, b, S) {
+  let { enabled: x, disabled: v } = await Dh(b, S);
+  return lct([...x, ...v], a);
+}
+async function xf(a, b) {
+  return Object.keys(await Mxe(a, b)).length > 0 || (await cNt(a, b)).length > 0;
+}
+async function ua(a, b, S, x) {
+  let v = await Sl(a, S, x);
+  if (!v || !(await xf(v, x))) return null;
+  let R;
+  for (let K of xi()) {
+    let T = ye(K)?.enabledPlugins?.[a];
+    if (T !== void 0) R = T;
+  }
+  let j = R !== void 0 ? R === !1 : v.manifest.defaultEnabled === !1;
+  return {
+    type: "plugin-options",
+    plugin: v,
+    pluginId: a,
+    depNote: b?.suffix ?? "",
+    alreadyInstalled: !0,
+    depsResolved: b?.changed ?? !1,
+    installedDisabled: j,
+    installedDisabledByDefault: R === void 0 && v.manifest.defaultEnabled === !1,
+  };
+}
+function ur(vS) {
+  let ra = _(22),
+    { viewState: wS, onInstallComplete: bi, onFinish: Mu } = vS,
+    {
+      plugin: zo,
+      pluginId: vo,
+      depNote: oa,
+      alreadyInstalled: ia,
+      depsResolved: CS,
+      installedDisabled: $u,
+      installedDisabledByDefault: Du,
+    } = wS,
+    Xi = ia ? "Already installed" : "Installed",
+    [PS, TS] = u(!1),
+    Bg = C(!1),
+    Ag,
+    Og;
+  if (ra[0] === d)
+    (Ag = () => () => {
+      Bg.current = !0;
+    }),
+      (Og = []),
+      (ra[0] = Ag),
+      (ra[1] = Og);
+  else (Ag = ra[0]), (Og = ra[1]);
+  A(Ag, Og);
+  let er = !ia || Boolean(CS),
+    Lg;
+  if (ra[2] !== $u || ra[3] !== Du || ra[4] !== bi || ra[5] !== vo)
+    (Lg = async function Si(IS) {
+      if (!IS) {
+        return "";
+      }
+      let Ng = bi ? await bi([vo]) : "reload-required";
+      if ($u) {
+        let _g = Ra("plugin enable", vo);
+        let Fg = `enable it in /plugin${_g ? ` or run: ${_g}` : ""}.`;
+        let Ug = Ng === "load-failed" ? " The plugin couldn't be loaded \u2014 see /plugin for details." : "";
+        return Du
+          ? ` This plugin is disabled by default \u2014 ${Fg}${Ug}`
+          : ` This plugin is disabled \u2014 ${Fg}${Ug}`;
+      }
+      switch (Ng) {
+        case "activated": {
+          return " Plugin is now active.";
+        }
+        case "load-failed": {
+          return " The plugin couldn't be loaded \u2014 see /plugin for details.";
+        }
+        case "reload-required": {
+          return " Run /reload-plugins to apply.";
+        }
+      }
+    }),
+      (ra[2] = $u),
+      (ra[3] = Du),
+      (ra[4] = bi),
+      (ra[5] = vo),
+      (ra[6] = Lg);
+  else Lg = ra[6];
+  let Si = Lg;
+  if (PS) {
+    let vi;
+    if (ra[7] === d) (vi = e(rr, { message: "Activating plugin\u2026" })), (ra[7] = vi);
+    else vi = ra[7];
+    return vi;
+  }
+  let vi;
+  if (
+    ra[8] !== Si ||
+    ra[9] !== ia ||
+    ra[10] !== er ||
+    ra[11] !== oa ||
+    ra[12] !== Mu ||
+    ra[13] !== bi ||
+    ra[14] !== zo ||
+    ra[15] !== vo ||
+    ra[16] !== Xi
+  )
+    (vi = (RS, Vg, Bu) => {
+      (async () => {
+        TS(!0);
+        let rl = (ES) => {
+          if (!Bg.current) Mu(ES);
+        };
+        bb50: switch (RS) {
+          case "configured": {
+            let jg = Boolean(Bu);
+            let MS = er || jg;
+            rl(`\u2713 ${jg ? (ia ? "Configured" : "Installed and configured") : Xi} ${id(zo)}${oa}.${await Si(MS)}`);
+            break bb50;
+          }
+          case "skipped": {
+            let $S = er || Boolean(Bu);
+            rl(`\u2713 ${Xi} ${id(zo)}${oa}.${await Si($S)}`);
+            break bb50;
+          }
+          case "read-error": {
+            rl(`${Xi} ${id(zo)}${oa}, but its saved options could not be read (${Vg}).${await Si(er)}`);
+            break bb50;
+          }
+          case "error": {
+            let Hg = !1;
+            if (er || Boolean(Bu)) Hg = (await bi?.([vo])) === "load-failed";
+            rl(
+              `${Xi} but failed to save config: ${Vg}${Hg ? " The plugin couldn't be loaded \u2014 see /plugin for details." : ""}`,
+            );
+          }
+        }
+      })();
+    }),
+      (ra[8] = Si),
+      (ra[9] = ia),
+      (ra[10] = er),
+      (ra[11] = oa),
+      (ra[12] = Mu),
+      (ra[13] = bi),
+      (ra[14] = zo),
+      (ra[15] = vo),
+      (ra[16] = Xi),
+      (ra[17] = vi);
+  else vi = ra[17];
+  let Kg;
+  if (ra[18] !== zo || ra[19] !== vo || ra[20] !== vi)
+    (Kg = e(or, { plugin: zo, pluginId: vo, onDone: vi })), (ra[18] = zo), (ra[19] = vo), (ra[20] = vi), (ra[21] = Kg);
+  else Kg = ra[21];
+  return Kg;
+}
+function or(DS) {
+  let Go = _(24),
+    { plugin: qn, pluginId: No, onDone: _o } = DS,
+    { storageV5: al, credentials: tr } = ge(),
+    qg;
+  if (Go[0] !== tr || Go[1] !== qn || Go[2] !== No || Go[3] !== al)
+    (qg = async function aa() {
+      let Au = [];
+      let Wg = await Mxe(qn, tr);
+      if (Object.keys(Wg).length > 0)
+        Au.push({
+          key: "top-level",
+          title: `Configure ${id(qn)}`,
+          subtitle: "Plugin options",
+          schema: Wg,
+          load: () => hv(No, tr),
+          save: (BS) => lye(No, BS, qn.manifest.userConfig, al),
+        });
+      let AS = await cNt(qn, tr);
+      for (const nr of AS)
+        Au.push({
+          key: `channel:${nr.server}`,
+          title: `Configure ${nr.displayName}`,
+          subtitle: `Plugin: ${id(qn)}`,
+          schema: nr.configSchema,
+          load: async () => (await aye(No, nr.server, tr)) ?? void 0,
+          save: (OS) => sct(No, nr.server, OS, nr.configSchema, al),
+        });
+      return Au;
+    }),
+      (Go[0] = tr),
+      (Go[1] = qn),
+      (Go[2] = No),
+      (Go[3] = al),
+      (Go[4] = qg);
+  else qg = Go[4];
+  let aa = qg,
+    zg;
+  if (Go[5] !== aa || Go[6] !== qn.manifest.channels || Go[7] !== qn.manifest.userConfig || Go[8] !== No)
+    (zg = () =>
+      Object.keys(qn.manifest.userConfig ?? {}).length > 0 || (qn.manifest.channels ?? []).some(Sf)
+        ? aa().then(vf, (Gg) => (ca(No, Gg), { steps: [], error: l(Gg) }))
+        : { steps: [] }),
+      (Go[5] = aa),
+      (Go[6] = qn.manifest.channels),
+      (Go[7] = qn.manifest.userConfig),
+      (Go[8] = No),
+      (Go[9] = zg);
+  else zg = Go[9];
+  let [wi] = u(zg),
+    Qg = C(!1),
+    [LS, NS] = u(!1);
+  if (!(wi instanceof Promise)) {
+    let Ci;
+    if (Go[10] !== _o || Go[11] !== wi)
+      (Ci = e(ir, { loaded: wi, onDone: _o })), (Go[10] = _o), (Go[11] = wi), (Go[12] = Ci);
+    else Ci = Go[12];
+    return Ci;
+  }
+  if (LS) {
+    return null;
+  }
+  let Ci;
+  if (Go[13] !== _o)
+    (Ci = () => {
+      if (Qg.current) {
+        return;
+      }
+      (Qg.current = !0), NS(!0), _o("skipped", void 0, !1);
+    }),
+      (Go[13] = _o),
+      (Go[14] = Ci);
+  else Ci = Go[14];
+  let Yg;
+  if (Go[15] === d) (Yg = e(rr, { message: "Loading\u2026", dimColor: !0 })), (Go[15] = Yg);
+  else Yg = Go[15];
+  let ll;
+  if (Go[16] !== Ci) (ll = e(cr, { onCancel: Ci, children: Yg })), (Go[16] = Ci), (Go[17] = ll);
+  else ll = Go[17];
+  let sl;
+  if (Go[18] !== _o || Go[19] !== wi)
+    (sl = e(bl, { steps: wi, onDone: _o })), (Go[18] = _o), (Go[19] = wi), (Go[20] = sl);
+  else sl = Go[20];
+  let Jg;
+  if (Go[21] !== ll || Go[22] !== sl)
+    (Jg = e(Jn, { fallback: ll, children: sl })), (Go[21] = ll), (Go[22] = sl), (Go[23] = Jg);
+  else Jg = Go[23];
+  return Jg;
+}
+function bl(VS) {
+  let HS = _(3),
+    { steps: jS, onDone: Ou } = VS,
+    Nu = zn(jS),
+    Xg;
+  if (HS[0] !== Nu || HS[1] !== Ou) (Xg = e(ir, { loaded: Nu, onDone: Ou })), (HS[0] = Nu), (HS[1] = Ou), (HS[2] = Xg);
+  else Xg = HS[2];
+  return Xg;
+}
+function ir(KS) {
+  let Po = _(34),
+    { loaded: qS, onDone: _u } = KS,
+    { steps: uo, error: Co } = qS,
+    [cl, WS] = u(0),
+    dl = C(!1),
+    Fu = C(!1),
+    pl = C(!1),
+    Zg;
+  if (Po[0] !== _u)
+    (Zg = function Wn(...ml) {
+      let zS = ml;
+      if (Fu.current) {
+        return;
+      }
+      (Fu.current = !0), _u(...zS);
+    }),
+      (Po[0] = _u),
+      (Po[1] = Zg);
+  else Zg = Po[1];
+  let Wn = Zg,
+    ml;
+  if (Po[2] !== Wn || Po[3] !== Co)
+    (ml = () => {
+      if (Co !== void 0) Wn("read-error", Co);
+      else Wn("skipped");
+    }),
+      (Po[2] = Wn),
+      (Po[3] = Co),
+      (Po[4] = ml);
+  else ml = Po[4];
+  let Uu = br(ml),
+    ef;
+  if (Po[5] !== Co || Po[6] !== Uu || Po[7] !== uo.length)
+    (ef = () => {
+      if (Co !== void 0 || uo.length === 0) Uu();
+    }),
+      (Po[5] = Co),
+      (Po[6] = Uu),
+      (Po[7] = uo.length),
+      (Po[8] = ef);
+  else ef = Po[8];
+  let tf;
+  if (Po[9] !== Co || Po[10] !== uo.length) (tf = [uo.length, Co]), (Po[9] = Co), (Po[10] = uo.length), (Po[11] = tf);
+  else tf = Po[11];
+  A(ef, tf);
+  let [To, nf] = u(null),
+    of;
+  if (Po[12] !== Wn || Po[13] !== uo.length)
+    (of = (rf, af) => {
+      if (((pl.current = !1), nf(null), af !== void 0)) {
+        Wn("error", l(af), dl.current);
+        return;
+      }
+      if (Object.keys(rf.values).length > 0) dl.current = !0;
+      let lf = rf.index + 1;
+      if (lf < uo.length) WS(lf);
+      else Wn("configured", void 0, dl.current);
+    }),
+      (Po[12] = Wn),
+      (Po[13] = uo.length),
+      (Po[14] = of);
+  else of = Po[14];
+  let Vu = br(of),
+    sf;
+  if (Po[15] !== To || Po[16] !== Vu)
+    (sf = () => {
+      if (To === null) {
+        return;
+      }
+      let cf = To;
+      cf.saveOutcome.then((GS) => Vu(cf, GS));
+    }),
+      (Po[15] = To),
+      (Po[16] = Vu),
+      (Po[17] = sf);
+  else sf = Po[17];
+  let uf;
+  if (Po[18] !== To) (uf = [To]), (Po[18] = To), (Po[19] = uf);
+  else uf = Po[19];
+  if ((A(sf, uf), uo.length === 0)) {
+    return null;
+  }
+  let Bn = uo[cl],
+    df;
+  if (Po[20] !== Bn || Po[21] !== cl || Po[22] !== To)
+    (df = function la(pf) {
+      if (Fu.current || pl.current || To !== null) {
+        return;
+      }
+      (pl.current = !0), nf({ index: cl, values: pf, saveOutcome: (async () => Bn.save(pf))().then(wf, Cf) });
+    }),
+      (Po[20] = Bn),
+      (Po[21] = cl),
+      (Po[22] = To),
+      (Po[23] = df);
+  else df = Po[23];
+  let la = df,
+    gl;
+  if (Po[24] !== Wn)
+    (gl = () => {
+      if (pl.current) {
+        return;
+      }
+      Wn("skipped", void 0, dl.current);
+    }),
+      (Po[24] = Wn),
+      (Po[25] = gl);
+  else gl = Po[25];
+  let mf;
+  if (
+    Po[26] !== Bn.key ||
+    Po[27] !== Bn.load ||
+    Po[28] !== Bn.schema ||
+    Po[29] !== Bn.subtitle ||
+    Po[30] !== Bn.title ||
+    Po[31] !== la ||
+    Po[32] !== gl
+  )
+    (mf = e(
+      ar,
+      { title: Bn.title, subtitle: Bn.subtitle, configSchema: Bn.schema, load: Bn.load, onSave: la, onCancel: gl },
+      Bn.key,
+    )),
+      (Po[26] = Bn.key),
+      (Po[27] = Bn.load),
+      (Po[28] = Bn.schema),
+      (Po[29] = Bn.subtitle),
+      (Po[30] = Bn.title),
+      (Po[31] = la),
+      (Po[32] = gl),
+      (Po[33] = mf);
+  else mf = Po[33];
+  return mf;
+}
+function ar(ju) {
+  let sa = _(14),
+    Io,
+    yl;
+  if (sa[0] !== ju) ({ load: yl, ...Io } = ju), (sa[0] = ju), (sa[1] = Io), (sa[2] = yl);
+  else (Io = sa[1]), (yl = sa[2]);
+  let ff;
+  if (sa[3] !== Io.title || sa[4] !== yl)
+    (ff = () =>
+      Promise.resolve()
+        .then(yl)
+        .catch((QS) => {
+          ca(Io.title, QS);
+        })),
+      (sa[3] = Io.title),
+      (sa[4] = yl),
+      (sa[5] = ff);
+  else ff = sa[5];
+  let [Hu] = u(ff),
+    hl;
+  if (sa[6] !== Io.onCancel) (hl = e(cr, { onCancel: Io.onCancel })), (sa[6] = Io.onCancel), (sa[7] = hl);
+  else hl = sa[7];
+  let kl;
+  if (sa[8] !== Io || sa[9] !== Hu) (kl = e(xl, { dialog: Io, saved: Hu })), (sa[8] = Io), (sa[9] = Hu), (sa[10] = kl);
+  else kl = sa[10];
+  let hf;
+  if (sa[11] !== hl || sa[12] !== kl)
+    (hf = e(Jn, { fallback: hl, children: kl })), (sa[11] = hl), (sa[12] = kl), (sa[13] = hf);
+  else hf = sa[13];
+  return hf;
+}
+function ca(a, b) {
+  n(`Failed to read saved plugin options (${a}): ${l(b)}`, { level: "error" });
+}
+function xl(YS) {
+  let XS = _(3),
+    { dialog: qu, saved: JS } = YS,
+    Wu = zn(JS),
+    kf;
+  if (XS[0] !== qu || XS[1] !== Wu)
+    (kf = e(ki, { ...qu, initialValues: Wu })), (XS[0] = qu), (XS[1] = Wu), (XS[2] = kf);
+  else kf = XS[2];
+  return kf;
+}
+function cr(ZS) {
+  let nv = _(1),
+    { onCancel: ev, children: tv } = ZS,
+    bf;
+  if (nv[0] === d) (bf = { context: "Settings" }), (nv[0] = bf);
+  else bf = nv[0];
+  return Be("confirm:no", ev, bf), tv ?? null;
+}
+F();
+function Pi(a) {
+  return [
+    ["Commands", a.commands.map((S) => S.name)],
+    ["Agents", a.agents.map((S) => S.name)],
+    ["Skills", a.skills.map((S) => S.name)],
+    ["Hooks", a.hooks ?? []],
+    ["MCP Servers", a.mcpServers ?? []],
+    ["LSP Servers", a.lspServers ?? []],
+  ].filter(([, S]) => S.length > 0);
+}
+function da() {
+  let zu = _(3),
+    Tf;
+  if (zu[0] === d) (Tf = G2t()), (zu[0] = Tf);
+  else Tf = zu[0];
+  let If = Tf,
+    Rf;
+  if (zu[1] === d) (Rf = r(t, { color: "claude", children: [L.warning, " "] })), (zu[1] = Rf);
+  else Rf = zu[1];
+  let Ef;
+  if (zu[2] === d)
+    (Ef = r(o, {
+      marginBottom: 1,
+      children: [
+        Rf,
+        r(t, {
+          dimColor: !0,
+          italic: !0,
+          children: [
+            "Make sure you trust a plugin before installing, updating, or using it. Anthropic does not control what MCP servers, files, or other software are included in plugins and cannot verify that they will work as intended or that they won't change. See each plugin's homepage for more information.",
+            If ? ` ${If}` : "",
+          ],
+        }),
+      ],
+    })),
+      (zu[2] = Ef);
+  else Ef = zu[2];
+  return Ef;
+}
+function Ty(Yv) {
+  return Yv ?? null;
+}
+function Iy() {
+  return null;
+}
+function Ry(kd) {
+  let [Zf, ew] = kd;
+  return r(t, { dimColor: !0, children: ["\xB7 ", Zf, ": ", ew.map(Oo).join(", ")] }, Zf);
+}
+function Ey() {
+  return null;
+}
+function My(ka) {
+  let [, uw] = ka;
+  return uw.length > 0;
+}
+function $y(ka) {
+  let [Py, dw] = ka;
+  return r(t, { dimColor: !0, children: ["\xB7 ", Py, ": ", dw.map(Oo).join(", ")] }, Py);
+}
+function ba(a) {
+  if (
+    a.entry.source &&
+    typeof a.entry.source === "object" &&
+    "source" in a.entry.source &&
+    a.entry.source.source === "github" &&
+    typeof a.entry.source === "object" &&
+    "repo" in a.entry.source
+  )
+    return a.entry.source.repo;
+  return null;
+}
+function Bd(a, b) {
+  let S = [
+    { label: "Install for you (user scope)", action: "install-user" },
+    { label: "Install for all collaborators on this repository (project scope)", action: "install-project" },
+    { label: "Install for you, in this repo only (local scope)", action: "install-local" },
+  ];
+  if (a) S.push({ label: "Open homepage", action: "homepage" });
+  if (b) S.push({ label: "View on GitHub", action: "github" });
+  return S.push({ label: "Back to plugin list", action: "back" }), S;
+}
+function fs(Nv) {
+  let Qo = _(24),
+    { selectedPlugin: Nn, isActive: Gu, onInstall: pa, onBack: Yu } = Nv,
+    [ro, Ju] = u(0),
+    [Mf, _v] = u(Nn);
+  if (Mf !== Nn) _v(Nn), Ju(0);
+  let Xu;
+  bb0: {
+    if (!Nn) {
+      let Ro;
+      if (Qo[0] === d) (Ro = []), (Qo[0] = Ro);
+      else Ro = Qo[0];
+      Xu = Ro;
+      break bb0;
+    }
+    let Zu = Nn.entry.homepage;
+    let Ro;
+    if (Qo[1] !== Zu || Qo[2] !== Nn) {
+      let Fv = ba(Nn);
+      Ro = Bd(Zu, Fv);
+      (Qo[1] = Zu), (Qo[2] = Nn), (Qo[3] = Ro);
+    } else Ro = Qo[3];
+    Xu = Ro;
+  }
+  let Uo = Xu,
+    Ro;
+  if (Qo[4] !== ro)
+    (Ro = () => {
+      if (ro > 0) Ju(ro - 1);
+    }),
+      (Qo[4] = ro),
+      (Qo[5] = Ro);
+  else Ro = Qo[5];
+  let vl;
+  if (Qo[6] !== ro || Qo[7] !== Uo)
+    (vl = () => {
+      if (ro < Uo.length - 1) Ju(ro + 1);
+    }),
+      (Qo[6] = ro),
+      (Qo[7] = Uo),
+      (Qo[8] = vl);
+  else vl = Qo[8];
+  let wl;
+  if (Qo[9] !== ro || Qo[10] !== Uo || Qo[11] !== Yu || Qo[12] !== pa || Qo[13] !== Nn)
+    (wl = () => {
+      if (!Nn) {
+        return;
+      }
+      let dr = Uo[ro]?.action;
+      let $f = Nn.entry.homepage;
+      let Df = ba(Nn);
+      if (dr === "install-user") pa(Nn, "user");
+      else if (dr === "install-project") pa(Nn, "project");
+      else if (dr === "install-local") pa(Nn, "local");
+      else if (dr === "homepage" && $f) Lr($f);
+      else if (dr === "github" && Df) Lr(`https://github.com/${Df}`);
+      else if (dr === "back") Yu();
+    }),
+      (Qo[9] = ro),
+      (Qo[10] = Uo),
+      (Qo[11] = Yu),
+      (Qo[12] = pa),
+      (Qo[13] = Nn),
+      (Qo[14] = wl);
+  else wl = Qo[14];
+  let Bf;
+  if (Qo[15] !== Ro || Qo[16] !== vl || Qo[17] !== wl)
+    (Bf = { "select:previous": Ro, "select:next": vl, "select:accept": wl }),
+      (Qo[15] = Ro),
+      (Qo[16] = vl),
+      (Qo[17] = wl),
+      (Qo[18] = Bf);
+  else Bf = Qo[18];
+  let Af;
+  if (Qo[19] !== Gu) (Af = { context: "Select", isActive: Gu }), (Qo[19] = Gu), (Qo[20] = Af);
+  else Af = Qo[20];
+  ht(Bf, Af);
+  const ed = Mf === Nn ? ro : 0;
+  let Lf;
+  if (Qo[21] !== Uo || Qo[22] !== ed)
+    (Lf = { detailsMenuOptions: Uo, detailsMenuIndex: ed }), (Qo[21] = Uo), (Qo[22] = ed), (Qo[23] = Lf);
+  else Lf = Qo[23];
+  return Lf;
+}
+function hr(Uv) {
+  let $n = _(54),
+    {
+      title: td,
+      plugin: Ft,
+      onEntryHelperShown: nd,
+      showMarketplace: od,
+      extraSection: rd,
+      installError: Ti,
+      menuOptions: ad,
+      detailsMenuIndex: ma,
+      isInstalling: ga,
+      bylinePaddingLeft: ld,
+    } = Uv,
+    Cl;
+  if ($n[0] !== td)
+    (Cl = e(o, { marginBottom: 1, children: e(t, { bold: !0, children: td }) })), ($n[0] = td), ($n[1] = Cl);
+  else Cl = $n[1];
+  let Pl;
+  if ($n[2] !== Ft.entry) (Pl = id(Ft.entry)), ($n[2] = Ft.entry), ($n[3] = Pl);
+  else Pl = $n[3];
+  let Tl;
+  if ($n[4] !== Pl) (Tl = e(t, { bold: !0, children: Pl })), ($n[4] = Pl), ($n[5] = Tl);
+  else Tl = $n[5];
+  let Il;
+  if ($n[6] !== Ft.marketplaceName || $n[7] !== od)
+    (Il = od && r(t, { dimColor: !0, children: ["from ", Oo(Ft.marketplaceName)] })),
+      ($n[6] = Ft.marketplaceName),
+      ($n[7] = od),
+      ($n[8] = Il);
+  else Il = $n[8];
+  let Rl;
+  if ($n[9] !== Ft.entry.version)
+    (Rl = Ft.entry.version && r(t, { dimColor: !0, children: ["Version: ", Oo(Ft.entry.version)] })),
+      ($n[9] = Ft.entry.version),
+      ($n[10] = Rl);
+  else Rl = $n[10];
+  let El;
+  if ($n[11] !== Ft.pluginId) (El = e(ss, { pluginId: Ft.pluginId })), ($n[11] = Ft.pluginId), ($n[12] = El);
+  else El = $n[12];
+  let Ml;
+  if ($n[13] !== Ft.entry.description)
+    (Ml = Ft.entry.description && e(o, { marginTop: 1, children: e(t, { children: Of(Ft.entry.description) }) })),
+      ($n[13] = Ft.entry.description),
+      ($n[14] = Ml);
+  else Ml = $n[14];
+  let $l;
+  if ($n[15] !== Ft.entry.author)
+    ($l =
+      Ft.entry.author &&
+      e(o, {
+        marginTop: 1,
+        children: r(t, {
+          dimColor: !0,
+          children: ["By:", " ", Oo(typeof Ft.entry.author === "string" ? Ft.entry.author : Ft.entry.author.name)],
+        }),
+      })),
+      ($n[15] = Ft.entry.author),
+      ($n[16] = $l);
+  else $l = $n[16];
+  let Dl;
+  if ($n[17] !== Tl || $n[18] !== Il || $n[19] !== Rl || $n[20] !== El || $n[21] !== Ml || $n[22] !== $l)
+    (Dl = r(o, { flexDirection: "column", marginBottom: 1, children: [Tl, Il, Rl, El, Ml, $l] })),
+      ($n[17] = Tl),
+      ($n[18] = Il),
+      ($n[19] = Rl),
+      ($n[20] = El),
+      ($n[21] = Ml),
+      ($n[22] = $l),
+      ($n[23] = Dl);
+  else Dl = $n[23];
+  let Bl;
+  if ($n[24] !== Ti || $n[25] !== nd || $n[26] !== Ft)
+    (Bl = e(us, { plugin: Ft, onEntryHelperShown: nd, refreshKey: Ti })),
+      ($n[24] = Ti),
+      ($n[25] = nd),
+      ($n[26] = Ft),
+      ($n[27] = Bl);
+  else Bl = $n[27];
+  let Al;
+  if ($n[28] !== Ft.entry) (Al = e(ms, { entry: Ft.entry })), ($n[28] = Ft.entry), ($n[29] = Al);
+  else Al = $n[29];
+  let Nf;
+  if ($n[30] === d) (Nf = e(da, {})), ($n[30] = Nf);
+  else Nf = $n[30];
+  let Ol;
+  if ($n[31] !== Ti)
+    (Ol = Ti && e(o, { marginBottom: 1, children: e(Br, { error: Of(Ti) }) })), ($n[31] = Ti), ($n[32] = Ol);
+  else Ol = $n[32];
+  let Ll;
+  if ($n[33] !== ma || $n[34] !== ga || $n[35] !== ad) {
+    let Ii;
+    if ($n[37] !== ma || $n[38] !== ga)
+      (Ii = (sd, Vv) => {
+        let Nl = ma === Vv;
+        return r(
+          Ig,
+          {
+            active: Nl,
+            children: [
+              Nl && e(t, { "aria-hidden": !0, children: "> " }),
+              !Nl && e(t, { "aria-hidden": !0, children: "  " }),
+              e(t, { bold: Nl, children: ga && sd.action.startsWith("install-") ? "Installing\u2026" : sd.label }),
+            ],
+          },
+          sd.action,
+        );
+      }),
+        ($n[37] = ma),
+        ($n[38] = ga),
+        ($n[39] = Ii);
+    else Ii = $n[39];
+    Ll = ad.map(Ii);
+    ($n[33] = ma), ($n[34] = ga), ($n[35] = ad), ($n[36] = Ll);
+  } else Ll = $n[36];
+  let Ii;
+  if ($n[40] !== Ll) (Ii = e(o, { flexDirection: "column", children: Ll })), ($n[40] = Ll), ($n[41] = Ii);
+  else Ii = $n[41];
+  let Ff;
+  if ($n[42] === d)
+    (Ff = e(t, {
+      dimColor: !0,
+      children: r(fe, {
+        children: [
+          e(ze, { action: "select:accept", context: "Select", fallback: "Enter", description: "select" }),
+          e(ze, { action: "confirm:no", context: "Settings", fallback: "Esc", description: "go back" }),
+        ],
+      }),
+    })),
+      ($n[42] = Ff);
+  else Ff = $n[42];
+  let _l;
+  if ($n[43] !== ld) (_l = e(o, { marginTop: 1, paddingLeft: ld, children: Ff })), ($n[43] = ld), ($n[44] = _l);
+  else _l = $n[44];
+  let Uf;
+  if (
+    $n[45] !== rd ||
+    $n[46] !== Cl ||
+    $n[47] !== Bl ||
+    $n[48] !== Al ||
+    $n[49] !== Ol ||
+    $n[50] !== Ii ||
+    $n[51] !== _l ||
+    $n[52] !== Dl
+  )
+    (Uf = r(o, { flexDirection: "column", children: [Cl, Dl, Bl, rd, Al, Nf, Ol, Ii, _l] })),
+      ($n[45] = rd),
+      ($n[46] = Cl),
+      ($n[47] = Bl),
+      ($n[48] = Al),
+      ($n[49] = Ol),
+      ($n[50] = Ii),
+      ($n[51] = _l),
+      ($n[52] = Dl),
+      ($n[53] = Uf);
+  else Uf = $n[53];
+  return Uf;
+}
+function kr(jv) {
+  let pr = _(12),
+    { hasSelection: cd, canToggle: ud, canView: dd } = jv,
+    Fl;
+  if (pr[0] !== cd)
+    (Fl =
+      cd && e(ze, { action: "plugin:install", context: "Plugin", fallback: "i", description: "install", bold: !0 })),
+      (pr[0] = cd),
+      (pr[1] = Fl);
+  else Fl = pr[1];
+  let Vf;
+  if (pr[2] === d) (Vf = e(t, { children: "Type to search" })), (pr[2] = Vf);
+  else Vf = pr[2];
+  let Ul;
+  if (pr[3] !== ud)
+    (Ul = ud && e(ze, { action: "plugin:toggle", context: "Plugin", fallback: "Space", description: "toggle" })),
+      (pr[3] = ud),
+      (pr[4] = Ul);
+  else Ul = pr[4];
+  let Vl;
+  if (pr[5] !== dd)
+    (Vl = dd && e(ze, { action: "select:accept", context: "Select", fallback: "Enter", description: "view" })),
+      (pr[5] = dd),
+      (pr[6] = Vl);
+  else Vl = pr[6];
+  let jf;
+  if (pr[7] === d)
+    (jf = e(ze, { action: "confirm:no", context: "Settings", fallback: "Esc", description: "go back" })), (pr[7] = jf);
+  else jf = pr[7];
+  let Hf;
+  if (pr[8] !== Fl || pr[9] !== Ul || pr[10] !== Vl)
+    (Hf = e(o, {
+      marginTop: 1,
+      children: e(t, { dimColor: !0, italic: !0, children: r(fe, { children: [Fl, Vf, Ul, Vl, jf] }) }),
+    })),
+      (pr[8] = Fl),
+      (pr[9] = Ul),
+      (pr[10] = Vl),
+      (pr[11] = Hf);
+  else Hf = pr[11];
+  return Hf;
+}
+function ss(Kv) {
+  let Wv = _(2),
+    { pluginId: qv } = Kv,
+    pd = gr(qv),
+    Kf;
+  if (Wv[0] !== pd) (Kf = e(Jn, { fallback: null, children: e(cs, { entryPromise: pd }) })), (Wv[0] = pd), (Wv[1] = Kf);
+  else Kf = Wv[1];
+  return Kf;
+}
+function cs(zv) {
+  let qf = _(4),
+    { entryPromise: Gv } = zv,
+    jl = zn(Gv);
+  if (!jl?.last_updated) {
+    return null;
+  }
+  let zf;
+  if (qf[0] !== jl.last_updated) (zf = Ad(jl.last_updated)), (qf[0] = jl.last_updated), (qf[1] = zf);
+  else zf = qf[1];
+  let Hl = zf;
+  if (Hl === void 0) {
+    return null;
+  }
+  let Gf;
+  if (qf[2] !== Hl) (Gf = r(t, { dimColor: !0, children: ["Last updated: ", Hl] })), (qf[2] = Hl), (qf[3] = Gf);
+  else Gf = qf[3];
+  return Gf;
+}
+function gr(md) {
+  let Qv = _(3),
+    { storageV5: gd } = ge(),
+    Qf;
+  if (Qv[0] !== md || Qv[1] !== gd) (Qf = D0t(md, gd).then(Ty).catch(Iy)), (Qv[0] = md), (Qv[1] = gd), (Qv[2] = Qf);
+  else Qf = Qv[2];
+  return Qf;
+}
+function Ad(a) {
+  let b = new Date(a);
+  if (Number.isNaN(b.getTime())) return;
+  return b.toLocaleDateString(void 0, { year: "numeric", month: "short", day: "numeric" });
+}
+function us(Jv) {
+  let mr = _(17),
+    { plugin: Gn, onEntryHelperShown: fd, refreshKey: Xv } = Jv,
+    yd = gr(Gn.pluginId);
+  const hd = String(Xv ?? "");
+  let Kl;
+  if (mr[0] !== fd || mr[1] !== Gn.entry || mr[2] !== Gn.pluginId || mr[3] !== hd)
+    (Kl = e(fr, { pluginId: Gn.pluginId, entry: Gn.entry, verb: "Installing", onShown: fd }, hd)),
+      (mr[0] = fd),
+      (mr[1] = Gn.entry),
+      (mr[2] = Gn.pluginId),
+      (mr[3] = hd),
+      (mr[4] = Kl);
+  else Kl = mr[4];
+  let Yf;
+  if (mr[5] === d) (Yf = e(t, { bold: !0, children: "Will install:" })), (mr[5] = Yf);
+  else Yf = mr[5];
+  let ql;
+  if (mr[6] !== Gn.entry) (ql = e(yr, { entry: Gn.entry })), (mr[6] = Gn.entry), (mr[7] = ql);
+  else ql = mr[7];
+  let Wl;
+  if (mr[8] !== yd || mr[9] !== Gn.entry)
+    (Wl = e(ds, { entryPromise: yd, marketplaceEntry: Gn.entry })), (mr[8] = yd), (mr[9] = Gn.entry), (mr[10] = Wl);
+  else Wl = mr[10];
+  let Gl;
+  if (mr[11] !== ql || mr[12] !== Wl)
+    (Gl = e(Jn, { fallback: ql, children: Wl })), (mr[11] = ql), (mr[12] = Wl), (mr[13] = Gl);
+  else Gl = mr[13];
+  let Jf;
+  if (mr[14] !== Kl || mr[15] !== Gl)
+    (Jf = r(o, { flexDirection: "column", marginBottom: 1, children: [Kl, Yf, Gl] })),
+      (mr[14] = Kl),
+      (mr[15] = Gl),
+      (mr[16] = Jf);
+  else Jf = mr[16];
+  return Jf;
+}
+function ds(kd) {
+  let bd = _(8),
+    { entryPromise: Zv, marketplaceEntry: fa } = kd,
+    Ql = zn(Zv),
+    Yl,
+    xd;
+  if (bd[0] !== Ql || bd[1] !== fa) {
+    xd = fn;
+    bb0: {
+      let Xf = Ql?.components ? Pi(Ql.components) : [];
+      if (Xf.length === 0) {
+        let ya;
+        if (bd[4] !== fa) (ya = e(yr, { entry: fa })), (bd[4] = fa), (bd[5] = ya);
+        else ya = bd[5];
+        xd = ya;
+        break bb0;
+      }
+      Yl = Xf.map(Ry);
+    }
+    (bd[0] = Ql), (bd[1] = fa), (bd[2] = Yl), (bd[3] = xd);
+  } else (Yl = bd[2]), (xd = bd[3]);
+  if (xd !== fn) return xd;
+  let ya;
+  if (bd[6] !== Yl) (ya = e(U, { children: Yl })), (bd[6] = Yl), (bd[7] = ya);
+  else ya = bd[7];
+  return ya;
+}
+function ps(tw) {
+  let Yo = _(17),
+    { consent: Jl, verb: ey } = tw,
+    Sd = ey === void 0 ? "Installing" : ey;
+  if (Jl === null) {
+    return null;
+  }
+  let ty;
+  if (Yo[0] !== Jl) (ty = OXe(Jl)), (Yo[0] = Jl), (Yo[1] = ty);
+  else ty = Yo[1];
+  let Eo = ty,
+    ny;
+  if (Yo[2] === d) (ny = e(tt, { status: "warning", withSpace: !0 })), (Yo[2] = ny);
+  else ny = Yo[2];
+  let Xl;
+  if (Yo[3] !== Sd)
+    (Xl = r(t, { color: "warning", children: [ny, Sd, " runs a local command and sends its output as headers to:"] })),
+      (Yo[3] = Sd),
+      (Yo[4] = Xl);
+  else Xl = Yo[4];
+  let es;
+  if (Yo[5] !== Eo.destination)
+    (es = r(t, { children: ["  ", Eo.destination] })), (Yo[5] = Eo.destination), (Yo[6] = es);
+  else es = Yo[6];
+  let ts;
+  if (Yo[7] !== Eo.hiddenCharactersWarning)
+    (ts = Eo.hiddenCharactersWarning && r(t, { color: "error", children: ["  ", Eo.hiddenCharactersWarning] })),
+      (Yo[7] = Eo.hiddenCharactersWarning),
+      (Yo[8] = ts);
+  else ts = Yo[8];
+  let oy;
+  if (Yo[9] === d) (oy = r(t, { dimColor: !0, children: ["  ", "The command:"] })), (Yo[9] = oy);
+  else oy = Yo[9];
+  let ns;
+  if (Yo[10] !== Eo.command) (ns = r(t, { children: ["  ", Eo.command] })), (Yo[10] = Eo.command), (Yo[11] = ns);
+  else ns = Yo[11];
+  let iy;
+  if (Yo[12] !== Xl || Yo[13] !== es || Yo[14] !== ts || Yo[15] !== ns)
+    (iy = r(o, { flexDirection: "column", marginBottom: 1, children: [Xl, es, ts, oy, ns] })),
+      (Yo[12] = Xl),
+      (Yo[13] = es),
+      (Yo[14] = ts),
+      (Yo[15] = ns),
+      (Yo[16] = iy);
+  else iy = Yo[16];
+  return iy;
+}
+function ms(nw) {
+  let Ri = _(14),
+    { entry: po } = nw;
+  if (typeof po.source !== "object" || po.source.source !== "command") {
+    return null;
+  }
+  let ry;
+  if (Ri[0] === d)
+    (ry = e(t, { dimColor: !0, children: "Installed by running a command on this machine:" })), (Ri[0] = ry);
+  else ry = Ri[0];
+  let os;
+  if (Ri[1] !== po.source.command)
+    (os = e(o, { paddingLeft: 2, children: e(t, { children: po.source.command }) })),
+      (Ri[1] = po.source.command),
+      (Ri[2] = os);
+  else os = Ri[2];
+  let is;
+  if (Ri[3] !== po.source) (is = Vze(po.source)), (Ri[3] = po.source), (Ri[4] = is);
+  else is = Ri[4];
+  let rs;
+  if (Ri[5] !== is) (rs = e(t, { dimColor: !0, children: is })), (Ri[5] = is), (Ri[6] = rs);
+  else rs = Ri[6];
+  let ay;
+  if (Ri[7] === d) (ay = FS() && e(t, { color: "warning", children: hM })), (Ri[7] = ay);
+  else ay = Ri[7];
+  let as;
+  if (Ri[8] !== po.source.mode)
+    (as = po.source.mode === "link" && D() === "windows" && e(t, { color: "warning", children: zDe })),
+      (Ri[8] = po.source.mode),
+      (Ri[9] = as);
+  else as = Ri[9];
+  let ly;
+  if (Ri[10] !== os || Ri[11] !== rs || Ri[12] !== as)
+    (ly = r(o, { marginBottom: 1, flexDirection: "column", children: [ry, os, rs, ay, as] })),
+      (Ri[10] = os),
+      (Ri[11] = rs),
+      (Ri[12] = as),
+      (Ri[13] = ly);
+  else ly = Ri[13];
+  return ly;
+}
+function Sr(vd) {
+  let ha = _(6),
+    wd = C(void 0),
+    sy;
+  if (ha[0] === d)
+    (sy = () => {
+      wd.current = void 0;
+    }),
+      (ha[0] = sy);
+  else sy = ha[0];
+  let cy;
+  if (ha[1] !== vd) (cy = [vd]), (ha[1] = vd), (ha[2] = cy);
+  else cy = ha[2];
+  A(sy, cy);
+  let uy;
+  if (ha[3] === d)
+    (uy = (ow) => {
+      wd.current = ow;
+    }),
+      (ha[3] = uy);
+  else uy = ha[3];
+  let iw = uy,
+    dy;
+  if (ha[4] === d) (dy = () => wd.current ?? null), (ha[4] = dy);
+  else dy = ha[4];
+  let rw = dy,
+    py;
+  if (ha[5] === d) (py = { record: iw, pinned: rw }), (ha[5] = py);
+  else py = ha[5];
+  return py;
+}
+function fr(aw) {
+  let my = _(8),
+    { pluginId: Cd, entry: Pd, verb: Td, onShown: Id } = aw,
+    { storageV5: Rd } = ge(),
+    gy;
+  if (my[0] !== Pd || my[1] !== Cd || my[2] !== Rd)
+    (gy = uke(Cd, Pd, Rd).catch(Ey)), (my[0] = Pd), (my[1] = Cd), (my[2] = Rd), (my[3] = gy);
+  else gy = my[3];
+  let Ed = gy,
+    fy;
+  if (my[4] !== Ed || my[5] !== Id || my[6] !== Td)
+    (fy = e(Jn, { fallback: null, children: e(gs, { consentPromise: Ed, verb: Td, onShown: Id }) })),
+      (my[4] = Ed),
+      (my[5] = Id),
+      (my[6] = Td),
+      (my[7] = fy);
+  else fy = my[7];
+  return fy;
+}
+function gs(lw) {
+  let yy = _(7),
+    { consentPromise: sw, verb: Md, onShown: ls } = lw,
+    Ei = zn(sw),
+    hy,
+    ky;
+  if (yy[0] !== Ei || yy[1] !== ls)
+    (hy = () => {
+      ls(Ei);
+    }),
+      (ky = [ls, Ei]),
+      (yy[0] = Ei),
+      (yy[1] = ls),
+      (yy[2] = hy),
+      (yy[3] = ky);
+  else (hy = yy[2]), (ky = yy[3]);
+  A(hy, ky);
+  let by;
+  if (yy[4] !== Ei || yy[5] !== Md) (by = e(ps, { consent: Ei, verb: Md })), (yy[4] = Ei), (yy[5] = Md), (yy[6] = by);
+  else by = yy[6];
+  return by;
+}
+function yr(ka) {
+  let xy = _(11),
+    { entry: vn } = ka,
+    vy,
+    $d;
+  if (
+    xy[0] !== vn.agents ||
+    xy[1] !== vn.commands ||
+    xy[2] !== vn.hooks ||
+    xy[3] !== vn.lspServers ||
+    xy[4] !== vn.mcpServers ||
+    xy[5] !== vn.skills ||
+    xy[6] !== vn.source
+  ) {
+    $d = fn;
+    bb0: {
+      let cw = [
+        ["Commands", Yn(vn.commands)],
+        ["Agents", Yn(vn.agents)],
+        ["Skills", Yn(vn.skills)],
+        ["Hooks", Yn(vn.hooks)],
+        ["MCP Servers", Yn(vn.mcpServers)],
+        ["LSP Servers", Yn(vn.lspServers)],
+      ];
+      let wy = cw.filter(My);
+      if (wy.length === 0) {
+        const Dd =
+          typeof vn.source === "object"
+            ? "\xB7 Component summary not available for remote plugin"
+            : "\xB7 Components will be discovered at installation";
+        let Cy;
+        if (xy[9] !== Dd) (Cy = e(t, { dimColor: !0, children: Dd })), (xy[9] = Dd), (xy[10] = Cy);
+        else Cy = xy[10];
+        $d = Cy;
+        break bb0;
+      }
+      vy = e(U, { children: wy.map($y) });
+    }
+    (xy[0] = vn.agents),
+      (xy[1] = vn.commands),
+      (xy[2] = vn.hooks),
+      (xy[3] = vn.lspServers),
+      (xy[4] = vn.mcpServers),
+      (xy[5] = vn.skills),
+      (xy[6] = vn.source),
+      (xy[7] = vy),
+      (xy[8] = $d);
+  } else (vy = xy[7]), ($d = xy[8]);
+  if ($d !== fn) return $d;
+  return vy;
+}
+function Yn(a) {
+  if (typeof a === "string") return [a];
+  if (Array.isArray(a))
+    return a.flatMap((b) => (typeof b === "string" ? [b] : b && typeof b === "object" ? Object.keys(b) : []));
+  if (a && typeof a === "object") return Object.keys(a);
+  return [];
+}
+var Mi = (a) => a.error;
+class ys {
+  #n = Ue();
+  #e;
+  constructor(a) {
+    this.#e = { viewState: a, result: null, error: null };
+  }
+  subscribe = (a) => this.#n.subscribe(a);
+  getSnapshot = () => this.#e;
+  get viewState() {
+    return this.#e.viewState;
+  }
+  get result() {
+    return this.#e.result;
+  }
+  get error() {
+    return this.#e.error;
+  }
+  setViewState = (a) => {
+    this.#t({ viewState: a });
+  };
+  setResult = (a) => {
+    this.#t({ result: a });
+  };
+  setError = (a) => {
+    this.#t({ error: a });
+  };
+  #t(a) {
+    let b = this.#e,
+      S = { ...b, ...a };
+    if (Object.is(S.viewState, b.viewState) && S.result === b.result && S.error === b.error) return;
+    (this.#e = S), this.#n.emit();
+  }
+}
+F();
+async function Od({
+  selectedForInstall: a,
+  availablePlugins: b,
+  setInstallingPlugins: S,
+  setSelectedForInstall: x,
+  setResult: v,
+  setError: R,
+  setParentViewState: j,
+  onInstallComplete: K,
+  storageV5: T,
+}) {
+  if (a.size === 0) return;
+  let N = b.filter((ve) => a.has(ve.pluginId));
+  S(new Set(N.map((ve) => ve.pluginId)));
+  let H = 0,
+    G = 0,
+    E = [],
+    J = [],
+    pe = [],
+    ue = [];
+  for (let ve of N) {
+    if (typeof ve.entry.source === "object" && ve.entry.source.source === "command") {
+      G++,
+        E.push({
+          name: ve.entry.name,
+          reason:
+            "installed by running a command on this machine \u2014 open its details (Enter) to review the command and install it from there",
+        });
+      continue;
+    }
+    let Je = await yPe({
+      pluginId: ve.pluginId,
+      entry: ve.entry,
+      marketplaceName: ve.marketplaceName,
+      scope: "user",
+      trigger: "bulk",
+      storageV5: T,
+    });
+    if (Je.success) {
+      if ((H++, ue.push(ve.pluginId), Je.installedDisabled))
+        (Je.installedDisabledByDefault ? J : pe).push(ve.entry.name);
+    } else G++, E.push({ name: ve.entry.name, reason: Je.error });
+  }
+  Qu(T);
+  let Pe = H > 0 && K ? await K(ue) : "reload-required";
+  S(new Set()), x(new Set());
+  let _e =
+      (J.length > 0 ? ` Disabled by default \u2014 enable in /plugin: ${J.join(", ")}.` : "") +
+      (pe.length > 0 ? ` Disabled in your settings: ${pe.join(", ")}.` : ""),
+    be = H - J.length - pe.length;
+  if (G === 0) {
+    let ve =
+      Pe === "load-failed"
+        ? " Some plugins couldn't be loaded \u2014 see /plugin for details."
+        : be === 0
+          ? ""
+          : Pe === "activated"
+            ? ` ${be === 1 ? "Plugin is" : "Plugins are"} now active.`
+            : " Run /reload-plugins to activate.";
+    v(`\u2713 Installed ${H} ${k(H, "plugin")}.${ve}${_e}`);
+  } else if (H === 0) R(`Failed to install: ${Qln(E, !0)}`);
+  else {
+    let ve =
+      Pe === "load-failed"
+        ? " Some installed plugins couldn't be loaded \u2014 see /plugin for details."
+        : be === 0
+          ? ""
+          : Pe === "activated"
+            ? be === 1
+              ? " The successfully installed plugin is now active."
+              : " Successfully installed plugins are now active."
+            : " Run /reload-plugins to activate successfully installed plugins.";
+    v(`\u2713 Installed ${H} of ${H + G} plugins. Failed: ${Qln(E, !1)}.${ve}${_e}`);
+  }
+  j({ type: "menu" });
+}
+async function Ld({
+  plugin: a,
+  scope: b = "user",
+  setIsInstalling: S,
+  setInstallError: x,
+  setViewState: v,
+  setResult: R,
+  setParentViewState: j,
+  onInstallComplete: K,
+  consentedEntryHelper: T,
+  storageV5: N,
+}) {
+  S(!0), x(null);
+  let H = await yPe({
+    pluginId: a.pluginId,
+    entry: a.entry,
+    marketplaceName: a.marketplaceName,
+    scope: b,
+    trigger: "user",
+    consentedEntryHelper: T,
+    commandSourceConsent:
+      typeof a.entry.source === "object" && a.entry.source.source === "command"
+        ? { kind: "shown", command: rC(a.entry.source), pluginId: a.pluginId }
+        : void 0,
+    storageV5: N,
+  });
+  if (H.success) {
+    let G = await Sl(a.pluginId, N);
+    if (G) {
+      S(!1),
+        v({
+          type: "plugin-options",
+          plugin: G,
+          pluginId: a.pluginId,
+          depNote: H.depNote,
+          installedDisabled: H.installedDisabled,
+          installedDisabledByDefault: H.installedDisabledByDefault,
+        });
+      return;
+    }
+    let E = K ? await K([a.pluginId]) : "reload-required";
+    R(
+      H.installedDisabled
+        ? E === "load-failed"
+          ? `${H.message}. The plugin couldn't be loaded \u2014 see /plugin for details.`
+          : H.message
+        : E === "activated"
+          ? `${H.message} Plugin is now active.`
+          : E === "load-failed"
+            ? `${H.message} The plugin couldn't be loaded \u2014 see /plugin for details.`
+            : `${H.message} Run /reload-plugins to activate.`,
+    ),
+      j({ type: "menu" });
+  } else S(!1), x(H.error);
+}
+F();
+var Dy = 5;
+function xa({ totalItems: a, maxVisible: b = Dy, selectedIndex: S = 0, firstSelectableIndex: x = 0 }) {
+  let v = a > b,
+    R = C(0),
+    j = z(() => {
+      if (!v) return 0;
+      let E = R.current;
+      if (S < E) {
+        let ue = S <= x ? 0 : S;
+        return (R.current = ue), ue;
+      }
+      if (S >= E + b) {
+        let ue = S - b + 1;
+        return (R.current = ue), ue;
+      }
+      let J = Math.max(0, a - b),
+        pe = Math.min(E, J);
+      return (R.current = pe), pe;
+    }, [S, b, v, a, x]),
+    K = j,
+    T = Math.min(j + b, a),
+    N = B(
+      (E) => {
+        if (!v) return E;
+        return E.slice(K, T);
+      },
+      [v, K, T],
+    ),
+    H = B((E) => K + E, [K]),
+    G = B(
+      (E, J) => {
+        let pe = Math.max(0, Math.min(E, a - 1));
+        J(pe);
+      },
+      [a],
+    );
+  return {
+    startIndex: K,
+    endIndex: T,
+    needsPagination: v,
+    getVisibleItems: N,
+    toActualIndex: H,
+    handleSelectionChange: G,
+    scrollPosition: { current: S + 1, total: a, canScrollUp: j > 0, canScrollDown: j + b < a },
+  };
+}
+function Sa({
+  screen: a,
+  initialViewState: b,
+  availablePlugins: S,
+  loading: x,
+  searchMarketplaceName: v,
+  onInstallComplete: R,
+  onSearchModeChange: j,
+}) {
+  let { storageV5: K } = ge(),
+    [T, N] = u(b),
+    [H, G] = u(null),
+    E = B((qe) => {
+      G(qe), N("plugin-details");
+    }, []),
+    J = B(() => {
+      N("plugin-list"), G(null);
+    }, []),
+    pe = T === "plugin-list",
+    ue = pe && !x,
+    Pe = T === "plugin-details" && !!H && !x,
+    _e = Xe(a, Mi),
+    [be, ve] = u(!1),
+    Je = () => ve(!1),
+    {
+      query: st,
+      setQuery: Tt,
+      cursorOffset: it,
+      setCursorOffset: re,
+      handleKeyDown: xe,
+      handlePaste: Ge,
+    } = np({ isActive: pe && be && !x, onExit: Je, onExitUp: Je }),
+    Ht = be && st !== "";
+  A(() => {
+    j(Ht);
+  }, [Ht, j]),
+    A(() => () => j(!1), [j]);
+  let Le = Ba(),
+    { columns: ot } = Ee(),
+    dt = z(() => {
+      if (!st) return S;
+      let qe = st.toLowerCase();
+      return S.filter(
+        (Re) =>
+          Re.entry.name.toLowerCase().includes(qe) ||
+          Re.entry.displayName?.toLowerCase().includes(qe) ||
+          Re.entry.description?.toLowerCase().includes(qe) ||
+          (v && Re.marketplaceName.toLowerCase().includes(qe)),
+      );
+    }, [S, st, v]),
+    [pt, gt] = u(0),
+    [se, tn] = u(new Set()),
+    [Bt, Gt] = u(new Set()),
+    Et = xa({ totalItems: dt.length, selectedIndex: pt });
+  A(() => {
+    gt(0);
+  }, [st]);
+  let [In, kn] = u(!1),
+    [Dn, $t] = u(null),
+    Ut = () =>
+      Od({
+        selectedForInstall: se,
+        availablePlugins: S,
+        setInstallingPlugins: Gt,
+        setSelectedForInstall: tn,
+        setResult: a.setResult,
+        setError: a.setError,
+        setParentViewState: a.setViewState,
+        onInstallComplete: R,
+        storageV5: K,
+      }),
+    Lt = Sr(H),
+    le = (qe, Re = "user") =>
+      Ld({
+        plugin: qe,
+        scope: Re,
+        consentedEntryHelper: Lt.pinned(),
+        setIsInstalling: kn,
+        setInstallError: $t,
+        setViewState: N,
+        setResult: a.setResult,
+        setParentViewState: a.setViewState,
+        onInstallComplete: R,
+        storageV5: K,
+      });
+  A(() => {
+    if (_e) a.setResult(_e);
+  }, [_e, a]);
+  function je(qe) {
+    if (be) {
+      xe(qe);
+      return;
+    }
+    if (qe.ctrl || qe.meta || x) return;
+    if (qe.key === "/") qe.preventDefault(), ve(!0), Tt("");
+    else if (qe.key.length === 1 && qe.key !== " ") qe.preventDefault(), ve(!0), Tt(qe.key);
+  }
+  function Qe(qe) {
+    if (be) {
+      Ge(qe);
+      return;
+    }
+    if (x) return;
+    let Re = (qe.text.split(/\r\n|\r|\n/, 2)[0] ?? "").trim();
+    if (!Re) return;
+    qe.preventDefault(), ve(!0), Tt(Re);
+  }
+  ht(
+    {
+      "select:previous": () => {
+        if (pt === 0) {
+          if (!x && S.length > 0) ve(!0);
+        } else Et.handleSelectionChange(pt - 1, gt);
+      },
+      "select:next": () => {
+        if (pt < dt.length - 1) Et.handleSelectionChange(pt + 1, gt);
+      },
+      "select:accept": () => {
+        if (pt < dt.length) {
+          let qe = dt[pt];
+          if (qe)
+            if (qe.isInstalled)
+              a.setViewState({
+                type: "manage-plugins",
+                targetPlugin: qe.entry.name,
+                targetMarketplace: qe.marketplaceName,
+              });
+            else E(qe), $t(null);
+        }
+      },
+    },
+    { context: "Select", isActive: ue && !be },
+  ),
+    ht(
+      {
+        "plugin:toggle": () => {
+          if (pt < dt.length) {
+            let qe = dt[pt];
+            if (qe && !qe.isInstalled) {
+              let Re = new Set(se);
+              if (Re.has(qe.pluginId)) Re.delete(qe.pluginId);
+              else Re.add(qe.pluginId);
+              tn(Re);
+            }
+          }
+        },
+        "plugin:install": () => {
+          if (se.size === 0) return !1;
+          if (Bt.size > 0) return;
+          Ut();
+        },
+      },
+      { context: "Plugin", isActive: ue && !be },
+    );
+  let { detailsMenuOptions: kt, detailsMenuIndex: _t } = fs({
+    selectedPlugin: H,
+    isActive: Pe && !In,
+    onInstall: le,
+    onBack: J,
+  });
+  return {
+    viewState: T,
+    setViewState: N,
+    selectedPlugin: H,
+    openDetails: E,
+    closeDetails: J,
+    recordEntryHelperShown: Lt.record,
+    isSearchMode: be,
+    setIsSearchMode: ve,
+    searchQuery: st,
+    setSearchQuery: Tt,
+    searchBoxProps: {
+      query: st,
+      isFocused: be,
+      isTerminalFocused: Le,
+      width: ot - 4,
+      cursorOffset: it,
+      onCursorOffsetChange: re,
+      onFocus: () => ve(!0),
+    },
+    keyHintProps: {
+      hasSelection: se.size > 0,
+      canToggle: pt < dt.length && !dt[pt]?.isInstalled,
+      canView: pt < dt.length,
+    },
+    filteredPlugins: dt,
+    selectedIndex: pt,
+    setSelectedIndex: gt,
+    selectedForInstall: se,
+    setSelectedForInstall: tn,
+    installingPlugins: Bt,
+    pagination: Et,
+    detailsMenuIndex: _t,
+    isInstalling: In,
+    installError: Dn,
+    detailsMenuOptions: kt,
+    handleListKeyDown: je,
+    handleListPaste: Qe,
+  };
+}
+function Fy() {}
+function Vd({ screen: a, onInstallComplete: b, onSearchModeChange: S, targetMarketplace: x, targetPlugin: v }) {
+  let { storageV5: R, credentials: j } = ge(),
+    K = Xe(a, Mi),
+    { setError: T, setResult: N } = a,
+    H = a.setViewState,
+    [G, E] = u(null),
+    [J, pe] = u([]),
+    [ue, Pe] = u([]),
+    [_e, be] = u(!0),
+    [ve, Je] = u("Loading\u2026"),
+    [st, Tt] = u(null),
+    {
+      viewState: it,
+      setViewState: re,
+      selectedPlugin: xe,
+      openDetails: Ge,
+      closeDetails: Ht,
+      recordEntryHelperShown: Le,
+      isSearchMode: ot,
+      setIsSearchMode: dt,
+      searchQuery: pt,
+      setSearchQuery: gt,
+      searchBoxProps: se,
+      keyHintProps: tn,
+      filteredPlugins: Bt,
+      selectedIndex: Gt,
+      setSelectedIndex: Et,
+      selectedForInstall: In,
+      setSelectedForInstall: kn,
+      installingPlugins: Dn,
+      pagination: $t,
+      detailsMenuIndex: Ut,
+      isInstalling: Lt,
+      installError: le,
+      detailsMenuOptions: je,
+      handleListKeyDown: Qe,
+      handleListPaste: kt,
+    } = Sa({
+      screen: a,
+      initialViewState: "marketplace-list",
+      availablePlugins: ue,
+      loading: _e,
+      searchMarketplaceName: !1,
+      onInstallComplete: b,
+      onSearchModeChange: S,
+    }),
+    [_t, qe] = u(null),
+    [Re, an] = u(null),
+    Ot = B(() => {
+      if (it === "plugin-list")
+        if (x) H({ type: "manage-marketplaces", targetMarketplace: x });
+        else if (J.length === 1) H({ type: "menu" });
+        else re("marketplace-list"), E(null), kn(new Set()), Et(0);
+      else if (it === "plugin-details") Ht();
+      else H({ type: "menu" });
+    }, [it, re, Ht, x, H, J.length, kn, Et]);
+  Be("confirm:no", Ot, { context: "Settings", isActive: typeof it === "string" && !(it === "plugin-list" && ot) }),
+    A(() => {
+      let oe = !1;
+      async function et() {
+        try {
+          let Dt = await zl(R),
+            Mt;
+          if (x && v && !uc(x)) {
+            Je(`Checking ${x} for new plugins\u2026`);
+            let he = await ske(x, Dt[x], R);
+            if ((rse(he.outcome), oe)) return;
+            if ((Je("Loading\u2026"), he.outcome === "refresh-failed"))
+              (Mt = he.errorMessage),
+                an(`Couldn't refresh marketplace "${x}" (${he.errorMessage}) \u2014 showing the cached catalog.`);
+          }
+          let { marketplaces: Jt, failures: Xt } = await c9(Dt, R);
+          if (oe) return;
+          let It = [];
+          for (let { name: he, config: Ke, data: wt } of Jt)
+            if (wt) {
+              let ke = Q(wt.plugins, (He) => tH(lF(He.name, he)));
+              It.push({ name: he, totalPlugins: wt.plugins.length, installedCount: ke, source: OSe(Ke.source) });
+            }
+          It.sort((he, Ke) => {
+            if (he.name === "claude-plugin-directory") return -1;
+            if (Ke.name === "claude-plugin-directory") return 1;
+            return 0;
+          }),
+            pe(It);
+          let ee = Q(Jt, (he) => he.data !== null),
+            Ne = Tqe(Xt, ee);
+          if (Ne)
+            if (Ne.type === "warning") qe(Ne.message + ". Showing available marketplaces.");
+            else throw Error(Ne.message);
+          if (It.length === 1 && !x && !v) {
+            let he = It[0];
+            if (he) E(he.name), re("plugin-list");
+          }
+          if (x && !It.some((he) => he.name === x)) {
+            let he = Xt.find((Ke) => Ke.name === x);
+            T(he ? `Couldn't load marketplace "${ux(x)}": ${he.error}` : `Marketplace "${ux(x)}" not found`);
+          } else if (v) {
+            let he = null;
+            for (let { name: Ke, data: wt } of Jt) {
+              if (x && Ke !== x) continue;
+              let ke = wt?.plugins.find((Nt) => Nt.name === v);
+              if (!ke) continue;
+              let He = lF(ke.name, Ke);
+              he = { entry: ke, marketplaceName: Ke, pluginId: He, isInstalled: _Pe(He) };
+              break;
+            }
+            if (oe) return;
+            if (he) {
+              let Ke = he.pluginId;
+              if (_Pe(Ke)) {
+                let ke = await Bke(Ke, R),
+                  He = await ua(Ke, ke, R, j);
+                if (oe) return;
+                if (He) re(He);
+                else if (ke === null)
+                  T(`Plugin '${Ke}' is already installed globally. Use '/plugin' to manage existing plugins.`);
+                else if (ke.changed) {
+                  let Nt = await b([Ke]);
+                  if (oe) return;
+                  N(
+                    `Plugin "${Ke}" is already installed${ke.suffix}${Nt === "load-failed" ? ". The plugin couldn't be loaded \u2014 see /plugin for details." : ""}`,
+                  );
+                } else N(`Plugin "${Ke}" is already installed${ke.suffix}`);
+              } else E(he.marketplaceName), Ge(he);
+            } else {
+              let Ke = x ? `marketplace "${x}"` : "any marketplace",
+                wt = Mt
+                  ? `. The marketplace couldn't be refreshed (${Mt}), so its cached catalog may be out of date`
+                  : "";
+              T(`Plugin "${v}" not found in ${Ke}${wt}`);
+            }
+          } else if (x) E(x), re("plugin-list");
+        } catch (Dt) {
+          if (oe) return;
+          T(Dt instanceof Error ? Dt.message : "Failed to load marketplaces");
+        } finally {
+          if (!oe) be(!1);
+        }
+      }
+      return (
+        et(),
+        () => {
+          oe = !0;
+        }
+      );
+    }, [T, N, re, Ge, b, x, v, R, j]);
+  let Pt = C(0);
+  if (
+    (A(() => {
+      if (!G) return;
+      let oe = !1,
+        et = ++Pt.current;
+      async function Dt(Mt) {
+        be(!0), Je("Loading\u2026");
+        try {
+          let Jt = await Hv(Mt, R);
+          if (oe) return;
+          if (!Jt) throw Error(`Failed to load marketplace: ${Mt}`);
+          let Xt = [];
+          for (let It of Jt.plugins) {
+            let ee = lF(It.name, Mt);
+            if (Fd(ee)) continue;
+            Xt.push({ entry: It, marketplaceName: Mt, pluginId: ee, isInstalled: _Pe(ee) });
+          }
+          try {
+            let It = await oke(R);
+            if (oe) return;
+            if ((Tt(It), It))
+              Xt.sort((ee, Ne) => {
+                let he = It.get(ee.pluginId) ?? 0,
+                  Ke = It.get(Ne.pluginId) ?? 0;
+                if (he !== Ke) return Ke - he;
+                return ee.entry.name.localeCompare(Ne.entry.name);
+              });
+            else Xt.sort((ee, Ne) => ee.entry.name.localeCompare(Ne.entry.name));
+          } catch (It) {
+            if (oe) return;
+            n(`Failed to fetch install counts: ${l(It)}`),
+              Xt.sort((ee, Ne) => ee.entry.name.localeCompare(Ne.entry.name));
+          }
+          Pe(Xt), Et(0), kn(new Set()), dt(!1), gt("");
+        } catch (Jt) {
+          if (oe) return;
+          T(Jt instanceof Error ? Jt.message : "Failed to load plugins");
+        } finally {
+          if (Pt.current === et) be(!1);
+        }
+      }
+      return (
+        Dt(G),
+        () => {
+          oe = !0;
+        }
+      );
+    }, [G, T, gt, Et, kn, dt, R]),
+    ht(
+      {
+        "select:previous": () => {
+          if (Gt > 0) Et(Gt - 1);
+        },
+        "select:next": () => {
+          if (Gt < J.length - 1) Et(Gt + 1);
+        },
+        "select:accept": () => {
+          let oe = J[Gt];
+          if (oe) E(oe.name), re("plugin-list");
+        },
+      },
+      { context: "Select", isActive: it === "marketplace-list" && !_e },
+    ),
+    typeof it === "object" && it.type === "plugin-options")
+  )
+    return e(ur, {
+      viewState: it,
+      onInstallComplete: b,
+      onFinish: (oe) => {
+        N(oe), H({ type: "menu" });
+      },
+    });
+  if (_e) return e(rr, { message: ve });
+  if (K) return e(Br, { error: K });
+  if (it === "marketplace-list") {
+    if (J.length === 0)
+      return r(o, {
+        flexDirection: "column",
+        children: [
+          e(o, { marginBottom: 1, children: e(t, { bold: !0, children: "Select marketplace" }) }),
+          e(t, { children: "No marketplaces configured." }),
+          r(t, { dimColor: !0, children: ["Add a marketplace first using ", "'Add marketplace'", "."] }),
+          e(o, {
+            marginTop: 1,
+            paddingLeft: 1,
+            children: e(t, {
+              dimColor: !0,
+              children: e(ze, { action: "confirm:no", context: "Settings", fallback: "Esc", description: "go back" }),
+            }),
+          }),
+        ],
+      });
+    return r(o, {
+      flexDirection: "column",
+      children: [
+        e(o, { marginBottom: 1, children: e(t, { bold: !0, children: "Select marketplace" }) }),
+        _t &&
+          e(o, {
+            marginBottom: 1,
+            flexDirection: "column",
+            children: r(t, { color: "warning", children: [e(tt, { status: "warning", withSpace: !0 }), _t] }),
+          }),
+        J.map((oe, et) =>
+          r(
+            Ig,
+            {
+              active: Gt === et,
+              flexDirection: "column",
+              marginBottom: et < J.length - 1 ? 1 : 0,
+              children: [
+                e(o, {
+                  children: r(t, {
+                    color: Gt === et ? "suggestion" : void 0,
+                    children: [r(t, { "aria-hidden": !0, children: [Gt === et ? L.pointer : " ", " "] }), Oo(oe.name)],
+                  }),
+                }),
+                e(o, {
+                  marginLeft: 2,
+                  children: e(t, {
+                    dimColor: !0,
+                    children: r(fe, {
+                      children: [
+                        r(U, { children: [oe.totalPlugins, " ", k(oe.totalPlugins, "plugin"), " available"] }),
+                        oe.installedCount > 0 && `${oe.installedCount} already installed`,
+                        oe.source && Oo(oe.source),
+                      ],
+                    }),
+                  }),
+                }),
+              ],
+            },
+            oe.name,
+          ),
+        ),
+        e(o, {
+          marginTop: 1,
+          children: e(t, {
+            dimColor: !0,
+            italic: !0,
+            children: r(fe, {
+              children: [
+                e(ze, { action: "select:accept", context: "Select", fallback: "Enter", description: "select" }),
+                e(ze, { action: "confirm:no", context: "Settings", fallback: "Esc", description: "go back" }),
+              ],
+            }),
+          }),
+        }),
+      ],
+    });
+  }
+  if (it === "plugin-details" && xe)
+    return r(o, {
+      flexDirection: "column",
+      children: [
+        Re &&
+          e(o, {
+            marginBottom: 1,
+            flexDirection: "column",
+            children: r(t, { color: "warning", children: [e(tt, { status: "warning", withSpace: !0 }), Re] }),
+          }),
+        e(hr, {
+          onEntryHelperShown: Le,
+          title: "Plugin Details",
+          plugin: xe,
+          extraSection: e(jd, { pluginId: xe.pluginId }),
+          installError: le,
+          menuOptions: je,
+          detailsMenuIndex: Ut,
+          isInstalling: Lt,
+          bylinePaddingLeft: 1,
+        }),
+      ],
+    });
+  if (ue.length === 0)
+    return r(o, {
+      flexDirection: "column",
+      children: [
+        e(o, { marginBottom: 1, children: e(t, { bold: !0, children: "Install plugins" }) }),
+        e(sr, {
+          hint: "All plugins from this marketplace are already installed.",
+          children: "No new plugins available to install.",
+        }),
+        e(o, {
+          marginLeft: 3,
+          children: e(t, {
+            dimColor: !0,
+            italic: !0,
+            children: e(ze, { action: "confirm:no", context: "Settings", fallback: "Esc", description: "go back" }),
+          }),
+        }),
+      ],
+    });
+  let yt = $t.getVisibleItems(Bt);
+  return r(o, {
+    flexDirection: "column",
+    tabIndex: 0,
+    autoFocus: !0,
+    onKeyDown: Qe,
+    onPaste: kt,
+    children: [
+      r(o, {
+        children: [
+          e(t, { bold: !0, children: "Install Plugins" }),
+          $t.needsPagination &&
+            r(t, { dimColor: !0, children: [" ", "(", $t.scrollPosition.current, "/", $t.scrollPosition.total, ")"] }),
+        ],
+      }),
+      e(o, { marginBottom: 1, children: e(Hd, { ...se }) }),
+      Bt.length === 0 &&
+        pt &&
+        e(o, { marginBottom: 1, children: r(sr, { children: ['No plugins match "', pt, '"'] }) }),
+      $t.scrollPosition.canScrollUp &&
+        e(o, { children: r(t, { dimColor: !0, children: [" ", L.arrowUp, " more above"] }) }),
+      yt.map((oe, et) => {
+        let Dt = $t.toActualIndex(et),
+          Mt = Gt === Dt,
+          Jt = In.has(oe.pluginId),
+          Xt = Dn.has(oe.pluginId),
+          It = et === yt.length - 1,
+          ee = st?.get(oe.pluginId);
+        return r(
+          Ig,
+          {
+            active: Mt && !ot,
+            flexDirection: "column",
+            marginBottom: It && !K ? 0 : 1,
+            children: [
+              r(o, {
+                children: [
+                  r(t, {
+                    "aria-hidden": !0,
+                    color: Mt && !ot ? "suggestion" : void 0,
+                    children: [Mt && !ot ? L.pointer : " ", " "],
+                  }),
+                  r(t, {
+                    color: oe.isInstalled ? "success" : void 0,
+                    children: [
+                      oe.isInstalled ? L.tick : Xt ? L.ellipsis : Jt ? L.radioOn : L.radioOff,
+                      " ",
+                      id(oe.entry),
+                      oe.entry.category && r(t, { dimColor: !0, children: [" ", "[", Oo(oe.entry.category), "]"] }),
+                      oe.entry.tags?.includes("community-managed") &&
+                        e(t, { dimColor: !0, children: " [Community Managed]" }),
+                      e(DR, { when: oe.isInstalled, children: "installed" }),
+                      ee !== void 0 && G === ag && r(t, { dimColor: !0, children: [" \xB7 ", O0t(ee), " installs"] }),
+                    ],
+                  }),
+                ],
+              }),
+              oe.entry.description &&
+                r(o, {
+                  marginLeft: 4,
+                  children: [
+                    e(t, { dimColor: !0, children: rt(Oo(oe.entry.description), 60) }),
+                    oe.entry.version && r(t, { dimColor: !0, children: [" ", "\xB7 v", Oo(oe.entry.version)] }),
+                  ],
+                }),
+            ],
+          },
+          oe.pluginId,
+        );
+      }),
+      $t.scrollPosition.canScrollDown &&
+        e(o, { children: r(t, { dimColor: !0, children: [" ", L.arrowDown, " more below"] }) }),
+      K &&
+        e(o, {
+          marginTop: 1,
+          children: r(t, { color: "error", children: [e(tt, { status: "error", withSpace: !0 }), K] }),
+        }),
+      e(kr, { ...tn }),
+    ],
+  });
+}
+function jd(PC) {
+  let Jo = _(22),
+    { pluginId: hs } = PC,
+    { storageV5: ks } = ge(),
+    [go, By] = u(null),
+    Ay,
+    Oy;
+  if (Jo[0] !== hs || Jo[1] !== ks)
+    (Ay = () => {
+      By(null);
+      let Ly = !1;
+      return (
+        wXt(hs, Ye(at()), ks)
+          .then((TC) => {
+            if (!Ly) By(TC);
+          })
+          .catch(Fy),
+        () => {
+          Ly = !0;
+        }
+      );
+    }),
+      (Oy = [hs, ks]),
+      (Jo[0] = hs),
+      (Jo[1] = ks),
+      (Jo[2] = Ay),
+      (Jo[3] = Oy);
+  else (Ay = Jo[2]), (Oy = Jo[3]);
+  if ((A(Ay, Oy), go === null)) {
+    return null;
+  }
+  let Ny = go.alwaysOn >= bXt,
+    bs;
+  if (Jo[4] !== go.isEstimate)
+    (bs = go.isEstimate && e(t, { dimColor: !0, children: " (estimated)" })), (Jo[4] = go.isEstimate), (Jo[5] = bs);
+  else bs = Jo[5];
+  let xs;
+  if (Jo[6] !== bs) (xs = r(t, { bold: !0, children: ["Context cost", bs, ":"] })), (Jo[6] = bs), (Jo[7] = xs);
+  else xs = Jo[7];
+  const Nd = Ny ? "warning" : void 0,
+    _d = !Ny;
+  let Ss;
+  if (Jo[8] !== go.alwaysOn) (Ss = g0(go.alwaysOn)), (Jo[8] = go.alwaysOn), (Jo[9] = Ss);
+  else Ss = Jo[9];
+  let vs;
+  if (Jo[10] !== Nd || Jo[11] !== _d || Jo[12] !== Ss)
+    (vs = r(t, { color: Nd, dimColor: _d, children: ["\xB7 Every turn: ", Ss, " tokens"] })),
+      (Jo[10] = Nd),
+      (Jo[11] = _d),
+      (Jo[12] = Ss),
+      (Jo[13] = vs);
+  else vs = Jo[13];
+  let ws;
+  if (Jo[14] !== go.onInvoke) (ws = g0(go.onInvoke)), (Jo[14] = go.onInvoke), (Jo[15] = ws);
+  else ws = Jo[15];
+  let Cs;
+  if (Jo[16] !== ws)
+    (Cs = r(t, { dimColor: !0, children: ["\xB7 When invoked: ", ws, " tokens"] })), (Jo[16] = ws), (Jo[17] = Cs);
+  else Cs = Jo[17];
+  let _y;
+  if (Jo[18] !== Cs || Jo[19] !== xs || Jo[20] !== vs)
+    (_y = r(o, { flexDirection: "column", marginBottom: 1, children: [xs, vs, Cs] })),
+      (Jo[18] = Cs),
+      (Jo[19] = xs),
+      (Jo[20] = vs),
+      (Jo[21] = _y);
+  else _y = Jo[21];
+  return _y;
+}
+F();
+var Uy = (a) => a.result;
+function qd({
+  screen: a,
+  onInstallComplete: b,
+  onSearchModeChange: S,
+  getSessionContext: x,
+  grantedSuggestions: v,
+  targetPlugin: R,
+}) {
+  let { storageV5: j, credentials: K } = ge(),
+    T = Xe(a, Mi),
+    N = Xe(a, Uy),
+    { setError: H, setResult: G } = a,
+    E = a.setViewState,
+    [J, pe] = u([]),
+    [ue, Pe] = u(!0),
+    [_e, be] = u("Loading\u2026"),
+    [ve, Je] = u(null),
+    [st, Tt] = u(new Map()),
+    {
+      viewState: it,
+      setViewState: re,
+      selectedPlugin: xe,
+      openDetails: Ge,
+      closeDetails: Ht,
+      recordEntryHelperShown: Le,
+      isSearchMode: ot,
+      searchQuery: dt,
+      searchBoxProps: pt,
+      keyHintProps: gt,
+      filteredPlugins: se,
+      selectedIndex: tn,
+      selectedForInstall: Bt,
+      installingPlugins: Gt,
+      pagination: Et,
+      detailsMenuIndex: In,
+      isInstalling: kn,
+      installError: Dn,
+      detailsMenuOptions: $t,
+      handleListKeyDown: Ut,
+      handleListPaste: Lt,
+    } = Sa({
+      screen: a,
+      initialViewState: "plugin-list",
+      availablePlugins: J,
+      loading: ue,
+      searchMarketplaceName: !0,
+      onInstallComplete: b,
+      onSearchModeChange: S,
+    }),
+    [le, je] = u(null),
+    [Qe, kt] = u(null);
+  A(() => {
+    let Re = !1;
+    async function an() {
+      try {
+        let Ot = await zl(j),
+          { marketplaces: Pt, failures: yt } = await c9(Ot, j);
+        if (Re) return;
+        let oe = [];
+        for (let { name: ee, data: Ne } of Pt)
+          if (Ne)
+            for (let he of Ne.plugins) {
+              let Ke = lF(he.name, ee);
+              oe.push({ entry: he, marketplaceName: ee, pluginId: Ke, isInstalled: tH(Ke) });
+            }
+        let et = oe.filter((ee) => !ee.isInstalled && !Fd(ee.pluginId));
+        try {
+          let ee = await oke(j);
+          if (Re) return;
+          if ((Je(ee), ee))
+            et.sort((Ne, he) => {
+              let Ke = ee.get(Ne.pluginId) ?? 0,
+                wt = ee.get(he.pluginId) ?? 0;
+              if (Ke !== wt) return wt - Ke;
+              return Ne.entry.name.localeCompare(he.entry.name);
+            });
+          else et.sort((Ne, he) => Ne.entry.name.localeCompare(he.entry.name));
+        } catch (ee) {
+          n(`Failed to fetch install counts: ${l(ee)}`),
+            et.sort((Ne, he) => Ne.entry.name.localeCompare(he.entry.name));
+        }
+        let Dt = new Map();
+        try {
+          let ee = x?.(),
+            Ne = new Set(tVe());
+          for (let he of et) {
+            if (!Ne.has(he.marketplaceName)) continue;
+            if (he.marketplaceName !== ag) {
+              let ke = Ot[he.marketplaceName]?.source;
+              if (!ke || !nVe(he.marketplaceName, ke)) continue;
+            }
+            let Ke = Ivt(he.entry.name, he.entry.relevance);
+            if (!Ke) continue;
+            if (RNn(he.pluginId) > 0 && !v?.has(he.pluginId)) continue;
+            let wt = await Pvt(Ke, ee);
+            if (wt) Dt.set(he.pluginId, wt);
+          }
+        } catch (ee) {
+          n(`Failed to compute plugin suggestions: ${l(ee)}`);
+        }
+        if (Re) return;
+        Tt(Dt);
+        let Mt =
+          Dt.size > 0 ? [...et.filter((ee) => Dt.has(ee.pluginId)), ...et.filter((ee) => !Dt.has(ee.pluginId))] : et;
+        pe(Mt);
+        let Jt = Object.keys(Ot).length;
+        if (et.length === 0) {
+          let ee = await MGn({ configuredMarketplaceCount: Jt, failedMarketplaceCount: yt.length });
+          if (Re) return;
+          if (
+            ee === "all-plugins-installed" &&
+            oe.length > 0 &&
+            oe.every((Ne) => Ne.isInstalled && !_Pe(Ne.pluginId)) &&
+            !oe.some((Ne) => Fd(Ne.pluginId))
+          )
+            ee = "all-plugins-project-installed";
+          kt(ee);
+        }
+        let Xt = Q(Pt, (ee) => ee.data !== null),
+          It = Tqe(yt, Xt);
+        if (It)
+          if (It.type === "warning") je(It.message + (et.length > 0 ? ". Showing available plugins." : "."));
+          else throw Error(It.message);
+        if (R) {
+          let ee = oe.find((ke) => ke.entry.name === R),
+            Ne = !1,
+            he = !1,
+            Ke = !1,
+            wt = !1;
+          if (!ee) {
+            for (let [ke, He] of Object.entries(Ot)) {
+              be(`Checking ${ke} for new plugins\u2026`);
+              let Nt = await vMn(ke, He, j);
+              if (Re) return;
+              if (Nt === "refresh-failed") he = !0;
+              else if (Nt === "refreshed") wt = !0;
+              if (Nt !== "refreshed") continue;
+              try {
+                let Fn = (await Hv(ke, j)).plugins.find((ln) => ln.name === R);
+                if (Fn) {
+                  let ln = lF(Fn.name, ke);
+                  (ee = { entry: Fn, marketplaceName: ke, pluginId: ln, isInstalled: tH(ln) }),
+                    (Ne = !0),
+                    y("plugin_install_catalog_refresh");
+                  break;
+                }
+              } catch (Kn) {
+                (Ke = !0), n(`Post-refresh reload of marketplace '${ke}' failed: ${l(Kn)}`, { level: "warn" });
+              }
+              if (Re) return;
+            }
+            if (!Ne)
+              if (he) p("plugin_install_catalog_refresh", "refresh_failed");
+              else if (Ke) p("plugin_install_catalog_refresh", "reload_failed");
+              else if (wt) g("plugin_install_catalog_refresh", "not_found_after_refresh");
+              else g("plugin_install_catalog_refresh", "ineligible");
+          }
+          if (Re) return;
+          if (Ne && ee && !ee.isInstalled && !Fd(ee.pluginId)) {
+            let ke = ee;
+            pe((He) => (He.some((Nt) => Nt.pluginId === ke.pluginId) ? He : [...He, ke]));
+          }
+          if (ee)
+            if (_Pe(ee.pluginId)) {
+              let ke = await Bke(ee.pluginId, j),
+                He = await ua(ee.pluginId, ke, j, K);
+              if (Re) return;
+              if (He) re(He);
+              else if (ke === null)
+                H(`Plugin '${ee.pluginId}' is already installed. Use '/plugin' to manage existing plugins.`);
+              else if (ke.changed) {
+                let Nt = await b?.([ee.pluginId]);
+                if (Re) return;
+                G(
+                  `Plugin "${ee.pluginId}" is already installed${ke.suffix}${Nt === "load-failed" ? ". The plugin couldn't be loaded \u2014 see /plugin for details." : ""}`,
+                );
+              } else G(`Plugin "${ee.pluginId}" is already installed${ke.suffix}`);
+            } else Ge(ee);
+          else H(`Plugin "${R}" not found in any marketplace`);
+        }
+      } catch (Ot) {
+        if (Re) return;
+        H(Ot instanceof Error ? Ot.message : "Failed to load plugins");
+      } finally {
+        if (!Re) Pe(!1);
+      }
+    }
+    return (
+      an(),
+      () => {
+        Re = !0;
+      }
+    );
+  }, [H, G, re, Ge, b, x, v, R, j, K]);
+  let _t = C(!1);
+  if (
+    (A(() => {
+      if (_t.current || ue || T !== null || N !== null || it !== "plugin-list" || st.size === 0) return;
+      _t.current = !0;
+      let Re = [...st.keys()];
+      for (let an of Re) v?.add(an);
+      kNn(Re, j);
+    }, [ue, T, N, it, st, v, j]),
+    Be("confirm:no", Ht, { context: "Settings", isActive: it === "plugin-details" }),
+    Be(
+      "confirm:no",
+      () => {
+        E({ type: "menu" });
+      },
+      { context: "Settings", isActive: it === "plugin-list" && !ot },
+    ),
+    typeof it === "object" && it.type === "plugin-options")
+  )
+    return e(ur, {
+      viewState: it,
+      onInstallComplete: b,
+      onFinish: (Re) => {
+        G(Re), E({ type: "menu" });
+      },
+    });
+  if (ue) return e(rr, { message: _e });
+  if (T) return e(Br, { error: T });
+  if (it === "plugin-details" && xe)
+    return e(hr, {
+      onEntryHelperShown: Le,
+      title: "Plugin details",
+      plugin: xe,
+      showMarketplace: !0,
+      installError: Dn,
+      menuOptions: $t,
+      detailsMenuIndex: In,
+      isInstalling: kn,
+    });
+  if (J.length === 0)
+    return r(o, {
+      flexDirection: "column",
+      children: [
+        e(o, { marginBottom: 1, children: e(t, { bold: !0, children: "Discover plugins" }) }),
+        le && e(o, { marginBottom: 1, children: e(yf, { status: "warning", children: le }) }),
+        e(Wd, { reason: Qe }),
+        e(o, {
+          marginTop: 1,
+          children: e(t, {
+            dimColor: !0,
+            italic: !0,
+            children: e(ze, { action: "confirm:no", context: "Settings", fallback: "Esc", description: "go back" }),
+          }),
+        }),
+      ],
+    });
+  let qe = Et.getVisibleItems(se);
+  return r(o, {
+    flexDirection: "column",
+    tabIndex: 0,
+    autoFocus: !0,
+    onKeyDown: Ut,
+    onPaste: Lt,
+    children: [
+      r(o, {
+        children: [
+          e(t, { bold: !0, children: "Discover plugins" }),
+          Et.needsPagination &&
+            r(t, { dimColor: !0, children: [" ", "(", Et.scrollPosition.current, "/", Et.scrollPosition.total, ")"] }),
+        ],
+      }),
+      e(o, { marginBottom: 1, children: e(Hd, { ...pt }) }),
+      le && e(o, { marginBottom: 1, children: e(yf, { status: "warning", children: le }) }),
+      se.length === 0 &&
+        dt &&
+        e(o, { marginBottom: 1, children: r(sr, { children: ['No plugins match "', dt, '"'] }) }),
+      Et.scrollPosition.canScrollUp &&
+        e(o, { children: r(t, { dimColor: !0, children: [" ", L.arrowUp, " more above"] }) }),
+      qe.map((Re, an) => {
+        let Ot = Et.toActualIndex(an),
+          Pt = tn === Ot,
+          yt = Bt.has(Re.pluginId),
+          oe = Gt.has(Re.pluginId),
+          et = ve?.get(Re.pluginId),
+          Dt = st.get(Re.pluginId),
+          Mt = an === qe.length - 1;
+        return r(
+          Ig,
+          {
+            active: Pt && !ot,
+            flexDirection: "column",
+            marginBottom: Mt ? 0 : 1,
+            children: [
+              r(o, {
+                children: [
+                  r(t, {
+                    "aria-hidden": !0,
+                    color: Pt && !ot ? "suggestion" : void 0,
+                    children: [Pt && !ot ? L.pointer : " ", " "],
+                  }),
+                  r(t, {
+                    children: [
+                      oe ? L.ellipsis : yt ? L.radioOn : L.radioOff,
+                      " ",
+                      id(Re.entry),
+                      r(t, { dimColor: !0, children: [" ", "\xB7 ", Oo(Re.marketplaceName)] }),
+                      Dt && r(t, { dimColor: !0, children: [" ", "\xB7 ", jy(Dt)] }),
+                      Re.entry.tags?.includes("community-managed") &&
+                        e(t, { dimColor: !0, children: " [Community Managed]" }),
+                      et !== void 0 &&
+                        Re.marketplaceName === ag &&
+                        r(t, { dimColor: !0, children: [" \xB7 ", O0t(et), " installs"] }),
+                    ],
+                  }),
+                ],
+              }),
+              Re.entry.description &&
+                e(o, { marginLeft: 4, children: e(t, { dimColor: !0, children: rt(Oo(Re.entry.description), 60) }) }),
+            ],
+          },
+          `${Et.startIndex}-${Re.pluginId}`,
+        );
+      }),
+      Et.scrollPosition.canScrollDown &&
+        e(o, { children: r(t, { dimColor: !0, children: [" ", L.arrowDown, " more below"] }) }),
+      e(kr, { ...gt }),
+    ],
+  });
+}
+function Wd(dP) {
+  let $i = _(7),
+    { reason: pP } = dP;
+  switch (pP) {
+    case "git-not-installed": {
+      let wn;
+      if ($i[0] === d)
+        (wn = r(U, {
+          children: [
+            e(t, { dimColor: !0, children: "Git is required to install marketplaces." }),
+            e(t, { dimColor: !0, children: "Please install git and restart Claude Code." }),
+          ],
+        })),
+          ($i[0] = wn);
+      else wn = $i[0];
+      return wn;
+    }
+    case "all-blocked-by-policy": {
+      let wn;
+      if ($i[1] === d)
+        (wn = r(U, {
+          children: [
+            e(t, { dimColor: !0, children: "Your organization policy does not allow any external marketplaces." }),
+            e(t, { dimColor: !0, children: "Contact your administrator." }),
+          ],
+        })),
+          ($i[1] = wn);
+      else wn = $i[1];
+      return wn;
+    }
+    case "policy-restricts-sources": {
+      let wn;
+      if ($i[2] === d)
+        (wn = r(U, {
+          children: [
+            e(t, { dimColor: !0, children: "Your organization restricts which marketplaces can be added." }),
+            e(t, { dimColor: !0, children: "Switch to the Marketplaces tab to view allowed sources." }),
+          ],
+        })),
+          ($i[2] = wn);
+      else wn = $i[2];
+      return wn;
+    }
+    case "all-marketplaces-failed": {
+      let wn;
+      if ($i[3] === d)
+        (wn = r(U, {
+          children: [
+            e(t, { dimColor: !0, children: "Failed to load marketplace data." }),
+            e(t, { dimColor: !0, children: "Check your network connection." }),
+          ],
+        })),
+          ($i[3] = wn);
+      else wn = $i[3];
+      return wn;
+    }
+    case "all-plugins-installed": {
+      let wn;
+      if ($i[4] === d)
+        (wn = r(U, {
+          children: [
+            e(t, { dimColor: !0, children: "All available plugins are already installed." }),
+            e(t, { dimColor: !0, children: "Check for new plugins later or add more marketplaces." }),
+          ],
+        })),
+          ($i[4] = wn);
+      else wn = $i[4];
+      return wn;
+    }
+    case "all-plugins-project-installed": {
+      let wn;
+      if ($i[5] === d)
+        (wn = r(U, {
+          children: [
+            e(t, { dimColor: !0, children: "All available plugins are installed for this project." }),
+            e(t, { dimColor: !0, children: "Use the Browse tab to install at user scope." }),
+          ],
+        })),
+          ($i[5] = wn);
+      else wn = $i[5];
+      return wn;
+    }
+    case "no-marketplaces-configured":
+    default: {
+      let wn;
+      if ($i[6] === d)
+        (wn = e(sr, {
+          hint: "Add a marketplace first using the Marketplaces tab.",
+          children: "No plugins available.",
+        })),
+          ($i[6] = wn);
+      else wn = $i[6];
+      return wn;
+    }
+  }
+}
+var Ps = 32;
+function jy(a) {
+  switch (a.signal) {
+    case "cwd":
+      return "suggested for this directory";
+    case "cli":
+      return `suggested for ${rt(a.command, Ps)} commands`;
+    case "hosts":
+      return `suggested for ${rt(a.host, Ps)}`;
+    case "filesRead":
+      return `suggested for ${Kd(a.file)}`;
+    case "manifestDep":
+      return `suggested from ${Kd(a.file)}`;
+  }
+}
+function Kd(a) {
+  return ul(Fo(a).replaceAll("\\", "/"), Ps);
+}
+F();
+import { readdir as Hy, readFile as zd } from "fs/promises";
+import { homedir as Ky } from "os";
+import * as Mo from "path";
+var Ts = 5,
+  qy = m(() => f({ query: i().min(1), should_trigger: q() })),
+  Is = async () => null;
+async function Wy(a) {
+  let b = [],
+    S = [],
+    x;
+  try {
+    x = await Hy(a);
+  } catch (v) {
+    if (X(v))
+      return {
+        queries: [],
+        warnings: [
+          `No evals/ folder found at ${a}. Create one with at least ${Ts} <name>.md files (frontmatter: query, should_trigger).`,
+        ],
+      };
+    throw v;
+  }
+  for (let v of x.filter((R) => R.endsWith(".md")).sort()) {
+    let R = Mo.join(a, v),
+      j;
+    try {
+      j = await zd(R, "utf8");
+    } catch (G) {
+      S.push(`Could not read ${v}: ${l(G)}`);
+      continue;
+    }
+    j = JE(j);
+    let K = j.match(wH);
+    if (!K) {
+      S.push(`${v}: missing YAML frontmatter (expected ---\\nquery: \u2026\\nshould_trigger: \u2026\\n---).`);
+      continue;
+    }
+    let T;
+    try {
+      T = bH(K[1] ?? "");
+    } catch (G) {
+      S.push(`${v}: invalid YAML \u2014 ${l(G)}`);
+      continue;
+    }
+    let N = qy().safeParse(T);
+    if (!N.success) {
+      let G = N.error.issues.map((E) => `${E.path.join(".")}: ${E.message}`).join("; ");
+      S.push(`${v}: ${G}`);
+      continue;
+    }
+    let H = j.slice(K[0].length).trim();
+    b.push({ file: v, query: N.data.query, shouldTrigger: N.data.should_trigger, ...(H && { notes: H }) });
+  }
+  if (b.length > 0 && b.length < Ts)
+    S.push(
+      `Only ${b.length} eval ${b.length === 1 ? "query" : "queries"} found; the spec recommends at least ${Ts} for meaningful coverage.`,
+    );
+  return { queries: b, warnings: S };
+}
+async function zy(a) {
+  try {
+    let b = await zd(Mo.join(a, "SKILL.md"), "utf8"),
+      S = JE(b).match(wH);
+    if (!S) return "";
+    let x = bH(S[1] ?? "");
+    if (x && typeof x === "object" && "description" in x && typeof x.description === "string") return x.description;
+  } catch {}
+  return "";
+}
+async function Rs(a, b, S) {
+  let x = a === "~" || a.startsWith("~/") ? Mo.join(Ky(), a.slice(1)) : a,
+    v = Mo.resolve(x),
+    R = Mo.basename(v),
+    j = await zy(v),
+    K = Mo.join(v, "evals"),
+    { queries: T, warnings: N } = await Wy(K),
+    H = [];
+  for (let G of T) {
+    if (b.aborted) break;
+    try {
+      let E = await S({ skillName: R, description: j, query: G, signal: b });
+      if (E === null) {
+        H.push({
+          query: G,
+          modelWouldTrigger: null,
+          reason: "Model evaluation not yet wired up \u2014 tracks the plugin evaluation framework.",
+          verdict: "skipped",
+        });
+        continue;
+      }
+      H.push({
+        query: G,
+        modelWouldTrigger: E.wouldTrigger,
+        reason: E.reason,
+        verdict: E.wouldTrigger === G.shouldTrigger ? "pass" : "fail",
+      });
+    } catch (E) {
+      n(`plugin eval: trigger test for ${G.file} threw: ${l(E)}`, { level: "error" }),
+        H.push({ query: G, modelWouldTrigger: null, reason: l(E), verdict: "fail" });
+    }
+  }
+  return {
+    pluginName: R,
+    pluginPath: v,
+    evalsPath: K,
+    queries: T,
+    warnings: N,
+    triggerResults: H,
+    passCount: Q(H, (G) => G.verdict === "pass"),
+    failCount: Q(H, (G) => G.verdict === "fail"),
+    skippedCount: Q(H, (G) => G.verdict === "skipped"),
+  };
+}
+function Es(a) {
+  let b = [];
+  b.push(`Evaluating ${a.pluginName} (${a.evalsPath})`), b.push("");
+  for (let S of a.warnings) b.push(`! ${S}`);
+  if (a.warnings.length > 0) b.push("");
+  if (a.queries.length === 0)
+    return (
+      b.push("No eval queries to run."),
+      b.join(`
+`)
+    );
+  b.push("Level 1 \u2014 trigger tests:");
+  for (let S of a.triggerResults) {
+    let x = S.verdict.toUpperCase().padEnd(7),
+      v = S.query.shouldTrigger ? "trigger" : "skip";
+    if (S.verdict === "skipped") b.push(`  [${x}] ${S.query.file} \u2014 expected ${v}`);
+    else {
+      let R = S.modelWouldTrigger ? "trigger" : "skip";
+      if ((b.push(`  [${x}] ${S.query.file} \u2014 expected ${v}, got ${R}`), S.verdict === "fail"))
+        b.push(`            ${S.reason}`);
+    }
+  }
+  if ((b.push(""), a.skippedCount === a.triggerResults.length))
+    b.push("All trigger tests skipped \u2014 model evaluation not yet wired up.");
+  else
+    b.push(
+      `${a.passCount}/${a.passCount + a.failCount} trigger tests passed${a.skippedCount > 0 ? ` (${a.skippedCount} skipped)` : ""}.`,
+    );
+  return (
+    b.push(""),
+    b.push("Level 2 \u2014 interplay tests: not yet implemented. Tracks the plugin evaluation framework."),
+    b.join(`
+`)
+  );
+}
+function $s(AP) {
+  let Gd = _(6),
+    { onComplete: vr, target: wr } = AP,
+    Gy;
+  if (Gd[0] === d) (Gy = new AbortController()), (Gd[0] = Gy);
+  else Gy = Gd[0];
+  let OP = C(Gy),
+    Qy,
+    Yy;
+  if (Gd[1] !== vr || Gd[2] !== wr)
+    (Qy = () => {
+      let Jy = OP.current;
+      let Qd = async function Qd() {
+        if (!wr) {
+          vr(`Usage: /plugin eval [path]
 
 Run trigger evaluations for a skill against the queries in its evals/ folder.
 
@@ -22,25 +3108,5506 @@ Each evals/*.md file needs frontmatter with \`query\` (string)
 and \`should_trigger\` (boolean). The spec recommends at least five.
 
 Or from the command line:
-  claude plugin eval [path]`);return};try{let Cr=await Rs(wr,Jy.signal,Is);process.exitCode=Cr.failCount>0?1:0;let LP=Cr.queries.length===0?"":Cr.failCount>0?`
+  claude plugin eval [path]`);
+          return;
+        }
+        try {
+          let Cr = await Rs(wr, Jy.signal, Is);
+          process.exitCode = Cr.failCount > 0 ? 1 : 0;
+          let LP =
+            Cr.queries.length === 0
+              ? ""
+              : Cr.failCount > 0
+                ? `
 
-${L.cross} Evaluation failed`:Cr.skippedCount===Cr.queries.length?`
+${L.cross} Evaluation failed`
+                : Cr.skippedCount === Cr.queries.length
+                  ? `
 
-${L.info} Eval queries validated; trigger tests pending model integration`:`
+${L.info} Eval queries validated; trigger tests pending model integration`
+                  : `
 
-${L.tick} Evaluation passed`;vr(Es(Cr)+LP)}catch(Ms){let Xy=Ms;process.exitCode=2,n(`Plugin eval failed for ${wr}: ${l(Xy)}`,{level:"error"}),vr(`${L.cross} ${l(Xy)}`)}};return Qd(),()=>Jy.abort()},Yy=[vr,wr],Gd[1]=vr,Gd[2]=wr,Gd[3]=Qy,Gd[4]=Yy;else Qy=Gd[3],Yy=Gd[4];A(Qy,Yy);let Ms;if(Gd[5]===d)Ms=e(o,{flexDirection:"column",children:e(t,{children:"Running evaluation\u2026"})}),Gd[5]=Ms;else Ms=Gd[5];return Ms}F();function Jd({setViewState:a,error:b,setError:S,setResult:x,exitState:v,onManageComplete:R,targetMarketplace:j,action:K}){let{storageV5:T,credentials:N}=ge(),[H,G]=u([]),[E,J]=u(!0),[pe,ue]=u(0),[Pe,_e]=u(!1),[be,ve]=u(null),[Je,st]=u(null),[Tt,it]=u(null),[re,xe]=u("list"),[Ge,Ht]=u(null),[Le,ot]=u(0),dt=C(!1),pt=xt(),gt=C(void 0),se=C(!0);A(()=>()=>{se.current=!1,gt.current?.()},[]),A(()=>{async function le(){try{let je=await zl(T),{enabled:Qe,disabled:kt}=await Dh(T,N),_t=[...Qe,...kt],{marketplaces:qe,failures:Re}=await c9(je,T),an=dk(),Ot=[];for(let{name:oe,config:et,data:Dt}of qe){let Mt=_t.filter((Jt)=>Jt.source.endsWith(`@${oe}`));Ot.push({name:oe,source:OSe(et.source),lastUpdated:et.lastUpdated,pluginCount:Dt?.plugins.length,installedPlugins:Mt,pendingUpdate:!1,pendingRemove:!1,autoUpdate:c5(oe,et,an[oe]?.autoUpdate)})}Ot.sort((oe,et)=>{if(oe.name==="claude-plugin-directory")return-1;if(et.name==="claude-plugin-directory")return 1;return oe.name.localeCompare(et.name)}),G(Ot);let Pt=Q(qe,(oe)=>oe.data!==null),yt=Tqe(Re,Pt);if(yt)if(yt.type==="warning")ve(yt.message);else throw Error(yt.message);if(j&&!dt.current&&!b){dt.current=!0;let oe=Ot.findIndex((et)=>et.name===j);if(oe>=0){let et=Ot[oe];if(K){ue(oe+1);let Dt=Ot.map((Mt,Jt)=>Jt===oe?{...Mt,pendingUpdate:K==="update",pendingRemove:K==="remove"}:Mt);G(Dt),Gt(Dt)}else if(et)ue(oe+1),Ht(et),gt.current?.(),xe("details")}else S(`Marketplace not found: ${j}`)}}catch(je){let Qe=gR(je);S(Qe),ve(Qe)}finally{J(!1)}}le()},[j,K,b]);let tn=()=>H.some((le)=>le.pendingUpdate||le.pendingRemove),Bt=()=>{let le=Q(H,(Qe)=>Qe.pendingUpdate),je=Q(H,(Qe)=>Qe.pendingRemove);return{updateCount:le,removeCount:je}},Gt=async(le)=>{let je=le||H,Qe=re==="details";_e(!0),ve(null),st(null),it(null);try{let kt=0,_t=0,qe=[],Re=[],an=new Set;for(let ke of je){if(ke.pendingRemove){if(ke.installedPlugins.length>0)await Os("userSettings",(He)=>{let Nt={...He?.enabledPlugins};for(let Kn of ke.installedPlugins){let Fn=lF(Kn.name,ke.name);Nt[Fn]=!1}return{enabledPlugins:Nt}},void 0,T);await MSe(ke.name,void 0,T,N),_t++,s("tengu_marketplace_removed",{marketplace_name:ke.name,plugins_uninstalled:ke.installedPlugins.length});continue}if(ke.pendingUpdate){try{await ED(ke.name,T,(He)=>{it(He)})}catch(He){if(He instanceof Ys){qe.push(ke.name),n(`Marketplace ${ke.name} not updated (managed policy): ${l(He)}`);continue}Re.push(ke.name),n(`Marketplace ${ke.name} could not be refreshed: ${l(He)}`,{level:"warn"});continue}kt++,an.add(ke.name.toLowerCase()),s("tengu_marketplace_updated",{marketplace_name:ke.name})}}let Ot=0,Pt=0,yt=0,oe=0,et=0,Dt=[],Mt=[];if(an.size>0){let{updated:ke,blocked:He,updateFailedCount:Nt,commandSourceSkipped:Kn}=await L8t(an,new Set,{skipCommandSources:!0},T);Ot=ke.length,Mt=Kn,Pt=Q(He,(ln)=>ln.type==="autoupdate-deferred-entry-helper"),yt=Q(He,(ln)=>ln.type==="autoupdate-disabled-by-policy"),oe=Q(He,(ln)=>ln.type==="autoupdate-blocked-by-pinner"),et=Nt;let Fn=He.filter((ln)=>ln.type!=="autoupdate-deferred-entry-helper"&&ln.type!=="autoupdate-disabled-by-policy"&&ln.type!=="autoupdate-blocked-by-pinner");if(Fn.length>0||ke.length>0)ZRt(ke,Fn,[],{announce:!1});Dt=Fn.flatMap((ln)=>("plugin"in ln)&&typeof ln.plugin==="string"?[ln.plugin]:[])}if(Qu(T,N),await R(),!se.current)return;let Jt=await zl(T),{enabled:Xt,disabled:It}=await Dh(T,N);if(!se.current)return;let ee=[...Xt,...It],{marketplaces:Ne}=await c9(Jt,T);if(!se.current)return;let he=dk(),Ke=[];for(let{name:ke,config:He,data:Nt}of Ne){let Kn=ee.filter((Fn)=>Fn.source.endsWith(`@${ke}`));Ke.push({name:ke,source:OSe(He.source),lastUpdated:He.lastUpdated,pluginCount:Nt?.plugins.length,installedPlugins:Kn,pendingUpdate:!1,pendingRemove:!1,autoUpdate:c5(ke,He,he[ke]?.autoUpdate)})}if(Ke.sort((ke,He)=>{if(ke.name==="claude-plugin-directory")return-1;if(He.name==="claude-plugin-directory")return 1;return ke.name.localeCompare(He.name)}),G(Ke),Qe&&Ge){let ke=Ke.find((He)=>He.name===Ge.name);if(ke)Ht(ke)}let wt=[];if(kt>0||qe.length>0||Re.length>0||oe>0||et>0)wt.push(NGn({updatedCount:kt,updatedPluginCount:Ot,deferredPluginCount:Pt,policyBlockedPluginCount:yt,policyRefusedMarketplaces:qe,failedMarketplaces:Re,pinnedPluginCount:oe,failedPluginCount:et,failedPluginNames:Dt}));if(Mt.length>0){let ke=Mt.length,He=ke>1,Nt=Mt.find(pV)??"",Kn=`${He?"(and the others) ":""}to review (add --scope for a project/local install)`,Fn=`review and update ${He?"each":"it"} individually from the command line`;wt.push(`${ke} command-sourced ${k(ke,"plugin")} not updated here \u2014 ${Uk("plugin update",Nt,{tail:Kn,fallback:Fn})}`)}if(_t>0)wt.push(`Removed ${_t} ${k(_t,"marketplace")}`);if(wt.length>0){let He=`${Tpt({failedCount:Re.length+et,updatedCount:kt+_t,policyRefusedCount:qe.length})??L.warning} ${wt.join(", ")}`;if(Qe)st(He);else{if(!se.current)return;x(He),gt.current?.(),gt.current=pt.setTimeout(()=>a({type:"menu"}),2000)}}else if(!Qe){if(!se.current)return;a({type:"menu"})}}catch(kt){let _t=gR(kt);if(!se.current)return;ve(_t),S(_t)}finally{if(se.current)_e(!1),it(null)}},Et=async()=>{if(!Ge)return;let le=H.map((je)=>je.name===Ge.name?{...je,pendingRemove:!0}:je);G(le),await Gt(le)},In=(le)=>{if(!le)return[];let je=[{label:`Browse plugins (${le.pluginCount??0})`,value:"browse"},{label:"Update marketplace",secondaryLabel:le.lastUpdated?`(last updated ${new Date(le.lastUpdated).toLocaleDateString()})`:void 0,value:"update"}];if(!W3())je.push({label:le.autoUpdate?"Disable auto-update":"Enable auto-update",value:"toggle-auto-update"});return je.push({label:"Remove marketplace",value:"remove"}),je},kn=async(le)=>{let je=!le.autoUpdate;try{await UGn(le.name,je,T),G((Qe)=>Qe.map((kt)=>kt.name===le.name?{...kt,autoUpdate:je}:kt)),Ht((Qe)=>Qe?{...Qe,autoUpdate:je}:Qe)}catch(Qe){ve(gR(Qe))}};Be("confirm:no",()=>{gt.current?.(),xe("list"),ot(0)},{context:"Confirmation",isActive:!Pe&&(re==="details"||re==="confirm-remove")}),Be("confirm:no",()=>{gt.current?.(),G((le)=>le.map((je)=>({...je,pendingUpdate:!1,pendingRemove:!1}))),ue(0)},{context:"Confirmation",isActive:!Pe&&re==="list"&&tn()}),Be("confirm:no",()=>{a({type:"menu"})},{context:"Confirmation",isActive:!Pe&&re==="list"&&!tn()}),ht({"select:previous":()=>ue((le)=>Math.max(0,le-1)),"select:next":()=>{let le=H.length+1;ue((je)=>Math.min(le-1,je+1))},"select:accept":()=>{gt.current?.();let le=pe-1;if(pe===0)a({type:"add-marketplace"});else if(tn())Gt();else{let je=H[le];if(je)Ht(je),xe("details"),ot(0)}}},{context:"Select",isActive:!Pe&&re==="list"});function Dn(le){if(le.ctrl||le.meta||Pe)return;let je=pe-1;if((le.key==="u"||le.key==="U")&&je>=0)le.preventDefault(),gt.current?.(),G((Qe)=>Qe.map((kt,_t)=>_t===je?{...kt,pendingUpdate:!kt.pendingUpdate,pendingRemove:kt.pendingUpdate?kt.pendingRemove:!1}:kt));else if((le.key==="d"||le.key==="D")&&je>=0){let Qe=H[je];if(Qe)le.preventDefault(),Ht(Qe),gt.current?.(),xe("confirm-remove")}}ht({"select:previous":()=>ot((le)=>Math.max(0,le-1)),"select:next":()=>{let le=In(Ge);ot((je)=>Math.min(le.length-1,je+1))},"select:accept":()=>{if(gt.current?.(),!Ge)return;let je=In(Ge)[Le];if(je?.value==="browse")a({type:"browse-marketplace",targetMarketplace:Ge.name});else if(je?.value==="update"){let Qe=H.map((kt)=>kt.name===Ge.name?{...kt,pendingUpdate:!0}:kt);G(Qe),Gt(Qe)}else if(je?.value==="toggle-auto-update")kn(Ge);else if(je?.value==="remove")xe("confirm-remove")}},{context:"Select",isActive:!Pe&&re==="details"});function $t(le){if(le.ctrl||le.meta||Pe)return;if(le.key==="y"||le.key==="Y")le.preventDefault(),gt.current?.(),Et();else if(le.key==="n"||le.key==="N")le.preventDefault(),gt.current?.(),xe("list"),Ht(null)}if(E)return e(t,{children:"Loading marketplaces\u2026"});if(H.length===0)return r(o,{flexDirection:"column",children:[e(o,{marginBottom:1,children:e(t,{bold:!0,children:"Manage marketplaces"})}),r(Ig,{active:!0,flexDirection:"row",gap:1,children:[r(t,{color:"suggestion",children:[r(t,{"aria-hidden":!0,children:[L.pointer," "]}),"+"]}),e(t,{bold:!0,color:"suggestion",children:"Add Marketplace"})]}),e(o,{marginTop:1,children:e(t,{dimColor:!0,italic:!0,children:v.pending?r(U,{children:["Press ",v.keyName," again to go back"]}):r(fe,{children:[e(ze,{action:"select:accept",context:"Select",fallback:"Enter",description:"select"}),e(ze,{action:"confirm:no",context:"Confirmation",fallback:"Esc",description:"go back"})]})})})]});if(re==="confirm-remove"&&Ge){let le=Ge.installedPlugins.length;return r(xr,{onKeyDown:$t,children:[r(t,{bold:!0,color:"warning",children:["Remove marketplace"," ",e(t,{italic:!0,children:Oo(Ge.name)}),"?"]}),r(o,{flexDirection:"column",children:[le>0&&e(o,{marginTop:1,children:r(t,{color:"warning",children:["This will also uninstall ",le," ",k(le,"plugin")," from this marketplace:"]})}),Ge.installedPlugins.length>0&&e(o,{flexDirection:"column",marginTop:1,marginLeft:2,children:Ge.installedPlugins.map((je)=>e(zc,{children:e(t,{dimColor:!0,children:Oo(je.name)})},je.name))}),e(o,{marginTop:1,children:r(t,{children:["Press ",e(t,{bold:!0,children:"y"})," to confirm or ",e(t,{bold:!0,children:"n"})," to cancel"]})})]})]})}if(re==="details"&&Ge){let le=Ge.pendingUpdate||Pe,je=In(Ge);return r(o,{flexDirection:"column",children:[e(t,{bold:!0,children:Oo(Ge.name)}),e(t,{dimColor:!0,children:Oo(Ge.source)}),e(o,{marginTop:1,children:r(t,{children:[Ge.pluginCount||0," available"," ",k(Ge.pluginCount||0,"plugin")]})}),Ge.installedPlugins.length>0&&r(o,{flexDirection:"column",marginTop:1,children:[r(t,{bold:!0,children:["Installed plugins (",Ge.installedPlugins.length,"):"]}),e(o,{flexDirection:"column",marginLeft:1,children:Ge.installedPlugins.map((Qe)=>r(zc,{children:[Oo(Qe.name),`
-`,e(t,{dimColor:!0,children:Of(Qe.manifest.description??"")})]},Qe.name))})]}),le&&r(o,{marginTop:1,flexDirection:"column",children:[e(t,{color:"claude",children:"Updating marketplace\u2026"}),Tt&&e(t,{dimColor:!0,children:Oo(Tt)})]}),!le&&Je&&e(o,{marginTop:1,children:e(t,{color:"claude",children:Oo(Je)})}),!le&&be&&e(o,{marginTop:1,children:e(Br,{error:Of(be)})}),!le&&e(o,{flexDirection:"column",marginTop:1,children:je.map((Qe,kt)=>{if(!Qe)return null;return r(fl,{isFocused:kt===Le,children:[Qe.label,Qe.secondaryLabel&&r(t,{dimColor:!0,children:[" ",Qe.secondaryLabel]})]},Qe.value)})}),!le&&!W3()&&Ge.autoUpdate&&e(o,{marginTop:1,children:e(t,{dimColor:!0,children:"Auto-update enabled. Claude Code will automatically update this marketplace and its installed plugins."})}),e(o,{marginTop:1,children:e(t,{dimColor:!0,italic:!0,children:le?e(U,{children:"Please wait\u2026"}):r(fe,{children:[e(ze,{action:"select:accept",context:"Select",fallback:"Enter",description:"select"}),e(ze,{action:"confirm:no",context:"Confirmation",fallback:"Esc",description:"go back"})]})})})]})}let{updateCount:Ut,removeCount:Lt}=Bt();return r(xr,{onKeyDown:Dn,children:[e(o,{marginBottom:1,children:e(t,{bold:!0,children:"Manage marketplaces"})}),r(Ig,{active:pe===0,flexDirection:"row",gap:1,marginBottom:1,children:[r(t,{color:pe===0?"suggestion":void 0,children:[r(t,{"aria-hidden":!0,children:[pe===0?L.pointer:" "," "]}),"+"]}),e(t,{bold:!0,color:pe===0?"suggestion":void 0,children:"Add Marketplace"})]}),e(o,{flexDirection:"column",children:H.map((le,je)=>{let Qe=je+1===pe,kt=[];if(le.pendingUpdate)kt.push("UPDATE");if(le.pendingRemove)kt.push("REMOVE");return r(Ig,{active:Qe,flexDirection:"row",gap:1,marginBottom:1,children:[r(t,{color:Qe?"suggestion":void 0,children:[r(t,{"aria-hidden":!0,children:[Qe?L.pointer:" "," "]}),le.pendingRemove?L.cross:L.bullet]}),r(o,{flexDirection:"column",flexGrow:1,children:[r(o,{flexDirection:"row",gap:1,children:[r(t,{bold:!0,strikethrough:le.pendingRemove,dimColor:le.pendingRemove,children:[le.name==="claude-plugins-official"&&e(t,{color:"claude",children:"\u273B "}),Oo(le.name),le.name==="claude-plugins-official"&&e(t,{color:"claude",children:" \u273B"})]}),kt.length>0&&r(t,{color:"warning",children:["[",kt.join(", "),"]"]})]}),e(t,{dimColor:!0,children:Oo(le.source)}),r(t,{dimColor:!0,children:[le.pluginCount!==void 0&&r(U,{children:[le.pluginCount," available"]}),le.installedPlugins.length>0&&r(U,{children:[" \u2022 ",le.installedPlugins.length," installed"]}),le.lastUpdated&&r(U,{children:[" ","\u2022 Updated"," ",new Date(le.lastUpdated).toLocaleDateString()]})]})]})]},le.name)})}),tn()&&r(o,{marginTop:1,flexDirection:"column",children:[r(t,{children:[e(t,{bold:!0,children:"Pending changes:"})," ",e(t,{dimColor:!0,children:e(ze,{action:"select:accept",context:"Select",fallback:"Enter",description:"apply"})})]}),Ut>0&&r(zc,{children:["Update ",Ut," ",k(Ut,"marketplace")]}),Lt>0&&r(zc,{color:"warning",children:["Remove ",Lt," ",k(Lt,"marketplace")]})]}),Pe&&e(o,{marginTop:1,children:e(t,{color:"claude",children:"Processing changes\u2026"})}),be&&e(o,{marginTop:1,children:e(Br,{error:Of(be)})}),e(Xd,{exitState:v,hasPendingActions:tn()})]})}function Xd(kT){let Di=_(18),{exitState:Ds,hasPendingActions:Zn}=kT;if(Ds.pending){let Bi;if(Di[0]!==Ds.keyName)Bi=e(o,{marginTop:1,children:r(t,{dimColor:!0,italic:!0,children:["Press ",Ds.keyName," again to go back"]})}),Di[0]=Ds.keyName,Di[1]=Bi;else Bi=Di[1];return Bi}let Bi;if(Di[2]!==Zn)Bi=Zn&&e(ze,{action:"select:accept",context:"Select",fallback:"Enter",description:"apply changes"}),Di[2]=Zn,Di[3]=Bi;else Bi=Di[3];let Bs;if(Di[4]!==Zn)Bs=!Zn&&e(ze,{action:"select:accept",context:"Select",fallback:"Enter",description:"select"}),Di[4]=Zn,Di[5]=Bs;else Bs=Di[5];let Ls;if(Di[6]!==Zn)Ls=!Zn&&e(M,{chord:"u",action:"update"}),Di[6]=Zn,Di[7]=Ls;else Ls=Di[7];let Ns;if(Di[8]!==Zn)Ns=!Zn&&e(M,{chord:"d",action:"remove"}),Di[8]=Zn,Di[9]=Ns;else Ns=Di[9];const Yd=Zn?"cancel":"go back";let _s;if(Di[10]!==Yd)_s=e(ze,{action:"confirm:no",context:"Confirmation",fallback:"Esc",description:Yd}),Di[10]=Yd,Di[11]=_s;else _s=Di[11];let Zy;if(Di[12]!==Bi||Di[13]!==Bs||Di[14]!==Ls||Di[15]!==Ns||Di[16]!==_s)Zy=e(o,{marginTop:1,children:e(t,{dimColor:!0,italic:!0,children:r(fe,{children:[Bi,Bs,Ls,Ns,_s]})})}),Di[12]=Bi,Di[13]=Bs,Di[14]=Ls,Di[15]=Ns,Di[16]=_s,Di[17]=Zy;else Zy=Di[17];return Zy}F();F();var Fs=yn(!1);function QRt(){return We(Fs)}function th({children:a,visibleCount:b,onSelect:S,onFocus:x,isDisabled:v=!1,wrap:R=!1,overflowHint:j="glyph",emptyMessage:K}){let T=Lb.toArray(a),N=T.length,H=yMn({count:N,visibleCount:b,isDisabled:v,edge:R?"wrap":"clamp",onAccept:S}),G=br((pe)=>x?.(pe));if(A(()=>{if(N>0)G(H.cursor)},[H.cursor,N]),Cp(H.containerRef,!v),N===0)return e(o,{ref:H.containerRef,flexDirection:"column",tabIndex:0,children:K&&e(t,{dimColor:!0,children:K})});let E=j==="glyph"&&b===1?"count":j,J=T.slice(H.windowStart,H.windowEnd);return r(o,{flexDirection:"column",...H.bind,children:[E==="count"&&H.moreAbove>0&&e(o,{paddingLeft:2,children:r(t,{dimColor:!0,children:[qH," ",H.moreAbove," more above"]})}),J.map((pe,ue)=>{let Pe=H.windowStart+ue,_e=H.isCursor(Pe),be=ue===0&&H.moreAbove>0,ve=ue===J.length-1&&H.moreBelow>0;return e(Fs.Provider,{value:_e,children:e(fl,{isFocused:_e,showScrollUp:E==="glyph"&&be,showScrollDown:E==="glyph"&&ve,styled:!1,children:pe})},z_(pe)?pe.key??Pe:Pe)}),E==="count"&&H.moreBelow>0&&e(o,{paddingLeft:2,children:r(t,{dimColor:!0,children:[mR," ",H.moreBelow," more below"]})})]})}function ep(RT){let ET=_(2),{children:Zd}=RT,eh;if(ET[0]!==Zd)eh=e(U,{children:Zd}),ET[0]=Zd,ET[1]=eh;else eh=ET[1];return eh}var Ume=Object.assign(th,{Item:ep});F();function Fme(a,b){let S=Sy(new Date(a)),x=b!==void 0?` \xB7 ${b} ${k(b,"tool")}`:"";return{glyph:L.radioOn,tone:"inactive",statusText:`cached ${S} \xB7 connects on first use${x}`}}function Pr(FT){let Us=_(9),{serverToolsCount:tp,serverPromptsCount:op,serverResourcesCount:ip}=FT,Xo;if(Us[0]!==op||Us[1]!==ip||Us[2]!==tp){Xo=[];if(tp>0)Xo.push("tools");if(ip>0)Xo.push("resources");if(op>0)Xo.push("prompts");Us[0]=op,Us[1]=ip,Us[2]=tp,Us[3]=Xo}else Xo=Us[3];let nh;if(Us[4]===d)nh=e(t,{bold:!0,children:"Capabilities: "}),Us[4]=nh;else nh=Us[4];let Vs;if(Us[5]!==Xo)Vs=Xo.length>0?e(fe,{children:Xo}):"none",Us[5]=Xo,Us[6]=Vs;else Vs=Us[6];let oh;if(Us[7]!==Vs)oh=r(o,{children:[nh,e(t,{color:"text",children:Vs})]}),Us[7]=Vs,Us[8]=oh;else oh=Us[8];return oh}function dh(){return!1}var JRt="Can't authenticate MCP servers while no terminal is attached to this background session. Attach to it and try again.";function dp(){return import.meta.require("/$bunfs/root/chunk-qadpp1g1.js")}function Ir(){return dp().mcpAuthModule()}function qs(){return dp().mcpClientModule()}function uh(a,b,S){if(a.type==="disabled")return r(t,{children:[mt("inactive",S)(L.radioOff)," disabled"]});if(a.type==="connected"){if(a.discoveryBearerRejected)return r(t,{children:[e(tt,{status:"warning",withSpace:!0}),"connected \xB7 session token rejected"]});if(a.toolsListError)return r(t,{children:[e(tt,{status:"warning",withSpace:!0}),"connected \xB7 tools fetch failed"]});if(a.capabilities?.tools&&b===0)return r(t,{children:[e(tt,{status:"warning",withSpace:!0}),"connected \xB7 no tools"]});return r(t,{children:[e(tt,{status:"success",withSpace:!0}),"connected"]})}if(a.type==="cached"){let x=Fme(a.cacheSavedAt,b);return r(t,{children:[mt(x.tone,S)(x.glyph)," ",x.statusText]})}if(a.type==="pending")return r(t,{children:[e(t,{dimColor:!0,children:L.radioOff})," connecting\u2026"]});if(a.type==="needs-auth")return r(t,{children:[mt("warning",S)(L.triangleUpOutline)," needs authentication"]});if(a.errorCode==="UNCONFIGURED")return r(t,{children:[e(t,{dimColor:!0,children:L.radioOff})," not configured"]});return r(t,{children:[e(tt,{status:"error",withSpace:!0}),a.errorCode==="INVALID_CONFIG"?"config issue":"failed"]})}function $me(ao){let ni=_(23),ti=ao.server.config,Tr=(ti.type==="sse"||ti.type==="http")&&!!Yt()?.accessToken,ih;if(ni[0]!==ti||ni[1]!==Tr)ih=(ti.type==="sse"||ti.type==="http")&&Jde(ti,Tr)!==Jde(ti,!0),ni[0]=ti,ni[1]=Tr,ni[2]=ih;else ih=ni[2];let rp=ih,rh;if(ni[3]!==rp)rh=()=>rp?L1().catch(dh):null,ni[3]=rp,ni[4]=rh;else rh=ni[4];let[ap]=u(rh);const lp=ao.borderless?1:0,sp=String(ao.server.name);let ah;if(ni[5]!==sp)ah=Wf(sp),ni[5]=sp,ni[6]=ah;else ah=ni[6];const cp=`${ah} MCP Server`;let lh,sh;if(ni[7]===d)lh=e(fe,{children:e(ze,{action:"confirm:no",context:"Confirmation",fallback:"Esc",description:"back"})}),sh=e(t,{dimColor:!0,children:"Checking credentials\u2026"}),ni[7]=lh,ni[8]=sh;else lh=ni[7],sh=ni[8];let js;if(ni[9]!==ao.borderless||ni[10]!==ao.onCancel||ni[11]!==cp)js=e(me,{title:cp,onCancel:ao.onCancel,hideBorder:ao.borderless,inputGuide:lh,children:sh}),ni[9]=ao.borderless,ni[10]=ao.onCancel,ni[11]=cp,ni[12]=js;else js=ni[12];let Hs;if(ni[13]!==lp||ni[14]!==js)Hs=e(o,{flexDirection:"column",paddingX:lp,children:js}),ni[13]=lp,ni[14]=js,ni[15]=Hs;else Hs=ni[15];let Ks;if(ni[16]!==ap||ni[17]!==Tr||ni[18]!==ao)Ks=e(up,{...ao,hasClaudeAiToken:Tr,designCredential:ap}),ni[16]=ap,ni[17]=Tr,ni[18]=ao,ni[19]=Ks;else Ks=ni[19];let ch;if(ni[20]!==Ks||ni[21]!==Hs)ch=e(Jn,{fallback:Hs,children:Ks}),ni[20]=Ks,ni[21]=Hs,ni[22]=ch;else ch=ni[22];return ch}function up({server:a,serverToolsCount:b,onViewTools:S,onCancel:x,onComplete:v,borderless:R=!1,hasClaudeAiToken:j,designCredential:K}){let T=B((ee,...Ne)=>v(typeof ee==="string"?Qn(ee):ee,...Ne),[v]),N=ct(),[H]=mn();Hi();let{columns:G}=Ee(),[E,J]=u(!1),[pe,ue]=u(null),Pe=W((ee)=>ee.mcp),_e=At(),[be,ve]=u(null),[Je,st]=u(!1),Tt=C(null),[it,re]=u(!1),[xe,Ge]=u(null),[Ht,Le]=u(!1),[ot,dt]=u(!1),pt=be||xe||(ot?PG():null),{copiedVia:gt,copy:se}=Yj(pt),[tn,Bt]=u(""),[Gt,Et]=u(0),[In,kn]=u(null);A(()=>()=>{Tt.current?.abort()},[]);let Dn=a.isAuthenticated||Zo(a.client)&&b>0,$t=Uie(),Ut=B(async()=>{re(!1),Ge(null),st(!0);try{let ee=await $t(a.name,{discardDiscovery:!1}),Ne=ee.client.type==="connected";if(s("tengu_claudeai_mcp_auth_completed",{success:Ne}),Ne)T(`Authentication successful. Connected to ${Rr(a.name)}.`);else if(ee.client.type==="needs-auth")T(`Tried reconnecting, but ${Rr(a.name)} is still unauthorized. Make sure the browser sign-in completed, then try again from /mcp.`);else{let he=ee.client.type==="failed"?W0t(ee.client):"";if(mo(N)){if(he)n(`mcp reconnect failed for ${Qn(a.name)}: ${he}`,{level:"error"});T(`Tried reconnecting to ${Rr(a.name)}, but the connection failed${he?" (detail withheld on this connection)":""}. Restart Claude Code to retry.`)}else{let Ke=he?Da(he):"";T(Ke?`Tried reconnecting to ${Rr(a.name)}, but the connection failed: ${Ke}`:`Tried reconnecting to ${Rr(a.name)}, but the connection failed. Restart Claude Code to retry.`)}}}catch(ee){s("tengu_claudeai_mcp_auth_completed",{success:!1}),T(Ant(ee,a.name,{persistsOffBox:mo(N)}))}finally{st(!1)}},[$t,a.name,T]),Lt=B(async()=>{await qs().clearServerCache(a.name,{...a.config,scope:a.scope}),_e((ee)=>{let Ne=ee.mcp.clients.map((ke)=>ke.name===a.name&&ke.type!=="disabled"?{...ke,type:"needs-auth"}:ke),he=QNt(ee.mcp.tools,a.name),Ke=oIe(ee.mcp.commands,a.name),wt=iIe(ee.mcp.resources,a.name);return{...ee,mcp:{...ee.mcp,clients:Ne,tools:he,commands:Ke,resources:wt}}}),s("tengu_claudeai_mcp_clear_auth_completed",{}),T(`Disconnected from ${Rr(a.name)}.`),Le(!1),dt(!1)},[a.name,a.config,a.scope,_e,T]);Be("confirm:no",()=>{Tt.current?.abort(),Tt.current=null,J(!1),ve(null)},{context:"Confirmation",isActive:E}),Be("confirm:no",()=>{re(!1),Ge(null)},{context:"Confirmation",isActive:it}),Be("confirm:no",()=>{Le(!1),dt(!1)},{context:"Confirmation",isActive:Ht});function le(ee){if(ee.key==="return"&&it)ee.preventDefault(),Ut();if(ee.key==="return"&&Ht){if(ee.preventDefault(),hm()){Le(!1),dt(!1),ue(JRt);return}if(ot)Lt();else dt(!0),Lr(PG())}if(ee.key==="c"&&!ee.ctrl&&!ee.meta&&pt)ee.preventDefault(),se(pt)}let je=Wf(String(a.name)),Qe=JNt(Pe.commands,a.name).length,kt=TK(),_t=B(()=>{if(As(a.name,a.client.config))return ue(drt(a.name)),!0;let ee=yi(a.name);if(a.client.type!=="disabled"&&!ee)return ue(null),!1;return ue(a.client.type==="disabled"?BQ(a.name):_1(a.name)),!0},[a.client.type,a.name,a.client.config]),qe=B(async()=>{if(_t())return;let ee=(a.config.type==="claudeai-proxy"?Q8(a.config):null)??PG();Ge(ee),re(!0),s("tengu_claudeai_mcp_auth_started",{}),await Lr(ee)},[a.config,_t]),Re=B(()=>{Le(!0),s("tengu_claudeai_mcp_clear_auth_started",{})},[]),an=B(async()=>{let ee=a.client.type!=="disabled";try{if(await kt(a.name),a.config.type==="claudeai-proxy")s("tengu_claudeai_mcp_toggle",{new_state:w(ee?"disabled":"enabled")});x()}catch(Ne){T(RQ(Ne,a.name,ee?"disable":"enable",{persistsOffBox:mo(N)}))}},[a.client.type,a.config.type,a.name,kt,x,T]),Ot=B(async()=>{if(_t())return;let ee=Rx(a.name,{...a.config,scope:a.scope});if(ee.kind==="anthropic-hosted"){ue(ee.message);return}if(ee.kind!=="oauth")return;J(!0),ue(null);let Ne=new AbortController;Tt.current=Ne;try{let he=a.isAuthenticated?await Ir().snapshotServerTokens(a.name,ee.config):void 0;await Ir().performMCPOAuthFlow(a.name,ee.config,ve,Ne.signal,{onWaitingForCallback:(wt)=>{kn(()=>wt)}}),s("tengu_mcp_auth_config_authenticate",{wasAuthenticated:a.isAuthenticated});let Ke=await $t(a.name,{discardDiscovery:!1});if(Ke.client.type==="connected"){if(he)await Ir().revokeReplacedServerTokens(a.name,ee.config,he);let wt=Dn?`Authentication successful. Reconnected to ${Rr(a.name)}.`:`Authentication successful. Connected to ${Rr(a.name)}.`;T(wt)}else if(Ke.client.type==="needs-auth")T(`Got new credentials, but ${Rr(a.name)} rejected them on reconnect. Try re-authenticating, or restart Claude Code if it persists.`);else{Z(a.name,"Reconnection failed after authentication");let wt=Ke.client.type==="failed"?W0t(Ke.client):"";if(mo(N)){if(wt)n(`mcp post-auth reconnect failed for ${Qn(a.name)}: ${wt}`,{level:"error"});T(`Got new credentials, but reconnecting to ${Rr(a.name)} failed${wt?" (detail withheld on this connection)":""}. Restart Claude Code to retry.`)}else{let ke=wt?Da(wt):"";T(ke?`Got new credentials, but reconnecting to ${Rr(a.name)} failed: ${ke}`:`Got new credentials, but reconnecting to ${Rr(a.name)} failed. Restart Claude Code to retry.`)}}}catch(he){if(he instanceof Error&&!(he instanceof Ir().AuthenticationCancelledError))ue(he.message)}finally{J(!1),Tt.current=null,kn(null),Bt(""),ve(null)}},[a.isAuthenticated,a.config,a.name,a.scope,T,$t,Dn,_t]),Pt=async()=>{if(a.config.type==="claudeai-proxy")return;if(a.config){await Ir().revokeServerTokens(a.name,a.config),s("tengu_mcp_auth_config_clear",{});let ee={...a.config,scope:a.scope},Ne=lr();if(Ho())await CW(qs().dropDiscoveryEntry(a.name,ee).catch(()=>{}));if(!(kh(ee)&&lr()!==Ne))await qs().clearServerCache(a.name,ee);_e((he)=>{let Ke=he.mcp.clients.map((Nt)=>Nt.name===a.name&&Nt.type!=="disabled"?{...Nt,type:"failed"}:Nt),wt=QNt(he.mcp.tools,a.name),ke=oIe(he.mcp.commands,a.name),He=iIe(he.mcp.resources,a.name);return{...he,mcp:{...he.mcp,clients:Ke,tools:wt,commands:ke,resources:He}}}),T(`Authentication cleared for ${Rr(a.name)}.`)}};if(E){let ee=a.config.type!=="claudeai-proxy"&&a.config.oauth?.xaa?" Authenticating via your identity provider":" A browser window will open for authentication";return r(o,{flexDirection:"column",gap:1,padding:1,tabIndex:0,autoFocus:!0,onKeyDown:le,children:[r(t,{color:"claude",children:["Authenticating with ",a.name,"\u2026"]}),r(o,{children:[e(wo,{}),e(t,{children:ee})]}),be&&r(o,{flexDirection:"column",children:[r(o,{children:[r(t,{dimColor:!0,children:["If your browser doesn't open automatically, copy this URL manually"," "]}),e(cL,{via:gt})]}),e(uL,{via:gt}),e(ut,{url:be,assumeSupport:!0})]}),E&&be&&In&&r(o,{flexDirection:"column",marginTop:1,children:[e(t,{dimColor:!0,children:"If the redirect page shows a connection error, paste the URL from your browser's address bar:"}),r(o,{children:[r(t,{dimColor:!0,children:["URL ",">"," "]}),e(xn,{value:tn,onChange:Bt,onSubmit:(Ne)=>{In(Ne.trim()),Bt("")},cursorOffset:Gt,onChangeCursorOffset:Et,columns:G-8})]})]}),e(o,{marginLeft:3,children:r(t,{dimColor:!0,children:["Return here after authenticating in your browser. Press"," ",e(M,{chord:"escape",action:"go back"}),"."]})})]})}if(it)return r(o,{flexDirection:"column",gap:1,padding:1,tabIndex:0,autoFocus:!0,onKeyDown:le,children:[r(t,{color:"claude",children:["Authenticating with ",a.name,"\u2026"]}),r(o,{children:[e(wo,{}),e(t,{children:" A browser window will open for authentication"})]}),xe&&r(o,{flexDirection:"column",children:[r(o,{children:[r(t,{dimColor:!0,children:["If your browser doesn't open automatically, copy this URL manually"," "]}),e(cL,{via:gt})]}),e(uL,{via:gt}),e(ut,{url:xe,assumeSupport:!0})]}),r(o,{marginLeft:3,flexDirection:"column",children:[r(t,{color:"permission",children:["Press ",e(t,{bold:!0,children:"Enter"})," after authenticating in your browser."]}),e(t,{dimColor:!0,italic:!0,children:e(ze,{action:"confirm:no",context:"Confirmation",fallback:"Esc",description:"back"})})]})]});if(Ht)return r(o,{flexDirection:"column",gap:1,padding:1,tabIndex:0,autoFocus:!0,onKeyDown:le,children:[r(t,{color:"claude",children:["Clear authentication for ",a.name]}),ot?r(U,{children:[e(t,{children:'Find the MCP server in the browser and click "Disconnect".'}),r(o,{flexDirection:"column",children:[r(o,{children:[r(t,{dimColor:!0,children:["If your browser didn't open automatically, copy this URL manually"," "]}),e(cL,{via:gt})]}),e(uL,{via:gt}),e(ut,{url:PG()})]}),r(o,{marginLeft:3,flexDirection:"column",children:[r(t,{color:"permission",children:["Press ",e(t,{bold:!0,children:"Enter"})," when done."]}),e(t,{dimColor:!0,italic:!0,children:e(ze,{action:"confirm:no",context:"Confirmation",fallback:"Esc",description:"back"})})]})]}):r(U,{children:[e(t,{children:'This will open claude.ai in the browser. Find the MCP server in the list and click "Disconnect".'}),r(o,{marginLeft:3,flexDirection:"column",children:[r(t,{color:"permission",children:["Press"," ",e(M,{chord:"enter",action:"open the browser",bold:!0}),"."]}),e(t,{dimColor:!0,italic:!0,children:e(ze,{action:"confirm:no",context:"Confirmation",fallback:"Esc",description:"back"})})]})]})]});if(Je)return r(o,{flexDirection:"column",gap:1,padding:1,children:[r(t,{color:"text",children:["Connecting to ",e(t,{bold:!0,children:a.name}),"\u2026"]}),r(o,{children:[e(wo,{}),e(t,{children:" Establishing connection to MCP server"})]}),e(t,{dimColor:!0,children:"This may take a few moments."})]});let yt=[];if(a.client.type==="disabled")yt.push({label:"Enable",value:"toggle-enabled"});if(Zo(a.client)&&b>0)yt.push({label:"View tools",value:"tools"});let oe=(a.config.type==="sse"||a.config.type==="http")&&kH(a.config),et=(a.config.type==="sse"||a.config.type==="http")&&Jde(a.config,j||K!==null&&zn(K)),Dt=a.client.type==="failed"&&a.client.errorCode==="HEADERS_HELPER_AUTH_REJECTED",Mt=a.client.type==="disabled"||yi(a.name)||As(a.name,a.client.config);if(a.config.type==="claudeai-proxy"){if(a.client.type==="connected")yt.push({label:"Clear authentication",value:"claudeai-clear-auth"});else if(!Mt)yt.push({label:"Authenticate",value:"claudeai-auth"})}else{let ee=!Mt&&!et&&!Dt;if(Dn){if(ee)yt.push({label:"Re-authenticate",value:"reauth"});yt.push({label:"Clear authentication",value:"clear-auth"})}else if(ee)yt.push({label:"Authenticate",value:"auth"})}let Jt=a.config.type!=="claudeai-proxy"&&!!a.config.headersHelper;if(a.client.type!=="disabled"){if(a.client.type!=="needs-auth"||Jt||oe)yt.push({label:"Reconnect",value:"reconnectMcpServer"});yt.push({label:"Disable",value:"toggle-enabled"})}if(yt.length===0)yt.push({label:"Back",value:"back"});let Xt=["reauth","clear-auth","claudeai-clear-auth"],It=yt[0]&&Xt.includes(yt[0].value)?yt.find((ee)=>!Xt.includes(ee.value))?.value:void 0;return e(o,{flexDirection:"column",paddingX:R?1:0,children:r(me,{title:`${je} MCP Server`,onCancel:x,hideBorder:R,inputGuide:r(fe,{children:[e(M,{chord:["up","down"],action:"navigate"}),e(M,{chord:"enter",action:"select"}),e(ze,{action:"confirm:no",context:"Confirmation",fallback:"Esc",description:"back"})]}),children:[r(o,{flexDirection:"column",gap:0,children:[r(zs,{columns:[{bold:!0},{}],children:[r(zs.Row,{children:[e(U,{children:"Status:"}),uh(a.client,b,H)]}),(a.client.type==="failed"||a.client.type==="needs-auth")&&a.client.error&&r(zs.Row,{children:[e(U,{children:"Issue:"}),e(t,{dimColor:!0,children:fI(a.client.type==="failed"&&a.client.displayDetail?`${a.client.error} ${a.client.displayDetail}`:a.client.error)})]}),a.transport!=="claudeai-proxy"&&r(zs.Row,{children:[e(U,{children:"Auth:"}),Dn?r(t,{children:[e(tt,{status:"success",withSpace:!0}),"authenticated"]}):r(t,{children:[e(tt,{status:"error",withSpace:!0}),"not authenticated"]})]}),a.client.type==="connected"&&a.client.protocolEra==="modern"&&a.client.negotiatedProtocolVersion&&r(zs.Row,{children:[e(U,{children:"Protocol:"}),e(t,{dimColor:!0,children:Q1(a.client.negotiatedProtocolVersion)})]}),a.transport==="claudeai-proxy"&&a.scope==="claudeai"&&a.config.enterpriseManaged&&r(zs.Row,{children:[e(U,{children:"Managed:"}),e(t,{dimColor:!0,children:"by your organization"})]}),r(zs.Row,{children:[e(U,{children:"URL:"}),e(t,{dimColor:!0,children:a.config.url})]}),r(zs.Row,{children:[e(U,{children:"Config location:"}),e(t,{dimColor:!0,children:tT(a.scope)})]})]}),Zo(a.client)&&e(Pr,{serverToolsCount:b,serverPromptsCount:Qe,serverResourcesCount:Pe.resources[a.name]?.length||0}),Zo(a.client)&&b>0&&r(o,{children:[e(t,{bold:!0,children:"Tools: "}),r(t,{dimColor:!0,children:[b," ",k(b,"tool")]})]}),a.client.type==="connected"&&a.client.discoveryBearerRejected&&r(o,{flexDirection:"column",children:[e(t,{bold:!0,children:"Issue: "}),e(t,{dimColor:!0,children:"claude.ai rejected the session token. Run /login, then reconnect."})]}),a.client.type==="connected"&&!a.client.discoveryBearerRejected&&a.client.toolsListError&&r(o,{flexDirection:"column",children:[e(t,{bold:!0,children:"Issue: "}),e(t,{dimColor:!0,children:a.client.toolsListError})]})]}),pe&&e(o,{children:e(Br,{error:pe})}),yt.length>0&&e(o,{children:e(Ce,{options:yt,defaultFocusValue:It,onChange:async(ee)=>{if(hm()&&(ee==="auth"||ee==="reauth"||ee==="clear-auth"||ee==="claudeai-auth"||ee==="claudeai-clear-auth")){ue(JRt);return}switch(ee){case"tools":S();break;case"auth":case"reauth":await Ot();break;case"clear-auth":await Pt();break;case"claudeai-auth":await qe();break;case"claudeai-clear-auth":Re();break;case"reconnectMcpServer":st(!0);try{let Ne=await $t(a.name);if(a.config.type==="claudeai-proxy")s("tengu_claudeai_mcp_reconnect",{success:Ne.client.type==="connected"});let{message:he}=q0t(Ne,a.name,{persistsOffBox:mo(N)},{hasHeadersHelper:Jt});T(he)}catch(Ne){if(a.config.type==="claudeai-proxy")s("tengu_claudeai_mcp_reconnect",{success:!1});T(Ant(Ne,a.name,{persistsOffBox:mo(N)}))}finally{st(!1)}break;case"toggle-enabled":await an();break;case"back":x();break}},onCancel:x})})]})})}F();function ph(a,b,S){if(a.type==="disabled")return r(t,{children:[mt("inactive",S)(L.radioOff)," disabled"]});if(a.type==="connected"){if(a.toolsListError)return r(t,{children:[e(tt,{status:"warning",withSpace:!0}),"connected \xB7 tools fetch failed"]});if(a.capabilities?.tools&&b===0)return r(t,{children:[e(tt,{status:"warning",withSpace:!0}),"connected \xB7 no tools"]});return r(t,{children:[e(tt,{status:"success",withSpace:!0}),"connected"]})}if(a.type==="pending")return r(t,{children:[e(tt,{status:"pending",withSpace:!0}),"connecting\u2026"]});return r(t,{children:[e(tt,{status:"error",withSpace:!0}),"failed"]})}function ott({server:a,serverToolsCount:b,onViewTools:S,onCancel:x,onComplete:v,borderless:R=!1}){let j=B((be,...ve)=>v(typeof be==="string"?Qn(be):be,...ve),[v]),K=ct(),[T]=mn(),N=W((be)=>be.mcp),H=Uie(),G=TK(),[E,J]=u(!1),pe=B(async()=>{let be=a.client.type!=="disabled";try{await G(a.name),x()}catch(ve){j(RQ(ve,a.name,be?"disable":"enable",{persistsOffBox:mo(K)}))}},[a.client.type,a.name,G,x,j]),ue=Wf(String(a.name)),Pe=JNt(N.commands,a.name).length,_e=[];if(a.client.type!=="disabled"&&b>0)_e.push({label:"View tools",value:"tools"});if(a.client.type!=="disabled")_e.push({label:"Reconnect",value:"reconnectMcpServer"});if(_e.push({label:a.client.type!=="disabled"?"Disable":"Enable",value:"toggle-enabled"}),E)return r(me,{title:`${ue} MCP Server`,onCancel:()=>{},hideBorder:R,hideInputGuide:!0,children:[r(t,{color:"text",children:["Reconnecting to ",e(t,{bold:!0,children:a.name})]}),r(o,{children:[e(wo,{}),e(t,{children:" Restarting MCP server process"})]}),e(t,{dimColor:!0,children:"This may take a few moments."})]});return r(me,{title:`${ue} MCP Server`,onCancel:x,hideBorder:R,inputGuide:r(fe,{children:[e(M,{chord:["up","down"],action:"navigate"}),e(M,{chord:"enter",action:"select"}),e(ze,{action:"confirm:no",context:"Confirmation",fallback:"Esc",description:"back"})]}),children:[r(o,{flexDirection:"column",gap:0,children:[r(zs,{columns:[{bold:!0},{}],children:[r(zs.Row,{children:[e(U,{children:"Status:"}),ph(a.client,b,T)]}),r(zs.Row,{children:[e(U,{children:"Command:"}),e(t,{dimColor:!0,children:a.config.command})]}),a.client.type==="connected"&&a.client.protocolEra==="modern"&&a.client.negotiatedProtocolVersion&&r(zs.Row,{children:[e(U,{children:"Protocol:"}),e(t,{dimColor:!0,children:Q1(a.client.negotiatedProtocolVersion)})]}),a.config.args&&a.config.args.length>0&&r(zs.Row,{children:[e(U,{children:"Args:"}),e(t,{dimColor:!0,children:a.config.args.join(" ")})]}),r(zs.Row,{children:[e(U,{children:"Config location:"}),e(t,{dimColor:!0,children:tT(eI(a.name)?.scope??"dynamic")})]})]}),Zo(a.client)&&e(Pr,{serverToolsCount:b,serverPromptsCount:Pe,serverResourcesCount:N.resources[a.name]?.length||0}),Zo(a.client)&&b>0&&r(o,{children:[e(t,{bold:!0,children:"Tools: "}),r(t,{dimColor:!0,children:[b," ",k(b,"tool")]})]}),a.client.type==="connected"&&a.client.toolsListError&&r(o,{flexDirection:"column",children:[e(t,{bold:!0,children:"Issue: "}),e(t,{dimColor:!0,children:a.client.toolsListError})]})]}),e(o,{children:e(Ce,{options:_e,onChange:async(be)=>{if(be==="tools")S();else if(be==="reconnectMcpServer"){J(!0);try{let ve=await H(a.name),{message:Je}=q0t(ve,a.name,{persistsOffBox:mo(K)});j?.(Je)}catch(ve){j?.(Ant(ve,a.name,{persistsOffBox:mo(K)}))}finally{J(!1)}}else if(be==="toggle-enabled")await pe()},onCancel:x})})]})}F();var Sp=1000,vp=200;function kUe(IR){let On=_(45),{tool:jt,server:Er,onBack:pp}=IR,[va,mh]=u(""),gh,wa;if(On[0]!==Er.name||On[1]!==jt){wa=MXe(jt.name,Er.name);let RR=jt.userFacingName?jt.userFacingName({}):wa;gh=NXe(RR);On[0]=Er.name,On[1]=jt,On[2]=gh,On[3]=wa}else gh=On[2],wa=On[3];let mp=gh,fh;if(On[4]!==jt)fh=jt.isReadOnly?.({})??!1,On[4]=jt,On[5]=fh;else fh=On[5];let gp=fh,yh;if(On[6]!==jt)yh=jt.isDestructive?.({})??!1,On[6]=jt,On[7]=yh;else yh=On[7];let yp=yh,hh;if(On[8]!==jt)hh=jt.isOpenWorld?.({})??!1,On[8]=jt,On[9]=hh;else hh=On[9];let hp=hh,bh,xh;if(On[10]!==jt)bh=()=>{let kp=async function kp(){try{let ER=await jt.description({},{isNonInteractiveSession:!1,toolPermissionContext:{mode:"default",additionalWorkingDirectories:new Map,alwaysAllowRules:{},alwaysDenyRules:{},alwaysAskRules:{},isBypassPermissionsModeAvailable:!1,mcpPermissionModeOverrides:{}},tools:[]});mh(ER)}catch{mh("Failed to load description")}};kp()},xh=[jt],On[10]=jt,On[11]=bh,On[12]=xh;else bh=On[11],xh=On[12];A(bh,xh);let Ws;if(On[13]!==gp)Ws=gp&&e(t,{color:"success",children:" [read-only]"}),On[13]=gp,On[14]=Ws;else Ws=On[14];let Gs;if(On[15]!==yp)Gs=yp&&e(t,{color:"error",children:" [destructive]"}),On[15]=yp,On[16]=Gs;else Gs=On[16];let Qs;if(On[17]!==hp)Qs=hp&&e(t,{dimColor:!0,children:" [open-world]"}),On[17]=hp,On[18]=Qs;else Qs=On[18];let Sh;if(On[19]!==mp||On[20]!==Ws||On[21]!==Gs||On[22]!==Qs)Sh=r(U,{children:[mp,Ws,Gs,Qs]}),On[19]=mp,On[20]=Ws,On[21]=Gs,On[22]=Qs,On[23]=Sh;else Sh=On[23];let bp=Sh,vh;if(On[24]===d)vh=e(ze,{action:"confirm:no",context:"Confirmation",fallback:"Esc",description:"go back"}),On[24]=vh;else vh=On[24];let wh;if(On[25]===d)wh=e(t,{bold:!0,children:"Tool name: "}),On[25]=wh;else wh=On[25];let Js;if(On[26]!==wa)Js=r(o,{children:[wh,e(t,{dimColor:!0,children:wa})]}),On[26]=wa,On[27]=Js;else Js=On[27];let Ch;if(On[28]===d)Ch=e(t,{bold:!0,children:"Full name: "}),On[28]=Ch;else Ch=On[28];let Xs;if(On[29]!==jt.name)Xs=r(o,{children:[Ch,e(t,{dimColor:!0,children:jt.name})]}),On[29]=jt.name,On[30]=Xs;else Xs=On[30];let Zs;if(On[31]!==va)Zs=va&&r(o,{flexDirection:"column",marginTop:1,children:[e(t,{bold:!0,children:"Description:"}),e(t,{wrap:"wrap",children:Ku(va,Sp)}),va.length>Gx&&r(t,{dimColor:!0,children:["The model receives only about the first"," ",Gx," characters."]})]}),On[31]=va,On[32]=Zs;else Zs=On[32];let ec;if(On[33]!==jt.inputJSONSchema)ec=jt.inputJSONSchema&&jt.inputJSONSchema.properties&&Object.keys(jt.inputJSONSchema.properties).length>0&&r(o,{flexDirection:"column",marginTop:1,children:[e(t,{bold:!0,children:"Parameters:"}),e(o,{marginLeft:2,flexDirection:"column",children:Object.entries(jt.inputJSONSchema.properties).map((Mr)=>{let[xp,oi]=Mr;let MR=jt.inputJSONSchema?.required?.includes(xp);return r(zc,{children:[xp,e(DR,{when:MR??!1,children:"required"}),":"," ",e(t,{dimColor:!0,children:typeof oi==="object"&&oi&&"type"in oi?String(oi.type):"unknown"}),typeof oi==="object"&&oi&&"description"in oi&&r(t,{dimColor:!0,children:[" - ",Ku(String(oi.description),vp)]})]},xp)})})]}),On[33]=jt.inputJSONSchema,On[34]=ec;else ec=On[34];let Mr;if(On[35]!==Js||On[36]!==Xs||On[37]!==Zs||On[38]!==ec)Mr=r(o,{flexDirection:"column",children:[Js,Xs,Zs,ec]}),On[35]=Js,On[36]=Xs,On[37]=Zs,On[38]=ec,On[39]=Mr;else Mr=On[39];let Ph;if(On[40]!==pp||On[41]!==Er.name||On[42]!==Mr||On[43]!==bp)Ph=e(me,{title:bp,subtitle:Er.name,onCancel:pp,inputGuide:vh,children:Mr}),On[40]=pp,On[41]=Er.name,On[42]=Mr,On[43]=bp,On[44]=Ph;else Ph=On[44];return Ph}F();function Bh(oE){return oE.mcp.tools}function Ah(iE,rE){let aE=iE.mcpInfo?.effectiveMaxPermission==="blocked"?1:0;let lE=rE.mcpInfo?.effectiveMaxPermission==="blocked"?1:0;return aE-lE}function Oh(sE){return sE.mcpInfo?.effectiveMaxPermission==="blocked"}function HUe(YR){let ii=_(24),{server:$o,onSelectTool:wp,onBack:$r}=YR,Tp=W(Bh),Ip;bb0:{if(!Zo($o.client)){let ri;if(ii[0]===d)ri=[],ii[0]=ri;else ri=ii[0];Ip=ri;break bb0}let ri;if(ii[1]!==Tp||ii[2]!==$o.name)ri=$L(Tp,$o.name).sort(Ah),ii[1]=Tp,ii[2]=$o.name,ii[3]=ri;else ri=ii[3];Ip=ri}let eo=Ip,Ca=Q(eo,Oh),ri;if(ii[4]!==$o.name||ii[5]!==eo){let Pa;if(ii[7]!==$o.name)Pa=(Ai,Th)=>{let JR=MXe(Ai.name,$o.name);let XR=Ai.userFacingName?Ai.userFacingName({}):JR;let Ih=NXe(XR);let ZR=Ai.isReadOnly?.({})??!1;let eE=Ai.isDestructive?.({})??!1;let tE=Ai.isOpenWorld?.({})??!1;let Rh=Ai.mcpInfo?.effectiveMaxPermission;if(Rh==="blocked"){return{label:Ih,value:Th.toString(),disabled:!0,description:"disabled by your organization",descriptionColor:"warning"}}let Ar=[];if(ZR)Ar.push("read-only");if(eE)Ar.push("destructive");if(tE)Ar.push("open-world");if(Rh==="ask")Ar.push("ask-only");return{label:Ih,value:Th.toString(),description:Ar.length>0?Ar.join(", "):void 0}},ii[7]=$o.name,ii[8]=Pa;else Pa=ii[8];ri=eo.map(Pa);ii[4]=$o.name,ii[5]=eo,ii[6]=ri}else ri=ii[6];let Rp=ri,tc=eo.length-Ca,Pa;if(ii[9]!==Ca||ii[10]!==tc||ii[11]!==eo.length)Pa=Ca>0?`${tc} ${k(tc,"tool")} \xB7 ${Ca} disabled by your organization`:`${eo.length} ${k(eo.length,"tool")}`,ii[9]=Ca,ii[10]=tc,ii[11]=eo.length,ii[12]=Pa;else Pa=ii[12];let Ep=Pa;const Mp=`Tools for ${$o.name}`;let Eh;if(ii[13]===d)Eh=r(fe,{children:[e(M,{chord:["up","down"],action:"navigate"}),e(M,{chord:"enter",action:"select"}),e(ze,{action:"confirm:no",context:"Confirmation",fallback:"Esc",description:"back"})]}),ii[13]=Eh;else Eh=ii[13];let nc;if(ii[14]!==$r||ii[15]!==wp||ii[16]!==eo||ii[17]!==Rp)nc=eo.length===0?e(sr,{children:"No tools available"}):e(Ce,{options:Rp,onChange:(nE)=>{let Mh=eo[parseInt(nE)];if(Mh)wp(Mh)},onCancel:$r}),ii[14]=$r,ii[15]=wp,ii[16]=eo,ii[17]=Rp,ii[18]=nc;else nc=ii[18];let $h;if(ii[19]!==$r||ii[20]!==Ep||ii[21]!==Mp||ii[22]!==nc)$h=e(me,{title:Mp,subtitle:Ep,onCancel:$r,inputGuide:Eh,children:nc}),ii[19]=$r,ii[20]=Ep,ii[21]=Mp,ii[22]=nc,ii[23]=$h;else $h=ii[23];return $h}F();var Lh=new Set(["good","warn","poor"]);function Nh(a){return typeof a==="string"&&Lh.has(a)}function _h(a,b){return a.skillHealthMap??=Fh(b),a.skillHealthMap}async function Fh(a){if(!I("tengu_skills_dashboard_enabled",!1))return null;try{let b=await bt.get("/api/claude_code/skills",{auth:"async",timeout:5000,validateStatus:()=>!0,credentials:a});if(!b.ok)return n(`Skill health fetch skipped: ${b.reason}`),null;if(b.status>=400)return n(`Skill health fetch skipped: status ${b.status}`),null;let S=b.data?.skills;if(!Array.isArray(S))return null;let x=new Map;for(let v of S)if(v.skill_name&&Nh(v.health))x.set(v.skill_name,v.health);return x}catch(b){return n(`Skill health fetch skipped: ${b}`),null}}function $p(){let{credentials:a}=ge(),[b,S]=u(null);return A(()=>{let x=!1;return _h(Lu(),a).then((v)=>{if(!x&&v)S(v)}),()=>{x=!0}},[a]),b}import{readFile as Uh}from"fs/promises";import{join as Vh,resolve as Dp,sep as Hh}from"path";async function Ap(a,b){let S=Vh(b.path,"..",".claude-plugin","marketplace.json");if(O()&&a!==void 0&&await Kh(a,b)){let x=await a3e(a,"workspace",S);if("absent"in x)throw Hct(S);return x.text}return Uh(S,"utf-8")}async function Kh(a,b){let S=SWn();if(Bp(dc(),b.path)||S!==null&&Bp(S,b.path))return!1;let x=MI(b.source);if(x!==void 0)return x===Nm;let v=Ud(b.source);if(v===void 0)return!1;let R=(await cc(a))[v];return R!==void 0&&Wm(R.source)&&jb(R.installLocation)===void 0}function Bp(a,b){let S=Dp(a),x=Dp(b);return x===S||x.startsWith(S+Hh)}F();function Op(a,b){let[S,x]=u(a);return dse(()=>{let v=a();x((R)=>b(R,v)?R:v)}),S}function Do(a){return Oo(qh(a))}function qh(a){switch(a.type){case"path-not-found":return`${Qt(a.component)} path not found: ${Zl(a.path)}`;case"path-traversal":return`${Qt(a.component)} path escapes plugin directory: ${Zl(a.path)}`;case"git-auth-failed":return`Git ${a.authType.toUpperCase()} authentication failed for ${Zl(a.gitUrl)}`;case"git-timeout":return`Git ${Qt(a.operation)} timed out for ${Zl(a.gitUrl)}`;case"network-error":return`Network error accessing ${Zl(a.url)}${a.details?`: ${Qt(a.details)}`:""}`;case"manifest-parse-error":return`Failed to parse manifest at ${Zl(a.manifestPath)}: ${Qt(a.parseError)}`;case"manifest-validation-error":return`Invalid manifest at ${Zl(a.manifestPath)}: ${Qt(a.validationErrors.join(", "))}`;case"plugin-not-found":return`Plugin "${Qt(a.pluginId)}" not found in marketplace "${Qt(a.marketplace)}"`;case"marketplace-not-found":return`Marketplace "${Qt(a.marketplace)}" not found`;case"marketplace-load-failed":return`Failed to load marketplace "${Qt(a.marketplace)}": ${Qt(a.reason)}`;case"mcp-config-invalid":return`Invalid MCP server config for "${Qt(a.serverName)}": ${Qt(a.validationError)}`;case"hook-load-failed":return`Failed to load hooks from ${Zl(a.hookPath)}: ${Qt(a.reason)}`;case"component-load-failed":return`Failed to load ${Qt(a.component)} from ${Zl(a.path)}: ${Qt(a.reason)}`;case"mcpb-download-failed":return`Failed to download MCPB from ${Zl(a.url)}: ${Qt(a.reason)}`;case"mcpb-extract-failed":return`Failed to extract MCPB ${Zl(a.mcpbPath)}: ${Qt(a.reason)}`;case"mcpb-invalid-manifest":return`MCPB manifest invalid at ${Zl(a.mcpbPath)}: ${Qt(a.validationError)}`;case"marketplace-blocked-by-policy":return a.blockedByBlocklist?`Marketplace "${Qt(a.marketplace)}" is blocked by enterprise policy`:`Marketplace "${Qt(a.marketplace)}" is not in the allowed marketplace list`;case"dependency-unsatisfied":return a.reason==="not-enabled"?`Dependency "${Qt(a.dependency)}" is disabled`:`Dependency "${Qt(a.dependency)}" is not installed`;case"dependency-version-unsatisfied":return`Requires "${Qt(a.dependency)}" ${Qt(a.required)}, installed ${Qt(a.installed??"version unknown")}`;case"lsp-config-invalid":return`Invalid LSP server config for "${Qt(a.serverName)}": ${Qt(a.validationError)}`;case"lsp-server-start-failed":return`LSP server "${Qt(a.serverName)}" failed to start: ${Qt(a.reason)}`;case"lsp-server-crashed":return a.signal?`LSP server "${Qt(a.serverName)}" crashed with signal ${a.signal}`:`LSP server "${Qt(a.serverName)}" crashed with exit code ${a.exitCode??"unknown"}`;case"lsp-request-timeout":return`LSP server "${Qt(a.serverName)}" timed out on ${Qt(a.method)} after ${a.timeoutMs}ms`;case"lsp-request-failed":return`LSP server "${Qt(a.serverName)}" ${Qt(a.method)} failed: ${Qt(a.error)}`;case"plugin-cache-miss":return`Plugin "${Qt(a.plugin)}" not cached at ${Zl(a.installPath)}`;case"plugin-not-installed":return`Plugin "${Qt(a.plugin)}" is enabled in project settings but isn't installed here`;case"autoupdate-deferred-entry-helper":case"autoupdate-disabled-by-policy":return a.message;case"autoupdate-blocked-by-pinner":{let S=a.heldAt?` at ${Zl(a.heldAt)}`:"",x=a.disabledPinners.length>0?` (${Qt(a.disabledPinners.join(", "))} ${a.disabledPinners.length===1?"is":"are"} disabled)`:"";return`Autoupdate held${S} \u2014 version constraint from ${Qt(a.blockedBy.join(", "))}${x}`}case"generic-error":return aYe(a.error)}return jh(a)}function Vo(a){let b=Wh(a);return b===null?null:Oo(b)}function Wh(a){switch(a.type){case"path-not-found":return"Check that the path in your manifest or marketplace config is correct";case"path-traversal":return'Paths in plugin.json must not use ".." to reference files outside the plugin directory';case"git-auth-failed":return a.authType==="ssh"?"Configure SSH keys or use HTTPS URL instead":"Configure credentials or use SSH URL instead";case"git-timeout":case"network-error":return"Check your internet connection and try again";case"manifest-parse-error":return"Check manifest file syntax in the plugin directory";case"manifest-validation-error":return"Check manifest file follows the required schema";case"plugin-not-found":return`Plugin may not exist in marketplace "${Qt(a.marketplace)}"`;case"marketplace-not-found":return a.availableMarketplaces.length>0?`Available marketplaces: ${Qt(a.availableMarketplaces.join(", "))}`:"Add the marketplace first using /plugin marketplace add";case"mcp-config-invalid":return"Check MCP server configuration in .mcp.json or manifest";case"hook-load-failed":return"Check the plugin's hooks configuration and that its hooks file is readable";case"component-load-failed":return`Check ${Qt(a.component)} directory structure and file permissions`;case"mcpb-download-failed":return"Check your internet connection and URL accessibility";case"mcpb-extract-failed":return"Verify the MCPB file is valid and not corrupted";case"mcpb-invalid-manifest":return"Contact the plugin author about the invalid manifest";case"marketplace-blocked-by-policy":if(a.blockedByBlocklist)return"This marketplace source is explicitly blocked by your administrator";return a.allowedSources.length>0?`Allowed sources: ${Qt(a.allowedSources.join(", "))}`:"Contact your administrator to configure allowed marketplace sources";case"dependency-unsatisfied":return a.reason==="not-enabled"?`Enable "${Qt(a.dependency)}" or uninstall "${Qt(a.plugin)}"`:`Install "${Qt(a.dependency)}" or uninstall "${Qt(a.plugin)}"`;case"dependency-version-unsatisfied":return`Update "${Qt(a.dependency)}" to satisfy ${Qt(a.required)}, or uninstall "${Qt(a.plugin)}"`;case"lsp-config-invalid":return"Check LSP server configuration in the plugin manifest";case"lsp-server-start-failed":case"lsp-server-crashed":case"lsp-request-timeout":case"lsp-request-failed":return"Check LSP server logs with --debug for details";case"plugin-cache-miss":return"Run /plugin to refresh the plugin cache";case"plugin-not-installed":{let S=Ra("plugin install",a.source,"--scope project");return S?`Run \`${S}\` to install it for this project`:"Install it at project scope to fix this"}case"autoupdate-deferred-entry-helper":case"autoupdate-disabled-by-policy":return null;case"autoupdate-blocked-by-pinner":{let S=a.disabledPinners.length>0?a.disabledPinners[0]:a.blockedBy[0];return S?`Update or uninstall "${Qt(S)}" to unblock${a.disabledPinners.length>0?" (it is currently disabled)":""}`:null}case"marketplace-load-failed":return a.reason==="cache-miss"?"Run /reload-plugins to refresh the marketplace cache":null;case"generic-error":return null}let b=a;return null}F();function tk(zE){return zE.plugins.commands}function nk(GE){return GE.mcp.commands}function ok(QE){return QE.mainLoopModel}function ik(_p){return r(o,{flexDirection:"row",children:[e(o,{width:32,children:r(t,{dimColor:!0,children:["/",_p.name]})}),r(t,{dimColor:!0,children:["~",_p.approxTokens," tok/turn"]})]},_p.name)}function rk(XE){return XE.count>0}function ak(Nr){return r(o,{flexDirection:"row",children:[e(o,{width:32,children:r(t,{dimColor:!0,children:["/",Nr.name]})}),r(t,{dimColor:!0,children:[Nr.count," ",k(Nr.count,"use"),Nr.lastUsedAt!==null?` \xB7 last ${Hp(Nr.lastUsedAt)}`:""]})]},Nr.name)}function Ta(a,b){let S=ie().skillUsage??{},x=[];for(let v of b){if(v.type!=="prompt"||v.pluginInfo?.pluginManifest.name!==a)continue;let R=S[v.name]??(v.unqualifiedName!=null?S[v.unqualifiedName]:void 0);x.push({name:v.name,count:R?.usageCount??0,lastUsedAt:R?.lastUsedAt??null})}return x.sort((v,R)=>R.count-v.count),{skills:x,totalCount:x.reduce((v,R)=>v+R.count,0),skillCount:x.length}}function Hp(a){let b=Math.max(0,Math.floor((Date.now()-a)/86400000));if(b===0)return"today";if(b===1)return"yesterday";return`${b}d ago`}function ac(qE){let Oi=_(20),{plugin:yo}=qE,Or=W(tk),Lp=W(nk),Np=W(ok),zh;if(Oi[0]!==Lp||Oi[1]!==Np||Oi[2]!==yo.manifest.name||Oi[3]!==Or){let Li;if(Oi[5]!==yo.manifest.name)Li=(WE)=>WE.pluginName===yo.manifest.name,Oi[5]=yo.manifest.name,Oi[6]=Li;else Li=Oi[6];zh=GRe([...Or,...Lp],Pf(Np??void 0)).byPlugin.find(Li);Oi[0]=Lp,Oi[1]=Np,Oi[2]=yo.manifest.name,Oi[3]=Or,Oi[4]=zh}else zh=Oi[4];let ai=zh,Li;if(Oi[7]!==yo.manifest.name)Li=r(t,{bold:!0,children:[yo.manifest.name," \xB7 Usage"]}),Oi[7]=yo.manifest.name,Oi[8]=Li;else Li=Oi[8];let Gh,Qh;if(Oi[9]===d)Gh=e(t,{bold:!0,children:"Skill-listing footprint"}),Qh=e(t,{dimColor:!0,wrap:"wrap",children:"What this plugin's skill descriptions add to the system prompt (cached input after the first turn). Agents and MCP tools not yet counted."}),Oi[9]=Gh,Oi[10]=Qh;else Gh=Oi[9],Qh=Oi[10];let oc;if(Oi[11]!==ai)oc=r(o,{flexDirection:"column",children:[Gh,Qh,ai&&ai.skills.length>0?r(o,{flexDirection:"column",marginTop:1,children:[ai.skills.map(ik),r(o,{flexDirection:"row",marginTop:1,children:[e(o,{width:32,children:e(t,{children:"Total"})}),r(t,{children:[ai.skillCount," ",k(ai.skillCount,"skill")," \xB7 ~",ai.approxTokens," tok/turn"]})]})]}):e(t,{dimColor:!0,children:"No model-invocable skills loaded for this plugin"})]}),Oi[11]=ai,Oi[12]=oc;else oc=Oi[12];let ic;if(Oi[13]!==yo||Oi[14]!==Or)ic=e(rc,{plugin:yo,commands:Or}),Oi[13]=yo,Oi[14]=Or,Oi[15]=ic;else ic=Oi[15];let Yh;if(Oi[16]!==Li||Oi[17]!==oc||Oi[18]!==ic)Yh=r(o,{flexDirection:"column",gap:1,children:[Li,oc,ic]}),Oi[16]=Li,Oi[17]=oc,Oi[18]=ic,Oi[19]=Yh;else Yh=Oi[19];return Yh}function rc(YE){let jp=_(9),{plugin:Up,commands:Vp}=YE,Jh;if(jp[0]!==Vp||jp[1]!==Up.manifest.name)Jh=Ta(Up.manifest.name,Vp),jp[0]=Vp,jp[1]=Up.manifest.name,jp[2]=Jh;else Jh=jp[2];let lo=Jh,Xh,Zh;if(jp[3]===d)Xh=e(t,{bold:!0,children:"Activity"}),Zh=e(t,{dimColor:!0,wrap:"wrap",children:"Skill invocations on this machine. See /usage for cost attribution."}),jp[3]=Xh,jp[4]=Zh;else Xh=jp[3],Zh=jp[4];let ek;if(jp[5]!==lo.skillCount||jp[6]!==lo.skills||jp[7]!==lo.totalCount)ek=r(o,{flexDirection:"column",children:[Xh,Zh,lo.totalCount===0?e(t,{dimColor:!0,children:"No activity yet"}):r(o,{flexDirection:"column",marginTop:1,children:[lo.skills.filter(rk).map(ak),r(o,{flexDirection:"row",marginTop:1,children:[e(o,{width:32,children:e(t,{children:"Total"})}),r(t,{children:[lo.totalCount," ",k(lo.totalCount,"use")," across"," ",lo.skillCount," ",k(lo.skillCount,"skill")]})]})]})]}),jp[5]=lo.skillCount,jp[6]=lo.skills,jp[7]=lo.totalCount,jp[8]=ek;else ek=jp[8];return ek}var Yp={good:"success",warn:"warning",poor:"error"},Jp={on:{glyph:L.tick,label:"on",color:"success"},"name-only":{glyph:L.bullet,label:"name-only"},"user-invocable-only":{glyph:L.circle,label:"user-only",color:"warning"},off:{glyph:L.cross,label:"off",color:"error"}};function sc(dM){let Te=_(207),{item:de,isSelected:nt,health:lc}=dM,[lt]=mn();if(de.type==="plugin"){let ho;let ko;if(de.pendingToggle){if(Te[0]!==de.pendingToggle||Te[1]!==lt)ho=mt("suggestion",lt)(L.arrowRight),ko=de.pendingToggle==="will-enable"?"will enable":"will disable",Te[0]=de.pendingToggle,Te[1]=lt,Te[2]=ho,Te[3]=ko;else ho=Te[2],ko=Te[3]}else if(de.errorCount>0){if(Te[4]!==de.errorCount||Te[5]!==lt)ho=mt("error",lt)(L.cross),ko=`${de.errorCount} ${k(de.errorCount,"error")}`,Te[4]=de.errorCount,Te[5]=lt,Te[6]=ho,Te[7]=ko;else ho=Te[6],ko=Te[7]}else if(!de.isEnabled){if(Te[8]!==lt)ho=mt("inactive",lt)(L.radioOff),ko="disabled",Te[8]=lt,Te[9]=ho,Te[10]=ko;else ho=Te[9],ko=Te[10]}else if(Te[11]!==lt)ho=mt("success",lt)(L.tick),ko="enabled",Te[11]=lt,Te[12]=ho,Te[13]=ko;else ho=Te[12],ko=Te[13];const Cn=nt?"suggestion":void 0;let cn;if(Te[14]!==de)cn=id(de),Te[14]=de,Te[15]=cn;else cn=Te[15];let nn;if(Te[16]!==Cn||Te[17]!==cn)nn=e(t,{color:Cn,children:cn}),Te[16]=Cn,Te[17]=cn,Te[18]=nn;else nn=Te[18];let un;if(Te[19]!==lc||Te[20]!==lt)un=lc&&r(t,{children:[" ",mt(Yp[lc],lt)(L.bullet)]}),Te[19]=lc,Te[20]=lt,Te[21]=un;else un=Te[21];const dn=!nt;let pn;if(Te[22]===d)pn=e(Dc,{color:"userMessageBackground",textColor:"text",children:"Plugin"}),Te[22]=pn;else pn=Te[22];let qt;if(Te[23]!==dn)qt=r(t,{dimColor:dn,children:[" ",pn]}),Te[23]=dn,Te[24]=qt;else qt=Te[24];let on;if(Te[25]!==de.marketplace)on=r(t,{dimColor:!0,children:[" \xB7 ",de.marketplace]}),Te[25]=de.marketplace,Te[26]=on;else on=Te[26];const Wt=!nt;let Zt;if(Te[27]!==ho||Te[28]!==Wt)Zt=r(t,{dimColor:Wt,children:[" \xB7 ",ho," "]}),Te[27]=ho,Te[28]=Wt,Te[29]=Zt;else Zt=Te[29];const zt=!nt;let en;if(Te[30]!==ko||Te[31]!==zt)en=e(t,{dimColor:zt,children:ko}),Te[30]=ko,Te[31]=zt,Te[32]=en;else en=Te[32];let hn;if(Te[33]!==de.activity)hn=de.activity&&de.activity.skillCount>0?r(t,{dimColor:!0,children:[" ","\xB7 ",de.activity.skillCount," ",k(de.activity.skillCount,"skill")," \xB7"," ",de.activity.totalCount," ",k(de.activity.totalCount,"use")]}):null,Te[33]=de.activity,Te[34]=hn;else hn=Te[34];let _n;if(Te[35]!==de.unusedDays)_n=de.unusedDays!==void 0&&r(t,{dimColor:!0,children:[" ","\xB7 not used in ",de.unusedDays," ",k(de.unusedDays,"day")]}),Te[35]=de.unusedDays,Te[36]=_n;else _n=Te[36];let so;if(Te[37]!==Zt||Te[38]!==en||Te[39]!==hn||Te[40]!==_n||Te[41]!==nn||Te[42]!==un||Te[43]!==qt||Te[44]!==on)so=r(t,{children:[nn,un,qt,on,Zt,en,hn,_n]}),Te[37]=Zt,Te[38]=en,Te[39]=hn,Te[40]=_n,Te[41]=nn,Te[42]=un,Te[43]=qt,Te[44]=on,Te[45]=so;else so=Te[45];let Ia;if(Te[46]!==nt||Te[47]!==so)Ia=e(fl,{isFocused:nt,styled:!1,children:so}),Te[46]=nt,Te[47]=so,Te[48]=Ia;else Ia=Te[48];return Ia}if(de.type==="flagged-plugin"){let Cn;if(Te[49]!==lt)Cn=mt("warning",lt)(L.warning),Te[49]=lt,Te[50]=Cn;else Cn=Te[50];let Kp=Cn;const cn=nt?"suggestion":void 0;let nn;if(Te[51]!==de.name||Te[52]!==cn)nn=e(t,{color:cn,children:de.name}),Te[51]=de.name,Te[52]=cn,Te[53]=nn;else nn=Te[53];const un=!nt;let dn;if(Te[54]===d)dn=e(Dc,{color:"userMessageBackground",textColor:"text",children:"Plugin"}),Te[54]=dn;else dn=Te[54];let pn;if(Te[55]!==un)pn=r(t,{dimColor:un,children:[" ",dn]}),Te[55]=un,Te[56]=pn;else pn=Te[56];let qt;if(Te[57]!==de.marketplace)qt=r(t,{dimColor:!0,children:[" \xB7 ",de.marketplace]}),Te[57]=de.marketplace,Te[58]=qt;else qt=Te[58];const on=!nt;let Wt;if(Te[59]!==Kp||Te[60]!==on)Wt=r(t,{dimColor:on,children:[" \xB7 ",Kp," "]}),Te[59]=Kp,Te[60]=on,Te[61]=Wt;else Wt=Te[61];const Zt=!nt;let zt;if(Te[62]!==Zt)zt=e(t,{dimColor:Zt,children:"removed"}),Te[62]=Zt,Te[63]=zt;else zt=Te[63];let en;if(Te[64]!==zt||Te[65]!==nn||Te[66]!==pn||Te[67]!==qt||Te[68]!==Wt)en=r(t,{children:[nn,pn,qt,Wt,zt]}),Te[64]=zt,Te[65]=nn,Te[66]=pn,Te[67]=qt,Te[68]=Wt,Te[69]=en;else en=Te[69];let hn;if(Te[70]!==nt||Te[71]!==en)hn=e(fl,{isFocused:nt,styled:!1,children:en}),Te[70]=nt,Te[71]=en,Te[72]=hn;else hn=Te[72];return hn}if(de.type==="failed-plugin"){let Cn;if(Te[73]!==lt)Cn=mt("error",lt)(L.cross),Te[73]=lt,Te[74]=Cn;else Cn=Te[74];let qp=Cn;const cn=de.errorCount;let nn;if(Te[75]!==de.errorCount)nn=k(de.errorCount,"error"),Te[75]=de.errorCount,Te[76]=nn;else nn=Te[76];let Wp=`failed to load \xB7 ${cn} ${nn}`;const un=nt?"suggestion":void 0;let dn;if(Te[77]!==de.name||Te[78]!==un)dn=e(t,{color:un,children:de.name}),Te[77]=de.name,Te[78]=un,Te[79]=dn;else dn=Te[79];const pn=!nt;let qt;if(Te[80]===d)qt=e(Dc,{color:"userMessageBackground",textColor:"text",children:"Plugin"}),Te[80]=qt;else qt=Te[80];let on;if(Te[81]!==pn)on=r(t,{dimColor:pn,children:[" ",qt]}),Te[81]=pn,Te[82]=on;else on=Te[82];let Wt;if(Te[83]!==de.marketplace)Wt=r(t,{dimColor:!0,children:[" \xB7 ",de.marketplace]}),Te[83]=de.marketplace,Te[84]=Wt;else Wt=Te[84];const Zt=!nt;let zt;if(Te[85]!==qp||Te[86]!==Zt)zt=r(t,{dimColor:Zt,children:[" \xB7 ",qp," "]}),Te[85]=qp,Te[86]=Zt,Te[87]=zt;else zt=Te[87];const en=!nt;let hn;if(Te[88]!==Wp||Te[89]!==en)hn=e(t,{dimColor:en,children:Wp}),Te[88]=Wp,Te[89]=en,Te[90]=hn;else hn=Te[90];let _n;if(Te[91]!==zt||Te[92]!==hn||Te[93]!==dn||Te[94]!==on||Te[95]!==Wt)_n=r(t,{children:[dn,on,Wt,zt,hn]}),Te[91]=zt,Te[92]=hn,Te[93]=dn,Te[94]=on,Te[95]=Wt,Te[96]=_n;else _n=Te[96];let so;if(Te[97]!==nt||Te[98]!==_n)so=e(fl,{isFocused:nt,styled:!1,children:_n}),Te[97]=nt,Te[98]=_n,Te[99]=so;else so=Te[99];return so}if(de.type==="skill"){let bo=Jp[de.override];let Cn;if(Te[100]!==bo.color||Te[101]!==bo.glyph||Te[102]!==lt)Cn=bo.color?mt(bo.color,lt)(bo.glyph):bo.glyph,Te[100]=bo.color,Te[101]=bo.glyph,Te[102]=lt,Te[103]=Cn;else Cn=Te[103];let zp=Cn;const cn=nt?"suggestion":void 0;let nn;if(Te[104]!==de.name||Te[105]!==cn)nn=e(t,{color:cn,children:de.name}),Te[104]=de.name,Te[105]=cn,Te[106]=nn;else nn=Te[106];const un=!nt;let dn;if(Te[107]===d)dn=e(Dc,{color:"userMessageBackground",textColor:"text",children:"Skill"}),Te[107]=dn;else dn=Te[107];let pn;if(Te[108]!==un)pn=r(t,{dimColor:un,children:[" ",dn]}),Te[108]=un,Te[109]=pn;else pn=Te[109];let qt;if(Te[110]!==de.source)qt=r(t,{dimColor:!0,children:[" \xB7 ",de.source]}),Te[110]=de.source,Te[111]=qt;else qt=Te[111];const on=!nt;const Wt=de.lockSource?"\uD83D\uDD12 ":"";let Zt;if(Te[112]!==zp||Te[113]!==on||Te[114]!==Wt)Zt=r(t,{dimColor:on,children:[" ","\xB7 ",Wt,zp," "]}),Te[112]=zp,Te[113]=on,Te[114]=Wt,Te[115]=Zt;else Zt=Te[115];const zt=!nt;let en;if(Te[116]!==bo.label||Te[117]!==zt)en=e(t,{dimColor:zt,children:bo.label}),Te[116]=bo.label,Te[117]=zt,Te[118]=en;else en=Te[118];let hn;if(Te[119]!==de.tokenEstimate)hn=r(t,{dimColor:!0,children:[" \xB7 ~",de.tokenEstimate," tok"]}),Te[119]=de.tokenEstimate,Te[120]=hn;else hn=Te[120];let _n;if(Te[121]!==de.usage)_n=de.usage?r(t,{dimColor:!0,children:[" ","\xB7 ",de.usage.count,"\xD7"," ",de.usage.daysSinceUse===0?"today":`${de.usage.daysSinceUse}d`]}):e(t,{color:"warning",children:" \xB7 never used"}),Te[121]=de.usage,Te[122]=_n;else _n=Te[122];let so;if(Te[123]!==Zt||Te[124]!==en||Te[125]!==hn||Te[126]!==_n||Te[127]!==nn||Te[128]!==pn||Te[129]!==qt)so=r(t,{children:[nn,pn,qt,Zt,en,hn,_n]}),Te[123]=Zt,Te[124]=en,Te[125]=hn,Te[126]=_n,Te[127]=nn,Te[128]=pn,Te[129]=qt,Te[130]=so;else so=Te[130];let Ia;if(Te[131]!==nt||Te[132]!==so)Ia=e(fl,{isFocused:nt,styled:!1,children:so}),Te[131]=nt,Te[132]=so,Te[133]=Ia;else Ia=Te[133];return Ia}let Pn,Tn;if(de.status==="connected"){if(Te[134]!==lt)Pn=mt("success",lt)(L.tick),Tn="connected",Te[134]=lt,Te[135]=Pn,Te[136]=Tn;else Pn=Te[135],Tn=Te[136]}else if(de.status==="cached"&&de.client.type==="cached"){if(Te[137]!==de.client.cacheSavedAt||Te[138]!==lt){let Gp=Fme(de.client.cacheSavedAt);Pn=mt(Gp.tone,lt)(Gp.glyph),Tn=Gp.statusText;Te[137]=de.client.cacheSavedAt,Te[138]=lt,Te[139]=Pn,Te[140]=Tn}else Pn=Te[139],Tn=Te[140]}else if(de.status==="disabled"){if(Te[141]!==lt)Pn=mt("inactive",lt)(L.radioOff),Tn="disabled",Te[141]=lt,Te[142]=Pn,Te[143]=Tn;else Pn=Te[142],Tn=Te[143]}else if(de.status==="pending"){if(Te[144]!==lt)Pn=mt("inactive",lt)(L.radioOff),Tn="connecting\u2026",Te[144]=lt,Te[145]=Pn,Te[146]=Tn;else Pn=Te[145],Tn=Te[146]}else if(de.status==="needs-auth"){if(Te[147]!==lt)Pn=mt("warning",lt)(L.triangleUpOutline),Tn=e(ze,{action:"select:accept",context:"Select",fallback:"Enter",description:"auth"}),Te[147]=lt,Te[148]=Pn,Te[149]=Tn;else Pn=Te[148],Tn=Te[149]}else if(de.status==="unconfigured"){if(Te[150]!==lt)Pn=mt("inactive",lt)(L.radioOff),Tn="not configured",Te[150]=lt,Te[151]=Pn,Te[152]=Tn;else Pn=Te[151],Tn=Te[152]}else if(Te[153]!==lt)Pn=mt("error",lt)(L.cross),Tn="failed",Te[153]=lt,Te[154]=Pn,Te[155]=Tn;else Pn=Te[154],Tn=Te[155];let Qp=de.client.config,_r=Qp?.type==="claudeai-proxy"&&Qp.scope==="claudeai"&&Qp.enterpriseManaged===!0;if(de.indented){const Cn=!nt;let cn;if(Te[156]!==Cn)cn=e(t,{dimColor:Cn,children:"\u2514 "}),Te[156]=Cn,Te[157]=cn;else cn=Te[157];const nn=nt?"suggestion":void 0;let un;if(Te[158]!==de.name||Te[159]!==nn)un=e(t,{color:nn,children:de.name}),Te[158]=de.name,Te[159]=nn,Te[160]=un;else un=Te[160];const dn=!nt;let pn;if(Te[161]===d)pn=e(Dc,{color:"userMessageBackground",textColor:"text",children:"MCP"}),Te[161]=pn;else pn=Te[161];let qt;if(Te[162]!==dn)qt=r(t,{dimColor:dn,children:[" ",pn]}),Te[162]=dn,Te[163]=qt;else qt=Te[163];const on=!nt;let Wt;if(Te[164]!==Pn||Te[165]!==on)Wt=r(t,{dimColor:on,children:[" \xB7 ",Pn," "]}),Te[164]=Pn,Te[165]=on,Te[166]=Wt;else Wt=Te[166];const Zt=!nt;let zt;if(Te[167]!==Tn||Te[168]!==Zt)zt=e(t,{dimColor:Zt,children:Tn}),Te[167]=Tn,Te[168]=Zt,Te[169]=zt;else zt=Te[169];let en;if(Te[170]!==_r||Te[171]!==nt)en=_r&&e(t,{dimColor:!nt,children:" \xB7 managed"}),Te[170]=_r,Te[171]=nt,Te[172]=en;else en=Te[172];let hn;if(Te[173]!==zt||Te[174]!==en||Te[175]!==cn||Te[176]!==un||Te[177]!==qt||Te[178]!==Wt)hn=r(t,{children:[cn,un,qt,Wt,zt,en]}),Te[173]=zt,Te[174]=en,Te[175]=cn,Te[176]=un,Te[177]=qt,Te[178]=Wt,Te[179]=hn;else hn=Te[179];let _n;if(Te[180]!==nt||Te[181]!==hn)_n=e(fl,{isFocused:nt,styled:!1,children:hn}),Te[180]=nt,Te[181]=hn,Te[182]=_n;else _n=Te[182];return _n}const Cn=nt?"suggestion":void 0;let cn;if(Te[183]!==de.name||Te[184]!==Cn)cn=e(t,{color:Cn,children:de.name}),Te[183]=de.name,Te[184]=Cn,Te[185]=cn;else cn=Te[185];const nn=!nt;let un;if(Te[186]===d)un=e(Dc,{color:"userMessageBackground",textColor:"text",children:"MCP"}),Te[186]=un;else un=Te[186];let dn;if(Te[187]!==nn)dn=r(t,{dimColor:nn,children:[" ",un]}),Te[187]=nn,Te[188]=dn;else dn=Te[188];const pn=!nt;let qt;if(Te[189]!==Pn||Te[190]!==pn)qt=r(t,{dimColor:pn,children:[" \xB7 ",Pn," "]}),Te[189]=Pn,Te[190]=pn,Te[191]=qt;else qt=Te[191];const on=!nt;let Wt;if(Te[192]!==Tn||Te[193]!==on)Wt=e(t,{dimColor:on,children:Tn}),Te[192]=Tn,Te[193]=on,Te[194]=Wt;else Wt=Te[194];let Zt;if(Te[195]!==_r||Te[196]!==nt)Zt=_r&&e(t,{dimColor:!nt,children:" \xB7 managed"}),Te[195]=_r,Te[196]=nt,Te[197]=Zt;else Zt=Te[197];let zt;if(Te[198]!==Zt||Te[199]!==cn||Te[200]!==dn||Te[201]!==qt||Te[202]!==Wt)zt=r(t,{children:[cn,dn,qt,Wt,Zt]}),Te[198]=Zt,Te[199]=cn,Te[200]=dn,Te[201]=qt,Te[202]=Wt,Te[203]=zt;else zt=Te[203];let en;if(Te[204]!==nt||Te[205]!==zt)en=e(fl,{isFocused:nt,styled:!1,children:zt}),Te[204]=nt,Te[205]=zt,Te[206]=en;else en=Te[206];return en}function Ni(a){return a?.kind==="item"||a?.kind==="disabled-header"}function lk(a){switch(a.type){case"plugin":return a.isEnabled&&a.errorCount>0;case"failed-plugin":case"flagged-plugin":return!0;case"mcp":return(a.status==="needs-auth"||a.status==="failed")&&!mc(a);case"skill":return!1}}var pc=["on","name-only","user-invocable-only","off"];function em(a,b){if(b==="policy"||b==="flag")return a;if(b==="author")return a==="off"?"user-invocable-only":"off";let S=pc.indexOf(a);return pc[(S+1)%pc.length]}function Xp(a){return a.type==="plugin"&&!a.isEnabled||a.type==="mcp"&&a.status==="disabled"||a.type==="skill"&&a.override==="off"}function mc(a){return a.type==="mcp"&&(a.status==="needs-auth"||a.status==="failed")&&a.everConnected===!1}function tm(a,{searchQuery:b,favoriteIds:S,showDisabled:x,disusedDays:v,keepInPlaceIds:R}){if(b){let E=b.toLowerCase();return a.filter((J)=>J.name.toLowerCase().includes(E)||("displayName"in J)&&J.displayName?.toLowerCase().includes(E)||("description"in J)&&J.description?.toLowerCase().includes(E)).map((J)=>({kind:"item",section:"main",item:J}))}let j=[],K=null,T=(E,J)=>{let pe=K?.section!==E;if(pe){if(j.length>0&&j.at(-1)?.kind!=="disabled-header")j.push({kind:"spacer"});if(E==="attention"||E==="favorites"||E==="disused")j.push({kind:"section-header",section:E})}if((E==="main"||E==="disabled")&&(pe||K?.item.scope!==J.scope)){if(!pe)j.push({kind:"spacer"});j.push({kind:"scope-header",scope:J.scope})}let ue=!pe&&J.type==="mcp"&&J.parentId!==void 0&&(K?.item.type==="plugin"&&K.item.id===J.parentId||K?.item.type==="mcp"&&K.item.indented&&K.item.parentId===J.parentId),Pe=J.type==="mcp"&&J.indented&&!ue?{...J,indented:!1}:J;j.push({kind:"item",section:E,item:Pe}),K={section:E,item:Pe}},N=new Set;for(let E of a)if(lk(E))T("attention",E),N.add(E.id);for(let E of a)if(S.has(E.id)&&!N.has(E.id))T("favorites",E),N.add(E.id);if(v&&v.size>0){for(let E of a)if(E.type==="plugin"&&E.isEnabled&&v.has(E.id)&&!N.has(E.id))T("disused",{...E,unusedDays:v.get(E.id)}),N.add(E.id)}let H=(E)=>(Xp(E)||mc(E))&&!R?.has(E.id);for(let E of a)if(!H(E)&&!N.has(E.id))T("main",E);let G=a.filter(H);if(G.length>0){if(j.length>0)j.push({kind:"spacer"});if(j.push({kind:"disabled-header",disabledCount:Q(G,Xp),unusedConnectorCount:Q(G,mc)}),x)for(let E of G)T("disabled",E)}return j}function Ea(a){return a.loadedFrom==="syncedSkills"?`synced-skill:${a.source}:${a.name}`:`skill:${a.source}:${a.name}`}var Zp="synced-skill:",sk="skill:";function om(a){return a.startsWith(Zp)?sk+a.slice(Zp.length):null}function gc(a,b){let S=new Set,x=[];for(let R of b){let j=Ea(R);if(R.loadedFrom==="syncedSkills")x.push(j);else S.add(j)}let v=null;for(let R of x){let j=om(R);if(j!==null&&a.has(j)&&!a.has(R)&&!S.has(j))v??=new Set(a),v.add(R)}return v??a}function im(a,b,S){let x=gc(a,S),v=new Set(a);if(!x.has(b))return v.add(b),v;v.delete(b);let R=om(b);if(R!==null&&!S.some((j)=>j.loadedFrom!=="syncedSkills"&&Ea(j)===R))v.delete(R);return v}function wk(rm){let[fk,Y$]=rm;return e(zc,{children:r(t,{dimColor:!0,children:[fk,": ",Y$.join(", ")]})},fk)}var yk=["on","name-only","user-invocable-only","off"];function cm(a,b){let S=ye("localSettings")?.skillOverrides,x=ye("projectSettings")?.skillOverrides,v=ye("userSettings")?.skillOverrides,R=(T)=>x?.[T]??v?.[T],j=R(a.cmdName)??(a.unqualifiedName!=null?S?.[a.unqualifiedName]??R(a.unqualifiedName):void 0),K=a.lockSource==="author"?j==="off"?"off":"user-invocable-only":j??"on";return b===K?void 0:b}function hk(a){switch(a){case"flagged":return"Flagged";case"project":return"Project";case"local":return"Local";case"user":return"User";case"enterprise":return"Enterprise";case"managed":return"Managed";case"builtin":case"dynamic":return"Built-in";case"skills":return"Skills";default:return a}}function dm(rm){let Ma=_(11),{plugin:fc,marketplace:yc}=rm,[hc,z$]=u(null),[kc,G$]=u(null),ck,uk;if(Ma[0]!==yc||Ma[1]!==fc)ck=()=>{let am=!1;return j0t(fc,yc).then((Q$)=>{if(!am)z$(Q$)}).catch((pk)=>{if(!am)G$(pk instanceof Error?pk.message:"Failed to load components")}),()=>{am=!0}},uk=[fc,yc],Ma[0]=yc,Ma[1]=fc,Ma[2]=ck,Ma[3]=uk;else ck=Ma[2],uk=Ma[3];if(A(ck,uk),kc){let $a;if(Ma[4]===d)$a=e(t,{bold:!0,children:"Components:"}),Ma[4]=$a;else $a=Ma[4];let Fr;if(Ma[5]!==kc)Fr=r(o,{flexDirection:"column",marginBottom:1,children:[$a,r(t,{dimColor:!0,children:["Error: ",kc]})]}),Ma[5]=kc,Ma[6]=Fr;else Fr=Ma[6];return Fr}if(!hc){return null}let $a,Fr;if(Ma[7]!==hc){Fr=fn;bb0:{let mk=Pi(hc);if(mk.length===0){Fr=null;break bb0}let gk;if(Ma[10]===d)gk=e(t,{bold:!0,children:"Installed components:"}),Ma[10]=gk;else gk=Ma[10];$a=r(o,{flexDirection:"column",marginBottom:1,children:[gk,mk.map(wk)]})}Ma[7]=hc,Ma[8]=$a,Ma[9]=Fr}else $a=Ma[8],Fr=Ma[9];if(Fr!==fn)return Fr;return $a}async function kk(a,b,S){let v=(await Hv(b,S))?.plugins.find((R)=>R.name===a);if(v&&typeof v.source==="string")return`Local plugins cannot be updated remotely. To update, modify the source at: ${v.source}`;return null}function bk(a){return a.filter((b)=>!Fd(b.source))}function vc(J$){let Aa=_(15),{entries:Bo,color:li,noun:lm}=J$;if(Bo.length===0){return null}const X$=Bo.length;let bc;if(Aa[0]!==Bo.length||Aa[1]!==lm)bc=k(Bo.length,lm),Aa[0]=Bo.length,Aa[1]=lm,Aa[2]=bc;else bc=Aa[2];let xc;if(Aa[3]!==li||Aa[4]!==Bo.length||Aa[5]!==bc)xc=r(t,{bold:!0,color:li,children:[X$," ",bc,":"]}),Aa[3]=li,Aa[4]=Bo.length,Aa[5]=bc,Aa[6]=xc;else xc=Aa[6];let Sc;if(Aa[7]!==li||Aa[8]!==Bo){let Oa;if(Aa[10]!==li)Oa=(sm,Z$)=>r(o,{flexDirection:"column",marginLeft:2,children:[e(t,{color:li,children:sm.message}),sm.guidance&&r(t,{dimColor:!0,italic:!0,children:[L.arrowRight," ",sm.guidance]})]},Z$),Aa[10]=li,Aa[11]=Oa;else Oa=Aa[11];Sc=Bo.map(Oa);Aa[7]=li,Aa[8]=Bo,Aa[9]=Sc}else Sc=Aa[9];let Oa;if(Aa[12]!==xc||Aa[13]!==Sc)Oa=r(o,{flexDirection:"column",children:[xc,Sc]}),Aa[12]=xc,Aa[13]=Sc,Aa[14]=Oa;else Oa=Aa[14];return Oa}function pm({setViewState:a,setResult:b,onManageComplete:S,onSearchModeChange:x,targetPlugin:v,targetMarketplace:R,action:j,commands:K}){let{storageV5:T,credentials:N}=ge(),H=W((P)=>P.mcp.clients),G=W((P)=>P.mcp.tools),E=W((P)=>P.plugins.errors),J=W((P)=>P.plugins.warnings),pe=Bme(),ue=$p(),[Pe,_e]=u(!1),be=()=>_e(!1),ve=Ba(),Je=Ua(),st=Ee(),{columns:Tt}=st,{rows:it}=Ui(st),[re,xe]=u("plugin-list"),{query:Ge,setQuery:Ht,cursorOffset:Le,setCursorOffset:ot,handleKeyDown:dt,handlePaste:pt}=np({isActive:re==="plugin-list"&&Pe,onExit:be,onExitUp:be}),gt=Pe&&Ge!=="";A(()=>{x(gt)},[gt,x]),A(()=>()=>x(!1),[x]);let[se,tn]=u(null),Bt=z(()=>se?GBe(se.plugin.source):null,[se]),Gt=Sr(Bt),[Et,In]=u(0),[kn,Dn]=u([]),[$t,Ut]=u([]),Lt=Op(jxe,gWn),[le,je]=u(!0),[Qe,kt]=u(0),[_t,qe]=u(()=>new Set),[Re,an]=u(new Map),[Ot,Pt]=u(!1),[yt,oe]=u(null),[et,Dt]=u(null),[Mt,Jt]=u(0),Xt=B((P)=>{Dt(P),Pt(!1),tn(null),xe("plugin-list"),Jt((Y)=>Y+1),S()},[S]),It=C(!1),ee=C(new Set),Ne=C(new Set),he=C(void 0),Ke=TK(),wt=B(()=>{if(re==="plugin-details")xe("plugin-list"),tn(null),oe(null);else if(typeof re==="object"&&re.type==="failed-plugin-details")xe("plugin-list"),oe(null);else if(re==="configuring")xe("plugin-details"),Zr(null);else if(re==="plugin-usage")xe("plugin-details");else if(typeof re==="object"&&re.type==="plugin-options")Xt("Plugin enabled. Configuration skipped \u2014 run /reload-plugins to apply.");else if(typeof re==="object"&&re.type==="configuring-options")b("Configuration cancelled.");else if(typeof re==="object"&&re.type==="flagged-detail")xe("plugin-list"),oe(null);else if(typeof re==="object"&&re.type==="mcp-detail")xe("plugin-list"),oe(null);else if(typeof re==="object"&&re.type==="skill-detail")xe("plugin-list"),oe(null);else if(typeof re==="object"&&re.type==="mcp-tools")xe({type:"mcp-detail",client:re.client});else if(typeof re==="object"&&re.type==="mcp-tool-detail")xe({type:"mcp-tools",client:re.client});else{if(Re.size>0){b("Run /reload-plugins to apply plugin changes.");return}a({type:"menu"})}},[re,a,Re,b,Xt]);Be("confirm:no",wt,{context:"Settings",isActive:(re!=="plugin-list"||!Pe)&&re!=="confirm-project-uninstall"&&!(typeof re==="object"&&re.type==="confirm-data-cleanup")});let ke=(P)=>{if(P.type==="connected")return"connected";if(P.type==="cached")return"cached";if(P.type==="disabled")return"disabled";if(P.type==="pending")return"pending";if(P.type==="needs-auth")return"needs-auth";if(Kb(P))return"unconfigured";return"failed"},He=z(()=>{let P=En(),Y=new Map;for(let Oe of H)if(Oe.name.startsWith("plugin:")){let Ct=Oe.name.split(":");if(Ct.length>=3){let Kt=Ct[1],sn=Ct.slice(2).join(":"),Rn=Y.get(Kt)||[];Rn.push({displayName:Oo(sn),client:Oe}),Y.set(Kt,Rn)}}let ne=new Set,ae=[],ce=Lt;for(let Oe of $t){let Ct=GBe(Oe.plugin.source),Kt=Re.get(Ct),sn=Kt!==void 0?Kt==="will-disable":ake(Ct,Oe.plugin.manifest,ce),Rn=E.filter((Mn)=>!jne(Mn)&&PK(Mn,Ct,Oe.plugin.name));for(let Mn of Rn)ne.add(Mn);let Sn=Oe.plugin.isBuiltin?"builtin":Oe.scope||"user",De=K&&Sk()?Ta(Oe.plugin.manifest.name,K):void 0;ae.push({item:{type:"plugin",id:Ct,name:Oe.plugin.name,displayName:Oe.plugin.manifest.displayName,description:Oe.plugin.manifest.description,marketplace:Oe.marketplace,scope:Sn,isEnabled:sn,errorCount:Rn.length,errors:Rn,plugin:Oe.plugin,pendingEnable:Oe.pendingEnable,pendingUpdate:Oe.pendingUpdate,pendingToggle:Kt,activity:De?{skillCount:De.skillCount,totalCount:De.totalCount}:void 0},originalScope:Sn,childMcps:sn?Y.get(Oe.plugin.name)||[]:[]})}let $e=new Map;for(let Oe of E){if(jne(Oe))continue;let Ct=x0t(Oe);if(!Ct&&ne.has(Oe))continue;let Kt=Ct?`orphan:${Oe.source}`:Oe.source,sn=$e.get(Kt)||[];sn.push(Oe),$e.set(Kt,sn)}let vt=m1(),Fe=[];for(let[Oe,Ct]of $e){let Kt=Oe.startsWith("orphan:")?Oe.slice(7):Oe;if(Kt in pe)continue;let sn=Zz(Kt),Rn=sn.name||Kt,Sn=sn.marketplace||MI(Kt)||"unknown",De=R2e(vt,Kt),Mn=De==="flag"||De===void 0?"user":De;Fe.push({type:"failed-plugin",id:Oe,name:Rn,marketplace:Sn,scope:Mn,errorCount:Ct.length,errors:Ct})}let Ie=[],Ve=Kct();for(let Oe of H){if(Oe.name==="ide")continue;if(Oe.name.startsWith("plugin:"))continue;Ie.push({type:"mcp",id:`mcp:${Oe.name}`,name:Oe.name,description:void 0,scope:Oe.config.scope,status:ke(Oe),client:Oe,everConnected:Oe.config.type==="claudeai-proxy"?Ve.has(Oe.name):void 0})}let Ze=[];if(K){let Oe=new Set($t.filter((De)=>De.marketplace===nu).map((De)=>De.plugin.name)),Ct=ie().skillUsage??{},Kt=Date.now(),sn=P.skillOverrides??{},Rn=ye("policySettings")?.skillOverrides??{},Sn=ye("flagSettings")?.skillOverrides??{};for(let De of K){if(De.type!=="prompt"||De.loadedFrom!=="skills"&&De.loadedFrom!=="syncedSkills"&&De.loadedFrom!=="commands_DEPRECATED")continue;let Mn=ei(De);if(Oe.has(De.name)||Oe.has(Mn))continue;let Wo=Rn[De.name],bu=Sn[De.name],xu=sn[De.name]??(De.unqualifiedName!=null?sn[De.unqualifiedName]:void 0),na,Qi;if(Wo)na="policy",Qi=Wo;else if(bu)na="flag",Qi=bu;else if(De.disableModelInvocation)na="author",Qi=xu==="off"?"off":"user-invocable-only";else Qi=xu??"on";Ze.push({type:"skill",id:Ea(De),cmdName:De.name,unqualifiedName:De.unqualifiedName,name:Mn,description:De.description,scope:"skills",source:De.loadedFrom==="syncedSkills"?hN:yw(De.source),override:Qi,whenToUse:De.whenToUse,skillRoot:De.skillRoot,allowedTools:De.allowedTools,lockSource:na,tokenEstimate:Fc([De.name,De.description,De.whenToUse].filter(Boolean).join(" ")),usage:(()=>{let tl=Ct[De.name]??(De.unqualifiedName?Ct[De.unqualifiedName]:void 0);return tl?{count:tl.usageCount,daysSinceUse:Math.max(0,Math.floor((Kt-tl.lastUsedAt)/86400000))}:void 0})()})}}let jn={flagged:-1,project:0,local:1,user:2,enterprise:3,managed:4,dynamic:5,builtin:6,skills:7},co=[],gn=new Map;for(let{item:Oe,originalScope:Ct,childMcps:Kt}of ae){let sn=Oe.scope;if(!gn.has(sn))gn.set(sn,[]);gn.get(sn).push(Oe);for(let{displayName:Rn,client:Sn}of Kt){let De=Ct==="builtin"?"user":Ct;if(!gn.has(De))gn.set(De,[]);gn.get(De).push({type:"mcp",id:`mcp:${Sn.name}`,name:Rn,description:void 0,scope:De,status:ke(Sn),client:Sn,indented:!0,parentId:Oe.id})}}for(let Oe of Ie){let Ct=Oe.scope;if(!gn.has(Ct))gn.set(Ct,[]);gn.get(Ct).push(Oe)}if(Ze.length>0)gn.set("skills",Ze);for(let Oe of Fe){let Ct=Oe.scope;if(!gn.has(Ct))gn.set(Ct,[]);gn.get(Ct).push(Oe)}for(let[Oe,Ct]of Object.entries(pe)){let Kt=Vt(Oe),sn=Kt.name||Oe,Rn=Kt.marketplace||"unknown";if(!gn.has("flagged"))gn.set("flagged",[]);gn.get("flagged").push({type:"flagged-plugin",id:Oe,name:sn,marketplace:Rn,scope:"flagged",reason:"delisted",text:"Removed from marketplace",flaggedAt:Ct.flaggedAt})}let el=[...gn.keys()].sort((Oe,Ct)=>(jn[Oe]??99)-(jn[Ct]??99));for(let Oe of el){let Ct=gn.get(Oe),Kt=[],sn=[],Rn=[],Sn=0;while(Sn<Ct.length){let De=Ct[Sn];if(De.type==="plugin"||De.type==="failed-plugin"||De.type==="flagged-plugin"){let Mn=[De];Sn++;let Wo=Ct[Sn];while(Wo?.type==="mcp"&&Wo.indented)Mn.push(Wo),Sn++,Wo=Ct[Sn];Kt.push(Mn)}else if(De.type==="mcp"&&!De.indented)sn.push(De),Sn++;else if(De.type==="skill")Rn.push(De),Sn++;else Sn++}Kt.sort((De,Mn)=>De[0].name.localeCompare(Mn[0].name)),sn.sort((De,Mn)=>De.name.localeCompare(Mn.name)),Rn.sort((De,Mn)=>De.name.localeCompare(Mn.name));for(let De of Kt)co.push(...De);co.push(...sn),co.push(...Rn)}return co},[$t,H,E,Re,pe,K,Qe,Lt]),Nt=z(()=>He.filter((P)=>P.type==="flagged-plugin").map((P)=>P.id),[He]);A(()=>{if(Nt.length>0)pOn(Nt,T)},[Nt,T]);let[Kn,Fn]=u(()=>new Set((ie().favoritePlugins??[]).map(GBe))),ln=z(()=>(K??[]).flatMap((P)=>P.type==="prompt"?[{name:P.name,source:P.source,loadedFrom:P.loadedFrom}]:[]),[K]),Qr=z(()=>gc(Kn,ln),[Kn,ln]),Yr=B((P)=>{Fn((Y)=>{let ne=im(Y,P,ln);return Ae((ae)=>({...ae,favoritePlugins:[...ne]}),T),ne})},[ln,T]),[Ja,fu]=u(!1),[Jr,yu]=u(()=>new Map);A(()=>{let P=!1;return Ase().then((Y)=>{if(P||Y.length===0)return;yu(new Map(Y.map((ne)=>[GBe(ne.pluginId),ne.daysSinceLastUse])))}),()=>{P=!0}},[]);let gi=B((P,Y)=>{if(Y===null||!Jr.has(Y))return;y("cli_plugin_disuse_review"),s("tengu_plugin_disuse_review_action",{action:c(P),...Nb(Y)}),yu((ne)=>{if(!ne.has(Y))return ne;let ae=new Map(ne);return ae.delete(Y),ae})},[Jr]),bn=z(()=>tm(He,{searchQuery:Ge,favoriteIds:Qr,showDisabled:Ja,disusedDays:Jr,keepInPlaceIds:_t}),[He,Ge,Qr,Ja,Jr,_t]),Gi=B((P,Y)=>{let ne=Y===-1?Math.min(P,bn.length-1):P;for(let ae=ne;ae>=0&&ae<bn.length;ae+=Y)if(Ni(bn[ae]))return ae;return-1},[bn]),[Un,xo]=u(0),Xa=C(null);A(()=>{if(bn.length===0)return;let P=Xa.current;if(P){Xa.current=null;let Y=bn.findIndex((ne)=>ne.kind==="item"&&ne.section===P.section&&ne.item.id===P.id);if(Y===-1)Y=bn.findIndex((ne)=>ne.kind==="item"&&ne.item.id===P.id);if(Y!==-1){xo(Y);return}}if(!Ni(bn[Un])){let Y=Gi(Un,1),ne=Gi(Un,-1);xo(Y!==-1?Y:ne!==-1?ne:0)}},[bn,Un,Gi]);let sg=Je?Math.max(8,it-10):8,cg=z(()=>Math.max(0,bn.findIndex(Ni)),[bn]),fi=xa({totalItems:bn.length,selectedIndex:Un,maxVisible:sg,firstSelectableIndex:cg}),[qo,Xr]=u(0),[hi,Zr]=u(null),[cx,Za]=u(!1),[hu,ku]=u(!1);A(()=>{if(!se){ku(!1);return}async function P(){let ne=se.plugin.manifest.mcpServers,ae=!1;if(ne)ae=typeof ne==="string"&&PL(ne)||Array.isArray(ne)&&ne.some((ce)=>typeof ce==="string"&&PL(ce));if(!ae)try{let ce=await Ap(T,se.plugin),$e=V(ui(ce)),vt=Vt(se.plugin.source).name,Fe=$e.plugins?.find((Ie)=>Ie.name===vt||Ie.name===se.plugin.name);if(Fe?.mcpServers){let Ie=Fe.mcpServers;ae=typeof Ie==="string"&&PL(Ie)||Array.isArray(Ie)&&Ie.some((Ve)=>typeof Ve==="string"&&PL(Ve))}}catch(ce){n(`Failed to read raw marketplace.json: ${ce}`)}if(!Y)ku(ae)}let Y=!1;return P(),O()&&T!==void 0?()=>{Y=!0}:void 0},[se,T]),A(()=>{let P=Mt>0;async function Y(){if(!P)je(!0);try{let{enabled:ne,disabled:ae}=await Dh(T,N),ce=bk([...ne,...ae]),$e={};for(let Ve of ce){let Ze=Ud(Ve.source)??"local";if(!$e[Ze])$e[Ze]=[];$e[Ze].push(Ve)}let vt=[],Fe=jxe();for(let[Ve,Ze]of Object.entries($e)){let jn=Q(Ze,(gn)=>{let el=GBe(gn.source);return ake(el,gn.manifest,Fe)}),co=Ze.length-jn;vt.push({name:Ve,installedPlugins:Ze,enabledCount:jn,disabledCount:co})}vt.sort((Ve,Ze)=>{if(Ve.name==="claude-plugin-directory")return-1;if(Ze.name==="claude-plugin-directory")return 1;return Ve.name.localeCompare(Ze.name)}),Dn(vt);let Ie=[];for(let Ve of vt)for(let Ze of Ve.installedPlugins){let jn=Ze.isBuiltin?"builtin":Ze.scope??L0t(Ze.source).scope;Ie.push({plugin:Ze,marketplace:Ve.name,scope:jn,pendingEnable:void 0,pendingUpdate:!1})}if(Ut(Ie),!P)xo(0)}finally{je(!1)}}Y()},[Mt,T,N]),A(()=>{if(It.current)return;let P=kn.length>0||He.some((Y)=>Y.type==="failed-plugin");if(v&&P&&!le){let{name:Y,marketplace:ne}=R!==void 0?{name:v,marketplace:void 0}:Vt(BF(v)),ae=R??ne,ce=ae===void 0?void 0:Ggn(ae),$e=ce?kn.filter((Fe)=>Fe.name===ce):kn;for(let Fe of $e){let Ie=Fe.installedPlugins.find((Ve)=>Vy(Ve.name,Y)||Vy(Vt(Ve.source).name,Y));if(Ie){let Ve=Ie.scope??L0t(Ie.source).scope,Ze={plugin:Ie,marketplace:Fe.name,scope:Ve,pendingEnable:void 0,pendingUpdate:!1};tn(Ze),xe("plugin-details"),he.current=j,It.current=!0;return}}let vt=He.find((Fe)=>Fe.type==="failed-plugin"&&Vy(Fe.name,Y)&&(!ce||Fe.marketplace===ce));if(vt&&vt.type==="failed-plugin")xe({type:"failed-plugin-details",plugin:{id:vt.id,name:vt.name,marketplace:vt.marketplace,errors:vt.errors,scope:vt.scope}}),It.current=!0;if(!It.current&&j)It.current=!0,b(`Plugin "${v}" is not installed in this project`)}},[v,R,kn,le,He,j,b]);let ea=async(P)=>{if(!se)return;let Y=se.scope||"user",ne=Y==="builtin";if(ne&&(P==="update"||P==="uninstall")){oe("Built-in plugins cannot be updated or uninstalled.");return}if(!ne&&!WBe(Y)&&P!=="update"){oe("This plugin is managed by your organization. Contact your admin to disable it.");return}Pt(!0),oe(null);try{let ae=Bt,ce;switch(P){case"enable":{let Ve=await lke(ae,void 0,T);if(!Ve.success)throw Error(Ve.message);break}case"disable":{let Ve=await cke(ae,void 0,T);if(!Ve.success)throw Error(Ve.message);ce=Ve.reverseDependents;break}case"uninstall":{if(ne)break;if(!WBe(Y))break;if(RMn(ae)){Pt(!1),xe("confirm-project-uninstall");return}let Ve=nm().plugins[ae],jn=!Ve||Ve.length<=1?await mQn(ae):null;if(jn){Pt(!1),xe({type:"confirm-data-cleanup",size:jn});return}let co=await bq(ae,Y,void 0,T);if(!co.success)throw Error(co.message);ce=co.reverseDependents;break}case"update":{if(ne)break;let Ve=await hge(ae,Y,{explicit:!0,consentedEntryHelper:Gt.pinned()},T);switch(Ve.outcome){case"failed":if(Ve.failureCode==="entry_helper_unshown"||Ve.failureCode==="entry_helper_changed"||Ve.failureCode==="entry_archive_url_changed")In((Ze)=>Ze+1);throw Error(Ve.message);case"up_to_date":case"skipped":b(Ve.message),await S(),a({type:"menu"});return;case"updated":break}break}}if(Qu(T,N),an((Ve)=>{if(!Ve.has(ae))return Ve;let Ze=new Map(Ve);return Ze.delete(ae),Ze}),P==="disable"||P==="uninstall")gi(P,Bt);let $e=ake(ae,se.plugin.manifest,jxe());if(P!=="uninstall"&&P!=="update"&&$e){Pt(!1),xe({type:"plugin-options"});return}let vt=P==="enable"?"Enabled":P==="disable"?"Disabled":P==="update"?"Updated":"Uninstalled",Fe=ce&&ce.length>0?` \xB7 required by ${ce.join(", ")}`:"",Ie=`${L.tick} ${vt} ${id(se.plugin)}${Fe}. Run /reload-plugins to apply.`;if(P==="update")b(Ie),await S(),a({type:"menu"});else Xt(Ie)}catch(ae){Pt(!1);let ce=ae instanceof Error?ae.message:String(ae);oe(`Failed to ${P}: ${ce}`),n(`Failed to ${P} plugin: ${ce}`,{level:"error"})}},ug=br(ea);A(()=>{if(re==="plugin-details"&&se&&he.current){let P=he.current;if(he.current=void 0,P==="configure"){let Y=se.plugin.manifest.userConfig;if(Y&&Object.keys(Y).length>0)xe({type:"configuring-options",schema:Y});else b(`Plugin "${Xw(se.plugin)}" declares no userConfig options.`);return}ug(P)}},[re,se,b]);let dg=B(async()=>{let P=bn[Un];if(!Ni(P))return;if(P.kind==="disabled-header"){fu((ne)=>!ne);return}let Y=P.item;if(Y.type==="flagged-plugin")return;if(Y.type==="plugin"){let ne=Y.id,ae=Re.get(ne),ce=ake(ne,Y.plugin.manifest,Lt),$e=Y.scope;if($e==="builtin"||WBe($e)){if(Ne.current.has(ne))return;Ne.current.add(ne),qe((Ie)=>new Set(Ie).add(ne));let Fe=new Map(Re);if(ae)Fe.delete(ne),oe(null),(async()=>{try{let Ie=ae==="will-disable"?await lke(ne,void 0,T):await cke(ne,void 0,T);if(!Ie.success&&!Ie.alreadyInGoalState){an((Ve)=>{let Ze=new Map(Ve);return Ze.set(ne,ae),Ze}),oe(Ie.message);return}Qu(T,N)}catch(Ie){an((Ve)=>{let Ze=new Map(Ve);return Ze.set(ne,ae),Ze}),oe(`Failed to reverse the toggle: ${l(Ie)}`),h(ft(we(Ie),"/plugin: reversing a pending toggle on the list threw"))}finally{Ne.current.delete(ne)}})();else Fe.set(ne,ce?"will-disable":"will-enable"),oe(null),(async()=>{try{let Ie=ce?await cke(ne,void 0,T):await lke(ne,void 0,T);if(!Ie.success){an((Ve)=>{let Ze=new Map(Ve);return Ze.delete(ne),Ze}),oe(Ie.message);return}if(Qu(T,N),ce)gi("disable",ne)}catch(Ie){an((Ve)=>{let Ze=new Map(Ve);return Ze.delete(ne),Ze}),oe(`Failed to toggle: ${l(Ie)}`),h(ft(we(Ie),"/plugin: toggling a plugin on the list threw"))}finally{Ne.current.delete(ne)}})();an(Fe)}}else if(Y.type==="mcp"){oe(null);let ne=Y.client.type!=="disabled"?"disable":"enable";Ke(Y.client.name).catch((ae)=>{oe(RQ(ae,Y.client.name,ne,{persistsOffBox:!1}))})}else if(Y.type==="skill"){if(ee.current.has(Y.id))return;let ne=em(Y.override,Y.lockSource);if(ne===Y.override)return;ee.current.add(Y.id),qe((ce)=>new Set(ce).add(Y.id));let{error:ae}=await rn("localSettings",{skillOverrides:{[Y.cmdName]:cm(Y,ne)}},void 0,T);if(ee.current.delete(Y.id),ae){oe(ae.message);return}kt((ce)=>ce+1)}},[Un,bn,Re,$t,Ke,gi,T,N,Lt]),pg=B(()=>{let P=bn[Un];if(!Ni(P))return;if(P.kind==="disabled-header"){fu((ne)=>!ne);return}let Y=P.item;if(Y.type==="plugin"){let ne=$t.find((ae)=>ae.plugin.source===Y.plugin.source);if(ne)tn(ne),xe("plugin-details"),Xr(0),oe(null),Dt(null)}else if(Y.type==="flagged-plugin")xe({type:"flagged-detail",plugin:{id:Y.id,name:Y.name,marketplace:Y.marketplace,reason:Y.reason,text:Y.text,flaggedAt:Y.flaggedAt}}),oe(null);else if(Y.type==="failed-plugin")xe({type:"failed-plugin-details",plugin:{id:Y.id,name:Y.name,marketplace:Y.marketplace,errors:Y.errors,scope:Y.scope}}),Xr(0),oe(null);else if(Y.type==="mcp")xe({type:"mcp-detail",client:Y.client}),oe(null);else if(Y.type==="skill")xe({type:"skill-detail",skill:Y}),oe(null)},[Un,bn,$t]);ht({"select:previous":()=>{let P=Gi(Un-1,-1);if(P===-1){if(!le&&He.length>0)_e(!0)}else fi.handleSelectionChange(P,xo)},"select:next":()=>{let P=Gi(Un+1,1);if(P!==-1)fi.handleSelectionChange(P,xo)},"select:accept":pg},{context:"Select",isActive:re==="plugin-list"&&!Pe});let mg=B(()=>{let P=bn[Un];if(P?.kind!=="item")return!1;Xa.current={section:P.section,id:P.item.id},Yr(P.item.id)},[bn,Un,Yr]);ht({"plugin:toggle":dg,"plugin:favorite":mg},{context:"Plugin",isActive:re==="plugin-list"&&!Pe});let gg=B(()=>{if(typeof re!=="object"||re.type!=="flagged-detail")return;fOn(re.plugin.id,T),xe("plugin-list")},[re,T]);ht({"select:accept":gg},{context:"Select",isActive:typeof re==="object"&&re.type==="flagged-detail"});let ta=z(()=>{if(re!=="plugin-details"||!se)return[];let P=Bt,Y=ake(P,se.plugin.manifest,Lt),ne=se.marketplace==="builtin",ae=uc(se.marketplace),ce=[];if(ce.push({label:Y?"Disable plugin":"Enable plugin",action:()=>void ea(Y?"disable":"enable")}),ce.push({label:Qr.has(P)?"Remove from favorites":"Add to favorites",action:()=>Yr(P)}),!ne&&!ae){if(ce.push({label:se.pendingUpdate?"Unmark for update":"Mark for update",action:async()=>{try{let Fe=await kk(Vt(P).name,se.marketplace,T);if(Fe){oe(Fe);return}let Ie=[...$t],Ve=Ie.findIndex((Ze)=>Ze.plugin.source===se.plugin.source);if(Ve!==-1)Ie[Ve].pendingUpdate=!se.pendingUpdate,Ut(Ie),tn({...se,pendingUpdate:!se.pendingUpdate})}catch(Fe){oe(Fe instanceof Error?Fe.message:"Failed to check plugin update availability")}}}),hu)ce.push({label:"Configure",action:async()=>{Za(!0);try{let Fe=se.plugin.manifest.mcpServers,Ie=null;if(typeof Fe==="string"&&PL(Fe))Ie=Fe;else if(Array.isArray(Fe)){for(let jn of Fe)if(typeof jn==="string"&&PL(jn)){Ie=jn;break}}if(!Ie){oe("No MCPB file found in plugin"),Za(!1);return}let Ve=Bt,Ze=await act(Ie,se.plugin.path,Ve,void 0,void 0,!0,T);if("status"in Ze&&Ze.status==="needs-config")Zr(Ze),xe("configuring");else oe("Failed to load MCPB for configuration")}catch(Fe){let Ie=l(Fe);oe(`Failed to load configuration: ${Ie}`)}finally{Za(!1)}}});if(se.plugin.manifest.userConfig&&Object.keys(se.plugin.manifest.userConfig).length>0)ce.push({label:"Configure options",action:()=>{xe({type:"configuring-options",schema:se.plugin.manifest.userConfig})}});ce.push({label:"Update now",action:()=>void ea("update")}),ce.push({label:"Uninstall",action:()=>void ea("uninstall")})}let $e=DXe(se.plugin.manifest.homepage);if($e)ce.push({label:"Open homepage",action:()=>void Lr($e)});let vt=DXe(se.plugin.manifest.repository);if(vt)ce.push({label:"View repository",action:()=>void Lr(vt)});if(Sk())ce.push({label:"Usage",action:()=>xe("plugin-usage")});return ce.push({label:"Back to plugin list",action:()=>{xe("plugin-list"),tn(null),oe(null)}}),ce},[re,se,hu,$t,Qr,Yr,T,Lt]);ht({"select:previous":()=>{if(qo>0)Xr(qo-1)},"select:next":()=>{if(qo<ta.length-1)Xr(qo+1)},"select:accept":()=>{if(ta[qo])ta[qo].action()}},{context:"Select",isActive:re==="plugin-details"&&!!se}),ht({"select:accept":()=>{if(typeof re==="object"&&re.type==="failed-plugin-details")(async()=>{Pt(!0),oe(null);let P=re.plugin.id,Y=re.plugin.scope,ne=WBe(Y)?await bq(P,Y,!1,T):await bq(P,"user",!1,T),ae=ne.success;if(!ae){for(let ce of UH)if(ye(ce)?.enabledPlugins?.[P]!==void 0)await Os(ce,(vt)=>({enabledPlugins:{...vt?.enabledPlugins,[P]:void 0}}),void 0,T),ae=!0;Qu(T,N)}if(ae)await S(),Pt(!1),xe("plugin-list");else Pt(!1),oe(ne.message)})()}},{context:"Select",isActive:typeof re==="object"&&re.type==="failed-plugin-details"&&re.plugin.scope!=="managed"&&!uc(re.plugin.marketplace)});function fg(P){if(P.ctrl||P.meta||Ot)return;if(!se)return;let Y=Bt;if(P.key==="y"||P.key==="Y"||P.key==="return")P.preventDefault(),Pt(!0),oe(null),(async()=>{try{let{error:ne}=await Os("localSettings",(ae)=>({enabledPlugins:{...ae?.enabledPlugins,[Y]:!1}}),void 0,T);if(ne){Pt(!1),oe(`Failed to write settings: ${ne.message}`);return}Qu(T,N),gi("disable",Y),Xt(`${L.tick} Disabled ${id(se.plugin)} in .claude/settings.local.json. Run /reload-plugins to apply.`)}catch(ne){Pt(!1),oe(l(ne))}})();else if(P.key==="u"||P.key==="U")P.preventDefault(),Pt(!0),oe(null),(async()=>{try{let ne=Se(),ae=(nm().plugins[Y]??[]).some(($e)=>$e.scope==="project"&&$e.projectPath===ne),ce;if(ae){let $e=await bq(Y,"project",!1,T);if(!$e.success){Pt(!1),oe($e.message);return}ce=$e.message}else{let{error:$e}=await Os("projectSettings",(vt)=>{let Fe=vt?.enabledPlugins??{},Ie=NI(Object.keys(Fe),Y)??Y;return{enabledPlugins:{...Fe,[Ie]:void 0}}},void 0,T);if($e){Pt(!1),oe(`Failed to write settings: ${$e.message}`);return}ce=`Removed ${id(se.plugin)} from .claude/settings.json`}Qu(T,N),gi("uninstall",Y),Xt(`${L.tick} ${ce}. Run /reload-plugins to apply.`)}catch(ne){Pt(!1),oe(l(ne))}})();else if(P.key==="n"||P.key==="N"||P.key==="escape")P.preventDefault(),xe("plugin-details"),oe(null)}function yg(P){if(P.ctrl||P.meta||Ot)return;if(!se)return;let Y=Bt,ne=se.scope;if(!ne||ne==="builtin"||!WBe(ne))return;let ae=async(ce)=>{Pt(!0),oe(null);try{let $e=await bq(Y,ne,ce,T);if(!$e.success)throw Error($e.message);Qu(T,N),gi("uninstall",Y);let vt=ce?"":" \xB7 data preserved";Xt(`${L.tick} ${$e.message}${vt}`)}catch($e){Pt(!1),oe($e instanceof Error?$e.message:String($e))}};if(P.key==="y"||P.key==="Y")P.preventDefault(),ae(!0);else if(P.key==="n"||P.key==="N")P.preventDefault(),ae(!1);else if(P.key==="escape")P.preventDefault(),xe("plugin-details"),oe(null)}A(()=>{xo(0)},[Ge]);function hg(P){if(Pe){dt(P);return}if(P.ctrl||P.meta)return;if(P.key==="/")P.preventDefault(),_e(!0),Ht(""),xo(0);else if(P.key.length===1&&P.key!==" ")P.preventDefault(),_e(!0),Ht(P.key),xo(0)}function kg(P){if(Pe){pt(P);return}let Y=(P.text.split(/\r\n|\r|\n/,2)[0]??"").trim();if(!Y)return;P.preventDefault(),_e(!0),Ht(Y),xo(0)}if(le)return e(t,{children:"Loading installed plugins\u2026"});if(He.length===0)return r(o,{flexDirection:"column",children:[e(o,{marginBottom:1,children:e(t,{bold:!0,children:"Manage plugins"})}),et&&e(o,{marginBottom:1,paddingLeft:2,children:e(t,{color:"success",children:et})}),e(sr,{children:"No plugins or MCP servers installed."}),e(o,{marginTop:1,children:e(t,{dimColor:!0,children:e(ze,{action:"confirm:no",context:"Settings",fallback:"Esc",description:"go back"})})})]});if(typeof re==="object"&&re.type==="plugin-options"&&se){let P=Bt;return e(or,{plugin:se.plugin,pluginId:P,onDone:(Y,ne,ae)=>{let ce=id(se.plugin);switch(Y){case"configured":case"skipped":Xt(Y==="configured"&&ae?`${L.tick} Enabled and configured ${ce}. Run /reload-plugins to apply.`:`${L.tick} Enabled ${ce}. Run /reload-plugins to apply.`);break;case"error":case"read-error":oe(Y==="error"?`Failed to save configuration: ${ne}`:`Configuration not applied: could not read the saved options (${ne})`),Pt(!1),Jt(($e)=>$e+1),xe("plugin-details"),S();break}}})}if(typeof re==="object"&&re.type==="configuring-options"&&se){let P=Bt;return e(ar,{title:`Configure ${id(se.plugin)}`,subtitle:"Plugin options",configSchema:re.schema,load:()=>hv(P,N),onSave:async(Y)=>{try{await lye(P,Y,re.schema,T),Qu(T,N);let ne=Object.keys(Y).length>0;if(ne)S();b(ne?"Configuration saved. Run /reload-plugins for changes to take effect.":"No configuration changes.")}catch(ne){oe(`Failed to save configuration: ${l(ne)}`)}xe("plugin-details")},onCancel:()=>xe("plugin-details")},P)}if(re==="configuring"&&hi&&se){let ne=function(){Zr(null),xe("plugin-details")},P=Bt;async function Y(ae){if(!hi||!se)return;try{let ce=se.plugin.manifest.mcpServers,$e=null;if(typeof ce==="string"&&PL(ce))$e=ce;else if(Array.isArray(ce)){for(let vt of ce)if(typeof vt==="string"&&PL(vt)){$e=vt;break}}if(!$e){oe("No MCPB file found"),xe("plugin-details");return}await act($e,se.plugin.path,P,void 0,ae,void 0,T),oe(null),Zr(null),xe("plugin-details"),b("Configuration saved. Run /reload-plugins for changes to take effect.")}catch(ce){let $e=l(ce);oe(`Failed to save configuration: ${$e}`),xe("plugin-details")}}return e(ki,{title:`Configure ${Ope(hi.manifest.display_name)??hi.manifest.name}`,subtitle:`Plugin: ${id(se.plugin)}`,configSchema:hi.configSchema,initialValues:hi.existingConfig,onSave:Y,onCancel:ne})}if(typeof re==="object"&&re.type==="flagged-detail"){let P=re.plugin;return r(o,{flexDirection:"column",children:[e(o,{children:r(t,{bold:!0,children:[P.name," @ ",P.marketplace]})}),r(o,{marginBottom:1,children:[e(t,{dimColor:!0,children:"Status: "}),e(t,{color:"error",children:"Removed"})]}),r(o,{marginBottom:1,flexDirection:"column",children:[r(t,{color:"error",children:["Removed from marketplace \xB7 reason: ",P.reason]}),e(t,{children:P.text}),r(t,{dimColor:!0,children:["Flagged on ",new Date(P.flaggedAt).toLocaleDateString()]})]}),e(o,{marginTop:1,flexDirection:"column",children:r(Ig,{active:!0,children:[r(t,{"aria-hidden":!0,children:[L.pointer," "]}),e(t,{color:"suggestion",children:"Dismiss"})]})}),r(fe,{children:[e(ze,{action:"select:accept",context:"Select",fallback:"Enter",description:"dismiss"}),e(ze,{action:"confirm:no",context:"Settings",fallback:"Esc",description:"go back"})]})]})}if(re==="plugin-usage"&&se)return e(ac,{plugin:se.plugin});if(re==="confirm-project-uninstall"&&se)return r(xr,{onKeyDown:fg,children:[r(t,{bold:!0,color:"warning",children:[id(se.plugin)," is enabled in .claude/settings.json (shared with your team)"]}),r(o,{marginTop:1,flexDirection:"column",children:[e(t,{children:"Disable it just for you in .claude/settings.local.json?"}),e(t,{dimColor:!0,children:"The plugin stays installed for the project; only your local override changes."})]}),yt&&e(o,{marginTop:1,children:e(Br,{error:yt})}),e(o,{marginTop:1,children:Ot?e(t,{dimColor:!0,children:"Processing\u2026"}):r(fe,{children:[e(M,{chord:"y",action:"disable for me",bold:!0}),e(M,{chord:"u",action:"uninstall for everyone",bold:!0}),e(M,{chord:"escape",action:"cancel",bold:!0,format:{keyCase:"lower"}})]})})]});if(typeof re==="object"&&re.type==="confirm-data-cleanup"&&se)return r(xr,{onKeyDown:yg,children:[r(t,{bold:!0,children:[id(se.plugin)," has"," ",re.size.human," of persistent data"]}),r(o,{marginTop:1,flexDirection:"column",children:[e(t,{children:"Delete it along with the plugin?"}),e(t,{dimColor:!0,children:gyt(Bt)})]}),yt&&e(o,{marginTop:1,children:e(Br,{error:yt})}),e(o,{marginTop:1,children:Ot?e(t,{dimColor:!0,children:"Uninstalling\u2026"}):r(fe,{children:[e(M,{chord:"y",action:"delete",bold:!0}),e(M,{chord:"n",action:"keep",bold:!0}),e(M,{chord:"escape",action:"cancel",bold:!0,format:{keyCase:"lower"}})]})})]});if(re==="plugin-details"&&se){let P=Bt,Y=ake(P,se.plugin.manifest,Lt),ne=E.filter((Ie)=>PK(Ie,P,se.plugin.name)),ae=ne.filter((Ie)=>!jne(Ie)).map((Ie)=>({message:Do(Ie),guidance:Vo(Ie)})),ce=[...ne.filter(jne).map((Ie)=>({message:Do(Ie),guidance:Vo(Ie)})),...J.filter((Ie)=>PK(Ie,P,se.plugin.name)).map((Ie)=>({message:YF(Ie),guidance:bWt(Ie)}))],$e=DNn(se.plugin.repository),vt=ae.length===0&&ce.length===0?null:r(o,{flexDirection:"column",marginBottom:1,children:[e(vc,{entries:ae,color:"error",noun:"error"}),e(vc,{entries:ce,color:"warning",noun:"note"})]}),Fe=Yor(se.plugin.manifest);return r(o,{flexDirection:"column",children:[e(o,{children:r(t,{bold:!0,children:[id(se.plugin)," @"," ",Oo(se.marketplace)]})}),r(o,{children:[e(t,{dimColor:!0,children:"Scope: "}),e(t,{children:se.scope||"user"})]}),Fe.version&&r(o,{children:[e(t,{dimColor:!0,children:"Version: "}),e(t,{children:Fe.version})]}),Fe.description&&e(o,{marginBottom:1,children:e(t,{children:Fe.description})}),Fe.author&&r(o,{children:[e(t,{dimColor:!0,children:"Author: "}),e(t,{children:Fe.author.name})]}),r(o,{marginBottom:1,children:[e(t,{dimColor:!0,children:"Status: "}),e(t,{color:Y?"success":"warning",children:Y?"Enabled":"Disabled"}),se.pendingUpdate&&e(t,{color:"suggestion",children:" \xB7 Marked for update"}),$e!==null&&r(t,{dimColor:!0,children:[" ","\xB7 Last used:"," ",$e===0?"today":`${$e} ${k($e,"day")} ago`]})]}),Bt&&e(fr,{pluginId:Bt,verb:"Updating",onShown:Gt.record},Et),e(dm,{plugin:se.plugin,marketplace:se.marketplace}),vt,e(o,{marginTop:1,flexDirection:"column",children:ta.map((Ie,Ve)=>{let Ze=Ve===qo;return r(Ig,{active:Ze,children:[Ze&&r(t,{"aria-hidden":!0,children:[L.pointer," "]}),!Ze&&e(t,{"aria-hidden":!0,children:"  "}),e(t,{bold:Ze,color:Ie.label.includes("Uninstall")?"error":Ie.label.includes("Update")?"suggestion":void 0,children:Ie.label})]},Ve)})}),Ot&&e(o,{marginTop:1,children:e(t,{children:"Processing\u2026"})}),yt&&e(o,{marginTop:1,children:e(Br,{error:yt})}),e(o,{marginTop:1,children:e(t,{dimColor:!0,italic:!0,children:r(fe,{children:[e(ze,{action:"select:previous",context:"Select",fallback:"\u2191",description:"navigate"}),e(ze,{action:"select:accept",context:"Select",fallback:"Enter",description:"select"}),e(ze,{action:"confirm:no",context:"Settings",fallback:"Esc",description:"go back"})]})})})]})}if(typeof re==="object"&&re.type==="failed-plugin-details"){let P=re.plugin,Y=P.errors[0],ne=Y?Do(Y):"Failed to load";return r(o,{flexDirection:"column",children:[r(t,{children:[e(t,{bold:!0,children:Oo(P.name)}),r(t,{dimColor:!0,children:[" ","@ ",Oo(P.marketplace)]}),r(t,{dimColor:!0,children:[" (",P.scope,")"]})]}),e(t,{color:"error",children:ne}),P.scope==="managed"?e(o,{marginTop:1,children:e(t,{dimColor:!0,children:"Managed by your organization \u2014 contact your admin"})}):uc(P.marketplace)?null:r(Ig,{active:!0,marginTop:1,children:[r(t,{"aria-hidden":!0,color:"suggestion",children:[L.pointer," "]}),e(t,{bold:!0,children:"Remove"})]}),Ot&&e(t,{children:"Processing\u2026"}),e(Br,{error:yt}),uc(P.marketplace)&&e(o,{marginTop:1,children:e(t,{dimColor:!0,children:vk(P.marketplace)})}),e(o,{marginTop:1,children:e(t,{dimColor:!0,italic:!0,children:r(fe,{children:[P.scope!=="managed"&&!uc(P.marketplace)&&e(ze,{action:"select:accept",context:"Select",fallback:"Enter",description:"remove"}),e(ze,{action:"confirm:no",context:"Settings",fallback:"Esc",description:"go back"})]})})})]})}if(typeof re==="object"&&re.type==="skill-detail"){let P=re.skill,Y=[P.override,...yk.filter((ae)=>ae!==P.override)],ne=async(ae)=>{if(ae===P.override)return;let{error:ce}=await rn("localSettings",{skillOverrides:{[P.cmdName]:cm(P,ae)}},void 0,T);if(ce){oe(ce.message);return}qe(($e)=>new Set($e).add(P.id)),kt(($e)=>$e+1),xe({type:"skill-detail",skill:{...P,override:ae}})};return r(o,{flexDirection:"column",gap:1,children:[e(t,{bold:!0,children:P.name}),P.description&&e(t,{dimColor:!0,children:P.description}),P.whenToUse&&r(t,{dimColor:!0,children:["When to use: ",P.whenToUse]}),r(t,{dimColor:!0,children:["Source: ",P.source," \xB7 ~",P.tokenEstimate," tokens"]}),r(t,{dimColor:!0,children:["Usage:"," ",P.usage?`${P.usage.count}\xD7 \xB7 last used ${P.usage.daysSinceUse===0?"today":`${P.usage.daysSinceUse}d ago`}`:"never invoked"]}),P.allowedTools&&P.allowedTools.length>0&&r(t,{dimColor:!0,children:["Allowed tools: ",xk(P.allowedTools)]}),P.skillRoot&&r(t,{dimColor:!0,children:["Path: ",P.skillRoot]}),P.lockSource==="policy"||P.lockSource==="flag"?r(t,{dimColor:!0,children:["State: ",P.override," (locked by ",P.lockSource," settings)"]}):r(o,{flexDirection:"column",children:[r(t,{children:["State:",P.lockSource==="author"&&r(t,{dimColor:!0,children:[" ","(on/name-only locked by frontmatter disable-model-invocation)"]})]}),e(Ume,{visibleCount:4,onSelect:(ae)=>{let ce=Y[ae];if(P.lockSource==="author"&&ce!=="off"){ne("user-invocable-only");return}ne(ce)},children:Y.map((ae)=>{let ce=P.lockSource==="author"&&ae!=="user-invocable-only"&&ae!=="off";return e(Ume.Item,{children:r(t,{dimColor:ce,children:[ae===P.override?L.radioOn:L.radioOff," ",ae,ce?" (locked)":""]})},ae)})},P.override)]}),r(fe,{children:[e(M,{chord:"Enter",action:"set state"}),e(t,{dimColor:!0,children:" \xB7 "}),e(M,{chord:"Esc",action:"go back"})]})]})}if(typeof re==="object"&&re.type==="mcp-detail"){let P=re.client,Y=$L(G,P.name).length,ne=()=>{xe({type:"mcp-tools",client:P})},ae=()=>{xe("plugin-list")},ce=(Fe)=>{if(Fe)b(Fe);xe("plugin-list")},$e=P.config.scope,vt=P.config.type??"stdio";if(vt==="stdio"){let Fe={name:P.name,client:P,scope:$e,transport:"stdio",config:P.config};return e(ott,{server:Fe,serverToolsCount:Y,onViewTools:ne,onCancel:ae,onComplete:ce,borderless:!0})}else if(vt==="sse"){let Fe={name:P.name,client:P,scope:$e,transport:"sse",isAuthenticated:void 0,config:P.config};return e($me,{server:Fe,serverToolsCount:Y,onViewTools:ne,onCancel:ae,onComplete:ce,borderless:!0})}else if(vt==="http"){let Fe={name:P.name,client:P,scope:$e,transport:"http",isAuthenticated:void 0,config:P.config};return e($me,{server:Fe,serverToolsCount:Y,onViewTools:ne,onCancel:ae,onComplete:ce,borderless:!0})}else if(vt==="claudeai-proxy"){let Fe={name:P.name,client:P,scope:$e,transport:"claudeai-proxy",isAuthenticated:void 0,config:P.config};return e($me,{server:Fe,serverToolsCount:Y,onViewTools:ne,onCancel:ae,onComplete:ce,borderless:!0})}return r(o,{flexDirection:"column",paddingX:1,children:[r(t,{color:"warning",children:["No details view for ",P.name," (transport: ",vt,")."]}),e(fe,{children:e(ze,{action:"confirm:no",context:"Settings",fallback:"Esc",description:"go back"})})]})}if(typeof re==="object"&&re.type==="mcp-tools"){let P=re.client,Y=P.config.scope,ne=P.config.type??"stdio",ae;if(ne==="stdio")ae={name:P.name,client:P,scope:Y,transport:"stdio",config:P.config};else if(ne==="sse")ae={name:P.name,client:P,scope:Y,transport:"sse",isAuthenticated:void 0,config:P.config};else if(ne==="http")ae={name:P.name,client:P,scope:Y,transport:"http",isAuthenticated:void 0,config:P.config};else ae={name:P.name,client:P,scope:Y,transport:"claudeai-proxy",isAuthenticated:void 0,config:P.config};return e(HUe,{server:ae,onSelectTool:(ce)=>{xe({type:"mcp-tool-detail",client:P,tool:ce})},onBack:()=>xe({type:"mcp-detail",client:P})})}if(typeof re==="object"&&re.type==="mcp-tool-detail"){let{client:P,tool:Y}=re,ne=P.config.scope,ae=P.config.type??"stdio",ce;if(ae==="stdio")ce={name:P.name,client:P,scope:ne,transport:"stdio",config:P.config};else if(ae==="sse")ce={name:P.name,client:P,scope:ne,transport:"sse",isAuthenticated:void 0,config:P.config};else if(ae==="http")ce={name:P.name,client:P,scope:ne,transport:"http",isAuthenticated:void 0,config:P.config};else ce={name:P.name,client:P,scope:ne,transport:"claudeai-proxy",isAuthenticated:void 0,config:P.config};return e(kUe,{tool:Y,server:ce,onBack:()=>xe({type:"mcp-tools",client:P})})}let bg=fi.getVisibleItems(bn);return r(o,{flexDirection:"column",tabIndex:0,autoFocus:!0,onKeyDown:hg,onPaste:kg,children:[e(o,{marginBottom:1,children:e(Hd,{query:Ge,isFocused:Pe,isTerminalFocused:ve,width:Tt-4,cursorOffset:Le,onCursorOffsetChange:ot,onFocus:()=>_e(!0)})}),Dr()&&e(o,{marginBottom:1,paddingLeft:2,children:r(t,{color:"warning",children:["Safe mode: plugins are disabled this session \u2014 changes here save but won't load until safe mode is off."," ",Wf(_f())," to re-enable."]})}),et&&e(o,{marginBottom:1,paddingLeft:2,children:e(t,{color:"success",children:et})}),bn.length===0&&Ge&&e(o,{marginBottom:1,children:r(sr,{children:['No items match "',Ge,'"']})}),fi.scrollPosition.canScrollUp&&e(o,{children:r(t,{dimColor:!0,children:[" ",L.arrowUp," more above"]})}),bg.map((P,Y)=>{let ne=fi.toActualIndex(Y),ae=ne===Un&&!Pe;switch(P.kind){case"spacer":return e(o,{height:1},`spacer:${ne}`);case"section-header":return e(o,{paddingLeft:2,children:e(t,{dimColor:P.section!=="attention",color:P.section==="attention"?"warning":void 0,bold:!0,children:P.section==="attention"?"Needs attention":P.section==="disused"?"Not used recently":"Favorites"})},`section:${P.section}`);case"scope-header":return e(o,{paddingLeft:4,children:e(t,{dimColor:!0,children:hk(P.scope)})},`scope:${ne}`);case"disabled-header":return e(Ig,{active:ae,paddingLeft:2,children:r(t,{color:ae?"suggestion":void 0,children:[e(t,{"aria-hidden":!0,children:ae?`${L.pointer} `:"  "}),Ja?L.arrowDown:L.arrowRight," Show",P.disabledCount>0&&r(U,{children:[" ","disabled ",r(t,{dimColor:!0,children:["(",P.disabledCount,")"]})]}),P.disabledCount>0&&P.unusedConnectorCount>0&&" \xB7",P.unusedConnectorCount>0&&r(U,{children:[" ","unused claude.ai connectors"," ",r(t,{dimColor:!0,children:["(",P.unusedConnectorCount,")"]})]})]})},"section:disabled");case"item":return e(sc,{item:P.item,isSelected:ae,health:P.item.type==="plugin"?ue?.get(P.item.name):void 0},`${P.section}:${P.item.id}`)}}),fi.scrollPosition.canScrollDown&&e(o,{children:r(t,{dimColor:!0,children:[" ",L.arrowDown," more below"]})}),e(o,{marginTop:1,marginLeft:1,children:e(t,{dimColor:!0,italic:!0,children:r(fe,{children:[e(t,{children:"Type to search"}),e(ze,{action:"plugin:toggle",context:"Plugin",fallback:"Space",description:"toggle"}),e(ze,{action:"plugin:favorite",context:"Plugin",fallback:"f",description:"favorite"}),e(ze,{action:"select:accept",context:"Select",fallback:"Enter",description:"view"}),e(ze,{action:"confirm:no",context:"Settings",fallback:"Esc",description:"go back"})]})})}),yt&&e(o,{marginTop:1,marginLeft:1,children:e(Br,{error:yt})}),Re.size>0&&e(o,{marginLeft:1,children:e(t,{dimColor:!0,italic:!0,children:"Run /reload-plugins to apply changes"})})]})}function xk(a){return An(a.join(", "))}function vk(a){switch(a){case Nm:return"This --plugin-dir copy did not load (see above); nothing is running from it. Fix or drop the directory; edits take effect after /reload-plugins.";case nu:return"This skills-directory copy did not load (see above) \u2014 fix, delete or rename the directory; edits take effect after /reload-plugins.";case um:return"This claude.ai copy did not load (see above) \u2014 remove or rename the plugin on claude.ai to clear it."}}function mm(a){if(!a)return{type:"menu"};let b=a.trim().split(/\s+/);switch(b[0]?.toLowerCase()){case"help":case"--help":case"-h":return{type:"help"};case"list":case"ls":{let x=b.slice(1).find((v)=>v==="--enabled"||v==="--disabled");if(x)return{type:"list",filter:x==="--enabled"?"enabled":"disabled"};return{type:"list"}}case"install":case"i":{let x=b[1];if(!x)return{type:"install"};let v=x.lastIndexOf("@");if(v>0){let j=x.slice(0,v),K=x.slice(v+1);return{type:"install",plugin:j,marketplace:K}}if(!x.startsWith("@")&&(x.startsWith("http://")||x.startsWith("https://")||x.startsWith("file://")||x.includes("/")||x.includes("\\")))return{type:"install",marketplace:x};return{type:"install",plugin:x}}case"manage":return{type:"manage"};case"stats":{if(Sk())return{type:"stats"};return{type:"menu"}}case"uninstall":return{type:"uninstall",plugin:b[1]};case"enable":return{type:"enable",plugin:b[1]};case"disable":return{type:"disable",plugin:b[1]};case"configure":case"config":return{type:"configure",plugin:b[1]};case"validate":return{type:"validate",path:b.slice(1).join(" ").trim()||void 0};case"eval":return{type:"menu"};case"tag":{let x=new Set(["--push","--dry-run","--force","-f"]),v=b.slice(1),R=v.filter((T)=>T.startsWith("-")),j=v.filter((T)=>!T.startsWith("-")),K=R.find((T)=>!x.has(T))??j[1];return{type:"tag",path:j[0],push:R.includes("--push"),dryRun:R.includes("--dry-run"),force:R.includes("--force")||R.includes("-f"),...K!==void 0&&{unknownFlag:K}}}case"marketplace":case"market":{let x=b[1]?.toLowerCase(),v=b.slice(2).join(" ");switch(x){case"add":return{type:"marketplace",action:"add",target:v};case"remove":case"rm":return{type:"marketplace",action:"remove",target:v};case"update":return{type:"marketplace",action:"update",target:v};case"list":return{type:"marketplace",action:"list"};default:return{type:"marketplace"}}}default:return{type:"menu"}}}F();function _k($D){return $D.source}function Fk(DD){return DD.usageCount>0}function Vk(Rm){return r(t,{children:["  ",e(t,{color:"warning",children:Fp(Rm.name)}),e(t,{dimColor:!0,children:`  last used ${Rm.daysSinceLastUse} days ago`})]},Rm.pluginId)}function Em(a){return irt(a).then((b)=>{if(b.rows.length===0)g("cli_skill_doctor","no_user_skills");else if(b.weekTokensNote!==null)g("cli_skill_doctor","scan_policy_denied");else y("cli_skill_doctor");return{ok:!0,report:b}},(b)=>{let S=b instanceof $Q?b.cause:b;return h(S),p("cli_skill_doctor",b instanceof $Q?b.featureErrorCode:"render_failed"),{ok:!1,message:l(S)}})}function Wc(kD){let Ur=_(11),{getReport:gm,onExit:bD}=kD,Ck;if(Ur[0]!==gm)Ck=()=>gm(),Ur[0]=gm,Ur[1]=Ck;else Ck=Ur[1];let[fm]=u(Ck),[xD]=u(O2e),Pk;if(Ur[2]===d)Pk={context:"Confirmation"},Ur[2]=Pk;else Pk=Ur[2];Be("confirm:no",bD,Pk);let Tk;if(Ur[3]===d)Tk=e(t,{bold:!0,children:"Skills loaded this session"}),Ur[3]=Tk;else Tk=Ur[3];const ym=xD.allowed?"Scanning local sessions\u2026":"Computing skill usage\u2026";let Ik;if(Ur[4]!==ym)Ik=r(o,{flexDirection:"column",children:[Tk,e(o,{marginTop:1,children:e(t,{dimColor:!0,children:ym})})]}),Ur[4]=ym,Ur[5]=Ik;else Ik=Ur[5];let km=Ik,wc;if(Ur[6]!==fm)wc=e(jc,{reportPromise:fm}),Ur[6]=fm,Ur[7]=wc;else wc=Ur[7];let Rk;if(Ur[8]!==km||Ur[9]!==wc)Rk=e(Jn,{fallback:km,children:wc}),Ur[8]=km,Ur[9]=wc,Ur[10]=Rk;else Rk=Ur[10];return Rk}function jc(SD){let _i=_(22),{reportPromise:vD}=SD,La=zn(vD);if(!La.ok){let Na;if(_i[0]!==La.message)Na=r(t,{dimColor:!0,wrap:"wrap",children:["Couldn't compute skill usage. Run with --debug for details. (",La.message,")"]}),_i[0]=La.message,_i[1]=Na;else Na=_i[1];return Na}let{rows:jo,unusedOwned:bm,unusedFromPlugins:xm,unusedFromMcp:Sm,unusedSynced:vm,unusedMcpServers:wm,disusedPlugins:Cm,weekTokensNote:Cc}=La.report,Na;if(_i[2]===d)Na=e(t,{bold:!0,children:"Skills loaded this session"}),_i[2]=Na;else Na=_i[2];let Pc;if(_i[3]!==jo)Pc=e(o,{flexDirection:"column",marginTop:1,children:e(Hc,{rows:jo})}),_i[3]=jo,_i[4]=Pc;else Pc=_i[4];let Tc;if(_i[5]!==jo.length||_i[6]!==Cc)Tc=jo.length>0&&r(o,{flexDirection:"column",marginTop:1,children:[r(t,{dimColor:!0,wrap:"wrap",children:["  ","context = this skill's one-line listing in the system prompt, included every turn"]}),r(t,{dimColor:!0,wrap:"wrap",children:["  ","(dash = not in the current listing, costs nothing; full SKILL.md loads only when it runs)"]}),Cc===null?r(t,{dimColor:!0,wrap:"wrap",children:["  ","7d tokens = tokens attributed to the skill over the last 7 days of sessions on this machine"]}):r(t,{dimColor:!0,wrap:"wrap",children:["  ","7d tokens: ",Cc]})]}),_i[5]=jo.length,_i[6]=Cc,_i[7]=Tc;else Tc=_i[7];let Ic;if(_i[8]!==jo||_i[9]!==Sm||_i[10]!==xm||_i[11]!==wm||_i[12]!==bm||_i[13]!==vm)Ic=e(Kc,{rows:jo,unusedOwned:bm,unusedSynced:vm,unusedFromPlugins:xm,unusedFromMcp:Sm,unusedMcpServers:wm}),_i[8]=jo,_i[9]=Sm,_i[10]=xm,_i[11]=wm,_i[12]=bm,_i[13]=vm,_i[14]=Ic;else Ic=_i[14];let Rc;if(_i[15]!==Cm)Rc=e(qc,{disusedPlugins:Cm}),_i[15]=Cm,_i[16]=Rc;else Rc=_i[16];let Ek;if(_i[17]!==Pc||_i[18]!==Tc||_i[19]!==Ic||_i[20]!==Rc)Ek=r(o,{flexDirection:"column",children:[Na,Pc,Tc,Ic,Rc]}),_i[17]=Pc,_i[18]=Tc,_i[19]=Ic,_i[20]=Rc,_i[21]=Ek;else Ek=_i[21];return Ek}function Hc(wD){let Ec=_(7),{rows:_a}=wD;if(_a.length===0){let Fa;if(Ec[0]===d)Fa=e(t,{dimColor:!0,children:"  (no skills loaded)"}),Ec[0]=Fa;else Fa=Ec[0];return Fa}let Fa;if(Ec[1]!==_a){let{cells:CD,widths:Ao}=D2e(_a);const PD=h1("skill",Ao.name);const TD=h1("source",Ao.source);const ID=ov("context",Ao.context);const RD=ov("7d tokens",Ao.week);const Pm=Ao.uses+1;let Mk;if(Ec[3]!==Pm)Mk=ov("uses",Pm),Ec[3]=Pm,Ec[4]=Mk;else Mk=Ec[4];const Tm=`  ${PD}  ${TD}  ${ID}  ${RD}  ${Mk}  last used`;let $k;if(Ec[5]!==Tm)$k=e(t,{dimColor:!0,children:Tm}),Ec[5]=Tm,Ec[6]=$k;else $k=Ec[6];Fa=r(o,{flexDirection:"column",children:[$k,_a.map((Va,Dk)=>{let Im=CD[Dk];return r(t,{color:Va.usageCount===0?"warning":void 0,children:[`  ${h1(Va.name,Ao.name)}  `,e(t,{dimColor:!0,children:h1(Va.source,Ao.source)}),`  ${ov(Im.context,Ao.context)}  ${ov(Im.week,Ao.week)}  ${ov(String(Va.usageCount),Ao.uses)}\xD7  ${Im.lastUsed}`]},`${Dk}:${Va.name}`)})]});Ec[1]=_a,Ec[2]=Fa}else Fa=Ec[2];return Fa}function Kc(MD){let ji=_(33),{rows:Mc,unusedOwned:Fi,unusedFromPlugins:Vr,unusedFromMcp:ja,unusedSynced:si,unusedMcpServers:Vi}=MD;if(Mc.length===0){return null}let $c,Bc,Ha,Ac,Oc,Ka,qa,Lc;if(ji[0]!==Vr||ji[1]!==Vi||ji[2]!==Fi.length||ji[3]!==si.length){let Bk=te(Vr.map(_k));let Ki;if(ji[12]!==Vi)Ki=Vi.length>0?`, from ${Vi.join(", ")}`:"",ji[12]=Vi,ji[13]=Ki;else Ki=ji[13];Bc=Ki;Ha=Vi.length<=1;$c=o;Ac="column";Oc=1;if(ji[14]!==Fi.length)Ka=Fi.length>0&&e(t,{color:"warning",wrap:"wrap",children:`${Fi.length} ${k(Fi.length,"skill")} loaded but never invoked. Each one adds to the system prompt every turn. Disable in /skills, or remove from .claude/skills.`}),ji[14]=Fi.length,ji[15]=Ka;else Ka=ji[15];if(ji[16]!==si.length)qa=si.length>0&&e(t,{color:"warning",wrap:"wrap",children:`${si.length} ${k(si.length,"skill")} synced from claude.ai loaded but never invoked. Each one adds to the system prompt every turn. Disable in /skills, or turn ${si.length===1?"it":"them"} off on claude.ai \u2014 a deleted synced copy is re-downloaded on the next sync.`}),ji[16]=si.length,ji[17]=qa;else qa=ji[17];Lc=Vr.length>0&&e(t,{color:"warning",wrap:"wrap",children:`${Vr.length} plugin ${k(Vr.length,"skill")} loaded but never invoked, from ${Bk.join(", ")}. Each one adds to the system prompt every turn. Plugin skills can't be turned off individually \u2014 disable ${Bk.length===1?"the plugin":"those plugins"} in the Installed tab.`});ji[0]=Vr,ji[1]=Vi,ji[2]=Fi.length,ji[3]=si.length,ji[4]=$c,ji[5]=Bc,ji[6]=Ha,ji[7]=Ac,ji[8]=Oc,ji[9]=Ka,ji[10]=qa,ji[11]=Lc}else $c=ji[4],Bc=ji[5],Ha=ji[6],Ac=ji[7],Oc=ji[8],Ka=ji[9],qa=ji[10],Lc=ji[11];let Ki;if(ji[18]!==Bc||ji[19]!==Ha||ji[20]!==ja.length)Ki=ja.length>0&&e(t,{color:"warning",wrap:"wrap",children:`${ja.length} MCP ${k(ja.length,"skill")} loaded but never invoked${Bc}. Each one adds to the system prompt every turn. MCP skills live on the server, not on disk \u2014 turning ${Ha?"that server":"those servers"} off in /mcp also removes ${Ha?"its":"their"} tools.`}),ji[18]=Bc,ji[19]=Ha,ji[20]=ja.length,ji[21]=Ki;else Ki=ji[21];let Nc;if(ji[22]!==Mc)Nc=Mc.every(Fk)&&e(t,{color:"success",children:"All loaded skills have been used at least once."}),ji[22]=Mc,ji[23]=Nc;else Nc=ji[23];let Ak;if(ji[24]!==$c||ji[25]!==Ac||ji[26]!==Oc||ji[27]!==Ka||ji[28]!==qa||ji[29]!==Lc||ji[30]!==Ki||ji[31]!==Nc)Ak=r($c,{flexDirection:Ac,marginTop:Oc,children:[Ka,qa,Lc,Ki,Nc]}),ji[24]=$c,ji[25]=Ac,ji[26]=Oc,ji[27]=Ka,ji[28]=qa,ji[29]=Lc,ji[30]=Ki,ji[31]=Nc,ji[32]=Ak;else Ak=ji[32];return Ak}function qc(BD){let Wa=_(8),{disusedPlugins:_c}=BD;if(_c.length===0){return null}let Ok;if(Wa[0]===d)Ok=e(t,{bold:!0,children:"Plugins not used recently"}),Wa[0]=Ok;else Ok=Wa[0];let Uc;if(Wa[1]!==_c)Uc=_c.map(Vk),Wa[1]=_c,Wa[2]=Uc;else Uc=Wa[2];let Vc;if(Wa[3]!==Uc)Vc=e(o,{flexDirection:"column",marginTop:1,children:Uc}),Wa[3]=Uc,Wa[4]=Vc;else Vc=Wa[4];let Lk;if(Wa[5]===d)Lk=e(o,{marginTop:1,children:r(t,{dimColor:!0,children:["  ","Manage these in the Installed tab"]})}),Wa[5]=Lk;else Lk=Wa[5];let Nk;if(Wa[6]!==Vc)Nk=r(o,{flexDirection:"column",marginTop:1,children:[Ok,Vc,Lk]}),Wa[6]=Vc,Wa[7]=Nk;else Nk=Wa[7];return Nk}F();function zk(HD){return`${L.warning} ${HD}`}var za=`Usage: /plugin tag [path] [--push] [--dry-run] [-f|--force]
+${L.tick} Evaluation passed`;
+          vr(Es(Cr) + LP);
+        } catch (Ms) {
+          let Xy = Ms;
+          (process.exitCode = 2),
+            n(`Plugin eval failed for ${wr}: ${l(Xy)}`, { level: "error" }),
+            vr(`${L.cross} ${l(Xy)}`);
+        }
+      };
+      return Qd(), () => Jy.abort();
+    }),
+      (Yy = [vr, wr]),
+      (Gd[1] = vr),
+      (Gd[2] = wr),
+      (Gd[3] = Qy),
+      (Gd[4] = Yy);
+  else (Qy = Gd[3]), (Yy = Gd[4]);
+  A(Qy, Yy);
+  let Ms;
+  if (Gd[5] === d)
+    (Ms = e(o, { flexDirection: "column", children: e(t, { children: "Running evaluation\u2026" }) })), (Gd[5] = Ms);
+  else Ms = Gd[5];
+  return Ms;
+}
+F();
+function Jd({
+  setViewState: a,
+  error: b,
+  setError: S,
+  setResult: x,
+  exitState: v,
+  onManageComplete: R,
+  targetMarketplace: j,
+  action: K,
+}) {
+  let { storageV5: T, credentials: N } = ge(),
+    [H, G] = u([]),
+    [E, J] = u(!0),
+    [pe, ue] = u(0),
+    [Pe, _e] = u(!1),
+    [be, ve] = u(null),
+    [Je, st] = u(null),
+    [Tt, it] = u(null),
+    [re, xe] = u("list"),
+    [Ge, Ht] = u(null),
+    [Le, ot] = u(0),
+    dt = C(!1),
+    pt = xt(),
+    gt = C(void 0),
+    se = C(!0);
+  A(
+    () => () => {
+      (se.current = !1), gt.current?.();
+    },
+    [],
+  ),
+    A(() => {
+      async function le() {
+        try {
+          let je = await zl(T),
+            { enabled: Qe, disabled: kt } = await Dh(T, N),
+            _t = [...Qe, ...kt],
+            { marketplaces: qe, failures: Re } = await c9(je, T),
+            an = dk(),
+            Ot = [];
+          for (let { name: oe, config: et, data: Dt } of qe) {
+            let Mt = _t.filter((Jt) => Jt.source.endsWith(`@${oe}`));
+            Ot.push({
+              name: oe,
+              source: OSe(et.source),
+              lastUpdated: et.lastUpdated,
+              pluginCount: Dt?.plugins.length,
+              installedPlugins: Mt,
+              pendingUpdate: !1,
+              pendingRemove: !1,
+              autoUpdate: c5(oe, et, an[oe]?.autoUpdate),
+            });
+          }
+          Ot.sort((oe, et) => {
+            if (oe.name === "claude-plugin-directory") return -1;
+            if (et.name === "claude-plugin-directory") return 1;
+            return oe.name.localeCompare(et.name);
+          }),
+            G(Ot);
+          let Pt = Q(qe, (oe) => oe.data !== null),
+            yt = Tqe(Re, Pt);
+          if (yt)
+            if (yt.type === "warning") ve(yt.message);
+            else throw Error(yt.message);
+          if (j && !dt.current && !b) {
+            dt.current = !0;
+            let oe = Ot.findIndex((et) => et.name === j);
+            if (oe >= 0) {
+              let et = Ot[oe];
+              if (K) {
+                ue(oe + 1);
+                let Dt = Ot.map((Mt, Jt) =>
+                  Jt === oe ? { ...Mt, pendingUpdate: K === "update", pendingRemove: K === "remove" } : Mt,
+                );
+                G(Dt), Gt(Dt);
+              } else if (et) ue(oe + 1), Ht(et), gt.current?.(), xe("details");
+            } else S(`Marketplace not found: ${j}`);
+          }
+        } catch (je) {
+          let Qe = gR(je);
+          S(Qe), ve(Qe);
+        } finally {
+          J(!1);
+        }
+      }
+      le();
+    }, [j, K, b]);
+  let tn = () => H.some((le) => le.pendingUpdate || le.pendingRemove),
+    Bt = () => {
+      let le = Q(H, (Qe) => Qe.pendingUpdate),
+        je = Q(H, (Qe) => Qe.pendingRemove);
+      return { updateCount: le, removeCount: je };
+    },
+    Gt = async (le) => {
+      let je = le || H,
+        Qe = re === "details";
+      _e(!0), ve(null), st(null), it(null);
+      try {
+        let kt = 0,
+          _t = 0,
+          qe = [],
+          Re = [],
+          an = new Set();
+        for (let ke of je) {
+          if (ke.pendingRemove) {
+            if (ke.installedPlugins.length > 0)
+              await Os(
+                "userSettings",
+                (He) => {
+                  let Nt = { ...He?.enabledPlugins };
+                  for (let Kn of ke.installedPlugins) {
+                    let Fn = lF(Kn.name, ke.name);
+                    Nt[Fn] = !1;
+                  }
+                  return { enabledPlugins: Nt };
+                },
+                void 0,
+                T,
+              );
+            await MSe(ke.name, void 0, T, N),
+              _t++,
+              s("tengu_marketplace_removed", {
+                marketplace_name: ke.name,
+                plugins_uninstalled: ke.installedPlugins.length,
+              });
+            continue;
+          }
+          if (ke.pendingUpdate) {
+            try {
+              await ED(ke.name, T, (He) => {
+                it(He);
+              });
+            } catch (He) {
+              if (He instanceof Ys) {
+                qe.push(ke.name), n(`Marketplace ${ke.name} not updated (managed policy): ${l(He)}`);
+                continue;
+              }
+              Re.push(ke.name), n(`Marketplace ${ke.name} could not be refreshed: ${l(He)}`, { level: "warn" });
+              continue;
+            }
+            kt++, an.add(ke.name.toLowerCase()), s("tengu_marketplace_updated", { marketplace_name: ke.name });
+          }
+        }
+        let Ot = 0,
+          Pt = 0,
+          yt = 0,
+          oe = 0,
+          et = 0,
+          Dt = [],
+          Mt = [];
+        if (an.size > 0) {
+          let {
+            updated: ke,
+            blocked: He,
+            updateFailedCount: Nt,
+            commandSourceSkipped: Kn,
+          } = await L8t(an, new Set(), { skipCommandSources: !0 }, T);
+          (Ot = ke.length),
+            (Mt = Kn),
+            (Pt = Q(He, (ln) => ln.type === "autoupdate-deferred-entry-helper")),
+            (yt = Q(He, (ln) => ln.type === "autoupdate-disabled-by-policy")),
+            (oe = Q(He, (ln) => ln.type === "autoupdate-blocked-by-pinner")),
+            (et = Nt);
+          let Fn = He.filter(
+            (ln) =>
+              ln.type !== "autoupdate-deferred-entry-helper" &&
+              ln.type !== "autoupdate-disabled-by-policy" &&
+              ln.type !== "autoupdate-blocked-by-pinner",
+          );
+          if (Fn.length > 0 || ke.length > 0) ZRt(ke, Fn, [], { announce: !1 });
+          Dt = Fn.flatMap((ln) => ("plugin" in ln && typeof ln.plugin === "string" ? [ln.plugin] : []));
+        }
+        if ((Qu(T, N), await R(), !se.current)) return;
+        let Jt = await zl(T),
+          { enabled: Xt, disabled: It } = await Dh(T, N);
+        if (!se.current) return;
+        let ee = [...Xt, ...It],
+          { marketplaces: Ne } = await c9(Jt, T);
+        if (!se.current) return;
+        let he = dk(),
+          Ke = [];
+        for (let { name: ke, config: He, data: Nt } of Ne) {
+          let Kn = ee.filter((Fn) => Fn.source.endsWith(`@${ke}`));
+          Ke.push({
+            name: ke,
+            source: OSe(He.source),
+            lastUpdated: He.lastUpdated,
+            pluginCount: Nt?.plugins.length,
+            installedPlugins: Kn,
+            pendingUpdate: !1,
+            pendingRemove: !1,
+            autoUpdate: c5(ke, He, he[ke]?.autoUpdate),
+          });
+        }
+        if (
+          (Ke.sort((ke, He) => {
+            if (ke.name === "claude-plugin-directory") return -1;
+            if (He.name === "claude-plugin-directory") return 1;
+            return ke.name.localeCompare(He.name);
+          }),
+          G(Ke),
+          Qe && Ge)
+        ) {
+          let ke = Ke.find((He) => He.name === Ge.name);
+          if (ke) Ht(ke);
+        }
+        let wt = [];
+        if (kt > 0 || qe.length > 0 || Re.length > 0 || oe > 0 || et > 0)
+          wt.push(
+            NGn({
+              updatedCount: kt,
+              updatedPluginCount: Ot,
+              deferredPluginCount: Pt,
+              policyBlockedPluginCount: yt,
+              policyRefusedMarketplaces: qe,
+              failedMarketplaces: Re,
+              pinnedPluginCount: oe,
+              failedPluginCount: et,
+              failedPluginNames: Dt,
+            }),
+          );
+        if (Mt.length > 0) {
+          let ke = Mt.length,
+            He = ke > 1,
+            Nt = Mt.find(pV) ?? "",
+            Kn = `${He ? "(and the others) " : ""}to review (add --scope for a project/local install)`,
+            Fn = `review and update ${He ? "each" : "it"} individually from the command line`;
+          wt.push(
+            `${ke} command-sourced ${k(ke, "plugin")} not updated here \u2014 ${Uk("plugin update", Nt, { tail: Kn, fallback: Fn })}`,
+          );
+        }
+        if (_t > 0) wt.push(`Removed ${_t} ${k(_t, "marketplace")}`);
+        if (wt.length > 0) {
+          let He = `${Tpt({ failedCount: Re.length + et, updatedCount: kt + _t, policyRefusedCount: qe.length }) ?? L.warning} ${wt.join(", ")}`;
+          if (Qe) st(He);
+          else {
+            if (!se.current) return;
+            x(He), gt.current?.(), (gt.current = pt.setTimeout(() => a({ type: "menu" }), 2000));
+          }
+        } else if (!Qe) {
+          if (!se.current) return;
+          a({ type: "menu" });
+        }
+      } catch (kt) {
+        let _t = gR(kt);
+        if (!se.current) return;
+        ve(_t), S(_t);
+      } finally {
+        if (se.current) _e(!1), it(null);
+      }
+    },
+    Et = async () => {
+      if (!Ge) return;
+      let le = H.map((je) => (je.name === Ge.name ? { ...je, pendingRemove: !0 } : je));
+      G(le), await Gt(le);
+    },
+    In = (le) => {
+      if (!le) return [];
+      let je = [
+        { label: `Browse plugins (${le.pluginCount ?? 0})`, value: "browse" },
+        {
+          label: "Update marketplace",
+          secondaryLabel: le.lastUpdated ? `(last updated ${new Date(le.lastUpdated).toLocaleDateString()})` : void 0,
+          value: "update",
+        },
+      ];
+      if (!W3())
+        je.push({ label: le.autoUpdate ? "Disable auto-update" : "Enable auto-update", value: "toggle-auto-update" });
+      return je.push({ label: "Remove marketplace", value: "remove" }), je;
+    },
+    kn = async (le) => {
+      let je = !le.autoUpdate;
+      try {
+        await UGn(le.name, je, T),
+          G((Qe) => Qe.map((kt) => (kt.name === le.name ? { ...kt, autoUpdate: je } : kt))),
+          Ht((Qe) => (Qe ? { ...Qe, autoUpdate: je } : Qe));
+      } catch (Qe) {
+        ve(gR(Qe));
+      }
+    };
+  Be(
+    "confirm:no",
+    () => {
+      gt.current?.(), xe("list"), ot(0);
+    },
+    { context: "Confirmation", isActive: !Pe && (re === "details" || re === "confirm-remove") },
+  ),
+    Be(
+      "confirm:no",
+      () => {
+        gt.current?.(), G((le) => le.map((je) => ({ ...je, pendingUpdate: !1, pendingRemove: !1 }))), ue(0);
+      },
+      { context: "Confirmation", isActive: !Pe && re === "list" && tn() },
+    ),
+    Be(
+      "confirm:no",
+      () => {
+        a({ type: "menu" });
+      },
+      { context: "Confirmation", isActive: !Pe && re === "list" && !tn() },
+    ),
+    ht(
+      {
+        "select:previous": () => ue((le) => Math.max(0, le - 1)),
+        "select:next": () => {
+          let le = H.length + 1;
+          ue((je) => Math.min(le - 1, je + 1));
+        },
+        "select:accept": () => {
+          gt.current?.();
+          let le = pe - 1;
+          if (pe === 0) a({ type: "add-marketplace" });
+          else if (tn()) Gt();
+          else {
+            let je = H[le];
+            if (je) Ht(je), xe("details"), ot(0);
+          }
+        },
+      },
+      { context: "Select", isActive: !Pe && re === "list" },
+    );
+  function Dn(le) {
+    if (le.ctrl || le.meta || Pe) return;
+    let je = pe - 1;
+    if ((le.key === "u" || le.key === "U") && je >= 0)
+      le.preventDefault(),
+        gt.current?.(),
+        G((Qe) =>
+          Qe.map((kt, _t) =>
+            _t === je
+              ? { ...kt, pendingUpdate: !kt.pendingUpdate, pendingRemove: kt.pendingUpdate ? kt.pendingRemove : !1 }
+              : kt,
+          ),
+        );
+    else if ((le.key === "d" || le.key === "D") && je >= 0) {
+      let Qe = H[je];
+      if (Qe) le.preventDefault(), Ht(Qe), gt.current?.(), xe("confirm-remove");
+    }
+  }
+  ht(
+    {
+      "select:previous": () => ot((le) => Math.max(0, le - 1)),
+      "select:next": () => {
+        let le = In(Ge);
+        ot((je) => Math.min(le.length - 1, je + 1));
+      },
+      "select:accept": () => {
+        if ((gt.current?.(), !Ge)) return;
+        let je = In(Ge)[Le];
+        if (je?.value === "browse") a({ type: "browse-marketplace", targetMarketplace: Ge.name });
+        else if (je?.value === "update") {
+          let Qe = H.map((kt) => (kt.name === Ge.name ? { ...kt, pendingUpdate: !0 } : kt));
+          G(Qe), Gt(Qe);
+        } else if (je?.value === "toggle-auto-update") kn(Ge);
+        else if (je?.value === "remove") xe("confirm-remove");
+      },
+    },
+    { context: "Select", isActive: !Pe && re === "details" },
+  );
+  function $t(le) {
+    if (le.ctrl || le.meta || Pe) return;
+    if (le.key === "y" || le.key === "Y") le.preventDefault(), gt.current?.(), Et();
+    else if (le.key === "n" || le.key === "N") le.preventDefault(), gt.current?.(), xe("list"), Ht(null);
+  }
+  if (E) return e(t, { children: "Loading marketplaces\u2026" });
+  if (H.length === 0)
+    return r(o, {
+      flexDirection: "column",
+      children: [
+        e(o, { marginBottom: 1, children: e(t, { bold: !0, children: "Manage marketplaces" }) }),
+        r(Ig, {
+          active: !0,
+          flexDirection: "row",
+          gap: 1,
+          children: [
+            r(t, { color: "suggestion", children: [r(t, { "aria-hidden": !0, children: [L.pointer, " "] }), "+"] }),
+            e(t, { bold: !0, color: "suggestion", children: "Add Marketplace" }),
+          ],
+        }),
+        e(o, {
+          marginTop: 1,
+          children: e(t, {
+            dimColor: !0,
+            italic: !0,
+            children: v.pending
+              ? r(U, { children: ["Press ", v.keyName, " again to go back"] })
+              : r(fe, {
+                  children: [
+                    e(ze, { action: "select:accept", context: "Select", fallback: "Enter", description: "select" }),
+                    e(ze, { action: "confirm:no", context: "Confirmation", fallback: "Esc", description: "go back" }),
+                  ],
+                }),
+          }),
+        }),
+      ],
+    });
+  if (re === "confirm-remove" && Ge) {
+    let le = Ge.installedPlugins.length;
+    return r(xr, {
+      onKeyDown: $t,
+      children: [
+        r(t, {
+          bold: !0,
+          color: "warning",
+          children: ["Remove marketplace", " ", e(t, { italic: !0, children: Oo(Ge.name) }), "?"],
+        }),
+        r(o, {
+          flexDirection: "column",
+          children: [
+            le > 0 &&
+              e(o, {
+                marginTop: 1,
+                children: r(t, {
+                  color: "warning",
+                  children: ["This will also uninstall ", le, " ", k(le, "plugin"), " from this marketplace:"],
+                }),
+              }),
+            Ge.installedPlugins.length > 0 &&
+              e(o, {
+                flexDirection: "column",
+                marginTop: 1,
+                marginLeft: 2,
+                children: Ge.installedPlugins.map((je) =>
+                  e(zc, { children: e(t, { dimColor: !0, children: Oo(je.name) }) }, je.name),
+                ),
+              }),
+            e(o, {
+              marginTop: 1,
+              children: r(t, {
+                children: [
+                  "Press ",
+                  e(t, { bold: !0, children: "y" }),
+                  " to confirm or ",
+                  e(t, { bold: !0, children: "n" }),
+                  " to cancel",
+                ],
+              }),
+            }),
+          ],
+        }),
+      ],
+    });
+  }
+  if (re === "details" && Ge) {
+    let le = Ge.pendingUpdate || Pe,
+      je = In(Ge);
+    return r(o, {
+      flexDirection: "column",
+      children: [
+        e(t, { bold: !0, children: Oo(Ge.name) }),
+        e(t, { dimColor: !0, children: Oo(Ge.source) }),
+        e(o, {
+          marginTop: 1,
+          children: r(t, { children: [Ge.pluginCount || 0, " available", " ", k(Ge.pluginCount || 0, "plugin")] }),
+        }),
+        Ge.installedPlugins.length > 0 &&
+          r(o, {
+            flexDirection: "column",
+            marginTop: 1,
+            children: [
+              r(t, { bold: !0, children: ["Installed plugins (", Ge.installedPlugins.length, "):"] }),
+              e(o, {
+                flexDirection: "column",
+                marginLeft: 1,
+                children: Ge.installedPlugins.map((Qe) =>
+                  r(
+                    zc,
+                    {
+                      children: [
+                        Oo(Qe.name),
+                        `
+`,
+                        e(t, { dimColor: !0, children: Of(Qe.manifest.description ?? "") }),
+                      ],
+                    },
+                    Qe.name,
+                  ),
+                ),
+              }),
+            ],
+          }),
+        le &&
+          r(o, {
+            marginTop: 1,
+            flexDirection: "column",
+            children: [
+              e(t, { color: "claude", children: "Updating marketplace\u2026" }),
+              Tt && e(t, { dimColor: !0, children: Oo(Tt) }),
+            ],
+          }),
+        !le && Je && e(o, { marginTop: 1, children: e(t, { color: "claude", children: Oo(Je) }) }),
+        !le && be && e(o, { marginTop: 1, children: e(Br, { error: Of(be) }) }),
+        !le &&
+          e(o, {
+            flexDirection: "column",
+            marginTop: 1,
+            children: je.map((Qe, kt) => {
+              if (!Qe) return null;
+              return r(
+                fl,
+                {
+                  isFocused: kt === Le,
+                  children: [Qe.label, Qe.secondaryLabel && r(t, { dimColor: !0, children: [" ", Qe.secondaryLabel] })],
+                },
+                Qe.value,
+              );
+            }),
+          }),
+        !le &&
+          !W3() &&
+          Ge.autoUpdate &&
+          e(o, {
+            marginTop: 1,
+            children: e(t, {
+              dimColor: !0,
+              children:
+                "Auto-update enabled. Claude Code will automatically update this marketplace and its installed plugins.",
+            }),
+          }),
+        e(o, {
+          marginTop: 1,
+          children: e(t, {
+            dimColor: !0,
+            italic: !0,
+            children: le
+              ? e(U, { children: "Please wait\u2026" })
+              : r(fe, {
+                  children: [
+                    e(ze, { action: "select:accept", context: "Select", fallback: "Enter", description: "select" }),
+                    e(ze, { action: "confirm:no", context: "Confirmation", fallback: "Esc", description: "go back" }),
+                  ],
+                }),
+          }),
+        }),
+      ],
+    });
+  }
+  let { updateCount: Ut, removeCount: Lt } = Bt();
+  return r(xr, {
+    onKeyDown: Dn,
+    children: [
+      e(o, { marginBottom: 1, children: e(t, { bold: !0, children: "Manage marketplaces" }) }),
+      r(Ig, {
+        active: pe === 0,
+        flexDirection: "row",
+        gap: 1,
+        marginBottom: 1,
+        children: [
+          r(t, {
+            color: pe === 0 ? "suggestion" : void 0,
+            children: [r(t, { "aria-hidden": !0, children: [pe === 0 ? L.pointer : " ", " "] }), "+"],
+          }),
+          e(t, { bold: !0, color: pe === 0 ? "suggestion" : void 0, children: "Add Marketplace" }),
+        ],
+      }),
+      e(o, {
+        flexDirection: "column",
+        children: H.map((le, je) => {
+          let Qe = je + 1 === pe,
+            kt = [];
+          if (le.pendingUpdate) kt.push("UPDATE");
+          if (le.pendingRemove) kt.push("REMOVE");
+          return r(
+            Ig,
+            {
+              active: Qe,
+              flexDirection: "row",
+              gap: 1,
+              marginBottom: 1,
+              children: [
+                r(t, {
+                  color: Qe ? "suggestion" : void 0,
+                  children: [
+                    r(t, { "aria-hidden": !0, children: [Qe ? L.pointer : " ", " "] }),
+                    le.pendingRemove ? L.cross : L.bullet,
+                  ],
+                }),
+                r(o, {
+                  flexDirection: "column",
+                  flexGrow: 1,
+                  children: [
+                    r(o, {
+                      flexDirection: "row",
+                      gap: 1,
+                      children: [
+                        r(t, {
+                          bold: !0,
+                          strikethrough: le.pendingRemove,
+                          dimColor: le.pendingRemove,
+                          children: [
+                            le.name === "claude-plugins-official" && e(t, { color: "claude", children: "\u273B " }),
+                            Oo(le.name),
+                            le.name === "claude-plugins-official" && e(t, { color: "claude", children: " \u273B" }),
+                          ],
+                        }),
+                        kt.length > 0 && r(t, { color: "warning", children: ["[", kt.join(", "), "]"] }),
+                      ],
+                    }),
+                    e(t, { dimColor: !0, children: Oo(le.source) }),
+                    r(t, {
+                      dimColor: !0,
+                      children: [
+                        le.pluginCount !== void 0 && r(U, { children: [le.pluginCount, " available"] }),
+                        le.installedPlugins.length > 0 &&
+                          r(U, { children: [" \u2022 ", le.installedPlugins.length, " installed"] }),
+                        le.lastUpdated &&
+                          r(U, {
+                            children: [" ", "\u2022 Updated", " ", new Date(le.lastUpdated).toLocaleDateString()],
+                          }),
+                      ],
+                    }),
+                  ],
+                }),
+              ],
+            },
+            le.name,
+          );
+        }),
+      }),
+      tn() &&
+        r(o, {
+          marginTop: 1,
+          flexDirection: "column",
+          children: [
+            r(t, {
+              children: [
+                e(t, { bold: !0, children: "Pending changes:" }),
+                " ",
+                e(t, {
+                  dimColor: !0,
+                  children: e(ze, {
+                    action: "select:accept",
+                    context: "Select",
+                    fallback: "Enter",
+                    description: "apply",
+                  }),
+                }),
+              ],
+            }),
+            Ut > 0 && r(zc, { children: ["Update ", Ut, " ", k(Ut, "marketplace")] }),
+            Lt > 0 && r(zc, { color: "warning", children: ["Remove ", Lt, " ", k(Lt, "marketplace")] }),
+          ],
+        }),
+      Pe && e(o, { marginTop: 1, children: e(t, { color: "claude", children: "Processing changes\u2026" }) }),
+      be && e(o, { marginTop: 1, children: e(Br, { error: Of(be) }) }),
+      e(Xd, { exitState: v, hasPendingActions: tn() }),
+    ],
+  });
+}
+function Xd(kT) {
+  let Di = _(18),
+    { exitState: Ds, hasPendingActions: Zn } = kT;
+  if (Ds.pending) {
+    let Bi;
+    if (Di[0] !== Ds.keyName)
+      (Bi = e(o, {
+        marginTop: 1,
+        children: r(t, { dimColor: !0, italic: !0, children: ["Press ", Ds.keyName, " again to go back"] }),
+      })),
+        (Di[0] = Ds.keyName),
+        (Di[1] = Bi);
+    else Bi = Di[1];
+    return Bi;
+  }
+  let Bi;
+  if (Di[2] !== Zn)
+    (Bi = Zn && e(ze, { action: "select:accept", context: "Select", fallback: "Enter", description: "apply changes" })),
+      (Di[2] = Zn),
+      (Di[3] = Bi);
+  else Bi = Di[3];
+  let Bs;
+  if (Di[4] !== Zn)
+    (Bs = !Zn && e(ze, { action: "select:accept", context: "Select", fallback: "Enter", description: "select" })),
+      (Di[4] = Zn),
+      (Di[5] = Bs);
+  else Bs = Di[5];
+  let Ls;
+  if (Di[6] !== Zn) (Ls = !Zn && e(M, { chord: "u", action: "update" })), (Di[6] = Zn), (Di[7] = Ls);
+  else Ls = Di[7];
+  let Ns;
+  if (Di[8] !== Zn) (Ns = !Zn && e(M, { chord: "d", action: "remove" })), (Di[8] = Zn), (Di[9] = Ns);
+  else Ns = Di[9];
+  const Yd = Zn ? "cancel" : "go back";
+  let _s;
+  if (Di[10] !== Yd)
+    (_s = e(ze, { action: "confirm:no", context: "Confirmation", fallback: "Esc", description: Yd })),
+      (Di[10] = Yd),
+      (Di[11] = _s);
+  else _s = Di[11];
+  let Zy;
+  if (Di[12] !== Bi || Di[13] !== Bs || Di[14] !== Ls || Di[15] !== Ns || Di[16] !== _s)
+    (Zy = e(o, {
+      marginTop: 1,
+      children: e(t, { dimColor: !0, italic: !0, children: r(fe, { children: [Bi, Bs, Ls, Ns, _s] }) }),
+    })),
+      (Di[12] = Bi),
+      (Di[13] = Bs),
+      (Di[14] = Ls),
+      (Di[15] = Ns),
+      (Di[16] = _s),
+      (Di[17] = Zy);
+  else Zy = Di[17];
+  return Zy;
+}
+F();
+F();
+var Fs = yn(!1);
+function QRt() {
+  return We(Fs);
+}
+function th({
+  children: a,
+  visibleCount: b,
+  onSelect: S,
+  onFocus: x,
+  isDisabled: v = !1,
+  wrap: R = !1,
+  overflowHint: j = "glyph",
+  emptyMessage: K,
+}) {
+  let T = Lb.toArray(a),
+    N = T.length,
+    H = yMn({ count: N, visibleCount: b, isDisabled: v, edge: R ? "wrap" : "clamp", onAccept: S }),
+    G = br((pe) => x?.(pe));
+  if (
+    (A(() => {
+      if (N > 0) G(H.cursor);
+    }, [H.cursor, N]),
+    Cp(H.containerRef, !v),
+    N === 0)
+  )
+    return e(o, {
+      ref: H.containerRef,
+      flexDirection: "column",
+      tabIndex: 0,
+      children: K && e(t, { dimColor: !0, children: K }),
+    });
+  let E = j === "glyph" && b === 1 ? "count" : j,
+    J = T.slice(H.windowStart, H.windowEnd);
+  return r(o, {
+    flexDirection: "column",
+    ...H.bind,
+    children: [
+      E === "count" &&
+        H.moreAbove > 0 &&
+        e(o, { paddingLeft: 2, children: r(t, { dimColor: !0, children: [qH, " ", H.moreAbove, " more above"] }) }),
+      J.map((pe, ue) => {
+        let Pe = H.windowStart + ue,
+          _e = H.isCursor(Pe),
+          be = ue === 0 && H.moreAbove > 0,
+          ve = ue === J.length - 1 && H.moreBelow > 0;
+        return e(
+          Fs.Provider,
+          {
+            value: _e,
+            children: e(fl, {
+              isFocused: _e,
+              showScrollUp: E === "glyph" && be,
+              showScrollDown: E === "glyph" && ve,
+              styled: !1,
+              children: pe,
+            }),
+          },
+          z_(pe) ? (pe.key ?? Pe) : Pe,
+        );
+      }),
+      E === "count" &&
+        H.moreBelow > 0 &&
+        e(o, { paddingLeft: 2, children: r(t, { dimColor: !0, children: [mR, " ", H.moreBelow, " more below"] }) }),
+    ],
+  });
+}
+function ep(RT) {
+  let ET = _(2),
+    { children: Zd } = RT,
+    eh;
+  if (ET[0] !== Zd) (eh = e(U, { children: Zd })), (ET[0] = Zd), (ET[1] = eh);
+  else eh = ET[1];
+  return eh;
+}
+var Ume = Object.assign(th, { Item: ep });
+F();
+function Fme(a, b) {
+  let S = Sy(new Date(a)),
+    x = b !== void 0 ? ` \xB7 ${b} ${k(b, "tool")}` : "";
+  return { glyph: L.radioOn, tone: "inactive", statusText: `cached ${S} \xB7 connects on first use${x}` };
+}
+function Pr(FT) {
+  let Us = _(9),
+    { serverToolsCount: tp, serverPromptsCount: op, serverResourcesCount: ip } = FT,
+    Xo;
+  if (Us[0] !== op || Us[1] !== ip || Us[2] !== tp) {
+    Xo = [];
+    if (tp > 0) Xo.push("tools");
+    if (ip > 0) Xo.push("resources");
+    if (op > 0) Xo.push("prompts");
+    (Us[0] = op), (Us[1] = ip), (Us[2] = tp), (Us[3] = Xo);
+  } else Xo = Us[3];
+  let nh;
+  if (Us[4] === d) (nh = e(t, { bold: !0, children: "Capabilities: " })), (Us[4] = nh);
+  else nh = Us[4];
+  let Vs;
+  if (Us[5] !== Xo) (Vs = Xo.length > 0 ? e(fe, { children: Xo }) : "none"), (Us[5] = Xo), (Us[6] = Vs);
+  else Vs = Us[6];
+  let oh;
+  if (Us[7] !== Vs) (oh = r(o, { children: [nh, e(t, { color: "text", children: Vs })] })), (Us[7] = Vs), (Us[8] = oh);
+  else oh = Us[8];
+  return oh;
+}
+function dh() {
+  return !1;
+}
+var JRt =
+  "Can't authenticate MCP servers while no terminal is attached to this background session. Attach to it and try again.";
+function dp() {
+  return import.meta.require("/$bunfs/root/chunk-qadpp1g1.js");
+}
+function Ir() {
+  return dp().mcpAuthModule();
+}
+function qs() {
+  return dp().mcpClientModule();
+}
+function uh(a, b, S) {
+  if (a.type === "disabled") return r(t, { children: [mt("inactive", S)(L.radioOff), " disabled"] });
+  if (a.type === "connected") {
+    if (a.discoveryBearerRejected)
+      return r(t, { children: [e(tt, { status: "warning", withSpace: !0 }), "connected \xB7 session token rejected"] });
+    if (a.toolsListError)
+      return r(t, { children: [e(tt, { status: "warning", withSpace: !0 }), "connected \xB7 tools fetch failed"] });
+    if (a.capabilities?.tools && b === 0)
+      return r(t, { children: [e(tt, { status: "warning", withSpace: !0 }), "connected \xB7 no tools"] });
+    return r(t, { children: [e(tt, { status: "success", withSpace: !0 }), "connected"] });
+  }
+  if (a.type === "cached") {
+    let x = Fme(a.cacheSavedAt, b);
+    return r(t, { children: [mt(x.tone, S)(x.glyph), " ", x.statusText] });
+  }
+  if (a.type === "pending")
+    return r(t, { children: [e(t, { dimColor: !0, children: L.radioOff }), " connecting\u2026"] });
+  if (a.type === "needs-auth")
+    return r(t, { children: [mt("warning", S)(L.triangleUpOutline), " needs authentication"] });
+  if (a.errorCode === "UNCONFIGURED")
+    return r(t, { children: [e(t, { dimColor: !0, children: L.radioOff }), " not configured"] });
+  return r(t, {
+    children: [e(tt, { status: "error", withSpace: !0 }), a.errorCode === "INVALID_CONFIG" ? "config issue" : "failed"],
+  });
+}
+function $me(ao) {
+  let ni = _(23),
+    ti = ao.server.config,
+    Tr = (ti.type === "sse" || ti.type === "http") && !!Yt()?.accessToken,
+    ih;
+  if (ni[0] !== ti || ni[1] !== Tr)
+    (ih = (ti.type === "sse" || ti.type === "http") && Jde(ti, Tr) !== Jde(ti, !0)),
+      (ni[0] = ti),
+      (ni[1] = Tr),
+      (ni[2] = ih);
+  else ih = ni[2];
+  let rp = ih,
+    rh;
+  if (ni[3] !== rp) (rh = () => (rp ? L1().catch(dh) : null)), (ni[3] = rp), (ni[4] = rh);
+  else rh = ni[4];
+  let [ap] = u(rh);
+  const lp = ao.borderless ? 1 : 0,
+    sp = String(ao.server.name);
+  let ah;
+  if (ni[5] !== sp) (ah = Wf(sp)), (ni[5] = sp), (ni[6] = ah);
+  else ah = ni[6];
+  const cp = `${ah} MCP Server`;
+  let lh, sh;
+  if (ni[7] === d)
+    (lh = e(fe, {
+      children: e(ze, { action: "confirm:no", context: "Confirmation", fallback: "Esc", description: "back" }),
+    })),
+      (sh = e(t, { dimColor: !0, children: "Checking credentials\u2026" })),
+      (ni[7] = lh),
+      (ni[8] = sh);
+  else (lh = ni[7]), (sh = ni[8]);
+  let js;
+  if (ni[9] !== ao.borderless || ni[10] !== ao.onCancel || ni[11] !== cp)
+    (js = e(me, { title: cp, onCancel: ao.onCancel, hideBorder: ao.borderless, inputGuide: lh, children: sh })),
+      (ni[9] = ao.borderless),
+      (ni[10] = ao.onCancel),
+      (ni[11] = cp),
+      (ni[12] = js);
+  else js = ni[12];
+  let Hs;
+  if (ni[13] !== lp || ni[14] !== js)
+    (Hs = e(o, { flexDirection: "column", paddingX: lp, children: js })), (ni[13] = lp), (ni[14] = js), (ni[15] = Hs);
+  else Hs = ni[15];
+  let Ks;
+  if (ni[16] !== ap || ni[17] !== Tr || ni[18] !== ao)
+    (Ks = e(up, { ...ao, hasClaudeAiToken: Tr, designCredential: ap })),
+      (ni[16] = ap),
+      (ni[17] = Tr),
+      (ni[18] = ao),
+      (ni[19] = Ks);
+  else Ks = ni[19];
+  let ch;
+  if (ni[20] !== Ks || ni[21] !== Hs)
+    (ch = e(Jn, { fallback: Hs, children: Ks })), (ni[20] = Ks), (ni[21] = Hs), (ni[22] = ch);
+  else ch = ni[22];
+  return ch;
+}
+function up({
+  server: a,
+  serverToolsCount: b,
+  onViewTools: S,
+  onCancel: x,
+  onComplete: v,
+  borderless: R = !1,
+  hasClaudeAiToken: j,
+  designCredential: K,
+}) {
+  let T = B((ee, ...Ne) => v(typeof ee === "string" ? Qn(ee) : ee, ...Ne), [v]),
+    N = ct(),
+    [H] = mn();
+  Hi();
+  let { columns: G } = Ee(),
+    [E, J] = u(!1),
+    [pe, ue] = u(null),
+    Pe = W((ee) => ee.mcp),
+    _e = At(),
+    [be, ve] = u(null),
+    [Je, st] = u(!1),
+    Tt = C(null),
+    [it, re] = u(!1),
+    [xe, Ge] = u(null),
+    [Ht, Le] = u(!1),
+    [ot, dt] = u(!1),
+    pt = be || xe || (ot ? PG() : null),
+    { copiedVia: gt, copy: se } = Yj(pt),
+    [tn, Bt] = u(""),
+    [Gt, Et] = u(0),
+    [In, kn] = u(null);
+  A(
+    () => () => {
+      Tt.current?.abort();
+    },
+    [],
+  );
+  let Dn = a.isAuthenticated || (Zo(a.client) && b > 0),
+    $t = Uie(),
+    Ut = B(async () => {
+      re(!1), Ge(null), st(!0);
+      try {
+        let ee = await $t(a.name, { discardDiscovery: !1 }),
+          Ne = ee.client.type === "connected";
+        if ((s("tengu_claudeai_mcp_auth_completed", { success: Ne }), Ne))
+          T(`Authentication successful. Connected to ${Rr(a.name)}.`);
+        else if (ee.client.type === "needs-auth")
+          T(
+            `Tried reconnecting, but ${Rr(a.name)} is still unauthorized. Make sure the browser sign-in completed, then try again from /mcp.`,
+          );
+        else {
+          let he = ee.client.type === "failed" ? W0t(ee.client) : "";
+          if (mo(N)) {
+            if (he) n(`mcp reconnect failed for ${Qn(a.name)}: ${he}`, { level: "error" });
+            T(
+              `Tried reconnecting to ${Rr(a.name)}, but the connection failed${he ? " (detail withheld on this connection)" : ""}. Restart Claude Code to retry.`,
+            );
+          } else {
+            let Ke = he ? Da(he) : "";
+            T(
+              Ke
+                ? `Tried reconnecting to ${Rr(a.name)}, but the connection failed: ${Ke}`
+                : `Tried reconnecting to ${Rr(a.name)}, but the connection failed. Restart Claude Code to retry.`,
+            );
+          }
+        }
+      } catch (ee) {
+        s("tengu_claudeai_mcp_auth_completed", { success: !1 }), T(Ant(ee, a.name, { persistsOffBox: mo(N) }));
+      } finally {
+        st(!1);
+      }
+    }, [$t, a.name, T]),
+    Lt = B(async () => {
+      await qs().clearServerCache(a.name, { ...a.config, scope: a.scope }),
+        _e((ee) => {
+          let Ne = ee.mcp.clients.map((ke) =>
+              ke.name === a.name && ke.type !== "disabled" ? { ...ke, type: "needs-auth" } : ke,
+            ),
+            he = QNt(ee.mcp.tools, a.name),
+            Ke = oIe(ee.mcp.commands, a.name),
+            wt = iIe(ee.mcp.resources, a.name);
+          return { ...ee, mcp: { ...ee.mcp, clients: Ne, tools: he, commands: Ke, resources: wt } };
+        }),
+        s("tengu_claudeai_mcp_clear_auth_completed", {}),
+        T(`Disconnected from ${Rr(a.name)}.`),
+        Le(!1),
+        dt(!1);
+    }, [a.name, a.config, a.scope, _e, T]);
+  Be(
+    "confirm:no",
+    () => {
+      Tt.current?.abort(), (Tt.current = null), J(!1), ve(null);
+    },
+    { context: "Confirmation", isActive: E },
+  ),
+    Be(
+      "confirm:no",
+      () => {
+        re(!1), Ge(null);
+      },
+      { context: "Confirmation", isActive: it },
+    ),
+    Be(
+      "confirm:no",
+      () => {
+        Le(!1), dt(!1);
+      },
+      { context: "Confirmation", isActive: Ht },
+    );
+  function le(ee) {
+    if (ee.key === "return" && it) ee.preventDefault(), Ut();
+    if (ee.key === "return" && Ht) {
+      if ((ee.preventDefault(), hm())) {
+        Le(!1), dt(!1), ue(JRt);
+        return;
+      }
+      if (ot) Lt();
+      else dt(!0), Lr(PG());
+    }
+    if (ee.key === "c" && !ee.ctrl && !ee.meta && pt) ee.preventDefault(), se(pt);
+  }
+  let je = Wf(String(a.name)),
+    Qe = JNt(Pe.commands, a.name).length,
+    kt = TK(),
+    _t = B(() => {
+      if (As(a.name, a.client.config)) return ue(drt(a.name)), !0;
+      let ee = yi(a.name);
+      if (a.client.type !== "disabled" && !ee) return ue(null), !1;
+      return ue(a.client.type === "disabled" ? BQ(a.name) : _1(a.name)), !0;
+    }, [a.client.type, a.name, a.client.config]),
+    qe = B(async () => {
+      if (_t()) return;
+      let ee = (a.config.type === "claudeai-proxy" ? Q8(a.config) : null) ?? PG();
+      Ge(ee), re(!0), s("tengu_claudeai_mcp_auth_started", {}), await Lr(ee);
+    }, [a.config, _t]),
+    Re = B(() => {
+      Le(!0), s("tengu_claudeai_mcp_clear_auth_started", {});
+    }, []),
+    an = B(async () => {
+      let ee = a.client.type !== "disabled";
+      try {
+        if ((await kt(a.name), a.config.type === "claudeai-proxy"))
+          s("tengu_claudeai_mcp_toggle", { new_state: w(ee ? "disabled" : "enabled") });
+        x();
+      } catch (Ne) {
+        T(RQ(Ne, a.name, ee ? "disable" : "enable", { persistsOffBox: mo(N) }));
+      }
+    }, [a.client.type, a.config.type, a.name, kt, x, T]),
+    Ot = B(async () => {
+      if (_t()) return;
+      let ee = Rx(a.name, { ...a.config, scope: a.scope });
+      if (ee.kind === "anthropic-hosted") {
+        ue(ee.message);
+        return;
+      }
+      if (ee.kind !== "oauth") return;
+      J(!0), ue(null);
+      let Ne = new AbortController();
+      Tt.current = Ne;
+      try {
+        let he = a.isAuthenticated ? await Ir().snapshotServerTokens(a.name, ee.config) : void 0;
+        await Ir().performMCPOAuthFlow(a.name, ee.config, ve, Ne.signal, {
+          onWaitingForCallback: (wt) => {
+            kn(() => wt);
+          },
+        }),
+          s("tengu_mcp_auth_config_authenticate", { wasAuthenticated: a.isAuthenticated });
+        let Ke = await $t(a.name, { discardDiscovery: !1 });
+        if (Ke.client.type === "connected") {
+          if (he) await Ir().revokeReplacedServerTokens(a.name, ee.config, he);
+          let wt = Dn
+            ? `Authentication successful. Reconnected to ${Rr(a.name)}.`
+            : `Authentication successful. Connected to ${Rr(a.name)}.`;
+          T(wt);
+        } else if (Ke.client.type === "needs-auth")
+          T(
+            `Got new credentials, but ${Rr(a.name)} rejected them on reconnect. Try re-authenticating, or restart Claude Code if it persists.`,
+          );
+        else {
+          Z(a.name, "Reconnection failed after authentication");
+          let wt = Ke.client.type === "failed" ? W0t(Ke.client) : "";
+          if (mo(N)) {
+            if (wt) n(`mcp post-auth reconnect failed for ${Qn(a.name)}: ${wt}`, { level: "error" });
+            T(
+              `Got new credentials, but reconnecting to ${Rr(a.name)} failed${wt ? " (detail withheld on this connection)" : ""}. Restart Claude Code to retry.`,
+            );
+          } else {
+            let ke = wt ? Da(wt) : "";
+            T(
+              ke
+                ? `Got new credentials, but reconnecting to ${Rr(a.name)} failed: ${ke}`
+                : `Got new credentials, but reconnecting to ${Rr(a.name)} failed. Restart Claude Code to retry.`,
+            );
+          }
+        }
+      } catch (he) {
+        if (he instanceof Error && !(he instanceof Ir().AuthenticationCancelledError)) ue(he.message);
+      } finally {
+        J(!1), (Tt.current = null), kn(null), Bt(""), ve(null);
+      }
+    }, [a.isAuthenticated, a.config, a.name, a.scope, T, $t, Dn, _t]),
+    Pt = async () => {
+      if (a.config.type === "claudeai-proxy") return;
+      if (a.config) {
+        await Ir().revokeServerTokens(a.name, a.config), s("tengu_mcp_auth_config_clear", {});
+        let ee = { ...a.config, scope: a.scope },
+          Ne = lr();
+        if (Ho())
+          await CW(
+            qs()
+              .dropDiscoveryEntry(a.name, ee)
+              .catch(() => {}),
+          );
+        if (!(kh(ee) && lr() !== Ne)) await qs().clearServerCache(a.name, ee);
+        _e((he) => {
+          let Ke = he.mcp.clients.map((Nt) =>
+              Nt.name === a.name && Nt.type !== "disabled" ? { ...Nt, type: "failed" } : Nt,
+            ),
+            wt = QNt(he.mcp.tools, a.name),
+            ke = oIe(he.mcp.commands, a.name),
+            He = iIe(he.mcp.resources, a.name);
+          return { ...he, mcp: { ...he.mcp, clients: Ke, tools: wt, commands: ke, resources: He } };
+        }),
+          T(`Authentication cleared for ${Rr(a.name)}.`);
+      }
+    };
+  if (E) {
+    let ee =
+      a.config.type !== "claudeai-proxy" && a.config.oauth?.xaa
+        ? " Authenticating via your identity provider"
+        : " A browser window will open for authentication";
+    return r(o, {
+      flexDirection: "column",
+      gap: 1,
+      padding: 1,
+      tabIndex: 0,
+      autoFocus: !0,
+      onKeyDown: le,
+      children: [
+        r(t, { color: "claude", children: ["Authenticating with ", a.name, "\u2026"] }),
+        r(o, { children: [e(wo, {}), e(t, { children: ee })] }),
+        be &&
+          r(o, {
+            flexDirection: "column",
+            children: [
+              r(o, {
+                children: [
+                  r(t, {
+                    dimColor: !0,
+                    children: ["If your browser doesn't open automatically, copy this URL manually", " "],
+                  }),
+                  e(cL, { via: gt }),
+                ],
+              }),
+              e(uL, { via: gt }),
+              e(ut, { url: be, assumeSupport: !0 }),
+            ],
+          }),
+        E &&
+          be &&
+          In &&
+          r(o, {
+            flexDirection: "column",
+            marginTop: 1,
+            children: [
+              e(t, {
+                dimColor: !0,
+                children:
+                  "If the redirect page shows a connection error, paste the URL from your browser's address bar:",
+              }),
+              r(o, {
+                children: [
+                  r(t, { dimColor: !0, children: ["URL ", ">", " "] }),
+                  e(xn, {
+                    value: tn,
+                    onChange: Bt,
+                    onSubmit: (Ne) => {
+                      In(Ne.trim()), Bt("");
+                    },
+                    cursorOffset: Gt,
+                    onChangeCursorOffset: Et,
+                    columns: G - 8,
+                  }),
+                ],
+              }),
+            ],
+          }),
+        e(o, {
+          marginLeft: 3,
+          children: r(t, {
+            dimColor: !0,
+            children: [
+              "Return here after authenticating in your browser. Press",
+              " ",
+              e(M, { chord: "escape", action: "go back" }),
+              ".",
+            ],
+          }),
+        }),
+      ],
+    });
+  }
+  if (it)
+    return r(o, {
+      flexDirection: "column",
+      gap: 1,
+      padding: 1,
+      tabIndex: 0,
+      autoFocus: !0,
+      onKeyDown: le,
+      children: [
+        r(t, { color: "claude", children: ["Authenticating with ", a.name, "\u2026"] }),
+        r(o, { children: [e(wo, {}), e(t, { children: " A browser window will open for authentication" })] }),
+        xe &&
+          r(o, {
+            flexDirection: "column",
+            children: [
+              r(o, {
+                children: [
+                  r(t, {
+                    dimColor: !0,
+                    children: ["If your browser doesn't open automatically, copy this URL manually", " "],
+                  }),
+                  e(cL, { via: gt }),
+                ],
+              }),
+              e(uL, { via: gt }),
+              e(ut, { url: xe, assumeSupport: !0 }),
+            ],
+          }),
+        r(o, {
+          marginLeft: 3,
+          flexDirection: "column",
+          children: [
+            r(t, {
+              color: "permission",
+              children: ["Press ", e(t, { bold: !0, children: "Enter" }), " after authenticating in your browser."],
+            }),
+            e(t, {
+              dimColor: !0,
+              italic: !0,
+              children: e(ze, { action: "confirm:no", context: "Confirmation", fallback: "Esc", description: "back" }),
+            }),
+          ],
+        }),
+      ],
+    });
+  if (Ht)
+    return r(o, {
+      flexDirection: "column",
+      gap: 1,
+      padding: 1,
+      tabIndex: 0,
+      autoFocus: !0,
+      onKeyDown: le,
+      children: [
+        r(t, { color: "claude", children: ["Clear authentication for ", a.name] }),
+        ot
+          ? r(U, {
+              children: [
+                e(t, { children: 'Find the MCP server in the browser and click "Disconnect".' }),
+                r(o, {
+                  flexDirection: "column",
+                  children: [
+                    r(o, {
+                      children: [
+                        r(t, {
+                          dimColor: !0,
+                          children: ["If your browser didn't open automatically, copy this URL manually", " "],
+                        }),
+                        e(cL, { via: gt }),
+                      ],
+                    }),
+                    e(uL, { via: gt }),
+                    e(ut, { url: PG() }),
+                  ],
+                }),
+                r(o, {
+                  marginLeft: 3,
+                  flexDirection: "column",
+                  children: [
+                    r(t, {
+                      color: "permission",
+                      children: ["Press ", e(t, { bold: !0, children: "Enter" }), " when done."],
+                    }),
+                    e(t, {
+                      dimColor: !0,
+                      italic: !0,
+                      children: e(ze, {
+                        action: "confirm:no",
+                        context: "Confirmation",
+                        fallback: "Esc",
+                        description: "back",
+                      }),
+                    }),
+                  ],
+                }),
+              ],
+            })
+          : r(U, {
+              children: [
+                e(t, {
+                  children:
+                    'This will open claude.ai in the browser. Find the MCP server in the list and click "Disconnect".',
+                }),
+                r(o, {
+                  marginLeft: 3,
+                  flexDirection: "column",
+                  children: [
+                    r(t, {
+                      color: "permission",
+                      children: ["Press", " ", e(M, { chord: "enter", action: "open the browser", bold: !0 }), "."],
+                    }),
+                    e(t, {
+                      dimColor: !0,
+                      italic: !0,
+                      children: e(ze, {
+                        action: "confirm:no",
+                        context: "Confirmation",
+                        fallback: "Esc",
+                        description: "back",
+                      }),
+                    }),
+                  ],
+                }),
+              ],
+            }),
+      ],
+    });
+  if (Je)
+    return r(o, {
+      flexDirection: "column",
+      gap: 1,
+      padding: 1,
+      children: [
+        r(t, { color: "text", children: ["Connecting to ", e(t, { bold: !0, children: a.name }), "\u2026"] }),
+        r(o, { children: [e(wo, {}), e(t, { children: " Establishing connection to MCP server" })] }),
+        e(t, { dimColor: !0, children: "This may take a few moments." }),
+      ],
+    });
+  let yt = [];
+  if (a.client.type === "disabled") yt.push({ label: "Enable", value: "toggle-enabled" });
+  if (Zo(a.client) && b > 0) yt.push({ label: "View tools", value: "tools" });
+  let oe = (a.config.type === "sse" || a.config.type === "http") && kH(a.config),
+    et = (a.config.type === "sse" || a.config.type === "http") && Jde(a.config, j || (K !== null && zn(K))),
+    Dt = a.client.type === "failed" && a.client.errorCode === "HEADERS_HELPER_AUTH_REJECTED",
+    Mt = a.client.type === "disabled" || yi(a.name) || As(a.name, a.client.config);
+  if (a.config.type === "claudeai-proxy") {
+    if (a.client.type === "connected") yt.push({ label: "Clear authentication", value: "claudeai-clear-auth" });
+    else if (!Mt) yt.push({ label: "Authenticate", value: "claudeai-auth" });
+  } else {
+    let ee = !Mt && !et && !Dt;
+    if (Dn) {
+      if (ee) yt.push({ label: "Re-authenticate", value: "reauth" });
+      yt.push({ label: "Clear authentication", value: "clear-auth" });
+    } else if (ee) yt.push({ label: "Authenticate", value: "auth" });
+  }
+  let Jt = a.config.type !== "claudeai-proxy" && !!a.config.headersHelper;
+  if (a.client.type !== "disabled") {
+    if (a.client.type !== "needs-auth" || Jt || oe) yt.push({ label: "Reconnect", value: "reconnectMcpServer" });
+    yt.push({ label: "Disable", value: "toggle-enabled" });
+  }
+  if (yt.length === 0) yt.push({ label: "Back", value: "back" });
+  let Xt = ["reauth", "clear-auth", "claudeai-clear-auth"],
+    It = yt[0] && Xt.includes(yt[0].value) ? yt.find((ee) => !Xt.includes(ee.value))?.value : void 0;
+  return e(o, {
+    flexDirection: "column",
+    paddingX: R ? 1 : 0,
+    children: r(me, {
+      title: `${je} MCP Server`,
+      onCancel: x,
+      hideBorder: R,
+      inputGuide: r(fe, {
+        children: [
+          e(M, { chord: ["up", "down"], action: "navigate" }),
+          e(M, { chord: "enter", action: "select" }),
+          e(ze, { action: "confirm:no", context: "Confirmation", fallback: "Esc", description: "back" }),
+        ],
+      }),
+      children: [
+        r(o, {
+          flexDirection: "column",
+          gap: 0,
+          children: [
+            r(zs, {
+              columns: [{ bold: !0 }, {}],
+              children: [
+                r(zs.Row, { children: [e(U, { children: "Status:" }), uh(a.client, b, H)] }),
+                (a.client.type === "failed" || a.client.type === "needs-auth") &&
+                  a.client.error &&
+                  r(zs.Row, {
+                    children: [
+                      e(U, { children: "Issue:" }),
+                      e(t, {
+                        dimColor: !0,
+                        children: fI(
+                          a.client.type === "failed" && a.client.displayDetail
+                            ? `${a.client.error} ${a.client.displayDetail}`
+                            : a.client.error,
+                        ),
+                      }),
+                    ],
+                  }),
+                a.transport !== "claudeai-proxy" &&
+                  r(zs.Row, {
+                    children: [
+                      e(U, { children: "Auth:" }),
+                      Dn
+                        ? r(t, { children: [e(tt, { status: "success", withSpace: !0 }), "authenticated"] })
+                        : r(t, { children: [e(tt, { status: "error", withSpace: !0 }), "not authenticated"] }),
+                    ],
+                  }),
+                a.client.type === "connected" &&
+                  a.client.protocolEra === "modern" &&
+                  a.client.negotiatedProtocolVersion &&
+                  r(zs.Row, {
+                    children: [
+                      e(U, { children: "Protocol:" }),
+                      e(t, { dimColor: !0, children: Q1(a.client.negotiatedProtocolVersion) }),
+                    ],
+                  }),
+                a.transport === "claudeai-proxy" &&
+                  a.scope === "claudeai" &&
+                  a.config.enterpriseManaged &&
+                  r(zs.Row, {
+                    children: [
+                      e(U, { children: "Managed:" }),
+                      e(t, { dimColor: !0, children: "by your organization" }),
+                    ],
+                  }),
+                r(zs.Row, { children: [e(U, { children: "URL:" }), e(t, { dimColor: !0, children: a.config.url })] }),
+                r(zs.Row, {
+                  children: [e(U, { children: "Config location:" }), e(t, { dimColor: !0, children: tT(a.scope) })],
+                }),
+              ],
+            }),
+            Zo(a.client) &&
+              e(Pr, {
+                serverToolsCount: b,
+                serverPromptsCount: Qe,
+                serverResourcesCount: Pe.resources[a.name]?.length || 0,
+              }),
+            Zo(a.client) &&
+              b > 0 &&
+              r(o, {
+                children: [
+                  e(t, { bold: !0, children: "Tools: " }),
+                  r(t, { dimColor: !0, children: [b, " ", k(b, "tool")] }),
+                ],
+              }),
+            a.client.type === "connected" &&
+              a.client.discoveryBearerRejected &&
+              r(o, {
+                flexDirection: "column",
+                children: [
+                  e(t, { bold: !0, children: "Issue: " }),
+                  e(t, { dimColor: !0, children: "claude.ai rejected the session token. Run /login, then reconnect." }),
+                ],
+              }),
+            a.client.type === "connected" &&
+              !a.client.discoveryBearerRejected &&
+              a.client.toolsListError &&
+              r(o, {
+                flexDirection: "column",
+                children: [
+                  e(t, { bold: !0, children: "Issue: " }),
+                  e(t, { dimColor: !0, children: a.client.toolsListError }),
+                ],
+              }),
+          ],
+        }),
+        pe && e(o, { children: e(Br, { error: pe }) }),
+        yt.length > 0 &&
+          e(o, {
+            children: e(Ce, {
+              options: yt,
+              defaultFocusValue: It,
+              onChange: async (ee) => {
+                if (
+                  hm() &&
+                  (ee === "auth" ||
+                    ee === "reauth" ||
+                    ee === "clear-auth" ||
+                    ee === "claudeai-auth" ||
+                    ee === "claudeai-clear-auth")
+                ) {
+                  ue(JRt);
+                  return;
+                }
+                switch (ee) {
+                  case "tools":
+                    S();
+                    break;
+                  case "auth":
+                  case "reauth":
+                    await Ot();
+                    break;
+                  case "clear-auth":
+                    await Pt();
+                    break;
+                  case "claudeai-auth":
+                    await qe();
+                    break;
+                  case "claudeai-clear-auth":
+                    Re();
+                    break;
+                  case "reconnectMcpServer":
+                    st(!0);
+                    try {
+                      let Ne = await $t(a.name);
+                      if (a.config.type === "claudeai-proxy")
+                        s("tengu_claudeai_mcp_reconnect", { success: Ne.client.type === "connected" });
+                      let { message: he } = q0t(Ne, a.name, { persistsOffBox: mo(N) }, { hasHeadersHelper: Jt });
+                      T(he);
+                    } catch (Ne) {
+                      if (a.config.type === "claudeai-proxy") s("tengu_claudeai_mcp_reconnect", { success: !1 });
+                      T(Ant(Ne, a.name, { persistsOffBox: mo(N) }));
+                    } finally {
+                      st(!1);
+                    }
+                    break;
+                  case "toggle-enabled":
+                    await an();
+                    break;
+                  case "back":
+                    x();
+                    break;
+                }
+              },
+              onCancel: x,
+            }),
+          }),
+      ],
+    }),
+  });
+}
+F();
+function ph(a, b, S) {
+  if (a.type === "disabled") return r(t, { children: [mt("inactive", S)(L.radioOff), " disabled"] });
+  if (a.type === "connected") {
+    if (a.toolsListError)
+      return r(t, { children: [e(tt, { status: "warning", withSpace: !0 }), "connected \xB7 tools fetch failed"] });
+    if (a.capabilities?.tools && b === 0)
+      return r(t, { children: [e(tt, { status: "warning", withSpace: !0 }), "connected \xB7 no tools"] });
+    return r(t, { children: [e(tt, { status: "success", withSpace: !0 }), "connected"] });
+  }
+  if (a.type === "pending")
+    return r(t, { children: [e(tt, { status: "pending", withSpace: !0 }), "connecting\u2026"] });
+  return r(t, { children: [e(tt, { status: "error", withSpace: !0 }), "failed"] });
+}
+function ott({ server: a, serverToolsCount: b, onViewTools: S, onCancel: x, onComplete: v, borderless: R = !1 }) {
+  let j = B((be, ...ve) => v(typeof be === "string" ? Qn(be) : be, ...ve), [v]),
+    K = ct(),
+    [T] = mn(),
+    N = W((be) => be.mcp),
+    H = Uie(),
+    G = TK(),
+    [E, J] = u(!1),
+    pe = B(async () => {
+      let be = a.client.type !== "disabled";
+      try {
+        await G(a.name), x();
+      } catch (ve) {
+        j(RQ(ve, a.name, be ? "disable" : "enable", { persistsOffBox: mo(K) }));
+      }
+    }, [a.client.type, a.name, G, x, j]),
+    ue = Wf(String(a.name)),
+    Pe = JNt(N.commands, a.name).length,
+    _e = [];
+  if (a.client.type !== "disabled" && b > 0) _e.push({ label: "View tools", value: "tools" });
+  if (a.client.type !== "disabled") _e.push({ label: "Reconnect", value: "reconnectMcpServer" });
+  if ((_e.push({ label: a.client.type !== "disabled" ? "Disable" : "Enable", value: "toggle-enabled" }), E))
+    return r(me, {
+      title: `${ue} MCP Server`,
+      onCancel: () => {},
+      hideBorder: R,
+      hideInputGuide: !0,
+      children: [
+        r(t, { color: "text", children: ["Reconnecting to ", e(t, { bold: !0, children: a.name })] }),
+        r(o, { children: [e(wo, {}), e(t, { children: " Restarting MCP server process" })] }),
+        e(t, { dimColor: !0, children: "This may take a few moments." }),
+      ],
+    });
+  return r(me, {
+    title: `${ue} MCP Server`,
+    onCancel: x,
+    hideBorder: R,
+    inputGuide: r(fe, {
+      children: [
+        e(M, { chord: ["up", "down"], action: "navigate" }),
+        e(M, { chord: "enter", action: "select" }),
+        e(ze, { action: "confirm:no", context: "Confirmation", fallback: "Esc", description: "back" }),
+      ],
+    }),
+    children: [
+      r(o, {
+        flexDirection: "column",
+        gap: 0,
+        children: [
+          r(zs, {
+            columns: [{ bold: !0 }, {}],
+            children: [
+              r(zs.Row, { children: [e(U, { children: "Status:" }), ph(a.client, b, T)] }),
+              r(zs.Row, {
+                children: [e(U, { children: "Command:" }), e(t, { dimColor: !0, children: a.config.command })],
+              }),
+              a.client.type === "connected" &&
+                a.client.protocolEra === "modern" &&
+                a.client.negotiatedProtocolVersion &&
+                r(zs.Row, {
+                  children: [
+                    e(U, { children: "Protocol:" }),
+                    e(t, { dimColor: !0, children: Q1(a.client.negotiatedProtocolVersion) }),
+                  ],
+                }),
+              a.config.args &&
+                a.config.args.length > 0 &&
+                r(zs.Row, {
+                  children: [e(U, { children: "Args:" }), e(t, { dimColor: !0, children: a.config.args.join(" ") })],
+                }),
+              r(zs.Row, {
+                children: [
+                  e(U, { children: "Config location:" }),
+                  e(t, { dimColor: !0, children: tT(eI(a.name)?.scope ?? "dynamic") }),
+                ],
+              }),
+            ],
+          }),
+          Zo(a.client) &&
+            e(Pr, {
+              serverToolsCount: b,
+              serverPromptsCount: Pe,
+              serverResourcesCount: N.resources[a.name]?.length || 0,
+            }),
+          Zo(a.client) &&
+            b > 0 &&
+            r(o, {
+              children: [
+                e(t, { bold: !0, children: "Tools: " }),
+                r(t, { dimColor: !0, children: [b, " ", k(b, "tool")] }),
+              ],
+            }),
+          a.client.type === "connected" &&
+            a.client.toolsListError &&
+            r(o, {
+              flexDirection: "column",
+              children: [
+                e(t, { bold: !0, children: "Issue: " }),
+                e(t, { dimColor: !0, children: a.client.toolsListError }),
+              ],
+            }),
+        ],
+      }),
+      e(o, {
+        children: e(Ce, {
+          options: _e,
+          onChange: async (be) => {
+            if (be === "tools") S();
+            else if (be === "reconnectMcpServer") {
+              J(!0);
+              try {
+                let ve = await H(a.name),
+                  { message: Je } = q0t(ve, a.name, { persistsOffBox: mo(K) });
+                j?.(Je);
+              } catch (ve) {
+                j?.(Ant(ve, a.name, { persistsOffBox: mo(K) }));
+              } finally {
+                J(!1);
+              }
+            } else if (be === "toggle-enabled") await pe();
+          },
+          onCancel: x,
+        }),
+      }),
+    ],
+  });
+}
+F();
+var Sp = 1000,
+  vp = 200;
+function kUe(IR) {
+  let On = _(45),
+    { tool: jt, server: Er, onBack: pp } = IR,
+    [va, mh] = u(""),
+    gh,
+    wa;
+  if (On[0] !== Er.name || On[1] !== jt) {
+    wa = MXe(jt.name, Er.name);
+    let RR = jt.userFacingName ? jt.userFacingName({}) : wa;
+    gh = NXe(RR);
+    (On[0] = Er.name), (On[1] = jt), (On[2] = gh), (On[3] = wa);
+  } else (gh = On[2]), (wa = On[3]);
+  let mp = gh,
+    fh;
+  if (On[4] !== jt) (fh = jt.isReadOnly?.({}) ?? !1), (On[4] = jt), (On[5] = fh);
+  else fh = On[5];
+  let gp = fh,
+    yh;
+  if (On[6] !== jt) (yh = jt.isDestructive?.({}) ?? !1), (On[6] = jt), (On[7] = yh);
+  else yh = On[7];
+  let yp = yh,
+    hh;
+  if (On[8] !== jt) (hh = jt.isOpenWorld?.({}) ?? !1), (On[8] = jt), (On[9] = hh);
+  else hh = On[9];
+  let hp = hh,
+    bh,
+    xh;
+  if (On[10] !== jt)
+    (bh = () => {
+      let kp = async function kp() {
+        try {
+          let ER = await jt.description(
+            {},
+            {
+              isNonInteractiveSession: !1,
+              toolPermissionContext: {
+                mode: "default",
+                additionalWorkingDirectories: new Map(),
+                alwaysAllowRules: {},
+                alwaysDenyRules: {},
+                alwaysAskRules: {},
+                isBypassPermissionsModeAvailable: !1,
+                mcpPermissionModeOverrides: {},
+              },
+              tools: [],
+            },
+          );
+          mh(ER);
+        } catch {
+          mh("Failed to load description");
+        }
+      };
+      kp();
+    }),
+      (xh = [jt]),
+      (On[10] = jt),
+      (On[11] = bh),
+      (On[12] = xh);
+  else (bh = On[11]), (xh = On[12]);
+  A(bh, xh);
+  let Ws;
+  if (On[13] !== gp) (Ws = gp && e(t, { color: "success", children: " [read-only]" })), (On[13] = gp), (On[14] = Ws);
+  else Ws = On[14];
+  let Gs;
+  if (On[15] !== yp) (Gs = yp && e(t, { color: "error", children: " [destructive]" })), (On[15] = yp), (On[16] = Gs);
+  else Gs = On[16];
+  let Qs;
+  if (On[17] !== hp) (Qs = hp && e(t, { dimColor: !0, children: " [open-world]" })), (On[17] = hp), (On[18] = Qs);
+  else Qs = On[18];
+  let Sh;
+  if (On[19] !== mp || On[20] !== Ws || On[21] !== Gs || On[22] !== Qs)
+    (Sh = r(U, { children: [mp, Ws, Gs, Qs] })),
+      (On[19] = mp),
+      (On[20] = Ws),
+      (On[21] = Gs),
+      (On[22] = Qs),
+      (On[23] = Sh);
+  else Sh = On[23];
+  let bp = Sh,
+    vh;
+  if (On[24] === d)
+    (vh = e(ze, { action: "confirm:no", context: "Confirmation", fallback: "Esc", description: "go back" })),
+      (On[24] = vh);
+  else vh = On[24];
+  let wh;
+  if (On[25] === d) (wh = e(t, { bold: !0, children: "Tool name: " })), (On[25] = wh);
+  else wh = On[25];
+  let Js;
+  if (On[26] !== wa)
+    (Js = r(o, { children: [wh, e(t, { dimColor: !0, children: wa })] })), (On[26] = wa), (On[27] = Js);
+  else Js = On[27];
+  let Ch;
+  if (On[28] === d) (Ch = e(t, { bold: !0, children: "Full name: " })), (On[28] = Ch);
+  else Ch = On[28];
+  let Xs;
+  if (On[29] !== jt.name)
+    (Xs = r(o, { children: [Ch, e(t, { dimColor: !0, children: jt.name })] })), (On[29] = jt.name), (On[30] = Xs);
+  else Xs = On[30];
+  let Zs;
+  if (On[31] !== va)
+    (Zs =
+      va &&
+      r(o, {
+        flexDirection: "column",
+        marginTop: 1,
+        children: [
+          e(t, { bold: !0, children: "Description:" }),
+          e(t, { wrap: "wrap", children: Ku(va, Sp) }),
+          va.length > Gx &&
+            r(t, { dimColor: !0, children: ["The model receives only about the first", " ", Gx, " characters."] }),
+        ],
+      })),
+      (On[31] = va),
+      (On[32] = Zs);
+  else Zs = On[32];
+  let ec;
+  if (On[33] !== jt.inputJSONSchema)
+    (ec =
+      jt.inputJSONSchema &&
+      jt.inputJSONSchema.properties &&
+      Object.keys(jt.inputJSONSchema.properties).length > 0 &&
+      r(o, {
+        flexDirection: "column",
+        marginTop: 1,
+        children: [
+          e(t, { bold: !0, children: "Parameters:" }),
+          e(o, {
+            marginLeft: 2,
+            flexDirection: "column",
+            children: Object.entries(jt.inputJSONSchema.properties).map((Mr) => {
+              let [xp, oi] = Mr;
+              let MR = jt.inputJSONSchema?.required?.includes(xp);
+              return r(
+                zc,
+                {
+                  children: [
+                    xp,
+                    e(DR, { when: MR ?? !1, children: "required" }),
+                    ":",
+                    " ",
+                    e(t, {
+                      dimColor: !0,
+                      children: typeof oi === "object" && oi && "type" in oi ? String(oi.type) : "unknown",
+                    }),
+                    typeof oi === "object" &&
+                      oi &&
+                      "description" in oi &&
+                      r(t, { dimColor: !0, children: [" - ", Ku(String(oi.description), vp)] }),
+                  ],
+                },
+                xp,
+              );
+            }),
+          }),
+        ],
+      })),
+      (On[33] = jt.inputJSONSchema),
+      (On[34] = ec);
+  else ec = On[34];
+  let Mr;
+  if (On[35] !== Js || On[36] !== Xs || On[37] !== Zs || On[38] !== ec)
+    (Mr = r(o, { flexDirection: "column", children: [Js, Xs, Zs, ec] })),
+      (On[35] = Js),
+      (On[36] = Xs),
+      (On[37] = Zs),
+      (On[38] = ec),
+      (On[39] = Mr);
+  else Mr = On[39];
+  let Ph;
+  if (On[40] !== pp || On[41] !== Er.name || On[42] !== Mr || On[43] !== bp)
+    (Ph = e(me, { title: bp, subtitle: Er.name, onCancel: pp, inputGuide: vh, children: Mr })),
+      (On[40] = pp),
+      (On[41] = Er.name),
+      (On[42] = Mr),
+      (On[43] = bp),
+      (On[44] = Ph);
+  else Ph = On[44];
+  return Ph;
+}
+F();
+function Bh(oE) {
+  return oE.mcp.tools;
+}
+function Ah(iE, rE) {
+  let aE = iE.mcpInfo?.effectiveMaxPermission === "blocked" ? 1 : 0;
+  let lE = rE.mcpInfo?.effectiveMaxPermission === "blocked" ? 1 : 0;
+  return aE - lE;
+}
+function Oh(sE) {
+  return sE.mcpInfo?.effectiveMaxPermission === "blocked";
+}
+function HUe(YR) {
+  let ii = _(24),
+    { server: $o, onSelectTool: wp, onBack: $r } = YR,
+    Tp = W(Bh),
+    Ip;
+  bb0: {
+    if (!Zo($o.client)) {
+      let ri;
+      if (ii[0] === d) (ri = []), (ii[0] = ri);
+      else ri = ii[0];
+      Ip = ri;
+      break bb0;
+    }
+    let ri;
+    if (ii[1] !== Tp || ii[2] !== $o.name)
+      (ri = $L(Tp, $o.name).sort(Ah)), (ii[1] = Tp), (ii[2] = $o.name), (ii[3] = ri);
+    else ri = ii[3];
+    Ip = ri;
+  }
+  let eo = Ip,
+    Ca = Q(eo, Oh),
+    ri;
+  if (ii[4] !== $o.name || ii[5] !== eo) {
+    let Pa;
+    if (ii[7] !== $o.name)
+      (Pa = (Ai, Th) => {
+        let JR = MXe(Ai.name, $o.name);
+        let XR = Ai.userFacingName ? Ai.userFacingName({}) : JR;
+        let Ih = NXe(XR);
+        let ZR = Ai.isReadOnly?.({}) ?? !1;
+        let eE = Ai.isDestructive?.({}) ?? !1;
+        let tE = Ai.isOpenWorld?.({}) ?? !1;
+        let Rh = Ai.mcpInfo?.effectiveMaxPermission;
+        if (Rh === "blocked") {
+          return {
+            label: Ih,
+            value: Th.toString(),
+            disabled: !0,
+            description: "disabled by your organization",
+            descriptionColor: "warning",
+          };
+        }
+        let Ar = [];
+        if (ZR) Ar.push("read-only");
+        if (eE) Ar.push("destructive");
+        if (tE) Ar.push("open-world");
+        if (Rh === "ask") Ar.push("ask-only");
+        return { label: Ih, value: Th.toString(), description: Ar.length > 0 ? Ar.join(", ") : void 0 };
+      }),
+        (ii[7] = $o.name),
+        (ii[8] = Pa);
+    else Pa = ii[8];
+    ri = eo.map(Pa);
+    (ii[4] = $o.name), (ii[5] = eo), (ii[6] = ri);
+  } else ri = ii[6];
+  let Rp = ri,
+    tc = eo.length - Ca,
+    Pa;
+  if (ii[9] !== Ca || ii[10] !== tc || ii[11] !== eo.length)
+    (Pa =
+      Ca > 0
+        ? `${tc} ${k(tc, "tool")} \xB7 ${Ca} disabled by your organization`
+        : `${eo.length} ${k(eo.length, "tool")}`),
+      (ii[9] = Ca),
+      (ii[10] = tc),
+      (ii[11] = eo.length),
+      (ii[12] = Pa);
+  else Pa = ii[12];
+  let Ep = Pa;
+  const Mp = `Tools for ${$o.name}`;
+  let Eh;
+  if (ii[13] === d)
+    (Eh = r(fe, {
+      children: [
+        e(M, { chord: ["up", "down"], action: "navigate" }),
+        e(M, { chord: "enter", action: "select" }),
+        e(ze, { action: "confirm:no", context: "Confirmation", fallback: "Esc", description: "back" }),
+      ],
+    })),
+      (ii[13] = Eh);
+  else Eh = ii[13];
+  let nc;
+  if (ii[14] !== $r || ii[15] !== wp || ii[16] !== eo || ii[17] !== Rp)
+    (nc =
+      eo.length === 0
+        ? e(sr, { children: "No tools available" })
+        : e(Ce, {
+            options: Rp,
+            onChange: (nE) => {
+              let Mh = eo[parseInt(nE)];
+              if (Mh) wp(Mh);
+            },
+            onCancel: $r,
+          })),
+      (ii[14] = $r),
+      (ii[15] = wp),
+      (ii[16] = eo),
+      (ii[17] = Rp),
+      (ii[18] = nc);
+  else nc = ii[18];
+  let $h;
+  if (ii[19] !== $r || ii[20] !== Ep || ii[21] !== Mp || ii[22] !== nc)
+    ($h = e(me, { title: Mp, subtitle: Ep, onCancel: $r, inputGuide: Eh, children: nc })),
+      (ii[19] = $r),
+      (ii[20] = Ep),
+      (ii[21] = Mp),
+      (ii[22] = nc),
+      (ii[23] = $h);
+  else $h = ii[23];
+  return $h;
+}
+F();
+var Lh = new Set(["good", "warn", "poor"]);
+function Nh(a) {
+  return typeof a === "string" && Lh.has(a);
+}
+function _h(a, b) {
+  return (a.skillHealthMap ??= Fh(b)), a.skillHealthMap;
+}
+async function Fh(a) {
+  if (!I("tengu_skills_dashboard_enabled", !1)) return null;
+  try {
+    let b = await bt.get("/api/claude_code/skills", {
+      auth: "async",
+      timeout: 5000,
+      validateStatus: () => !0,
+      credentials: a,
+    });
+    if (!b.ok) return n(`Skill health fetch skipped: ${b.reason}`), null;
+    if (b.status >= 400) return n(`Skill health fetch skipped: status ${b.status}`), null;
+    let S = b.data?.skills;
+    if (!Array.isArray(S)) return null;
+    let x = new Map();
+    for (let v of S) if (v.skill_name && Nh(v.health)) x.set(v.skill_name, v.health);
+    return x;
+  } catch (b) {
+    return n(`Skill health fetch skipped: ${b}`), null;
+  }
+}
+function $p() {
+  let { credentials: a } = ge(),
+    [b, S] = u(null);
+  return (
+    A(() => {
+      let x = !1;
+      return (
+        _h(Lu(), a).then((v) => {
+          if (!x && v) S(v);
+        }),
+        () => {
+          x = !0;
+        }
+      );
+    }, [a]),
+    b
+  );
+}
+import { readFile as Uh } from "fs/promises";
+import { join as Vh, resolve as Dp, sep as Hh } from "path";
+async function Ap(a, b) {
+  let S = Vh(b.path, "..", ".claude-plugin", "marketplace.json");
+  if (O() && a !== void 0 && (await Kh(a, b))) {
+    let x = await a3e(a, "workspace", S);
+    if ("absent" in x) throw Hct(S);
+    return x.text;
+  }
+  return Uh(S, "utf-8");
+}
+async function Kh(a, b) {
+  let S = SWn();
+  if (Bp(dc(), b.path) || (S !== null && Bp(S, b.path))) return !1;
+  let x = MI(b.source);
+  if (x !== void 0) return x === Nm;
+  let v = Ud(b.source);
+  if (v === void 0) return !1;
+  let R = (await cc(a))[v];
+  return R !== void 0 && Wm(R.source) && jb(R.installLocation) === void 0;
+}
+function Bp(a, b) {
+  let S = Dp(a),
+    x = Dp(b);
+  return x === S || x.startsWith(S + Hh);
+}
+F();
+function Op(a, b) {
+  let [S, x] = u(a);
+  return (
+    dse(() => {
+      let v = a();
+      x((R) => (b(R, v) ? R : v));
+    }),
+    S
+  );
+}
+function Do(a) {
+  return Oo(qh(a));
+}
+function qh(a) {
+  switch (a.type) {
+    case "path-not-found":
+      return `${Qt(a.component)} path not found: ${Zl(a.path)}`;
+    case "path-traversal":
+      return `${Qt(a.component)} path escapes plugin directory: ${Zl(a.path)}`;
+    case "git-auth-failed":
+      return `Git ${a.authType.toUpperCase()} authentication failed for ${Zl(a.gitUrl)}`;
+    case "git-timeout":
+      return `Git ${Qt(a.operation)} timed out for ${Zl(a.gitUrl)}`;
+    case "network-error":
+      return `Network error accessing ${Zl(a.url)}${a.details ? `: ${Qt(a.details)}` : ""}`;
+    case "manifest-parse-error":
+      return `Failed to parse manifest at ${Zl(a.manifestPath)}: ${Qt(a.parseError)}`;
+    case "manifest-validation-error":
+      return `Invalid manifest at ${Zl(a.manifestPath)}: ${Qt(a.validationErrors.join(", "))}`;
+    case "plugin-not-found":
+      return `Plugin "${Qt(a.pluginId)}" not found in marketplace "${Qt(a.marketplace)}"`;
+    case "marketplace-not-found":
+      return `Marketplace "${Qt(a.marketplace)}" not found`;
+    case "marketplace-load-failed":
+      return `Failed to load marketplace "${Qt(a.marketplace)}": ${Qt(a.reason)}`;
+    case "mcp-config-invalid":
+      return `Invalid MCP server config for "${Qt(a.serverName)}": ${Qt(a.validationError)}`;
+    case "hook-load-failed":
+      return `Failed to load hooks from ${Zl(a.hookPath)}: ${Qt(a.reason)}`;
+    case "component-load-failed":
+      return `Failed to load ${Qt(a.component)} from ${Zl(a.path)}: ${Qt(a.reason)}`;
+    case "mcpb-download-failed":
+      return `Failed to download MCPB from ${Zl(a.url)}: ${Qt(a.reason)}`;
+    case "mcpb-extract-failed":
+      return `Failed to extract MCPB ${Zl(a.mcpbPath)}: ${Qt(a.reason)}`;
+    case "mcpb-invalid-manifest":
+      return `MCPB manifest invalid at ${Zl(a.mcpbPath)}: ${Qt(a.validationError)}`;
+    case "marketplace-blocked-by-policy":
+      return a.blockedByBlocklist
+        ? `Marketplace "${Qt(a.marketplace)}" is blocked by enterprise policy`
+        : `Marketplace "${Qt(a.marketplace)}" is not in the allowed marketplace list`;
+    case "dependency-unsatisfied":
+      return a.reason === "not-enabled"
+        ? `Dependency "${Qt(a.dependency)}" is disabled`
+        : `Dependency "${Qt(a.dependency)}" is not installed`;
+    case "dependency-version-unsatisfied":
+      return `Requires "${Qt(a.dependency)}" ${Qt(a.required)}, installed ${Qt(a.installed ?? "version unknown")}`;
+    case "lsp-config-invalid":
+      return `Invalid LSP server config for "${Qt(a.serverName)}": ${Qt(a.validationError)}`;
+    case "lsp-server-start-failed":
+      return `LSP server "${Qt(a.serverName)}" failed to start: ${Qt(a.reason)}`;
+    case "lsp-server-crashed":
+      return a.signal
+        ? `LSP server "${Qt(a.serverName)}" crashed with signal ${a.signal}`
+        : `LSP server "${Qt(a.serverName)}" crashed with exit code ${a.exitCode ?? "unknown"}`;
+    case "lsp-request-timeout":
+      return `LSP server "${Qt(a.serverName)}" timed out on ${Qt(a.method)} after ${a.timeoutMs}ms`;
+    case "lsp-request-failed":
+      return `LSP server "${Qt(a.serverName)}" ${Qt(a.method)} failed: ${Qt(a.error)}`;
+    case "plugin-cache-miss":
+      return `Plugin "${Qt(a.plugin)}" not cached at ${Zl(a.installPath)}`;
+    case "plugin-not-installed":
+      return `Plugin "${Qt(a.plugin)}" is enabled in project settings but isn't installed here`;
+    case "autoupdate-deferred-entry-helper":
+    case "autoupdate-disabled-by-policy":
+      return a.message;
+    case "autoupdate-blocked-by-pinner": {
+      let S = a.heldAt ? ` at ${Zl(a.heldAt)}` : "",
+        x =
+          a.disabledPinners.length > 0
+            ? ` (${Qt(a.disabledPinners.join(", "))} ${a.disabledPinners.length === 1 ? "is" : "are"} disabled)`
+            : "";
+      return `Autoupdate held${S} \u2014 version constraint from ${Qt(a.blockedBy.join(", "))}${x}`;
+    }
+    case "generic-error":
+      return aYe(a.error);
+  }
+  return jh(a);
+}
+function Vo(a) {
+  let b = Wh(a);
+  return b === null ? null : Oo(b);
+}
+function Wh(a) {
+  switch (a.type) {
+    case "path-not-found":
+      return "Check that the path in your manifest or marketplace config is correct";
+    case "path-traversal":
+      return 'Paths in plugin.json must not use ".." to reference files outside the plugin directory';
+    case "git-auth-failed":
+      return a.authType === "ssh"
+        ? "Configure SSH keys or use HTTPS URL instead"
+        : "Configure credentials or use SSH URL instead";
+    case "git-timeout":
+    case "network-error":
+      return "Check your internet connection and try again";
+    case "manifest-parse-error":
+      return "Check manifest file syntax in the plugin directory";
+    case "manifest-validation-error":
+      return "Check manifest file follows the required schema";
+    case "plugin-not-found":
+      return `Plugin may not exist in marketplace "${Qt(a.marketplace)}"`;
+    case "marketplace-not-found":
+      return a.availableMarketplaces.length > 0
+        ? `Available marketplaces: ${Qt(a.availableMarketplaces.join(", "))}`
+        : "Add the marketplace first using /plugin marketplace add";
+    case "mcp-config-invalid":
+      return "Check MCP server configuration in .mcp.json or manifest";
+    case "hook-load-failed":
+      return "Check the plugin's hooks configuration and that its hooks file is readable";
+    case "component-load-failed":
+      return `Check ${Qt(a.component)} directory structure and file permissions`;
+    case "mcpb-download-failed":
+      return "Check your internet connection and URL accessibility";
+    case "mcpb-extract-failed":
+      return "Verify the MCPB file is valid and not corrupted";
+    case "mcpb-invalid-manifest":
+      return "Contact the plugin author about the invalid manifest";
+    case "marketplace-blocked-by-policy":
+      if (a.blockedByBlocklist) return "This marketplace source is explicitly blocked by your administrator";
+      return a.allowedSources.length > 0
+        ? `Allowed sources: ${Qt(a.allowedSources.join(", "))}`
+        : "Contact your administrator to configure allowed marketplace sources";
+    case "dependency-unsatisfied":
+      return a.reason === "not-enabled"
+        ? `Enable "${Qt(a.dependency)}" or uninstall "${Qt(a.plugin)}"`
+        : `Install "${Qt(a.dependency)}" or uninstall "${Qt(a.plugin)}"`;
+    case "dependency-version-unsatisfied":
+      return `Update "${Qt(a.dependency)}" to satisfy ${Qt(a.required)}, or uninstall "${Qt(a.plugin)}"`;
+    case "lsp-config-invalid":
+      return "Check LSP server configuration in the plugin manifest";
+    case "lsp-server-start-failed":
+    case "lsp-server-crashed":
+    case "lsp-request-timeout":
+    case "lsp-request-failed":
+      return "Check LSP server logs with --debug for details";
+    case "plugin-cache-miss":
+      return "Run /plugin to refresh the plugin cache";
+    case "plugin-not-installed": {
+      let S = Ra("plugin install", a.source, "--scope project");
+      return S ? `Run \`${S}\` to install it for this project` : "Install it at project scope to fix this";
+    }
+    case "autoupdate-deferred-entry-helper":
+    case "autoupdate-disabled-by-policy":
+      return null;
+    case "autoupdate-blocked-by-pinner": {
+      let S = a.disabledPinners.length > 0 ? a.disabledPinners[0] : a.blockedBy[0];
+      return S
+        ? `Update or uninstall "${Qt(S)}" to unblock${a.disabledPinners.length > 0 ? " (it is currently disabled)" : ""}`
+        : null;
+    }
+    case "marketplace-load-failed":
+      return a.reason === "cache-miss" ? "Run /reload-plugins to refresh the marketplace cache" : null;
+    case "generic-error":
+      return null;
+  }
+  let b = a;
+  return null;
+}
+F();
+function tk(zE) {
+  return zE.plugins.commands;
+}
+function nk(GE) {
+  return GE.mcp.commands;
+}
+function ok(QE) {
+  return QE.mainLoopModel;
+}
+function ik(_p) {
+  return r(
+    o,
+    {
+      flexDirection: "row",
+      children: [
+        e(o, { width: 32, children: r(t, { dimColor: !0, children: ["/", _p.name] }) }),
+        r(t, { dimColor: !0, children: ["~", _p.approxTokens, " tok/turn"] }),
+      ],
+    },
+    _p.name,
+  );
+}
+function rk(XE) {
+  return XE.count > 0;
+}
+function ak(Nr) {
+  return r(
+    o,
+    {
+      flexDirection: "row",
+      children: [
+        e(o, { width: 32, children: r(t, { dimColor: !0, children: ["/", Nr.name] }) }),
+        r(t, {
+          dimColor: !0,
+          children: [
+            Nr.count,
+            " ",
+            k(Nr.count, "use"),
+            Nr.lastUsedAt !== null ? ` \xB7 last ${Hp(Nr.lastUsedAt)}` : "",
+          ],
+        }),
+      ],
+    },
+    Nr.name,
+  );
+}
+function Ta(a, b) {
+  let S = ie().skillUsage ?? {},
+    x = [];
+  for (let v of b) {
+    if (v.type !== "prompt" || v.pluginInfo?.pluginManifest.name !== a) continue;
+    let R = S[v.name] ?? (v.unqualifiedName != null ? S[v.unqualifiedName] : void 0);
+    x.push({ name: v.name, count: R?.usageCount ?? 0, lastUsedAt: R?.lastUsedAt ?? null });
+  }
+  return (
+    x.sort((v, R) => R.count - v.count),
+    { skills: x, totalCount: x.reduce((v, R) => v + R.count, 0), skillCount: x.length }
+  );
+}
+function Hp(a) {
+  let b = Math.max(0, Math.floor((Date.now() - a) / 86400000));
+  if (b === 0) return "today";
+  if (b === 1) return "yesterday";
+  return `${b}d ago`;
+}
+function ac(qE) {
+  let Oi = _(20),
+    { plugin: yo } = qE,
+    Or = W(tk),
+    Lp = W(nk),
+    Np = W(ok),
+    zh;
+  if (Oi[0] !== Lp || Oi[1] !== Np || Oi[2] !== yo.manifest.name || Oi[3] !== Or) {
+    let Li;
+    if (Oi[5] !== yo.manifest.name)
+      (Li = (WE) => WE.pluginName === yo.manifest.name), (Oi[5] = yo.manifest.name), (Oi[6] = Li);
+    else Li = Oi[6];
+    zh = GRe([...Or, ...Lp], Pf(Np ?? void 0)).byPlugin.find(Li);
+    (Oi[0] = Lp), (Oi[1] = Np), (Oi[2] = yo.manifest.name), (Oi[3] = Or), (Oi[4] = zh);
+  } else zh = Oi[4];
+  let ai = zh,
+    Li;
+  if (Oi[7] !== yo.manifest.name)
+    (Li = r(t, { bold: !0, children: [yo.manifest.name, " \xB7 Usage"] })), (Oi[7] = yo.manifest.name), (Oi[8] = Li);
+  else Li = Oi[8];
+  let Gh, Qh;
+  if (Oi[9] === d)
+    (Gh = e(t, { bold: !0, children: "Skill-listing footprint" })),
+      (Qh = e(t, {
+        dimColor: !0,
+        wrap: "wrap",
+        children:
+          "What this plugin's skill descriptions add to the system prompt (cached input after the first turn). Agents and MCP tools not yet counted.",
+      })),
+      (Oi[9] = Gh),
+      (Oi[10] = Qh);
+  else (Gh = Oi[9]), (Qh = Oi[10]);
+  let oc;
+  if (Oi[11] !== ai)
+    (oc = r(o, {
+      flexDirection: "column",
+      children: [
+        Gh,
+        Qh,
+        ai && ai.skills.length > 0
+          ? r(o, {
+              flexDirection: "column",
+              marginTop: 1,
+              children: [
+                ai.skills.map(ik),
+                r(o, {
+                  flexDirection: "row",
+                  marginTop: 1,
+                  children: [
+                    e(o, { width: 32, children: e(t, { children: "Total" }) }),
+                    r(t, {
+                      children: [
+                        ai.skillCount,
+                        " ",
+                        k(ai.skillCount, "skill"),
+                        " \xB7 ~",
+                        ai.approxTokens,
+                        " tok/turn",
+                      ],
+                    }),
+                  ],
+                }),
+              ],
+            })
+          : e(t, { dimColor: !0, children: "No model-invocable skills loaded for this plugin" }),
+      ],
+    })),
+      (Oi[11] = ai),
+      (Oi[12] = oc);
+  else oc = Oi[12];
+  let ic;
+  if (Oi[13] !== yo || Oi[14] !== Or)
+    (ic = e(rc, { plugin: yo, commands: Or })), (Oi[13] = yo), (Oi[14] = Or), (Oi[15] = ic);
+  else ic = Oi[15];
+  let Yh;
+  if (Oi[16] !== Li || Oi[17] !== oc || Oi[18] !== ic)
+    (Yh = r(o, { flexDirection: "column", gap: 1, children: [Li, oc, ic] })),
+      (Oi[16] = Li),
+      (Oi[17] = oc),
+      (Oi[18] = ic),
+      (Oi[19] = Yh);
+  else Yh = Oi[19];
+  return Yh;
+}
+function rc(YE) {
+  let jp = _(9),
+    { plugin: Up, commands: Vp } = YE,
+    Jh;
+  if (jp[0] !== Vp || jp[1] !== Up.manifest.name)
+    (Jh = Ta(Up.manifest.name, Vp)), (jp[0] = Vp), (jp[1] = Up.manifest.name), (jp[2] = Jh);
+  else Jh = jp[2];
+  let lo = Jh,
+    Xh,
+    Zh;
+  if (jp[3] === d)
+    (Xh = e(t, { bold: !0, children: "Activity" })),
+      (Zh = e(t, {
+        dimColor: !0,
+        wrap: "wrap",
+        children: "Skill invocations on this machine. See /usage for cost attribution.",
+      })),
+      (jp[3] = Xh),
+      (jp[4] = Zh);
+  else (Xh = jp[3]), (Zh = jp[4]);
+  let ek;
+  if (jp[5] !== lo.skillCount || jp[6] !== lo.skills || jp[7] !== lo.totalCount)
+    (ek = r(o, {
+      flexDirection: "column",
+      children: [
+        Xh,
+        Zh,
+        lo.totalCount === 0
+          ? e(t, { dimColor: !0, children: "No activity yet" })
+          : r(o, {
+              flexDirection: "column",
+              marginTop: 1,
+              children: [
+                lo.skills.filter(rk).map(ak),
+                r(o, {
+                  flexDirection: "row",
+                  marginTop: 1,
+                  children: [
+                    e(o, { width: 32, children: e(t, { children: "Total" }) }),
+                    r(t, {
+                      children: [
+                        lo.totalCount,
+                        " ",
+                        k(lo.totalCount, "use"),
+                        " across",
+                        " ",
+                        lo.skillCount,
+                        " ",
+                        k(lo.skillCount, "skill"),
+                      ],
+                    }),
+                  ],
+                }),
+              ],
+            }),
+      ],
+    })),
+      (jp[5] = lo.skillCount),
+      (jp[6] = lo.skills),
+      (jp[7] = lo.totalCount),
+      (jp[8] = ek);
+  else ek = jp[8];
+  return ek;
+}
+var Yp = { good: "success", warn: "warning", poor: "error" },
+  Jp = {
+    on: { glyph: L.tick, label: "on", color: "success" },
+    "name-only": { glyph: L.bullet, label: "name-only" },
+    "user-invocable-only": { glyph: L.circle, label: "user-only", color: "warning" },
+    off: { glyph: L.cross, label: "off", color: "error" },
+  };
+function sc(dM) {
+  let Te = _(207),
+    { item: de, isSelected: nt, health: lc } = dM,
+    [lt] = mn();
+  if (de.type === "plugin") {
+    let ho;
+    let ko;
+    if (de.pendingToggle) {
+      if (Te[0] !== de.pendingToggle || Te[1] !== lt)
+        (ho = mt("suggestion", lt)(L.arrowRight)),
+          (ko = de.pendingToggle === "will-enable" ? "will enable" : "will disable"),
+          (Te[0] = de.pendingToggle),
+          (Te[1] = lt),
+          (Te[2] = ho),
+          (Te[3] = ko);
+      else (ho = Te[2]), (ko = Te[3]);
+    } else if (de.errorCount > 0) {
+      if (Te[4] !== de.errorCount || Te[5] !== lt)
+        (ho = mt("error", lt)(L.cross)),
+          (ko = `${de.errorCount} ${k(de.errorCount, "error")}`),
+          (Te[4] = de.errorCount),
+          (Te[5] = lt),
+          (Te[6] = ho),
+          (Te[7] = ko);
+      else (ho = Te[6]), (ko = Te[7]);
+    } else if (!de.isEnabled) {
+      if (Te[8] !== lt)
+        (ho = mt("inactive", lt)(L.radioOff)), (ko = "disabled"), (Te[8] = lt), (Te[9] = ho), (Te[10] = ko);
+      else (ho = Te[9]), (ko = Te[10]);
+    } else if (Te[11] !== lt)
+      (ho = mt("success", lt)(L.tick)), (ko = "enabled"), (Te[11] = lt), (Te[12] = ho), (Te[13] = ko);
+    else (ho = Te[12]), (ko = Te[13]);
+    const Cn = nt ? "suggestion" : void 0;
+    let cn;
+    if (Te[14] !== de) (cn = id(de)), (Te[14] = de), (Te[15] = cn);
+    else cn = Te[15];
+    let nn;
+    if (Te[16] !== Cn || Te[17] !== cn)
+      (nn = e(t, { color: Cn, children: cn })), (Te[16] = Cn), (Te[17] = cn), (Te[18] = nn);
+    else nn = Te[18];
+    let un;
+    if (Te[19] !== lc || Te[20] !== lt)
+      (un = lc && r(t, { children: [" ", mt(Yp[lc], lt)(L.bullet)] })), (Te[19] = lc), (Te[20] = lt), (Te[21] = un);
+    else un = Te[21];
+    const dn = !nt;
+    let pn;
+    if (Te[22] === d)
+      (pn = e(Dc, { color: "userMessageBackground", textColor: "text", children: "Plugin" })), (Te[22] = pn);
+    else pn = Te[22];
+    let qt;
+    if (Te[23] !== dn) (qt = r(t, { dimColor: dn, children: [" ", pn] })), (Te[23] = dn), (Te[24] = qt);
+    else qt = Te[24];
+    let on;
+    if (Te[25] !== de.marketplace)
+      (on = r(t, { dimColor: !0, children: [" \xB7 ", de.marketplace] })), (Te[25] = de.marketplace), (Te[26] = on);
+    else on = Te[26];
+    const Wt = !nt;
+    let Zt;
+    if (Te[27] !== ho || Te[28] !== Wt)
+      (Zt = r(t, { dimColor: Wt, children: [" \xB7 ", ho, " "] })), (Te[27] = ho), (Te[28] = Wt), (Te[29] = Zt);
+    else Zt = Te[29];
+    const zt = !nt;
+    let en;
+    if (Te[30] !== ko || Te[31] !== zt)
+      (en = e(t, { dimColor: zt, children: ko })), (Te[30] = ko), (Te[31] = zt), (Te[32] = en);
+    else en = Te[32];
+    let hn;
+    if (Te[33] !== de.activity)
+      (hn =
+        de.activity && de.activity.skillCount > 0
+          ? r(t, {
+              dimColor: !0,
+              children: [
+                " ",
+                "\xB7 ",
+                de.activity.skillCount,
+                " ",
+                k(de.activity.skillCount, "skill"),
+                " \xB7",
+                " ",
+                de.activity.totalCount,
+                " ",
+                k(de.activity.totalCount, "use"),
+              ],
+            })
+          : null),
+        (Te[33] = de.activity),
+        (Te[34] = hn);
+    else hn = Te[34];
+    let _n;
+    if (Te[35] !== de.unusedDays)
+      (_n =
+        de.unusedDays !== void 0 &&
+        r(t, { dimColor: !0, children: [" ", "\xB7 not used in ", de.unusedDays, " ", k(de.unusedDays, "day")] })),
+        (Te[35] = de.unusedDays),
+        (Te[36] = _n);
+    else _n = Te[36];
+    let so;
+    if (
+      Te[37] !== Zt ||
+      Te[38] !== en ||
+      Te[39] !== hn ||
+      Te[40] !== _n ||
+      Te[41] !== nn ||
+      Te[42] !== un ||
+      Te[43] !== qt ||
+      Te[44] !== on
+    )
+      (so = r(t, { children: [nn, un, qt, on, Zt, en, hn, _n] })),
+        (Te[37] = Zt),
+        (Te[38] = en),
+        (Te[39] = hn),
+        (Te[40] = _n),
+        (Te[41] = nn),
+        (Te[42] = un),
+        (Te[43] = qt),
+        (Te[44] = on),
+        (Te[45] = so);
+    else so = Te[45];
+    let Ia;
+    if (Te[46] !== nt || Te[47] !== so)
+      (Ia = e(fl, { isFocused: nt, styled: !1, children: so })), (Te[46] = nt), (Te[47] = so), (Te[48] = Ia);
+    else Ia = Te[48];
+    return Ia;
+  }
+  if (de.type === "flagged-plugin") {
+    let Cn;
+    if (Te[49] !== lt) (Cn = mt("warning", lt)(L.warning)), (Te[49] = lt), (Te[50] = Cn);
+    else Cn = Te[50];
+    let Kp = Cn;
+    const cn = nt ? "suggestion" : void 0;
+    let nn;
+    if (Te[51] !== de.name || Te[52] !== cn)
+      (nn = e(t, { color: cn, children: de.name })), (Te[51] = de.name), (Te[52] = cn), (Te[53] = nn);
+    else nn = Te[53];
+    const un = !nt;
+    let dn;
+    if (Te[54] === d)
+      (dn = e(Dc, { color: "userMessageBackground", textColor: "text", children: "Plugin" })), (Te[54] = dn);
+    else dn = Te[54];
+    let pn;
+    if (Te[55] !== un) (pn = r(t, { dimColor: un, children: [" ", dn] })), (Te[55] = un), (Te[56] = pn);
+    else pn = Te[56];
+    let qt;
+    if (Te[57] !== de.marketplace)
+      (qt = r(t, { dimColor: !0, children: [" \xB7 ", de.marketplace] })), (Te[57] = de.marketplace), (Te[58] = qt);
+    else qt = Te[58];
+    const on = !nt;
+    let Wt;
+    if (Te[59] !== Kp || Te[60] !== on)
+      (Wt = r(t, { dimColor: on, children: [" \xB7 ", Kp, " "] })), (Te[59] = Kp), (Te[60] = on), (Te[61] = Wt);
+    else Wt = Te[61];
+    const Zt = !nt;
+    let zt;
+    if (Te[62] !== Zt) (zt = e(t, { dimColor: Zt, children: "removed" })), (Te[62] = Zt), (Te[63] = zt);
+    else zt = Te[63];
+    let en;
+    if (Te[64] !== zt || Te[65] !== nn || Te[66] !== pn || Te[67] !== qt || Te[68] !== Wt)
+      (en = r(t, { children: [nn, pn, qt, Wt, zt] })),
+        (Te[64] = zt),
+        (Te[65] = nn),
+        (Te[66] = pn),
+        (Te[67] = qt),
+        (Te[68] = Wt),
+        (Te[69] = en);
+    else en = Te[69];
+    let hn;
+    if (Te[70] !== nt || Te[71] !== en)
+      (hn = e(fl, { isFocused: nt, styled: !1, children: en })), (Te[70] = nt), (Te[71] = en), (Te[72] = hn);
+    else hn = Te[72];
+    return hn;
+  }
+  if (de.type === "failed-plugin") {
+    let Cn;
+    if (Te[73] !== lt) (Cn = mt("error", lt)(L.cross)), (Te[73] = lt), (Te[74] = Cn);
+    else Cn = Te[74];
+    let qp = Cn;
+    const cn = de.errorCount;
+    let nn;
+    if (Te[75] !== de.errorCount) (nn = k(de.errorCount, "error")), (Te[75] = de.errorCount), (Te[76] = nn);
+    else nn = Te[76];
+    let Wp = `failed to load \xB7 ${cn} ${nn}`;
+    const un = nt ? "suggestion" : void 0;
+    let dn;
+    if (Te[77] !== de.name || Te[78] !== un)
+      (dn = e(t, { color: un, children: de.name })), (Te[77] = de.name), (Te[78] = un), (Te[79] = dn);
+    else dn = Te[79];
+    const pn = !nt;
+    let qt;
+    if (Te[80] === d)
+      (qt = e(Dc, { color: "userMessageBackground", textColor: "text", children: "Plugin" })), (Te[80] = qt);
+    else qt = Te[80];
+    let on;
+    if (Te[81] !== pn) (on = r(t, { dimColor: pn, children: [" ", qt] })), (Te[81] = pn), (Te[82] = on);
+    else on = Te[82];
+    let Wt;
+    if (Te[83] !== de.marketplace)
+      (Wt = r(t, { dimColor: !0, children: [" \xB7 ", de.marketplace] })), (Te[83] = de.marketplace), (Te[84] = Wt);
+    else Wt = Te[84];
+    const Zt = !nt;
+    let zt;
+    if (Te[85] !== qp || Te[86] !== Zt)
+      (zt = r(t, { dimColor: Zt, children: [" \xB7 ", qp, " "] })), (Te[85] = qp), (Te[86] = Zt), (Te[87] = zt);
+    else zt = Te[87];
+    const en = !nt;
+    let hn;
+    if (Te[88] !== Wp || Te[89] !== en)
+      (hn = e(t, { dimColor: en, children: Wp })), (Te[88] = Wp), (Te[89] = en), (Te[90] = hn);
+    else hn = Te[90];
+    let _n;
+    if (Te[91] !== zt || Te[92] !== hn || Te[93] !== dn || Te[94] !== on || Te[95] !== Wt)
+      (_n = r(t, { children: [dn, on, Wt, zt, hn] })),
+        (Te[91] = zt),
+        (Te[92] = hn),
+        (Te[93] = dn),
+        (Te[94] = on),
+        (Te[95] = Wt),
+        (Te[96] = _n);
+    else _n = Te[96];
+    let so;
+    if (Te[97] !== nt || Te[98] !== _n)
+      (so = e(fl, { isFocused: nt, styled: !1, children: _n })), (Te[97] = nt), (Te[98] = _n), (Te[99] = so);
+    else so = Te[99];
+    return so;
+  }
+  if (de.type === "skill") {
+    let bo = Jp[de.override];
+    let Cn;
+    if (Te[100] !== bo.color || Te[101] !== bo.glyph || Te[102] !== lt)
+      (Cn = bo.color ? mt(bo.color, lt)(bo.glyph) : bo.glyph),
+        (Te[100] = bo.color),
+        (Te[101] = bo.glyph),
+        (Te[102] = lt),
+        (Te[103] = Cn);
+    else Cn = Te[103];
+    let zp = Cn;
+    const cn = nt ? "suggestion" : void 0;
+    let nn;
+    if (Te[104] !== de.name || Te[105] !== cn)
+      (nn = e(t, { color: cn, children: de.name })), (Te[104] = de.name), (Te[105] = cn), (Te[106] = nn);
+    else nn = Te[106];
+    const un = !nt;
+    let dn;
+    if (Te[107] === d)
+      (dn = e(Dc, { color: "userMessageBackground", textColor: "text", children: "Skill" })), (Te[107] = dn);
+    else dn = Te[107];
+    let pn;
+    if (Te[108] !== un) (pn = r(t, { dimColor: un, children: [" ", dn] })), (Te[108] = un), (Te[109] = pn);
+    else pn = Te[109];
+    let qt;
+    if (Te[110] !== de.source)
+      (qt = r(t, { dimColor: !0, children: [" \xB7 ", de.source] })), (Te[110] = de.source), (Te[111] = qt);
+    else qt = Te[111];
+    const on = !nt;
+    const Wt = de.lockSource ? "\uD83D\uDD12 " : "";
+    let Zt;
+    if (Te[112] !== zp || Te[113] !== on || Te[114] !== Wt)
+      (Zt = r(t, { dimColor: on, children: [" ", "\xB7 ", Wt, zp, " "] })),
+        (Te[112] = zp),
+        (Te[113] = on),
+        (Te[114] = Wt),
+        (Te[115] = Zt);
+    else Zt = Te[115];
+    const zt = !nt;
+    let en;
+    if (Te[116] !== bo.label || Te[117] !== zt)
+      (en = e(t, { dimColor: zt, children: bo.label })), (Te[116] = bo.label), (Te[117] = zt), (Te[118] = en);
+    else en = Te[118];
+    let hn;
+    if (Te[119] !== de.tokenEstimate)
+      (hn = r(t, { dimColor: !0, children: [" \xB7 ~", de.tokenEstimate, " tok"] })),
+        (Te[119] = de.tokenEstimate),
+        (Te[120] = hn);
+    else hn = Te[120];
+    let _n;
+    if (Te[121] !== de.usage)
+      (_n = de.usage
+        ? r(t, {
+            dimColor: !0,
+            children: [
+              " ",
+              "\xB7 ",
+              de.usage.count,
+              "\xD7",
+              " ",
+              de.usage.daysSinceUse === 0 ? "today" : `${de.usage.daysSinceUse}d`,
+            ],
+          })
+        : e(t, { color: "warning", children: " \xB7 never used" })),
+        (Te[121] = de.usage),
+        (Te[122] = _n);
+    else _n = Te[122];
+    let so;
+    if (
+      Te[123] !== Zt ||
+      Te[124] !== en ||
+      Te[125] !== hn ||
+      Te[126] !== _n ||
+      Te[127] !== nn ||
+      Te[128] !== pn ||
+      Te[129] !== qt
+    )
+      (so = r(t, { children: [nn, pn, qt, Zt, en, hn, _n] })),
+        (Te[123] = Zt),
+        (Te[124] = en),
+        (Te[125] = hn),
+        (Te[126] = _n),
+        (Te[127] = nn),
+        (Te[128] = pn),
+        (Te[129] = qt),
+        (Te[130] = so);
+    else so = Te[130];
+    let Ia;
+    if (Te[131] !== nt || Te[132] !== so)
+      (Ia = e(fl, { isFocused: nt, styled: !1, children: so })), (Te[131] = nt), (Te[132] = so), (Te[133] = Ia);
+    else Ia = Te[133];
+    return Ia;
+  }
+  let Pn, Tn;
+  if (de.status === "connected") {
+    if (Te[134] !== lt)
+      (Pn = mt("success", lt)(L.tick)), (Tn = "connected"), (Te[134] = lt), (Te[135] = Pn), (Te[136] = Tn);
+    else (Pn = Te[135]), (Tn = Te[136]);
+  } else if (de.status === "cached" && de.client.type === "cached") {
+    if (Te[137] !== de.client.cacheSavedAt || Te[138] !== lt) {
+      let Gp = Fme(de.client.cacheSavedAt);
+      (Pn = mt(Gp.tone, lt)(Gp.glyph)), (Tn = Gp.statusText);
+      (Te[137] = de.client.cacheSavedAt), (Te[138] = lt), (Te[139] = Pn), (Te[140] = Tn);
+    } else (Pn = Te[139]), (Tn = Te[140]);
+  } else if (de.status === "disabled") {
+    if (Te[141] !== lt)
+      (Pn = mt("inactive", lt)(L.radioOff)), (Tn = "disabled"), (Te[141] = lt), (Te[142] = Pn), (Te[143] = Tn);
+    else (Pn = Te[142]), (Tn = Te[143]);
+  } else if (de.status === "pending") {
+    if (Te[144] !== lt)
+      (Pn = mt("inactive", lt)(L.radioOff)), (Tn = "connecting\u2026"), (Te[144] = lt), (Te[145] = Pn), (Te[146] = Tn);
+    else (Pn = Te[145]), (Tn = Te[146]);
+  } else if (de.status === "needs-auth") {
+    if (Te[147] !== lt)
+      (Pn = mt("warning", lt)(L.triangleUpOutline)),
+        (Tn = e(ze, { action: "select:accept", context: "Select", fallback: "Enter", description: "auth" })),
+        (Te[147] = lt),
+        (Te[148] = Pn),
+        (Te[149] = Tn);
+    else (Pn = Te[148]), (Tn = Te[149]);
+  } else if (de.status === "unconfigured") {
+    if (Te[150] !== lt)
+      (Pn = mt("inactive", lt)(L.radioOff)), (Tn = "not configured"), (Te[150] = lt), (Te[151] = Pn), (Te[152] = Tn);
+    else (Pn = Te[151]), (Tn = Te[152]);
+  } else if (Te[153] !== lt)
+    (Pn = mt("error", lt)(L.cross)), (Tn = "failed"), (Te[153] = lt), (Te[154] = Pn), (Te[155] = Tn);
+  else (Pn = Te[154]), (Tn = Te[155]);
+  let Qp = de.client.config,
+    _r = Qp?.type === "claudeai-proxy" && Qp.scope === "claudeai" && Qp.enterpriseManaged === !0;
+  if (de.indented) {
+    const Cn = !nt;
+    let cn;
+    if (Te[156] !== Cn) (cn = e(t, { dimColor: Cn, children: "\u2514 " })), (Te[156] = Cn), (Te[157] = cn);
+    else cn = Te[157];
+    const nn = nt ? "suggestion" : void 0;
+    let un;
+    if (Te[158] !== de.name || Te[159] !== nn)
+      (un = e(t, { color: nn, children: de.name })), (Te[158] = de.name), (Te[159] = nn), (Te[160] = un);
+    else un = Te[160];
+    const dn = !nt;
+    let pn;
+    if (Te[161] === d)
+      (pn = e(Dc, { color: "userMessageBackground", textColor: "text", children: "MCP" })), (Te[161] = pn);
+    else pn = Te[161];
+    let qt;
+    if (Te[162] !== dn) (qt = r(t, { dimColor: dn, children: [" ", pn] })), (Te[162] = dn), (Te[163] = qt);
+    else qt = Te[163];
+    const on = !nt;
+    let Wt;
+    if (Te[164] !== Pn || Te[165] !== on)
+      (Wt = r(t, { dimColor: on, children: [" \xB7 ", Pn, " "] })), (Te[164] = Pn), (Te[165] = on), (Te[166] = Wt);
+    else Wt = Te[166];
+    const Zt = !nt;
+    let zt;
+    if (Te[167] !== Tn || Te[168] !== Zt)
+      (zt = e(t, { dimColor: Zt, children: Tn })), (Te[167] = Tn), (Te[168] = Zt), (Te[169] = zt);
+    else zt = Te[169];
+    let en;
+    if (Te[170] !== _r || Te[171] !== nt)
+      (en = _r && e(t, { dimColor: !nt, children: " \xB7 managed" })), (Te[170] = _r), (Te[171] = nt), (Te[172] = en);
+    else en = Te[172];
+    let hn;
+    if (Te[173] !== zt || Te[174] !== en || Te[175] !== cn || Te[176] !== un || Te[177] !== qt || Te[178] !== Wt)
+      (hn = r(t, { children: [cn, un, qt, Wt, zt, en] })),
+        (Te[173] = zt),
+        (Te[174] = en),
+        (Te[175] = cn),
+        (Te[176] = un),
+        (Te[177] = qt),
+        (Te[178] = Wt),
+        (Te[179] = hn);
+    else hn = Te[179];
+    let _n;
+    if (Te[180] !== nt || Te[181] !== hn)
+      (_n = e(fl, { isFocused: nt, styled: !1, children: hn })), (Te[180] = nt), (Te[181] = hn), (Te[182] = _n);
+    else _n = Te[182];
+    return _n;
+  }
+  const Cn = nt ? "suggestion" : void 0;
+  let cn;
+  if (Te[183] !== de.name || Te[184] !== Cn)
+    (cn = e(t, { color: Cn, children: de.name })), (Te[183] = de.name), (Te[184] = Cn), (Te[185] = cn);
+  else cn = Te[185];
+  const nn = !nt;
+  let un;
+  if (Te[186] === d)
+    (un = e(Dc, { color: "userMessageBackground", textColor: "text", children: "MCP" })), (Te[186] = un);
+  else un = Te[186];
+  let dn;
+  if (Te[187] !== nn) (dn = r(t, { dimColor: nn, children: [" ", un] })), (Te[187] = nn), (Te[188] = dn);
+  else dn = Te[188];
+  const pn = !nt;
+  let qt;
+  if (Te[189] !== Pn || Te[190] !== pn)
+    (qt = r(t, { dimColor: pn, children: [" \xB7 ", Pn, " "] })), (Te[189] = Pn), (Te[190] = pn), (Te[191] = qt);
+  else qt = Te[191];
+  const on = !nt;
+  let Wt;
+  if (Te[192] !== Tn || Te[193] !== on)
+    (Wt = e(t, { dimColor: on, children: Tn })), (Te[192] = Tn), (Te[193] = on), (Te[194] = Wt);
+  else Wt = Te[194];
+  let Zt;
+  if (Te[195] !== _r || Te[196] !== nt)
+    (Zt = _r && e(t, { dimColor: !nt, children: " \xB7 managed" })), (Te[195] = _r), (Te[196] = nt), (Te[197] = Zt);
+  else Zt = Te[197];
+  let zt;
+  if (Te[198] !== Zt || Te[199] !== cn || Te[200] !== dn || Te[201] !== qt || Te[202] !== Wt)
+    (zt = r(t, { children: [cn, dn, qt, Wt, Zt] })),
+      (Te[198] = Zt),
+      (Te[199] = cn),
+      (Te[200] = dn),
+      (Te[201] = qt),
+      (Te[202] = Wt),
+      (Te[203] = zt);
+  else zt = Te[203];
+  let en;
+  if (Te[204] !== nt || Te[205] !== zt)
+    (en = e(fl, { isFocused: nt, styled: !1, children: zt })), (Te[204] = nt), (Te[205] = zt), (Te[206] = en);
+  else en = Te[206];
+  return en;
+}
+function Ni(a) {
+  return a?.kind === "item" || a?.kind === "disabled-header";
+}
+function lk(a) {
+  switch (a.type) {
+    case "plugin":
+      return a.isEnabled && a.errorCount > 0;
+    case "failed-plugin":
+    case "flagged-plugin":
+      return !0;
+    case "mcp":
+      return (a.status === "needs-auth" || a.status === "failed") && !mc(a);
+    case "skill":
+      return !1;
+  }
+}
+var pc = ["on", "name-only", "user-invocable-only", "off"];
+function em(a, b) {
+  if (b === "policy" || b === "flag") return a;
+  if (b === "author") return a === "off" ? "user-invocable-only" : "off";
+  let S = pc.indexOf(a);
+  return pc[(S + 1) % pc.length];
+}
+function Xp(a) {
+  return (
+    (a.type === "plugin" && !a.isEnabled) ||
+    (a.type === "mcp" && a.status === "disabled") ||
+    (a.type === "skill" && a.override === "off")
+  );
+}
+function mc(a) {
+  return a.type === "mcp" && (a.status === "needs-auth" || a.status === "failed") && a.everConnected === !1;
+}
+function tm(a, { searchQuery: b, favoriteIds: S, showDisabled: x, disusedDays: v, keepInPlaceIds: R }) {
+  if (b) {
+    let E = b.toLowerCase();
+    return a
+      .filter(
+        (J) =>
+          J.name.toLowerCase().includes(E) ||
+          ("displayName" in J && J.displayName?.toLowerCase().includes(E)) ||
+          ("description" in J && J.description?.toLowerCase().includes(E)),
+      )
+      .map((J) => ({ kind: "item", section: "main", item: J }));
+  }
+  let j = [],
+    K = null,
+    T = (E, J) => {
+      let pe = K?.section !== E;
+      if (pe) {
+        if (j.length > 0 && j.at(-1)?.kind !== "disabled-header") j.push({ kind: "spacer" });
+        if (E === "attention" || E === "favorites" || E === "disused") j.push({ kind: "section-header", section: E });
+      }
+      if ((E === "main" || E === "disabled") && (pe || K?.item.scope !== J.scope)) {
+        if (!pe) j.push({ kind: "spacer" });
+        j.push({ kind: "scope-header", scope: J.scope });
+      }
+      let ue =
+          !pe &&
+          J.type === "mcp" &&
+          J.parentId !== void 0 &&
+          ((K?.item.type === "plugin" && K.item.id === J.parentId) ||
+            (K?.item.type === "mcp" && K.item.indented && K.item.parentId === J.parentId)),
+        Pe = J.type === "mcp" && J.indented && !ue ? { ...J, indented: !1 } : J;
+      j.push({ kind: "item", section: E, item: Pe }), (K = { section: E, item: Pe });
+    },
+    N = new Set();
+  for (let E of a) if (lk(E)) T("attention", E), N.add(E.id);
+  for (let E of a) if (S.has(E.id) && !N.has(E.id)) T("favorites", E), N.add(E.id);
+  if (v && v.size > 0) {
+    for (let E of a)
+      if (E.type === "plugin" && E.isEnabled && v.has(E.id) && !N.has(E.id))
+        T("disused", { ...E, unusedDays: v.get(E.id) }), N.add(E.id);
+  }
+  let H = (E) => (Xp(E) || mc(E)) && !R?.has(E.id);
+  for (let E of a) if (!H(E) && !N.has(E.id)) T("main", E);
+  let G = a.filter(H);
+  if (G.length > 0) {
+    if (j.length > 0) j.push({ kind: "spacer" });
+    if ((j.push({ kind: "disabled-header", disabledCount: Q(G, Xp), unusedConnectorCount: Q(G, mc) }), x))
+      for (let E of G) T("disabled", E);
+  }
+  return j;
+}
+function Ea(a) {
+  return a.loadedFrom === "syncedSkills" ? `synced-skill:${a.source}:${a.name}` : `skill:${a.source}:${a.name}`;
+}
+var Zp = "synced-skill:",
+  sk = "skill:";
+function om(a) {
+  return a.startsWith(Zp) ? sk + a.slice(Zp.length) : null;
+}
+function gc(a, b) {
+  let S = new Set(),
+    x = [];
+  for (let R of b) {
+    let j = Ea(R);
+    if (R.loadedFrom === "syncedSkills") x.push(j);
+    else S.add(j);
+  }
+  let v = null;
+  for (let R of x) {
+    let j = om(R);
+    if (j !== null && a.has(j) && !a.has(R) && !S.has(j)) (v ??= new Set(a)), v.add(R);
+  }
+  return v ?? a;
+}
+function im(a, b, S) {
+  let x = gc(a, S),
+    v = new Set(a);
+  if (!x.has(b)) return v.add(b), v;
+  v.delete(b);
+  let R = om(b);
+  if (R !== null && !S.some((j) => j.loadedFrom !== "syncedSkills" && Ea(j) === R)) v.delete(R);
+  return v;
+}
+function wk(rm) {
+  let [fk, Y$] = rm;
+  return e(zc, { children: r(t, { dimColor: !0, children: [fk, ": ", Y$.join(", ")] }) }, fk);
+}
+var yk = ["on", "name-only", "user-invocable-only", "off"];
+function cm(a, b) {
+  let S = ye("localSettings")?.skillOverrides,
+    x = ye("projectSettings")?.skillOverrides,
+    v = ye("userSettings")?.skillOverrides,
+    R = (T) => x?.[T] ?? v?.[T],
+    j = R(a.cmdName) ?? (a.unqualifiedName != null ? (S?.[a.unqualifiedName] ?? R(a.unqualifiedName)) : void 0),
+    K = a.lockSource === "author" ? (j === "off" ? "off" : "user-invocable-only") : (j ?? "on");
+  return b === K ? void 0 : b;
+}
+function hk(a) {
+  switch (a) {
+    case "flagged":
+      return "Flagged";
+    case "project":
+      return "Project";
+    case "local":
+      return "Local";
+    case "user":
+      return "User";
+    case "enterprise":
+      return "Enterprise";
+    case "managed":
+      return "Managed";
+    case "builtin":
+    case "dynamic":
+      return "Built-in";
+    case "skills":
+      return "Skills";
+    default:
+      return a;
+  }
+}
+function dm(rm) {
+  let Ma = _(11),
+    { plugin: fc, marketplace: yc } = rm,
+    [hc, z$] = u(null),
+    [kc, G$] = u(null),
+    ck,
+    uk;
+  if (Ma[0] !== yc || Ma[1] !== fc)
+    (ck = () => {
+      let am = !1;
+      return (
+        j0t(fc, yc)
+          .then((Q$) => {
+            if (!am) z$(Q$);
+          })
+          .catch((pk) => {
+            if (!am) G$(pk instanceof Error ? pk.message : "Failed to load components");
+          }),
+        () => {
+          am = !0;
+        }
+      );
+    }),
+      (uk = [fc, yc]),
+      (Ma[0] = yc),
+      (Ma[1] = fc),
+      (Ma[2] = ck),
+      (Ma[3] = uk);
+  else (ck = Ma[2]), (uk = Ma[3]);
+  if ((A(ck, uk), kc)) {
+    let $a;
+    if (Ma[4] === d) ($a = e(t, { bold: !0, children: "Components:" })), (Ma[4] = $a);
+    else $a = Ma[4];
+    let Fr;
+    if (Ma[5] !== kc)
+      (Fr = r(o, {
+        flexDirection: "column",
+        marginBottom: 1,
+        children: [$a, r(t, { dimColor: !0, children: ["Error: ", kc] })],
+      })),
+        (Ma[5] = kc),
+        (Ma[6] = Fr);
+    else Fr = Ma[6];
+    return Fr;
+  }
+  if (!hc) {
+    return null;
+  }
+  let $a, Fr;
+  if (Ma[7] !== hc) {
+    Fr = fn;
+    bb0: {
+      let mk = Pi(hc);
+      if (mk.length === 0) {
+        Fr = null;
+        break bb0;
+      }
+      let gk;
+      if (Ma[10] === d) (gk = e(t, { bold: !0, children: "Installed components:" })), (Ma[10] = gk);
+      else gk = Ma[10];
+      $a = r(o, { flexDirection: "column", marginBottom: 1, children: [gk, mk.map(wk)] });
+    }
+    (Ma[7] = hc), (Ma[8] = $a), (Ma[9] = Fr);
+  } else ($a = Ma[8]), (Fr = Ma[9]);
+  if (Fr !== fn) return Fr;
+  return $a;
+}
+async function kk(a, b, S) {
+  let v = (await Hv(b, S))?.plugins.find((R) => R.name === a);
+  if (v && typeof v.source === "string")
+    return `Local plugins cannot be updated remotely. To update, modify the source at: ${v.source}`;
+  return null;
+}
+function bk(a) {
+  return a.filter((b) => !Fd(b.source));
+}
+function vc(J$) {
+  let Aa = _(15),
+    { entries: Bo, color: li, noun: lm } = J$;
+  if (Bo.length === 0) {
+    return null;
+  }
+  const X$ = Bo.length;
+  let bc;
+  if (Aa[0] !== Bo.length || Aa[1] !== lm) (bc = k(Bo.length, lm)), (Aa[0] = Bo.length), (Aa[1] = lm), (Aa[2] = bc);
+  else bc = Aa[2];
+  let xc;
+  if (Aa[3] !== li || Aa[4] !== Bo.length || Aa[5] !== bc)
+    (xc = r(t, { bold: !0, color: li, children: [X$, " ", bc, ":"] })),
+      (Aa[3] = li),
+      (Aa[4] = Bo.length),
+      (Aa[5] = bc),
+      (Aa[6] = xc);
+  else xc = Aa[6];
+  let Sc;
+  if (Aa[7] !== li || Aa[8] !== Bo) {
+    let Oa;
+    if (Aa[10] !== li)
+      (Oa = (sm, Z$) =>
+        r(
+          o,
+          {
+            flexDirection: "column",
+            marginLeft: 2,
+            children: [
+              e(t, { color: li, children: sm.message }),
+              sm.guidance && r(t, { dimColor: !0, italic: !0, children: [L.arrowRight, " ", sm.guidance] }),
+            ],
+          },
+          Z$,
+        )),
+        (Aa[10] = li),
+        (Aa[11] = Oa);
+    else Oa = Aa[11];
+    Sc = Bo.map(Oa);
+    (Aa[7] = li), (Aa[8] = Bo), (Aa[9] = Sc);
+  } else Sc = Aa[9];
+  let Oa;
+  if (Aa[12] !== xc || Aa[13] !== Sc)
+    (Oa = r(o, { flexDirection: "column", children: [xc, Sc] })), (Aa[12] = xc), (Aa[13] = Sc), (Aa[14] = Oa);
+  else Oa = Aa[14];
+  return Oa;
+}
+function pm({
+  setViewState: a,
+  setResult: b,
+  onManageComplete: S,
+  onSearchModeChange: x,
+  targetPlugin: v,
+  targetMarketplace: R,
+  action: j,
+  commands: K,
+}) {
+  let { storageV5: T, credentials: N } = ge(),
+    H = W((P) => P.mcp.clients),
+    G = W((P) => P.mcp.tools),
+    E = W((P) => P.plugins.errors),
+    J = W((P) => P.plugins.warnings),
+    pe = Bme(),
+    ue = $p(),
+    [Pe, _e] = u(!1),
+    be = () => _e(!1),
+    ve = Ba(),
+    Je = Ua(),
+    st = Ee(),
+    { columns: Tt } = st,
+    { rows: it } = Ui(st),
+    [re, xe] = u("plugin-list"),
+    {
+      query: Ge,
+      setQuery: Ht,
+      cursorOffset: Le,
+      setCursorOffset: ot,
+      handleKeyDown: dt,
+      handlePaste: pt,
+    } = np({ isActive: re === "plugin-list" && Pe, onExit: be, onExitUp: be }),
+    gt = Pe && Ge !== "";
+  A(() => {
+    x(gt);
+  }, [gt, x]),
+    A(() => () => x(!1), [x]);
+  let [se, tn] = u(null),
+    Bt = z(() => (se ? GBe(se.plugin.source) : null), [se]),
+    Gt = Sr(Bt),
+    [Et, In] = u(0),
+    [kn, Dn] = u([]),
+    [$t, Ut] = u([]),
+    Lt = Op(jxe, gWn),
+    [le, je] = u(!0),
+    [Qe, kt] = u(0),
+    [_t, qe] = u(() => new Set()),
+    [Re, an] = u(new Map()),
+    [Ot, Pt] = u(!1),
+    [yt, oe] = u(null),
+    [et, Dt] = u(null),
+    [Mt, Jt] = u(0),
+    Xt = B(
+      (P) => {
+        Dt(P), Pt(!1), tn(null), xe("plugin-list"), Jt((Y) => Y + 1), S();
+      },
+      [S],
+    ),
+    It = C(!1),
+    ee = C(new Set()),
+    Ne = C(new Set()),
+    he = C(void 0),
+    Ke = TK(),
+    wt = B(() => {
+      if (re === "plugin-details") xe("plugin-list"), tn(null), oe(null);
+      else if (typeof re === "object" && re.type === "failed-plugin-details") xe("plugin-list"), oe(null);
+      else if (re === "configuring") xe("plugin-details"), Zr(null);
+      else if (re === "plugin-usage") xe("plugin-details");
+      else if (typeof re === "object" && re.type === "plugin-options")
+        Xt("Plugin enabled. Configuration skipped \u2014 run /reload-plugins to apply.");
+      else if (typeof re === "object" && re.type === "configuring-options") b("Configuration cancelled.");
+      else if (typeof re === "object" && re.type === "flagged-detail") xe("plugin-list"), oe(null);
+      else if (typeof re === "object" && re.type === "mcp-detail") xe("plugin-list"), oe(null);
+      else if (typeof re === "object" && re.type === "skill-detail") xe("plugin-list"), oe(null);
+      else if (typeof re === "object" && re.type === "mcp-tools") xe({ type: "mcp-detail", client: re.client });
+      else if (typeof re === "object" && re.type === "mcp-tool-detail") xe({ type: "mcp-tools", client: re.client });
+      else {
+        if (Re.size > 0) {
+          b("Run /reload-plugins to apply plugin changes.");
+          return;
+        }
+        a({ type: "menu" });
+      }
+    }, [re, a, Re, b, Xt]);
+  Be("confirm:no", wt, {
+    context: "Settings",
+    isActive:
+      (re !== "plugin-list" || !Pe) &&
+      re !== "confirm-project-uninstall" &&
+      !(typeof re === "object" && re.type === "confirm-data-cleanup"),
+  });
+  let ke = (P) => {
+      if (P.type === "connected") return "connected";
+      if (P.type === "cached") return "cached";
+      if (P.type === "disabled") return "disabled";
+      if (P.type === "pending") return "pending";
+      if (P.type === "needs-auth") return "needs-auth";
+      if (Kb(P)) return "unconfigured";
+      return "failed";
+    },
+    He = z(() => {
+      let P = En(),
+        Y = new Map();
+      for (let Oe of H)
+        if (Oe.name.startsWith("plugin:")) {
+          let Ct = Oe.name.split(":");
+          if (Ct.length >= 3) {
+            let Kt = Ct[1],
+              sn = Ct.slice(2).join(":"),
+              Rn = Y.get(Kt) || [];
+            Rn.push({ displayName: Oo(sn), client: Oe }), Y.set(Kt, Rn);
+          }
+        }
+      let ne = new Set(),
+        ae = [],
+        ce = Lt;
+      for (let Oe of $t) {
+        let Ct = GBe(Oe.plugin.source),
+          Kt = Re.get(Ct),
+          sn = Kt !== void 0 ? Kt === "will-disable" : ake(Ct, Oe.plugin.manifest, ce),
+          Rn = E.filter((Mn) => !jne(Mn) && PK(Mn, Ct, Oe.plugin.name));
+        for (let Mn of Rn) ne.add(Mn);
+        let Sn = Oe.plugin.isBuiltin ? "builtin" : Oe.scope || "user",
+          De = K && Sk() ? Ta(Oe.plugin.manifest.name, K) : void 0;
+        ae.push({
+          item: {
+            type: "plugin",
+            id: Ct,
+            name: Oe.plugin.name,
+            displayName: Oe.plugin.manifest.displayName,
+            description: Oe.plugin.manifest.description,
+            marketplace: Oe.marketplace,
+            scope: Sn,
+            isEnabled: sn,
+            errorCount: Rn.length,
+            errors: Rn,
+            plugin: Oe.plugin,
+            pendingEnable: Oe.pendingEnable,
+            pendingUpdate: Oe.pendingUpdate,
+            pendingToggle: Kt,
+            activity: De ? { skillCount: De.skillCount, totalCount: De.totalCount } : void 0,
+          },
+          originalScope: Sn,
+          childMcps: sn ? Y.get(Oe.plugin.name) || [] : [],
+        });
+      }
+      let $e = new Map();
+      for (let Oe of E) {
+        if (jne(Oe)) continue;
+        let Ct = x0t(Oe);
+        if (!Ct && ne.has(Oe)) continue;
+        let Kt = Ct ? `orphan:${Oe.source}` : Oe.source,
+          sn = $e.get(Kt) || [];
+        sn.push(Oe), $e.set(Kt, sn);
+      }
+      let vt = m1(),
+        Fe = [];
+      for (let [Oe, Ct] of $e) {
+        let Kt = Oe.startsWith("orphan:") ? Oe.slice(7) : Oe;
+        if (Kt in pe) continue;
+        let sn = Zz(Kt),
+          Rn = sn.name || Kt,
+          Sn = sn.marketplace || MI(Kt) || "unknown",
+          De = R2e(vt, Kt),
+          Mn = De === "flag" || De === void 0 ? "user" : De;
+        Fe.push({
+          type: "failed-plugin",
+          id: Oe,
+          name: Rn,
+          marketplace: Sn,
+          scope: Mn,
+          errorCount: Ct.length,
+          errors: Ct,
+        });
+      }
+      let Ie = [],
+        Ve = Kct();
+      for (let Oe of H) {
+        if (Oe.name === "ide") continue;
+        if (Oe.name.startsWith("plugin:")) continue;
+        Ie.push({
+          type: "mcp",
+          id: `mcp:${Oe.name}`,
+          name: Oe.name,
+          description: void 0,
+          scope: Oe.config.scope,
+          status: ke(Oe),
+          client: Oe,
+          everConnected: Oe.config.type === "claudeai-proxy" ? Ve.has(Oe.name) : void 0,
+        });
+      }
+      let Ze = [];
+      if (K) {
+        let Oe = new Set($t.filter((De) => De.marketplace === nu).map((De) => De.plugin.name)),
+          Ct = ie().skillUsage ?? {},
+          Kt = Date.now(),
+          sn = P.skillOverrides ?? {},
+          Rn = ye("policySettings")?.skillOverrides ?? {},
+          Sn = ye("flagSettings")?.skillOverrides ?? {};
+        for (let De of K) {
+          if (
+            De.type !== "prompt" ||
+            (De.loadedFrom !== "skills" && De.loadedFrom !== "syncedSkills" && De.loadedFrom !== "commands_DEPRECATED")
+          )
+            continue;
+          let Mn = ei(De);
+          if (Oe.has(De.name) || Oe.has(Mn)) continue;
+          let Wo = Rn[De.name],
+            bu = Sn[De.name],
+            xu = sn[De.name] ?? (De.unqualifiedName != null ? sn[De.unqualifiedName] : void 0),
+            na,
+            Qi;
+          if (Wo) (na = "policy"), (Qi = Wo);
+          else if (bu) (na = "flag"), (Qi = bu);
+          else if (De.disableModelInvocation) (na = "author"), (Qi = xu === "off" ? "off" : "user-invocable-only");
+          else Qi = xu ?? "on";
+          Ze.push({
+            type: "skill",
+            id: Ea(De),
+            cmdName: De.name,
+            unqualifiedName: De.unqualifiedName,
+            name: Mn,
+            description: De.description,
+            scope: "skills",
+            source: De.loadedFrom === "syncedSkills" ? hN : yw(De.source),
+            override: Qi,
+            whenToUse: De.whenToUse,
+            skillRoot: De.skillRoot,
+            allowedTools: De.allowedTools,
+            lockSource: na,
+            tokenEstimate: Fc([De.name, De.description, De.whenToUse].filter(Boolean).join(" ")),
+            usage: (() => {
+              let tl = Ct[De.name] ?? (De.unqualifiedName ? Ct[De.unqualifiedName] : void 0);
+              return tl
+                ? { count: tl.usageCount, daysSinceUse: Math.max(0, Math.floor((Kt - tl.lastUsedAt) / 86400000)) }
+                : void 0;
+            })(),
+          });
+        }
+      }
+      let jn = {
+          flagged: -1,
+          project: 0,
+          local: 1,
+          user: 2,
+          enterprise: 3,
+          managed: 4,
+          dynamic: 5,
+          builtin: 6,
+          skills: 7,
+        },
+        co = [],
+        gn = new Map();
+      for (let { item: Oe, originalScope: Ct, childMcps: Kt } of ae) {
+        let sn = Oe.scope;
+        if (!gn.has(sn)) gn.set(sn, []);
+        gn.get(sn).push(Oe);
+        for (let { displayName: Rn, client: Sn } of Kt) {
+          let De = Ct === "builtin" ? "user" : Ct;
+          if (!gn.has(De)) gn.set(De, []);
+          gn.get(De).push({
+            type: "mcp",
+            id: `mcp:${Sn.name}`,
+            name: Rn,
+            description: void 0,
+            scope: De,
+            status: ke(Sn),
+            client: Sn,
+            indented: !0,
+            parentId: Oe.id,
+          });
+        }
+      }
+      for (let Oe of Ie) {
+        let Ct = Oe.scope;
+        if (!gn.has(Ct)) gn.set(Ct, []);
+        gn.get(Ct).push(Oe);
+      }
+      if (Ze.length > 0) gn.set("skills", Ze);
+      for (let Oe of Fe) {
+        let Ct = Oe.scope;
+        if (!gn.has(Ct)) gn.set(Ct, []);
+        gn.get(Ct).push(Oe);
+      }
+      for (let [Oe, Ct] of Object.entries(pe)) {
+        let Kt = Vt(Oe),
+          sn = Kt.name || Oe,
+          Rn = Kt.marketplace || "unknown";
+        if (!gn.has("flagged")) gn.set("flagged", []);
+        gn.get("flagged").push({
+          type: "flagged-plugin",
+          id: Oe,
+          name: sn,
+          marketplace: Rn,
+          scope: "flagged",
+          reason: "delisted",
+          text: "Removed from marketplace",
+          flaggedAt: Ct.flaggedAt,
+        });
+      }
+      let el = [...gn.keys()].sort((Oe, Ct) => (jn[Oe] ?? 99) - (jn[Ct] ?? 99));
+      for (let Oe of el) {
+        let Ct = gn.get(Oe),
+          Kt = [],
+          sn = [],
+          Rn = [],
+          Sn = 0;
+        while (Sn < Ct.length) {
+          let De = Ct[Sn];
+          if (De.type === "plugin" || De.type === "failed-plugin" || De.type === "flagged-plugin") {
+            let Mn = [De];
+            Sn++;
+            let Wo = Ct[Sn];
+            while (Wo?.type === "mcp" && Wo.indented) Mn.push(Wo), Sn++, (Wo = Ct[Sn]);
+            Kt.push(Mn);
+          } else if (De.type === "mcp" && !De.indented) sn.push(De), Sn++;
+          else if (De.type === "skill") Rn.push(De), Sn++;
+          else Sn++;
+        }
+        Kt.sort((De, Mn) => De[0].name.localeCompare(Mn[0].name)),
+          sn.sort((De, Mn) => De.name.localeCompare(Mn.name)),
+          Rn.sort((De, Mn) => De.name.localeCompare(Mn.name));
+        for (let De of Kt) co.push(...De);
+        co.push(...sn), co.push(...Rn);
+      }
+      return co;
+    }, [$t, H, E, Re, pe, K, Qe, Lt]),
+    Nt = z(() => He.filter((P) => P.type === "flagged-plugin").map((P) => P.id), [He]);
+  A(() => {
+    if (Nt.length > 0) pOn(Nt, T);
+  }, [Nt, T]);
+  let [Kn, Fn] = u(() => new Set((ie().favoritePlugins ?? []).map(GBe))),
+    ln = z(
+      () =>
+        (K ?? []).flatMap((P) =>
+          P.type === "prompt" ? [{ name: P.name, source: P.source, loadedFrom: P.loadedFrom }] : [],
+        ),
+      [K],
+    ),
+    Qr = z(() => gc(Kn, ln), [Kn, ln]),
+    Yr = B(
+      (P) => {
+        Fn((Y) => {
+          let ne = im(Y, P, ln);
+          return Ae((ae) => ({ ...ae, favoritePlugins: [...ne] }), T), ne;
+        });
+      },
+      [ln, T],
+    ),
+    [Ja, fu] = u(!1),
+    [Jr, yu] = u(() => new Map());
+  A(() => {
+    let P = !1;
+    return (
+      Ase().then((Y) => {
+        if (P || Y.length === 0) return;
+        yu(new Map(Y.map((ne) => [GBe(ne.pluginId), ne.daysSinceLastUse])));
+      }),
+      () => {
+        P = !0;
+      }
+    );
+  }, []);
+  let gi = B(
+      (P, Y) => {
+        if (Y === null || !Jr.has(Y)) return;
+        y("cli_plugin_disuse_review"),
+          s("tengu_plugin_disuse_review_action", { action: c(P), ...Nb(Y) }),
+          yu((ne) => {
+            if (!ne.has(Y)) return ne;
+            let ae = new Map(ne);
+            return ae.delete(Y), ae;
+          });
+      },
+      [Jr],
+    ),
+    bn = z(
+      () => tm(He, { searchQuery: Ge, favoriteIds: Qr, showDisabled: Ja, disusedDays: Jr, keepInPlaceIds: _t }),
+      [He, Ge, Qr, Ja, Jr, _t],
+    ),
+    Gi = B(
+      (P, Y) => {
+        let ne = Y === -1 ? Math.min(P, bn.length - 1) : P;
+        for (let ae = ne; ae >= 0 && ae < bn.length; ae += Y) if (Ni(bn[ae])) return ae;
+        return -1;
+      },
+      [bn],
+    ),
+    [Un, xo] = u(0),
+    Xa = C(null);
+  A(() => {
+    if (bn.length === 0) return;
+    let P = Xa.current;
+    if (P) {
+      Xa.current = null;
+      let Y = bn.findIndex((ne) => ne.kind === "item" && ne.section === P.section && ne.item.id === P.id);
+      if (Y === -1) Y = bn.findIndex((ne) => ne.kind === "item" && ne.item.id === P.id);
+      if (Y !== -1) {
+        xo(Y);
+        return;
+      }
+    }
+    if (!Ni(bn[Un])) {
+      let Y = Gi(Un, 1),
+        ne = Gi(Un, -1);
+      xo(Y !== -1 ? Y : ne !== -1 ? ne : 0);
+    }
+  }, [bn, Un, Gi]);
+  let sg = Je ? Math.max(8, it - 10) : 8,
+    cg = z(() => Math.max(0, bn.findIndex(Ni)), [bn]),
+    fi = xa({ totalItems: bn.length, selectedIndex: Un, maxVisible: sg, firstSelectableIndex: cg }),
+    [qo, Xr] = u(0),
+    [hi, Zr] = u(null),
+    [cx, Za] = u(!1),
+    [hu, ku] = u(!1);
+  A(() => {
+    if (!se) {
+      ku(!1);
+      return;
+    }
+    async function P() {
+      let ne = se.plugin.manifest.mcpServers,
+        ae = !1;
+      if (ne)
+        ae =
+          (typeof ne === "string" && PL(ne)) ||
+          (Array.isArray(ne) && ne.some((ce) => typeof ce === "string" && PL(ce)));
+      if (!ae)
+        try {
+          let ce = await Ap(T, se.plugin),
+            $e = V(ui(ce)),
+            vt = Vt(se.plugin.source).name,
+            Fe = $e.plugins?.find((Ie) => Ie.name === vt || Ie.name === se.plugin.name);
+          if (Fe?.mcpServers) {
+            let Ie = Fe.mcpServers;
+            ae =
+              (typeof Ie === "string" && PL(Ie)) ||
+              (Array.isArray(Ie) && Ie.some((Ve) => typeof Ve === "string" && PL(Ve)));
+          }
+        } catch (ce) {
+          n(`Failed to read raw marketplace.json: ${ce}`);
+        }
+      if (!Y) ku(ae);
+    }
+    let Y = !1;
+    return (
+      P(),
+      O() && T !== void 0
+        ? () => {
+            Y = !0;
+          }
+        : void 0
+    );
+  }, [se, T]),
+    A(() => {
+      let P = Mt > 0;
+      async function Y() {
+        if (!P) je(!0);
+        try {
+          let { enabled: ne, disabled: ae } = await Dh(T, N),
+            ce = bk([...ne, ...ae]),
+            $e = {};
+          for (let Ve of ce) {
+            let Ze = Ud(Ve.source) ?? "local";
+            if (!$e[Ze]) $e[Ze] = [];
+            $e[Ze].push(Ve);
+          }
+          let vt = [],
+            Fe = jxe();
+          for (let [Ve, Ze] of Object.entries($e)) {
+            let jn = Q(Ze, (gn) => {
+                let el = GBe(gn.source);
+                return ake(el, gn.manifest, Fe);
+              }),
+              co = Ze.length - jn;
+            vt.push({ name: Ve, installedPlugins: Ze, enabledCount: jn, disabledCount: co });
+          }
+          vt.sort((Ve, Ze) => {
+            if (Ve.name === "claude-plugin-directory") return -1;
+            if (Ze.name === "claude-plugin-directory") return 1;
+            return Ve.name.localeCompare(Ze.name);
+          }),
+            Dn(vt);
+          let Ie = [];
+          for (let Ve of vt)
+            for (let Ze of Ve.installedPlugins) {
+              let jn = Ze.isBuiltin ? "builtin" : (Ze.scope ?? L0t(Ze.source).scope);
+              Ie.push({ plugin: Ze, marketplace: Ve.name, scope: jn, pendingEnable: void 0, pendingUpdate: !1 });
+            }
+          if ((Ut(Ie), !P)) xo(0);
+        } finally {
+          je(!1);
+        }
+      }
+      Y();
+    }, [Mt, T, N]),
+    A(() => {
+      if (It.current) return;
+      let P = kn.length > 0 || He.some((Y) => Y.type === "failed-plugin");
+      if (v && P && !le) {
+        let { name: Y, marketplace: ne } = R !== void 0 ? { name: v, marketplace: void 0 } : Vt(BF(v)),
+          ae = R ?? ne,
+          ce = ae === void 0 ? void 0 : Ggn(ae),
+          $e = ce ? kn.filter((Fe) => Fe.name === ce) : kn;
+        for (let Fe of $e) {
+          let Ie = Fe.installedPlugins.find((Ve) => Vy(Ve.name, Y) || Vy(Vt(Ve.source).name, Y));
+          if (Ie) {
+            let Ve = Ie.scope ?? L0t(Ie.source).scope,
+              Ze = { plugin: Ie, marketplace: Fe.name, scope: Ve, pendingEnable: void 0, pendingUpdate: !1 };
+            tn(Ze), xe("plugin-details"), (he.current = j), (It.current = !0);
+            return;
+          }
+        }
+        let vt = He.find((Fe) => Fe.type === "failed-plugin" && Vy(Fe.name, Y) && (!ce || Fe.marketplace === ce));
+        if (vt && vt.type === "failed-plugin")
+          xe({
+            type: "failed-plugin-details",
+            plugin: { id: vt.id, name: vt.name, marketplace: vt.marketplace, errors: vt.errors, scope: vt.scope },
+          }),
+            (It.current = !0);
+        if (!It.current && j) (It.current = !0), b(`Plugin "${v}" is not installed in this project`);
+      }
+    }, [v, R, kn, le, He, j, b]);
+  let ea = async (P) => {
+      if (!se) return;
+      let Y = se.scope || "user",
+        ne = Y === "builtin";
+      if (ne && (P === "update" || P === "uninstall")) {
+        oe("Built-in plugins cannot be updated or uninstalled.");
+        return;
+      }
+      if (!ne && !WBe(Y) && P !== "update") {
+        oe("This plugin is managed by your organization. Contact your admin to disable it.");
+        return;
+      }
+      Pt(!0), oe(null);
+      try {
+        let ae = Bt,
+          ce;
+        switch (P) {
+          case "enable": {
+            let Ve = await lke(ae, void 0, T);
+            if (!Ve.success) throw Error(Ve.message);
+            break;
+          }
+          case "disable": {
+            let Ve = await cke(ae, void 0, T);
+            if (!Ve.success) throw Error(Ve.message);
+            ce = Ve.reverseDependents;
+            break;
+          }
+          case "uninstall": {
+            if (ne) break;
+            if (!WBe(Y)) break;
+            if (RMn(ae)) {
+              Pt(!1), xe("confirm-project-uninstall");
+              return;
+            }
+            let Ve = nm().plugins[ae],
+              jn = !Ve || Ve.length <= 1 ? await mQn(ae) : null;
+            if (jn) {
+              Pt(!1), xe({ type: "confirm-data-cleanup", size: jn });
+              return;
+            }
+            let co = await bq(ae, Y, void 0, T);
+            if (!co.success) throw Error(co.message);
+            ce = co.reverseDependents;
+            break;
+          }
+          case "update": {
+            if (ne) break;
+            let Ve = await hge(ae, Y, { explicit: !0, consentedEntryHelper: Gt.pinned() }, T);
+            switch (Ve.outcome) {
+              case "failed":
+                if (
+                  Ve.failureCode === "entry_helper_unshown" ||
+                  Ve.failureCode === "entry_helper_changed" ||
+                  Ve.failureCode === "entry_archive_url_changed"
+                )
+                  In((Ze) => Ze + 1);
+                throw Error(Ve.message);
+              case "up_to_date":
+              case "skipped":
+                b(Ve.message), await S(), a({ type: "menu" });
+                return;
+              case "updated":
+                break;
+            }
+            break;
+          }
+        }
+        if (
+          (Qu(T, N),
+          an((Ve) => {
+            if (!Ve.has(ae)) return Ve;
+            let Ze = new Map(Ve);
+            return Ze.delete(ae), Ze;
+          }),
+          P === "disable" || P === "uninstall")
+        )
+          gi(P, Bt);
+        let $e = ake(ae, se.plugin.manifest, jxe());
+        if (P !== "uninstall" && P !== "update" && $e) {
+          Pt(!1), xe({ type: "plugin-options" });
+          return;
+        }
+        let vt = P === "enable" ? "Enabled" : P === "disable" ? "Disabled" : P === "update" ? "Updated" : "Uninstalled",
+          Fe = ce && ce.length > 0 ? ` \xB7 required by ${ce.join(", ")}` : "",
+          Ie = `${L.tick} ${vt} ${id(se.plugin)}${Fe}. Run /reload-plugins to apply.`;
+        if (P === "update") b(Ie), await S(), a({ type: "menu" });
+        else Xt(Ie);
+      } catch (ae) {
+        Pt(!1);
+        let ce = ae instanceof Error ? ae.message : String(ae);
+        oe(`Failed to ${P}: ${ce}`), n(`Failed to ${P} plugin: ${ce}`, { level: "error" });
+      }
+    },
+    ug = br(ea);
+  A(() => {
+    if (re === "plugin-details" && se && he.current) {
+      let P = he.current;
+      if (((he.current = void 0), P === "configure")) {
+        let Y = se.plugin.manifest.userConfig;
+        if (Y && Object.keys(Y).length > 0) xe({ type: "configuring-options", schema: Y });
+        else b(`Plugin "${Xw(se.plugin)}" declares no userConfig options.`);
+        return;
+      }
+      ug(P);
+    }
+  }, [re, se, b]);
+  let dg = B(async () => {
+      let P = bn[Un];
+      if (!Ni(P)) return;
+      if (P.kind === "disabled-header") {
+        fu((ne) => !ne);
+        return;
+      }
+      let Y = P.item;
+      if (Y.type === "flagged-plugin") return;
+      if (Y.type === "plugin") {
+        let ne = Y.id,
+          ae = Re.get(ne),
+          ce = ake(ne, Y.plugin.manifest, Lt),
+          $e = Y.scope;
+        if ($e === "builtin" || WBe($e)) {
+          if (Ne.current.has(ne)) return;
+          Ne.current.add(ne), qe((Ie) => new Set(Ie).add(ne));
+          let Fe = new Map(Re);
+          if (ae)
+            Fe.delete(ne),
+              oe(null),
+              (async () => {
+                try {
+                  let Ie = ae === "will-disable" ? await lke(ne, void 0, T) : await cke(ne, void 0, T);
+                  if (!Ie.success && !Ie.alreadyInGoalState) {
+                    an((Ve) => {
+                      let Ze = new Map(Ve);
+                      return Ze.set(ne, ae), Ze;
+                    }),
+                      oe(Ie.message);
+                    return;
+                  }
+                  Qu(T, N);
+                } catch (Ie) {
+                  an((Ve) => {
+                    let Ze = new Map(Ve);
+                    return Ze.set(ne, ae), Ze;
+                  }),
+                    oe(`Failed to reverse the toggle: ${l(Ie)}`),
+                    h(ft(we(Ie), "/plugin: reversing a pending toggle on the list threw"));
+                } finally {
+                  Ne.current.delete(ne);
+                }
+              })();
+          else
+            Fe.set(ne, ce ? "will-disable" : "will-enable"),
+              oe(null),
+              (async () => {
+                try {
+                  let Ie = ce ? await cke(ne, void 0, T) : await lke(ne, void 0, T);
+                  if (!Ie.success) {
+                    an((Ve) => {
+                      let Ze = new Map(Ve);
+                      return Ze.delete(ne), Ze;
+                    }),
+                      oe(Ie.message);
+                    return;
+                  }
+                  if ((Qu(T, N), ce)) gi("disable", ne);
+                } catch (Ie) {
+                  an((Ve) => {
+                    let Ze = new Map(Ve);
+                    return Ze.delete(ne), Ze;
+                  }),
+                    oe(`Failed to toggle: ${l(Ie)}`),
+                    h(ft(we(Ie), "/plugin: toggling a plugin on the list threw"));
+                } finally {
+                  Ne.current.delete(ne);
+                }
+              })();
+          an(Fe);
+        }
+      } else if (Y.type === "mcp") {
+        oe(null);
+        let ne = Y.client.type !== "disabled" ? "disable" : "enable";
+        Ke(Y.client.name).catch((ae) => {
+          oe(RQ(ae, Y.client.name, ne, { persistsOffBox: !1 }));
+        });
+      } else if (Y.type === "skill") {
+        if (ee.current.has(Y.id)) return;
+        let ne = em(Y.override, Y.lockSource);
+        if (ne === Y.override) return;
+        ee.current.add(Y.id), qe((ce) => new Set(ce).add(Y.id));
+        let { error: ae } = await rn("localSettings", { skillOverrides: { [Y.cmdName]: cm(Y, ne) } }, void 0, T);
+        if ((ee.current.delete(Y.id), ae)) {
+          oe(ae.message);
+          return;
+        }
+        kt((ce) => ce + 1);
+      }
+    }, [Un, bn, Re, $t, Ke, gi, T, N, Lt]),
+    pg = B(() => {
+      let P = bn[Un];
+      if (!Ni(P)) return;
+      if (P.kind === "disabled-header") {
+        fu((ne) => !ne);
+        return;
+      }
+      let Y = P.item;
+      if (Y.type === "plugin") {
+        let ne = $t.find((ae) => ae.plugin.source === Y.plugin.source);
+        if (ne) tn(ne), xe("plugin-details"), Xr(0), oe(null), Dt(null);
+      } else if (Y.type === "flagged-plugin")
+        xe({
+          type: "flagged-detail",
+          plugin: {
+            id: Y.id,
+            name: Y.name,
+            marketplace: Y.marketplace,
+            reason: Y.reason,
+            text: Y.text,
+            flaggedAt: Y.flaggedAt,
+          },
+        }),
+          oe(null);
+      else if (Y.type === "failed-plugin")
+        xe({
+          type: "failed-plugin-details",
+          plugin: { id: Y.id, name: Y.name, marketplace: Y.marketplace, errors: Y.errors, scope: Y.scope },
+        }),
+          Xr(0),
+          oe(null);
+      else if (Y.type === "mcp") xe({ type: "mcp-detail", client: Y.client }), oe(null);
+      else if (Y.type === "skill") xe({ type: "skill-detail", skill: Y }), oe(null);
+    }, [Un, bn, $t]);
+  ht(
+    {
+      "select:previous": () => {
+        let P = Gi(Un - 1, -1);
+        if (P === -1) {
+          if (!le && He.length > 0) _e(!0);
+        } else fi.handleSelectionChange(P, xo);
+      },
+      "select:next": () => {
+        let P = Gi(Un + 1, 1);
+        if (P !== -1) fi.handleSelectionChange(P, xo);
+      },
+      "select:accept": pg,
+    },
+    { context: "Select", isActive: re === "plugin-list" && !Pe },
+  );
+  let mg = B(() => {
+    let P = bn[Un];
+    if (P?.kind !== "item") return !1;
+    (Xa.current = { section: P.section, id: P.item.id }), Yr(P.item.id);
+  }, [bn, Un, Yr]);
+  ht({ "plugin:toggle": dg, "plugin:favorite": mg }, { context: "Plugin", isActive: re === "plugin-list" && !Pe });
+  let gg = B(() => {
+    if (typeof re !== "object" || re.type !== "flagged-detail") return;
+    fOn(re.plugin.id, T), xe("plugin-list");
+  }, [re, T]);
+  ht({ "select:accept": gg }, { context: "Select", isActive: typeof re === "object" && re.type === "flagged-detail" });
+  let ta = z(() => {
+    if (re !== "plugin-details" || !se) return [];
+    let P = Bt,
+      Y = ake(P, se.plugin.manifest, Lt),
+      ne = se.marketplace === "builtin",
+      ae = uc(se.marketplace),
+      ce = [];
+    if (
+      (ce.push({ label: Y ? "Disable plugin" : "Enable plugin", action: () => void ea(Y ? "disable" : "enable") }),
+      ce.push({ label: Qr.has(P) ? "Remove from favorites" : "Add to favorites", action: () => Yr(P) }),
+      !ne && !ae)
+    ) {
+      if (
+        (ce.push({
+          label: se.pendingUpdate ? "Unmark for update" : "Mark for update",
+          action: async () => {
+            try {
+              let Fe = await kk(Vt(P).name, se.marketplace, T);
+              if (Fe) {
+                oe(Fe);
+                return;
+              }
+              let Ie = [...$t],
+                Ve = Ie.findIndex((Ze) => Ze.plugin.source === se.plugin.source);
+              if (Ve !== -1)
+                (Ie[Ve].pendingUpdate = !se.pendingUpdate), Ut(Ie), tn({ ...se, pendingUpdate: !se.pendingUpdate });
+            } catch (Fe) {
+              oe(Fe instanceof Error ? Fe.message : "Failed to check plugin update availability");
+            }
+          },
+        }),
+        hu)
+      )
+        ce.push({
+          label: "Configure",
+          action: async () => {
+            Za(!0);
+            try {
+              let Fe = se.plugin.manifest.mcpServers,
+                Ie = null;
+              if (typeof Fe === "string" && PL(Fe)) Ie = Fe;
+              else if (Array.isArray(Fe)) {
+                for (let jn of Fe)
+                  if (typeof jn === "string" && PL(jn)) {
+                    Ie = jn;
+                    break;
+                  }
+              }
+              if (!Ie) {
+                oe("No MCPB file found in plugin"), Za(!1);
+                return;
+              }
+              let Ve = Bt,
+                Ze = await act(Ie, se.plugin.path, Ve, void 0, void 0, !0, T);
+              if ("status" in Ze && Ze.status === "needs-config") Zr(Ze), xe("configuring");
+              else oe("Failed to load MCPB for configuration");
+            } catch (Fe) {
+              let Ie = l(Fe);
+              oe(`Failed to load configuration: ${Ie}`);
+            } finally {
+              Za(!1);
+            }
+          },
+        });
+      if (se.plugin.manifest.userConfig && Object.keys(se.plugin.manifest.userConfig).length > 0)
+        ce.push({
+          label: "Configure options",
+          action: () => {
+            xe({ type: "configuring-options", schema: se.plugin.manifest.userConfig });
+          },
+        });
+      ce.push({ label: "Update now", action: () => void ea("update") }),
+        ce.push({ label: "Uninstall", action: () => void ea("uninstall") });
+    }
+    let $e = DXe(se.plugin.manifest.homepage);
+    if ($e) ce.push({ label: "Open homepage", action: () => void Lr($e) });
+    let vt = DXe(se.plugin.manifest.repository);
+    if (vt) ce.push({ label: "View repository", action: () => void Lr(vt) });
+    if (Sk()) ce.push({ label: "Usage", action: () => xe("plugin-usage") });
+    return (
+      ce.push({
+        label: "Back to plugin list",
+        action: () => {
+          xe("plugin-list"), tn(null), oe(null);
+        },
+      }),
+      ce
+    );
+  }, [re, se, hu, $t, Qr, Yr, T, Lt]);
+  ht(
+    {
+      "select:previous": () => {
+        if (qo > 0) Xr(qo - 1);
+      },
+      "select:next": () => {
+        if (qo < ta.length - 1) Xr(qo + 1);
+      },
+      "select:accept": () => {
+        if (ta[qo]) ta[qo].action();
+      },
+    },
+    { context: "Select", isActive: re === "plugin-details" && !!se },
+  ),
+    ht(
+      {
+        "select:accept": () => {
+          if (typeof re === "object" && re.type === "failed-plugin-details")
+            (async () => {
+              Pt(!0), oe(null);
+              let P = re.plugin.id,
+                Y = re.plugin.scope,
+                ne = WBe(Y) ? await bq(P, Y, !1, T) : await bq(P, "user", !1, T),
+                ae = ne.success;
+              if (!ae) {
+                for (let ce of UH)
+                  if (ye(ce)?.enabledPlugins?.[P] !== void 0)
+                    await Os(ce, (vt) => ({ enabledPlugins: { ...vt?.enabledPlugins, [P]: void 0 } }), void 0, T),
+                      (ae = !0);
+                Qu(T, N);
+              }
+              if (ae) await S(), Pt(!1), xe("plugin-list");
+              else Pt(!1), oe(ne.message);
+            })();
+        },
+      },
+      {
+        context: "Select",
+        isActive:
+          typeof re === "object" &&
+          re.type === "failed-plugin-details" &&
+          re.plugin.scope !== "managed" &&
+          !uc(re.plugin.marketplace),
+      },
+    );
+  function fg(P) {
+    if (P.ctrl || P.meta || Ot) return;
+    if (!se) return;
+    let Y = Bt;
+    if (P.key === "y" || P.key === "Y" || P.key === "return")
+      P.preventDefault(),
+        Pt(!0),
+        oe(null),
+        (async () => {
+          try {
+            let { error: ne } = await Os(
+              "localSettings",
+              (ae) => ({ enabledPlugins: { ...ae?.enabledPlugins, [Y]: !1 } }),
+              void 0,
+              T,
+            );
+            if (ne) {
+              Pt(!1), oe(`Failed to write settings: ${ne.message}`);
+              return;
+            }
+            Qu(T, N),
+              gi("disable", Y),
+              Xt(`${L.tick} Disabled ${id(se.plugin)} in .claude/settings.local.json. Run /reload-plugins to apply.`);
+          } catch (ne) {
+            Pt(!1), oe(l(ne));
+          }
+        })();
+    else if (P.key === "u" || P.key === "U")
+      P.preventDefault(),
+        Pt(!0),
+        oe(null),
+        (async () => {
+          try {
+            let ne = Se(),
+              ae = (nm().plugins[Y] ?? []).some(($e) => $e.scope === "project" && $e.projectPath === ne),
+              ce;
+            if (ae) {
+              let $e = await bq(Y, "project", !1, T);
+              if (!$e.success) {
+                Pt(!1), oe($e.message);
+                return;
+              }
+              ce = $e.message;
+            } else {
+              let { error: $e } = await Os(
+                "projectSettings",
+                (vt) => {
+                  let Fe = vt?.enabledPlugins ?? {},
+                    Ie = NI(Object.keys(Fe), Y) ?? Y;
+                  return { enabledPlugins: { ...Fe, [Ie]: void 0 } };
+                },
+                void 0,
+                T,
+              );
+              if ($e) {
+                Pt(!1), oe(`Failed to write settings: ${$e.message}`);
+                return;
+              }
+              ce = `Removed ${id(se.plugin)} from .claude/settings.json`;
+            }
+            Qu(T, N), gi("uninstall", Y), Xt(`${L.tick} ${ce}. Run /reload-plugins to apply.`);
+          } catch (ne) {
+            Pt(!1), oe(l(ne));
+          }
+        })();
+    else if (P.key === "n" || P.key === "N" || P.key === "escape") P.preventDefault(), xe("plugin-details"), oe(null);
+  }
+  function yg(P) {
+    if (P.ctrl || P.meta || Ot) return;
+    if (!se) return;
+    let Y = Bt,
+      ne = se.scope;
+    if (!ne || ne === "builtin" || !WBe(ne)) return;
+    let ae = async (ce) => {
+      Pt(!0), oe(null);
+      try {
+        let $e = await bq(Y, ne, ce, T);
+        if (!$e.success) throw Error($e.message);
+        Qu(T, N), gi("uninstall", Y);
+        let vt = ce ? "" : " \xB7 data preserved";
+        Xt(`${L.tick} ${$e.message}${vt}`);
+      } catch ($e) {
+        Pt(!1), oe($e instanceof Error ? $e.message : String($e));
+      }
+    };
+    if (P.key === "y" || P.key === "Y") P.preventDefault(), ae(!0);
+    else if (P.key === "n" || P.key === "N") P.preventDefault(), ae(!1);
+    else if (P.key === "escape") P.preventDefault(), xe("plugin-details"), oe(null);
+  }
+  A(() => {
+    xo(0);
+  }, [Ge]);
+  function hg(P) {
+    if (Pe) {
+      dt(P);
+      return;
+    }
+    if (P.ctrl || P.meta) return;
+    if (P.key === "/") P.preventDefault(), _e(!0), Ht(""), xo(0);
+    else if (P.key.length === 1 && P.key !== " ") P.preventDefault(), _e(!0), Ht(P.key), xo(0);
+  }
+  function kg(P) {
+    if (Pe) {
+      pt(P);
+      return;
+    }
+    let Y = (P.text.split(/\r\n|\r|\n/, 2)[0] ?? "").trim();
+    if (!Y) return;
+    P.preventDefault(), _e(!0), Ht(Y), xo(0);
+  }
+  if (le) return e(t, { children: "Loading installed plugins\u2026" });
+  if (He.length === 0)
+    return r(o, {
+      flexDirection: "column",
+      children: [
+        e(o, { marginBottom: 1, children: e(t, { bold: !0, children: "Manage plugins" }) }),
+        et && e(o, { marginBottom: 1, paddingLeft: 2, children: e(t, { color: "success", children: et }) }),
+        e(sr, { children: "No plugins or MCP servers installed." }),
+        e(o, {
+          marginTop: 1,
+          children: e(t, {
+            dimColor: !0,
+            children: e(ze, { action: "confirm:no", context: "Settings", fallback: "Esc", description: "go back" }),
+          }),
+        }),
+      ],
+    });
+  if (typeof re === "object" && re.type === "plugin-options" && se) {
+    let P = Bt;
+    return e(or, {
+      plugin: se.plugin,
+      pluginId: P,
+      onDone: (Y, ne, ae) => {
+        let ce = id(se.plugin);
+        switch (Y) {
+          case "configured":
+          case "skipped":
+            Xt(
+              Y === "configured" && ae
+                ? `${L.tick} Enabled and configured ${ce}. Run /reload-plugins to apply.`
+                : `${L.tick} Enabled ${ce}. Run /reload-plugins to apply.`,
+            );
+            break;
+          case "error":
+          case "read-error":
+            oe(
+              Y === "error"
+                ? `Failed to save configuration: ${ne}`
+                : `Configuration not applied: could not read the saved options (${ne})`,
+            ),
+              Pt(!1),
+              Jt(($e) => $e + 1),
+              xe("plugin-details"),
+              S();
+            break;
+        }
+      },
+    });
+  }
+  if (typeof re === "object" && re.type === "configuring-options" && se) {
+    let P = Bt;
+    return e(
+      ar,
+      {
+        title: `Configure ${id(se.plugin)}`,
+        subtitle: "Plugin options",
+        configSchema: re.schema,
+        load: () => hv(P, N),
+        onSave: async (Y) => {
+          try {
+            await lye(P, Y, re.schema, T), Qu(T, N);
+            let ne = Object.keys(Y).length > 0;
+            if (ne) S();
+            b(
+              ne ? "Configuration saved. Run /reload-plugins for changes to take effect." : "No configuration changes.",
+            );
+          } catch (ne) {
+            oe(`Failed to save configuration: ${l(ne)}`);
+          }
+          xe("plugin-details");
+        },
+        onCancel: () => xe("plugin-details"),
+      },
+      P,
+    );
+  }
+  if (re === "configuring" && hi && se) {
+    let ne = function () {
+        Zr(null), xe("plugin-details");
+      },
+      P = Bt;
+    async function Y(ae) {
+      if (!hi || !se) return;
+      try {
+        let ce = se.plugin.manifest.mcpServers,
+          $e = null;
+        if (typeof ce === "string" && PL(ce)) $e = ce;
+        else if (Array.isArray(ce)) {
+          for (let vt of ce)
+            if (typeof vt === "string" && PL(vt)) {
+              $e = vt;
+              break;
+            }
+        }
+        if (!$e) {
+          oe("No MCPB file found"), xe("plugin-details");
+          return;
+        }
+        await act($e, se.plugin.path, P, void 0, ae, void 0, T),
+          oe(null),
+          Zr(null),
+          xe("plugin-details"),
+          b("Configuration saved. Run /reload-plugins for changes to take effect.");
+      } catch (ce) {
+        let $e = l(ce);
+        oe(`Failed to save configuration: ${$e}`), xe("plugin-details");
+      }
+    }
+    return e(ki, {
+      title: `Configure ${Ope(hi.manifest.display_name) ?? hi.manifest.name}`,
+      subtitle: `Plugin: ${id(se.plugin)}`,
+      configSchema: hi.configSchema,
+      initialValues: hi.existingConfig,
+      onSave: Y,
+      onCancel: ne,
+    });
+  }
+  if (typeof re === "object" && re.type === "flagged-detail") {
+    let P = re.plugin;
+    return r(o, {
+      flexDirection: "column",
+      children: [
+        e(o, { children: r(t, { bold: !0, children: [P.name, " @ ", P.marketplace] }) }),
+        r(o, {
+          marginBottom: 1,
+          children: [e(t, { dimColor: !0, children: "Status: " }), e(t, { color: "error", children: "Removed" })],
+        }),
+        r(o, {
+          marginBottom: 1,
+          flexDirection: "column",
+          children: [
+            r(t, { color: "error", children: ["Removed from marketplace \xB7 reason: ", P.reason] }),
+            e(t, { children: P.text }),
+            r(t, { dimColor: !0, children: ["Flagged on ", new Date(P.flaggedAt).toLocaleDateString()] }),
+          ],
+        }),
+        e(o, {
+          marginTop: 1,
+          flexDirection: "column",
+          children: r(Ig, {
+            active: !0,
+            children: [
+              r(t, { "aria-hidden": !0, children: [L.pointer, " "] }),
+              e(t, { color: "suggestion", children: "Dismiss" }),
+            ],
+          }),
+        }),
+        r(fe, {
+          children: [
+            e(ze, { action: "select:accept", context: "Select", fallback: "Enter", description: "dismiss" }),
+            e(ze, { action: "confirm:no", context: "Settings", fallback: "Esc", description: "go back" }),
+          ],
+        }),
+      ],
+    });
+  }
+  if (re === "plugin-usage" && se) return e(ac, { plugin: se.plugin });
+  if (re === "confirm-project-uninstall" && se)
+    return r(xr, {
+      onKeyDown: fg,
+      children: [
+        r(t, {
+          bold: !0,
+          color: "warning",
+          children: [id(se.plugin), " is enabled in .claude/settings.json (shared with your team)"],
+        }),
+        r(o, {
+          marginTop: 1,
+          flexDirection: "column",
+          children: [
+            e(t, { children: "Disable it just for you in .claude/settings.local.json?" }),
+            e(t, {
+              dimColor: !0,
+              children: "The plugin stays installed for the project; only your local override changes.",
+            }),
+          ],
+        }),
+        yt && e(o, { marginTop: 1, children: e(Br, { error: yt }) }),
+        e(o, {
+          marginTop: 1,
+          children: Ot
+            ? e(t, { dimColor: !0, children: "Processing\u2026" })
+            : r(fe, {
+                children: [
+                  e(M, { chord: "y", action: "disable for me", bold: !0 }),
+                  e(M, { chord: "u", action: "uninstall for everyone", bold: !0 }),
+                  e(M, { chord: "escape", action: "cancel", bold: !0, format: { keyCase: "lower" } }),
+                ],
+              }),
+        }),
+      ],
+    });
+  if (typeof re === "object" && re.type === "confirm-data-cleanup" && se)
+    return r(xr, {
+      onKeyDown: yg,
+      children: [
+        r(t, { bold: !0, children: [id(se.plugin), " has", " ", re.size.human, " of persistent data"] }),
+        r(o, {
+          marginTop: 1,
+          flexDirection: "column",
+          children: [e(t, { children: "Delete it along with the plugin?" }), e(t, { dimColor: !0, children: gyt(Bt) })],
+        }),
+        yt && e(o, { marginTop: 1, children: e(Br, { error: yt }) }),
+        e(o, {
+          marginTop: 1,
+          children: Ot
+            ? e(t, { dimColor: !0, children: "Uninstalling\u2026" })
+            : r(fe, {
+                children: [
+                  e(M, { chord: "y", action: "delete", bold: !0 }),
+                  e(M, { chord: "n", action: "keep", bold: !0 }),
+                  e(M, { chord: "escape", action: "cancel", bold: !0, format: { keyCase: "lower" } }),
+                ],
+              }),
+        }),
+      ],
+    });
+  if (re === "plugin-details" && se) {
+    let P = Bt,
+      Y = ake(P, se.plugin.manifest, Lt),
+      ne = E.filter((Ie) => PK(Ie, P, se.plugin.name)),
+      ae = ne.filter((Ie) => !jne(Ie)).map((Ie) => ({ message: Do(Ie), guidance: Vo(Ie) })),
+      ce = [
+        ...ne.filter(jne).map((Ie) => ({ message: Do(Ie), guidance: Vo(Ie) })),
+        ...J.filter((Ie) => PK(Ie, P, se.plugin.name)).map((Ie) => ({ message: YF(Ie), guidance: bWt(Ie) })),
+      ],
+      $e = DNn(se.plugin.repository),
+      vt =
+        ae.length === 0 && ce.length === 0
+          ? null
+          : r(o, {
+              flexDirection: "column",
+              marginBottom: 1,
+              children: [
+                e(vc, { entries: ae, color: "error", noun: "error" }),
+                e(vc, { entries: ce, color: "warning", noun: "note" }),
+              ],
+            }),
+      Fe = Yor(se.plugin.manifest);
+    return r(o, {
+      flexDirection: "column",
+      children: [
+        e(o, { children: r(t, { bold: !0, children: [id(se.plugin), " @", " ", Oo(se.marketplace)] }) }),
+        r(o, { children: [e(t, { dimColor: !0, children: "Scope: " }), e(t, { children: se.scope || "user" })] }),
+        Fe.version &&
+          r(o, { children: [e(t, { dimColor: !0, children: "Version: " }), e(t, { children: Fe.version })] }),
+        Fe.description && e(o, { marginBottom: 1, children: e(t, { children: Fe.description }) }),
+        Fe.author &&
+          r(o, { children: [e(t, { dimColor: !0, children: "Author: " }), e(t, { children: Fe.author.name })] }),
+        r(o, {
+          marginBottom: 1,
+          children: [
+            e(t, { dimColor: !0, children: "Status: " }),
+            e(t, { color: Y ? "success" : "warning", children: Y ? "Enabled" : "Disabled" }),
+            se.pendingUpdate && e(t, { color: "suggestion", children: " \xB7 Marked for update" }),
+            $e !== null &&
+              r(t, {
+                dimColor: !0,
+                children: [" ", "\xB7 Last used:", " ", $e === 0 ? "today" : `${$e} ${k($e, "day")} ago`],
+              }),
+          ],
+        }),
+        Bt && e(fr, { pluginId: Bt, verb: "Updating", onShown: Gt.record }, Et),
+        e(dm, { plugin: se.plugin, marketplace: se.marketplace }),
+        vt,
+        e(o, {
+          marginTop: 1,
+          flexDirection: "column",
+          children: ta.map((Ie, Ve) => {
+            let Ze = Ve === qo;
+            return r(
+              Ig,
+              {
+                active: Ze,
+                children: [
+                  Ze && r(t, { "aria-hidden": !0, children: [L.pointer, " "] }),
+                  !Ze && e(t, { "aria-hidden": !0, children: "  " }),
+                  e(t, {
+                    bold: Ze,
+                    color: Ie.label.includes("Uninstall")
+                      ? "error"
+                      : Ie.label.includes("Update")
+                        ? "suggestion"
+                        : void 0,
+                    children: Ie.label,
+                  }),
+                ],
+              },
+              Ve,
+            );
+          }),
+        }),
+        Ot && e(o, { marginTop: 1, children: e(t, { children: "Processing\u2026" }) }),
+        yt && e(o, { marginTop: 1, children: e(Br, { error: yt }) }),
+        e(o, {
+          marginTop: 1,
+          children: e(t, {
+            dimColor: !0,
+            italic: !0,
+            children: r(fe, {
+              children: [
+                e(ze, { action: "select:previous", context: "Select", fallback: "\u2191", description: "navigate" }),
+                e(ze, { action: "select:accept", context: "Select", fallback: "Enter", description: "select" }),
+                e(ze, { action: "confirm:no", context: "Settings", fallback: "Esc", description: "go back" }),
+              ],
+            }),
+          }),
+        }),
+      ],
+    });
+  }
+  if (typeof re === "object" && re.type === "failed-plugin-details") {
+    let P = re.plugin,
+      Y = P.errors[0],
+      ne = Y ? Do(Y) : "Failed to load";
+    return r(o, {
+      flexDirection: "column",
+      children: [
+        r(t, {
+          children: [
+            e(t, { bold: !0, children: Oo(P.name) }),
+            r(t, { dimColor: !0, children: [" ", "@ ", Oo(P.marketplace)] }),
+            r(t, { dimColor: !0, children: [" (", P.scope, ")"] }),
+          ],
+        }),
+        e(t, { color: "error", children: ne }),
+        P.scope === "managed"
+          ? e(o, {
+              marginTop: 1,
+              children: e(t, { dimColor: !0, children: "Managed by your organization \u2014 contact your admin" }),
+            })
+          : uc(P.marketplace)
+            ? null
+            : r(Ig, {
+                active: !0,
+                marginTop: 1,
+                children: [
+                  r(t, { "aria-hidden": !0, color: "suggestion", children: [L.pointer, " "] }),
+                  e(t, { bold: !0, children: "Remove" }),
+                ],
+              }),
+        Ot && e(t, { children: "Processing\u2026" }),
+        e(Br, { error: yt }),
+        uc(P.marketplace) && e(o, { marginTop: 1, children: e(t, { dimColor: !0, children: vk(P.marketplace) }) }),
+        e(o, {
+          marginTop: 1,
+          children: e(t, {
+            dimColor: !0,
+            italic: !0,
+            children: r(fe, {
+              children: [
+                P.scope !== "managed" &&
+                  !uc(P.marketplace) &&
+                  e(ze, { action: "select:accept", context: "Select", fallback: "Enter", description: "remove" }),
+                e(ze, { action: "confirm:no", context: "Settings", fallback: "Esc", description: "go back" }),
+              ],
+            }),
+          }),
+        }),
+      ],
+    });
+  }
+  if (typeof re === "object" && re.type === "skill-detail") {
+    let P = re.skill,
+      Y = [P.override, ...yk.filter((ae) => ae !== P.override)],
+      ne = async (ae) => {
+        if (ae === P.override) return;
+        let { error: ce } = await rn("localSettings", { skillOverrides: { [P.cmdName]: cm(P, ae) } }, void 0, T);
+        if (ce) {
+          oe(ce.message);
+          return;
+        }
+        qe(($e) => new Set($e).add(P.id)),
+          kt(($e) => $e + 1),
+          xe({ type: "skill-detail", skill: { ...P, override: ae } });
+      };
+    return r(o, {
+      flexDirection: "column",
+      gap: 1,
+      children: [
+        e(t, { bold: !0, children: P.name }),
+        P.description && e(t, { dimColor: !0, children: P.description }),
+        P.whenToUse && r(t, { dimColor: !0, children: ["When to use: ", P.whenToUse] }),
+        r(t, { dimColor: !0, children: ["Source: ", P.source, " \xB7 ~", P.tokenEstimate, " tokens"] }),
+        r(t, {
+          dimColor: !0,
+          children: [
+            "Usage:",
+            " ",
+            P.usage
+              ? `${P.usage.count}\xD7 \xB7 last used ${P.usage.daysSinceUse === 0 ? "today" : `${P.usage.daysSinceUse}d ago`}`
+              : "never invoked",
+          ],
+        }),
+        P.allowedTools &&
+          P.allowedTools.length > 0 &&
+          r(t, { dimColor: !0, children: ["Allowed tools: ", xk(P.allowedTools)] }),
+        P.skillRoot && r(t, { dimColor: !0, children: ["Path: ", P.skillRoot] }),
+        P.lockSource === "policy" || P.lockSource === "flag"
+          ? r(t, { dimColor: !0, children: ["State: ", P.override, " (locked by ", P.lockSource, " settings)"] })
+          : r(o, {
+              flexDirection: "column",
+              children: [
+                r(t, {
+                  children: [
+                    "State:",
+                    P.lockSource === "author" &&
+                      r(t, {
+                        dimColor: !0,
+                        children: [" ", "(on/name-only locked by frontmatter disable-model-invocation)"],
+                      }),
+                  ],
+                }),
+                e(
+                  Ume,
+                  {
+                    visibleCount: 4,
+                    onSelect: (ae) => {
+                      let ce = Y[ae];
+                      if (P.lockSource === "author" && ce !== "off") {
+                        ne("user-invocable-only");
+                        return;
+                      }
+                      ne(ce);
+                    },
+                    children: Y.map((ae) => {
+                      let ce = P.lockSource === "author" && ae !== "user-invocable-only" && ae !== "off";
+                      return e(
+                        Ume.Item,
+                        {
+                          children: r(t, {
+                            dimColor: ce,
+                            children: [ae === P.override ? L.radioOn : L.radioOff, " ", ae, ce ? " (locked)" : ""],
+                          }),
+                        },
+                        ae,
+                      );
+                    }),
+                  },
+                  P.override,
+                ),
+              ],
+            }),
+        r(fe, {
+          children: [
+            e(M, { chord: "Enter", action: "set state" }),
+            e(t, { dimColor: !0, children: " \xB7 " }),
+            e(M, { chord: "Esc", action: "go back" }),
+          ],
+        }),
+      ],
+    });
+  }
+  if (typeof re === "object" && re.type === "mcp-detail") {
+    let P = re.client,
+      Y = $L(G, P.name).length,
+      ne = () => {
+        xe({ type: "mcp-tools", client: P });
+      },
+      ae = () => {
+        xe("plugin-list");
+      },
+      ce = (Fe) => {
+        if (Fe) b(Fe);
+        xe("plugin-list");
+      },
+      $e = P.config.scope,
+      vt = P.config.type ?? "stdio";
+    if (vt === "stdio") {
+      let Fe = { name: P.name, client: P, scope: $e, transport: "stdio", config: P.config };
+      return e(ott, { server: Fe, serverToolsCount: Y, onViewTools: ne, onCancel: ae, onComplete: ce, borderless: !0 });
+    } else if (vt === "sse") {
+      let Fe = { name: P.name, client: P, scope: $e, transport: "sse", isAuthenticated: void 0, config: P.config };
+      return e($me, { server: Fe, serverToolsCount: Y, onViewTools: ne, onCancel: ae, onComplete: ce, borderless: !0 });
+    } else if (vt === "http") {
+      let Fe = { name: P.name, client: P, scope: $e, transport: "http", isAuthenticated: void 0, config: P.config };
+      return e($me, { server: Fe, serverToolsCount: Y, onViewTools: ne, onCancel: ae, onComplete: ce, borderless: !0 });
+    } else if (vt === "claudeai-proxy") {
+      let Fe = {
+        name: P.name,
+        client: P,
+        scope: $e,
+        transport: "claudeai-proxy",
+        isAuthenticated: void 0,
+        config: P.config,
+      };
+      return e($me, { server: Fe, serverToolsCount: Y, onViewTools: ne, onCancel: ae, onComplete: ce, borderless: !0 });
+    }
+    return r(o, {
+      flexDirection: "column",
+      paddingX: 1,
+      children: [
+        r(t, { color: "warning", children: ["No details view for ", P.name, " (transport: ", vt, ")."] }),
+        e(fe, {
+          children: e(ze, { action: "confirm:no", context: "Settings", fallback: "Esc", description: "go back" }),
+        }),
+      ],
+    });
+  }
+  if (typeof re === "object" && re.type === "mcp-tools") {
+    let P = re.client,
+      Y = P.config.scope,
+      ne = P.config.type ?? "stdio",
+      ae;
+    if (ne === "stdio") ae = { name: P.name, client: P, scope: Y, transport: "stdio", config: P.config };
+    else if (ne === "sse")
+      ae = { name: P.name, client: P, scope: Y, transport: "sse", isAuthenticated: void 0, config: P.config };
+    else if (ne === "http")
+      ae = { name: P.name, client: P, scope: Y, transport: "http", isAuthenticated: void 0, config: P.config };
+    else
+      ae = {
+        name: P.name,
+        client: P,
+        scope: Y,
+        transport: "claudeai-proxy",
+        isAuthenticated: void 0,
+        config: P.config,
+      };
+    return e(HUe, {
+      server: ae,
+      onSelectTool: (ce) => {
+        xe({ type: "mcp-tool-detail", client: P, tool: ce });
+      },
+      onBack: () => xe({ type: "mcp-detail", client: P }),
+    });
+  }
+  if (typeof re === "object" && re.type === "mcp-tool-detail") {
+    let { client: P, tool: Y } = re,
+      ne = P.config.scope,
+      ae = P.config.type ?? "stdio",
+      ce;
+    if (ae === "stdio") ce = { name: P.name, client: P, scope: ne, transport: "stdio", config: P.config };
+    else if (ae === "sse")
+      ce = { name: P.name, client: P, scope: ne, transport: "sse", isAuthenticated: void 0, config: P.config };
+    else if (ae === "http")
+      ce = { name: P.name, client: P, scope: ne, transport: "http", isAuthenticated: void 0, config: P.config };
+    else
+      ce = {
+        name: P.name,
+        client: P,
+        scope: ne,
+        transport: "claudeai-proxy",
+        isAuthenticated: void 0,
+        config: P.config,
+      };
+    return e(kUe, { tool: Y, server: ce, onBack: () => xe({ type: "mcp-tools", client: P }) });
+  }
+  let bg = fi.getVisibleItems(bn);
+  return r(o, {
+    flexDirection: "column",
+    tabIndex: 0,
+    autoFocus: !0,
+    onKeyDown: hg,
+    onPaste: kg,
+    children: [
+      e(o, {
+        marginBottom: 1,
+        children: e(Hd, {
+          query: Ge,
+          isFocused: Pe,
+          isTerminalFocused: ve,
+          width: Tt - 4,
+          cursorOffset: Le,
+          onCursorOffsetChange: ot,
+          onFocus: () => _e(!0),
+        }),
+      }),
+      Dr() &&
+        e(o, {
+          marginBottom: 1,
+          paddingLeft: 2,
+          children: r(t, {
+            color: "warning",
+            children: [
+              "Safe mode: plugins are disabled this session \u2014 changes here save but won't load until safe mode is off.",
+              " ",
+              Wf(_f()),
+              " to re-enable.",
+            ],
+          }),
+        }),
+      et && e(o, { marginBottom: 1, paddingLeft: 2, children: e(t, { color: "success", children: et }) }),
+      bn.length === 0 && Ge && e(o, { marginBottom: 1, children: r(sr, { children: ['No items match "', Ge, '"'] }) }),
+      fi.scrollPosition.canScrollUp &&
+        e(o, { children: r(t, { dimColor: !0, children: [" ", L.arrowUp, " more above"] }) }),
+      bg.map((P, Y) => {
+        let ne = fi.toActualIndex(Y),
+          ae = ne === Un && !Pe;
+        switch (P.kind) {
+          case "spacer":
+            return e(o, { height: 1 }, `spacer:${ne}`);
+          case "section-header":
+            return e(
+              o,
+              {
+                paddingLeft: 2,
+                children: e(t, {
+                  dimColor: P.section !== "attention",
+                  color: P.section === "attention" ? "warning" : void 0,
+                  bold: !0,
+                  children:
+                    P.section === "attention"
+                      ? "Needs attention"
+                      : P.section === "disused"
+                        ? "Not used recently"
+                        : "Favorites",
+                }),
+              },
+              `section:${P.section}`,
+            );
+          case "scope-header":
+            return e(o, { paddingLeft: 4, children: e(t, { dimColor: !0, children: hk(P.scope) }) }, `scope:${ne}`);
+          case "disabled-header":
+            return e(
+              Ig,
+              {
+                active: ae,
+                paddingLeft: 2,
+                children: r(t, {
+                  color: ae ? "suggestion" : void 0,
+                  children: [
+                    e(t, { "aria-hidden": !0, children: ae ? `${L.pointer} ` : "  " }),
+                    Ja ? L.arrowDown : L.arrowRight,
+                    " Show",
+                    P.disabledCount > 0 &&
+                      r(U, {
+                        children: [" ", "disabled ", r(t, { dimColor: !0, children: ["(", P.disabledCount, ")"] })],
+                      }),
+                    P.disabledCount > 0 && P.unusedConnectorCount > 0 && " \xB7",
+                    P.unusedConnectorCount > 0 &&
+                      r(U, {
+                        children: [
+                          " ",
+                          "unused claude.ai connectors",
+                          " ",
+                          r(t, { dimColor: !0, children: ["(", P.unusedConnectorCount, ")"] }),
+                        ],
+                      }),
+                  ],
+                }),
+              },
+              "section:disabled",
+            );
+          case "item":
+            return e(
+              sc,
+              { item: P.item, isSelected: ae, health: P.item.type === "plugin" ? ue?.get(P.item.name) : void 0 },
+              `${P.section}:${P.item.id}`,
+            );
+        }
+      }),
+      fi.scrollPosition.canScrollDown &&
+        e(o, { children: r(t, { dimColor: !0, children: [" ", L.arrowDown, " more below"] }) }),
+      e(o, {
+        marginTop: 1,
+        marginLeft: 1,
+        children: e(t, {
+          dimColor: !0,
+          italic: !0,
+          children: r(fe, {
+            children: [
+              e(t, { children: "Type to search" }),
+              e(ze, { action: "plugin:toggle", context: "Plugin", fallback: "Space", description: "toggle" }),
+              e(ze, { action: "plugin:favorite", context: "Plugin", fallback: "f", description: "favorite" }),
+              e(ze, { action: "select:accept", context: "Select", fallback: "Enter", description: "view" }),
+              e(ze, { action: "confirm:no", context: "Settings", fallback: "Esc", description: "go back" }),
+            ],
+          }),
+        }),
+      }),
+      yt && e(o, { marginTop: 1, marginLeft: 1, children: e(Br, { error: yt }) }),
+      Re.size > 0 &&
+        e(o, {
+          marginLeft: 1,
+          children: e(t, { dimColor: !0, italic: !0, children: "Run /reload-plugins to apply changes" }),
+        }),
+    ],
+  });
+}
+function xk(a) {
+  return An(a.join(", "));
+}
+function vk(a) {
+  switch (a) {
+    case Nm:
+      return "This --plugin-dir copy did not load (see above); nothing is running from it. Fix or drop the directory; edits take effect after /reload-plugins.";
+    case nu:
+      return "This skills-directory copy did not load (see above) \u2014 fix, delete or rename the directory; edits take effect after /reload-plugins.";
+    case um:
+      return "This claude.ai copy did not load (see above) \u2014 remove or rename the plugin on claude.ai to clear it.";
+  }
+}
+function mm(a) {
+  if (!a) return { type: "menu" };
+  let b = a.trim().split(/\s+/);
+  switch (b[0]?.toLowerCase()) {
+    case "help":
+    case "--help":
+    case "-h":
+      return { type: "help" };
+    case "list":
+    case "ls": {
+      let x = b.slice(1).find((v) => v === "--enabled" || v === "--disabled");
+      if (x) return { type: "list", filter: x === "--enabled" ? "enabled" : "disabled" };
+      return { type: "list" };
+    }
+    case "install":
+    case "i": {
+      let x = b[1];
+      if (!x) return { type: "install" };
+      let v = x.lastIndexOf("@");
+      if (v > 0) {
+        let j = x.slice(0, v),
+          K = x.slice(v + 1);
+        return { type: "install", plugin: j, marketplace: K };
+      }
+      if (
+        !x.startsWith("@") &&
+        (x.startsWith("http://") ||
+          x.startsWith("https://") ||
+          x.startsWith("file://") ||
+          x.includes("/") ||
+          x.includes("\\"))
+      )
+        return { type: "install", marketplace: x };
+      return { type: "install", plugin: x };
+    }
+    case "manage":
+      return { type: "manage" };
+    case "stats": {
+      if (Sk()) return { type: "stats" };
+      return { type: "menu" };
+    }
+    case "uninstall":
+      return { type: "uninstall", plugin: b[1] };
+    case "enable":
+      return { type: "enable", plugin: b[1] };
+    case "disable":
+      return { type: "disable", plugin: b[1] };
+    case "configure":
+    case "config":
+      return { type: "configure", plugin: b[1] };
+    case "validate":
+      return { type: "validate", path: b.slice(1).join(" ").trim() || void 0 };
+    case "eval":
+      return { type: "menu" };
+    case "tag": {
+      let x = new Set(["--push", "--dry-run", "--force", "-f"]),
+        v = b.slice(1),
+        R = v.filter((T) => T.startsWith("-")),
+        j = v.filter((T) => !T.startsWith("-")),
+        K = R.find((T) => !x.has(T)) ?? j[1];
+      return {
+        type: "tag",
+        path: j[0],
+        push: R.includes("--push"),
+        dryRun: R.includes("--dry-run"),
+        force: R.includes("--force") || R.includes("-f"),
+        ...(K !== void 0 && { unknownFlag: K }),
+      };
+    }
+    case "marketplace":
+    case "market": {
+      let x = b[1]?.toLowerCase(),
+        v = b.slice(2).join(" ");
+      switch (x) {
+        case "add":
+          return { type: "marketplace", action: "add", target: v };
+        case "remove":
+        case "rm":
+          return { type: "marketplace", action: "remove", target: v };
+        case "update":
+          return { type: "marketplace", action: "update", target: v };
+        case "list":
+          return { type: "marketplace", action: "list" };
+        default:
+          return { type: "marketplace" };
+      }
+    }
+    default:
+      return { type: "menu" };
+  }
+}
+F();
+function _k($D) {
+  return $D.source;
+}
+function Fk(DD) {
+  return DD.usageCount > 0;
+}
+function Vk(Rm) {
+  return r(
+    t,
+    {
+      children: [
+        "  ",
+        e(t, { color: "warning", children: Fp(Rm.name) }),
+        e(t, { dimColor: !0, children: `  last used ${Rm.daysSinceLastUse} days ago` }),
+      ],
+    },
+    Rm.pluginId,
+  );
+}
+function Em(a) {
+  return irt(a).then(
+    (b) => {
+      if (b.rows.length === 0) g("cli_skill_doctor", "no_user_skills");
+      else if (b.weekTokensNote !== null) g("cli_skill_doctor", "scan_policy_denied");
+      else y("cli_skill_doctor");
+      return { ok: !0, report: b };
+    },
+    (b) => {
+      let S = b instanceof $Q ? b.cause : b;
+      return (
+        h(S), p("cli_skill_doctor", b instanceof $Q ? b.featureErrorCode : "render_failed"), { ok: !1, message: l(S) }
+      );
+    },
+  );
+}
+function Wc(kD) {
+  let Ur = _(11),
+    { getReport: gm, onExit: bD } = kD,
+    Ck;
+  if (Ur[0] !== gm) (Ck = () => gm()), (Ur[0] = gm), (Ur[1] = Ck);
+  else Ck = Ur[1];
+  let [fm] = u(Ck),
+    [xD] = u(O2e),
+    Pk;
+  if (Ur[2] === d) (Pk = { context: "Confirmation" }), (Ur[2] = Pk);
+  else Pk = Ur[2];
+  Be("confirm:no", bD, Pk);
+  let Tk;
+  if (Ur[3] === d) (Tk = e(t, { bold: !0, children: "Skills loaded this session" })), (Ur[3] = Tk);
+  else Tk = Ur[3];
+  const ym = xD.allowed ? "Scanning local sessions\u2026" : "Computing skill usage\u2026";
+  let Ik;
+  if (Ur[4] !== ym)
+    (Ik = r(o, {
+      flexDirection: "column",
+      children: [Tk, e(o, { marginTop: 1, children: e(t, { dimColor: !0, children: ym }) })],
+    })),
+      (Ur[4] = ym),
+      (Ur[5] = Ik);
+  else Ik = Ur[5];
+  let km = Ik,
+    wc;
+  if (Ur[6] !== fm) (wc = e(jc, { reportPromise: fm })), (Ur[6] = fm), (Ur[7] = wc);
+  else wc = Ur[7];
+  let Rk;
+  if (Ur[8] !== km || Ur[9] !== wc)
+    (Rk = e(Jn, { fallback: km, children: wc })), (Ur[8] = km), (Ur[9] = wc), (Ur[10] = Rk);
+  else Rk = Ur[10];
+  return Rk;
+}
+function jc(SD) {
+  let _i = _(22),
+    { reportPromise: vD } = SD,
+    La = zn(vD);
+  if (!La.ok) {
+    let Na;
+    if (_i[0] !== La.message)
+      (Na = r(t, {
+        dimColor: !0,
+        wrap: "wrap",
+        children: ["Couldn't compute skill usage. Run with --debug for details. (", La.message, ")"],
+      })),
+        (_i[0] = La.message),
+        (_i[1] = Na);
+    else Na = _i[1];
+    return Na;
+  }
+  let {
+      rows: jo,
+      unusedOwned: bm,
+      unusedFromPlugins: xm,
+      unusedFromMcp: Sm,
+      unusedSynced: vm,
+      unusedMcpServers: wm,
+      disusedPlugins: Cm,
+      weekTokensNote: Cc,
+    } = La.report,
+    Na;
+  if (_i[2] === d) (Na = e(t, { bold: !0, children: "Skills loaded this session" })), (_i[2] = Na);
+  else Na = _i[2];
+  let Pc;
+  if (_i[3] !== jo)
+    (Pc = e(o, { flexDirection: "column", marginTop: 1, children: e(Hc, { rows: jo }) })), (_i[3] = jo), (_i[4] = Pc);
+  else Pc = _i[4];
+  let Tc;
+  if (_i[5] !== jo.length || _i[6] !== Cc)
+    (Tc =
+      jo.length > 0 &&
+      r(o, {
+        flexDirection: "column",
+        marginTop: 1,
+        children: [
+          r(t, {
+            dimColor: !0,
+            wrap: "wrap",
+            children: ["  ", "context = this skill's one-line listing in the system prompt, included every turn"],
+          }),
+          r(t, {
+            dimColor: !0,
+            wrap: "wrap",
+            children: [
+              "  ",
+              "(dash = not in the current listing, costs nothing; full SKILL.md loads only when it runs)",
+            ],
+          }),
+          Cc === null
+            ? r(t, {
+                dimColor: !0,
+                wrap: "wrap",
+                children: [
+                  "  ",
+                  "7d tokens = tokens attributed to the skill over the last 7 days of sessions on this machine",
+                ],
+              })
+            : r(t, { dimColor: !0, wrap: "wrap", children: ["  ", "7d tokens: ", Cc] }),
+        ],
+      })),
+      (_i[5] = jo.length),
+      (_i[6] = Cc),
+      (_i[7] = Tc);
+  else Tc = _i[7];
+  let Ic;
+  if (_i[8] !== jo || _i[9] !== Sm || _i[10] !== xm || _i[11] !== wm || _i[12] !== bm || _i[13] !== vm)
+    (Ic = e(Kc, {
+      rows: jo,
+      unusedOwned: bm,
+      unusedSynced: vm,
+      unusedFromPlugins: xm,
+      unusedFromMcp: Sm,
+      unusedMcpServers: wm,
+    })),
+      (_i[8] = jo),
+      (_i[9] = Sm),
+      (_i[10] = xm),
+      (_i[11] = wm),
+      (_i[12] = bm),
+      (_i[13] = vm),
+      (_i[14] = Ic);
+  else Ic = _i[14];
+  let Rc;
+  if (_i[15] !== Cm) (Rc = e(qc, { disusedPlugins: Cm })), (_i[15] = Cm), (_i[16] = Rc);
+  else Rc = _i[16];
+  let Ek;
+  if (_i[17] !== Pc || _i[18] !== Tc || _i[19] !== Ic || _i[20] !== Rc)
+    (Ek = r(o, { flexDirection: "column", children: [Na, Pc, Tc, Ic, Rc] })),
+      (_i[17] = Pc),
+      (_i[18] = Tc),
+      (_i[19] = Ic),
+      (_i[20] = Rc),
+      (_i[21] = Ek);
+  else Ek = _i[21];
+  return Ek;
+}
+function Hc(wD) {
+  let Ec = _(7),
+    { rows: _a } = wD;
+  if (_a.length === 0) {
+    let Fa;
+    if (Ec[0] === d) (Fa = e(t, { dimColor: !0, children: "  (no skills loaded)" })), (Ec[0] = Fa);
+    else Fa = Ec[0];
+    return Fa;
+  }
+  let Fa;
+  if (Ec[1] !== _a) {
+    let { cells: CD, widths: Ao } = D2e(_a);
+    const PD = h1("skill", Ao.name);
+    const TD = h1("source", Ao.source);
+    const ID = ov("context", Ao.context);
+    const RD = ov("7d tokens", Ao.week);
+    const Pm = Ao.uses + 1;
+    let Mk;
+    if (Ec[3] !== Pm) (Mk = ov("uses", Pm)), (Ec[3] = Pm), (Ec[4] = Mk);
+    else Mk = Ec[4];
+    const Tm = `  ${PD}  ${TD}  ${ID}  ${RD}  ${Mk}  last used`;
+    let $k;
+    if (Ec[5] !== Tm) ($k = e(t, { dimColor: !0, children: Tm })), (Ec[5] = Tm), (Ec[6] = $k);
+    else $k = Ec[6];
+    Fa = r(o, {
+      flexDirection: "column",
+      children: [
+        $k,
+        _a.map((Va, Dk) => {
+          let Im = CD[Dk];
+          return r(
+            t,
+            {
+              color: Va.usageCount === 0 ? "warning" : void 0,
+              children: [
+                `  ${h1(Va.name, Ao.name)}  `,
+                e(t, { dimColor: !0, children: h1(Va.source, Ao.source) }),
+                `  ${ov(Im.context, Ao.context)}  ${ov(Im.week, Ao.week)}  ${ov(String(Va.usageCount), Ao.uses)}\xD7  ${Im.lastUsed}`,
+              ],
+            },
+            `${Dk}:${Va.name}`,
+          );
+        }),
+      ],
+    });
+    (Ec[1] = _a), (Ec[2] = Fa);
+  } else Fa = Ec[2];
+  return Fa;
+}
+function Kc(MD) {
+  let ji = _(33),
+    {
+      rows: Mc,
+      unusedOwned: Fi,
+      unusedFromPlugins: Vr,
+      unusedFromMcp: ja,
+      unusedSynced: si,
+      unusedMcpServers: Vi,
+    } = MD;
+  if (Mc.length === 0) {
+    return null;
+  }
+  let $c, Bc, Ha, Ac, Oc, Ka, qa, Lc;
+  if (ji[0] !== Vr || ji[1] !== Vi || ji[2] !== Fi.length || ji[3] !== si.length) {
+    let Bk = te(Vr.map(_k));
+    let Ki;
+    if (ji[12] !== Vi) (Ki = Vi.length > 0 ? `, from ${Vi.join(", ")}` : ""), (ji[12] = Vi), (ji[13] = Ki);
+    else Ki = ji[13];
+    Bc = Ki;
+    Ha = Vi.length <= 1;
+    $c = o;
+    Ac = "column";
+    Oc = 1;
+    if (ji[14] !== Fi.length)
+      (Ka =
+        Fi.length > 0 &&
+        e(t, {
+          color: "warning",
+          wrap: "wrap",
+          children: `${Fi.length} ${k(Fi.length, "skill")} loaded but never invoked. Each one adds to the system prompt every turn. Disable in /skills, or remove from .claude/skills.`,
+        })),
+        (ji[14] = Fi.length),
+        (ji[15] = Ka);
+    else Ka = ji[15];
+    if (ji[16] !== si.length)
+      (qa =
+        si.length > 0 &&
+        e(t, {
+          color: "warning",
+          wrap: "wrap",
+          children: `${si.length} ${k(si.length, "skill")} synced from claude.ai loaded but never invoked. Each one adds to the system prompt every turn. Disable in /skills, or turn ${si.length === 1 ? "it" : "them"} off on claude.ai \u2014 a deleted synced copy is re-downloaded on the next sync.`,
+        })),
+        (ji[16] = si.length),
+        (ji[17] = qa);
+    else qa = ji[17];
+    Lc =
+      Vr.length > 0 &&
+      e(t, {
+        color: "warning",
+        wrap: "wrap",
+        children: `${Vr.length} plugin ${k(Vr.length, "skill")} loaded but never invoked, from ${Bk.join(", ")}. Each one adds to the system prompt every turn. Plugin skills can't be turned off individually \u2014 disable ${Bk.length === 1 ? "the plugin" : "those plugins"} in the Installed tab.`,
+      });
+    (ji[0] = Vr),
+      (ji[1] = Vi),
+      (ji[2] = Fi.length),
+      (ji[3] = si.length),
+      (ji[4] = $c),
+      (ji[5] = Bc),
+      (ji[6] = Ha),
+      (ji[7] = Ac),
+      (ji[8] = Oc),
+      (ji[9] = Ka),
+      (ji[10] = qa),
+      (ji[11] = Lc);
+  } else
+    ($c = ji[4]), (Bc = ji[5]), (Ha = ji[6]), (Ac = ji[7]), (Oc = ji[8]), (Ka = ji[9]), (qa = ji[10]), (Lc = ji[11]);
+  let Ki;
+  if (ji[18] !== Bc || ji[19] !== Ha || ji[20] !== ja.length)
+    (Ki =
+      ja.length > 0 &&
+      e(t, {
+        color: "warning",
+        wrap: "wrap",
+        children: `${ja.length} MCP ${k(ja.length, "skill")} loaded but never invoked${Bc}. Each one adds to the system prompt every turn. MCP skills live on the server, not on disk \u2014 turning ${Ha ? "that server" : "those servers"} off in /mcp also removes ${Ha ? "its" : "their"} tools.`,
+      })),
+      (ji[18] = Bc),
+      (ji[19] = Ha),
+      (ji[20] = ja.length),
+      (ji[21] = Ki);
+  else Ki = ji[21];
+  let Nc;
+  if (ji[22] !== Mc)
+    (Nc = Mc.every(Fk) && e(t, { color: "success", children: "All loaded skills have been used at least once." })),
+      (ji[22] = Mc),
+      (ji[23] = Nc);
+  else Nc = ji[23];
+  let Ak;
+  if (
+    ji[24] !== $c ||
+    ji[25] !== Ac ||
+    ji[26] !== Oc ||
+    ji[27] !== Ka ||
+    ji[28] !== qa ||
+    ji[29] !== Lc ||
+    ji[30] !== Ki ||
+    ji[31] !== Nc
+  )
+    (Ak = r($c, { flexDirection: Ac, marginTop: Oc, children: [Ka, qa, Lc, Ki, Nc] })),
+      (ji[24] = $c),
+      (ji[25] = Ac),
+      (ji[26] = Oc),
+      (ji[27] = Ka),
+      (ji[28] = qa),
+      (ji[29] = Lc),
+      (ji[30] = Ki),
+      (ji[31] = Nc),
+      (ji[32] = Ak);
+  else Ak = ji[32];
+  return Ak;
+}
+function qc(BD) {
+  let Wa = _(8),
+    { disusedPlugins: _c } = BD;
+  if (_c.length === 0) {
+    return null;
+  }
+  let Ok;
+  if (Wa[0] === d) (Ok = e(t, { bold: !0, children: "Plugins not used recently" })), (Wa[0] = Ok);
+  else Ok = Wa[0];
+  let Uc;
+  if (Wa[1] !== _c) (Uc = _c.map(Vk)), (Wa[1] = _c), (Wa[2] = Uc);
+  else Uc = Wa[2];
+  let Vc;
+  if (Wa[3] !== Uc) (Vc = e(o, { flexDirection: "column", marginTop: 1, children: Uc })), (Wa[3] = Uc), (Wa[4] = Vc);
+  else Vc = Wa[4];
+  let Lk;
+  if (Wa[5] === d)
+    (Lk = e(o, {
+      marginTop: 1,
+      children: r(t, { dimColor: !0, children: ["  ", "Manage these in the Installed tab"] }),
+    })),
+      (Wa[5] = Lk);
+  else Lk = Wa[5];
+  let Nk;
+  if (Wa[6] !== Vc)
+    (Nk = r(o, { flexDirection: "column", marginTop: 1, children: [Ok, Vc, Lk] })), (Wa[6] = Vc), (Wa[7] = Nk);
+  else Nk = Wa[7];
+  return Nk;
+}
+F();
+function zk(HD) {
+  return `${L.warning} ${HD}`;
+}
+var za = `Usage: /plugin tag [path] [--push] [--dry-run] [-f|--force]
 
 Create a {name}--v{version} git tag for the plugin at <path> (default: .).
 Validates plugin.json and any enclosing marketplace entry agree on the version.
 
-For -m/--message and --remote, use the CLI: claude plugin tag --help`;function Xc(jD){let jk=_(9),{onComplete:ci,path:Gc,push:Qc,dryRun:Yc,force:qi,unknownFlag:Wi}=jD,Hk,Kk;if(jk[0]!==Yc||jk[1]!==qi||jk[2]!==ci||jk[3]!==Gc||jk[4]!==Qc||jk[5]!==Wi)Hk=()=>{Mm();async function Mm(){if(Wi!==void 0){ci(Wi==="--help"||Wi==="-h"?za:`${L.cross} Unexpected argument "${Wi}".
+For -m/--message and --remote, use the CLI: claude plugin tag --help`;
+function Xc(jD) {
+  let jk = _(9),
+    { onComplete: ci, path: Gc, push: Qc, dryRun: Yc, force: qi, unknownFlag: Wi } = jD,
+    Hk,
+    Kk;
+  if (jk[0] !== Yc || jk[1] !== qi || jk[2] !== ci || jk[3] !== Gc || jk[4] !== Qc || jk[5] !== Wi)
+    (Hk = () => {
+      Mm();
+      async function Mm() {
+        if (Wi !== void 0) {
+          ci(
+            Wi === "--help" || Wi === "-h"
+              ? za
+              : `${L.cross} Unexpected argument "${Wi}".
 
-${za}`);return}let Jc=await UBe(Gc??".",{force:qi});let to=Jc.warnings.map(zk);if(!Jc.ok){to.push(`${L.cross} ${Jc.error}`),ci(to.join(`
-`));return}let{plan:Ln}=Jc;if(to.push(`Plugin:  ${Ln.pluginName}`,`Version: ${Ln.version} (from ${Ln.versionFrom})`),Ln.marketplace)to.push(`Marketplace entry: plugins[${Ln.marketplace.entryIndex}] in ${Ln.marketplace.path}`+(Ln.marketplace.entryVersion?` (version: ${Ln.marketplace.entryVersion})`:""));to.push(`Tag:     ${Ln.tag}`,"");let qk=`git -C ${Ln.gitRoot} push ${qi?"--force ":""}origin refs/tags/${Ln.tag}`;if(Yc){to.push(`${L.tick} Dry run \u2014 would create tag ${Ln.tag} at HEAD in ${Ln.gitRoot}`,`  git -C ${Ln.gitRoot} tag ${qi?"-f ":""}-a ${Ln.tag} -m "${ike(Ln,void 0)}"`,`  ${qk}`),ci(to.join(`
-`));return}let $m=await BBe(Ln,{push:Qc,force:qi,message:void 0,remote:"origin"});if(!$m.ok){to.push(`${L.cross} ${$m.error}`),ci(to.join(`
-`));return}to.push(`${L.tick} Created tag ${Ln.tag}`),to.push($m.pushed?`${L.tick} Pushed to origin`:`  Push with: ${qk}`),to.push("","For -m/--message and --remote, use: claude plugin tag --help"),ci(to.join(`
-`))}},Kk=[ci,Gc,Qc,Yc,qi,Wi],jk[0]=Yc,jk[1]=qi,jk[2]=ci,jk[3]=Gc,jk[4]=Qc,jk[5]=Wi,jk[6]=Hk,jk[7]=Kk;else Hk=jk[6],Kk=jk[7];A(Hk,Kk);let Wk;if(jk[8]===d)Wk=e(o,{flexDirection:"column",children:e(t,{children:"Preparing tag\u2026"})}),jk[8]=Wk;else Wk=jk[8];return Wk}F();function tb(iB){return iB.success}function nb(rB){return rB.warnings.length>0}function eu(tB){let Gk=_(5),{onComplete:jr,path:Hr}=tB,Qk,Yk;if(Gk[0]!==jr||Gk[1]!==Hr)Qk=()=>{let Bm=async function Bm(){if(!Hr){jr(`Usage: /plugin validate <path>
+${za}`,
+          );
+          return;
+        }
+        let Jc = await UBe(Gc ?? ".", { force: qi });
+        let to = Jc.warnings.map(zk);
+        if (!Jc.ok) {
+          to.push(`${L.cross} ${Jc.error}`),
+            ci(
+              to.join(`
+`),
+            );
+          return;
+        }
+        let { plan: Ln } = Jc;
+        if ((to.push(`Plugin:  ${Ln.pluginName}`, `Version: ${Ln.version} (from ${Ln.versionFrom})`), Ln.marketplace))
+          to.push(
+            `Marketplace entry: plugins[${Ln.marketplace.entryIndex}] in ${Ln.marketplace.path}` +
+              (Ln.marketplace.entryVersion ? ` (version: ${Ln.marketplace.entryVersion})` : ""),
+          );
+        to.push(`Tag:     ${Ln.tag}`, "");
+        let qk = `git -C ${Ln.gitRoot} push ${qi ? "--force " : ""}origin refs/tags/${Ln.tag}`;
+        if (Yc) {
+          to.push(
+            `${L.tick} Dry run \u2014 would create tag ${Ln.tag} at HEAD in ${Ln.gitRoot}`,
+            `  git -C ${Ln.gitRoot} tag ${qi ? "-f " : ""}-a ${Ln.tag} -m "${ike(Ln, void 0)}"`,
+            `  ${qk}`,
+          ),
+            ci(
+              to.join(`
+`),
+            );
+          return;
+        }
+        let $m = await BBe(Ln, { push: Qc, force: qi, message: void 0, remote: "origin" });
+        if (!$m.ok) {
+          to.push(`${L.cross} ${$m.error}`),
+            ci(
+              to.join(`
+`),
+            );
+          return;
+        }
+        to.push(`${L.tick} Created tag ${Ln.tag}`),
+          to.push($m.pushed ? `${L.tick} Pushed to origin` : `  Push with: ${qk}`),
+          to.push("", "For -m/--message and --remote, use: claude plugin tag --help"),
+          ci(
+            to.join(`
+`),
+          );
+      }
+    }),
+      (Kk = [ci, Gc, Qc, Yc, qi, Wi]),
+      (jk[0] = Yc),
+      (jk[1] = qi),
+      (jk[2] = ci),
+      (jk[3] = Gc),
+      (jk[4] = Qc),
+      (jk[5] = Wi),
+      (jk[6] = Hk),
+      (jk[7] = Kk);
+  else (Hk = jk[6]), (Kk = jk[7]);
+  A(Hk, Kk);
+  let Wk;
+  if (jk[8] === d)
+    (Wk = e(o, { flexDirection: "column", children: e(t, { children: "Preparing tag\u2026" }) })), (jk[8] = Wk);
+  else Wk = jk[8];
+  return Wk;
+}
+F();
+function tb(iB) {
+  return iB.success;
+}
+function nb(rB) {
+  return rB.warnings.length > 0;
+}
+function eu(tB) {
+  let Gk = _(5),
+    { onComplete: jr, path: Hr } = tB,
+    Qk,
+    Yk;
+  if (Gk[0] !== jr || Gk[1] !== Hr)
+    (Qk = () => {
+      let Bm = async function Bm() {
+        if (!Hr) {
+          jr(`Usage: /plugin validate <path>
 
 Validate a plugin or marketplace manifest, or the skills, agents,
 and commands in a directory.
@@ -62,27 +8629,983 @@ validates the ones under .claude, plus its top-level ones if a
 plugin checkout.
 
 Or from the command line:
-  claude plugin validate <path>`);return};try{let{manifest:Kr,contents:Jk,resolvedPath:nB}=await $Be(Hr);let Dm=Kr?[Kr,...Jk]:Jk;let Rt=Kr?`Validating ${Kr.fileType} manifest: ${Kr.filePath}
+  claude plugin validate <path>`);
+          return;
+        }
+        try {
+          let { manifest: Kr, contents: Jk, resolvedPath: nB } = await $Be(Hr);
+          let Dm = Kr ? [Kr, ...Jk] : Jk;
+          let Rt = Kr
+            ? `Validating ${Kr.fileType} manifest: ${Kr.filePath}
 
-`:`Validating components in: ${nB}
+`
+            : `Validating components in: ${nB}
 
-`;for(const no of Dm){if(no!==Kr){Rt=Rt+`Validating ${no.fileType}: ${no.filePath}
+`;
+          for (const no of Dm) {
+            if (no !== Kr) {
+              Rt =
+                Rt +
+                `Validating ${no.fileType}: ${no.filePath}
 
-`;Rt}if(no.errors.length>0)Rt=Rt+`${L.cross} Found ${no.errors.length} ${k(no.errors.length,"error")}:
+`;
+              Rt;
+            }
+            if (no.errors.length > 0)
+              (Rt =
+                Rt +
+                `${L.cross} Found ${no.errors.length} ${k(no.errors.length, "error")}:
 
-`,Rt,no.errors.forEach((Xk)=>{Rt=Rt+`  ${L.pointer} ${Xk.path}: ${Xk.message}
-`;Rt}),Rt=Rt+`
-`,Rt;if(no.warnings.length>0)Rt=Rt+`${L.warning} Found ${no.warnings.length} ${k(no.warnings.length,"warning")}:
+`),
+                Rt,
+                no.errors.forEach((Xk) => {
+                  Rt =
+                    Rt +
+                    `  ${L.pointer} ${Xk.path}: ${Xk.message}
+`;
+                  Rt;
+                }),
+                (Rt =
+                  Rt +
+                  `
+`),
+                Rt;
+            if (no.warnings.length > 0)
+              (Rt =
+                Rt +
+                `${L.warning} Found ${no.warnings.length} ${k(no.warnings.length, "warning")}:
 
-`,Rt,no.warnings.forEach((Zk)=>{Rt=Rt+`  ${L.pointer} ${Zk.path}: ${Zk.message}
-`;Rt}),Rt=Rt+`
-`,Rt;if(no.notes!==void 0)no.notes.forEach((oB)=>{Rt=Rt+`  ${L.pointer} ${oB}
-`;Rt}),Rt=Rt+`
-`,Rt}if(Dm.every(tb))Rt=Rt+(Dm.some(nb)?`${L.tick} Validation passed with warnings
-`:`${L.tick} Validation passed
-`),Rt,process.exitCode=0;else Rt=Rt+`${L.cross} Validation failed
-`,Rt,process.exitCode=1;jr(Rt)}catch(Zc){let eb=Zc;process.exitCode=2,n(`Plugin validation failed unexpectedly for ${Hr}: ${l(eb)}`,{level:"error"}),jr(`${L.cross} Unexpected error during validation: ${LR(l(eb),200)}`)}};Bm()},Yk=[jr,Hr],Gk[0]=jr,Gk[1]=Hr,Gk[2]=Qk,Gk[3]=Yk;else Qk=Gk[2],Yk=Gk[3];A(Qk,Yk);let Zc;if(Gk[4]===d)Zc=e(o,{flexDirection:"column",children:e(t,{children:"Running validation..."})}),Gk[4]=Zc;else Zc=Gk[4];return Zc}function Qb(iA){return`  \u2022 ${iA}`}function Yb(fA){return fA.plugins.errors}function Jb(yA){return yA.plugins.enabled}function Xb(hA){return hA.plugins.disabled}function Zb(kA){return kA.source}function ex(VA){return VA.plugins.errors}function tx(jA){return jA.plugins.warnings}function nx(HA){return HA.plugins.enabled}function ox(KA){return KA.plugins.disabled}function ix(qA){return qA.plugins.installationStatus}function rx(WA){return WA.status==="failed"}function ax(zA){return zA.name}function lx(GA){return GA.scope}function sx(QA){return Math.max(0,QA-1)}function tg(tA){let ob=_(5),{onComplete:qr}=tA,{storageV5:tu}=ge(),ib,rb;if(ob[0]!==qr||ob[1]!==tu)ib=()=>{let Am=async function Am(){;try{let nA=await zl(tu);let ab=Object.keys(nA);if(ab.length===0)qr("No marketplaces configured");else qr(`Configured marketplaces:
+`),
+                Rt,
+                no.warnings.forEach((Zk) => {
+                  Rt =
+                    Rt +
+                    `  ${L.pointer} ${Zk.path}: ${Zk.message}
+`;
+                  Rt;
+                }),
+                (Rt =
+                  Rt +
+                  `
+`),
+                Rt;
+            if (no.notes !== void 0)
+              no.notes.forEach((oB) => {
+                Rt =
+                  Rt +
+                  `  ${L.pointer} ${oB}
+`;
+                Rt;
+              }),
+                (Rt =
+                  Rt +
+                  `
+`),
+                Rt;
+          }
+          if (Dm.every(tb))
+            (Rt =
+              Rt +
+              (Dm.some(nb)
+                ? `${L.tick} Validation passed with warnings
+`
+                : `${L.tick} Validation passed
+`)),
+              Rt,
+              (process.exitCode = 0);
+          else
+            (Rt =
+              Rt +
+              `${L.cross} Validation failed
+`),
+              Rt,
+              (process.exitCode = 1);
+          jr(Rt);
+        } catch (Zc) {
+          let eb = Zc;
+          (process.exitCode = 2),
+            n(`Plugin validation failed unexpectedly for ${Hr}: ${l(eb)}`, { level: "error" }),
+            jr(`${L.cross} Unexpected error during validation: ${LR(l(eb), 200)}`);
+        }
+      };
+      Bm();
+    }),
+      (Yk = [jr, Hr]),
+      (Gk[0] = jr),
+      (Gk[1] = Hr),
+      (Gk[2] = Qk),
+      (Gk[3] = Yk);
+  else (Qk = Gk[2]), (Yk = Gk[3]);
+  A(Qk, Yk);
+  let Zc;
+  if (Gk[4] === d)
+    (Zc = e(o, { flexDirection: "column", children: e(t, { children: "Running validation..." }) })), (Gk[4] = Zc);
+  else Zc = Gk[4];
+  return Zc;
+}
+function Qb(iA) {
+  return `  \u2022 ${iA}`;
+}
+function Yb(fA) {
+  return fA.plugins.errors;
+}
+function Jb(yA) {
+  return yA.plugins.enabled;
+}
+function Xb(hA) {
+  return hA.plugins.disabled;
+}
+function Zb(kA) {
+  return kA.source;
+}
+function ex(VA) {
+  return VA.plugins.errors;
+}
+function tx(jA) {
+  return jA.plugins.warnings;
+}
+function nx(HA) {
+  return HA.plugins.enabled;
+}
+function ox(KA) {
+  return KA.plugins.disabled;
+}
+function ix(qA) {
+  return qA.plugins.installationStatus;
+}
+function rx(WA) {
+  return WA.status === "failed";
+}
+function ax(zA) {
+  return zA.name;
+}
+function lx(GA) {
+  return GA.scope;
+}
+function sx(QA) {
+  return Math.max(0, QA - 1);
+}
+function tg(tA) {
+  let ob = _(5),
+    { onComplete: qr } = tA,
+    { storageV5: tu } = ge(),
+    ib,
+    rb;
+  if (ob[0] !== qr || ob[1] !== tu)
+    (ib = () => {
+      let Am = async function Am() {
+        try {
+          let nA = await zl(tu);
+          let ab = Object.keys(nA);
+          if (ab.length === 0) qr("No marketplaces configured");
+          else
+            qr(`Configured marketplaces:
 ${ab.map(Qb).join(`
-`)}`)}catch(ou){let oA=ou;qr(`Error loading marketplaces: ${l(oA)}`)}};Am()},rb=[qr,tu],ob[0]=qr,ob[1]=tu,ob[2]=ib,ob[3]=rb;else ib=ob[2],rb=ob[3];A(ib,rb);let ou;if(ob[4]===d)ou=e(t,{children:"Loading marketplaces..."}),ob[4]=ou;else ou=ob[4];return ou}function ng(rA){let lb=_(8),{onComplete:Wr,filter:zr}=rA,iu=W(Yb),Ga=W(Jb),ru=W(Xb),sb,cb;if(lb[0]!==Ga||lb[1]!==zr||lb[2]!==ru||lb[3]!==iu||lb[4]!==Wr)sb=()=>{let ub=nm();let db=Object.keys(ub.plugins).sort();if(db.length===0){Wr("No plugins installed. Use `/plugin install` to install a plugin.");return}let aA=m1();let lA=new Set(Ga.map(Zb));let pb=["Installed plugins:"];let mb=0;for(const di of db){let sA=St(di,"@");let Om=aA.has(di);if(zr!==void 0&&zr==="enabled"!==Om){continue}let gb=iu.some((au)=>!jne(au)&&(au.source===di||("plugin"in au)&&au.plugin===sA));let cA=gb?`${L.cross} failed to load`:Om?`${L.tick} enabled`:`${L.cross} disabled`;let uA=!gb&&Om!==lA.has(di)?" \u2014 run /reload-plugins to apply":"";let mA=(Ga.find((dA)=>dA.source===di)??ru.find((pA)=>pA.source===di))?.manifest.version;for(const Lm of ub.plugins[di]??[]){let fb=Cqe(Lm.version,mA);let gA=fb?`${fb}, ${Lm.scope}`:Lm.scope;pb.push(`  \u2022 ${di} (${gA}) ${cA}${uA}`),mb++}}if(mb===0){Wr(`No ${zr} plugins.`);return}Wr(pb.join(`
-`))},cb=[Wr,iu,Ga,ru,zr],lb[0]=Ga,lb[1]=zr,lb[2]=ru,lb[3]=iu,lb[4]=Wr,lb[5]=sb,lb[6]=cb;else sb=lb[5],cb=lb[6];A(sb,cb);let yb;if(lb[7]===d)yb=e(t,{children:"Loading plugins..."}),lb[7]=yb;else yb=lb[7];return yb}function og(){return null}function ig(){let bA=_(1),hb;if(bA[0]===d)hb=e(o,{marginTop:1,children:e(yf,{status:"info",children:"Skills are now managed here under the Skills section."})}),bA[0]=hb;else hb=bA[0];return hb}function rg(){let xA=_(1),kb;if(xA[0]===d)kb=e(o,{marginTop:1,children:e(yf,{status:"info",children:"/skill-doctor moved \u2014 skill usage and context costs now live in this Stats tab."})}),xA[0]=kb;else kb=xA[0];return kb}function gu(a){let b=[],S=[{source:"userSettings",scope:"user"},{source:"projectSettings",scope:"project"},{source:"localSettings",scope:"local"}];for(let{source:R,scope:j}of S)if(ye(R)?.extraKnownMarketplaces?.[a])b.push({source:R,scope:j});let x=ye("policySettings"),v=Boolean(x?.extraKnownMarketplaces?.[a]);return{editableSources:b,isInPolicy:v}}function Qm(a){let{editableSources:b,isInPolicy:S}=gu(a);if(b.length>0)return{kind:"remove-extra-marketplace",name:a,sources:b};if(S)return{kind:"managed-only",name:a};return{kind:"navigate",tab:"marketplaces",viewState:{type:"manage-marketplaces",targetMarketplace:a,action:"remove"}}}function qb(a){return{kind:"navigate",tab:"installed",viewState:{type:"manage-plugins",targetPlugin:a.name,...a.marketplace!==void 0&&{targetMarketplace:a.marketplace},...a.marketplace!==void 0&&!cYe(a.marketplace)&&{action:"uninstall"}}}}var Wb=new Set(["git-auth-failed","git-timeout","network-error"]);function Ym(a){return a.type==="marketplace-not-found"||a.type==="marketplace-load-failed"||a.type==="marketplace-blocked-by-policy"}function Jm(a){if(Wb.has(a.type))return!0;if(a.type==="marketplace-load-failed"&&a.reason==="cache-miss")return!0;if(a.type==="marketplace-not-found")return!0;return!1}function Xm(a,b,S){let x=MI(a.source),v="marketplace"in a?a.marketplace:void 0,R=b??(x||Ud(a.source)!==void 0?Zz(a.source).name:void 0),j=x??v??Ud(a.source);return{key:R===void 0?void 0:fp(j?`${R}@${j}`:R),label:R===void 0?a.source:j?`${R} @ ${j}`:R,scope:R2e(S,a.source)??(R!==void 0&&x?R2e(S,`${R}@${x}`):void 0),named:R!==void 0}}function Zm(a,b,S,x,v,R,j,K,T){let N=[];for(let E of R){let J="pluginId"in E?E.pluginId:("plugin"in E)?E.plugin:void 0;N.push({label:J??E.source,message:Do(E),guidance:Vo(E)??"Restart to retry loading plugins",action:{kind:"none"}})}let H=new Set;for(let E of a){H.add(E.name);let J=Qm(E.name),pe=gu(E.name),ue=pe.isInPolicy?"managed":pe.editableSources[0]?.scope;N.push({label:E.name,message:E.error??"Installation failed",guidance:J.kind==="managed-only"?"Managed by your organization \u2014 contact your admin":void 0,action:J,scope:ue})}for(let E of b){let J="marketplace"in E?E.marketplace:E.source;if(H.has(J))continue;H.add(J);let pe=Qm(J),ue=gu(J),Pe=ue.isInPolicy?"managed":ue.editableSources[0]?.scope;N.push({label:J,message:Do(E),guidance:pe.kind==="managed-only"?"Managed by your organization \u2014 contact your admin":Vo(E),action:pe,scope:Pe})}for(let E of v){if(H.has(E.name))continue;H.add(E.name),N.push({label:E.name,message:E.error,action:{kind:"remove-installed-marketplace",name:E.name}})}let G=new Set;for(let E of S){let J=Xm(E,fde(E),K);if(J.key!==void 0&&G.has(J.key))continue;if(J.key!==void 0)G.add(J.key);let pe=jne(E);N.push({label:J.label,message:Do(E),guidance:Vo(E),action:J.named&&!pe?qb(AMn(E,T)):{kind:"none"},isAdvisory:pe||void 0,scope:J.scope})}for(let E of x)N.push({label:E.source,message:Do(E),guidance:Vo(E),action:{kind:"none"}});for(let E of j){let J=Xm(E,"plugin"in E?E.plugin:void 0,K),pe=J.key??fp(E.source),ue="plugin"in E?pe:`${E.type}:${pe}`;if(G.has(ue))continue;G.add(ue),N.push({label:J.label,message:YF(E),guidance:bWt(E),action:{kind:"none"},scope:J.scope,isAdvisory:!0})}return N}function eg(a,b,S){for(let{source:x}of b)Os(x,(v)=>{if(!v)return null;let R={};if(v.extraKnownMarketplaces?.[a])R.extraKnownMarketplaces={...v.extraKnownMarketplaces,[a]:void 0};if(v.enabledPlugins){let j=`@${a}`,K=!1,T={...v.enabledPlugins};for(let N in T)if(N.endsWith(j))T[N]=void 0,K=!0;if(K)R.enabledPlugins=T}return Object.keys(R).length>0?R:null},void 0,S)}function lg(SA){let Hn=_(27),{setViewState:lu,setActiveTab:vA,markPluginsChanged:bb}=SA,{storageV5:Ko,credentials:_m}=ge(),wA=W(ex),CA=W(tx),PA=W(nx),TA=W(ox),IA=W(ix),RA=At(),[Fm,Um]=u(0),[su,Vm]=u(null),xb;if(Hn[0]===d)xb=[],Hn[0]=xb;else xb=Hn[0];let[EA,Sb]=u(xb),vb,wb;if(Hn[1]!==Ko)vb=()=>{(async()=>{try{let MA=await zl(Ko);let{failures:$A}=await c9(MA,Ko);Sb($A)}catch{}})()},wb=[Ko],Hn[1]=Ko,Hn[2]=vb,Hn[3]=wb;else vb=Hn[2],wb=Hn[3];A(vb,wb);let Cb=IA.marketplaces.filter(rx),DA=new Set(Cb.map(ax)),Pb=[],Tb=[],Ib=[],Rb=[];for(const pi of wA){if(Jm(pi))Pb.push(pi);else if(Ym(pi)){if(!DA.has(pi.marketplace))Tb.push(pi)}else if(fde(pi)!==void 0)Ib.push(pi);else Rb.push(pi)}let zi=Zm(Cb,Tb,Ib,Rb,EA,Pb,CA,m1(),[...PA,...TA]),Eb;if(Hn[4]!==lu)Eb=()=>{lu({type:"menu"})},Hn[4]=lu,Hn[5]=Eb;else Eb=Hn[5];let Mb;if(Hn[6]===d)Mb={context:"Confirmation"},Hn[6]=Mb;else Mb=Hn[6];Be("confirm:no",Eb,Mb);let _A=()=>{let $b=zi[Fm];if(!$b){return}let{action:oo}=$b;bb54:switch(oo.kind){case"navigate":{vA(oo.tab),lu(oo.viewState);break bb54}case"remove-extra-marketplace":{let BA=oo.sources.map(lx).join(", ");eg(oo.name,oo.sources,Ko),Qu(Ko,_m),RA((Qa)=>({...Qa,plugins:{...Qa.plugins,errors:Qa.plugins.errors.filter((Db)=>!(("marketplace"in Db)&&Db.marketplace===oo.name)),installationStatus:{...Qa.plugins.installationStatus,marketplaces:Qa.plugins.installationStatus.marketplaces.filter((AA)=>AA.name!==oo.name)}}})),Vm(`${L.tick} Removed "${oo.name}" from ${BA} settings`),bb();break bb54}case"remove-installed-marketplace":{(async()=>{;try{await MSe(oo.name,void 0,Ko,_m),Qu(Ko,_m),Sb((LA)=>LA.filter((NA)=>NA.name!==oo.name)),Vm(`${L.tick} Removed marketplace "${oo.name}"`),bb()}catch(OA){let jm=OA;Vm(`Failed to remove "${oo.name}": ${jm instanceof Error?jm.message:String(jm)}`)}})();break bb54}case"managed-only":{break bb54}case"none":}},Bb;if(Hn[7]===d)Bb=()=>Um(sx),Hn[7]=Bb;else Bb=Hn[7];const Hm=zi.length>0;let Ab;if(Hn[8]!==Hm)Ab={context:"Select",isActive:Hm},Hn[8]=Hm,Hn[9]=Ab;else Ab=Hn[9];ht({"select:previous":Bb,"select:next":()=>Um((FA)=>Math.min(zi.length-1,FA+1)),"select:accept":_A},Ab);let Gr=Math.min(Fm,Math.max(0,zi.length-1));if(Gr!==Fm)Um(Gr);let Km=zi[Gr]?.action,qm=Km&&Km.kind!=="none"&&Km.kind!=="managed-only";if(zi.length===0){let cu;if(Hn[10]===d)cu=e(o,{marginLeft:1,children:e(sr,{children:"No plugin errors"})}),Hn[10]=cu;else cu=Hn[10];let uu;if(Hn[11]===d)uu=r(o,{flexDirection:"column",children:[cu,e(o,{marginTop:1,children:e(t,{dimColor:!0,italic:!0,children:e(ze,{action:"confirm:no",context:"Confirmation",fallback:"Esc",description:"go back"})})})]}),Hn[11]=uu;else uu=Hn[11];return uu}const zm=o,cu="column",uu=1;let Ob;if(Hn[12]!==Gr)Ob=(mi,_b)=>{let Ya=_b===Gr;let Fb=mi.isAdvisory?"warning":"error";let UA=Ya?L.pointer:mi.isAdvisory?L.triangleUpOutline:L.cross;return r(Ig,{active:Ya,marginLeft:1,flexDirection:"column",children:[r(t,{children:[r(t,{"aria-hidden":Ya,color:Ya?"suggestion":Fb,children:[UA," "]}),e(t,{bold:Ya,children:Oo(mi.label)}),mi.scope&&r(t,{dimColor:!0,children:[" (",mi.scope,")"]})]}),e(o,{marginLeft:3,children:e(t,{color:Fb,wrap:"wrap-trim",children:Of(mi.message)})}),mi.guidance&&e(o,{marginLeft:3,children:e(t,{dimColor:!0,italic:!0,wrap:"wrap-trim",children:Of(mi.guidance)})})]},_b)},Hn[12]=Gr,Hn[13]=Ob;else Ob=Hn[13];const Gm=zi.map(Ob);let du;if(Hn[14]!==su)du=su&&e(o,{marginLeft:1,children:e(t,{color:"claude",children:Oo(su)})}),Hn[14]=su,Hn[15]=du;else du=Hn[15];let Ub;if(Hn[16]===d)Ub=e(ze,{action:"select:previous",context:"Select",fallback:"\u2191",description:"navigate"}),Hn[16]=Ub;else Ub=Hn[16];let pu;if(Hn[17]!==qm)pu=qm&&e(ze,{action:"select:accept",context:"Select",fallback:"Enter",description:"resolve"}),Hn[17]=qm,Hn[18]=pu;else pu=Hn[18];let Vb;if(Hn[19]===d)Vb=e(ze,{action:"confirm:no",context:"Confirmation",fallback:"Esc",description:"go back"}),Hn[19]=Vb;else Vb=Hn[19];let mu;if(Hn[20]!==pu)mu=e(o,{children:e(t,{dimColor:!0,italic:!0,children:r(fe,{children:[Ub,pu,Vb]})})}),Hn[20]=pu,Hn[21]=mu;else mu=Hn[21];let Hb;if(Hn[22]!==zm||Hn[23]!==Gm||Hn[24]!==du||Hn[25]!==mu)Hb=r(zm,{flexDirection:cu,gap:uu,children:[Gm,du,mu]}),Hn[22]=zm,Hn[23]=Gm,Hn[24]=du,Hn[25]=mu,Hn[26]=Hb;else Hb=Hn[26];return Hb}function zb(a){switch(a.type){case"help":return{type:"help"};case"validate":return{type:"validate",path:a.path};case"eval":return{type:"eval",target:a.target};case"tag":return{type:"tag",path:a.path,push:a.push,dryRun:a.dryRun,force:a.force,unknownFlag:a.unknownFlag};case"install":if(a.marketplace)return{type:"browse-marketplace",targetMarketplace:a.marketplace,targetPlugin:a.plugin};if(a.plugin)return{type:"discover-plugins",targetPlugin:a.plugin};return{type:"discover-plugins"};case"manage":return{type:"manage-plugins"};case"stats":return{type:"stats"};case"uninstall":return{type:"manage-plugins",targetPlugin:a.plugin,action:"uninstall"};case"enable":return{type:"manage-plugins",targetPlugin:a.plugin,action:"enable"};case"disable":return{type:"manage-plugins",targetPlugin:a.plugin,action:"disable"};case"configure":return{type:"manage-plugins",targetPlugin:a.plugin,action:"configure"};case"list":return{type:"plugin-list",filter:a.filter};case"marketplace":if(a.action==="list")return{type:"marketplace-list"};if(a.action==="add")return{type:"add-marketplace",initialValue:a.target};if(a.action==="remove")return{type:"manage-marketplaces",targetMarketplace:a.target,action:"remove"};if(a.action==="update")return{type:"manage-marketplaces",targetMarketplace:a.target,action:"update"};return{type:"menu"};case"menu":default:return{type:"discover-plugins"}}}function Gb(a){if(a.type==="manage-plugins")return"installed";if(a.type==="stats")return"stats";if(a.type==="manage-marketplaces")return"marketplaces";return"discover"}function itt({onComplete:a,args:b,showMcpRedirectMessage:S,showSkillsRedirectMessage:x,showSkillDoctorRedirectMessage:v,getSessionContext:R,getSkillStatsInputs:j,commands:K,getReloadCacheImpactOptions:T}){let N=mm(b),H=zb(N),[G]=u(()=>new ys(H)),{viewState:E,result:J,error:pe}=Xe(G),{setViewState:ue,setResult:Pe,setError:_e}=G,be=C(new Set),ve=C(null),Je=B(()=>{if(ve.current===null){if(!j)throw Error("Stats tab rendered without getSkillStatsInputs");ve.current=Em(j())}return ve.current},[j]),[st,Tt]=u(Gb(H)),[it,re]=u(E.type==="add-marketplace"?E.initialValue||"":""),[xe,Ge]=u(0),[Ht,Le]=u(!1),ot=At(),dt=Xn(),{storageV5:pt}=ge(),gt=W((Ut)=>{let Lt=Q(Ut.plugins.errors,(le)=>!jne(le));for(let le of Ut.plugins.installationStatus.marketplaces)if(le.status==="failed")Lt++;return Lt}),se=gt>0?`Errors (${gt})`:"Errors",tn=Hi(),Bt=N.type==="marketplace"&&N.action==="add"&&N.target!==void 0,Gt=j!==void 0&&Sk(),Et=B(()=>{ot((Ut)=>Ut.plugins.needsRefresh?Ut:{...Ut,plugins:{...Ut.plugins,needsRefresh:!0}})},[ot]),In=B(async(Ut)=>{if(!T)return Et(),"reload-required";return Su(()=>({...T(),mcpClients:dt.getState().mcp.clients,storageV5:pt}),ot,Ut,pt)},[dt,T,Et,ot,pt]),kn=B((Ut)=>{let Lt=Ut;switch(Tt(Lt),G.setError(null),Lt){case"discover":G.setViewState({type:"discover-plugins"});break;case"installed":G.setViewState({type:"manage-plugins"});break;case"marketplaces":G.setViewState({type:"manage-marketplaces"});break;case"errors":break;case"stats":break}},[G]);A(()=>{if(E.type==="menu"&&!J)a()},[E.type,J,a]);let Dn=C(E.type);A(()=>{if(E.type===Dn.current)return;Dn.current=E.type;let Lt={"browse-marketplace":"discover","manage-plugins":"installed","manage-marketplaces":"marketplaces"}[E.type];if(Lt)Tt(Lt)},[E.type]);let $t=B(()=>{Tt("marketplaces"),G.setViewState({type:"manage-marketplaces"}),re(""),G.setError(null)},[G]);if(Be("confirm:no",$t,{context:"Settings",isActive:E.type==="add-marketplace"}),A(()=>{if(J)a(J)},[J,a]),A(()=>{if(E.type==="help")a()},[E.type,a]),E.type==="help")return r(o,{flexDirection:"column",children:[e(t,{bold:!0,children:"Plugin Command Usage:"}),e(t,{children:" "}),e(t,{dimColor:!0,children:"Installation:"}),e(t,{children:" /plugin install - Browse and install plugins"}),r(t,{children:[" ","/plugin install <marketplace> - Install from specific marketplace"]}),e(t,{children:" /plugin install <plugin> - Install specific plugin"}),r(t,{children:[" ","/plugin install <plugin>@<market> - Install plugin from marketplace"]}),e(t,{children:" "}),e(t,{dimColor:!0,children:"Management:"}),r(t,{children:[" ","/plugin list [--enabled|--disabled] - List installed plugins"]}),e(t,{children:" /plugin manage - Manage installed plugins"}),Sk()&&e(t,{children:" /plugin stats - Show skill usage and context costs"}),e(t,{children:" /plugin enable <plugin> - Enable a plugin"}),e(t,{children:" /plugin disable <plugin> - Disable a plugin"}),e(t,{children:" /plugin configure <plugin> - Set userConfig options"}),e(t,{children:" /plugin uninstall <plugin> - Uninstall a plugin"}),e(t,{children:" "}),e(t,{dimColor:!0,children:"Marketplaces:"}),e(t,{children:" /plugin marketplace - Marketplace management menu"}),e(t,{children:" /plugin marketplace add - Add a marketplace"}),r(t,{children:[" ","/plugin marketplace add <path/url> - Add marketplace directly"]}),e(t,{children:" /plugin marketplace update - Update marketplaces"}),r(t,{children:[" ","/plugin marketplace update <name> - Update specific marketplace"]}),e(t,{children:" /plugin marketplace remove - Remove a marketplace"}),r(t,{children:[" ","/plugin marketplace remove <name> - Remove specific marketplace"]}),e(t,{children:" /plugin marketplace list - List all marketplaces"}),e(t,{children:" "}),e(t,{dimColor:!0,children:"Validation:"}),r(t,{children:[" ","/plugin validate <path> - Validate a manifest file or directory"]}),r(t,{children:[" ","/plugin tag [path] [--push] [--dry-run] [-f] - Create a release tag for the plugin"]}),e(t,{children:" "}),e(t,{dimColor:!0,children:"Other:"}),e(t,{children:" /plugin - Main plugin menu"}),e(t,{children:" /plugin help - Show this help"}),e(t,{children:" /plugins - Alias for /plugin"})]});if(E.type==="validate")return e(eu,{onComplete:a,path:E.path});if(E.type==="eval")return e($s,{onComplete:a,target:E.target});if(E.type==="tag")return e(Xc,{onComplete:a,path:E.path,push:E.push,dryRun:E.dryRun,force:E.force,unknownFlag:E.unknownFlag});if(E.type==="marketplace-list")return e(tg,{onComplete:a});if(E.type==="plugin-list")return e(ng,{onComplete:a,filter:E.filter});if(E.type==="add-marketplace")return e(vu,{inputValue:it,setInputValue:re,cursorOffset:xe,setCursorOffset:Ge,error:pe,setError:_e,result:J,setResult:Pe,setViewState:ue,onAddComplete:Et,cliMode:Bt});return e(fo,{color:"suggestion",children:e(Pg,{title:"Plugins",selectedTab:st,onTabChange:kn,color:"suggestion",disableNavigation:Ht,banner:S&&st==="installed"?e(og,{}):x&&st==="installed"?e(ig,{}):v&&st==="stats"?e(rg,{}):void 0,children:[e(Zi,{id:"discover",title:"Discover",children:E.type==="browse-marketplace"?e(Vd,{screen:G,onInstallComplete:In,onSearchModeChange:Le,targetMarketplace:E.targetMarketplace,targetPlugin:E.targetPlugin}):e(qd,{screen:G,onInstallComplete:In,onSearchModeChange:Le,getSessionContext:R,grantedSuggestions:be.current,targetPlugin:E.type==="discover-plugins"?E.targetPlugin:void 0})},"discover"),e(Zi,{id:"installed",title:"Installed",children:e(pm,{setViewState:ue,setResult:Pe,onManageComplete:Et,onSearchModeChange:Le,commands:K,targetPlugin:E.type==="manage-plugins"?E.targetPlugin:void 0,targetMarketplace:E.type==="manage-plugins"?E.targetMarketplace:void 0,action:E.type==="manage-plugins"?E.action:void 0})},"installed"),e(Zi,{id:"marketplaces",title:"Marketplaces",children:e(Jd,{setViewState:ue,error:pe,setError:_e,setResult:Pe,exitState:tn,onManageComplete:Et,targetMarketplace:E.type==="manage-marketplaces"?E.targetMarketplace:void 0,action:E.type==="manage-marketplaces"?E.action:void 0})},"marketplaces"),e(Zi,{id:"errors",title:se,children:e(lg,{setViewState:ue,setActiveTab:Tt,markPluginsChanged:Et})},"errors"),...Gt?[e(Zi,{id:"stats",title:"Stats",children:e(Wc,{getReport:Je,onExit:()=>ue({type:"menu"})})},"stats")]:[]]})})}
-export{Fme,JRt,$me,ott,kUe,HUe,QRt,Ume,itt};
+`)}`);
+        } catch (ou) {
+          let oA = ou;
+          qr(`Error loading marketplaces: ${l(oA)}`);
+        }
+      };
+      Am();
+    }),
+      (rb = [qr, tu]),
+      (ob[0] = qr),
+      (ob[1] = tu),
+      (ob[2] = ib),
+      (ob[3] = rb);
+  else (ib = ob[2]), (rb = ob[3]);
+  A(ib, rb);
+  let ou;
+  if (ob[4] === d) (ou = e(t, { children: "Loading marketplaces..." })), (ob[4] = ou);
+  else ou = ob[4];
+  return ou;
+}
+function ng(rA) {
+  let lb = _(8),
+    { onComplete: Wr, filter: zr } = rA,
+    iu = W(Yb),
+    Ga = W(Jb),
+    ru = W(Xb),
+    sb,
+    cb;
+  if (lb[0] !== Ga || lb[1] !== zr || lb[2] !== ru || lb[3] !== iu || lb[4] !== Wr)
+    (sb = () => {
+      let ub = nm();
+      let db = Object.keys(ub.plugins).sort();
+      if (db.length === 0) {
+        Wr("No plugins installed. Use `/plugin install` to install a plugin.");
+        return;
+      }
+      let aA = m1();
+      let lA = new Set(Ga.map(Zb));
+      let pb = ["Installed plugins:"];
+      let mb = 0;
+      for (const di of db) {
+        let sA = St(di, "@");
+        let Om = aA.has(di);
+        if (zr !== void 0 && (zr === "enabled") !== Om) {
+          continue;
+        }
+        let gb = iu.some((au) => !jne(au) && (au.source === di || ("plugin" in au && au.plugin === sA)));
+        let cA = gb ? `${L.cross} failed to load` : Om ? `${L.tick} enabled` : `${L.cross} disabled`;
+        let uA = !gb && Om !== lA.has(di) ? " \u2014 run /reload-plugins to apply" : "";
+        let mA = (Ga.find((dA) => dA.source === di) ?? ru.find((pA) => pA.source === di))?.manifest.version;
+        for (const Lm of ub.plugins[di] ?? []) {
+          let fb = Cqe(Lm.version, mA);
+          let gA = fb ? `${fb}, ${Lm.scope}` : Lm.scope;
+          pb.push(`  \u2022 ${di} (${gA}) ${cA}${uA}`), mb++;
+        }
+      }
+      if (mb === 0) {
+        Wr(`No ${zr} plugins.`);
+        return;
+      }
+      Wr(
+        pb.join(`
+`),
+      );
+    }),
+      (cb = [Wr, iu, Ga, ru, zr]),
+      (lb[0] = Ga),
+      (lb[1] = zr),
+      (lb[2] = ru),
+      (lb[3] = iu),
+      (lb[4] = Wr),
+      (lb[5] = sb),
+      (lb[6] = cb);
+  else (sb = lb[5]), (cb = lb[6]);
+  A(sb, cb);
+  let yb;
+  if (lb[7] === d) (yb = e(t, { children: "Loading plugins..." })), (lb[7] = yb);
+  else yb = lb[7];
+  return yb;
+}
+function og() {
+  return null;
+}
+function ig() {
+  let bA = _(1),
+    hb;
+  if (bA[0] === d)
+    (hb = e(o, {
+      marginTop: 1,
+      children: e(yf, { status: "info", children: "Skills are now managed here under the Skills section." }),
+    })),
+      (bA[0] = hb);
+  else hb = bA[0];
+  return hb;
+}
+function rg() {
+  let xA = _(1),
+    kb;
+  if (xA[0] === d)
+    (kb = e(o, {
+      marginTop: 1,
+      children: e(yf, {
+        status: "info",
+        children: "/skill-doctor moved \u2014 skill usage and context costs now live in this Stats tab.",
+      }),
+    })),
+      (xA[0] = kb);
+  else kb = xA[0];
+  return kb;
+}
+function gu(a) {
+  let b = [],
+    S = [
+      { source: "userSettings", scope: "user" },
+      { source: "projectSettings", scope: "project" },
+      { source: "localSettings", scope: "local" },
+    ];
+  for (let { source: R, scope: j } of S) if (ye(R)?.extraKnownMarketplaces?.[a]) b.push({ source: R, scope: j });
+  let x = ye("policySettings"),
+    v = Boolean(x?.extraKnownMarketplaces?.[a]);
+  return { editableSources: b, isInPolicy: v };
+}
+function Qm(a) {
+  let { editableSources: b, isInPolicy: S } = gu(a);
+  if (b.length > 0) return { kind: "remove-extra-marketplace", name: a, sources: b };
+  if (S) return { kind: "managed-only", name: a };
+  return {
+    kind: "navigate",
+    tab: "marketplaces",
+    viewState: { type: "manage-marketplaces", targetMarketplace: a, action: "remove" },
+  };
+}
+function qb(a) {
+  return {
+    kind: "navigate",
+    tab: "installed",
+    viewState: {
+      type: "manage-plugins",
+      targetPlugin: a.name,
+      ...(a.marketplace !== void 0 && { targetMarketplace: a.marketplace }),
+      ...(a.marketplace !== void 0 && !cYe(a.marketplace) && { action: "uninstall" }),
+    },
+  };
+}
+var Wb = new Set(["git-auth-failed", "git-timeout", "network-error"]);
+function Ym(a) {
+  return (
+    a.type === "marketplace-not-found" ||
+    a.type === "marketplace-load-failed" ||
+    a.type === "marketplace-blocked-by-policy"
+  );
+}
+function Jm(a) {
+  if (Wb.has(a.type)) return !0;
+  if (a.type === "marketplace-load-failed" && a.reason === "cache-miss") return !0;
+  if (a.type === "marketplace-not-found") return !0;
+  return !1;
+}
+function Xm(a, b, S) {
+  let x = MI(a.source),
+    v = "marketplace" in a ? a.marketplace : void 0,
+    R = b ?? (x || Ud(a.source) !== void 0 ? Zz(a.source).name : void 0),
+    j = x ?? v ?? Ud(a.source);
+  return {
+    key: R === void 0 ? void 0 : fp(j ? `${R}@${j}` : R),
+    label: R === void 0 ? a.source : j ? `${R} @ ${j}` : R,
+    scope: R2e(S, a.source) ?? (R !== void 0 && x ? R2e(S, `${R}@${x}`) : void 0),
+    named: R !== void 0,
+  };
+}
+function Zm(a, b, S, x, v, R, j, K, T) {
+  let N = [];
+  for (let E of R) {
+    let J = "pluginId" in E ? E.pluginId : "plugin" in E ? E.plugin : void 0;
+    N.push({
+      label: J ?? E.source,
+      message: Do(E),
+      guidance: Vo(E) ?? "Restart to retry loading plugins",
+      action: { kind: "none" },
+    });
+  }
+  let H = new Set();
+  for (let E of a) {
+    H.add(E.name);
+    let J = Qm(E.name),
+      pe = gu(E.name),
+      ue = pe.isInPolicy ? "managed" : pe.editableSources[0]?.scope;
+    N.push({
+      label: E.name,
+      message: E.error ?? "Installation failed",
+      guidance: J.kind === "managed-only" ? "Managed by your organization \u2014 contact your admin" : void 0,
+      action: J,
+      scope: ue,
+    });
+  }
+  for (let E of b) {
+    let J = "marketplace" in E ? E.marketplace : E.source;
+    if (H.has(J)) continue;
+    H.add(J);
+    let pe = Qm(J),
+      ue = gu(J),
+      Pe = ue.isInPolicy ? "managed" : ue.editableSources[0]?.scope;
+    N.push({
+      label: J,
+      message: Do(E),
+      guidance: pe.kind === "managed-only" ? "Managed by your organization \u2014 contact your admin" : Vo(E),
+      action: pe,
+      scope: Pe,
+    });
+  }
+  for (let E of v) {
+    if (H.has(E.name)) continue;
+    H.add(E.name),
+      N.push({ label: E.name, message: E.error, action: { kind: "remove-installed-marketplace", name: E.name } });
+  }
+  let G = new Set();
+  for (let E of S) {
+    let J = Xm(E, fde(E), K);
+    if (J.key !== void 0 && G.has(J.key)) continue;
+    if (J.key !== void 0) G.add(J.key);
+    let pe = jne(E);
+    N.push({
+      label: J.label,
+      message: Do(E),
+      guidance: Vo(E),
+      action: J.named && !pe ? qb(AMn(E, T)) : { kind: "none" },
+      isAdvisory: pe || void 0,
+      scope: J.scope,
+    });
+  }
+  for (let E of x) N.push({ label: E.source, message: Do(E), guidance: Vo(E), action: { kind: "none" } });
+  for (let E of j) {
+    let J = Xm(E, "plugin" in E ? E.plugin : void 0, K),
+      pe = J.key ?? fp(E.source),
+      ue = "plugin" in E ? pe : `${E.type}:${pe}`;
+    if (G.has(ue)) continue;
+    G.add(ue),
+      N.push({
+        label: J.label,
+        message: YF(E),
+        guidance: bWt(E),
+        action: { kind: "none" },
+        scope: J.scope,
+        isAdvisory: !0,
+      });
+  }
+  return N;
+}
+function eg(a, b, S) {
+  for (let { source: x } of b)
+    Os(
+      x,
+      (v) => {
+        if (!v) return null;
+        let R = {};
+        if (v.extraKnownMarketplaces?.[a]) R.extraKnownMarketplaces = { ...v.extraKnownMarketplaces, [a]: void 0 };
+        if (v.enabledPlugins) {
+          let j = `@${a}`,
+            K = !1,
+            T = { ...v.enabledPlugins };
+          for (let N in T) if (N.endsWith(j)) (T[N] = void 0), (K = !0);
+          if (K) R.enabledPlugins = T;
+        }
+        return Object.keys(R).length > 0 ? R : null;
+      },
+      void 0,
+      S,
+    );
+}
+function lg(SA) {
+  let Hn = _(27),
+    { setViewState: lu, setActiveTab: vA, markPluginsChanged: bb } = SA,
+    { storageV5: Ko, credentials: _m } = ge(),
+    wA = W(ex),
+    CA = W(tx),
+    PA = W(nx),
+    TA = W(ox),
+    IA = W(ix),
+    RA = At(),
+    [Fm, Um] = u(0),
+    [su, Vm] = u(null),
+    xb;
+  if (Hn[0] === d) (xb = []), (Hn[0] = xb);
+  else xb = Hn[0];
+  let [EA, Sb] = u(xb),
+    vb,
+    wb;
+  if (Hn[1] !== Ko)
+    (vb = () => {
+      (async () => {
+        try {
+          let MA = await zl(Ko);
+          let { failures: $A } = await c9(MA, Ko);
+          Sb($A);
+        } catch {}
+      })();
+    }),
+      (wb = [Ko]),
+      (Hn[1] = Ko),
+      (Hn[2] = vb),
+      (Hn[3] = wb);
+  else (vb = Hn[2]), (wb = Hn[3]);
+  A(vb, wb);
+  let Cb = IA.marketplaces.filter(rx),
+    DA = new Set(Cb.map(ax)),
+    Pb = [],
+    Tb = [],
+    Ib = [],
+    Rb = [];
+  for (const pi of wA) {
+    if (Jm(pi)) Pb.push(pi);
+    else if (Ym(pi)) {
+      if (!DA.has(pi.marketplace)) Tb.push(pi);
+    } else if (fde(pi) !== void 0) Ib.push(pi);
+    else Rb.push(pi);
+  }
+  let zi = Zm(Cb, Tb, Ib, Rb, EA, Pb, CA, m1(), [...PA, ...TA]),
+    Eb;
+  if (Hn[4] !== lu)
+    (Eb = () => {
+      lu({ type: "menu" });
+    }),
+      (Hn[4] = lu),
+      (Hn[5] = Eb);
+  else Eb = Hn[5];
+  let Mb;
+  if (Hn[6] === d) (Mb = { context: "Confirmation" }), (Hn[6] = Mb);
+  else Mb = Hn[6];
+  Be("confirm:no", Eb, Mb);
+  let _A = () => {
+      let $b = zi[Fm];
+      if (!$b) {
+        return;
+      }
+      let { action: oo } = $b;
+      bb54: switch (oo.kind) {
+        case "navigate": {
+          vA(oo.tab), lu(oo.viewState);
+          break bb54;
+        }
+        case "remove-extra-marketplace": {
+          let BA = oo.sources.map(lx).join(", ");
+          eg(oo.name, oo.sources, Ko),
+            Qu(Ko, _m),
+            RA((Qa) => ({
+              ...Qa,
+              plugins: {
+                ...Qa.plugins,
+                errors: Qa.plugins.errors.filter((Db) => !("marketplace" in Db && Db.marketplace === oo.name)),
+                installationStatus: {
+                  ...Qa.plugins.installationStatus,
+                  marketplaces: Qa.plugins.installationStatus.marketplaces.filter((AA) => AA.name !== oo.name),
+                },
+              },
+            })),
+            Vm(`${L.tick} Removed "${oo.name}" from ${BA} settings`),
+            bb();
+          break bb54;
+        }
+        case "remove-installed-marketplace": {
+          (async () => {
+            try {
+              await MSe(oo.name, void 0, Ko, _m),
+                Qu(Ko, _m),
+                Sb((LA) => LA.filter((NA) => NA.name !== oo.name)),
+                Vm(`${L.tick} Removed marketplace "${oo.name}"`),
+                bb();
+            } catch (OA) {
+              let jm = OA;
+              Vm(`Failed to remove "${oo.name}": ${jm instanceof Error ? jm.message : String(jm)}`);
+            }
+          })();
+          break bb54;
+        }
+        case "managed-only": {
+          break bb54;
+        }
+        case "none":
+      }
+    },
+    Bb;
+  if (Hn[7] === d) (Bb = () => Um(sx)), (Hn[7] = Bb);
+  else Bb = Hn[7];
+  const Hm = zi.length > 0;
+  let Ab;
+  if (Hn[8] !== Hm) (Ab = { context: "Select", isActive: Hm }), (Hn[8] = Hm), (Hn[9] = Ab);
+  else Ab = Hn[9];
+  ht(
+    { "select:previous": Bb, "select:next": () => Um((FA) => Math.min(zi.length - 1, FA + 1)), "select:accept": _A },
+    Ab,
+  );
+  let Gr = Math.min(Fm, Math.max(0, zi.length - 1));
+  if (Gr !== Fm) Um(Gr);
+  let Km = zi[Gr]?.action,
+    qm = Km && Km.kind !== "none" && Km.kind !== "managed-only";
+  if (zi.length === 0) {
+    let cu;
+    if (Hn[10] === d) (cu = e(o, { marginLeft: 1, children: e(sr, { children: "No plugin errors" }) })), (Hn[10] = cu);
+    else cu = Hn[10];
+    let uu;
+    if (Hn[11] === d)
+      (uu = r(o, {
+        flexDirection: "column",
+        children: [
+          cu,
+          e(o, {
+            marginTop: 1,
+            children: e(t, {
+              dimColor: !0,
+              italic: !0,
+              children: e(ze, {
+                action: "confirm:no",
+                context: "Confirmation",
+                fallback: "Esc",
+                description: "go back",
+              }),
+            }),
+          }),
+        ],
+      })),
+        (Hn[11] = uu);
+    else uu = Hn[11];
+    return uu;
+  }
+  const zm = o,
+    cu = "column",
+    uu = 1;
+  let Ob;
+  if (Hn[12] !== Gr)
+    (Ob = (mi, _b) => {
+      let Ya = _b === Gr;
+      let Fb = mi.isAdvisory ? "warning" : "error";
+      let UA = Ya ? L.pointer : mi.isAdvisory ? L.triangleUpOutline : L.cross;
+      return r(
+        Ig,
+        {
+          active: Ya,
+          marginLeft: 1,
+          flexDirection: "column",
+          children: [
+            r(t, {
+              children: [
+                r(t, { "aria-hidden": Ya, color: Ya ? "suggestion" : Fb, children: [UA, " "] }),
+                e(t, { bold: Ya, children: Oo(mi.label) }),
+                mi.scope && r(t, { dimColor: !0, children: [" (", mi.scope, ")"] }),
+              ],
+            }),
+            e(o, { marginLeft: 3, children: e(t, { color: Fb, wrap: "wrap-trim", children: Of(mi.message) }) }),
+            mi.guidance &&
+              e(o, {
+                marginLeft: 3,
+                children: e(t, { dimColor: !0, italic: !0, wrap: "wrap-trim", children: Of(mi.guidance) }),
+              }),
+          ],
+        },
+        _b,
+      );
+    }),
+      (Hn[12] = Gr),
+      (Hn[13] = Ob);
+  else Ob = Hn[13];
+  const Gm = zi.map(Ob);
+  let du;
+  if (Hn[14] !== su)
+    (du = su && e(o, { marginLeft: 1, children: e(t, { color: "claude", children: Oo(su) }) })),
+      (Hn[14] = su),
+      (Hn[15] = du);
+  else du = Hn[15];
+  let Ub;
+  if (Hn[16] === d)
+    (Ub = e(ze, { action: "select:previous", context: "Select", fallback: "\u2191", description: "navigate" })),
+      (Hn[16] = Ub);
+  else Ub = Hn[16];
+  let pu;
+  if (Hn[17] !== qm)
+    (pu = qm && e(ze, { action: "select:accept", context: "Select", fallback: "Enter", description: "resolve" })),
+      (Hn[17] = qm),
+      (Hn[18] = pu);
+  else pu = Hn[18];
+  let Vb;
+  if (Hn[19] === d)
+    (Vb = e(ze, { action: "confirm:no", context: "Confirmation", fallback: "Esc", description: "go back" })),
+      (Hn[19] = Vb);
+  else Vb = Hn[19];
+  let mu;
+  if (Hn[20] !== pu)
+    (mu = e(o, { children: e(t, { dimColor: !0, italic: !0, children: r(fe, { children: [Ub, pu, Vb] }) }) })),
+      (Hn[20] = pu),
+      (Hn[21] = mu);
+  else mu = Hn[21];
+  let Hb;
+  if (Hn[22] !== zm || Hn[23] !== Gm || Hn[24] !== du || Hn[25] !== mu)
+    (Hb = r(zm, { flexDirection: cu, gap: uu, children: [Gm, du, mu] })),
+      (Hn[22] = zm),
+      (Hn[23] = Gm),
+      (Hn[24] = du),
+      (Hn[25] = mu),
+      (Hn[26] = Hb);
+  else Hb = Hn[26];
+  return Hb;
+}
+function zb(a) {
+  switch (a.type) {
+    case "help":
+      return { type: "help" };
+    case "validate":
+      return { type: "validate", path: a.path };
+    case "eval":
+      return { type: "eval", target: a.target };
+    case "tag":
+      return { type: "tag", path: a.path, push: a.push, dryRun: a.dryRun, force: a.force, unknownFlag: a.unknownFlag };
+    case "install":
+      if (a.marketplace)
+        return { type: "browse-marketplace", targetMarketplace: a.marketplace, targetPlugin: a.plugin };
+      if (a.plugin) return { type: "discover-plugins", targetPlugin: a.plugin };
+      return { type: "discover-plugins" };
+    case "manage":
+      return { type: "manage-plugins" };
+    case "stats":
+      return { type: "stats" };
+    case "uninstall":
+      return { type: "manage-plugins", targetPlugin: a.plugin, action: "uninstall" };
+    case "enable":
+      return { type: "manage-plugins", targetPlugin: a.plugin, action: "enable" };
+    case "disable":
+      return { type: "manage-plugins", targetPlugin: a.plugin, action: "disable" };
+    case "configure":
+      return { type: "manage-plugins", targetPlugin: a.plugin, action: "configure" };
+    case "list":
+      return { type: "plugin-list", filter: a.filter };
+    case "marketplace":
+      if (a.action === "list") return { type: "marketplace-list" };
+      if (a.action === "add") return { type: "add-marketplace", initialValue: a.target };
+      if (a.action === "remove") return { type: "manage-marketplaces", targetMarketplace: a.target, action: "remove" };
+      if (a.action === "update") return { type: "manage-marketplaces", targetMarketplace: a.target, action: "update" };
+      return { type: "menu" };
+    case "menu":
+    default:
+      return { type: "discover-plugins" };
+  }
+}
+function Gb(a) {
+  if (a.type === "manage-plugins") return "installed";
+  if (a.type === "stats") return "stats";
+  if (a.type === "manage-marketplaces") return "marketplaces";
+  return "discover";
+}
+function itt({
+  onComplete: a,
+  args: b,
+  showMcpRedirectMessage: S,
+  showSkillsRedirectMessage: x,
+  showSkillDoctorRedirectMessage: v,
+  getSessionContext: R,
+  getSkillStatsInputs: j,
+  commands: K,
+  getReloadCacheImpactOptions: T,
+}) {
+  let N = mm(b),
+    H = zb(N),
+    [G] = u(() => new ys(H)),
+    { viewState: E, result: J, error: pe } = Xe(G),
+    { setViewState: ue, setResult: Pe, setError: _e } = G,
+    be = C(new Set()),
+    ve = C(null),
+    Je = B(() => {
+      if (ve.current === null) {
+        if (!j) throw Error("Stats tab rendered without getSkillStatsInputs");
+        ve.current = Em(j());
+      }
+      return ve.current;
+    }, [j]),
+    [st, Tt] = u(Gb(H)),
+    [it, re] = u(E.type === "add-marketplace" ? E.initialValue || "" : ""),
+    [xe, Ge] = u(0),
+    [Ht, Le] = u(!1),
+    ot = At(),
+    dt = Xn(),
+    { storageV5: pt } = ge(),
+    gt = W((Ut) => {
+      let Lt = Q(Ut.plugins.errors, (le) => !jne(le));
+      for (let le of Ut.plugins.installationStatus.marketplaces) if (le.status === "failed") Lt++;
+      return Lt;
+    }),
+    se = gt > 0 ? `Errors (${gt})` : "Errors",
+    tn = Hi(),
+    Bt = N.type === "marketplace" && N.action === "add" && N.target !== void 0,
+    Gt = j !== void 0 && Sk(),
+    Et = B(() => {
+      ot((Ut) => (Ut.plugins.needsRefresh ? Ut : { ...Ut, plugins: { ...Ut.plugins, needsRefresh: !0 } }));
+    }, [ot]),
+    In = B(
+      async (Ut) => {
+        if (!T) return Et(), "reload-required";
+        return Su(() => ({ ...T(), mcpClients: dt.getState().mcp.clients, storageV5: pt }), ot, Ut, pt);
+      },
+      [dt, T, Et, ot, pt],
+    ),
+    kn = B(
+      (Ut) => {
+        let Lt = Ut;
+        switch ((Tt(Lt), G.setError(null), Lt)) {
+          case "discover":
+            G.setViewState({ type: "discover-plugins" });
+            break;
+          case "installed":
+            G.setViewState({ type: "manage-plugins" });
+            break;
+          case "marketplaces":
+            G.setViewState({ type: "manage-marketplaces" });
+            break;
+          case "errors":
+            break;
+          case "stats":
+            break;
+        }
+      },
+      [G],
+    );
+  A(() => {
+    if (E.type === "menu" && !J) a();
+  }, [E.type, J, a]);
+  let Dn = C(E.type);
+  A(() => {
+    if (E.type === Dn.current) return;
+    Dn.current = E.type;
+    let Lt = { "browse-marketplace": "discover", "manage-plugins": "installed", "manage-marketplaces": "marketplaces" }[
+      E.type
+    ];
+    if (Lt) Tt(Lt);
+  }, [E.type]);
+  let $t = B(() => {
+    Tt("marketplaces"), G.setViewState({ type: "manage-marketplaces" }), re(""), G.setError(null);
+  }, [G]);
+  if (
+    (Be("confirm:no", $t, { context: "Settings", isActive: E.type === "add-marketplace" }),
+    A(() => {
+      if (J) a(J);
+    }, [J, a]),
+    A(() => {
+      if (E.type === "help") a();
+    }, [E.type, a]),
+    E.type === "help")
+  )
+    return r(o, {
+      flexDirection: "column",
+      children: [
+        e(t, { bold: !0, children: "Plugin Command Usage:" }),
+        e(t, { children: " " }),
+        e(t, { dimColor: !0, children: "Installation:" }),
+        e(t, { children: " /plugin install - Browse and install plugins" }),
+        r(t, { children: [" ", "/plugin install <marketplace> - Install from specific marketplace"] }),
+        e(t, { children: " /plugin install <plugin> - Install specific plugin" }),
+        r(t, { children: [" ", "/plugin install <plugin>@<market> - Install plugin from marketplace"] }),
+        e(t, { children: " " }),
+        e(t, { dimColor: !0, children: "Management:" }),
+        r(t, { children: [" ", "/plugin list [--enabled|--disabled] - List installed plugins"] }),
+        e(t, { children: " /plugin manage - Manage installed plugins" }),
+        Sk() && e(t, { children: " /plugin stats - Show skill usage and context costs" }),
+        e(t, { children: " /plugin enable <plugin> - Enable a plugin" }),
+        e(t, { children: " /plugin disable <plugin> - Disable a plugin" }),
+        e(t, { children: " /plugin configure <plugin> - Set userConfig options" }),
+        e(t, { children: " /plugin uninstall <plugin> - Uninstall a plugin" }),
+        e(t, { children: " " }),
+        e(t, { dimColor: !0, children: "Marketplaces:" }),
+        e(t, { children: " /plugin marketplace - Marketplace management menu" }),
+        e(t, { children: " /plugin marketplace add - Add a marketplace" }),
+        r(t, { children: [" ", "/plugin marketplace add <path/url> - Add marketplace directly"] }),
+        e(t, { children: " /plugin marketplace update - Update marketplaces" }),
+        r(t, { children: [" ", "/plugin marketplace update <name> - Update specific marketplace"] }),
+        e(t, { children: " /plugin marketplace remove - Remove a marketplace" }),
+        r(t, { children: [" ", "/plugin marketplace remove <name> - Remove specific marketplace"] }),
+        e(t, { children: " /plugin marketplace list - List all marketplaces" }),
+        e(t, { children: " " }),
+        e(t, { dimColor: !0, children: "Validation:" }),
+        r(t, { children: [" ", "/plugin validate <path> - Validate a manifest file or directory"] }),
+        r(t, { children: [" ", "/plugin tag [path] [--push] [--dry-run] [-f] - Create a release tag for the plugin"] }),
+        e(t, { children: " " }),
+        e(t, { dimColor: !0, children: "Other:" }),
+        e(t, { children: " /plugin - Main plugin menu" }),
+        e(t, { children: " /plugin help - Show this help" }),
+        e(t, { children: " /plugins - Alias for /plugin" }),
+      ],
+    });
+  if (E.type === "validate") return e(eu, { onComplete: a, path: E.path });
+  if (E.type === "eval") return e($s, { onComplete: a, target: E.target });
+  if (E.type === "tag")
+    return e(Xc, {
+      onComplete: a,
+      path: E.path,
+      push: E.push,
+      dryRun: E.dryRun,
+      force: E.force,
+      unknownFlag: E.unknownFlag,
+    });
+  if (E.type === "marketplace-list") return e(tg, { onComplete: a });
+  if (E.type === "plugin-list") return e(ng, { onComplete: a, filter: E.filter });
+  if (E.type === "add-marketplace")
+    return e(vu, {
+      inputValue: it,
+      setInputValue: re,
+      cursorOffset: xe,
+      setCursorOffset: Ge,
+      error: pe,
+      setError: _e,
+      result: J,
+      setResult: Pe,
+      setViewState: ue,
+      onAddComplete: Et,
+      cliMode: Bt,
+    });
+  return e(fo, {
+    color: "suggestion",
+    children: e(Pg, {
+      title: "Plugins",
+      selectedTab: st,
+      onTabChange: kn,
+      color: "suggestion",
+      disableNavigation: Ht,
+      banner:
+        S && st === "installed"
+          ? e(og, {})
+          : x && st === "installed"
+            ? e(ig, {})
+            : v && st === "stats"
+              ? e(rg, {})
+              : void 0,
+      children: [
+        e(
+          Zi,
+          {
+            id: "discover",
+            title: "Discover",
+            children:
+              E.type === "browse-marketplace"
+                ? e(Vd, {
+                    screen: G,
+                    onInstallComplete: In,
+                    onSearchModeChange: Le,
+                    targetMarketplace: E.targetMarketplace,
+                    targetPlugin: E.targetPlugin,
+                  })
+                : e(qd, {
+                    screen: G,
+                    onInstallComplete: In,
+                    onSearchModeChange: Le,
+                    getSessionContext: R,
+                    grantedSuggestions: be.current,
+                    targetPlugin: E.type === "discover-plugins" ? E.targetPlugin : void 0,
+                  }),
+          },
+          "discover",
+        ),
+        e(
+          Zi,
+          {
+            id: "installed",
+            title: "Installed",
+            children: e(pm, {
+              setViewState: ue,
+              setResult: Pe,
+              onManageComplete: Et,
+              onSearchModeChange: Le,
+              commands: K,
+              targetPlugin: E.type === "manage-plugins" ? E.targetPlugin : void 0,
+              targetMarketplace: E.type === "manage-plugins" ? E.targetMarketplace : void 0,
+              action: E.type === "manage-plugins" ? E.action : void 0,
+            }),
+          },
+          "installed",
+        ),
+        e(
+          Zi,
+          {
+            id: "marketplaces",
+            title: "Marketplaces",
+            children: e(Jd, {
+              setViewState: ue,
+              error: pe,
+              setError: _e,
+              setResult: Pe,
+              exitState: tn,
+              onManageComplete: Et,
+              targetMarketplace: E.type === "manage-marketplaces" ? E.targetMarketplace : void 0,
+              action: E.type === "manage-marketplaces" ? E.action : void 0,
+            }),
+          },
+          "marketplaces",
+        ),
+        e(
+          Zi,
+          { id: "errors", title: se, children: e(lg, { setViewState: ue, setActiveTab: Tt, markPluginsChanged: Et }) },
+          "errors",
+        ),
+        ...(Gt
+          ? [
+              e(
+                Zi,
+                { id: "stats", title: "Stats", children: e(Wc, { getReport: Je, onExit: () => ue({ type: "menu" }) }) },
+                "stats",
+              ),
+            ]
+          : []),
+      ],
+    }),
+  });
+}
+export { Fme, JRt, $me, ott, kUe, HUe, QRt, Ume, itt };

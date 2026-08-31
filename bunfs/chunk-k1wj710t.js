@@ -8,5 +8,14 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{m}from"/$bunfs/root/chunk-bzx56g36.js";import{go}from"/$bunfs/root/chunk-gpvgrng0.js";import{i,q,f}from"/$bunfs/root/chunk-saay52v7.js";var H1=go({kind:"goal_proposal",payload:m(()=>f({condition:i()})),result:m(()=>f({approved:q(),explicit:q().optional()})),default:{approved:!1},yieldsToPanels:!0});
-export{H1};
+import { m } from "/$bunfs/root/chunk-bzx56g36.js";
+import { go } from "/$bunfs/root/chunk-gpvgrng0.js";
+import { i, q, f } from "/$bunfs/root/chunk-saay52v7.js";
+var H1 = go({
+  kind: "goal_proposal",
+  payload: m(() => f({ condition: i() })),
+  result: m(() => f({ approved: q(), explicit: q().optional() })),
+  default: { approved: !1 },
+  yieldsToPanels: !0,
+});
+export { H1 };

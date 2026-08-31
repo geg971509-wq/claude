@@ -8,5 +8,8 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{S,ue}from"/$bunfs/root/chunk-yz031c9r.js";var Xxn=S(function(R,T){T.exports=ue("/$bunfs/root/image-processor.node")});
-export{Xxn};
+import { S, ue } from "/$bunfs/root/chunk-yz031c9r.js";
+var Xxn = S(function (R, T) {
+  T.exports = ue("/$bunfs/root/image-processor.node");
+});
+export { Xxn };

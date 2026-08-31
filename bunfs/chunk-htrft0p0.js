@@ -8,5 +8,327 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Lk,D5e}from"/$bunfs/root/chunk-qd35gw0c.js";import{pG}from"/$bunfs/root/chunk-pbmajbn7.js";import{_}from"/$bunfs/root/chunk-haan6f8z.js";import{ge}from"/$bunfs/root/chunk-c3bffkxg.js";import{QR,wMt,Mb,Txe,EMt}from"/$bunfs/root/chunk-fwwvmbqn.js";import{Lo,TH}from"/$bunfs/root/chunk-5c5qq1s7.js";import{e}from"/$bunfs/root/chunk-8s7kcbyw.js";import{yn,B,We,A,z,u,Lt,F}from"/$bunfs/root/chunk-twm95mhz.js";import{mG,wxe}from"/$bunfs/root/chunk-zgfc288e.js";import{d}from"/$bunfs/root/chunk-yz031c9r.js";F();var Ce=()=>We(pG),XR=Ce;F();var J="dark",l=yn({themeSetting:J,setThemeSetting:()=>{},setPreviewTheme:()=>{},savePreview:()=>{},cancelPreview:()=>{},currentTheme:J,resolvedTheme:Lk(J),activeThemeOverrides:void 0,customThemes:[],activeCustomTheme:void 0,reloadCustomThemes:()=>Promise.resolve(),setPreviewOverrides:()=>{}});function plt(){return Lo("theme","dark").value}function flt(Pt){let r=_(52),{children:ie,initialState:Y,onThemeSave:U}=Pt,{storageV5:y}=ge(),Ie;if(r[0]!==U||r[1]!==y)Ie=(Le)=>U?U(Le):TH("theme",Le,y),r[0]=U,r[1]=y,r[2]=Ie;else Ie=r[2];let P=Ie,[p,Oe]=u(Y??plt),[c,G]=u(null),[Rt,St]=u(null),[oe,xt]=u(wMt),Ne;if(r[3]===d)Ne=QR(),r[3]=Ne;else Ne=r[3];let _e=Ne.pluginThemes,le=Lt(_e.subscribe,_e.getState),Ae;if(r[4]!==le||r[5]!==oe)Ae=[...oe,...le],r[4]=le,r[5]=oe,r[6]=Ae;else Ae=r[6];let R=Ae,He;if(r[7]!==Y||r[8]!==p)He=()=>(Y??p)==="auto"?mG():"dark",r[7]=Y,r[8]=p,r[9]=He;else He=r[9];let[kt,I]=u(He),m=c??p,Ee;if(r[10]!==y)Ee=()=>Txe(y).then(xt),r[10]=y,r[11]=Ee;else Ee=r[11];let a=Ee,Me,Ve;if(r[12]!==a)Me=()=>(a(),EMt(()=>void a())),Ve=[a],r[12]=a,r[13]=Me,r[14]=Ve;else Me=r[13],Ve=r[14];A(Me,Ve);let{internal_querier:L}=XR(),Ye,Ue;if(r[15]!==m)Ye=()=>{if(m!=="auto"){return}return I(mG()),wxe(()=>I(mG()))},Ue=[m],r[15]=m,r[16]=Ye,r[17]=Ue;else Ye=r[16],Ue=r[17];A(Ye,Ue);let Ge,qe;if(r[18]!==m||r[19]!==L)Ge=()=>{if(m!=="auto"||!L){return}let De;let Fe=!1;return import("/$bunfs/root/chunk-4w2j29h2.js").then((q)=>{let{watchSystemTheme:Kt}=q;if(Fe){return}De=Kt(L,I)}),()=>{Fe=!0,De?.()}},qe=[m,L],r[18]=m,r[19]=L,r[20]=Ge,r[21]=qe;else Ge=r[20],qe=r[21];A(Ge,qe);let q;if(r[22]!==m)q=Mb(m),r[22]=m,r[23]=q;else q=r[23];let O=q,Xe;if(r[24]!==O||r[25]!==R)Xe=O?R.find((wt)=>wt.slug===O):void 0,r[24]=O,r[25]=R,r[26]=Xe;else Xe=r[26];let S=Xe,x=S?S.base:m==="auto"?kt:O?"dark":m,k=Rt??S?.overrides,Ze;if(r[27]!==k||r[28]!==x)Ze=D5e(Lk(x),k),r[27]=k,r[28]=x,r[29]=Ze;else Ze=r[29];let me=Ze,D;if(r[30]!==P)D=(de)=>{if(Oe(de),G(null),de==="auto")I(mG());P(de)},r[30]=P,r[31]=D;else D=r[31];let ze;if(r[32]===d)ze=(Be)=>{if(G(Be),Be==="auto")I(mG())},r[32]=ze;else ze=r[32];let X;if(r[33]!==P||r[34]!==c)X=()=>{if(c!==null)Oe(c),G(null),P(c)},r[33]=P,r[34]=c,r[35]=X;else X=r[35];let Z;if(r[36]!==c)Z=()=>{if(c!==null)G(null)},r[36]=c,r[37]=Z;else Z=r[37];let Je;if(r[38]!==S||r[39]!==k||r[40]!==x||r[41]!==R||r[42]!==a||r[43]!==me||r[44]!==D||r[45]!==X||r[46]!==Z||r[47]!==p)Je={themeSetting:p,setThemeSetting:D,setPreviewTheme:ze,savePreview:X,cancelPreview:Z,currentTheme:x,resolvedTheme:me,activeThemeOverrides:k,customThemes:R,activeCustomTheme:S,reloadCustomThemes:a,setPreviewOverrides:St},r[38]=S,r[39]=k,r[40]=x,r[41]=R,r[42]=a,r[43]=me,r[44]=D,r[45]=X,r[46]=Z,r[47]=p,r[48]=Je;else Je=r[48];let ue=Je,Qe;if(r[49]!==ie||r[50]!==ue)Qe=e(l.Provider,{value:ue,children:ie}),r[49]=ie,r[50]=ue,r[51]=Qe;else Qe=r[51];return Qe}function mn(){let bt=_(3),{currentTheme:se,setThemeSetting:ce}=We(l),$e;if(bt[0]!==se||bt[1]!==ce)$e=[se,ce],bt[0]=se,bt[1]=ce,bt[2]=$e;else $e=bt[2];return $e}function uG(){return We(l).themeSetting}function mlt(){let Ct=_(4),{setPreviewTheme:he,savePreview:ae,cancelPreview:pe}=We(l),je;if(Ct[0]!==pe||Ct[1]!==ae||Ct[2]!==he)je={setPreviewTheme:he,savePreview:ae,cancelPreview:pe},Ct[0]=pe,Ct[1]=ae,Ct[2]=he,Ct[3]=je;else je=Ct[3];return je}function c_(){return We(l).resolvedTheme}function glt(){return We(l).activeThemeOverrides}function dG(){let It=_(5),{customThemes:ve,activeCustomTheme:Te,reloadCustomThemes:fe,setPreviewOverrides:ye}=We(l),et;if(It[0]!==Te||It[1]!==ve||It[2]!==fe||It[3]!==ye)et={customThemes:ve,activeCustomTheme:Te,reloadCustomThemes:fe,setPreviewOverrides:ye},It[0]=Te,It[1]=ve,It[2]=fe,It[3]=ye,It[4]=et;else et=It[4];return et}F();var ot=10,lt={ring:[],mode:{type:"idle"}};function mt(t,n){switch(n.type){case"kill":{if(n.text.length===0)return t.mode.type==="idle"?t:{...t,mode:{type:"idle"}};return{ring:t.mode.type==="killing"&&t.ring.length>0?[n.direction==="prepend"?n.text+t.ring[0]:t.ring[0]+n.text,...t.ring.slice(1)]:[n.text,...t.ring].slice(0,ot),mode:{type:"killing"}}}case"yank":return{...t,mode:{type:"yanked",start:n.start,length:n.length,index:0}};case"yankPop":{if(t.mode.type!=="yanked"||t.ring.length<=1)return t;let i=(t.mode.index+1)%t.ring.length;return{...t,mode:{...t.mode,index:i}}}case"updateYankLength":if(t.mode.type!=="yanked")return t;return{...t,mode:{...t.mode,length:n.length}};case"interrupt":if(t.mode.type==="idle")return t;return{...t,mode:{type:"idle"}}}}function hlt(t){return t.ring[0]??""}function _lt(t){if(t.mode.type!=="yanked"||t.ring.length<=1)return null;let n=(t.mode.index+1)%t.ring.length,{start:i,length:s}=t.mode;return{text:t.ring[n]??"",start:i,length:s}}function uMt(){let t=lt;return{get state(){return t},dispatch(n){t=mt(t,n)}}}var N=yn(null);function gxe(Et){let tt=_(5),{handle:Q,children:Pe}=Et,nt;if(tt[0]!==Q)nt=()=>Q??uMt(),tt[0]=Q,tt[1]=nt;else nt=tt[1];let[Mt]=u(nt);const Re=Q??Mt;let rt;if(tt[2]!==Pe||tt[3]!==Re)rt=e(N.Provider,{value:Re,children:Pe}),tt[2]=Pe,tt[3]=Re,tt[4]=rt;else rt=tt[4];return rt}function b9e(){let it=We(N);if(!it){throw ReferenceError("useKillRing cannot be called outside of a <KillRingProvider /> (mounted around every Ink root by src/ink.ts)")}return it}
-export{XR,plt,flt,mn,uG,mlt,c_,glt,dG,hlt,_lt,uMt,gxe,b9e};
+import { Lk, D5e } from "/$bunfs/root/chunk-qd35gw0c.js";
+import { pG } from "/$bunfs/root/chunk-pbmajbn7.js";
+import { _ } from "/$bunfs/root/chunk-haan6f8z.js";
+import { ge } from "/$bunfs/root/chunk-c3bffkxg.js";
+import { QR, wMt, Mb, Txe, EMt } from "/$bunfs/root/chunk-fwwvmbqn.js";
+import { Lo, TH } from "/$bunfs/root/chunk-5c5qq1s7.js";
+import { e } from "/$bunfs/root/chunk-8s7kcbyw.js";
+import { yn, B, We, A, z, u, Lt, F } from "/$bunfs/root/chunk-twm95mhz.js";
+import { mG, wxe } from "/$bunfs/root/chunk-zgfc288e.js";
+import { d } from "/$bunfs/root/chunk-yz031c9r.js";
+F();
+var Ce = () => We(pG),
+  XR = Ce;
+F();
+var J = "dark",
+  l = yn({
+    themeSetting: J,
+    setThemeSetting: () => {},
+    setPreviewTheme: () => {},
+    savePreview: () => {},
+    cancelPreview: () => {},
+    currentTheme: J,
+    resolvedTheme: Lk(J),
+    activeThemeOverrides: void 0,
+    customThemes: [],
+    activeCustomTheme: void 0,
+    reloadCustomThemes: () => Promise.resolve(),
+    setPreviewOverrides: () => {},
+  });
+function plt() {
+  return Lo("theme", "dark").value;
+}
+function flt(Pt) {
+  let r = _(52),
+    { children: ie, initialState: Y, onThemeSave: U } = Pt,
+    { storageV5: y } = ge(),
+    Ie;
+  if (r[0] !== U || r[1] !== y) (Ie = (Le) => (U ? U(Le) : TH("theme", Le, y))), (r[0] = U), (r[1] = y), (r[2] = Ie);
+  else Ie = r[2];
+  let P = Ie,
+    [p, Oe] = u(Y ?? plt),
+    [c, G] = u(null),
+    [Rt, St] = u(null),
+    [oe, xt] = u(wMt),
+    Ne;
+  if (r[3] === d) (Ne = QR()), (r[3] = Ne);
+  else Ne = r[3];
+  let _e = Ne.pluginThemes,
+    le = Lt(_e.subscribe, _e.getState),
+    Ae;
+  if (r[4] !== le || r[5] !== oe) (Ae = [...oe, ...le]), (r[4] = le), (r[5] = oe), (r[6] = Ae);
+  else Ae = r[6];
+  let R = Ae,
+    He;
+  if (r[7] !== Y || r[8] !== p) (He = () => ((Y ?? p) === "auto" ? mG() : "dark")), (r[7] = Y), (r[8] = p), (r[9] = He);
+  else He = r[9];
+  let [kt, I] = u(He),
+    m = c ?? p,
+    Ee;
+  if (r[10] !== y) (Ee = () => Txe(y).then(xt)), (r[10] = y), (r[11] = Ee);
+  else Ee = r[11];
+  let a = Ee,
+    Me,
+    Ve;
+  if (r[12] !== a) (Me = () => (a(), EMt(() => void a()))), (Ve = [a]), (r[12] = a), (r[13] = Me), (r[14] = Ve);
+  else (Me = r[13]), (Ve = r[14]);
+  A(Me, Ve);
+  let { internal_querier: L } = XR(),
+    Ye,
+    Ue;
+  if (r[15] !== m)
+    (Ye = () => {
+      if (m !== "auto") {
+        return;
+      }
+      return I(mG()), wxe(() => I(mG()));
+    }),
+      (Ue = [m]),
+      (r[15] = m),
+      (r[16] = Ye),
+      (r[17] = Ue);
+  else (Ye = r[16]), (Ue = r[17]);
+  A(Ye, Ue);
+  let Ge, qe;
+  if (r[18] !== m || r[19] !== L)
+    (Ge = () => {
+      if (m !== "auto" || !L) {
+        return;
+      }
+      let De;
+      let Fe = !1;
+      return (
+        import("/$bunfs/root/chunk-4w2j29h2.js").then((q) => {
+          let { watchSystemTheme: Kt } = q;
+          if (Fe) {
+            return;
+          }
+          De = Kt(L, I);
+        }),
+        () => {
+          (Fe = !0), De?.();
+        }
+      );
+    }),
+      (qe = [m, L]),
+      (r[18] = m),
+      (r[19] = L),
+      (r[20] = Ge),
+      (r[21] = qe);
+  else (Ge = r[20]), (qe = r[21]);
+  A(Ge, qe);
+  let q;
+  if (r[22] !== m) (q = Mb(m)), (r[22] = m), (r[23] = q);
+  else q = r[23];
+  let O = q,
+    Xe;
+  if (r[24] !== O || r[25] !== R)
+    (Xe = O ? R.find((wt) => wt.slug === O) : void 0), (r[24] = O), (r[25] = R), (r[26] = Xe);
+  else Xe = r[26];
+  let S = Xe,
+    x = S ? S.base : m === "auto" ? kt : O ? "dark" : m,
+    k = Rt ?? S?.overrides,
+    Ze;
+  if (r[27] !== k || r[28] !== x) (Ze = D5e(Lk(x), k)), (r[27] = k), (r[28] = x), (r[29] = Ze);
+  else Ze = r[29];
+  let me = Ze,
+    D;
+  if (r[30] !== P)
+    (D = (de) => {
+      if ((Oe(de), G(null), de === "auto")) I(mG());
+      P(de);
+    }),
+      (r[30] = P),
+      (r[31] = D);
+  else D = r[31];
+  let ze;
+  if (r[32] === d)
+    (ze = (Be) => {
+      if ((G(Be), Be === "auto")) I(mG());
+    }),
+      (r[32] = ze);
+  else ze = r[32];
+  let X;
+  if (r[33] !== P || r[34] !== c)
+    (X = () => {
+      if (c !== null) Oe(c), G(null), P(c);
+    }),
+      (r[33] = P),
+      (r[34] = c),
+      (r[35] = X);
+  else X = r[35];
+  let Z;
+  if (r[36] !== c)
+    (Z = () => {
+      if (c !== null) G(null);
+    }),
+      (r[36] = c),
+      (r[37] = Z);
+  else Z = r[37];
+  let Je;
+  if (
+    r[38] !== S ||
+    r[39] !== k ||
+    r[40] !== x ||
+    r[41] !== R ||
+    r[42] !== a ||
+    r[43] !== me ||
+    r[44] !== D ||
+    r[45] !== X ||
+    r[46] !== Z ||
+    r[47] !== p
+  )
+    (Je = {
+      themeSetting: p,
+      setThemeSetting: D,
+      setPreviewTheme: ze,
+      savePreview: X,
+      cancelPreview: Z,
+      currentTheme: x,
+      resolvedTheme: me,
+      activeThemeOverrides: k,
+      customThemes: R,
+      activeCustomTheme: S,
+      reloadCustomThemes: a,
+      setPreviewOverrides: St,
+    }),
+      (r[38] = S),
+      (r[39] = k),
+      (r[40] = x),
+      (r[41] = R),
+      (r[42] = a),
+      (r[43] = me),
+      (r[44] = D),
+      (r[45] = X),
+      (r[46] = Z),
+      (r[47] = p),
+      (r[48] = Je);
+  else Je = r[48];
+  let ue = Je,
+    Qe;
+  if (r[49] !== ie || r[50] !== ue)
+    (Qe = e(l.Provider, { value: ue, children: ie })), (r[49] = ie), (r[50] = ue), (r[51] = Qe);
+  else Qe = r[51];
+  return Qe;
+}
+function mn() {
+  let bt = _(3),
+    { currentTheme: se, setThemeSetting: ce } = We(l),
+    $e;
+  if (bt[0] !== se || bt[1] !== ce) ($e = [se, ce]), (bt[0] = se), (bt[1] = ce), (bt[2] = $e);
+  else $e = bt[2];
+  return $e;
+}
+function uG() {
+  return We(l).themeSetting;
+}
+function mlt() {
+  let Ct = _(4),
+    { setPreviewTheme: he, savePreview: ae, cancelPreview: pe } = We(l),
+    je;
+  if (Ct[0] !== pe || Ct[1] !== ae || Ct[2] !== he)
+    (je = { setPreviewTheme: he, savePreview: ae, cancelPreview: pe }),
+      (Ct[0] = pe),
+      (Ct[1] = ae),
+      (Ct[2] = he),
+      (Ct[3] = je);
+  else je = Ct[3];
+  return je;
+}
+function c_() {
+  return We(l).resolvedTheme;
+}
+function glt() {
+  return We(l).activeThemeOverrides;
+}
+function dG() {
+  let It = _(5),
+    { customThemes: ve, activeCustomTheme: Te, reloadCustomThemes: fe, setPreviewOverrides: ye } = We(l),
+    et;
+  if (It[0] !== Te || It[1] !== ve || It[2] !== fe || It[3] !== ye)
+    (et = { customThemes: ve, activeCustomTheme: Te, reloadCustomThemes: fe, setPreviewOverrides: ye }),
+      (It[0] = Te),
+      (It[1] = ve),
+      (It[2] = fe),
+      (It[3] = ye),
+      (It[4] = et);
+  else et = It[4];
+  return et;
+}
+F();
+var ot = 10,
+  lt = { ring: [], mode: { type: "idle" } };
+function mt(t, n) {
+  switch (n.type) {
+    case "kill": {
+      if (n.text.length === 0) return t.mode.type === "idle" ? t : { ...t, mode: { type: "idle" } };
+      return {
+        ring:
+          t.mode.type === "killing" && t.ring.length > 0
+            ? [n.direction === "prepend" ? n.text + t.ring[0] : t.ring[0] + n.text, ...t.ring.slice(1)]
+            : [n.text, ...t.ring].slice(0, ot),
+        mode: { type: "killing" },
+      };
+    }
+    case "yank":
+      return { ...t, mode: { type: "yanked", start: n.start, length: n.length, index: 0 } };
+    case "yankPop": {
+      if (t.mode.type !== "yanked" || t.ring.length <= 1) return t;
+      let i = (t.mode.index + 1) % t.ring.length;
+      return { ...t, mode: { ...t.mode, index: i } };
+    }
+    case "updateYankLength":
+      if (t.mode.type !== "yanked") return t;
+      return { ...t, mode: { ...t.mode, length: n.length } };
+    case "interrupt":
+      if (t.mode.type === "idle") return t;
+      return { ...t, mode: { type: "idle" } };
+  }
+}
+function hlt(t) {
+  return t.ring[0] ?? "";
+}
+function _lt(t) {
+  if (t.mode.type !== "yanked" || t.ring.length <= 1) return null;
+  let n = (t.mode.index + 1) % t.ring.length,
+    { start: i, length: s } = t.mode;
+  return { text: t.ring[n] ?? "", start: i, length: s };
+}
+function uMt() {
+  let t = lt;
+  return {
+    get state() {
+      return t;
+    },
+    dispatch(n) {
+      t = mt(t, n);
+    },
+  };
+}
+var N = yn(null);
+function gxe(Et) {
+  let tt = _(5),
+    { handle: Q, children: Pe } = Et,
+    nt;
+  if (tt[0] !== Q) (nt = () => Q ?? uMt()), (tt[0] = Q), (tt[1] = nt);
+  else nt = tt[1];
+  let [Mt] = u(nt);
+  const Re = Q ?? Mt;
+  let rt;
+  if (tt[2] !== Pe || tt[3] !== Re)
+    (rt = e(N.Provider, { value: Re, children: Pe })), (tt[2] = Pe), (tt[3] = Re), (tt[4] = rt);
+  else rt = tt[4];
+  return rt;
+}
+function b9e() {
+  let it = We(N);
+  if (!it) {
+    throw ReferenceError(
+      "useKillRing cannot be called outside of a <KillRingProvider /> (mounted around every Ink root by src/ink.ts)",
+    );
+  }
+  return it;
+}
+export { XR, plt, flt, mn, uG, mlt, c_, glt, dG, hlt, _lt, uMt, gxe, b9e };

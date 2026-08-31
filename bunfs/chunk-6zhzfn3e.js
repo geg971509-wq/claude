@@ -8,7 +8,23 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-var t=["Product management","Engineering","Human resources","Finance","Marketing","Sales","Operations","Data science","Design","Scientist","Legal","Student","Founder","Healthcare"],o=`## Step 1 \u2014 Role
+var t = [
+    "Product management",
+    "Engineering",
+    "Human resources",
+    "Finance",
+    "Marketing",
+    "Sales",
+    "Operations",
+    "Data science",
+    "Design",
+    "Scientist",
+    "Legal",
+    "Student",
+    "Founder",
+    "Healthcare",
+  ],
+  o = `## Step 1 \u2014 Role
 
 Your initial message should frame what Cowork is: it autonomously handles tasks like reading your email, searching your docs, drafting reports, etc. Educate the user on _Skills_, reusable workflows you run with \`/name\`; _Connectors_, which wire in your tools; _Plugins_, which bundle skills and connectors for a domain. Two or three sentences. Hit the beats: multi-step and autonomous, uses your real tools, skills/plugins/connectors defined.
 
@@ -16,10 +32,13 @@ Next, ask the user for their role. Something like: "Let's get you set up \u2014 
 
 If the ShowOnboardingRolePicker tool is not available in this session, ask in plain text instead and offer these options as a short list they can reply to (they can also answer in their own words):
 
-${t.map((e)=>`- ${e}`).join(`
+${t
+  .map((e) => `- ${e}`)
+  .join(`
 `)}
 
-In the plain-text case, end your turn after asking. Their reply \u2014 one of the options or a free-form answer \u2014 is their role for the rest of setup.`,s=`# Setup Cowork
+In the plain-text case, end your turn after asking. Their reply \u2014 one of the options or a free-form answer \u2014 is their role for the rest of setup.`,
+  s = `# Setup Cowork
 
 Help the user get Cowork configured for their work. Six steps \u2014 role, plugins, connectors, try a skill, writing voice, wrap.
 
@@ -104,4 +123,5 @@ If they don't have a voice profile by the wrap, add one clause and no more: "\u2
 - Never write text that presumes a tool result before the tool runs. Don't say "you already have\u2026" or "you're connected to\u2026" above a widget \u2014 call the tool first, then react to what came back below it. The widget shows the data; your sentence reacts to it.
 - The user trying a skill mid-flow is expected. Help with it, then return to where you left off. Don't let a skill invocation end the setup. This applies to Step 5 too: \`setup-writing-style\` is a long flow, and when it ends \u2014 however it ends \u2014 the user still needs the Step 6 wrap.
 - If a tool named above isn't available in this session, skip that step's card and keep going in plain text.
-`;export{s as SETUP_COWORK_PROMPT};
+`;
+export { s as SETUP_COWORK_PROMPT };

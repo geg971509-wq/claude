@@ -8,7 +8,231 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import"/$bunfs/root/chunk-qcx34e4j.js";import"/$bunfs/root/chunk-qq1mdtb5.js";import"/$bunfs/root/chunk-tx16jn0x.js";import"/$bunfs/root/chunk-gcks6mn0.js";import"/$bunfs/root/chunk-qm65zb83.js";import"/$bunfs/root/chunk-bzx56g36.js";import"/$bunfs/root/chunk-eqdctte5.js";import"/$bunfs/root/chunk-fec4384a.js";import"/$bunfs/root/chunk-f9h0bg01.js";import"/$bunfs/root/chunk-vfy57cpd.js";import"/$bunfs/root/chunk-4xj01xwv.js";import"/$bunfs/root/chunk-ypdw393e.js";import{b,V}from"/$bunfs/root/chunk-fv016jr6.js";import"/$bunfs/root/chunk-qk7r0t2g.js";import"/$bunfs/root/chunk-4ddxwr9r.js";import"/$bunfs/root/chunk-wkxx62a2.js";import"/$bunfs/root/chunk-ps6pc7xd.js";import"/$bunfs/root/chunk-0pgyw7te.js";import"/$bunfs/root/chunk-386w1sy8.js";import"/$bunfs/root/chunk-r53tkxrh.js";import"/$bunfs/root/chunk-ca80fke8.js";import"/$bunfs/root/chunk-ax6dy60b.js";import"/$bunfs/root/chunk-6k63g5t6.js";import"/$bunfs/root/chunk-4fwj3vnx.js";import"/$bunfs/root/chunk-nqmqabr8.js";import"/$bunfs/root/chunk-q14dgq5g.js";import"/$bunfs/root/chunk-f5hrzy3k.js";import"/$bunfs/root/chunk-s7e0px8j.js";import"/$bunfs/root/chunk-s28wf80n.js";import"/$bunfs/root/chunk-3bbym8ct.js";import"/$bunfs/root/chunk-cf8qhmdc.js";import"/$bunfs/root/chunk-2masxyqj.js";import"/$bunfs/root/chunk-rgw52f13.js";import"/$bunfs/root/chunk-2rx5nghb.js";import"/$bunfs/root/chunk-z0z1xzkg.js";import"/$bunfs/root/chunk-c47snwm2.js";import"/$bunfs/root/chunk-jpf4kat5.js";import"/$bunfs/root/chunk-s4vc7est.js";import"/$bunfs/root/chunk-hyh5wcm1.js";import"/$bunfs/root/chunk-ntyhd04p.js";import"/$bunfs/root/chunk-8qsdea2c.js";import"/$bunfs/root/chunk-988p40e0.js";import"/$bunfs/root/chunk-0spqrdaj.js";import"/$bunfs/root/chunk-5rt2mvvk.js";import"/$bunfs/root/chunk-1yr12dqr.js";import"/$bunfs/root/chunk-2mmw62jx.js";import"/$bunfs/root/chunk-z2bvp3sv.js";import"/$bunfs/root/chunk-keb644xg.js";import"/$bunfs/root/chunk-bj904w9w.js";import"/$bunfs/root/chunk-18bck2pp.js";import"/$bunfs/root/chunk-dwwpyy7b.js";import"/$bunfs/root/chunk-jck8t8fq.js";import"/$bunfs/root/chunk-psdymar6.js";import"/$bunfs/root/chunk-0r9wzh7g.js";import"/$bunfs/root/chunk-sxxp6vcr.js";import{Ri}from"/$bunfs/root/chunk-rf51999f.js";import"/$bunfs/root/chunk-8tgj5dp2.js";import"/$bunfs/root/chunk-82w4mtvq.js";import"/$bunfs/root/chunk-amem41jf.js";import"/$bunfs/root/chunk-ghara6r1.js";import"/$bunfs/root/chunk-97wwdfyx.js";import"/$bunfs/root/chunk-e7rq8w09.js";import"/$bunfs/root/chunk-v7yhn7cf.js";import"/$bunfs/root/chunk-fbp3w46j.js";import"/$bunfs/root/chunk-gtv2468w.js";import"/$bunfs/root/chunk-4r03fm98.js";import"/$bunfs/root/chunk-s4smmnta.js";import"/$bunfs/root/chunk-kxyny47c.js";import"/$bunfs/root/chunk-z9ex1x2t.js";import"/$bunfs/root/chunk-k4a21mkt.js";import"/$bunfs/root/chunk-4rh74qms.js";import"/$bunfs/root/chunk-r3qa2s4k.js";import"/$bunfs/root/chunk-1evht33z.js";import"/$bunfs/root/chunk-gkfy5ggn.js";import"/$bunfs/root/chunk-qk6zade1.js";import"/$bunfs/root/chunk-4t3vsqt7.js";import"/$bunfs/root/chunk-ejdwrhgv.js";import"/$bunfs/root/chunk-zkvj62rn.js";import"/$bunfs/root/chunk-492vgtnr.js";import"/$bunfs/root/chunk-0g6cj4h1.js";import"/$bunfs/root/chunk-a48rnvhj.js";import"/$bunfs/root/chunk-tzhtxm67.js";import"/$bunfs/root/chunk-mznd09c6.js";import"/$bunfs/root/chunk-167jjb66.js";import{eae}from"/$bunfs/root/chunk-aq1dyfzt.js";import{cu}from"/$bunfs/root/chunk-jwt1jpfw.js";import"/$bunfs/root/chunk-szz73wxx.js";import"/$bunfs/root/chunk-b40bn863.js";import"/$bunfs/root/chunk-6mgs10s2.js";import"/$bunfs/root/chunk-6s9ybdq1.js";import"/$bunfs/root/chunk-1hh0bg14.js";import"/$bunfs/root/chunk-052zvbpg.js";import"/$bunfs/root/chunk-werv747a.js";import"/$bunfs/root/chunk-jzh4kg5x.js";import"/$bunfs/root/chunk-7s7jqj2f.js";import"/$bunfs/root/chunk-56sxk8k2.js";import"/$bunfs/root/chunk-a4q326ap.js";import{createPublicKey as l,verify as g}from"crypto";function y(t){let r={header:!1,verify:!0,checkExpiry:!0,help:!1};for(let e=0;e<t.length;e++){let n=t[e];switch(n){case"--help":case"-h":r.help=!0;break;case"--header":r.header=!0;break;case"--verify":r.verify=!0;break;case"--no-verify":r.verify=!1;break;case"--no-check-expiry":r.checkExpiry=!1;break;case"--api-url":{let o=t[++e];if(o===void 0)throw Error("decode-token: --api-url requires a value");r.apiUrl=o;break}default:if(n.startsWith("-"))throw Error(`decode-token: unknown flag ${n}`);if(r.token!==void 0)throw Error("decode-token: at most one positional token argument");r.token=n}}return r}function w(t){let e=t.trim().replace(/^sk-ant-[a-z0-9]+-/i,"").split(".");if(e.length!==3||!e[0]||!e[1]||!e[2])throw Error("decode-token: not a JWT \u2014 expected 3 dot-separated base64url segments "+`(after stripping any sk-ant- prefix), got ${e.length}`);return{headerB64:e[0],payloadB64:e[1],signatureB64:e[2]}}function u(t,r){if(!/^[A-Za-z0-9_-]+$/.test(t))throw Error(`decode-token: ${r} is not valid base64url (unexpected characters)`);let e=Buffer.from(t,"base64url").toString("utf8"),n;try{n=V(e)}catch(o){throw Error(`decode-token: ${r} is not valid JSON: ${o}`)}if(n===null||typeof n!=="object"||Array.isArray(n))throw Error(`decode-token: ${r} is not a JSON object`);return n}var E={ES256:"EC",RS256:"RSA"};function S(t,r=Math.floor(Date.now()/1000),e=60){let{exp:n,nbf:o}=t;if(typeof n!=="number")throw Error("decode-token: token has no numeric `exp` claim");if(r>n+e)throw Error(`decode-token: token EXPIRED at ${new Date(n*1000).toISOString()} (${Math.round(r-n)}s ago)`);if(typeof o==="number"&&r+e<o)throw Error(`decode-token: token not valid until ${new Date(o*1000).toISOString()}`)}async function m(t){let r=t.header.alg,e=t.header.kid;if(typeof r!=="string"||typeof e!=="string")throw Error("decode-token: JWT header is missing `alg` or `kid` \u2014 cannot select a JWKS key");let n=E[r];if(!n)throw Error(`decode-token: unsupported alg=${r} \u2014 only ES256 and RS256 are supported`);let o;try{o=await t.fetchFn(t.jwksUrl,{...Ri({url:t.jwksUrl}),signal:AbortSignal.timeout(30000)})}catch(a){throw Error(`decode-token: failed to fetch JWKS from ${t.jwksUrl}: ${a}`)}if(!o.ok)throw Error(`decode-token: JWKS fetch returned ${o.status} ${o.statusText} for ${t.jwksUrl}`);let s=(await o.json()).keys?.find((a)=>a.kid===e);if(!s)throw Error(`decode-token: no JWKS key with kid=${e} at ${t.jwksUrl} \u2014 `+"token may be signed by a different environment (try --api-url).");if(s.kty!==n)throw Error(`decode-token: JWKS key kid=${e} has kty=${s.kty} but alg=${r} needs kty=${n}`);let c="sha256",d=r==="ES256"?{key:l({key:s,format:"jwk"}),dsaEncoding:"ieee-p1363"}:{key:l({key:s,format:"jwk"})},k=Buffer.from(`${t.headerB64}.${t.payloadB64}`,"utf8"),f=Buffer.from(t.signatureB64,"base64url");if(!g(c,k,d,f))throw Error("decode-token: signature verification FAILED");if(t.checkExpiry!==!1)S(t.payload);return{kid:e}}var h=16384,x=5000;async function v(t=process.stdin){if(t.isTTY)return"";let r=[],e=0;for await(let n of t){let o=Buffer.from(n);if(e+=o.length,e>h)throw Error(`decode-token: stdin exceeds ${h/1024} KiB; session-ingress JWTs are ~1 KB. Pass the token as an argument or set $CLAUDE_CODE_SESSION_ACCESS_TOKEN.`);r.push(o)}return Buffer.concat(r).toString("utf8")}async function _(t,r,e=process.stdin,n=x){if(t?.trim())return t.trim();let o=r.CLAUDE_CODE_SESSION_ACCESS_TOKEN?.trim();if(o)return o;let i=(await cu(v(e),n,"decode-token: reading token from stdin")).trim();if(i)return i;throw Error("decode-token: no token supplied. Pass it as an argument, pipe it on stdin, or set $CLAUDE_CODE_SESSION_ACCESS_TOKEN.")}var O=`Usage: claude self-hosted-runner decode-token [token] [options]
+import "/$bunfs/root/chunk-qcx34e4j.js";
+import "/$bunfs/root/chunk-qq1mdtb5.js";
+import "/$bunfs/root/chunk-tx16jn0x.js";
+import "/$bunfs/root/chunk-gcks6mn0.js";
+import "/$bunfs/root/chunk-qm65zb83.js";
+import "/$bunfs/root/chunk-bzx56g36.js";
+import "/$bunfs/root/chunk-eqdctte5.js";
+import "/$bunfs/root/chunk-fec4384a.js";
+import "/$bunfs/root/chunk-f9h0bg01.js";
+import "/$bunfs/root/chunk-vfy57cpd.js";
+import "/$bunfs/root/chunk-4xj01xwv.js";
+import "/$bunfs/root/chunk-ypdw393e.js";
+import { b, V } from "/$bunfs/root/chunk-fv016jr6.js";
+import "/$bunfs/root/chunk-qk7r0t2g.js";
+import "/$bunfs/root/chunk-4ddxwr9r.js";
+import "/$bunfs/root/chunk-wkxx62a2.js";
+import "/$bunfs/root/chunk-ps6pc7xd.js";
+import "/$bunfs/root/chunk-0pgyw7te.js";
+import "/$bunfs/root/chunk-386w1sy8.js";
+import "/$bunfs/root/chunk-r53tkxrh.js";
+import "/$bunfs/root/chunk-ca80fke8.js";
+import "/$bunfs/root/chunk-ax6dy60b.js";
+import "/$bunfs/root/chunk-6k63g5t6.js";
+import "/$bunfs/root/chunk-4fwj3vnx.js";
+import "/$bunfs/root/chunk-nqmqabr8.js";
+import "/$bunfs/root/chunk-q14dgq5g.js";
+import "/$bunfs/root/chunk-f5hrzy3k.js";
+import "/$bunfs/root/chunk-s7e0px8j.js";
+import "/$bunfs/root/chunk-s28wf80n.js";
+import "/$bunfs/root/chunk-3bbym8ct.js";
+import "/$bunfs/root/chunk-cf8qhmdc.js";
+import "/$bunfs/root/chunk-2masxyqj.js";
+import "/$bunfs/root/chunk-rgw52f13.js";
+import "/$bunfs/root/chunk-2rx5nghb.js";
+import "/$bunfs/root/chunk-z0z1xzkg.js";
+import "/$bunfs/root/chunk-c47snwm2.js";
+import "/$bunfs/root/chunk-jpf4kat5.js";
+import "/$bunfs/root/chunk-s4vc7est.js";
+import "/$bunfs/root/chunk-hyh5wcm1.js";
+import "/$bunfs/root/chunk-ntyhd04p.js";
+import "/$bunfs/root/chunk-8qsdea2c.js";
+import "/$bunfs/root/chunk-988p40e0.js";
+import "/$bunfs/root/chunk-0spqrdaj.js";
+import "/$bunfs/root/chunk-5rt2mvvk.js";
+import "/$bunfs/root/chunk-1yr12dqr.js";
+import "/$bunfs/root/chunk-2mmw62jx.js";
+import "/$bunfs/root/chunk-z2bvp3sv.js";
+import "/$bunfs/root/chunk-keb644xg.js";
+import "/$bunfs/root/chunk-bj904w9w.js";
+import "/$bunfs/root/chunk-18bck2pp.js";
+import "/$bunfs/root/chunk-dwwpyy7b.js";
+import "/$bunfs/root/chunk-jck8t8fq.js";
+import "/$bunfs/root/chunk-psdymar6.js";
+import "/$bunfs/root/chunk-0r9wzh7g.js";
+import "/$bunfs/root/chunk-sxxp6vcr.js";
+import { Ri } from "/$bunfs/root/chunk-rf51999f.js";
+import "/$bunfs/root/chunk-8tgj5dp2.js";
+import "/$bunfs/root/chunk-82w4mtvq.js";
+import "/$bunfs/root/chunk-amem41jf.js";
+import "/$bunfs/root/chunk-ghara6r1.js";
+import "/$bunfs/root/chunk-97wwdfyx.js";
+import "/$bunfs/root/chunk-e7rq8w09.js";
+import "/$bunfs/root/chunk-v7yhn7cf.js";
+import "/$bunfs/root/chunk-fbp3w46j.js";
+import "/$bunfs/root/chunk-gtv2468w.js";
+import "/$bunfs/root/chunk-4r03fm98.js";
+import "/$bunfs/root/chunk-s4smmnta.js";
+import "/$bunfs/root/chunk-kxyny47c.js";
+import "/$bunfs/root/chunk-z9ex1x2t.js";
+import "/$bunfs/root/chunk-k4a21mkt.js";
+import "/$bunfs/root/chunk-4rh74qms.js";
+import "/$bunfs/root/chunk-r3qa2s4k.js";
+import "/$bunfs/root/chunk-1evht33z.js";
+import "/$bunfs/root/chunk-gkfy5ggn.js";
+import "/$bunfs/root/chunk-qk6zade1.js";
+import "/$bunfs/root/chunk-4t3vsqt7.js";
+import "/$bunfs/root/chunk-ejdwrhgv.js";
+import "/$bunfs/root/chunk-zkvj62rn.js";
+import "/$bunfs/root/chunk-492vgtnr.js";
+import "/$bunfs/root/chunk-0g6cj4h1.js";
+import "/$bunfs/root/chunk-a48rnvhj.js";
+import "/$bunfs/root/chunk-tzhtxm67.js";
+import "/$bunfs/root/chunk-mznd09c6.js";
+import "/$bunfs/root/chunk-167jjb66.js";
+import { eae } from "/$bunfs/root/chunk-aq1dyfzt.js";
+import { cu } from "/$bunfs/root/chunk-jwt1jpfw.js";
+import "/$bunfs/root/chunk-szz73wxx.js";
+import "/$bunfs/root/chunk-b40bn863.js";
+import "/$bunfs/root/chunk-6mgs10s2.js";
+import "/$bunfs/root/chunk-6s9ybdq1.js";
+import "/$bunfs/root/chunk-1hh0bg14.js";
+import "/$bunfs/root/chunk-052zvbpg.js";
+import "/$bunfs/root/chunk-werv747a.js";
+import "/$bunfs/root/chunk-jzh4kg5x.js";
+import "/$bunfs/root/chunk-7s7jqj2f.js";
+import "/$bunfs/root/chunk-56sxk8k2.js";
+import "/$bunfs/root/chunk-a4q326ap.js";
+import { createPublicKey as l, verify as g } from "crypto";
+function y(t) {
+  let r = { header: !1, verify: !0, checkExpiry: !0, help: !1 };
+  for (let e = 0; e < t.length; e++) {
+    let n = t[e];
+    switch (n) {
+      case "--help":
+      case "-h":
+        r.help = !0;
+        break;
+      case "--header":
+        r.header = !0;
+        break;
+      case "--verify":
+        r.verify = !0;
+        break;
+      case "--no-verify":
+        r.verify = !1;
+        break;
+      case "--no-check-expiry":
+        r.checkExpiry = !1;
+        break;
+      case "--api-url": {
+        let o = t[++e];
+        if (o === void 0) throw Error("decode-token: --api-url requires a value");
+        r.apiUrl = o;
+        break;
+      }
+      default:
+        if (n.startsWith("-")) throw Error(`decode-token: unknown flag ${n}`);
+        if (r.token !== void 0) throw Error("decode-token: at most one positional token argument");
+        r.token = n;
+    }
+  }
+  return r;
+}
+function w(t) {
+  let e = t
+    .trim()
+    .replace(/^sk-ant-[a-z0-9]+-/i, "")
+    .split(".");
+  if (e.length !== 3 || !e[0] || !e[1] || !e[2])
+    throw Error(
+      "decode-token: not a JWT \u2014 expected 3 dot-separated base64url segments " +
+        `(after stripping any sk-ant- prefix), got ${e.length}`,
+    );
+  return { headerB64: e[0], payloadB64: e[1], signatureB64: e[2] };
+}
+function u(t, r) {
+  if (!/^[A-Za-z0-9_-]+$/.test(t)) throw Error(`decode-token: ${r} is not valid base64url (unexpected characters)`);
+  let e = Buffer.from(t, "base64url").toString("utf8"),
+    n;
+  try {
+    n = V(e);
+  } catch (o) {
+    throw Error(`decode-token: ${r} is not valid JSON: ${o}`);
+  }
+  if (n === null || typeof n !== "object" || Array.isArray(n)) throw Error(`decode-token: ${r} is not a JSON object`);
+  return n;
+}
+var E = { ES256: "EC", RS256: "RSA" };
+function S(t, r = Math.floor(Date.now() / 1000), e = 60) {
+  let { exp: n, nbf: o } = t;
+  if (typeof n !== "number") throw Error("decode-token: token has no numeric `exp` claim");
+  if (r > n + e)
+    throw Error(`decode-token: token EXPIRED at ${new Date(n * 1000).toISOString()} (${Math.round(r - n)}s ago)`);
+  if (typeof o === "number" && r + e < o)
+    throw Error(`decode-token: token not valid until ${new Date(o * 1000).toISOString()}`);
+}
+async function m(t) {
+  let r = t.header.alg,
+    e = t.header.kid;
+  if (typeof r !== "string" || typeof e !== "string")
+    throw Error("decode-token: JWT header is missing `alg` or `kid` \u2014 cannot select a JWKS key");
+  let n = E[r];
+  if (!n) throw Error(`decode-token: unsupported alg=${r} \u2014 only ES256 and RS256 are supported`);
+  let o;
+  try {
+    o = await t.fetchFn(t.jwksUrl, { ...Ri({ url: t.jwksUrl }), signal: AbortSignal.timeout(30000) });
+  } catch (a) {
+    throw Error(`decode-token: failed to fetch JWKS from ${t.jwksUrl}: ${a}`);
+  }
+  if (!o.ok) throw Error(`decode-token: JWKS fetch returned ${o.status} ${o.statusText} for ${t.jwksUrl}`);
+  let s = (await o.json()).keys?.find((a) => a.kid === e);
+  if (!s)
+    throw Error(
+      `decode-token: no JWKS key with kid=${e} at ${t.jwksUrl} \u2014 ` +
+        "token may be signed by a different environment (try --api-url).",
+    );
+  if (s.kty !== n) throw Error(`decode-token: JWKS key kid=${e} has kty=${s.kty} but alg=${r} needs kty=${n}`);
+  let c = "sha256",
+    d =
+      r === "ES256"
+        ? { key: l({ key: s, format: "jwk" }), dsaEncoding: "ieee-p1363" }
+        : { key: l({ key: s, format: "jwk" }) },
+    k = Buffer.from(`${t.headerB64}.${t.payloadB64}`, "utf8"),
+    f = Buffer.from(t.signatureB64, "base64url");
+  if (!g(c, k, d, f)) throw Error("decode-token: signature verification FAILED");
+  if (t.checkExpiry !== !1) S(t.payload);
+  return { kid: e };
+}
+var h = 16384,
+  x = 5000;
+async function v(t = process.stdin) {
+  if (t.isTTY) return "";
+  let r = [],
+    e = 0;
+  for await (let n of t) {
+    let o = Buffer.from(n);
+    if (((e += o.length), e > h))
+      throw Error(
+        `decode-token: stdin exceeds ${h / 1024} KiB; session-ingress JWTs are ~1 KB. Pass the token as an argument or set $CLAUDE_CODE_SESSION_ACCESS_TOKEN.`,
+      );
+    r.push(o);
+  }
+  return Buffer.concat(r).toString("utf8");
+}
+async function _(t, r, e = process.stdin, n = x) {
+  if (t?.trim()) return t.trim();
+  let o = r.CLAUDE_CODE_SESSION_ACCESS_TOKEN?.trim();
+  if (o) return o;
+  let i = (await cu(v(e), n, "decode-token: reading token from stdin")).trim();
+  if (i) return i;
+  throw Error(
+    "decode-token: no token supplied. Pass it as an argument, pipe it on stdin, or set $CLAUDE_CODE_SESSION_ACCESS_TOKEN.",
+  );
+}
+var O = `Usage: claude self-hosted-runner decode-token [token] [options]
 
 Decode a session-ingress JWT (CLAUDE_CODE_SESSION_ACCESS_TOKEN) and print its
 claims as JSON to stdout. Strips any sk-ant-cc- / sk-ant-si- prefix
@@ -52,8 +276,55 @@ Examples:
   # Decode a different token by piping it (unset the env var first)
   echo "$SOME_TOKEN" | env -u CLAUDE_CODE_SESSION_ACCESS_TOKEN \\
     claude self-hosted-runner decode-token --no-verify
-`;async function C(t){let r;try{r=y(t)}catch(e){process.stderr.write(`${e instanceof Error?e.message:e}
-`),process.exit(1)}if(r.help)process.stdout.write(O),process.exit(0);try{let e=await _(r.token,process.env),{headerB64:n,payloadB64:o,signatureB64:i}=w(e),s=u(n,"header"),c=u(o,"payload");if(r.verify){let f=`${(r.apiUrl??eae()).replace(/\/+$/,"")}/v1/code/.well-known/jwks.json`,{kid:p}=await m({headerB64:n,payloadB64:o,signatureB64:i,header:s,payload:c,jwksUrl:f,fetchFn:fetch,checkExpiry:r.checkExpiry}),a=r.checkExpiry?"sig+exp":"sig only, exp SKIPPED";process.stderr.write(`verified (kid=${p}, ${a})
-`)}let d=r.header?s:c;process.stdout.write(`${b(d,null,2)}
-`),process.exit(0)}catch(e){process.stderr.write(`${e instanceof Error?e.message:e}
-`),process.exit(1)}}export{S as checkTokenTime,u as decodeSegment,y as parseDecodeTokenArgs,v as readStdin,_ as resolveToken,C as selfHostedRunnerDecodeTokenMain,w as splitJwt,m as verifyAgainstJwks};
+`;
+async function C(t) {
+  let r;
+  try {
+    r = y(t);
+  } catch (e) {
+    process.stderr.write(`${e instanceof Error ? e.message : e}
+`),
+      process.exit(1);
+  }
+  if (r.help) process.stdout.write(O), process.exit(0);
+  try {
+    let e = await _(r.token, process.env),
+      { headerB64: n, payloadB64: o, signatureB64: i } = w(e),
+      s = u(n, "header"),
+      c = u(o, "payload");
+    if (r.verify) {
+      let f = `${(r.apiUrl ?? eae()).replace(/\/+$/, "")}/v1/code/.well-known/jwks.json`,
+        { kid: p } = await m({
+          headerB64: n,
+          payloadB64: o,
+          signatureB64: i,
+          header: s,
+          payload: c,
+          jwksUrl: f,
+          fetchFn: fetch,
+          checkExpiry: r.checkExpiry,
+        }),
+        a = r.checkExpiry ? "sig+exp" : "sig only, exp SKIPPED";
+      process.stderr.write(`verified (kid=${p}, ${a})
+`);
+    }
+    let d = r.header ? s : c;
+    process.stdout.write(`${b(d, null, 2)}
+`),
+      process.exit(0);
+  } catch (e) {
+    process.stderr.write(`${e instanceof Error ? e.message : e}
+`),
+      process.exit(1);
+  }
+}
+export {
+  S as checkTokenTime,
+  u as decodeSegment,
+  y as parseDecodeTokenArgs,
+  v as readStdin,
+  _ as resolveToken,
+  C as selfHostedRunnerDecodeTokenMain,
+  w as splitJwt,
+  m as verifyAgainstJwks,
+};

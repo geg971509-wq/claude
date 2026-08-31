@@ -8,6 +8,25 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Ey,eme}from"/$bunfs/root/chunk-f9h0bg01.js";import"/$bunfs/root/chunk-qq1mdtb5.js";import"/$bunfs/root/chunk-tx16jn0x.js";import{s}from"/$bunfs/root/chunk-r53tkxrh.js";import"/$bunfs/root/chunk-56sxk8k2.js";var m=async(t,o)=>{let e=!Ey();return eme(e),o.sessionState?.notifyInternalMetadataChanged({memory_toggled_off:e?!0:null}),s("tengu_memory_toggled",{toggled_off:e}),{type:"text",value:e?`Memory paused for this session \xB7 this conversation will not write or read new memories, and previously-loaded memory content should not be referenced.
+import { Ey, eme } from "/$bunfs/root/chunk-f9h0bg01.js";
+import "/$bunfs/root/chunk-qq1mdtb5.js";
+import "/$bunfs/root/chunk-tx16jn0x.js";
+import { s } from "/$bunfs/root/chunk-r53tkxrh.js";
+import "/$bunfs/root/chunk-56sxk8k2.js";
+var m = async (t, o) => {
+  let e = !Ey();
+  return (
+    eme(e),
+    o.sessionState?.notifyInternalMetadataChanged({ memory_toggled_off: e ? !0 : null }),
+    s("tengu_memory_toggled", { toggled_off: e }),
+    {
+      type: "text",
+      value: e
+        ? `Memory paused for this session \xB7 this conversation will not write or read new memories, and previously-loaded memory content should not be referenced.
 
-Run /pause-memory again to resume.`:"Memory resumed \xB7 memory content may be referenced and new memories can be saved."}};export{m as call};
+Run /pause-memory again to resume.`
+        : "Memory resumed \xB7 memory content may be referenced and new memories can be saved.",
+    }
+  );
+};
+export { m as call };

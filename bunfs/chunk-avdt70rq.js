@@ -8,5 +8,9 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{tcr}from"/$bunfs/root/chunk-gcks6mn0.js";function Che(){let{namespace:_,cluster:a}=tcr();return{..._&&{cooNamespace:_},...a&&{cooCluster:a}}}
-export{Che};
+import { tcr } from "/$bunfs/root/chunk-gcks6mn0.js";
+function Che() {
+  let { namespace: _, cluster: a } = tcr();
+  return { ...(_ && { cooNamespace: _ }), ...(a && { cooCluster: a }) };
+}
+export { Che };

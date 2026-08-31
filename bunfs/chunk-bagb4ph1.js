@@ -8,4 +8,388 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import"/$bunfs/root/chunk-f9h0bg01.js";import"/$bunfs/root/chunk-qq1mdtb5.js";import"/$bunfs/root/chunk-tx16jn0x.js";import{s}from"/$bunfs/root/chunk-r53tkxrh.js";import{w,c}from"/$bunfs/root/chunk-4xj01xwv.js";import{y,p,g}from"/$bunfs/root/chunk-ca80fke8.js";import{Vn}from"/$bunfs/root/chunk-8tgj5dp2.js";import"/$bunfs/root/chunk-gcks6mn0.js";import"/$bunfs/root/chunk-bzx56g36.js";import"/$bunfs/root/chunk-eqdctte5.js";import"/$bunfs/root/chunk-fec4384a.js";import"/$bunfs/root/chunk-qm65zb83.js";import"/$bunfs/root/chunk-vfy57cpd.js";import{l,E}from"/$bunfs/root/chunk-ypdw393e.js";import{n}from"/$bunfs/root/chunk-fv016jr6.js";import"/$bunfs/root/chunk-qk7r0t2g.js";import{k}from"/$bunfs/root/chunk-4ddxwr9r.js";import{to,Z}from"/$bunfs/root/chunk-wkxx62a2.js";import"/$bunfs/root/chunk-ps6pc7xd.js";import"/$bunfs/root/chunk-4fwj3vnx.js";import"/$bunfs/root/chunk-s7e0px8j.js";import"/$bunfs/root/chunk-s28wf80n.js";import"/$bunfs/root/chunk-3bbym8ct.js";import"/$bunfs/root/chunk-cf8qhmdc.js";import"/$bunfs/root/chunk-0pgyw7te.js";import"/$bunfs/root/chunk-2masxyqj.js";import"/$bunfs/root/chunk-rgw52f13.js";import"/$bunfs/root/chunk-2rx5nghb.js";import"/$bunfs/root/chunk-f5hrzy3k.js";import"/$bunfs/root/chunk-nqmqabr8.js";import"/$bunfs/root/chunk-z0z1xzkg.js";import"/$bunfs/root/chunk-c47snwm2.js";import"/$bunfs/root/chunk-jpf4kat5.js";import"/$bunfs/root/chunk-s4vc7est.js";import"/$bunfs/root/chunk-hyh5wcm1.js";import"/$bunfs/root/chunk-ntyhd04p.js";import"/$bunfs/root/chunk-6k63g5t6.js";import"/$bunfs/root/chunk-q14dgq5g.js";import"/$bunfs/root/chunk-8qsdea2c.js";import"/$bunfs/root/chunk-988p40e0.js";import"/$bunfs/root/chunk-0spqrdaj.js";import{Kd,hg}from"/$bunfs/root/chunk-5rt2mvvk.js";import"/$bunfs/root/chunk-1yr12dqr.js";import"/$bunfs/root/chunk-2mmw62jx.js";import"/$bunfs/root/chunk-z2bvp3sv.js";import"/$bunfs/root/chunk-keb644xg.js";import"/$bunfs/root/chunk-bj904w9w.js";import"/$bunfs/root/chunk-18bck2pp.js";import"/$bunfs/root/chunk-dwwpyy7b.js";import"/$bunfs/root/chunk-jck8t8fq.js";import"/$bunfs/root/chunk-a48rnvhj.js";import"/$bunfs/root/chunk-492vgtnr.js";import"/$bunfs/root/chunk-qk6zade1.js";import"/$bunfs/root/chunk-0g6cj4h1.js";import"/$bunfs/root/chunk-amem41jf.js";import"/$bunfs/root/chunk-e7rq8w09.js";import"/$bunfs/root/chunk-82w4mtvq.js";import"/$bunfs/root/chunk-386w1sy8.js";import"/$bunfs/root/chunk-ax6dy60b.js";import"/$bunfs/root/chunk-qcx34e4j.js";import"/$bunfs/root/chunk-psdymar6.js";import"/$bunfs/root/chunk-0r9wzh7g.js";import"/$bunfs/root/chunk-sxxp6vcr.js";import"/$bunfs/root/chunk-rf51999f.js";import"/$bunfs/root/chunk-v7yhn7cf.js";import"/$bunfs/root/chunk-kxyny47c.js";import"/$bunfs/root/chunk-ghara6r1.js";import"/$bunfs/root/chunk-4r03fm98.js";import"/$bunfs/root/chunk-r3qa2s4k.js";import"/$bunfs/root/chunk-k4a21mkt.js";import"/$bunfs/root/chunk-4rh74qms.js";import"/$bunfs/root/chunk-1evht33z.js";import"/$bunfs/root/chunk-fbp3w46j.js";import"/$bunfs/root/chunk-gtv2468w.js";import"/$bunfs/root/chunk-s4smmnta.js";import{qt}from"/$bunfs/root/chunk-z9ex1x2t.js";import"/$bunfs/root/chunk-gkfy5ggn.js";import"/$bunfs/root/chunk-4t3vsqt7.js";import"/$bunfs/root/chunk-ejdwrhgv.js";import"/$bunfs/root/chunk-zkvj62rn.js";import"/$bunfs/root/chunk-tzhtxm67.js";import"/$bunfs/root/chunk-mznd09c6.js";import"/$bunfs/root/chunk-167jjb66.js";import"/$bunfs/root/chunk-97wwdfyx.js";import{hG}from"/$bunfs/root/chunk-x15vs42n.js";import{Nk,w_t,QOe,ZOe,E_t,A_t,ur,eLe}from"/$bunfs/root/chunk-x06p1jhb.js";import{ni}from"/$bunfs/root/chunk-z15hpjf9.js";import{Ilt,Plt,bjn,iin,wjn,Tjn,Ejn}from"/$bunfs/root/chunk-3483rs9f.js";import{Zgn}from"/$bunfs/root/chunk-61hbq2wc.js";import{$c}from"/$bunfs/root/chunk-rq65wazg.js";import"/$bunfs/root/chunk-5tdaspnd.js";import"/$bunfs/root/chunk-szz73wxx.js";import"/$bunfs/root/chunk-b40bn863.js";import"/$bunfs/root/chunk-6mgs10s2.js";import"/$bunfs/root/chunk-6s9ybdq1.js";import{ln}from"/$bunfs/root/chunk-tjmf73ft.js";import"/$bunfs/root/chunk-1hh0bg14.js";import{Nn}from"/$bunfs/root/chunk-c48t1p6v.js";import"/$bunfs/root/chunk-052zvbpg.js";import{b0,jCe}from"/$bunfs/root/chunk-werv747a.js";import"/$bunfs/root/chunk-jzh4kg5x.js";import"/$bunfs/root/chunk-7s7jqj2f.js";import"/$bunfs/root/chunk-56sxk8k2.js";import{O}from"/$bunfs/root/chunk-dqkj2bph.js";import"/$bunfs/root/chunk-a4q326ap.js";import{randomBytes as z}from"crypto";import{mkdir as K,rename as R,rm as x,writeFile as N}from"fs/promises";import{join as b}from"path";function F(e){if(!e.endsWith("/SKILL.md"))return;let r=e.slice(0,-9);if(!/^[a-z][a-z0-9+.-]*:\/\/./i.test(r))return;if(/[<>"\s\p{Cc}]/u.test(r))return;return r}function T(){return import.meta.require("/$bunfs/root/chunk-qadpp1g1.js").mcpDirectoryReadModule()}function A(){return import.meta.require("/$bunfs/root/chunk-qadpp1g1.js").mcpSkillsListModule()}function U(){return import.meta.require("/$bunfs/root/chunk-qadpp1g1.js").mcpSdkErrorClassificationModule()}function P(e){return import.meta.require("/$bunfs/root/chunk-qadpp1g1.js").mcpIsListAuthErrorModule().isClaudeAiBearerRejectedError(e)}var B=100,X=20,q=20,L=4096;function j(e,r,o){let m=`${e}:${ur(r.name,r.config)}`,t=qt().skillsFunnelSeen,a=t.has(m)?"refetch":"initial";t.add(m),s("tengu_mcp_skills_funnel",{step:c(e),client:w("claude-code-cli"),server_name:Vn(r.name),cause:c(a),skill_count:o})}class I{fetchForClient=b0(async(e,r)=>{if(!Zgn(e.capabilities))return[];let o=null,m=!1,t=await H(e,()=>{m=!0,e.discoveryBearerRejected=!0});if(t.length===0){if(m)this.invalidate(ur(e.name,e.config)),g("skill_mcp_load","skill_mcp_claudeai_bearer_rejected");return[]}j("parsed_nonempty",e,t.length),Z(e.name,`Found ${t.length} ${k(t.length,"skill")} via skills/list`);let a=A_t(),f=(d)=>{if(d==="skill_mcp_claudeai_bearer_rejected")m=!0;else o=d},h=await Promise.all(t.map((d)=>W(e,d,a,f,r))),i=hG(e.config)?.skills,_=h.filter((d)=>d!==null),u=i?_.map((d)=>{let S=i[d.name];return S===void 0?d:{...d,description:S}}):_;if(m)this.invalidate(ur(e.name,e.config)),e.discoveryBearerRejected=!0;if(o)p("skill_mcp_load",o,{mcp_server_sha12:Vn(e.name)});else if(m)g("skill_mcp_load","skill_mcp_claudeai_bearer_rejected");else if(u.length>0)y("skill_mcp_load");if(u.length>0)j("surfaced",e,u.length),n(`[mcp-skills] Loaded ${u.length} skills from MCP server '${e.name}'`);return u},(e,r)=>ur(e.name,e.config),X);invalidate(e){this.fetchForClient.cache.delete(e)}invalidateExcept(e){jCe(this.fetchForClient.cache,e)}reset(){this.fetchForClient.cache.clear()}}function M(){let e=qt();if(e.skillsFetcher===null)e.skillsFetcher=new I;return e.skillsFetcher}function Pe(e,r){return M().fetchForClient(e,r)}function Fe(e){M().invalidate(e)}function we(e){M().invalidateExcept(e)}async function H(e,r){let o=[],m=0,t=!1,a,f=0;do{let h;try{h=await A().listMcpSkillPage(e,a)}catch(i){if(f===0){if(!U().isMcpMethodNotFoundError(i))if(Z(e.name,`skills/list failed (${l(i)}) \u2014 skipping skill discovery`),e.config.type==="claudeai-proxy"&&P(i))g("skill_mcp_load","skill_mcp_claudeai_bearer_rejected"),M().invalidate(ur(e.name,e.config)),e.discoveryBearerRejected=!0;else g("skill_mcp_load","skill_mcp_list_failed");return[]}if(Z(e.name,`skills/list page ${f+1} failed (${l(i)}) \u2014 using ${o.length} ${k(o.length,"entry","entries")} from prior pages`),e.config.type==="claudeai-proxy"&&P(i))r();else g("skill_mcp_load","skill_mcp_list_page_failed");break}for(let i of h.skills){if(o.length>=B){t=!0;break}let _=G(i.frontmatter?.name);if(!_||!i.uri||_.length>L||i.uri.length>L||(i.digest?.length??0)>L){m++;continue}o.push({name:_,uri:i.uri,digest:i.digest})}a=h.nextCursor||void 0,f++}while(a!==void 0&&f<q&&o.length<B);if(a!==void 0||t)Z(e.name,`skills/list: stopped after ${f} ${k(f,"page")} / ${o.length} valid ${k(o.length,"entry","entries")} with more pending`);if(m>0)Z(e.name,`${m} skills/list ${k(m,"entry","entries")} skipped (malformed, missing, or oversized fields)`),g("skill_mcp_load","skill_mcp_list_entries_dropped");return o}function G(e){return typeof e==="string"&&e.length>0?e:void 0}async function W(e,r,o,m,t){let a=await bjn(e.name,r,t);if(a.hit)return Z(e.name,`Skill '${r.name}' cache hit \u2014 no resources/read`),D({client:e,uri:r.uri,fallbackName:r.name,rawContent:a.skillMd,builders:o});return Y({client:e,uri:r.uri,fallbackName:r.name,builders:o,onError:m,cacheEntry:r,storageV5:t})}async function Y({client:e,uri:r,fallbackName:o,builders:m,onError:t,cacheEntry:a,storageV5:f}){try{let i=(await eLe(e,r,{timeout:$c()})).contents?.find((S)=>("text"in S)&&typeof S.text==="string");if(!i||!("text"in i))return Z(e.name,`Skill resource ${r} has no text content`),t("skill_mcp_no_text_content"),null;if(i.text.length>Nk)return Z(e.name,`Skill resource ${r} exceeds ${Nk/1e6}MB, skipping`),t("skill_mcp_content_too_large"),null;let _=String(i.text),u=Plt(a.digest??void 0),d=Nn(_);if(u&&u!==d)return to(e.name,`SKILL.md digest mismatch for ${r}: skills/list declares ${u.slice(0,12)}\u2026, served content hashes to ${d.slice(0,12)}\u2026`),t("skill_mcp_skill_md_digest_mismatch"),null;return await J(e.name,a,_,d,f),D({client:e,uri:r,fallbackName:o,rawContent:_,builders:m})}catch(h){if(e.config.type==="claudeai-proxy"&&P(h))Z(e.name,`Failed to load MCP skill from ${r}: ${l(h)}`),t("skill_mcp_claudeai_bearer_rejected");else to(e.name,`Failed to load MCP skill from ${r}: ${l(h)}`),t("skill_mcp_fetch_failed");return null}}async function J(e,r,o,m,t){try{let a=Plt(r.digest??void 0)??m,{slug:f,slugDir:h,keyDir:i,alreadyCached:_}=await wjn(e,r,a,t);if(!_)if(O()&&t)await Tjn(t,f,a,o);else{let u=b(h,`.tmp-${process.pid}-${z(4).toString("hex")}`);await K(u,{recursive:!0});let d=!1;try{await N(b(u,Ilt),o);try{await R(u,i),d=!0}catch(S){if(!await iin(f,a,i,void 0)){let C=E(S);if(C!=="EEXIST"&&C!=="ENOTEMPTY"&&C!=="ENOTDIR"&&C!=="EPERM"&&C!=="EACCES")throw S;Z(e,`Replacing ${i}, which has no SKILL.md, with the fetched copy`),await x(i,{recursive:!0,force:!0}),await R(u,i),d=!0}}}finally{if(!d)await x(u,{recursive:!0,force:!0}).catch(()=>{})}}await Ejn({slug:f,slugDir:h},r,a,t)}catch(a){Z(e,`Failed to cache SKILL.md for '${r.name}': ${l(a)}`)}}function D({client:e,uri:r,fallbackName:o,rawContent:m,builders:{createSkillCommand:t,parseSkillFrontmatterFields:a}}){let f=hg(m),{frontmatter:h,content:i}=ni(f,r,{normalizeKeys:!0}),_=E_t(i),u=a(h,_,o),d=ln(o);if(u.hooks)Z(e.name,`Skill '${d}' declared hooks in frontmatter \u2014 ignored (MCP-sourced skills cannot register hooks)`);if(u.allowedTools.length>0)Z(e.name,`Skill '${d}' declared allowed-tools in frontmatter \u2014 ignored (MCP-sourced skills cannot bypass permissions)`);let S=`${ln(e.name)}:${d}`,v=F(r),C=v?{server:Kd(e.name),uri:Kd(v),directoryRead:T().serverDeclaresDirectoryRead(e.capabilities)}:void 0;return Z(e.name,`Loaded MCP skill '${d}' from ${r}`),t({...u,...QOe(u),...w_t(),displayName:ZOe(u.displayName),skillName:S,markdownContent:_,source:"mcp",baseDir:void 0,mcpResourceRoot:C,loadedFrom:"mcp"})}export{I as McpSkillsFetcher,Pe as fetchMcpSkillsForClient,we as invalidateMcpSkillsExcept,Fe as invalidateMcpSkillsForServer,M as mcpSkillsFetcher};
+import "/$bunfs/root/chunk-f9h0bg01.js";
+import "/$bunfs/root/chunk-qq1mdtb5.js";
+import "/$bunfs/root/chunk-tx16jn0x.js";
+import { s } from "/$bunfs/root/chunk-r53tkxrh.js";
+import { w, c } from "/$bunfs/root/chunk-4xj01xwv.js";
+import { y, p, g } from "/$bunfs/root/chunk-ca80fke8.js";
+import { Vn } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import "/$bunfs/root/chunk-gcks6mn0.js";
+import "/$bunfs/root/chunk-bzx56g36.js";
+import "/$bunfs/root/chunk-eqdctte5.js";
+import "/$bunfs/root/chunk-fec4384a.js";
+import "/$bunfs/root/chunk-qm65zb83.js";
+import "/$bunfs/root/chunk-vfy57cpd.js";
+import { l, E } from "/$bunfs/root/chunk-ypdw393e.js";
+import { n } from "/$bunfs/root/chunk-fv016jr6.js";
+import "/$bunfs/root/chunk-qk7r0t2g.js";
+import { k } from "/$bunfs/root/chunk-4ddxwr9r.js";
+import { to, Z } from "/$bunfs/root/chunk-wkxx62a2.js";
+import "/$bunfs/root/chunk-ps6pc7xd.js";
+import "/$bunfs/root/chunk-4fwj3vnx.js";
+import "/$bunfs/root/chunk-s7e0px8j.js";
+import "/$bunfs/root/chunk-s28wf80n.js";
+import "/$bunfs/root/chunk-3bbym8ct.js";
+import "/$bunfs/root/chunk-cf8qhmdc.js";
+import "/$bunfs/root/chunk-0pgyw7te.js";
+import "/$bunfs/root/chunk-2masxyqj.js";
+import "/$bunfs/root/chunk-rgw52f13.js";
+import "/$bunfs/root/chunk-2rx5nghb.js";
+import "/$bunfs/root/chunk-f5hrzy3k.js";
+import "/$bunfs/root/chunk-nqmqabr8.js";
+import "/$bunfs/root/chunk-z0z1xzkg.js";
+import "/$bunfs/root/chunk-c47snwm2.js";
+import "/$bunfs/root/chunk-jpf4kat5.js";
+import "/$bunfs/root/chunk-s4vc7est.js";
+import "/$bunfs/root/chunk-hyh5wcm1.js";
+import "/$bunfs/root/chunk-ntyhd04p.js";
+import "/$bunfs/root/chunk-6k63g5t6.js";
+import "/$bunfs/root/chunk-q14dgq5g.js";
+import "/$bunfs/root/chunk-8qsdea2c.js";
+import "/$bunfs/root/chunk-988p40e0.js";
+import "/$bunfs/root/chunk-0spqrdaj.js";
+import { Kd, hg } from "/$bunfs/root/chunk-5rt2mvvk.js";
+import "/$bunfs/root/chunk-1yr12dqr.js";
+import "/$bunfs/root/chunk-2mmw62jx.js";
+import "/$bunfs/root/chunk-z2bvp3sv.js";
+import "/$bunfs/root/chunk-keb644xg.js";
+import "/$bunfs/root/chunk-bj904w9w.js";
+import "/$bunfs/root/chunk-18bck2pp.js";
+import "/$bunfs/root/chunk-dwwpyy7b.js";
+import "/$bunfs/root/chunk-jck8t8fq.js";
+import "/$bunfs/root/chunk-a48rnvhj.js";
+import "/$bunfs/root/chunk-492vgtnr.js";
+import "/$bunfs/root/chunk-qk6zade1.js";
+import "/$bunfs/root/chunk-0g6cj4h1.js";
+import "/$bunfs/root/chunk-amem41jf.js";
+import "/$bunfs/root/chunk-e7rq8w09.js";
+import "/$bunfs/root/chunk-82w4mtvq.js";
+import "/$bunfs/root/chunk-386w1sy8.js";
+import "/$bunfs/root/chunk-ax6dy60b.js";
+import "/$bunfs/root/chunk-qcx34e4j.js";
+import "/$bunfs/root/chunk-psdymar6.js";
+import "/$bunfs/root/chunk-0r9wzh7g.js";
+import "/$bunfs/root/chunk-sxxp6vcr.js";
+import "/$bunfs/root/chunk-rf51999f.js";
+import "/$bunfs/root/chunk-v7yhn7cf.js";
+import "/$bunfs/root/chunk-kxyny47c.js";
+import "/$bunfs/root/chunk-ghara6r1.js";
+import "/$bunfs/root/chunk-4r03fm98.js";
+import "/$bunfs/root/chunk-r3qa2s4k.js";
+import "/$bunfs/root/chunk-k4a21mkt.js";
+import "/$bunfs/root/chunk-4rh74qms.js";
+import "/$bunfs/root/chunk-1evht33z.js";
+import "/$bunfs/root/chunk-fbp3w46j.js";
+import "/$bunfs/root/chunk-gtv2468w.js";
+import "/$bunfs/root/chunk-s4smmnta.js";
+import { qt } from "/$bunfs/root/chunk-z9ex1x2t.js";
+import "/$bunfs/root/chunk-gkfy5ggn.js";
+import "/$bunfs/root/chunk-4t3vsqt7.js";
+import "/$bunfs/root/chunk-ejdwrhgv.js";
+import "/$bunfs/root/chunk-zkvj62rn.js";
+import "/$bunfs/root/chunk-tzhtxm67.js";
+import "/$bunfs/root/chunk-mznd09c6.js";
+import "/$bunfs/root/chunk-167jjb66.js";
+import "/$bunfs/root/chunk-97wwdfyx.js";
+import { hG } from "/$bunfs/root/chunk-x15vs42n.js";
+import { Nk, w_t, QOe, ZOe, E_t, A_t, ur, eLe } from "/$bunfs/root/chunk-x06p1jhb.js";
+import { ni } from "/$bunfs/root/chunk-z15hpjf9.js";
+import { Ilt, Plt, bjn, iin, wjn, Tjn, Ejn } from "/$bunfs/root/chunk-3483rs9f.js";
+import { Zgn } from "/$bunfs/root/chunk-61hbq2wc.js";
+import { $c } from "/$bunfs/root/chunk-rq65wazg.js";
+import "/$bunfs/root/chunk-5tdaspnd.js";
+import "/$bunfs/root/chunk-szz73wxx.js";
+import "/$bunfs/root/chunk-b40bn863.js";
+import "/$bunfs/root/chunk-6mgs10s2.js";
+import "/$bunfs/root/chunk-6s9ybdq1.js";
+import { ln } from "/$bunfs/root/chunk-tjmf73ft.js";
+import "/$bunfs/root/chunk-1hh0bg14.js";
+import { Nn } from "/$bunfs/root/chunk-c48t1p6v.js";
+import "/$bunfs/root/chunk-052zvbpg.js";
+import { b0, jCe } from "/$bunfs/root/chunk-werv747a.js";
+import "/$bunfs/root/chunk-jzh4kg5x.js";
+import "/$bunfs/root/chunk-7s7jqj2f.js";
+import "/$bunfs/root/chunk-56sxk8k2.js";
+import { O } from "/$bunfs/root/chunk-dqkj2bph.js";
+import "/$bunfs/root/chunk-a4q326ap.js";
+import { randomBytes as z } from "crypto";
+import { mkdir as K, rename as R, rm as x, writeFile as N } from "fs/promises";
+import { join as b } from "path";
+function F(e) {
+  if (!e.endsWith("/SKILL.md")) return;
+  let r = e.slice(0, -9);
+  if (!/^[a-z][a-z0-9+.-]*:\/\/./i.test(r)) return;
+  if (/[<>"\s\p{Cc}]/u.test(r)) return;
+  return r;
+}
+function T() {
+  return import.meta.require("/$bunfs/root/chunk-qadpp1g1.js").mcpDirectoryReadModule();
+}
+function A() {
+  return import.meta.require("/$bunfs/root/chunk-qadpp1g1.js").mcpSkillsListModule();
+}
+function U() {
+  return import.meta.require("/$bunfs/root/chunk-qadpp1g1.js").mcpSdkErrorClassificationModule();
+}
+function P(e) {
+  return import.meta
+    .require("/$bunfs/root/chunk-qadpp1g1.js")
+    .mcpIsListAuthErrorModule()
+    .isClaudeAiBearerRejectedError(e);
+}
+var B = 100,
+  X = 20,
+  q = 20,
+  L = 4096;
+function j(e, r, o) {
+  let m = `${e}:${ur(r.name, r.config)}`,
+    t = qt().skillsFunnelSeen,
+    a = t.has(m) ? "refetch" : "initial";
+  t.add(m),
+    s("tengu_mcp_skills_funnel", {
+      step: c(e),
+      client: w("claude-code-cli"),
+      server_name: Vn(r.name),
+      cause: c(a),
+      skill_count: o,
+    });
+}
+class I {
+  fetchForClient = b0(
+    async (e, r) => {
+      if (!Zgn(e.capabilities)) return [];
+      let o = null,
+        m = !1,
+        t = await H(e, () => {
+          (m = !0), (e.discoveryBearerRejected = !0);
+        });
+      if (t.length === 0) {
+        if (m) this.invalidate(ur(e.name, e.config)), g("skill_mcp_load", "skill_mcp_claudeai_bearer_rejected");
+        return [];
+      }
+      j("parsed_nonempty", e, t.length), Z(e.name, `Found ${t.length} ${k(t.length, "skill")} via skills/list`);
+      let a = A_t(),
+        f = (d) => {
+          if (d === "skill_mcp_claudeai_bearer_rejected") m = !0;
+          else o = d;
+        },
+        h = await Promise.all(t.map((d) => W(e, d, a, f, r))),
+        i = hG(e.config)?.skills,
+        _ = h.filter((d) => d !== null),
+        u = i
+          ? _.map((d) => {
+              let S = i[d.name];
+              return S === void 0 ? d : { ...d, description: S };
+            })
+          : _;
+      if (m) this.invalidate(ur(e.name, e.config)), (e.discoveryBearerRejected = !0);
+      if (o) p("skill_mcp_load", o, { mcp_server_sha12: Vn(e.name) });
+      else if (m) g("skill_mcp_load", "skill_mcp_claudeai_bearer_rejected");
+      else if (u.length > 0) y("skill_mcp_load");
+      if (u.length > 0)
+        j("surfaced", e, u.length), n(`[mcp-skills] Loaded ${u.length} skills from MCP server '${e.name}'`);
+      return u;
+    },
+    (e, r) => ur(e.name, e.config),
+    X,
+  );
+  invalidate(e) {
+    this.fetchForClient.cache.delete(e);
+  }
+  invalidateExcept(e) {
+    jCe(this.fetchForClient.cache, e);
+  }
+  reset() {
+    this.fetchForClient.cache.clear();
+  }
+}
+function M() {
+  let e = qt();
+  if (e.skillsFetcher === null) e.skillsFetcher = new I();
+  return e.skillsFetcher;
+}
+function Pe(e, r) {
+  return M().fetchForClient(e, r);
+}
+function Fe(e) {
+  M().invalidate(e);
+}
+function we(e) {
+  M().invalidateExcept(e);
+}
+async function H(e, r) {
+  let o = [],
+    m = 0,
+    t = !1,
+    a,
+    f = 0;
+  do {
+    let h;
+    try {
+      h = await A().listMcpSkillPage(e, a);
+    } catch (i) {
+      if (f === 0) {
+        if (!U().isMcpMethodNotFoundError(i))
+          if (
+            (Z(e.name, `skills/list failed (${l(i)}) \u2014 skipping skill discovery`),
+            e.config.type === "claudeai-proxy" && P(i))
+          )
+            g("skill_mcp_load", "skill_mcp_claudeai_bearer_rejected"),
+              M().invalidate(ur(e.name, e.config)),
+              (e.discoveryBearerRejected = !0);
+          else g("skill_mcp_load", "skill_mcp_list_failed");
+        return [];
+      }
+      if (
+        (Z(
+          e.name,
+          `skills/list page ${f + 1} failed (${l(i)}) \u2014 using ${o.length} ${k(o.length, "entry", "entries")} from prior pages`,
+        ),
+        e.config.type === "claudeai-proxy" && P(i))
+      )
+        r();
+      else g("skill_mcp_load", "skill_mcp_list_page_failed");
+      break;
+    }
+    for (let i of h.skills) {
+      if (o.length >= B) {
+        t = !0;
+        break;
+      }
+      let _ = G(i.frontmatter?.name);
+      if (!_ || !i.uri || _.length > L || i.uri.length > L || (i.digest?.length ?? 0) > L) {
+        m++;
+        continue;
+      }
+      o.push({ name: _, uri: i.uri, digest: i.digest });
+    }
+    (a = h.nextCursor || void 0), f++;
+  } while (a !== void 0 && f < q && o.length < B);
+  if (a !== void 0 || t)
+    Z(
+      e.name,
+      `skills/list: stopped after ${f} ${k(f, "page")} / ${o.length} valid ${k(o.length, "entry", "entries")} with more pending`,
+    );
+  if (m > 0)
+    Z(e.name, `${m} skills/list ${k(m, "entry", "entries")} skipped (malformed, missing, or oversized fields)`),
+      g("skill_mcp_load", "skill_mcp_list_entries_dropped");
+  return o;
+}
+function G(e) {
+  return typeof e === "string" && e.length > 0 ? e : void 0;
+}
+async function W(e, r, o, m, t) {
+  let a = await bjn(e.name, r, t);
+  if (a.hit)
+    return (
+      Z(e.name, `Skill '${r.name}' cache hit \u2014 no resources/read`),
+      D({ client: e, uri: r.uri, fallbackName: r.name, rawContent: a.skillMd, builders: o })
+    );
+  return Y({ client: e, uri: r.uri, fallbackName: r.name, builders: o, onError: m, cacheEntry: r, storageV5: t });
+}
+async function Y({ client: e, uri: r, fallbackName: o, builders: m, onError: t, cacheEntry: a, storageV5: f }) {
+  try {
+    let i = (await eLe(e, r, { timeout: $c() })).contents?.find((S) => "text" in S && typeof S.text === "string");
+    if (!i || !("text" in i))
+      return Z(e.name, `Skill resource ${r} has no text content`), t("skill_mcp_no_text_content"), null;
+    if (i.text.length > Nk)
+      return Z(e.name, `Skill resource ${r} exceeds ${Nk / 1e6}MB, skipping`), t("skill_mcp_content_too_large"), null;
+    let _ = String(i.text),
+      u = Plt(a.digest ?? void 0),
+      d = Nn(_);
+    if (u && u !== d)
+      return (
+        to(
+          e.name,
+          `SKILL.md digest mismatch for ${r}: skills/list declares ${u.slice(0, 12)}\u2026, served content hashes to ${d.slice(0, 12)}\u2026`,
+        ),
+        t("skill_mcp_skill_md_digest_mismatch"),
+        null
+      );
+    return await J(e.name, a, _, d, f), D({ client: e, uri: r, fallbackName: o, rawContent: _, builders: m });
+  } catch (h) {
+    if (e.config.type === "claudeai-proxy" && P(h))
+      Z(e.name, `Failed to load MCP skill from ${r}: ${l(h)}`), t("skill_mcp_claudeai_bearer_rejected");
+    else to(e.name, `Failed to load MCP skill from ${r}: ${l(h)}`), t("skill_mcp_fetch_failed");
+    return null;
+  }
+}
+async function J(e, r, o, m, t) {
+  try {
+    let a = Plt(r.digest ?? void 0) ?? m,
+      { slug: f, slugDir: h, keyDir: i, alreadyCached: _ } = await wjn(e, r, a, t);
+    if (!_)
+      if (O() && t) await Tjn(t, f, a, o);
+      else {
+        let u = b(h, `.tmp-${process.pid}-${z(4).toString("hex")}`);
+        await K(u, { recursive: !0 });
+        let d = !1;
+        try {
+          await N(b(u, Ilt), o);
+          try {
+            await R(u, i), (d = !0);
+          } catch (S) {
+            if (!(await iin(f, a, i, void 0))) {
+              let C = E(S);
+              if (C !== "EEXIST" && C !== "ENOTEMPTY" && C !== "ENOTDIR" && C !== "EPERM" && C !== "EACCES") throw S;
+              Z(e, `Replacing ${i}, which has no SKILL.md, with the fetched copy`),
+                await x(i, { recursive: !0, force: !0 }),
+                await R(u, i),
+                (d = !0);
+            }
+          }
+        } finally {
+          if (!d) await x(u, { recursive: !0, force: !0 }).catch(() => {});
+        }
+      }
+    await Ejn({ slug: f, slugDir: h }, r, a, t);
+  } catch (a) {
+    Z(e, `Failed to cache SKILL.md for '${r.name}': ${l(a)}`);
+  }
+}
+function D({
+  client: e,
+  uri: r,
+  fallbackName: o,
+  rawContent: m,
+  builders: { createSkillCommand: t, parseSkillFrontmatterFields: a },
+}) {
+  let f = hg(m),
+    { frontmatter: h, content: i } = ni(f, r, { normalizeKeys: !0 }),
+    _ = E_t(i),
+    u = a(h, _, o),
+    d = ln(o);
+  if (u.hooks)
+    Z(e.name, `Skill '${d}' declared hooks in frontmatter \u2014 ignored (MCP-sourced skills cannot register hooks)`);
+  if (u.allowedTools.length > 0)
+    Z(
+      e.name,
+      `Skill '${d}' declared allowed-tools in frontmatter \u2014 ignored (MCP-sourced skills cannot bypass permissions)`,
+    );
+  let S = `${ln(e.name)}:${d}`,
+    v = F(r),
+    C = v ? { server: Kd(e.name), uri: Kd(v), directoryRead: T().serverDeclaresDirectoryRead(e.capabilities) } : void 0;
+  return (
+    Z(e.name, `Loaded MCP skill '${d}' from ${r}`),
+    t({
+      ...u,
+      ...QOe(u),
+      ...w_t(),
+      displayName: ZOe(u.displayName),
+      skillName: S,
+      markdownContent: _,
+      source: "mcp",
+      baseDir: void 0,
+      mcpResourceRoot: C,
+      loadedFrom: "mcp",
+    })
+  );
+}
+export {
+  I as McpSkillsFetcher,
+  Pe as fetchMcpSkillsForClient,
+  we as invalidateMcpSkillsExcept,
+  Fe as invalidateMcpSkillsForServer,
+  M as mcpSkillsFetcher,
+};

@@ -8,5 +8,14 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{a}from"/$bunfs/root/chunk-fec4384a.js";function ef(){return a.CLAUDE_CODE_REMOTE===!0&&a.CLAUDE_CODE_ENVIRONMENT_KIND===void 0}function Fht(){return a.CLAUDE_CODE_REMOTE===!0&&a.CLAUDE_CODE_ENVIRONMENT_KIND==="byoc"}function zXn(){return a.CLAUDE_CODE_ENVIRONMENT_KIND==="bridge"}
-export{ef,Fht,zXn};
+import { a } from "/$bunfs/root/chunk-fec4384a.js";
+function ef() {
+  return a.CLAUDE_CODE_REMOTE === !0 && a.CLAUDE_CODE_ENVIRONMENT_KIND === void 0;
+}
+function Fht() {
+  return a.CLAUDE_CODE_REMOTE === !0 && a.CLAUDE_CODE_ENVIRONMENT_KIND === "byoc";
+}
+function zXn() {
+  return a.CLAUDE_CODE_ENVIRONMENT_KIND === "bridge";
+}
+export { ef, Fht, zXn };

@@ -8,5 +8,28 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{_}from"/$bunfs/root/chunk-haan6f8z.js";import{t}from"/$bunfs/root/chunk-he2phymk.js";import{r}from"/$bunfs/root/chunk-8s7kcbyw.js";function Hh(m){let u=_(10),{added:o,removed:f,bold:e}=m;if(o===0&&f===0){return null}let p;if(u[0]!==o||u[1]!==e)p=o>0&&r(t,{color:"diffAddedWord",bold:e,children:["+",o]}),u[0]=o,u[1]=e,u[2]=p;else p=u[2];const R=o>0&&f>0&&" ";let b;if(u[3]!==e||u[4]!==f)b=f>0&&r(t,{color:"diffRemovedWord",bold:e,children:["-",f]}),u[3]=e,u[4]=f,u[5]=b;else b=u[5];let d;if(u[6]!==p||u[7]!==R||u[8]!==b)d=r(t,{children:[p,R,b]}),u[6]=p,u[7]=R,u[8]=b,u[9]=d;else d=u[9];return d}
-export{Hh};
+import { _ } from "/$bunfs/root/chunk-haan6f8z.js";
+import { t } from "/$bunfs/root/chunk-he2phymk.js";
+import { r } from "/$bunfs/root/chunk-8s7kcbyw.js";
+function Hh(m) {
+  let u = _(10),
+    { added: o, removed: f, bold: e } = m;
+  if (o === 0 && f === 0) {
+    return null;
+  }
+  let p;
+  if (u[0] !== o || u[1] !== e)
+    (p = o > 0 && r(t, { color: "diffAddedWord", bold: e, children: ["+", o] })), (u[0] = o), (u[1] = e), (u[2] = p);
+  else p = u[2];
+  const R = o > 0 && f > 0 && " ";
+  let b;
+  if (u[3] !== e || u[4] !== f)
+    (b = f > 0 && r(t, { color: "diffRemovedWord", bold: e, children: ["-", f] })), (u[3] = e), (u[4] = f), (u[5] = b);
+  else b = u[5];
+  let d;
+  if (u[6] !== p || u[7] !== R || u[8] !== b)
+    (d = r(t, { children: [p, R, b] })), (u[6] = p), (u[7] = R), (u[8] = b), (u[9] = d);
+  else d = u[9];
+  return d;
+}
+export { Hh };

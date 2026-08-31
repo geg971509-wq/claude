@@ -8,5 +8,21 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{J,G}from"/$bunfs/root/chunk-f9h0bg01.js";class n{endpoint=void 0;set(e){this.endpoint=e}}var t=new J(()=>new n);function d(){return t.of(G().host)}function Pnn(e){d().set(e)}function JBn(){return d().endpoint}
-export{Pnn,JBn};
+import { J, G } from "/$bunfs/root/chunk-f9h0bg01.js";
+class n {
+  endpoint = void 0;
+  set(e) {
+    this.endpoint = e;
+  }
+}
+var t = new J(() => new n());
+function d() {
+  return t.of(G().host);
+}
+function Pnn(e) {
+  d().set(e);
+}
+function JBn() {
+  return d().endpoint;
+}
+export { Pnn, JBn };

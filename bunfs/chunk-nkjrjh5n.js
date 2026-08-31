@@ -8,5 +8,1046 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{ne}from"/$bunfs/root/chunk-tx16jn0x.js";import{be}from"/$bunfs/root/chunk-gcks6mn0.js";import{a}from"/$bunfs/root/chunk-fec4384a.js";import{J,G,K,au,Le,z5,K5}from"/$bunfs/root/chunk-f9h0bg01.js";import{R,X,Ht}from"/$bunfs/root/chunk-ypdw393e.js";import{Ge,tQe,Kg,le,n}from"/$bunfs/root/chunk-fv016jr6.js";import{h}from"/$bunfs/root/chunk-wkxx62a2.js";import{an}from"/$bunfs/root/chunk-c47snwm2.js";import{Te}from"/$bunfs/root/chunk-jpf4kat5.js";import{Kn}from"/$bunfs/root/chunk-hyh5wcm1.js";import{gr}from"/$bunfs/root/chunk-dck778n3.js";import{ee}from"/$bunfs/root/chunk-4fwj3vnx.js";import{Je}from"/$bunfs/root/chunk-988p40e0.js";import{F4t,yNe,P$}from"/$bunfs/root/chunk-a48rnvhj.js";import{Su}from"/$bunfs/root/chunk-h6vcz0m0.js";import{ec,Ao}from"/$bunfs/root/chunk-czmxr2ps.js";import{bS}from"/$bunfs/root/chunk-56sxk8k2.js";import{O}from"/$bunfs/root/chunk-dqkj2bph.js";import{posix as q}from"path";var{dirname:Q,isAbsolute:Y,join:Z,normalize:V}=q,hWt="/mnt/user-data/uploads",EKe=".stage-tmp.";function z_r(t){if(!t)return hWt;if(!Y(t))throw Error("CLAUDE_STAGE_FILE_ROOT must be an absolute path");return V(t)}function Une(){return z_r(a.CLAUDE_STAGE_FILE_ROOT)}function cde(){return Z(Q(Une()),"outputs")}import{lstat as te,readdir as ie}from"fs/promises";import{basename as P,dirname as W,join as d,resolve as _,sep as B}from"path";import*as b from"fs/promises";import*as D from"path";function I(t){n(`[file-persistence] ${t}`)}function AKe(){let t=a.CLAUDE_CODE_ENVIRONMENT_KIND;if(t==="byoc"||t==="anthropic_cloud")return t;return null}function XTe(t,e){return Boolean(t)&&(!e||e==="anthropic_cloud")}async function cQn(t,e){let i;try{i=await b.readdir(e,{withFileTypes:!0,recursive:!0})}catch{return[]}let r=[];for(let u of i){if(u.isSymbolicLink()||u.name.startsWith(EKe))continue;if(u.isFile())r.push(D.join(u.parentPath,u.name))}if(r.length===0)return I("No files found in outputs directory"),[];let s=0,o=await Promise.all(r.map(async(u)=>{try{let c=await b.lstat(u);if(c.isSymbolicLink())return null;if(c.nlink>1)return s++,null;return{filePath:u,mtimeMs:c.mtimeMs,ctimeMs:c.ctimeMs}}catch{return null}})),l=[];for(let u of o)if(u&&(u.mtimeMs>=t||u.ctimeMs>=t))l.push(u.filePath);return I(`Found ${l.length} modified files since turn start (scanned ${r.length} total${s>0?`, skipped ${s} multiply-linked`:""})`),l}var re=10,E=2000,se=8;class uQn{primedListing=null;slugMeta=new Map;planFileCache=null;planFileBackend=null;planFileWatches=new Map;primeInFlight=null;waitCapMs=E;stopReleasingOnSwitch=null;lastUnwatched=new Map;earlyObserved=new Map;earlyGeneration=0;lastSnapshottedWorkshopDoc=null;snapshotChain=Promise.resolve();planFileCacheKeyFor(t){if(this.planFileCache===null)return null;let e=_(t);if(W(e)!==F())return null;return P(e)}notePlanFileWritten(t,e){if(this.planFileCache===null){this.noteEarly(t,e);return}let i=this.planFileCacheKeyFor(t);if(i!==null){let r=this.planFileWatches.get(i);if(r!==void 0)r.generation++;if(this.planFileCache.set(i,e),this.primedListing!==null&&this.primedListing.dir===F())this.primedListing.listing.add(i)}}notePlanFileForgotten(t){if(this.planFileCache===null){this.noteEarly(t,void 0);return}let e=this.planFileCacheKeyFor(t);if(e!==null){let i=this.planFileWatches.get(e);if(i!==void 0){this.dropToUnknown(e,i),this.refreshPlanFile(e,i);return}this.planFileCache.delete(e)}}resetPlanFileCacheToUnknown(){if(this.planFileCache===null)return;for(let t of[...this.planFileCache.keys()]){let e=this.planFileWatches.get(t);if(e!==void 0)this.dropToUnknown(t,e),this.refreshPlanFile(t,e);else this.planFileCache.delete(t)}}activatePlanFileCache(t){if(this.planFileCache??=new Map,O()&&t!==void 0&&this.planFileBackend===null){this.planFileBackend=t,this.stopReleasingOnSwitch=au(()=>this.releaseStaleWatches());for(let e of new Set(K5().values()))this.watchSlug(e,!1);this.earlyObserved.clear()}}noteEarly(t,e){if(!O())return;let i=_(t);if(W(i)!==F())return;if(this.earlyGeneration++,e===void 0)this.earlyObserved.delete(P(i));else this.earlyObserved.set(P(i),e)}watchSlug(t,e){this.releaseStaleWatches();for(let i of m(t))this.watchPlanFile(t,i,e);this.lastUnwatched.clear()}releaseStaleWatches(){if(this.planFileWatches.size===0)return;let t=new Set(K5().values());for(let[e,i]of this.planFileWatches)if(!t.has(i.slug))this.stopWatch(e,i)}watchPlanFile(t,e,i){let r=this.planFileBackend;if(r===null||this.planFileCache===null||this.planFileWatches.has(e)||!g()||Kn(p(v(e)))!==void 0)return;let s={slug:t,generation:0,seededAbsent:!1,subscription:void 0,refreshing:void 0,refreshAgain:!1,resubscribed:!1,stopped:!1};this.planFileWatches.set(e,s);let o=this.earlyObserved.has(e)?this.earlyObserved.get(e):this.lastUnwatched.get(e);if(this.earlyObserved.delete(e),this.lastUnwatched.delete(e),o!==void 0)this.planFileCache.set(e,o);else if(i&&!this.planFileCache.has(e))this.planFileCache.set(e,null),s.seededAbsent=!0;this.subscribePlanFile(r,e,s)}observePlanFile(t){let e=this.planFileWatches.get(t);return{watch:e,generation:e?.generation??this.earlyGeneration}}notePlanFileObserved(t,e,i){let r=this.planFileWatches.get(t);if(r!==void 0)if(i.watch===r&&r.generation===i.generation)this.installPlanFile(t,r,e);else this.refreshPlanFile(t,r);else if(this.planFileBackend===null&&O()&&i.watch===void 0&&this.earlyGeneration===i.generation)this.earlyObserved.set(t,e)}watchAgentPlanFile(t,e){if(this.planFileBackend===null)return;let i=this.planFileWatches.get(e);if(i!==void 0){this.planFileWatches.delete(e),this.planFileWatches.set(e,i);return}let r=new Set(m(t)),s=[...this.planFileWatches].filter(([o,l])=>l.slug===t&&!r.has(o));for(let[o,l]of s.slice(0,Math.max(0,s.length-se+1))){let u=this.planFileCache?.get(o);if(this.stopWatch(o,l),typeof u==="string")this.planFileCache?.set(o,u)}this.watchPlanFile(t,e,!1)}async subscribePlanFile(t,e,i){let r=i.generation,s;try{let o=await t.subscribe({target:"key",key:p(v(e))},(l)=>this.onPlanFileEvent(e,i,r,l),{maxObservationLagMs:E});if(o.ok){if(i.stopped)o.value.unsubscribe();else i.subscription=o.value,n(`plans: watching ${e} through the storage interface (changes trail by at most ${o.value.observationLagMs} ms)`);return}s=Ge(o.error)}catch(o){s=String(o)}if(i.stopped)return;if(n(`plans: watching ${e} through the storage interface failed (${s}); serving its last read and in-process writes`),this.planFileCache?.has(e)!==!0)this.refreshPlanFile(e,i)}onPlanFileEvent(t,e,i,r){if(e.stopped)return;if(!r.ok){if(r.error.code==="Unavailable"){queueMicrotask(()=>void this.refreshPlanFile(t,e));return}if(e.subscription=void 0,tQe())return;n(`plans: the watch on ${t} ended: ${Ge(r.error)}`);let o=this.planFileBackend;if(o!==null&&!e.resubscribed)e.resubscribed=!0,this.subscribePlanFile(o,t,e);else this.stopWatch(t,e);return}let s=r.value;if(s.kind==="snapshot"&&e.generation===i){if(!("absent"in s)){this.installPlanFile(t,e,Buffer.from(s.value).toString("utf-8"));return}if(e.seededAbsent&&e.generation===0){this.installPlanFile(t,e,null);return}}queueMicrotask(()=>void this.refreshPlanFile(t,e))}installPlanFile(t,e,i){e.generation++,this.planFileCache?.set(t,i)}refreshPlanFile(t,e){if(e.refreshing!==void 0)return e.refreshAgain=!0,e.refreshing;let i=this.planFileBackend;if(i===null)return Promise.resolve();let r=async()=>{await Promise.resolve();try{do{e.refreshAgain=!1;let s=e.generation,o=await this.readPlanFileForWatch(i,t);if(e.stopped)return;if(o===void 0){if(e.generation===s)e.generation++,this.planFileCache?.delete(t);continue}if(e.generation===s)this.installPlanFile(t,e,o);else e.refreshAgain=!0}while(e.refreshAgain&&!e.stopped)}finally{e.refreshing=void 0}};return e.refreshing=r(),e.refreshing}async readPlanFileForWatch(t,e){try{let i=await t.read([p(v(e))]);if(i.ok){let r=i.value.items[0];return r?.found?Buffer.from(r.value).toString("utf-8"):null}n(`plans: v5 read of ${e} failed: ${i.error.code}`)}catch(i){n(`plans: v5 read of ${e} threw: ${i}`)}return}async settlePlanFile(t){let e=this.planFileWatches.get(t);if(e===void 0)return;let i=e.refreshing??(this.planFileCache?.has(t)!==!0?this.refreshPlanFile(t,e):void 0);if(i!==void 0&&!await x(i,this.waitCapMs))this.giveUpWaiting(t,e)}dropToUnknown(t,e){if(e.stopped)return;e.generation++,this.planFileCache?.delete(t)}giveUpWaiting(t,e){if(this.planFileCache?.has(t))this.dropToUnknown(t,e)}unwatchSlug(t){for(let[e,i]of this.planFileWatches)if(i.slug===t)this.stopWatch(e,i)}unwatchAllPlanFiles(){this.lastUnwatched.clear();for(let[t,e]of this.planFileWatches){let i=this.planFileCache?.get(t);if(i!==void 0)this.lastUnwatched.set(t,i);this.stopWatch(t,e)}}stopWatch(t,e){e.stopped=!0,e.subscription?.unsubscribe(),e.subscription=void 0,this.planFileWatches.delete(t),this.planFileCache?.delete(t)}commitPlanListing(t,e){let i=new Set(e);this.primedListing={dir:t,listing:i};let r=K5(),s=[...this.slugMeta].filter(([,l])=>l.validatedDir!==t),o=new Set(s.map(([l])=>l));for(let[l,u]of r)if(!o.has(l))for(let c of m(u))i.add(c);for(let[l,u]of s){let c=r.get(l);if(c===void 0){this.slugMeta.delete(l);continue}if(m(c).some((f)=>i.has(f))){if(u.consumed){n(`Plan slug collision for '${c}' in ${t} detected after the plan path was already in use \u2014 keeping the slug (the pre-existing plan file may be overwritten).`,{level:"warn"}),u.validatedDir=t;continue}if(r.delete(l),this.slugMeta.delete(l),![...r.values()].includes(c))this.unwatchSlug(c);this.getPlanSlug(l,u.seed)}else{for(let f of m(c))i.add(f);u.validatedDir=t}}}getPlanSlug(t,e){let i=K5(),r=i.get(t);if(!r){let s=e?yNe(e):"",o=!0;for(let c=0;c<re;c++)if(r=s?`${s}-${P$()}`:F4t(),o=m(r).some((f)=>this.primedListing?.listing.has(f)===!0),!o)break;let l=!Le()&&!z5();this.slugMeta.set(t,{validatedDir:l||this.primedListing===null?null:this.primedListing.dir,consumed:!1,seed:e});let u=!o&&this.primedListing!==null&&this.primedListing.dir===F();if(this.primedListing!==null)for(let c of m(r))this.primedListing.listing.add(c);i.set(t,r),this.lastUnwatched.clear(),this.watchSlug(r,u)}return r}markPlanPathServed(t){let e=this.slugMeta.get(t);if(e)e.consumed=!0}exemptSlugFromRevalidation(t,e){if(this.slugMeta.delete(t),this.primedListing!==null)for(let i of m(e))this.primedListing.listing.add(i);this.watchSlug(e,!1)}clearAllPlanSlugs(){K5().clear(),this.slugMeta.clear(),this.unwatchAllPlanFiles()}noteWorkshopDocSnapshotted(t,e){this.lastSnapshottedWorkshopDoc={sessionId:t,doc:e}}reset(){this.primedListing=null,this.slugMeta.clear(),this.unwatchAllPlanFiles(),this.lastUnwatched.clear(),this.earlyObserved.clear(),this.primeInFlight=null,this.waitCapMs=E,this.stopReleasingOnSwitch?.(),this.stopReleasingOnSwitch=null,this.planFileBackend=null,this.planFileCache=null,this.lastSnapshottedWorkshopDoc=null,this.snapshotChain=Promise.resolve()}}var V_r=new J(()=>new uQn);function L(){return G().host}function Hf(){return V_r.of(L())}function cV(t,e){Hf().notePlanFileWritten(t,e)}function Dp(t){Hf().notePlanFileForgotten(t)}function CKe(){Hf().resetPlanFileCacheToUnknown()}async function oe(t){let e=[];try{let i=await Ao((r)=>t.listEntries({namespace:"plan"},{cursor:r,skipKeyStats:!0}),(r)=>{for(let s of r)if(s.kind==="key"&&s.key.namespace==="plan")e.push(`${s.key.name}.md`)});switch(i.status){case"done":return e;case"error":return n(`primePlanSlugCollisions: v5 list failed: ${i.error.code}`),null;case"capped":return n(`primePlanSlugCollisions: v5 list exceeded ${ec} pages; leaving the listing unprimed`),null}}catch(i){return n(`primePlanSlugCollisions: v5 list threw: ${i}`),null}}async function ae(t,e){let i=await oe(t);if(e!==C())return;if(i!==null)Hf().activatePlanFileCache(t),Hf().commitPlanListing(e,i)}async function x(t,e){let i=gr(),r=!1;return await Promise.race([t.catch(()=>{}).finally(()=>{r=!0,i.abort()}),ne(e,i.signal)]),r}async function Khn(){let t=Hf();if(t.primeInFlight!==null)await x(t.primeInFlight,t.waitCapMs)}async function ah(t){let e=C();if(t&&e===F()){let i=Hf(),r=ae(t,e);i.primeInFlight=r;try{await r}finally{if(i.primeInFlight===r)i.primeInFlight=null}return}try{let i=await ie(e);if(e!==C())return;Hf().commitPlanListing(e,i)}catch(i){if(!X(i)&&!Ht(i))h(i);if(e!==C())return;if(X(i))Hf().commitPlanListing(e,[])}}function C(){if(!Le()&&!z5())return F();return va()}function F(){return d(be(),"plans")}function p(t){return Te.plan(t)}function v(t){return t.endsWith(".md")?t.slice(0,-3):t}var y={publishDiscipline:"inPlace"};async function T(t){try{let e=await te(d(va(),`${t}.md`));return{...y,mode:e.mode&511}}catch{return y}}function g(){return va()===F()}function m(t){return[`${t}.md`,`${t}.workshop.md`]}function UM(t,e){return Hf().getPlanSlug(t??K(),e)}function uV(t){return K5().get(t??K())}function _Wt(t,e){K5().set(t,e),Hf().exemptSlugFromRevalidation(t,e)}function Xhn(){Hf().clearAllPlanSlugs()}class dQn{#e=void 0;directory(){return this.#e??=this.#n(),this.#e}#n(){let e=Je().plansDirectory;if(e){let i=ee(),r=_(i,e);if(ce(r,i))return r;n(`plansDirectory must be within project root: ${e}`,{level:"error"})}return F()}reset(){this.#e=void 0}}var pQn=new J(()=>new dQn),va=Object.assign(function(){return pQn.of(L()).directory()},{cache:{clear(){pQn.of(L()).reset()}}});function ce(t,e){if(t!==e&&!t.startsWith(e+B))return!1;if(Kg(le(),t)!==void 0)return!1;let i=bS(e);if(i===null)return!1;let r=t;for(;;){let s=bS(r);if(s!==null)return s===i||s.startsWith(i+B);let o=W(r);if(o===r)return!1;r=o}}async function ude(t){let e=va();try{await an().mkdir(e)}catch(i){n(`Failed to create plans directory ${e}: ${i}`,{level:"error"})}return e}async function dde(t,e){if(e&&g()){let r=`${F4t()}-ultraplan`,s=d(await ude(e),`${r}.md`),o=await e.write(p(r),t,y);if(!o.ok)throw new R(`saveRejectedUltraplan: v5 write failed: ${o.error.code}`,"saveRejectedUltraplan: v5 write failed");return s}let i=d(await ude(),`${F4t()}-ultraplan.md`);return await an().write(i,t),i}async function Yhn(t,e,i){try{await ude(i);let r=P(t,".md"),s=i!==void 0&&g()&&W(t)===va()&&Kn(p(r))===void 0?p(r):void 0;if(i!==void 0&&s!==void 0){let o=await i.write(s,e,y);if(!o.ok){U(t,o.error.code);return}}else await an().write(t,e);cV(t,e)}catch(r){U(t,r instanceof Error?r.message:String(r))}}function U(t,e){Dp(t),n(`Failed to persist plan to ${t}: ${e}`,{level:"error"})}function Bh(t){let e=K(),i=UM(e);if(Hf().markPlanPathServed(e),!t)return d(va(),`${i}.md`);return d(va(),`${i}-agent-${t}.md`)}function Bne(){let t=UM(K());return d(va(),`${t}.workshop.md`)}async function M(t,e,i){let r=await t.read([p(e)]);if(!r.ok)return n(`${i}: v5 read failed: ${r.error.code}`),null;let s=r.value.items[0];return s.found?Buffer.from(s.value).toString("utf-8"):null}async function Jhn(t){if(t&&g())return M(t,`${UM(K())}.workshop`,"getPlanWorkshopDoc");let e=Bne();try{return await le().readFile(e,{encoding:"utf-8"})}catch(i){if(X(i))return null;if(Ht(i))return n(`getPlanWorkshopDoc: read failed for ${e}: ${i}`),null;return h(i),null}}function myt(){let t=Hf().planFileCache;if(t!==null&&g()){let e=t.get(`${UM(K())}.workshop.md`);if(e!==void 0)return e!==null}try{return le().existsSync(Bne())}catch{return!1}}async function Qhn(t){if(t===void 0||!g())return myt();let e=`${UM(K())}.workshop`;await Hf().settlePlanFile(`${e}.md`);let i=Hf().planFileCache?.get(`${e}.md`);if(i!==void 0)return i!==null;return(await t.statMeta(p(e))).ok}function BM(t){let e=Bh(t),i=Hf().planFileCache;if(i!==null&&g()){if(t)Hf().watchAgentPlanFile(UM(K()),P(e));let r=i.get(P(e));if(r!==void 0)return r}return fQn(e)}async function YTe(t,e){if(e===void 0||!g())return BM(t);let i=N(t);await Hf().settlePlanFile(i);let r=Hf().planFileCache?.get(i);if(r!==void 0)return r;return M(e,v(i),"getPlan")}function N(t){let e=P(Bh(t)),i=Hf();if(t&&i.planFileCache!==null)i.watchAgentPlanFile(UM(K()),e);return e}async function Zhn(t,e){if(e===void 0||!g())return BM(t)!==null;let i=N(t);await Hf().settlePlanFile(i);let r=Hf().planFileCache?.get(i);if(r!==void 0)return r!==null;return(await e.statMeta(p(v(i)))).ok}async function e_n(t){let e=Bh();if(O()&&t!==void 0&&g()){let i=P(e),r=Hf(),s=r.planFileWatches.get(i);if(s!==void 0){if(!await x(r.refreshPlanFile(i,s),r.waitCapMs))r.giveUpWaiting(i,s);let o=r.planFileCache?.get(i);if(o!==void 0)return o}return M(t,v(i),"readPlanFileFresh")}return fQn(e)}function fQn(t){try{return le().readFileSync(t,{encoding:"utf-8"})}catch(e){if(X(e))return null;if(Ht(e))return n(`getPlan: read failed for ${t}: ${e}`),null;return h(e),null}}var ue=/^[a-z0-9][a-z0-9-]{0,119}$/;function j(t){let e=t.messages.find((i)=>i.slug)?.slug;if(e===void 0)return;if(!ue.test(e)){n(`getSlugFromLog: rejecting malformed transcript slug (${e.length} chars)`);return}return e}async function H(t,e,i){if(AKe()===null)return;if(i&&g())return fe(i,t,e).catch(h);let r=d(va(),`${e}.workshop.md`);try{await an().read(r);return}catch(o){if(!X(o)){if(Ht(o))n(`recoverWorkshopDocForResume: read failed for ${r}: ${o}`);else h(o);return}}let s=A(t.messages,"workshop");if(!s||s.content.length===0||s.content.length>vKe)return;try{await ude(),await an().write(r,s.content),n(`Workshop doc recovered from file snapshot, ${s.content.length} chars`,{level:"info"})}catch(o){if(Ht(o)){n(`Workshop doc recovery write failed for ${r}: ${o}`);return}h(o)}finally{Dp(r)}}async function fe(t,e,i){let r=`${i}.workshop.md`,s=p(`${i}.workshop`),o=Hf().observePlanFile(r),l=await t.read([s]);if(!l.ok){n(`recoverWorkshopDocForResume: v5 read failed for ${i}: ${l.error.code}`);return}let u=l.value.items[0];if(Hf().notePlanFileObserved(r,u?.found?Buffer.from(u.value).toString("utf-8"):null,o),u?.found)return;let c=A(e.messages,"workshop");if(!c||c.content.length===0||c.content.length>vKe)return;let f=d(va(),r),w=!1;try{await ude(t);let k=await t.write(s,c.content,y);if(!k.ok){n(`Workshop doc recovery write failed for ${i}: ${k.error.code}`);return}w=!0,n(`Workshop doc recovered from file snapshot, ${c.content.length} chars`,{level:"info"})}finally{if(w)cV(f,c.content);else Dp(f)}}async function OLe(t,e,i){let r=j(t);if(!r)return!1;let s=e??K();if(_Wt(s,r),i&&g())return pe(i,t,r).catch((l)=>(h(l),!1));let o=d(va(),`${r}.md`);await H(t,r).catch(h);try{return await an().read(o),!0}catch(l){if(!X(l)){if(Ht(l))return n(`copyPlanForResume: read failed for ${o}: ${l}`),!1;return h(l),!1}if(AKe()===null)return!1;n(`Plan file missing during resume: ${o}. Attempting recovery.`);let u=A(t.messages,"plan"),c=null;if(u&&S(u.content))c=u.content,n(`Plan recovered from file snapshot, ${c.length} chars`,{level:"info"});else if(c=z(t),c)n(`Plan recovered from message history, ${c.length} chars`,{level:"info"});if(c)try{return await ude(),await an().write(o,c),!0}catch(f){if(Ht(f))return n(`Plan recovery write failed for ${o}: ${f}`),!1;return h(f),!1}finally{Dp(o)}return n("Plan file recovery failed: no file snapshot or plan content found in message history"),!1}}async function de(t,e){let i=`${e}.workshop.md`,r=Hf();if(r.planFileWatches.has(i)){await r.settlePlanFile(i);return}if(r.planFileCache?.has(i))return;let s=r.observePlanFile(i),o=await t.read([p(`${e}.workshop`)]);if(!o.ok){n(`copyPlanForResume: v5 read failed for ${e}.workshop: ${o.error.code}`);return}let l=o.value.items[0];r.notePlanFileObserved(i,l?.found?Buffer.from(l.value).toString("utf-8"):null,s)}async function pe(t,e,i){await H(e,i,t).catch(h);let r=`${i}.md`,s=Hf().observePlanFile(r),o=await t.read([p(i)]);if(!o.ok)return n(`copyPlanForResume: v5 read failed for ${i}: ${o.error.code}`),!1;let l=o.value.items[0];if(Hf().notePlanFileObserved(r,l?.found?Buffer.from(l.value).toString("utf-8"):null,s),await de(t,i),l?.found)return!0;if(AKe()===null)return!1;n(`Plan file missing during resume: ${i}. Attempting recovery.`);let u=A(e.messages,"plan"),c=null;if(u&&S(u.content))c=u.content,n(`Plan recovered from file snapshot, ${c.length} chars`,{level:"info"});else if(c=z(e),c)n(`Plan recovered from message history, ${c.length} chars`,{level:"info"});if(c){let f=d(va(),r),w=!1;try{await ude(t);let k=await t.write(p(i),c,y);if(!k.ok)return n(`Plan recovery write failed for ${i}: ${k.error.code}`),!1;return w=!0,!0}finally{if(w)cV(f,c);else Dp(f)}}return n("Plan file recovery failed: no file snapshot or plan content found in message history"),!1}async function t_n(t,e,i){let r=j(t);if(!r)return!1;let s=va(),o=d(s,`${r}.md`),l=UM(e),u=d(s,`${l}.md`);if(Hf().exemptSlugFromRevalidation(e,l),i&&g())return he(i,r,l).catch((c)=>(h(c),!1));await ude();try{await an().copy(d(s,`${r}.workshop.md`),d(s,`${l}.workshop.md`))}catch(c){if(!X(c))if(Ht(c))n(`copyPlanForFork: workshop sibling copy failed: ${c}`);else h(c)}finally{Dp(d(s,`${l}.workshop.md`))}try{return await an().copy(o,u),!0}catch(c){if(X(c))return!1;if(Ht(c))return n(`copyPlanForFork: copy failed for ${o}: ${c}`),!1;return h(c),!1}finally{Dp(u)}}async function he(t,e,i){let r=d(va(),`${i}.workshop.md`),s;try{await ude(t);let u=await t.read([p(`${e}.workshop`)]);if(!u.ok)n(`copyPlanForFork: v5 workshop sibling read failed: ${u.error.code}`);else if(u.value.items[0].found){let c=u.value.items[0].value,f=await t.write(p(`${i}.workshop`),c,await T(`${e}.workshop`));if(!f.ok)n(`copyPlanForFork: v5 workshop sibling copy failed: ${f.error.code}`);else s=Buffer.from(c).toString("utf-8")}}finally{if(s!==void 0)cV(r,s);else Dp(r)}let o=d(va(),`${i}.md`),l;try{let u=await t.read([p(e)]);if(!u.ok)return n(`copyPlanForFork: v5 read failed for ${e}: ${u.error.code}`),!1;if(!u.value.items[0].found)return!1;let c=u.value.items[0].value,f=await t.write(p(i),c,await T(e));if(!f.ok)return n(`copyPlanForFork: v5 write failed for ${i}: ${f.error.code}`),!1;return l=Buffer.from(c).toString("utf-8"),!0}finally{if(l!==void 0)cV(o,l);else Dp(o)}}function z(t){for(let e=t.messages.length-1;e>=0;e--){let i=t.messages[e];if(typeof i!=="object"||i===null)continue;if(i.type==="assistant"){let r=i.message?.content;if(Array.isArray(r)){for(let s of r)if(typeof s==="object"&&s!==null&&s.type==="tool_use"&&s.name===Su){let o=s.input,l=typeof o==="object"&&o!==null?o.plan:void 0;if(S(l))return l}}}if(i.type==="user"){let r=i;if(S(r.planContent))return r.planContent}if(i.type==="attachment"){let r=i;if(r.attachment?.type==="plan_file_reference"){let s=r.attachment.planContent;if(S(s))return s}}}return null}function A(t,e){for(let i=t.length-1;i>=0;i--){let r=t[i];if(r?.type==="system"&&"subtype"in r&&r.subtype==="file_snapshot"&&"snapshotFiles"in r){let s=r.snapshotFiles;if(!Array.isArray(s))continue;let o=s.find((l)=>typeof l==="object"&&l!==null&&l.key===e&&typeof l.path==="string"&&typeof l.content==="string");if(o!==void 0)return o}}return}var vKe=2000000,yWt=vKe;function S(t){return typeof t==="string"&&t.length>0&&t.length<=yWt}
-export{hWt,EKe,z_r,Une,cde,AKe,XTe,cQn,uQn,V_r,Hf,cV,Dp,CKe,Khn,ah,UM,uV,_Wt,Xhn,dQn,pQn,va,ude,dde,Yhn,Bh,Bne,Jhn,myt,Qhn,BM,YTe,Zhn,e_n,fQn,OLe,t_n,vKe,yWt};
+import { ne } from "/$bunfs/root/chunk-tx16jn0x.js";
+import { be } from "/$bunfs/root/chunk-gcks6mn0.js";
+import { a } from "/$bunfs/root/chunk-fec4384a.js";
+import { J, G, K, au, Le, z5, K5 } from "/$bunfs/root/chunk-f9h0bg01.js";
+import { R, X, Ht } from "/$bunfs/root/chunk-ypdw393e.js";
+import { Ge, tQe, Kg, le, n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { h } from "/$bunfs/root/chunk-wkxx62a2.js";
+import { an } from "/$bunfs/root/chunk-c47snwm2.js";
+import { Te } from "/$bunfs/root/chunk-jpf4kat5.js";
+import { Kn } from "/$bunfs/root/chunk-hyh5wcm1.js";
+import { gr } from "/$bunfs/root/chunk-dck778n3.js";
+import { ee } from "/$bunfs/root/chunk-4fwj3vnx.js";
+import { Je } from "/$bunfs/root/chunk-988p40e0.js";
+import { F4t, yNe, P$ } from "/$bunfs/root/chunk-a48rnvhj.js";
+import { Su } from "/$bunfs/root/chunk-h6vcz0m0.js";
+import { ec, Ao } from "/$bunfs/root/chunk-czmxr2ps.js";
+import { bS } from "/$bunfs/root/chunk-56sxk8k2.js";
+import { O } from "/$bunfs/root/chunk-dqkj2bph.js";
+import { posix as q } from "path";
+var { dirname: Q, isAbsolute: Y, join: Z, normalize: V } = q,
+  hWt = "/mnt/user-data/uploads",
+  EKe = ".stage-tmp.";
+function z_r(t) {
+  if (!t) return hWt;
+  if (!Y(t)) throw Error("CLAUDE_STAGE_FILE_ROOT must be an absolute path");
+  return V(t);
+}
+function Une() {
+  return z_r(a.CLAUDE_STAGE_FILE_ROOT);
+}
+function cde() {
+  return Z(Q(Une()), "outputs");
+}
+import { lstat as te, readdir as ie } from "fs/promises";
+import { basename as P, dirname as W, join as d, resolve as _, sep as B } from "path";
+import * as b from "fs/promises";
+import * as D from "path";
+function I(t) {
+  n(`[file-persistence] ${t}`);
+}
+function AKe() {
+  let t = a.CLAUDE_CODE_ENVIRONMENT_KIND;
+  if (t === "byoc" || t === "anthropic_cloud") return t;
+  return null;
+}
+function XTe(t, e) {
+  return Boolean(t) && (!e || e === "anthropic_cloud");
+}
+async function cQn(t, e) {
+  let i;
+  try {
+    i = await b.readdir(e, { withFileTypes: !0, recursive: !0 });
+  } catch {
+    return [];
+  }
+  let r = [];
+  for (let u of i) {
+    if (u.isSymbolicLink() || u.name.startsWith(EKe)) continue;
+    if (u.isFile()) r.push(D.join(u.parentPath, u.name));
+  }
+  if (r.length === 0) return I("No files found in outputs directory"), [];
+  let s = 0,
+    o = await Promise.all(
+      r.map(async (u) => {
+        try {
+          let c = await b.lstat(u);
+          if (c.isSymbolicLink()) return null;
+          if (c.nlink > 1) return s++, null;
+          return { filePath: u, mtimeMs: c.mtimeMs, ctimeMs: c.ctimeMs };
+        } catch {
+          return null;
+        }
+      }),
+    ),
+    l = [];
+  for (let u of o) if (u && (u.mtimeMs >= t || u.ctimeMs >= t)) l.push(u.filePath);
+  return (
+    I(
+      `Found ${l.length} modified files since turn start (scanned ${r.length} total${s > 0 ? `, skipped ${s} multiply-linked` : ""})`,
+    ),
+    l
+  );
+}
+var re = 10,
+  E = 2000,
+  se = 8;
+class uQn {
+  primedListing = null;
+  slugMeta = new Map();
+  planFileCache = null;
+  planFileBackend = null;
+  planFileWatches = new Map();
+  primeInFlight = null;
+  waitCapMs = E;
+  stopReleasingOnSwitch = null;
+  lastUnwatched = new Map();
+  earlyObserved = new Map();
+  earlyGeneration = 0;
+  lastSnapshottedWorkshopDoc = null;
+  snapshotChain = Promise.resolve();
+  planFileCacheKeyFor(t) {
+    if (this.planFileCache === null) return null;
+    let e = _(t);
+    if (W(e) !== F()) return null;
+    return P(e);
+  }
+  notePlanFileWritten(t, e) {
+    if (this.planFileCache === null) {
+      this.noteEarly(t, e);
+      return;
+    }
+    let i = this.planFileCacheKeyFor(t);
+    if (i !== null) {
+      let r = this.planFileWatches.get(i);
+      if (r !== void 0) r.generation++;
+      if ((this.planFileCache.set(i, e), this.primedListing !== null && this.primedListing.dir === F()))
+        this.primedListing.listing.add(i);
+    }
+  }
+  notePlanFileForgotten(t) {
+    if (this.planFileCache === null) {
+      this.noteEarly(t, void 0);
+      return;
+    }
+    let e = this.planFileCacheKeyFor(t);
+    if (e !== null) {
+      let i = this.planFileWatches.get(e);
+      if (i !== void 0) {
+        this.dropToUnknown(e, i), this.refreshPlanFile(e, i);
+        return;
+      }
+      this.planFileCache.delete(e);
+    }
+  }
+  resetPlanFileCacheToUnknown() {
+    if (this.planFileCache === null) return;
+    for (let t of [...this.planFileCache.keys()]) {
+      let e = this.planFileWatches.get(t);
+      if (e !== void 0) this.dropToUnknown(t, e), this.refreshPlanFile(t, e);
+      else this.planFileCache.delete(t);
+    }
+  }
+  activatePlanFileCache(t) {
+    if (((this.planFileCache ??= new Map()), O() && t !== void 0 && this.planFileBackend === null)) {
+      (this.planFileBackend = t), (this.stopReleasingOnSwitch = au(() => this.releaseStaleWatches()));
+      for (let e of new Set(K5().values())) this.watchSlug(e, !1);
+      this.earlyObserved.clear();
+    }
+  }
+  noteEarly(t, e) {
+    if (!O()) return;
+    let i = _(t);
+    if (W(i) !== F()) return;
+    if ((this.earlyGeneration++, e === void 0)) this.earlyObserved.delete(P(i));
+    else this.earlyObserved.set(P(i), e);
+  }
+  watchSlug(t, e) {
+    this.releaseStaleWatches();
+    for (let i of m(t)) this.watchPlanFile(t, i, e);
+    this.lastUnwatched.clear();
+  }
+  releaseStaleWatches() {
+    if (this.planFileWatches.size === 0) return;
+    let t = new Set(K5().values());
+    for (let [e, i] of this.planFileWatches) if (!t.has(i.slug)) this.stopWatch(e, i);
+  }
+  watchPlanFile(t, e, i) {
+    let r = this.planFileBackend;
+    if (r === null || this.planFileCache === null || this.planFileWatches.has(e) || !g() || Kn(p(v(e))) !== void 0)
+      return;
+    let s = {
+      slug: t,
+      generation: 0,
+      seededAbsent: !1,
+      subscription: void 0,
+      refreshing: void 0,
+      refreshAgain: !1,
+      resubscribed: !1,
+      stopped: !1,
+    };
+    this.planFileWatches.set(e, s);
+    let o = this.earlyObserved.has(e) ? this.earlyObserved.get(e) : this.lastUnwatched.get(e);
+    if ((this.earlyObserved.delete(e), this.lastUnwatched.delete(e), o !== void 0)) this.planFileCache.set(e, o);
+    else if (i && !this.planFileCache.has(e)) this.planFileCache.set(e, null), (s.seededAbsent = !0);
+    this.subscribePlanFile(r, e, s);
+  }
+  observePlanFile(t) {
+    let e = this.planFileWatches.get(t);
+    return { watch: e, generation: e?.generation ?? this.earlyGeneration };
+  }
+  notePlanFileObserved(t, e, i) {
+    let r = this.planFileWatches.get(t);
+    if (r !== void 0)
+      if (i.watch === r && r.generation === i.generation) this.installPlanFile(t, r, e);
+      else this.refreshPlanFile(t, r);
+    else if (this.planFileBackend === null && O() && i.watch === void 0 && this.earlyGeneration === i.generation)
+      this.earlyObserved.set(t, e);
+  }
+  watchAgentPlanFile(t, e) {
+    if (this.planFileBackend === null) return;
+    let i = this.planFileWatches.get(e);
+    if (i !== void 0) {
+      this.planFileWatches.delete(e), this.planFileWatches.set(e, i);
+      return;
+    }
+    let r = new Set(m(t)),
+      s = [...this.planFileWatches].filter(([o, l]) => l.slug === t && !r.has(o));
+    for (let [o, l] of s.slice(0, Math.max(0, s.length - se + 1))) {
+      let u = this.planFileCache?.get(o);
+      if ((this.stopWatch(o, l), typeof u === "string")) this.planFileCache?.set(o, u);
+    }
+    this.watchPlanFile(t, e, !1);
+  }
+  async subscribePlanFile(t, e, i) {
+    let r = i.generation,
+      s;
+    try {
+      let o = await t.subscribe({ target: "key", key: p(v(e)) }, (l) => this.onPlanFileEvent(e, i, r, l), {
+        maxObservationLagMs: E,
+      });
+      if (o.ok) {
+        if (i.stopped) o.value.unsubscribe();
+        else
+          (i.subscription = o.value),
+            n(
+              `plans: watching ${e} through the storage interface (changes trail by at most ${o.value.observationLagMs} ms)`,
+            );
+        return;
+      }
+      s = Ge(o.error);
+    } catch (o) {
+      s = String(o);
+    }
+    if (i.stopped) return;
+    if (
+      (n(
+        `plans: watching ${e} through the storage interface failed (${s}); serving its last read and in-process writes`,
+      ),
+      this.planFileCache?.has(e) !== !0)
+    )
+      this.refreshPlanFile(e, i);
+  }
+  onPlanFileEvent(t, e, i, r) {
+    if (e.stopped) return;
+    if (!r.ok) {
+      if (r.error.code === "Unavailable") {
+        queueMicrotask(() => void this.refreshPlanFile(t, e));
+        return;
+      }
+      if (((e.subscription = void 0), tQe())) return;
+      n(`plans: the watch on ${t} ended: ${Ge(r.error)}`);
+      let o = this.planFileBackend;
+      if (o !== null && !e.resubscribed) (e.resubscribed = !0), this.subscribePlanFile(o, t, e);
+      else this.stopWatch(t, e);
+      return;
+    }
+    let s = r.value;
+    if (s.kind === "snapshot" && e.generation === i) {
+      if (!("absent" in s)) {
+        this.installPlanFile(t, e, Buffer.from(s.value).toString("utf-8"));
+        return;
+      }
+      if (e.seededAbsent && e.generation === 0) {
+        this.installPlanFile(t, e, null);
+        return;
+      }
+    }
+    queueMicrotask(() => void this.refreshPlanFile(t, e));
+  }
+  installPlanFile(t, e, i) {
+    e.generation++, this.planFileCache?.set(t, i);
+  }
+  refreshPlanFile(t, e) {
+    if (e.refreshing !== void 0) return (e.refreshAgain = !0), e.refreshing;
+    let i = this.planFileBackend;
+    if (i === null) return Promise.resolve();
+    let r = async () => {
+      await Promise.resolve();
+      try {
+        do {
+          e.refreshAgain = !1;
+          let s = e.generation,
+            o = await this.readPlanFileForWatch(i, t);
+          if (e.stopped) return;
+          if (o === void 0) {
+            if (e.generation === s) e.generation++, this.planFileCache?.delete(t);
+            continue;
+          }
+          if (e.generation === s) this.installPlanFile(t, e, o);
+          else e.refreshAgain = !0;
+        } while (e.refreshAgain && !e.stopped);
+      } finally {
+        e.refreshing = void 0;
+      }
+    };
+    return (e.refreshing = r()), e.refreshing;
+  }
+  async readPlanFileForWatch(t, e) {
+    try {
+      let i = await t.read([p(v(e))]);
+      if (i.ok) {
+        let r = i.value.items[0];
+        return r?.found ? Buffer.from(r.value).toString("utf-8") : null;
+      }
+      n(`plans: v5 read of ${e} failed: ${i.error.code}`);
+    } catch (i) {
+      n(`plans: v5 read of ${e} threw: ${i}`);
+    }
+    return;
+  }
+  async settlePlanFile(t) {
+    let e = this.planFileWatches.get(t);
+    if (e === void 0) return;
+    let i = e.refreshing ?? (this.planFileCache?.has(t) !== !0 ? this.refreshPlanFile(t, e) : void 0);
+    if (i !== void 0 && !(await x(i, this.waitCapMs))) this.giveUpWaiting(t, e);
+  }
+  dropToUnknown(t, e) {
+    if (e.stopped) return;
+    e.generation++, this.planFileCache?.delete(t);
+  }
+  giveUpWaiting(t, e) {
+    if (this.planFileCache?.has(t)) this.dropToUnknown(t, e);
+  }
+  unwatchSlug(t) {
+    for (let [e, i] of this.planFileWatches) if (i.slug === t) this.stopWatch(e, i);
+  }
+  unwatchAllPlanFiles() {
+    this.lastUnwatched.clear();
+    for (let [t, e] of this.planFileWatches) {
+      let i = this.planFileCache?.get(t);
+      if (i !== void 0) this.lastUnwatched.set(t, i);
+      this.stopWatch(t, e);
+    }
+  }
+  stopWatch(t, e) {
+    (e.stopped = !0),
+      e.subscription?.unsubscribe(),
+      (e.subscription = void 0),
+      this.planFileWatches.delete(t),
+      this.planFileCache?.delete(t);
+  }
+  commitPlanListing(t, e) {
+    let i = new Set(e);
+    this.primedListing = { dir: t, listing: i };
+    let r = K5(),
+      s = [...this.slugMeta].filter(([, l]) => l.validatedDir !== t),
+      o = new Set(s.map(([l]) => l));
+    for (let [l, u] of r) if (!o.has(l)) for (let c of m(u)) i.add(c);
+    for (let [l, u] of s) {
+      let c = r.get(l);
+      if (c === void 0) {
+        this.slugMeta.delete(l);
+        continue;
+      }
+      if (m(c).some((f) => i.has(f))) {
+        if (u.consumed) {
+          n(
+            `Plan slug collision for '${c}' in ${t} detected after the plan path was already in use \u2014 keeping the slug (the pre-existing plan file may be overwritten).`,
+            { level: "warn" },
+          ),
+            (u.validatedDir = t);
+          continue;
+        }
+        if ((r.delete(l), this.slugMeta.delete(l), ![...r.values()].includes(c))) this.unwatchSlug(c);
+        this.getPlanSlug(l, u.seed);
+      } else {
+        for (let f of m(c)) i.add(f);
+        u.validatedDir = t;
+      }
+    }
+  }
+  getPlanSlug(t, e) {
+    let i = K5(),
+      r = i.get(t);
+    if (!r) {
+      let s = e ? yNe(e) : "",
+        o = !0;
+      for (let c = 0; c < re; c++)
+        if (((r = s ? `${s}-${P$()}` : F4t()), (o = m(r).some((f) => this.primedListing?.listing.has(f) === !0)), !o))
+          break;
+      let l = !Le() && !z5();
+      this.slugMeta.set(t, {
+        validatedDir: l || this.primedListing === null ? null : this.primedListing.dir,
+        consumed: !1,
+        seed: e,
+      });
+      let u = !o && this.primedListing !== null && this.primedListing.dir === F();
+      if (this.primedListing !== null) for (let c of m(r)) this.primedListing.listing.add(c);
+      i.set(t, r), this.lastUnwatched.clear(), this.watchSlug(r, u);
+    }
+    return r;
+  }
+  markPlanPathServed(t) {
+    let e = this.slugMeta.get(t);
+    if (e) e.consumed = !0;
+  }
+  exemptSlugFromRevalidation(t, e) {
+    if ((this.slugMeta.delete(t), this.primedListing !== null)) for (let i of m(e)) this.primedListing.listing.add(i);
+    this.watchSlug(e, !1);
+  }
+  clearAllPlanSlugs() {
+    K5().clear(), this.slugMeta.clear(), this.unwatchAllPlanFiles();
+  }
+  noteWorkshopDocSnapshotted(t, e) {
+    this.lastSnapshottedWorkshopDoc = { sessionId: t, doc: e };
+  }
+  reset() {
+    (this.primedListing = null),
+      this.slugMeta.clear(),
+      this.unwatchAllPlanFiles(),
+      this.lastUnwatched.clear(),
+      this.earlyObserved.clear(),
+      (this.primeInFlight = null),
+      (this.waitCapMs = E),
+      this.stopReleasingOnSwitch?.(),
+      (this.stopReleasingOnSwitch = null),
+      (this.planFileBackend = null),
+      (this.planFileCache = null),
+      (this.lastSnapshottedWorkshopDoc = null),
+      (this.snapshotChain = Promise.resolve());
+  }
+}
+var V_r = new J(() => new uQn());
+function L() {
+  return G().host;
+}
+function Hf() {
+  return V_r.of(L());
+}
+function cV(t, e) {
+  Hf().notePlanFileWritten(t, e);
+}
+function Dp(t) {
+  Hf().notePlanFileForgotten(t);
+}
+function CKe() {
+  Hf().resetPlanFileCacheToUnknown();
+}
+async function oe(t) {
+  let e = [];
+  try {
+    let i = await Ao(
+      (r) => t.listEntries({ namespace: "plan" }, { cursor: r, skipKeyStats: !0 }),
+      (r) => {
+        for (let s of r) if (s.kind === "key" && s.key.namespace === "plan") e.push(`${s.key.name}.md`);
+      },
+    );
+    switch (i.status) {
+      case "done":
+        return e;
+      case "error":
+        return n(`primePlanSlugCollisions: v5 list failed: ${i.error.code}`), null;
+      case "capped":
+        return n(`primePlanSlugCollisions: v5 list exceeded ${ec} pages; leaving the listing unprimed`), null;
+    }
+  } catch (i) {
+    return n(`primePlanSlugCollisions: v5 list threw: ${i}`), null;
+  }
+}
+async function ae(t, e) {
+  let i = await oe(t);
+  if (e !== C()) return;
+  if (i !== null) Hf().activatePlanFileCache(t), Hf().commitPlanListing(e, i);
+}
+async function x(t, e) {
+  let i = gr(),
+    r = !1;
+  return (
+    await Promise.race([
+      t
+        .catch(() => {})
+        .finally(() => {
+          (r = !0), i.abort();
+        }),
+      ne(e, i.signal),
+    ]),
+    r
+  );
+}
+async function Khn() {
+  let t = Hf();
+  if (t.primeInFlight !== null) await x(t.primeInFlight, t.waitCapMs);
+}
+async function ah(t) {
+  let e = C();
+  if (t && e === F()) {
+    let i = Hf(),
+      r = ae(t, e);
+    i.primeInFlight = r;
+    try {
+      await r;
+    } finally {
+      if (i.primeInFlight === r) i.primeInFlight = null;
+    }
+    return;
+  }
+  try {
+    let i = await ie(e);
+    if (e !== C()) return;
+    Hf().commitPlanListing(e, i);
+  } catch (i) {
+    if (!X(i) && !Ht(i)) h(i);
+    if (e !== C()) return;
+    if (X(i)) Hf().commitPlanListing(e, []);
+  }
+}
+function C() {
+  if (!Le() && !z5()) return F();
+  return va();
+}
+function F() {
+  return d(be(), "plans");
+}
+function p(t) {
+  return Te.plan(t);
+}
+function v(t) {
+  return t.endsWith(".md") ? t.slice(0, -3) : t;
+}
+var y = { publishDiscipline: "inPlace" };
+async function T(t) {
+  try {
+    let e = await te(d(va(), `${t}.md`));
+    return { ...y, mode: e.mode & 511 };
+  } catch {
+    return y;
+  }
+}
+function g() {
+  return va() === F();
+}
+function m(t) {
+  return [`${t}.md`, `${t}.workshop.md`];
+}
+function UM(t, e) {
+  return Hf().getPlanSlug(t ?? K(), e);
+}
+function uV(t) {
+  return K5().get(t ?? K());
+}
+function _Wt(t, e) {
+  K5().set(t, e), Hf().exemptSlugFromRevalidation(t, e);
+}
+function Xhn() {
+  Hf().clearAllPlanSlugs();
+}
+class dQn {
+  #e = void 0;
+  directory() {
+    return (this.#e ??= this.#n()), this.#e;
+  }
+  #n() {
+    let e = Je().plansDirectory;
+    if (e) {
+      let i = ee(),
+        r = _(i, e);
+      if (ce(r, i)) return r;
+      n(`plansDirectory must be within project root: ${e}`, { level: "error" });
+    }
+    return F();
+  }
+  reset() {
+    this.#e = void 0;
+  }
+}
+var pQn = new J(() => new dQn()),
+  va = Object.assign(
+    function () {
+      return pQn.of(L()).directory();
+    },
+    {
+      cache: {
+        clear() {
+          pQn.of(L()).reset();
+        },
+      },
+    },
+  );
+function ce(t, e) {
+  if (t !== e && !t.startsWith(e + B)) return !1;
+  if (Kg(le(), t) !== void 0) return !1;
+  let i = bS(e);
+  if (i === null) return !1;
+  let r = t;
+  for (;;) {
+    let s = bS(r);
+    if (s !== null) return s === i || s.startsWith(i + B);
+    let o = W(r);
+    if (o === r) return !1;
+    r = o;
+  }
+}
+async function ude(t) {
+  let e = va();
+  try {
+    await an().mkdir(e);
+  } catch (i) {
+    n(`Failed to create plans directory ${e}: ${i}`, { level: "error" });
+  }
+  return e;
+}
+async function dde(t, e) {
+  if (e && g()) {
+    let r = `${F4t()}-ultraplan`,
+      s = d(await ude(e), `${r}.md`),
+      o = await e.write(p(r), t, y);
+    if (!o.ok)
+      throw new R(`saveRejectedUltraplan: v5 write failed: ${o.error.code}`, "saveRejectedUltraplan: v5 write failed");
+    return s;
+  }
+  let i = d(await ude(), `${F4t()}-ultraplan.md`);
+  return await an().write(i, t), i;
+}
+async function Yhn(t, e, i) {
+  try {
+    await ude(i);
+    let r = P(t, ".md"),
+      s = i !== void 0 && g() && W(t) === va() && Kn(p(r)) === void 0 ? p(r) : void 0;
+    if (i !== void 0 && s !== void 0) {
+      let o = await i.write(s, e, y);
+      if (!o.ok) {
+        U(t, o.error.code);
+        return;
+      }
+    } else await an().write(t, e);
+    cV(t, e);
+  } catch (r) {
+    U(t, r instanceof Error ? r.message : String(r));
+  }
+}
+function U(t, e) {
+  Dp(t), n(`Failed to persist plan to ${t}: ${e}`, { level: "error" });
+}
+function Bh(t) {
+  let e = K(),
+    i = UM(e);
+  if ((Hf().markPlanPathServed(e), !t)) return d(va(), `${i}.md`);
+  return d(va(), `${i}-agent-${t}.md`);
+}
+function Bne() {
+  let t = UM(K());
+  return d(va(), `${t}.workshop.md`);
+}
+async function M(t, e, i) {
+  let r = await t.read([p(e)]);
+  if (!r.ok) return n(`${i}: v5 read failed: ${r.error.code}`), null;
+  let s = r.value.items[0];
+  return s.found ? Buffer.from(s.value).toString("utf-8") : null;
+}
+async function Jhn(t) {
+  if (t && g()) return M(t, `${UM(K())}.workshop`, "getPlanWorkshopDoc");
+  let e = Bne();
+  try {
+    return await le().readFile(e, { encoding: "utf-8" });
+  } catch (i) {
+    if (X(i)) return null;
+    if (Ht(i)) return n(`getPlanWorkshopDoc: read failed for ${e}: ${i}`), null;
+    return h(i), null;
+  }
+}
+function myt() {
+  let t = Hf().planFileCache;
+  if (t !== null && g()) {
+    let e = t.get(`${UM(K())}.workshop.md`);
+    if (e !== void 0) return e !== null;
+  }
+  try {
+    return le().existsSync(Bne());
+  } catch {
+    return !1;
+  }
+}
+async function Qhn(t) {
+  if (t === void 0 || !g()) return myt();
+  let e = `${UM(K())}.workshop`;
+  await Hf().settlePlanFile(`${e}.md`);
+  let i = Hf().planFileCache?.get(`${e}.md`);
+  if (i !== void 0) return i !== null;
+  return (await t.statMeta(p(e))).ok;
+}
+function BM(t) {
+  let e = Bh(t),
+    i = Hf().planFileCache;
+  if (i !== null && g()) {
+    if (t) Hf().watchAgentPlanFile(UM(K()), P(e));
+    let r = i.get(P(e));
+    if (r !== void 0) return r;
+  }
+  return fQn(e);
+}
+async function YTe(t, e) {
+  if (e === void 0 || !g()) return BM(t);
+  let i = N(t);
+  await Hf().settlePlanFile(i);
+  let r = Hf().planFileCache?.get(i);
+  if (r !== void 0) return r;
+  return M(e, v(i), "getPlan");
+}
+function N(t) {
+  let e = P(Bh(t)),
+    i = Hf();
+  if (t && i.planFileCache !== null) i.watchAgentPlanFile(UM(K()), e);
+  return e;
+}
+async function Zhn(t, e) {
+  if (e === void 0 || !g()) return BM(t) !== null;
+  let i = N(t);
+  await Hf().settlePlanFile(i);
+  let r = Hf().planFileCache?.get(i);
+  if (r !== void 0) return r !== null;
+  return (await e.statMeta(p(v(i)))).ok;
+}
+async function e_n(t) {
+  let e = Bh();
+  if (O() && t !== void 0 && g()) {
+    let i = P(e),
+      r = Hf(),
+      s = r.planFileWatches.get(i);
+    if (s !== void 0) {
+      if (!(await x(r.refreshPlanFile(i, s), r.waitCapMs))) r.giveUpWaiting(i, s);
+      let o = r.planFileCache?.get(i);
+      if (o !== void 0) return o;
+    }
+    return M(t, v(i), "readPlanFileFresh");
+  }
+  return fQn(e);
+}
+function fQn(t) {
+  try {
+    return le().readFileSync(t, { encoding: "utf-8" });
+  } catch (e) {
+    if (X(e)) return null;
+    if (Ht(e)) return n(`getPlan: read failed for ${t}: ${e}`), null;
+    return h(e), null;
+  }
+}
+var ue = /^[a-z0-9][a-z0-9-]{0,119}$/;
+function j(t) {
+  let e = t.messages.find((i) => i.slug)?.slug;
+  if (e === void 0) return;
+  if (!ue.test(e)) {
+    n(`getSlugFromLog: rejecting malformed transcript slug (${e.length} chars)`);
+    return;
+  }
+  return e;
+}
+async function H(t, e, i) {
+  if (AKe() === null) return;
+  if (i && g()) return fe(i, t, e).catch(h);
+  let r = d(va(), `${e}.workshop.md`);
+  try {
+    await an().read(r);
+    return;
+  } catch (o) {
+    if (!X(o)) {
+      if (Ht(o)) n(`recoverWorkshopDocForResume: read failed for ${r}: ${o}`);
+      else h(o);
+      return;
+    }
+  }
+  let s = A(t.messages, "workshop");
+  if (!s || s.content.length === 0 || s.content.length > vKe) return;
+  try {
+    await ude(),
+      await an().write(r, s.content),
+      n(`Workshop doc recovered from file snapshot, ${s.content.length} chars`, { level: "info" });
+  } catch (o) {
+    if (Ht(o)) {
+      n(`Workshop doc recovery write failed for ${r}: ${o}`);
+      return;
+    }
+    h(o);
+  } finally {
+    Dp(r);
+  }
+}
+async function fe(t, e, i) {
+  let r = `${i}.workshop.md`,
+    s = p(`${i}.workshop`),
+    o = Hf().observePlanFile(r),
+    l = await t.read([s]);
+  if (!l.ok) {
+    n(`recoverWorkshopDocForResume: v5 read failed for ${i}: ${l.error.code}`);
+    return;
+  }
+  let u = l.value.items[0];
+  if ((Hf().notePlanFileObserved(r, u?.found ? Buffer.from(u.value).toString("utf-8") : null, o), u?.found)) return;
+  let c = A(e.messages, "workshop");
+  if (!c || c.content.length === 0 || c.content.length > vKe) return;
+  let f = d(va(), r),
+    w = !1;
+  try {
+    await ude(t);
+    let k = await t.write(s, c.content, y);
+    if (!k.ok) {
+      n(`Workshop doc recovery write failed for ${i}: ${k.error.code}`);
+      return;
+    }
+    (w = !0), n(`Workshop doc recovered from file snapshot, ${c.content.length} chars`, { level: "info" });
+  } finally {
+    if (w) cV(f, c.content);
+    else Dp(f);
+  }
+}
+async function OLe(t, e, i) {
+  let r = j(t);
+  if (!r) return !1;
+  let s = e ?? K();
+  if ((_Wt(s, r), i && g())) return pe(i, t, r).catch((l) => (h(l), !1));
+  let o = d(va(), `${r}.md`);
+  await H(t, r).catch(h);
+  try {
+    return await an().read(o), !0;
+  } catch (l) {
+    if (!X(l)) {
+      if (Ht(l)) return n(`copyPlanForResume: read failed for ${o}: ${l}`), !1;
+      return h(l), !1;
+    }
+    if (AKe() === null) return !1;
+    n(`Plan file missing during resume: ${o}. Attempting recovery.`);
+    let u = A(t.messages, "plan"),
+      c = null;
+    if (u && S(u.content))
+      (c = u.content), n(`Plan recovered from file snapshot, ${c.length} chars`, { level: "info" });
+    else if (((c = z(t)), c)) n(`Plan recovered from message history, ${c.length} chars`, { level: "info" });
+    if (c)
+      try {
+        return await ude(), await an().write(o, c), !0;
+      } catch (f) {
+        if (Ht(f)) return n(`Plan recovery write failed for ${o}: ${f}`), !1;
+        return h(f), !1;
+      } finally {
+        Dp(o);
+      }
+    return n("Plan file recovery failed: no file snapshot or plan content found in message history"), !1;
+  }
+}
+async function de(t, e) {
+  let i = `${e}.workshop.md`,
+    r = Hf();
+  if (r.planFileWatches.has(i)) {
+    await r.settlePlanFile(i);
+    return;
+  }
+  if (r.planFileCache?.has(i)) return;
+  let s = r.observePlanFile(i),
+    o = await t.read([p(`${e}.workshop`)]);
+  if (!o.ok) {
+    n(`copyPlanForResume: v5 read failed for ${e}.workshop: ${o.error.code}`);
+    return;
+  }
+  let l = o.value.items[0];
+  r.notePlanFileObserved(i, l?.found ? Buffer.from(l.value).toString("utf-8") : null, s);
+}
+async function pe(t, e, i) {
+  await H(e, i, t).catch(h);
+  let r = `${i}.md`,
+    s = Hf().observePlanFile(r),
+    o = await t.read([p(i)]);
+  if (!o.ok) return n(`copyPlanForResume: v5 read failed for ${i}: ${o.error.code}`), !1;
+  let l = o.value.items[0];
+  if (
+    (Hf().notePlanFileObserved(r, l?.found ? Buffer.from(l.value).toString("utf-8") : null, s),
+    await de(t, i),
+    l?.found)
+  )
+    return !0;
+  if (AKe() === null) return !1;
+  n(`Plan file missing during resume: ${i}. Attempting recovery.`);
+  let u = A(e.messages, "plan"),
+    c = null;
+  if (u && S(u.content)) (c = u.content), n(`Plan recovered from file snapshot, ${c.length} chars`, { level: "info" });
+  else if (((c = z(e)), c)) n(`Plan recovered from message history, ${c.length} chars`, { level: "info" });
+  if (c) {
+    let f = d(va(), r),
+      w = !1;
+    try {
+      await ude(t);
+      let k = await t.write(p(i), c, y);
+      if (!k.ok) return n(`Plan recovery write failed for ${i}: ${k.error.code}`), !1;
+      return (w = !0), !0;
+    } finally {
+      if (w) cV(f, c);
+      else Dp(f);
+    }
+  }
+  return n("Plan file recovery failed: no file snapshot or plan content found in message history"), !1;
+}
+async function t_n(t, e, i) {
+  let r = j(t);
+  if (!r) return !1;
+  let s = va(),
+    o = d(s, `${r}.md`),
+    l = UM(e),
+    u = d(s, `${l}.md`);
+  if ((Hf().exemptSlugFromRevalidation(e, l), i && g())) return he(i, r, l).catch((c) => (h(c), !1));
+  await ude();
+  try {
+    await an().copy(d(s, `${r}.workshop.md`), d(s, `${l}.workshop.md`));
+  } catch (c) {
+    if (!X(c))
+      if (Ht(c)) n(`copyPlanForFork: workshop sibling copy failed: ${c}`);
+      else h(c);
+  } finally {
+    Dp(d(s, `${l}.workshop.md`));
+  }
+  try {
+    return await an().copy(o, u), !0;
+  } catch (c) {
+    if (X(c)) return !1;
+    if (Ht(c)) return n(`copyPlanForFork: copy failed for ${o}: ${c}`), !1;
+    return h(c), !1;
+  } finally {
+    Dp(u);
+  }
+}
+async function he(t, e, i) {
+  let r = d(va(), `${i}.workshop.md`),
+    s;
+  try {
+    await ude(t);
+    let u = await t.read([p(`${e}.workshop`)]);
+    if (!u.ok) n(`copyPlanForFork: v5 workshop sibling read failed: ${u.error.code}`);
+    else if (u.value.items[0].found) {
+      let c = u.value.items[0].value,
+        f = await t.write(p(`${i}.workshop`), c, await T(`${e}.workshop`));
+      if (!f.ok) n(`copyPlanForFork: v5 workshop sibling copy failed: ${f.error.code}`);
+      else s = Buffer.from(c).toString("utf-8");
+    }
+  } finally {
+    if (s !== void 0) cV(r, s);
+    else Dp(r);
+  }
+  let o = d(va(), `${i}.md`),
+    l;
+  try {
+    let u = await t.read([p(e)]);
+    if (!u.ok) return n(`copyPlanForFork: v5 read failed for ${e}: ${u.error.code}`), !1;
+    if (!u.value.items[0].found) return !1;
+    let c = u.value.items[0].value,
+      f = await t.write(p(i), c, await T(e));
+    if (!f.ok) return n(`copyPlanForFork: v5 write failed for ${i}: ${f.error.code}`), !1;
+    return (l = Buffer.from(c).toString("utf-8")), !0;
+  } finally {
+    if (l !== void 0) cV(o, l);
+    else Dp(o);
+  }
+}
+function z(t) {
+  for (let e = t.messages.length - 1; e >= 0; e--) {
+    let i = t.messages[e];
+    if (typeof i !== "object" || i === null) continue;
+    if (i.type === "assistant") {
+      let r = i.message?.content;
+      if (Array.isArray(r)) {
+        for (let s of r)
+          if (typeof s === "object" && s !== null && s.type === "tool_use" && s.name === Su) {
+            let o = s.input,
+              l = typeof o === "object" && o !== null ? o.plan : void 0;
+            if (S(l)) return l;
+          }
+      }
+    }
+    if (i.type === "user") {
+      let r = i;
+      if (S(r.planContent)) return r.planContent;
+    }
+    if (i.type === "attachment") {
+      let r = i;
+      if (r.attachment?.type === "plan_file_reference") {
+        let s = r.attachment.planContent;
+        if (S(s)) return s;
+      }
+    }
+  }
+  return null;
+}
+function A(t, e) {
+  for (let i = t.length - 1; i >= 0; i--) {
+    let r = t[i];
+    if (r?.type === "system" && "subtype" in r && r.subtype === "file_snapshot" && "snapshotFiles" in r) {
+      let s = r.snapshotFiles;
+      if (!Array.isArray(s)) continue;
+      let o = s.find(
+        (l) =>
+          typeof l === "object" &&
+          l !== null &&
+          l.key === e &&
+          typeof l.path === "string" &&
+          typeof l.content === "string",
+      );
+      if (o !== void 0) return o;
+    }
+  }
+  return;
+}
+var vKe = 2000000,
+  yWt = vKe;
+function S(t) {
+  return typeof t === "string" && t.length > 0 && t.length <= yWt;
+}
+export {
+  hWt,
+  EKe,
+  z_r,
+  Une,
+  cde,
+  AKe,
+  XTe,
+  cQn,
+  uQn,
+  V_r,
+  Hf,
+  cV,
+  Dp,
+  CKe,
+  Khn,
+  ah,
+  UM,
+  uV,
+  _Wt,
+  Xhn,
+  dQn,
+  pQn,
+  va,
+  ude,
+  dde,
+  Yhn,
+  Bh,
+  Bne,
+  Jhn,
+  myt,
+  Qhn,
+  BM,
+  YTe,
+  Zhn,
+  e_n,
+  fQn,
+  OLe,
+  t_n,
+  vKe,
+  yWt,
+};

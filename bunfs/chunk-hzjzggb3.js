@@ -8,5 +8,9 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{a}from"/$bunfs/root/chunk-fec4384a.js";import{pr}from"/$bunfs/root/chunk-82w4mtvq.js";function I8(){return a.CLAUDE_CODE_REMOTE&&pr()}
-export{I8};
+import { a } from "/$bunfs/root/chunk-fec4384a.js";
+import { pr } from "/$bunfs/root/chunk-82w4mtvq.js";
+function I8() {
+  return a.CLAUDE_CODE_REMOTE && pr();
+}
+export { I8 };

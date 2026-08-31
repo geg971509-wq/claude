@@ -8,5 +8,279 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{y,g}from"/$bunfs/root/chunk-ca80fke8.js";import{I}from"/$bunfs/root/chunk-8tgj5dp2.js";import{m}from"/$bunfs/root/chunk-bzx56g36.js";import{n}from"/$bunfs/root/chunk-fv016jr6.js";import{h}from"/$bunfs/root/chunk-wkxx62a2.js";import{Gg,r0}from"/$bunfs/root/chunk-tzhtxm67.js";import{Fu,II,qD}from"/$bunfs/root/chunk-qnrh4abv.js";import{i,v,q,_e,H,f,oe,N}from"/$bunfs/root/chunk-saay52v7.js";function n8(){return I("tengu_cobalt_plinth_thistle",!1)}var b=4000,B6e=16,R=64,I$n=m(()=>f({action:N("yield_artifact_replies"),from:i().max(512),msg_id:i().min(1).max(128),session_id:i().max(512),slugs:H(i().max(128)).max(B6e),reason:oe(["resume","claim"]).catch("claim"),sent_at:v().finite(),claimed_at:v().finite().optional(),requester:f({cwd:_e().optional(),tmux:_e().optional()}).optional()})),P$n=m(()=>f({action:N("artifact_replies_yielded"),orig_msg_id:i().max(128),yielded:_e().optional(),not_held:_e().optional(),refused:_e().optional()})),D$n=m(()=>f({action:N("unyield_artifact_replies"),orig_msg_id:i().max(128),slugs:H(i().max(128)).max(B6e),stopped:q().optional()})),Rot={setTimeout:(e,r)=>{let t=setTimeout(e,r);return t.unref?.(),t},clearTimeout:(e)=>clearTimeout(e)};class A{outstanding=new Map;pendingClaims=new Map;holder=null;reverter=null;sendAnswer=null;ownAddress=null;delivered=new Map;reset(){for(let e of this.outstanding.values())e.timers.clearTimeout(e.timer);this.outstanding.clear(),this.pendingClaims.clear(),this.holder=null,this.reverter=null,this.sendAnswer=null,this.ownAddress=null,this.delivered.clear()}}var s=new A;function k(e,r){while(e.size>R){let t=e.keys().next().value;if(t===void 0)break;let l=e.get(t);e.delete(t),r?.(l,t)}}function O$n(e,r,t){let l=t.timers??Rot;return new Promise((u)=>{let d={asked:new Set(r),expectPid:t.expectPid,sentAt:t.sentAt,lost:new Map,resolve:u,onLate:t.onLate,timer:void 0,timers:l};d.timer=l.setTimeout(()=>{if(s.outstanding.get(e)!==d||d.resolve===null)return;if(d.resolve=null,u({kind:"timeout",lost:[...d.lost.keys()],lostTo:[...d.lost]}),d.onLate===void 0)s.outstanding.delete(e)},t.timeoutMs??b),s.outstanding.set(e,d),k(s.outstanding,(o)=>{o.timers.clearTimeout(o.timer),o.resolve?.({kind:"timeout",lost:[...o.lost.keys()],lostTo:[...o.lost]}),o.resolve=null})})}function L$n(e,r){let t=`claim-${r}-${Math.random().toString(36).slice(2)}`,l={id:t,slugs:new Set(e),sentAt:r,lost:new Map,end:()=>void s.pendingClaims.delete(t)};return s.pendingClaims.set(t,l),l}function M$n(e){let r=s.outstanding.get(e);if(r===void 0)return[];return r.timers.clearTimeout(r.timer),s.outstanding.delete(e),[...r.lost]}function N$n(e){return typeof e==="string"&&s.outstanding.has(e)}function F$n(e,r){let t=s.outstanding.get(e.orig_msg_id);if(t===void 0)return!1;if(t.expectPid!==void 0&&r!==void 0&&r!==t.expectPid)return g("artifact_live_subscribe","yield_answer_pid_mismatch"),!1;t.timers.clearTimeout(t.timer);let l=(d)=>Array.isArray(d)?d.filter((o)=>typeof o==="string"&&t.asked.has(o)):[],u=e.refused===!0?{kind:"refused"}:{kind:"yielded",yielded:l(e.yielded),notHeld:l(e.not_held)};if(t.resolve!==null)s.outstanding.delete(e.orig_msg_id),t.resolve({...u,lost:[...t.lost.keys()],lostTo:[...t.lost]});else{s.outstanding.delete(e.orig_msg_id),y("artifact_live_subscribe",{yield_answer_late:!0});try{t.onLate?.({...u,lost:[...t.lost.keys()],lostTo:[...t.lost]})}catch(d){h(d)}}return!0}function $Zt(e,r=null){s.holder=e,s.reverter=r}function Y(e,r,t){let l=s.delivered.get(e);s.delivered.delete(e);let u=t?.pid??l?.pid;s.delivered.set(e,{slugs:new Set([...l?.slugs??[],...r]),pid:u,procStart:t?.procStart??l?.procStart});let d=(o,c)=>{try{s.reverter?.(c,[...o.slugs])}catch(a){h(a)}};while(s.delivered.size>R){let o=[...s.delivered].find(([c,a])=>c!==e&&u!==void 0&&a.pid===u);if(o===void 0)break;s.delivered.delete(o[0]),d(o[1],o[0])}k(s.delivered,d)}function S(e){if(s.delivered.size<R)return!1;if(e===void 0)return!0;for(let r of s.delivered.values())if(r.pid===e)return!1;return!0}function pIt(e){let r=[];for(let[t,l]of[...s.delivered])if(l.pid!==void 0&&Gg(l.pid))r.push(...w(t,[...l.slugs],e));return z(),r}function $$n(e){for(let[r,t]of[...s.delivered])if(t.slugs.delete(e)&&t.slugs.size===0)s.delivered.delete(r)}async function z(){for(let[e,r]of[...s.delivered]){if(r.pid===void 0||r.procStart===void 0)continue;let t;try{t=await r0(r.pid,r.procStart)}catch{t=void 0}if(t===!1&&s.delivered.get(e)===r)y("artifact_comments_autoreact",{yield_taker_reused:!0}),w(e,[...r.slugs])}}function w(e,r,t){let l=s.delivered.get(e);if(l===void 0)return[];let u=[...r].filter((d)=>l.slugs.delete(d));if(l.slugs.size===0)s.delivered.delete(e);if(u.length===0)return[];try{return s.reverter?.(e,u,t)??[]}catch(d){return h(d),[]}}function UZt(e,r=null){s.sendAnswer=e,s.ownAddress=r}function T(e){let r=e.claimed_at??e.sent_at,t=!1,l=[...s.pendingClaims.values()];for(let[u,d]of s.outstanding)if(d.resolve!==null)l.push({id:u,slugs:d.asked,sentAt:d.sentAt,lost:d.lost});for(let u of l){if(!e.slugs.some((o)=>u.slugs.has(o)))continue;if(r>u.sentAt||r===u.sentAt&&e.from>(s.ownAddress??"")){for(let o of e.slugs)if(u.slugs.has(o))u.lost.set(o,e.from)}else t=!0}return t?"refuse":"proceed"}function BZt(e,r,t,l,u){let d=t?.pid,o=t?.writeToken,c=s.sendAnswer;if(c===null)return;let a;if(u?.refuse===!0)a="refused";else if(l-e.sent_at>b-500||e.sent_at>l+1000||e.claimed_at!==void 0&&e.claimed_at>e.sent_at+1000)g("artifact_comments_autoreact","yield_request_stale"),a="refused";else if(T(e)==="refuse")a="refused";else if(s.holder===null)a={yielded:[],notHeld:[...e.slugs]};else try{if(pIt({transferring:new Set(e.slugs)}),S(t?.pid))g("artifact_comments_autoreact","yield_table_full"),a="refused";else a=s.holder({msgId:e.msg_id,slugs:e.slugs,reason:e.reason,requester:{cwd:e.requester?.cwd,tmux:e.requester?.tmux}})}catch(_){h(_),g("artifact_comments_autoreact","yield_handler_threw"),a="refused"}let x=a==="refused"?{orig_msg_id:e.msg_id,yielded:[],not_held:[],refused:!0}:{orig_msg_id:e.msg_id,yielded:a.yielded.slice(0,B6e),not_held:a.notHeld.slice(0,B6e)},p=a!=="refused"&&a.yielded.length>0?a:null;if(p!==null)Y(e.msg_id,p.yielded,t);c(r,x,d,o).then(()=>p?.onDelivered?.(),(_)=>{if(n(`[reply-yield] answer to ${Fu(r)} failed: ${II(String(_))}`),p===null)return;if(!qD(_)){g("artifact_comments_autoreact","yield_answer_send_ambiguous"),c(r,x,d,o).catch(()=>{}),p.onDelivered?.();return}g("artifact_comments_autoreact","yield_answer_undelivered"),w(e.msg_id,p.yielded)})}function U$n(e,r){let t=s.delivered.get(e.orig_msg_id);if(t===void 0)return!1;if(t.pid!==void 0&&r!==void 0&&r!==t.pid)return g("artifact_comments_autoreact","unyield_pid_mismatch"),!1;let l=w(e.orig_msg_id,e.slugs,{...e.stopped===!0&&{stopped:new Set(e.slugs)}});return l.push(...pIt()),y("artifact_comments_autoreact",{yield_handed_back:l.length}),!0}
-export{n8,B6e,I$n,P$n,D$n,Rot,O$n,L$n,M$n,N$n,F$n,$Zt,pIt,$$n,UZt,BZt,U$n};
+import { y, g } from "/$bunfs/root/chunk-ca80fke8.js";
+import { I } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { m } from "/$bunfs/root/chunk-bzx56g36.js";
+import { n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { h } from "/$bunfs/root/chunk-wkxx62a2.js";
+import { Gg, r0 } from "/$bunfs/root/chunk-tzhtxm67.js";
+import { Fu, II, qD } from "/$bunfs/root/chunk-qnrh4abv.js";
+import { i, v, q, _e, H, f, oe, N } from "/$bunfs/root/chunk-saay52v7.js";
+function n8() {
+  return I("tengu_cobalt_plinth_thistle", !1);
+}
+var b = 4000,
+  B6e = 16,
+  R = 64,
+  I$n = m(() =>
+    f({
+      action: N("yield_artifact_replies"),
+      from: i().max(512),
+      msg_id: i().min(1).max(128),
+      session_id: i().max(512),
+      slugs: H(i().max(128)).max(B6e),
+      reason: oe(["resume", "claim"]).catch("claim"),
+      sent_at: v().finite(),
+      claimed_at: v().finite().optional(),
+      requester: f({ cwd: _e().optional(), tmux: _e().optional() }).optional(),
+    }),
+  ),
+  P$n = m(() =>
+    f({
+      action: N("artifact_replies_yielded"),
+      orig_msg_id: i().max(128),
+      yielded: _e().optional(),
+      not_held: _e().optional(),
+      refused: _e().optional(),
+    }),
+  ),
+  D$n = m(() =>
+    f({
+      action: N("unyield_artifact_replies"),
+      orig_msg_id: i().max(128),
+      slugs: H(i().max(128)).max(B6e),
+      stopped: q().optional(),
+    }),
+  ),
+  Rot = {
+    setTimeout: (e, r) => {
+      let t = setTimeout(e, r);
+      return t.unref?.(), t;
+    },
+    clearTimeout: (e) => clearTimeout(e),
+  };
+class A {
+  outstanding = new Map();
+  pendingClaims = new Map();
+  holder = null;
+  reverter = null;
+  sendAnswer = null;
+  ownAddress = null;
+  delivered = new Map();
+  reset() {
+    for (let e of this.outstanding.values()) e.timers.clearTimeout(e.timer);
+    this.outstanding.clear(),
+      this.pendingClaims.clear(),
+      (this.holder = null),
+      (this.reverter = null),
+      (this.sendAnswer = null),
+      (this.ownAddress = null),
+      this.delivered.clear();
+  }
+}
+var s = new A();
+function k(e, r) {
+  while (e.size > R) {
+    let t = e.keys().next().value;
+    if (t === void 0) break;
+    let l = e.get(t);
+    e.delete(t), r?.(l, t);
+  }
+}
+function O$n(e, r, t) {
+  let l = t.timers ?? Rot;
+  return new Promise((u) => {
+    let d = {
+      asked: new Set(r),
+      expectPid: t.expectPid,
+      sentAt: t.sentAt,
+      lost: new Map(),
+      resolve: u,
+      onLate: t.onLate,
+      timer: void 0,
+      timers: l,
+    };
+    (d.timer = l.setTimeout(() => {
+      if (s.outstanding.get(e) !== d || d.resolve === null) return;
+      if (
+        ((d.resolve = null), u({ kind: "timeout", lost: [...d.lost.keys()], lostTo: [...d.lost] }), d.onLate === void 0)
+      )
+        s.outstanding.delete(e);
+    }, t.timeoutMs ?? b)),
+      s.outstanding.set(e, d),
+      k(s.outstanding, (o) => {
+        o.timers.clearTimeout(o.timer),
+          o.resolve?.({ kind: "timeout", lost: [...o.lost.keys()], lostTo: [...o.lost] }),
+          (o.resolve = null);
+      });
+  });
+}
+function L$n(e, r) {
+  let t = `claim-${r}-${Math.random().toString(36).slice(2)}`,
+    l = { id: t, slugs: new Set(e), sentAt: r, lost: new Map(), end: () => void s.pendingClaims.delete(t) };
+  return s.pendingClaims.set(t, l), l;
+}
+function M$n(e) {
+  let r = s.outstanding.get(e);
+  if (r === void 0) return [];
+  return r.timers.clearTimeout(r.timer), s.outstanding.delete(e), [...r.lost];
+}
+function N$n(e) {
+  return typeof e === "string" && s.outstanding.has(e);
+}
+function F$n(e, r) {
+  let t = s.outstanding.get(e.orig_msg_id);
+  if (t === void 0) return !1;
+  if (t.expectPid !== void 0 && r !== void 0 && r !== t.expectPid)
+    return g("artifact_live_subscribe", "yield_answer_pid_mismatch"), !1;
+  t.timers.clearTimeout(t.timer);
+  let l = (d) => (Array.isArray(d) ? d.filter((o) => typeof o === "string" && t.asked.has(o)) : []),
+    u = e.refused === !0 ? { kind: "refused" } : { kind: "yielded", yielded: l(e.yielded), notHeld: l(e.not_held) };
+  if (t.resolve !== null)
+    s.outstanding.delete(e.orig_msg_id), t.resolve({ ...u, lost: [...t.lost.keys()], lostTo: [...t.lost] });
+  else {
+    s.outstanding.delete(e.orig_msg_id), y("artifact_live_subscribe", { yield_answer_late: !0 });
+    try {
+      t.onLate?.({ ...u, lost: [...t.lost.keys()], lostTo: [...t.lost] });
+    } catch (d) {
+      h(d);
+    }
+  }
+  return !0;
+}
+function $Zt(e, r = null) {
+  (s.holder = e), (s.reverter = r);
+}
+function Y(e, r, t) {
+  let l = s.delivered.get(e);
+  s.delivered.delete(e);
+  let u = t?.pid ?? l?.pid;
+  s.delivered.set(e, { slugs: new Set([...(l?.slugs ?? []), ...r]), pid: u, procStart: t?.procStart ?? l?.procStart });
+  let d = (o, c) => {
+    try {
+      s.reverter?.(c, [...o.slugs]);
+    } catch (a) {
+      h(a);
+    }
+  };
+  while (s.delivered.size > R) {
+    let o = [...s.delivered].find(([c, a]) => c !== e && u !== void 0 && a.pid === u);
+    if (o === void 0) break;
+    s.delivered.delete(o[0]), d(o[1], o[0]);
+  }
+  k(s.delivered, d);
+}
+function S(e) {
+  if (s.delivered.size < R) return !1;
+  if (e === void 0) return !0;
+  for (let r of s.delivered.values()) if (r.pid === e) return !1;
+  return !0;
+}
+function pIt(e) {
+  let r = [];
+  for (let [t, l] of [...s.delivered]) if (l.pid !== void 0 && Gg(l.pid)) r.push(...w(t, [...l.slugs], e));
+  return z(), r;
+}
+function $$n(e) {
+  for (let [r, t] of [...s.delivered]) if (t.slugs.delete(e) && t.slugs.size === 0) s.delivered.delete(r);
+}
+async function z() {
+  for (let [e, r] of [...s.delivered]) {
+    if (r.pid === void 0 || r.procStart === void 0) continue;
+    let t;
+    try {
+      t = await r0(r.pid, r.procStart);
+    } catch {
+      t = void 0;
+    }
+    if (t === !1 && s.delivered.get(e) === r)
+      y("artifact_comments_autoreact", { yield_taker_reused: !0 }), w(e, [...r.slugs]);
+  }
+}
+function w(e, r, t) {
+  let l = s.delivered.get(e);
+  if (l === void 0) return [];
+  let u = [...r].filter((d) => l.slugs.delete(d));
+  if (l.slugs.size === 0) s.delivered.delete(e);
+  if (u.length === 0) return [];
+  try {
+    return s.reverter?.(e, u, t) ?? [];
+  } catch (d) {
+    return h(d), [];
+  }
+}
+function UZt(e, r = null) {
+  (s.sendAnswer = e), (s.ownAddress = r);
+}
+function T(e) {
+  let r = e.claimed_at ?? e.sent_at,
+    t = !1,
+    l = [...s.pendingClaims.values()];
+  for (let [u, d] of s.outstanding)
+    if (d.resolve !== null) l.push({ id: u, slugs: d.asked, sentAt: d.sentAt, lost: d.lost });
+  for (let u of l) {
+    if (!e.slugs.some((o) => u.slugs.has(o))) continue;
+    if (r > u.sentAt || (r === u.sentAt && e.from > (s.ownAddress ?? ""))) {
+      for (let o of e.slugs) if (u.slugs.has(o)) u.lost.set(o, e.from);
+    } else t = !0;
+  }
+  return t ? "refuse" : "proceed";
+}
+function BZt(e, r, t, l, u) {
+  let d = t?.pid,
+    o = t?.writeToken,
+    c = s.sendAnswer;
+  if (c === null) return;
+  let a;
+  if (u?.refuse === !0) a = "refused";
+  else if (
+    l - e.sent_at > b - 500 ||
+    e.sent_at > l + 1000 ||
+    (e.claimed_at !== void 0 && e.claimed_at > e.sent_at + 1000)
+  )
+    g("artifact_comments_autoreact", "yield_request_stale"), (a = "refused");
+  else if (T(e) === "refuse") a = "refused";
+  else if (s.holder === null) a = { yielded: [], notHeld: [...e.slugs] };
+  else
+    try {
+      if ((pIt({ transferring: new Set(e.slugs) }), S(t?.pid)))
+        g("artifact_comments_autoreact", "yield_table_full"), (a = "refused");
+      else
+        a = s.holder({
+          msgId: e.msg_id,
+          slugs: e.slugs,
+          reason: e.reason,
+          requester: { cwd: e.requester?.cwd, tmux: e.requester?.tmux },
+        });
+    } catch (_) {
+      h(_), g("artifact_comments_autoreact", "yield_handler_threw"), (a = "refused");
+    }
+  let x =
+      a === "refused"
+        ? { orig_msg_id: e.msg_id, yielded: [], not_held: [], refused: !0 }
+        : { orig_msg_id: e.msg_id, yielded: a.yielded.slice(0, B6e), not_held: a.notHeld.slice(0, B6e) },
+    p = a !== "refused" && a.yielded.length > 0 ? a : null;
+  if (p !== null) Y(e.msg_id, p.yielded, t);
+  c(r, x, d, o).then(
+    () => p?.onDelivered?.(),
+    (_) => {
+      if ((n(`[reply-yield] answer to ${Fu(r)} failed: ${II(String(_))}`), p === null)) return;
+      if (!qD(_)) {
+        g("artifact_comments_autoreact", "yield_answer_send_ambiguous"),
+          c(r, x, d, o).catch(() => {}),
+          p.onDelivered?.();
+        return;
+      }
+      g("artifact_comments_autoreact", "yield_answer_undelivered"), w(e.msg_id, p.yielded);
+    },
+  );
+}
+function U$n(e, r) {
+  let t = s.delivered.get(e.orig_msg_id);
+  if (t === void 0) return !1;
+  if (t.pid !== void 0 && r !== void 0 && r !== t.pid)
+    return g("artifact_comments_autoreact", "unyield_pid_mismatch"), !1;
+  let l = w(e.orig_msg_id, e.slugs, { ...(e.stopped === !0 && { stopped: new Set(e.slugs) }) });
+  return l.push(...pIt()), y("artifact_comments_autoreact", { yield_handed_back: l.length }), !0;
+}
+export { n8, B6e, I$n, P$n, D$n, Rot, O$n, L$n, M$n, N$n, F$n, $Zt, pIt, $$n, UZt, BZt, U$n };

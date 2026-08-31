@@ -8,8 +8,1111 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{j5}from"/$bunfs/root/chunk-f9h0bg01.js";import"/$bunfs/root/chunk-qq1mdtb5.js";import"/$bunfs/root/chunk-tx16jn0x.js";import"/$bunfs/root/chunk-gcks6mn0.js";import"/$bunfs/root/chunk-bzx56g36.js";import"/$bunfs/root/chunk-eqdctte5.js";import{a}from"/$bunfs/root/chunk-fec4384a.js";import"/$bunfs/root/chunk-qm65zb83.js";import"/$bunfs/root/chunk-vfy57cpd.js";import{w}from"/$bunfs/root/chunk-4xj01xwv.js";import{we,l}from"/$bunfs/root/chunk-ypdw393e.js";import{n}from"/$bunfs/root/chunk-fv016jr6.js";import"/$bunfs/root/chunk-qk7r0t2g.js";import"/$bunfs/root/chunk-4ddxwr9r.js";import{A0,_j,h}from"/$bunfs/root/chunk-wkxx62a2.js";import"/$bunfs/root/chunk-ps6pc7xd.js";import"/$bunfs/root/chunk-386w1sy8.js";import{s}from"/$bunfs/root/chunk-r53tkxrh.js";import{y,p,g}from"/$bunfs/root/chunk-ca80fke8.js";import"/$bunfs/root/chunk-qcx34e4j.js";import"/$bunfs/root/chunk-0pgyw7te.js";import"/$bunfs/root/chunk-ax6dy60b.js";import"/$bunfs/root/chunk-6k63g5t6.js";import"/$bunfs/root/chunk-4fwj3vnx.js";import"/$bunfs/root/chunk-nqmqabr8.js";import"/$bunfs/root/chunk-q14dgq5g.js";import"/$bunfs/root/chunk-f5hrzy3k.js";import"/$bunfs/root/chunk-s7e0px8j.js";import"/$bunfs/root/chunk-s28wf80n.js";import"/$bunfs/root/chunk-3bbym8ct.js";import"/$bunfs/root/chunk-cf8qhmdc.js";import"/$bunfs/root/chunk-2masxyqj.js";import{Gr,sn,ba,zT}from"/$bunfs/root/chunk-rgw52f13.js";import"/$bunfs/root/chunk-2rx5nghb.js";import"/$bunfs/root/chunk-z0z1xzkg.js";import"/$bunfs/root/chunk-c47snwm2.js";import"/$bunfs/root/chunk-jpf4kat5.js";import"/$bunfs/root/chunk-s4vc7est.js";import"/$bunfs/root/chunk-hyh5wcm1.js";import"/$bunfs/root/chunk-ntyhd04p.js";import"/$bunfs/root/chunk-8qsdea2c.js";import"/$bunfs/root/chunk-988p40e0.js";import"/$bunfs/root/chunk-0spqrdaj.js";import"/$bunfs/root/chunk-5rt2mvvk.js";import"/$bunfs/root/chunk-1yr12dqr.js";import"/$bunfs/root/chunk-2mmw62jx.js";import"/$bunfs/root/chunk-z2bvp3sv.js";import"/$bunfs/root/chunk-keb644xg.js";import"/$bunfs/root/chunk-bj904w9w.js";import"/$bunfs/root/chunk-18bck2pp.js";import"/$bunfs/root/chunk-dwwpyy7b.js";import"/$bunfs/root/chunk-jck8t8fq.js";import"/$bunfs/root/chunk-psdymar6.js";import"/$bunfs/root/chunk-0r9wzh7g.js";import"/$bunfs/root/chunk-sxxp6vcr.js";import"/$bunfs/root/chunk-rf51999f.js";import{_n,Yr,Zy,lf,dw,pw,VI,FSt,Vn}from"/$bunfs/root/chunk-8tgj5dp2.js";import{pn}from"/$bunfs/root/chunk-82w4mtvq.js";import"/$bunfs/root/chunk-amem41jf.js";import"/$bunfs/root/chunk-ghara6r1.js";import"/$bunfs/root/chunk-97wwdfyx.js";import"/$bunfs/root/chunk-e7rq8w09.js";import"/$bunfs/root/chunk-v7yhn7cf.js";import"/$bunfs/root/chunk-fbp3w46j.js";import"/$bunfs/root/chunk-gtv2468w.js";import"/$bunfs/root/chunk-4r03fm98.js";import"/$bunfs/root/chunk-s4smmnta.js";import"/$bunfs/root/chunk-kxyny47c.js";import"/$bunfs/root/chunk-z9ex1x2t.js";import"/$bunfs/root/chunk-k4a21mkt.js";import"/$bunfs/root/chunk-4rh74qms.js";import"/$bunfs/root/chunk-r3qa2s4k.js";import"/$bunfs/root/chunk-1evht33z.js";import"/$bunfs/root/chunk-gkfy5ggn.js";import"/$bunfs/root/chunk-qk6zade1.js";import"/$bunfs/root/chunk-4t3vsqt7.js";import"/$bunfs/root/chunk-ejdwrhgv.js";import"/$bunfs/root/chunk-zkvj62rn.js";import"/$bunfs/root/chunk-492vgtnr.js";import"/$bunfs/root/chunk-0g6cj4h1.js";import"/$bunfs/root/chunk-a48rnvhj.js";import"/$bunfs/root/chunk-tzhtxm67.js";import"/$bunfs/root/chunk-mznd09c6.js";import"/$bunfs/root/chunk-167jjb66.js";import"/$bunfs/root/chunk-9y48by1e.js";import"/$bunfs/root/chunk-cfqs035d.js";import"/$bunfs/root/chunk-308krgtb.js";import"/$bunfs/root/chunk-8td9ks9h.js";import"/$bunfs/root/chunk-fs02hzwy.js";import"/$bunfs/root/chunk-hebj76vj.js";import"/$bunfs/root/chunk-dd55s64p.js";import{pH,Pk,sl,Mm,$ue,Gz}from"/$bunfs/root/chunk-83h0j7w2.js";import{npn}from"/$bunfs/root/chunk-eb5y4yrx.js";import"/$bunfs/root/chunk-5c5qq1s7.js";import"/$bunfs/root/chunk-30e2jew7.js";import"/$bunfs/root/chunk-bp3j8sq3.js";import"/$bunfs/root/chunk-qekzccch.js";import"/$bunfs/root/chunk-51qp0385.js";import"/$bunfs/root/chunk-9tey6wcd.js";import"/$bunfs/root/chunk-0b318m6z.js";import"/$bunfs/root/chunk-c76q2y0e.js";import"/$bunfs/root/chunk-cds31m36.js";import"/$bunfs/root/chunk-0m39033q.js";import{GB,i2,Rv,ng,rg,og,dte,pte,JUt,QUt}from"/$bunfs/root/chunk-zze8764r.js";import"/$bunfs/root/chunk-c6k0ecxv.js";import"/$bunfs/root/chunk-2n1hsggr.js";import"/$bunfs/root/chunk-s0xdwab3.js";import"/$bunfs/root/chunk-z15hpjf9.js";import"/$bunfs/root/chunk-1pn2pk9v.js";import"/$bunfs/root/chunk-0mrbtv3q.js";import"/$bunfs/root/chunk-5n1tbe50.js";import"/$bunfs/root/chunk-twwd9fep.js";import"/$bunfs/root/chunk-a2an01ph.js";import"/$bunfs/root/chunk-dck778n3.js";import"/$bunfs/root/chunk-nkjrjh5n.js";import"/$bunfs/root/chunk-s2ac0z44.js";import"/$bunfs/root/chunk-wgz3g40p.js";import"/$bunfs/root/chunk-1mp2j0tx.js";import"/$bunfs/root/chunk-6a5ggyw4.js";import"/$bunfs/root/chunk-btcxpqw5.js";import"/$bunfs/root/chunk-k8xha1qv.js";import"/$bunfs/root/chunk-wjr8v4tx.js";import"/$bunfs/root/chunk-kbyvkqye.js";import"/$bunfs/root/chunk-37pvmyqb.js";import"/$bunfs/root/chunk-qg6z8ah8.js";import"/$bunfs/root/chunk-nf8aaj8a.js";import"/$bunfs/root/chunk-a6xhjq7b.js";import"/$bunfs/root/chunk-qnrh4abv.js";import"/$bunfs/root/chunk-6nmk3t6g.js";import"/$bunfs/root/chunk-jwrz2gmg.js";import"/$bunfs/root/chunk-6w72z84m.js";import"/$bunfs/root/chunk-nkf7ctf5.js";import"/$bunfs/root/chunk-38mxah2g.js";import"/$bunfs/root/chunk-z9bhq3k9.js";import"/$bunfs/root/chunk-v94qfg1j.js";import"/$bunfs/root/chunk-98tgyb1d.js";import"/$bunfs/root/chunk-h7dkgq01.js";import"/$bunfs/root/chunk-tveh0k24.js";import"/$bunfs/root/chunk-699y5x28.js";import"/$bunfs/root/chunk-da857b4g.js";import"/$bunfs/root/chunk-anwgkcw5.js";import"/$bunfs/root/chunk-rt5p4yax.js";import"/$bunfs/root/chunk-vzc4dhqq.js";import"/$bunfs/root/chunk-gvnqpbsf.js";import"/$bunfs/root/chunk-5wecjdtm.js";import"/$bunfs/root/chunk-5g92v3fd.js";import"/$bunfs/root/chunk-x06p1jhb.js";import"/$bunfs/root/chunk-vq9g7y26.js";import"/$bunfs/root/chunk-e17gvevg.js";import"/$bunfs/root/chunk-p1awcxk1.js";import"/$bunfs/root/chunk-vx3kc9d2.js";import"/$bunfs/root/chunk-1v3848mh.js";import"/$bunfs/root/chunk-fctnm902.js";import"/$bunfs/root/chunk-e53y7x75.js";import"/$bunfs/root/chunk-tz5bx4mb.js";import"/$bunfs/root/chunk-hz299nfa.js";import"/$bunfs/root/chunk-w3c6n7jh.js";import"/$bunfs/root/chunk-96xrtyd5.js";import"/$bunfs/root/chunk-trte0v0g.js";import"/$bunfs/root/chunk-rgh8hav6.js";import"/$bunfs/root/chunk-50g10fz0.js";import"/$bunfs/root/chunk-gmgmb4mg.js";import"/$bunfs/root/chunk-hzjjsb0j.js";import"/$bunfs/root/chunk-avrc9gay.js";import"/$bunfs/root/chunk-pbd9yggs.js";import"/$bunfs/root/chunk-cgy998p5.js";import"/$bunfs/root/chunk-xgfepdf4.js";import"/$bunfs/root/chunk-r4m4cqz1.js";import"/$bunfs/root/chunk-mq8h2tk8.js";import"/$bunfs/root/chunk-a9vrr0nr.js";import"/$bunfs/root/chunk-h605j25g.js";import"/$bunfs/root/chunk-4sw5yxwb.js";import"/$bunfs/root/chunk-d1d8xqks.js";import"/$bunfs/root/chunk-91315wj5.js";import"/$bunfs/root/chunk-qd35gw0c.js";import"/$bunfs/root/chunk-86v6b72m.js";import"/$bunfs/root/chunk-c2kqvv3h.js";import"/$bunfs/root/chunk-rsp0anqd.js";import"/$bunfs/root/chunk-fd2h00ye.js";import"/$bunfs/root/chunk-mvz9fsh3.js";import"/$bunfs/root/chunk-ddbk6aje.js";import"/$bunfs/root/chunk-krety1hw.js";import"/$bunfs/root/chunk-d5s7a9by.js";import"/$bunfs/root/chunk-6ywvv1q0.js";import"/$bunfs/root/chunk-wn1jrcrk.js";import"/$bunfs/root/chunk-pdf5n9dy.js";import"/$bunfs/root/chunk-dt5bt1kc.js";import"/$bunfs/root/chunk-k7v7xwvs.js";import"/$bunfs/root/chunk-fvkzpeqe.js";import"/$bunfs/root/chunk-pzvxycbq.js";import"/$bunfs/root/chunk-dzv4k86d.js";import"/$bunfs/root/chunk-jn7d47r1.js";import"/$bunfs/root/chunk-76gryyye.js";import"/$bunfs/root/chunk-dc4hb8f7.js";import"/$bunfs/root/chunk-z9jgt14c.js";import"/$bunfs/root/chunk-y8sx7bf9.js";import"/$bunfs/root/chunk-q2gyteg0.js";import"/$bunfs/root/chunk-0manfhn2.js";import"/$bunfs/root/chunk-r6ppzf4r.js";import"/$bunfs/root/chunk-4399d2v0.js";import"/$bunfs/root/chunk-y79sc2hm.js";import"/$bunfs/root/chunk-2t3rnt88.js";import"/$bunfs/root/chunk-986hvegp.js";import"/$bunfs/root/chunk-8jsj2mx0.js";import"/$bunfs/root/chunk-z9rrv31w.js";import"/$bunfs/root/chunk-5djs3wbb.js";import"/$bunfs/root/chunk-rntp2fy5.js";import"/$bunfs/root/chunk-p18e2918.js";import"/$bunfs/root/chunk-nfmyt8cw.js";import"/$bunfs/root/chunk-6var9pwd.js";import"/$bunfs/root/chunk-gmj1vprd.js";import"/$bunfs/root/chunk-ht15rw3x.js";import"/$bunfs/root/chunk-gay9hbs8.js";import"/$bunfs/root/chunk-4c3hecm4.js";import"/$bunfs/root/chunk-zk5v8tw6.js";import"/$bunfs/root/chunk-kdtcyk0z.js";import"/$bunfs/root/chunk-q75cm02t.js";import"/$bunfs/root/chunk-dxqac26z.js";import"/$bunfs/root/chunk-2204t1q0.js";import"/$bunfs/root/chunk-kfdrcvxr.js";import"/$bunfs/root/chunk-z6m3k8w5.js";import"/$bunfs/root/chunk-vm4xrmr7.js";import"/$bunfs/root/chunk-hkzwg35z.js";import"/$bunfs/root/chunk-mkweh3a4.js";import"/$bunfs/root/chunk-ky33xsw7.js";import"/$bunfs/root/chunk-mhf4d4sa.js";import"/$bunfs/root/chunk-pbmajbn7.js";import"/$bunfs/root/chunk-htrft0p0.js";import{_}from"/$bunfs/root/chunk-haan6f8z.js";import"/$bunfs/root/chunk-c3bffkxg.js";import"/$bunfs/root/chunk-fwwvmbqn.js";import"/$bunfs/root/chunk-he2phymk.js";import"/$bunfs/root/chunk-ka74qrx3.js";import"/$bunfs/root/chunk-kez2zndg.js";import"/$bunfs/root/chunk-2wxj9m3z.js";import"/$bunfs/root/chunk-z45ex17x.js";import"/$bunfs/root/chunk-tbbqkkg3.js";import"/$bunfs/root/chunk-q04k5ycg.js";import"/$bunfs/root/chunk-e28mhr30.js";import"/$bunfs/root/chunk-zk5d9rtp.js";import"/$bunfs/root/chunk-syabrr2b.js";import"/$bunfs/root/chunk-93max1bs.js";import"/$bunfs/root/chunk-8cv6dqkz.js";import"/$bunfs/root/chunk-gtwaztzc.js";import{W,At,Xn}from"/$bunfs/root/chunk-ht28m404.js";import"/$bunfs/root/chunk-8ktvd0rh.js";import"/$bunfs/root/chunk-rp246vnd.js";import"/$bunfs/root/chunk-vrr898f6.js";import"/$bunfs/root/chunk-ngn87vcm.js";import"/$bunfs/root/chunk-1y0jc48h.js";import"/$bunfs/root/chunk-42q7ctbx.js";import"/$bunfs/root/chunk-s8gya298.js";import"/$bunfs/root/chunk-f9km17e9.js";import"/$bunfs/root/chunk-ek4tmwbt.js";import"/$bunfs/root/chunk-jmrpkgzd.js";import"/$bunfs/root/chunk-y2r26k83.js";import"/$bunfs/root/chunk-rycvm63e.js";import"/$bunfs/root/chunk-m5yhrq50.js";import{Or}from"/$bunfs/root/chunk-cmhbx7me.js";import"/$bunfs/root/chunk-sypj25ha.js";import"/$bunfs/root/chunk-hb6grkjg.js";import"/$bunfs/root/chunk-59pkbjrf.js";import"/$bunfs/root/chunk-tmxtk606.js";import"/$bunfs/root/chunk-489c3cyq.js";import"/$bunfs/root/chunk-tspcysj2.js";import"/$bunfs/root/chunk-9r67t977.js";import"/$bunfs/root/chunk-vba6efmv.js";import"/$bunfs/root/chunk-pwk6q778.js";import"/$bunfs/root/chunk-se2bnecc.js";import"/$bunfs/root/chunk-fm0ga625.js";import"/$bunfs/root/chunk-ypheby59.js";import"/$bunfs/root/chunk-q903htrr.js";import"/$bunfs/root/chunk-h4r2tn7z.js";import"/$bunfs/root/chunk-hyj9nfhh.js";import"/$bunfs/root/chunk-fbn06kdf.js";import"/$bunfs/root/chunk-06m34t0b.js";import"/$bunfs/root/chunk-3kb9rqr9.js";import"/$bunfs/root/chunk-26rqeg8y.js";import"/$bunfs/root/chunk-bzrzj1sr.js";import{Wme}from"/$bunfs/root/chunk-e0t3skhp.js";import"/$bunfs/root/chunk-dxft4b6s.js";import{AQ}from"/$bunfs/root/chunk-f1vdsnmw.js";import{IK}from"/$bunfs/root/chunk-p70hxvm1.js";import"/$bunfs/root/chunk-q5hmd7j9.js";import"/$bunfs/root/chunk-skd1pndb.js";import"/$bunfs/root/chunk-yzvg79ww.js";import{s1}from"/$bunfs/root/chunk-vepmy3hh.js";import"/$bunfs/root/chunk-t9ftg1j2.js";import{lq}from"/$bunfs/root/chunk-d6awg8zw.js";import"/$bunfs/root/chunk-262f91ef.js";import"/$bunfs/root/chunk-r9qj0qxk.js";import"/$bunfs/root/chunk-1a0t5wmw.js";import"/$bunfs/root/chunk-hcnpgnry.js";import"/$bunfs/root/chunk-884t33jy.js";import"/$bunfs/root/chunk-vnpdqx6v.js";import"/$bunfs/root/chunk-et3g0deq.js";import"/$bunfs/root/chunk-pzr9satk.js";import"/$bunfs/root/chunk-0nfwsvfd.js";import"/$bunfs/root/chunk-sys0j174.js";import"/$bunfs/root/chunk-qz5vfzn9.js";import"/$bunfs/root/chunk-fxswqr2j.js";import"/$bunfs/root/chunk-b6a5y1qe.js";import"/$bunfs/root/chunk-pm63yfcg.js";import"/$bunfs/root/chunk-k9a5yseb.js";import"/$bunfs/root/chunk-84qb5tsd.js";import"/$bunfs/root/chunk-96dhk9az.js";import"/$bunfs/root/chunk-tw0kgz4k.js";import{kb}from"/$bunfs/root/chunk-8kwjh4ab.js";import{GQ,Xge,CS,ac,BP,Q2e,Z2e,RJt,xm,sW,ZHt,e6e,ext,aW,Jge}from"/$bunfs/root/chunk-ddrmb5hs.js";import"/$bunfs/root/chunk-4kafv9jq.js";import"/$bunfs/root/chunk-7d0my7mt.js";import"/$bunfs/root/chunk-wnc75h2x.js";import"/$bunfs/root/chunk-1fwtbc4t.js";import{e}from"/$bunfs/root/chunk-8s7kcbyw.js";import"/$bunfs/root/chunk-tfb5y7hy.js";import"/$bunfs/root/chunk-d5bnjcbw.js";import{B,A,C,u,F}from"/$bunfs/root/chunk-twm95mhz.js";import"/$bunfs/root/chunk-31xy83wr.js";import"/$bunfs/root/chunk-g732bkj4.js";import"/$bunfs/root/chunk-zgfc288e.js";import"/$bunfs/root/chunk-6nsyrmhg.js";import"/$bunfs/root/chunk-jjkewjsg.js";import"/$bunfs/root/chunk-4r71nj50.js";import{Lh}from"/$bunfs/root/chunk-3qvtfvqg.js";import"/$bunfs/root/chunk-r7t0evh2.js";import"/$bunfs/root/chunk-6xz0kht6.js";import"/$bunfs/root/chunk-2am7kb6k.js";import"/$bunfs/root/chunk-9kr4hqvs.js";import"/$bunfs/root/chunk-xvwx3w83.js";import"/$bunfs/root/chunk-y9akj3mq.js";import"/$bunfs/root/chunk-gdk3p0b3.js";import"/$bunfs/root/chunk-qy75zxb2.js";import"/$bunfs/root/chunk-r6t6p0zm.js";import"/$bunfs/root/chunk-qpj83ec7.js";import"/$bunfs/root/chunk-f77e8yef.js";import"/$bunfs/root/chunk-f7y0mdt6.js";import"/$bunfs/root/chunk-jb2pzt3t.js";import"/$bunfs/root/chunk-9yzzw213.js";import"/$bunfs/root/chunk-mknyj0qp.js";import"/$bunfs/root/chunk-81defen8.js";import"/$bunfs/root/chunk-mpg6r2j0.js";import"/$bunfs/root/chunk-3dh32z3c.js";import"/$bunfs/root/chunk-n8ecp4gs.js";import"/$bunfs/root/chunk-406nxetx.js";import"/$bunfs/root/chunk-2zf9m1zh.js";import"/$bunfs/root/chunk-rxqmmxnb.js";import"/$bunfs/root/chunk-gdhqsw8a.js";import"/$bunfs/root/chunk-5xr818a0.js";import"/$bunfs/root/chunk-fgavb5x0.js";import"/$bunfs/root/chunk-sqa0bs5e.js";import"/$bunfs/root/chunk-fveqn4y7.js";import"/$bunfs/root/chunk-4zsxhey6.js";import"/$bunfs/root/chunk-61nasexv.js";import"/$bunfs/root/chunk-m1andcps.js";import"/$bunfs/root/chunk-61hbq2wc.js";import"/$bunfs/root/chunk-rq65wazg.js";import"/$bunfs/root/chunk-5tdaspnd.js";import"/$bunfs/root/chunk-rr0yj5sq.js";import"/$bunfs/root/chunk-a7wreksn.js";import"/$bunfs/root/chunk-8sbwe0jk.js";import"/$bunfs/root/chunk-nwb64bac.js";import"/$bunfs/root/chunk-g5y4mxg8.js";import"/$bunfs/root/chunk-cbn30h5b.js";import"/$bunfs/root/chunk-g01aac1k.js";import"/$bunfs/root/chunk-3fwkz19s.js";import"/$bunfs/root/chunk-9319g175.js";import"/$bunfs/root/chunk-szz73wxx.js";import"/$bunfs/root/chunk-b40bn863.js";import"/$bunfs/root/chunk-6mgs10s2.js";import"/$bunfs/root/chunk-6s9ybdq1.js";import"/$bunfs/root/chunk-74qqwjhx.js";import"/$bunfs/root/chunk-1hh0bg14.js";import"/$bunfs/root/chunk-052zvbpg.js";import"/$bunfs/root/chunk-werv747a.js";import"/$bunfs/root/chunk-jzh4kg5x.js";import"/$bunfs/root/chunk-7s7jqj2f.js";import"/$bunfs/root/chunk-56sxk8k2.js";import"/$bunfs/root/chunk-7jz6r17g.js";import"/$bunfs/root/chunk-a4q326ap.js";import{d}from"/$bunfs/root/chunk-yz031c9r.js";F();function Bt(Bo){return Bo.mainLoopModel}function Ut(){return new AbortController}function Vt(Uo){return Uo!==null}function Gt(){return Gr()!==null&&ba()}function Wt(on){return on.mainLoopModel}function Ht(nn){return nn.mainLoopModelForSession}function Jt(rn){return rn.sessionEffort}function Kt(ln){return ln.settingsEffortTable}var Ue="Model picker shows local options in cloud sessions \u2014 pass a model name, e.g. /model sonnet",at="Couldn\u2019t load the model list from the cloud session \u2014 pass a model name, e.g. /model sonnet",dt="Stopped waiting for the cloud session\u2019s model list \u2014 run /model again, or pass a model name, e.g. /model sonnet",ct=15000,Ee=(f)=>pn(f)!==f,ft=(f)=>f.reduce((i,r)=>i===null||(r.value?.length??0)>(i.value?.length??0)?r:i,null)?.value??null;function Yt({getMessages:f,onDone:i,storageV5:r,session:D}){let j=Xn(),m=W((o)=>o.mainLoopModel),E=W((o)=>o.mainLoopModelForSession),K=IK()??m,q=W((o)=>o.fastMode),G=At(),{addNotification:Q}=Or(),[O,X]=u(null),k=C([]),[Z,z]=u(null),H=C(!1),fe=C(!1),se=C(0),[ke,ie]=u(!1),x=C(null);function Me(){s("tengu_model_command_menu",{action:w("cancel")});let o=xm(K);i(`${pte}${og(o)}`,{display:"system"})}function Ae(o,t,S=!1){if(!S&&ext(o)){fe.current=!1,se.current+=1,z({model:o,effort:t});return}let b=Jge(o,t),N=H.current;H.current=!1;let ee=new AbortController;x.current=ee,ie(!0),rg(D,()=>CS(D,j.getState,o,"picker",{signal:ee.signal})).then((L)=>{if(ie(!1),ee.signal.aborted)return;if(k.current=L.messages,L.decision==="block"){g("model_switch","blocked_by_hook"),i(BP(o,L.reason,L.messages),{display:"system"});return}if(L.decision==="ask"){X({model:o,pick:b,kind:"model",hookReason:L.reason??"Confirm switching the model",vettedFrom:Rv(j.getState()),saveAsDefault:N});return}Ce(o,b,L.skipConfirm,N)}).catch((L)=>{if(ie(!1),ee.signal.aborted)return;h(we(L)),i(`Model switch failed: ${ac(l(L))}`,{display:"system"})})}function Ce(o,t,S,b){let N=j.getState();if(!S&&ZHt(o,N.mainLoopModel,N.mainLoopModelForSession,N.cacheMissAckedAtOutputTokens,GB(f()))){X({model:o,pick:t,kind:"model",vettedFrom:Rv(j.getState()),saveAsDefault:b});return}if(t!==void 0&&$ue(t.level,sl(N),sW(o),N.cacheMissAckedAtOutputTokens,GB(f()))){X({model:o,pick:t,kind:"effort",vettedFrom:Rv(j.getState()),saveAsDefault:b});return}M(o,t,b)}function M(o,t,S){if(s("tengu_model_command_menu",{action:_n(o),from_model:_n(m),to_model:_n(o)}),t?.fromUltracode)Mm(r);else if(t!==void 0)Gz(t.level,sW(o),void 0,r);j5();let b=!1,N=!1;if(Yr())VI();ng(D,j.getState(),o,"picker"),G((pe)=>(b=!!pe.fastMode,N=Yr()?dw(o,pe.fastMode):b,{...pe,mainLoopModel:o,mainLoopModelForSession:null,...t!==void 0&&{sessionEffort:Pk(t.level),ultracode:t.ultracode},...N!==b&&{fastMode:N}})),pw(b,N);let ee=S;if(ee)Z2e(o,r);y("model_switch"),Ve(o,Q);let L=`${dte}${og(xm(o))}${ee?" and saved as your default for new sessions":" for this session only"}`;if(t!==void 0){let pe=t.ultracode?"ultracode":t.level;if(L+=` with ${og(pe)} effort`,t.fromUltracode&&ee)L+=t.ultracode?" (ultracode applies to this session only)":" (the effort applies to this session only)";let ve=t.fromUltracode?pH():void 0;if(ve!==void 0&&ve!=="xhigh"){let pt=ve===null?a.CLAUDE_CODE_EFFORT_LEVEL?.toLowerCase():String(ve);L+=` \u2014 CLAUDE_CODE_EFFORT_LEVEL=${pt} overrides effort this session; clear it and ${pe} takes over`}}if(L+=GQ(b,N,o,{announceKeptOn:!0}),ee)L+=RJt(o);if(k.current.length>0)L+=`
+import { j5 } from "/$bunfs/root/chunk-f9h0bg01.js";
+import "/$bunfs/root/chunk-qq1mdtb5.js";
+import "/$bunfs/root/chunk-tx16jn0x.js";
+import "/$bunfs/root/chunk-gcks6mn0.js";
+import "/$bunfs/root/chunk-bzx56g36.js";
+import "/$bunfs/root/chunk-eqdctte5.js";
+import { a } from "/$bunfs/root/chunk-fec4384a.js";
+import "/$bunfs/root/chunk-qm65zb83.js";
+import "/$bunfs/root/chunk-vfy57cpd.js";
+import { w } from "/$bunfs/root/chunk-4xj01xwv.js";
+import { we, l } from "/$bunfs/root/chunk-ypdw393e.js";
+import { n } from "/$bunfs/root/chunk-fv016jr6.js";
+import "/$bunfs/root/chunk-qk7r0t2g.js";
+import "/$bunfs/root/chunk-4ddxwr9r.js";
+import { A0, _j, h } from "/$bunfs/root/chunk-wkxx62a2.js";
+import "/$bunfs/root/chunk-ps6pc7xd.js";
+import "/$bunfs/root/chunk-386w1sy8.js";
+import { s } from "/$bunfs/root/chunk-r53tkxrh.js";
+import { y, p, g } from "/$bunfs/root/chunk-ca80fke8.js";
+import "/$bunfs/root/chunk-qcx34e4j.js";
+import "/$bunfs/root/chunk-0pgyw7te.js";
+import "/$bunfs/root/chunk-ax6dy60b.js";
+import "/$bunfs/root/chunk-6k63g5t6.js";
+import "/$bunfs/root/chunk-4fwj3vnx.js";
+import "/$bunfs/root/chunk-nqmqabr8.js";
+import "/$bunfs/root/chunk-q14dgq5g.js";
+import "/$bunfs/root/chunk-f5hrzy3k.js";
+import "/$bunfs/root/chunk-s7e0px8j.js";
+import "/$bunfs/root/chunk-s28wf80n.js";
+import "/$bunfs/root/chunk-3bbym8ct.js";
+import "/$bunfs/root/chunk-cf8qhmdc.js";
+import "/$bunfs/root/chunk-2masxyqj.js";
+import { Gr, sn, ba, zT } from "/$bunfs/root/chunk-rgw52f13.js";
+import "/$bunfs/root/chunk-2rx5nghb.js";
+import "/$bunfs/root/chunk-z0z1xzkg.js";
+import "/$bunfs/root/chunk-c47snwm2.js";
+import "/$bunfs/root/chunk-jpf4kat5.js";
+import "/$bunfs/root/chunk-s4vc7est.js";
+import "/$bunfs/root/chunk-hyh5wcm1.js";
+import "/$bunfs/root/chunk-ntyhd04p.js";
+import "/$bunfs/root/chunk-8qsdea2c.js";
+import "/$bunfs/root/chunk-988p40e0.js";
+import "/$bunfs/root/chunk-0spqrdaj.js";
+import "/$bunfs/root/chunk-5rt2mvvk.js";
+import "/$bunfs/root/chunk-1yr12dqr.js";
+import "/$bunfs/root/chunk-2mmw62jx.js";
+import "/$bunfs/root/chunk-z2bvp3sv.js";
+import "/$bunfs/root/chunk-keb644xg.js";
+import "/$bunfs/root/chunk-bj904w9w.js";
+import "/$bunfs/root/chunk-18bck2pp.js";
+import "/$bunfs/root/chunk-dwwpyy7b.js";
+import "/$bunfs/root/chunk-jck8t8fq.js";
+import "/$bunfs/root/chunk-psdymar6.js";
+import "/$bunfs/root/chunk-0r9wzh7g.js";
+import "/$bunfs/root/chunk-sxxp6vcr.js";
+import "/$bunfs/root/chunk-rf51999f.js";
+import { _n, Yr, Zy, lf, dw, pw, VI, FSt, Vn } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { pn } from "/$bunfs/root/chunk-82w4mtvq.js";
+import "/$bunfs/root/chunk-amem41jf.js";
+import "/$bunfs/root/chunk-ghara6r1.js";
+import "/$bunfs/root/chunk-97wwdfyx.js";
+import "/$bunfs/root/chunk-e7rq8w09.js";
+import "/$bunfs/root/chunk-v7yhn7cf.js";
+import "/$bunfs/root/chunk-fbp3w46j.js";
+import "/$bunfs/root/chunk-gtv2468w.js";
+import "/$bunfs/root/chunk-4r03fm98.js";
+import "/$bunfs/root/chunk-s4smmnta.js";
+import "/$bunfs/root/chunk-kxyny47c.js";
+import "/$bunfs/root/chunk-z9ex1x2t.js";
+import "/$bunfs/root/chunk-k4a21mkt.js";
+import "/$bunfs/root/chunk-4rh74qms.js";
+import "/$bunfs/root/chunk-r3qa2s4k.js";
+import "/$bunfs/root/chunk-1evht33z.js";
+import "/$bunfs/root/chunk-gkfy5ggn.js";
+import "/$bunfs/root/chunk-qk6zade1.js";
+import "/$bunfs/root/chunk-4t3vsqt7.js";
+import "/$bunfs/root/chunk-ejdwrhgv.js";
+import "/$bunfs/root/chunk-zkvj62rn.js";
+import "/$bunfs/root/chunk-492vgtnr.js";
+import "/$bunfs/root/chunk-0g6cj4h1.js";
+import "/$bunfs/root/chunk-a48rnvhj.js";
+import "/$bunfs/root/chunk-tzhtxm67.js";
+import "/$bunfs/root/chunk-mznd09c6.js";
+import "/$bunfs/root/chunk-167jjb66.js";
+import "/$bunfs/root/chunk-9y48by1e.js";
+import "/$bunfs/root/chunk-cfqs035d.js";
+import "/$bunfs/root/chunk-308krgtb.js";
+import "/$bunfs/root/chunk-8td9ks9h.js";
+import "/$bunfs/root/chunk-fs02hzwy.js";
+import "/$bunfs/root/chunk-hebj76vj.js";
+import "/$bunfs/root/chunk-dd55s64p.js";
+import { pH, Pk, sl, Mm, $ue, Gz } from "/$bunfs/root/chunk-83h0j7w2.js";
+import { npn } from "/$bunfs/root/chunk-eb5y4yrx.js";
+import "/$bunfs/root/chunk-5c5qq1s7.js";
+import "/$bunfs/root/chunk-30e2jew7.js";
+import "/$bunfs/root/chunk-bp3j8sq3.js";
+import "/$bunfs/root/chunk-qekzccch.js";
+import "/$bunfs/root/chunk-51qp0385.js";
+import "/$bunfs/root/chunk-9tey6wcd.js";
+import "/$bunfs/root/chunk-0b318m6z.js";
+import "/$bunfs/root/chunk-c76q2y0e.js";
+import "/$bunfs/root/chunk-cds31m36.js";
+import "/$bunfs/root/chunk-0m39033q.js";
+import { GB, i2, Rv, ng, rg, og, dte, pte, JUt, QUt } from "/$bunfs/root/chunk-zze8764r.js";
+import "/$bunfs/root/chunk-c6k0ecxv.js";
+import "/$bunfs/root/chunk-2n1hsggr.js";
+import "/$bunfs/root/chunk-s0xdwab3.js";
+import "/$bunfs/root/chunk-z15hpjf9.js";
+import "/$bunfs/root/chunk-1pn2pk9v.js";
+import "/$bunfs/root/chunk-0mrbtv3q.js";
+import "/$bunfs/root/chunk-5n1tbe50.js";
+import "/$bunfs/root/chunk-twwd9fep.js";
+import "/$bunfs/root/chunk-a2an01ph.js";
+import "/$bunfs/root/chunk-dck778n3.js";
+import "/$bunfs/root/chunk-nkjrjh5n.js";
+import "/$bunfs/root/chunk-s2ac0z44.js";
+import "/$bunfs/root/chunk-wgz3g40p.js";
+import "/$bunfs/root/chunk-1mp2j0tx.js";
+import "/$bunfs/root/chunk-6a5ggyw4.js";
+import "/$bunfs/root/chunk-btcxpqw5.js";
+import "/$bunfs/root/chunk-k8xha1qv.js";
+import "/$bunfs/root/chunk-wjr8v4tx.js";
+import "/$bunfs/root/chunk-kbyvkqye.js";
+import "/$bunfs/root/chunk-37pvmyqb.js";
+import "/$bunfs/root/chunk-qg6z8ah8.js";
+import "/$bunfs/root/chunk-nf8aaj8a.js";
+import "/$bunfs/root/chunk-a6xhjq7b.js";
+import "/$bunfs/root/chunk-qnrh4abv.js";
+import "/$bunfs/root/chunk-6nmk3t6g.js";
+import "/$bunfs/root/chunk-jwrz2gmg.js";
+import "/$bunfs/root/chunk-6w72z84m.js";
+import "/$bunfs/root/chunk-nkf7ctf5.js";
+import "/$bunfs/root/chunk-38mxah2g.js";
+import "/$bunfs/root/chunk-z9bhq3k9.js";
+import "/$bunfs/root/chunk-v94qfg1j.js";
+import "/$bunfs/root/chunk-98tgyb1d.js";
+import "/$bunfs/root/chunk-h7dkgq01.js";
+import "/$bunfs/root/chunk-tveh0k24.js";
+import "/$bunfs/root/chunk-699y5x28.js";
+import "/$bunfs/root/chunk-da857b4g.js";
+import "/$bunfs/root/chunk-anwgkcw5.js";
+import "/$bunfs/root/chunk-rt5p4yax.js";
+import "/$bunfs/root/chunk-vzc4dhqq.js";
+import "/$bunfs/root/chunk-gvnqpbsf.js";
+import "/$bunfs/root/chunk-5wecjdtm.js";
+import "/$bunfs/root/chunk-5g92v3fd.js";
+import "/$bunfs/root/chunk-x06p1jhb.js";
+import "/$bunfs/root/chunk-vq9g7y26.js";
+import "/$bunfs/root/chunk-e17gvevg.js";
+import "/$bunfs/root/chunk-p1awcxk1.js";
+import "/$bunfs/root/chunk-vx3kc9d2.js";
+import "/$bunfs/root/chunk-1v3848mh.js";
+import "/$bunfs/root/chunk-fctnm902.js";
+import "/$bunfs/root/chunk-e53y7x75.js";
+import "/$bunfs/root/chunk-tz5bx4mb.js";
+import "/$bunfs/root/chunk-hz299nfa.js";
+import "/$bunfs/root/chunk-w3c6n7jh.js";
+import "/$bunfs/root/chunk-96xrtyd5.js";
+import "/$bunfs/root/chunk-trte0v0g.js";
+import "/$bunfs/root/chunk-rgh8hav6.js";
+import "/$bunfs/root/chunk-50g10fz0.js";
+import "/$bunfs/root/chunk-gmgmb4mg.js";
+import "/$bunfs/root/chunk-hzjjsb0j.js";
+import "/$bunfs/root/chunk-avrc9gay.js";
+import "/$bunfs/root/chunk-pbd9yggs.js";
+import "/$bunfs/root/chunk-cgy998p5.js";
+import "/$bunfs/root/chunk-xgfepdf4.js";
+import "/$bunfs/root/chunk-r4m4cqz1.js";
+import "/$bunfs/root/chunk-mq8h2tk8.js";
+import "/$bunfs/root/chunk-a9vrr0nr.js";
+import "/$bunfs/root/chunk-h605j25g.js";
+import "/$bunfs/root/chunk-4sw5yxwb.js";
+import "/$bunfs/root/chunk-d1d8xqks.js";
+import "/$bunfs/root/chunk-91315wj5.js";
+import "/$bunfs/root/chunk-qd35gw0c.js";
+import "/$bunfs/root/chunk-86v6b72m.js";
+import "/$bunfs/root/chunk-c2kqvv3h.js";
+import "/$bunfs/root/chunk-rsp0anqd.js";
+import "/$bunfs/root/chunk-fd2h00ye.js";
+import "/$bunfs/root/chunk-mvz9fsh3.js";
+import "/$bunfs/root/chunk-ddbk6aje.js";
+import "/$bunfs/root/chunk-krety1hw.js";
+import "/$bunfs/root/chunk-d5s7a9by.js";
+import "/$bunfs/root/chunk-6ywvv1q0.js";
+import "/$bunfs/root/chunk-wn1jrcrk.js";
+import "/$bunfs/root/chunk-pdf5n9dy.js";
+import "/$bunfs/root/chunk-dt5bt1kc.js";
+import "/$bunfs/root/chunk-k7v7xwvs.js";
+import "/$bunfs/root/chunk-fvkzpeqe.js";
+import "/$bunfs/root/chunk-pzvxycbq.js";
+import "/$bunfs/root/chunk-dzv4k86d.js";
+import "/$bunfs/root/chunk-jn7d47r1.js";
+import "/$bunfs/root/chunk-76gryyye.js";
+import "/$bunfs/root/chunk-dc4hb8f7.js";
+import "/$bunfs/root/chunk-z9jgt14c.js";
+import "/$bunfs/root/chunk-y8sx7bf9.js";
+import "/$bunfs/root/chunk-q2gyteg0.js";
+import "/$bunfs/root/chunk-0manfhn2.js";
+import "/$bunfs/root/chunk-r6ppzf4r.js";
+import "/$bunfs/root/chunk-4399d2v0.js";
+import "/$bunfs/root/chunk-y79sc2hm.js";
+import "/$bunfs/root/chunk-2t3rnt88.js";
+import "/$bunfs/root/chunk-986hvegp.js";
+import "/$bunfs/root/chunk-8jsj2mx0.js";
+import "/$bunfs/root/chunk-z9rrv31w.js";
+import "/$bunfs/root/chunk-5djs3wbb.js";
+import "/$bunfs/root/chunk-rntp2fy5.js";
+import "/$bunfs/root/chunk-p18e2918.js";
+import "/$bunfs/root/chunk-nfmyt8cw.js";
+import "/$bunfs/root/chunk-6var9pwd.js";
+import "/$bunfs/root/chunk-gmj1vprd.js";
+import "/$bunfs/root/chunk-ht15rw3x.js";
+import "/$bunfs/root/chunk-gay9hbs8.js";
+import "/$bunfs/root/chunk-4c3hecm4.js";
+import "/$bunfs/root/chunk-zk5v8tw6.js";
+import "/$bunfs/root/chunk-kdtcyk0z.js";
+import "/$bunfs/root/chunk-q75cm02t.js";
+import "/$bunfs/root/chunk-dxqac26z.js";
+import "/$bunfs/root/chunk-2204t1q0.js";
+import "/$bunfs/root/chunk-kfdrcvxr.js";
+import "/$bunfs/root/chunk-z6m3k8w5.js";
+import "/$bunfs/root/chunk-vm4xrmr7.js";
+import "/$bunfs/root/chunk-hkzwg35z.js";
+import "/$bunfs/root/chunk-mkweh3a4.js";
+import "/$bunfs/root/chunk-ky33xsw7.js";
+import "/$bunfs/root/chunk-mhf4d4sa.js";
+import "/$bunfs/root/chunk-pbmajbn7.js";
+import "/$bunfs/root/chunk-htrft0p0.js";
+import { _ } from "/$bunfs/root/chunk-haan6f8z.js";
+import "/$bunfs/root/chunk-c3bffkxg.js";
+import "/$bunfs/root/chunk-fwwvmbqn.js";
+import "/$bunfs/root/chunk-he2phymk.js";
+import "/$bunfs/root/chunk-ka74qrx3.js";
+import "/$bunfs/root/chunk-kez2zndg.js";
+import "/$bunfs/root/chunk-2wxj9m3z.js";
+import "/$bunfs/root/chunk-z45ex17x.js";
+import "/$bunfs/root/chunk-tbbqkkg3.js";
+import "/$bunfs/root/chunk-q04k5ycg.js";
+import "/$bunfs/root/chunk-e28mhr30.js";
+import "/$bunfs/root/chunk-zk5d9rtp.js";
+import "/$bunfs/root/chunk-syabrr2b.js";
+import "/$bunfs/root/chunk-93max1bs.js";
+import "/$bunfs/root/chunk-8cv6dqkz.js";
+import "/$bunfs/root/chunk-gtwaztzc.js";
+import { W, At, Xn } from "/$bunfs/root/chunk-ht28m404.js";
+import "/$bunfs/root/chunk-8ktvd0rh.js";
+import "/$bunfs/root/chunk-rp246vnd.js";
+import "/$bunfs/root/chunk-vrr898f6.js";
+import "/$bunfs/root/chunk-ngn87vcm.js";
+import "/$bunfs/root/chunk-1y0jc48h.js";
+import "/$bunfs/root/chunk-42q7ctbx.js";
+import "/$bunfs/root/chunk-s8gya298.js";
+import "/$bunfs/root/chunk-f9km17e9.js";
+import "/$bunfs/root/chunk-ek4tmwbt.js";
+import "/$bunfs/root/chunk-jmrpkgzd.js";
+import "/$bunfs/root/chunk-y2r26k83.js";
+import "/$bunfs/root/chunk-rycvm63e.js";
+import "/$bunfs/root/chunk-m5yhrq50.js";
+import { Or } from "/$bunfs/root/chunk-cmhbx7me.js";
+import "/$bunfs/root/chunk-sypj25ha.js";
+import "/$bunfs/root/chunk-hb6grkjg.js";
+import "/$bunfs/root/chunk-59pkbjrf.js";
+import "/$bunfs/root/chunk-tmxtk606.js";
+import "/$bunfs/root/chunk-489c3cyq.js";
+import "/$bunfs/root/chunk-tspcysj2.js";
+import "/$bunfs/root/chunk-9r67t977.js";
+import "/$bunfs/root/chunk-vba6efmv.js";
+import "/$bunfs/root/chunk-pwk6q778.js";
+import "/$bunfs/root/chunk-se2bnecc.js";
+import "/$bunfs/root/chunk-fm0ga625.js";
+import "/$bunfs/root/chunk-ypheby59.js";
+import "/$bunfs/root/chunk-q903htrr.js";
+import "/$bunfs/root/chunk-h4r2tn7z.js";
+import "/$bunfs/root/chunk-hyj9nfhh.js";
+import "/$bunfs/root/chunk-fbn06kdf.js";
+import "/$bunfs/root/chunk-06m34t0b.js";
+import "/$bunfs/root/chunk-3kb9rqr9.js";
+import "/$bunfs/root/chunk-26rqeg8y.js";
+import "/$bunfs/root/chunk-bzrzj1sr.js";
+import { Wme } from "/$bunfs/root/chunk-e0t3skhp.js";
+import "/$bunfs/root/chunk-dxft4b6s.js";
+import { AQ } from "/$bunfs/root/chunk-f1vdsnmw.js";
+import { IK } from "/$bunfs/root/chunk-p70hxvm1.js";
+import "/$bunfs/root/chunk-q5hmd7j9.js";
+import "/$bunfs/root/chunk-skd1pndb.js";
+import "/$bunfs/root/chunk-yzvg79ww.js";
+import { s1 } from "/$bunfs/root/chunk-vepmy3hh.js";
+import "/$bunfs/root/chunk-t9ftg1j2.js";
+import { lq } from "/$bunfs/root/chunk-d6awg8zw.js";
+import "/$bunfs/root/chunk-262f91ef.js";
+import "/$bunfs/root/chunk-r9qj0qxk.js";
+import "/$bunfs/root/chunk-1a0t5wmw.js";
+import "/$bunfs/root/chunk-hcnpgnry.js";
+import "/$bunfs/root/chunk-884t33jy.js";
+import "/$bunfs/root/chunk-vnpdqx6v.js";
+import "/$bunfs/root/chunk-et3g0deq.js";
+import "/$bunfs/root/chunk-pzr9satk.js";
+import "/$bunfs/root/chunk-0nfwsvfd.js";
+import "/$bunfs/root/chunk-sys0j174.js";
+import "/$bunfs/root/chunk-qz5vfzn9.js";
+import "/$bunfs/root/chunk-fxswqr2j.js";
+import "/$bunfs/root/chunk-b6a5y1qe.js";
+import "/$bunfs/root/chunk-pm63yfcg.js";
+import "/$bunfs/root/chunk-k9a5yseb.js";
+import "/$bunfs/root/chunk-84qb5tsd.js";
+import "/$bunfs/root/chunk-96dhk9az.js";
+import "/$bunfs/root/chunk-tw0kgz4k.js";
+import { kb } from "/$bunfs/root/chunk-8kwjh4ab.js";
+import { GQ, Xge, CS, ac, BP, Q2e, Z2e, RJt, xm, sW, ZHt, e6e, ext, aW, Jge } from "/$bunfs/root/chunk-ddrmb5hs.js";
+import "/$bunfs/root/chunk-4kafv9jq.js";
+import "/$bunfs/root/chunk-7d0my7mt.js";
+import "/$bunfs/root/chunk-wnc75h2x.js";
+import "/$bunfs/root/chunk-1fwtbc4t.js";
+import { e } from "/$bunfs/root/chunk-8s7kcbyw.js";
+import "/$bunfs/root/chunk-tfb5y7hy.js";
+import "/$bunfs/root/chunk-d5bnjcbw.js";
+import { B, A, C, u, F } from "/$bunfs/root/chunk-twm95mhz.js";
+import "/$bunfs/root/chunk-31xy83wr.js";
+import "/$bunfs/root/chunk-g732bkj4.js";
+import "/$bunfs/root/chunk-zgfc288e.js";
+import "/$bunfs/root/chunk-6nsyrmhg.js";
+import "/$bunfs/root/chunk-jjkewjsg.js";
+import "/$bunfs/root/chunk-4r71nj50.js";
+import { Lh } from "/$bunfs/root/chunk-3qvtfvqg.js";
+import "/$bunfs/root/chunk-r7t0evh2.js";
+import "/$bunfs/root/chunk-6xz0kht6.js";
+import "/$bunfs/root/chunk-2am7kb6k.js";
+import "/$bunfs/root/chunk-9kr4hqvs.js";
+import "/$bunfs/root/chunk-xvwx3w83.js";
+import "/$bunfs/root/chunk-y9akj3mq.js";
+import "/$bunfs/root/chunk-gdk3p0b3.js";
+import "/$bunfs/root/chunk-qy75zxb2.js";
+import "/$bunfs/root/chunk-r6t6p0zm.js";
+import "/$bunfs/root/chunk-qpj83ec7.js";
+import "/$bunfs/root/chunk-f77e8yef.js";
+import "/$bunfs/root/chunk-f7y0mdt6.js";
+import "/$bunfs/root/chunk-jb2pzt3t.js";
+import "/$bunfs/root/chunk-9yzzw213.js";
+import "/$bunfs/root/chunk-mknyj0qp.js";
+import "/$bunfs/root/chunk-81defen8.js";
+import "/$bunfs/root/chunk-mpg6r2j0.js";
+import "/$bunfs/root/chunk-3dh32z3c.js";
+import "/$bunfs/root/chunk-n8ecp4gs.js";
+import "/$bunfs/root/chunk-406nxetx.js";
+import "/$bunfs/root/chunk-2zf9m1zh.js";
+import "/$bunfs/root/chunk-rxqmmxnb.js";
+import "/$bunfs/root/chunk-gdhqsw8a.js";
+import "/$bunfs/root/chunk-5xr818a0.js";
+import "/$bunfs/root/chunk-fgavb5x0.js";
+import "/$bunfs/root/chunk-sqa0bs5e.js";
+import "/$bunfs/root/chunk-fveqn4y7.js";
+import "/$bunfs/root/chunk-4zsxhey6.js";
+import "/$bunfs/root/chunk-61nasexv.js";
+import "/$bunfs/root/chunk-m1andcps.js";
+import "/$bunfs/root/chunk-61hbq2wc.js";
+import "/$bunfs/root/chunk-rq65wazg.js";
+import "/$bunfs/root/chunk-5tdaspnd.js";
+import "/$bunfs/root/chunk-rr0yj5sq.js";
+import "/$bunfs/root/chunk-a7wreksn.js";
+import "/$bunfs/root/chunk-8sbwe0jk.js";
+import "/$bunfs/root/chunk-nwb64bac.js";
+import "/$bunfs/root/chunk-g5y4mxg8.js";
+import "/$bunfs/root/chunk-cbn30h5b.js";
+import "/$bunfs/root/chunk-g01aac1k.js";
+import "/$bunfs/root/chunk-3fwkz19s.js";
+import "/$bunfs/root/chunk-9319g175.js";
+import "/$bunfs/root/chunk-szz73wxx.js";
+import "/$bunfs/root/chunk-b40bn863.js";
+import "/$bunfs/root/chunk-6mgs10s2.js";
+import "/$bunfs/root/chunk-6s9ybdq1.js";
+import "/$bunfs/root/chunk-74qqwjhx.js";
+import "/$bunfs/root/chunk-1hh0bg14.js";
+import "/$bunfs/root/chunk-052zvbpg.js";
+import "/$bunfs/root/chunk-werv747a.js";
+import "/$bunfs/root/chunk-jzh4kg5x.js";
+import "/$bunfs/root/chunk-7s7jqj2f.js";
+import "/$bunfs/root/chunk-56sxk8k2.js";
+import "/$bunfs/root/chunk-7jz6r17g.js";
+import "/$bunfs/root/chunk-a4q326ap.js";
+import { d } from "/$bunfs/root/chunk-yz031c9r.js";
+F();
+function Bt(Bo) {
+  return Bo.mainLoopModel;
+}
+function Ut() {
+  return new AbortController();
+}
+function Vt(Uo) {
+  return Uo !== null;
+}
+function Gt() {
+  return Gr() !== null && ba();
+}
+function Wt(on) {
+  return on.mainLoopModel;
+}
+function Ht(nn) {
+  return nn.mainLoopModelForSession;
+}
+function Jt(rn) {
+  return rn.sessionEffort;
+}
+function Kt(ln) {
+  return ln.settingsEffortTable;
+}
+var Ue = "Model picker shows local options in cloud sessions \u2014 pass a model name, e.g. /model sonnet",
+  at = "Couldn\u2019t load the model list from the cloud session \u2014 pass a model name, e.g. /model sonnet",
+  dt =
+    "Stopped waiting for the cloud session\u2019s model list \u2014 run /model again, or pass a model name, e.g. /model sonnet",
+  ct = 15000,
+  Ee = (f) => pn(f) !== f,
+  ft = (f) =>
+    f.reduce((i, r) => (i === null || (r.value?.length ?? 0) > (i.value?.length ?? 0) ? r : i), null)?.value ?? null;
+function Yt({ getMessages: f, onDone: i, storageV5: r, session: D }) {
+  let j = Xn(),
+    m = W((o) => o.mainLoopModel),
+    E = W((o) => o.mainLoopModelForSession),
+    K = IK() ?? m,
+    q = W((o) => o.fastMode),
+    G = At(),
+    { addNotification: Q } = Or(),
+    [O, X] = u(null),
+    k = C([]),
+    [Z, z] = u(null),
+    H = C(!1),
+    fe = C(!1),
+    se = C(0),
+    [ke, ie] = u(!1),
+    x = C(null);
+  function Me() {
+    s("tengu_model_command_menu", { action: w("cancel") });
+    let o = xm(K);
+    i(`${pte}${og(o)}`, { display: "system" });
+  }
+  function Ae(o, t, S = !1) {
+    if (!S && ext(o)) {
+      (fe.current = !1), (se.current += 1), z({ model: o, effort: t });
+      return;
+    }
+    let b = Jge(o, t),
+      N = H.current;
+    H.current = !1;
+    let ee = new AbortController();
+    (x.current = ee),
+      ie(!0),
+      rg(D, () => CS(D, j.getState, o, "picker", { signal: ee.signal }))
+        .then((L) => {
+          if ((ie(!1), ee.signal.aborted)) return;
+          if (((k.current = L.messages), L.decision === "block")) {
+            g("model_switch", "blocked_by_hook"), i(BP(o, L.reason, L.messages), { display: "system" });
+            return;
+          }
+          if (L.decision === "ask") {
+            X({
+              model: o,
+              pick: b,
+              kind: "model",
+              hookReason: L.reason ?? "Confirm switching the model",
+              vettedFrom: Rv(j.getState()),
+              saveAsDefault: N,
+            });
+            return;
+          }
+          Ce(o, b, L.skipConfirm, N);
+        })
+        .catch((L) => {
+          if ((ie(!1), ee.signal.aborted)) return;
+          h(we(L)), i(`Model switch failed: ${ac(l(L))}`, { display: "system" });
+        });
+  }
+  function Ce(o, t, S, b) {
+    let N = j.getState();
+    if (!S && ZHt(o, N.mainLoopModel, N.mainLoopModelForSession, N.cacheMissAckedAtOutputTokens, GB(f()))) {
+      X({ model: o, pick: t, kind: "model", vettedFrom: Rv(j.getState()), saveAsDefault: b });
+      return;
+    }
+    if (t !== void 0 && $ue(t.level, sl(N), sW(o), N.cacheMissAckedAtOutputTokens, GB(f()))) {
+      X({ model: o, pick: t, kind: "effort", vettedFrom: Rv(j.getState()), saveAsDefault: b });
+      return;
+    }
+    M(o, t, b);
+  }
+  function M(o, t, S) {
+    if ((s("tengu_model_command_menu", { action: _n(o), from_model: _n(m), to_model: _n(o) }), t?.fromUltracode)) Mm(r);
+    else if (t !== void 0) Gz(t.level, sW(o), void 0, r);
+    j5();
+    let b = !1,
+      N = !1;
+    if (Yr()) VI();
+    ng(D, j.getState(), o, "picker"),
+      G(
+        (pe) => (
+          (b = !!pe.fastMode),
+          (N = Yr() ? dw(o, pe.fastMode) : b),
+          {
+            ...pe,
+            mainLoopModel: o,
+            mainLoopModelForSession: null,
+            ...(t !== void 0 && { sessionEffort: Pk(t.level), ultracode: t.ultracode }),
+            ...(N !== b && { fastMode: N }),
+          }
+        ),
+      ),
+      pw(b, N);
+    let ee = S;
+    if (ee) Z2e(o, r);
+    y("model_switch"), Ve(o, Q);
+    let L = `${dte}${og(xm(o))}${ee ? " and saved as your default for new sessions" : " for this session only"}`;
+    if (t !== void 0) {
+      let pe = t.ultracode ? "ultracode" : t.level;
+      if (((L += ` with ${og(pe)} effort`), t.fromUltracode && ee))
+        L += t.ultracode ? " (ultracode applies to this session only)" : " (the effort applies to this session only)";
+      let ve = t.fromUltracode ? pH() : void 0;
+      if (ve !== void 0 && ve !== "xhigh") {
+        let pt = ve === null ? a.CLAUDE_CODE_EFFORT_LEVEL?.toLowerCase() : String(ve);
+        L += ` \u2014 CLAUDE_CODE_EFFORT_LEVEL=${pt} overrides effort this session; clear it and ${pe} takes over`;
+      }
+    }
+    if (((L += GQ(b, N, o, { announceKeptOn: !0 })), ee)) L += RJt(o);
+    if (k.current.length > 0)
+      (L += `
 ${k.current.map(ac).join(`
-`)}`,k.current=[];i(L)}if(Z){let{model:o,effort:t}=Z,S=se.current;return e(Wme,{variant:"picker",onDone:(b,N)=>{if(S!==se.current)return!1;if(fe.current)return!1;if(fe.current=!0,z(null),b==="consent"){Ae(o,t,!0);return}H.current=!1,i(N??`${pte}${og(xm(K))}`,{display:"system"})}})}if(ke)return e(s1,{message:"Running PreModelSwitch hooks\u2026",onCancel:()=>{x.current?.abort(),ie(!1),i("Model switch cancelled",{display:"system"})}});if(O)return e(lq,{kind:O.kind,model:O.model,effort:O.pick?.level,hookReason:O.hookReason,onConfirm:()=>{if(O.vettedFrom!==void 0&&Rv(j.getState())!==O.vettedFrom){X(null),i("The model changed while you were confirming; pick again",{display:"system"});return}M(O.model,O.pick,O.saveAsDefault)},onCancel:()=>{X(null),H.current=!1}});return e(AQ,{initial:m,sessionModel:E,onSelect:Ae,onSetDefault:(o)=>{H.current=!0},onCancel:Me,isStandaloneCommand:!0,skipSettingsWrite:!0,showFastModeNotice:Yr()&&q&&lf(K)&&Zy()})}function ut(No){let le=_(31),{getMessages:Ge,onDone:I,storageV5:We,credentials:He,session:Je}=No,P=W(Bt),[te,To]=u(null),[Oe,jo]=u(null),[re]=u(Ut),gt,ht;if(le[0]!==re||le[1]!==I)gt=()=>{let yt=Gr();if(!yt){I(Ue,{display:"system"});return}let Ke=!1;return yt.sendControlRequest({subtype:"list_models"},{signal:re.signal,timeoutMs:ct}).then((Do)=>{if(Ke||re.signal.aborted){return}let _t=Do.models.map(npn).filter(Vt);s("tengu_remote_model_picker",{outcome:w("opened"),model_count:_t.length}),To(_t)}).catch((Io)=>{if(Ke||re.signal.aborted){return}s("tengu_remote_model_picker",{outcome:w(Io instanceof kb?"timeout":"fallback")}),I(at,{display:"system"})}),()=>{Ke=!0}},ht=[I,re],le[0]=re,le[1]=I,le[2]=gt,le[3]=ht;else gt=le[2],ht=le[3];if(A(gt,ht),Oe!==null){let ue;if(le[4]!==He||le[5]!==Ge||le[6]!==I||le[7]!==Oe||le[8]!==Je||le[9]!==We)ue=e(Le,{args:Oe,getMessages:Ge,onDone:I,storageV5:We,credentials:He,session:Je}),le[4]=He,le[5]=Ge,le[6]=I,le[7]=Oe,le[8]=Je,le[9]=We,le[10]=ue;else ue=le[10];return ue}if(te===null){let ue;if(le[11]!==re||le[12]!==I)ue=e(s1,{message:"Loading models from the cloud session\u2026",onCancel:()=>{re.abort(),s("tengu_remote_model_picker",{outcome:w("cancelled")}),I(dt,{display:"system"})}}),le[11]=re,le[12]=I,le[13]=ue;else ue=le[13];return ue}let ue;if(le[14]!==P||le[15]!==te){let Se;if(le[17]!==P)Se=(Po)=>Po.value===P,le[17]=P,le[18]=Se;else Se=le[18];ue=te.find(Se);le[14]=P,le[15]=te,le[16]=ue}else ue=le[16];let Ne=ue,Se;if(le[19]!==Ne||le[20]!==P||le[21]!==te)Se=Ne?Ne.value:ft(P===null?[]:te.filter((qe)=>qe.value!==null&&pn(P).includes(pn(qe.value))&&Ee(P)===Ee(qe.value))),le[19]=Ne,le[20]=P,le[21]=te,le[22]=Se;else Se=le[22];let Qe=Se,kt;if(le[23]===d)kt=(Yo)=>jo(Yo??"default"),le[23]=kt;else kt=le[23];let Te;if(le[24]!==P||le[25]!==I)Te=()=>{s("tengu_model_command_menu",{action:w("cancel")}),I(P===null?"Kept the workspace\u2019s current model":`${pte}${og(xm(P))}`,{display:"system"})},le[24]=P,le[25]=I,le[26]=Te;else Te=le[26];let Mt;if(le[27]!==Qe||le[28]!==te||le[29]!==Te)Mt=e(AQ,{initial:Qe,options:te,headerText:"Models reported by the cloud session. Your pick applies to that session.",onSelect:kt,onCancel:Te,isStandaloneCommand:!0,skipSettingsWrite:!0}),le[27]=Qe,le[28]=te,le[29]=Te,le[30]=Mt;else Mt=le[30];return Mt}function Le(Vo){let V=_(62),{args:U,getMessages:Xe,onDone:c,storageV5:oe,credentials:ge,session:ne}=Vo,R=Xn(),ae=At(),{addNotification:me}=Or(),[T,wt]=u(null),Ct;if(V[0]===d)Ct=[],V[0]=Ct;else Ct=V[0];let Ze=C(Ct),[Go,je]=u(!1),Ft=C(null),[bt,vt]=u(null),[Wo]=u(Gt),De=C(!1),ze=C(!1),xe=C(0),Fe=C(!1),St;if(V[1]!==me||V[2]!==c||V[3]!==ne||V[4]!==ae||V[5]!==oe||V[6]!==R)St=(Re,et)=>{let Ho=!sn();let Rt=Q2e(ne,Re,()=>R.getState(),ae,Ho,"command",et,oe);if(et!==void 0&&Re!==null)me({key:`model-restricted-${Re}`,kind:"warning",text:Lh(et,Re),priority:"immediate"});Ve(Re,me);let $t=Ze.current;Ze.current=[],c($t.length>0?`${Rt}
+`)}`),
+        (k.current = []);
+    i(L);
+  }
+  if (Z) {
+    let { model: o, effort: t } = Z,
+      S = se.current;
+    return e(Wme, {
+      variant: "picker",
+      onDone: (b, N) => {
+        if (S !== se.current) return !1;
+        if (fe.current) return !1;
+        if (((fe.current = !0), z(null), b === "consent")) {
+          Ae(o, t, !0);
+          return;
+        }
+        (H.current = !1), i(N ?? `${pte}${og(xm(K))}`, { display: "system" });
+      },
+    });
+  }
+  if (ke)
+    return e(s1, {
+      message: "Running PreModelSwitch hooks\u2026",
+      onCancel: () => {
+        x.current?.abort(), ie(!1), i("Model switch cancelled", { display: "system" });
+      },
+    });
+  if (O)
+    return e(lq, {
+      kind: O.kind,
+      model: O.model,
+      effort: O.pick?.level,
+      hookReason: O.hookReason,
+      onConfirm: () => {
+        if (O.vettedFrom !== void 0 && Rv(j.getState()) !== O.vettedFrom) {
+          X(null), i("The model changed while you were confirming; pick again", { display: "system" });
+          return;
+        }
+        M(O.model, O.pick, O.saveAsDefault);
+      },
+      onCancel: () => {
+        X(null), (H.current = !1);
+      },
+    });
+  return e(AQ, {
+    initial: m,
+    sessionModel: E,
+    onSelect: Ae,
+    onSetDefault: (o) => {
+      H.current = !0;
+    },
+    onCancel: Me,
+    isStandaloneCommand: !0,
+    skipSettingsWrite: !0,
+    showFastModeNotice: Yr() && q && lf(K) && Zy(),
+  });
+}
+function ut(No) {
+  let le = _(31),
+    { getMessages: Ge, onDone: I, storageV5: We, credentials: He, session: Je } = No,
+    P = W(Bt),
+    [te, To] = u(null),
+    [Oe, jo] = u(null),
+    [re] = u(Ut),
+    gt,
+    ht;
+  if (le[0] !== re || le[1] !== I)
+    (gt = () => {
+      let yt = Gr();
+      if (!yt) {
+        I(Ue, { display: "system" });
+        return;
+      }
+      let Ke = !1;
+      return (
+        yt
+          .sendControlRequest({ subtype: "list_models" }, { signal: re.signal, timeoutMs: ct })
+          .then((Do) => {
+            if (Ke || re.signal.aborted) {
+              return;
+            }
+            let _t = Do.models.map(npn).filter(Vt);
+            s("tengu_remote_model_picker", { outcome: w("opened"), model_count: _t.length }), To(_t);
+          })
+          .catch((Io) => {
+            if (Ke || re.signal.aborted) {
+              return;
+            }
+            s("tengu_remote_model_picker", { outcome: w(Io instanceof kb ? "timeout" : "fallback") }),
+              I(at, { display: "system" });
+          }),
+        () => {
+          Ke = !0;
+        }
+      );
+    }),
+      (ht = [I, re]),
+      (le[0] = re),
+      (le[1] = I),
+      (le[2] = gt),
+      (le[3] = ht);
+  else (gt = le[2]), (ht = le[3]);
+  if ((A(gt, ht), Oe !== null)) {
+    let ue;
+    if (le[4] !== He || le[5] !== Ge || le[6] !== I || le[7] !== Oe || le[8] !== Je || le[9] !== We)
+      (ue = e(Le, { args: Oe, getMessages: Ge, onDone: I, storageV5: We, credentials: He, session: Je })),
+        (le[4] = He),
+        (le[5] = Ge),
+        (le[6] = I),
+        (le[7] = Oe),
+        (le[8] = Je),
+        (le[9] = We),
+        (le[10] = ue);
+    else ue = le[10];
+    return ue;
+  }
+  if (te === null) {
+    let ue;
+    if (le[11] !== re || le[12] !== I)
+      (ue = e(s1, {
+        message: "Loading models from the cloud session\u2026",
+        onCancel: () => {
+          re.abort(), s("tengu_remote_model_picker", { outcome: w("cancelled") }), I(dt, { display: "system" });
+        },
+      })),
+        (le[11] = re),
+        (le[12] = I),
+        (le[13] = ue);
+    else ue = le[13];
+    return ue;
+  }
+  let ue;
+  if (le[14] !== P || le[15] !== te) {
+    let Se;
+    if (le[17] !== P) (Se = (Po) => Po.value === P), (le[17] = P), (le[18] = Se);
+    else Se = le[18];
+    ue = te.find(Se);
+    (le[14] = P), (le[15] = te), (le[16] = ue);
+  } else ue = le[16];
+  let Ne = ue,
+    Se;
+  if (le[19] !== Ne || le[20] !== P || le[21] !== te)
+    (Se = Ne
+      ? Ne.value
+      : ft(
+          P === null
+            ? []
+            : te.filter((qe) => qe.value !== null && pn(P).includes(pn(qe.value)) && Ee(P) === Ee(qe.value)),
+        )),
+      (le[19] = Ne),
+      (le[20] = P),
+      (le[21] = te),
+      (le[22] = Se);
+  else Se = le[22];
+  let Qe = Se,
+    kt;
+  if (le[23] === d) (kt = (Yo) => jo(Yo ?? "default")), (le[23] = kt);
+  else kt = le[23];
+  let Te;
+  if (le[24] !== P || le[25] !== I)
+    (Te = () => {
+      s("tengu_model_command_menu", { action: w("cancel") }),
+        I(P === null ? "Kept the workspace\u2019s current model" : `${pte}${og(xm(P))}`, { display: "system" });
+    }),
+      (le[24] = P),
+      (le[25] = I),
+      (le[26] = Te);
+  else Te = le[26];
+  let Mt;
+  if (le[27] !== Qe || le[28] !== te || le[29] !== Te)
+    (Mt = e(AQ, {
+      initial: Qe,
+      options: te,
+      headerText: "Models reported by the cloud session. Your pick applies to that session.",
+      onSelect: kt,
+      onCancel: Te,
+      isStandaloneCommand: !0,
+      skipSettingsWrite: !0,
+    })),
+      (le[27] = Qe),
+      (le[28] = te),
+      (le[29] = Te),
+      (le[30] = Mt);
+  else Mt = le[30];
+  return Mt;
+}
+function Le(Vo) {
+  let V = _(62),
+    { args: U, getMessages: Xe, onDone: c, storageV5: oe, credentials: ge, session: ne } = Vo,
+    R = Xn(),
+    ae = At(),
+    { addNotification: me } = Or(),
+    [T, wt] = u(null),
+    Ct;
+  if (V[0] === d) (Ct = []), (V[0] = Ct);
+  else Ct = V[0];
+  let Ze = C(Ct),
+    [Go, je] = u(!1),
+    Ft = C(null),
+    [bt, vt] = u(null),
+    [Wo] = u(Gt),
+    De = C(!1),
+    ze = C(!1),
+    xe = C(0),
+    Fe = C(!1),
+    St;
+  if (V[1] !== me || V[2] !== c || V[3] !== ne || V[4] !== ae || V[5] !== oe || V[6] !== R)
+    (St = (Re, et) => {
+      let Ho = !sn();
+      let Rt = Q2e(ne, Re, () => R.getState(), ae, Ho, "command", et, oe);
+      if (et !== void 0 && Re !== null)
+        me({ key: `model-restricted-${Re}`, kind: "warning", text: Lh(et, Re), priority: "immediate" });
+      Ve(Re, me);
+      let $t = Ze.current;
+      (Ze.current = []),
+        c(
+          $t.length > 0
+            ? `${Rt}
 ${$t.map(ac).join(`
-`)}`:Rt)},V[1]=me,V[2]=c,V[3]=ne,V[4]=ae,V[5]=oe,V[6]=R,V[7]=St;else St=V[7];let be=St,Et;if(V[8]!==be||V[9]!==Xe||V[10]!==R)Et=(tt,Lt,Jo)=>{let ot=R.getState();if(!Jo&&ZHt(tt,ot.mainLoopModel,ot.mainLoopModelForSession,ot.cacheMissAckedAtOutputTokens,GB(Xe()))){wt({model:tt,substitutedFrom:Lt,vettedFrom:Rv(R.getState())});return}be(tt,Lt)},V[8]=be,V[9]=Xe,V[10]=R,V[11]=Et;else Et=V[11];let nt=Et,Ot;if(V[12]!==nt||V[13]!==c||V[14]!==ne||V[15]!==R)Ot=(Ie,Nt)=>{let Pe=new AbortController;Ft.current=Pe,je(!0),rg(ne,()=>CS(ne,R.getState,Ie,"command",{signal:Pe.signal})).then((he)=>{if(je(!1),Pe.signal.aborted){return}if(Ze.current=he.messages,he.decision==="block"){g("model_switch","blocked_by_hook"),c(BP(Ie,he.reason,he.messages),{display:"system"});return}if(he.decision==="ask"){wt({model:Ie,substitutedFrom:Nt,hookReason:he.reason??"Confirm switching the model",vettedFrom:Rv(R.getState())});return}nt(Ie,Nt,he.skipConfirm)}).catch((Tt)=>{if(je(!1),Pe.signal.aborted){return}h(we(Tt)),c(`Model switch failed: ${ac(l(Tt))}`,{display:"system"})})},V[12]=nt,V[13]=c,V[14]=ne,V[15]=R,V[16]=Ot;else Ot=V[16];let de=Ot,jt;if(V[17]!==me||V[18]!==U||V[19]!==ge||V[20]!==c||V[21]!==de||V[22]!==ne||V[23]!==ae||V[24]!==oe)jt=()=>{let Dt=Gr();if(Dt&&ba()){Xge(U,oe,ge).then((ye)=>{if(De.current){return}if(!ye.ok){Fe.current=!0,c(ye.message,{display:"system"});return}if(aW(ye.model)){g("model_fable_consent","remote_thin_client_blocked"),Fe.current=!0,c("Fable 5 uses usage credits, and this cloud session can\u2019t show the consent prompt yet \xB7 switch models from the workspace, or consent once in a local session first",{display:"system"});return}let J=ye.model;return Dt.sendControlRequest({subtype:"set_model",model:J??void 0}).then(()=>{let st=!1;if(ae((Ye)=>(st=Yr()&&!!Ye.fastMode&&!dw(J,Ye.fastMode),ng(ne,Ye,J,"command"),{...Ye,mainLoopModel:J,mainLoopModelForSession:null,...st&&{fastMode:!1}})),st)pw(!0,!1);if(De.current){me({key:`remote-model-switch-landed-${J??"default"}`,kind:"event",text:J===null?"The cloud session reset its model to the workspace default":`The cloud session switched to ${xm(J)}`,priority:"high"});return}if(ye.substitutedFrom!==void 0&&J!==null)me({key:`model-restricted-${J}`,kind:"warning",text:Lh(ye.substitutedFrom,J),priority:"immediate"});if(ye.substitutedFrom!==void 0)g("model_switch","family_alias_stepped_down");else y("model_switch");Fe.current=!0,c(J===null?"Reset model to the workspace default":`${dte}${og(xm(J))}`)}).catch((it)=>{if(n(`[remote] set_model rejected: ${l(it)}`),De.current){return}let It=it instanceof kb;p("model_switch",It?"timeout":"remote_rejected"),Fe.current=!0,c(It?`${JUt}${og(U)} may still have been applied`:`${QUt}${og(U)}: ${ac(l(it))}`,{display:"system"})})});return}Xge(U,oe,ge).then((_e)=>{if(!_e.ok){c(_e.message,{display:"system"});return}if(ext(_e.model)){ze.current=!1,xe.current=xe.current+1,vt({model:_e.model,substitutedFrom:_e.substitutedFrom});return}de(_e.model,_e.substitutedFrom)})},V[17]=me,V[18]=U,V[19]=ge,V[20]=c,V[21]=de,V[22]=ne,V[23]=ae,V[24]=oe,V[25]=jt;else jt=V[25];let Pt;if(V[26]!==U||V[27]!==ge||V[28]!==c||V[29]!==de||V[30]!==ae||V[31]!==oe)Pt=[U,c,ae,de,oe,ge],V[26]=U,V[27]=ge,V[28]=c,V[29]=de,V[30]=ae,V[31]=oe,V[32]=Pt;else Pt=V[32];if(A(jt,Pt),Wo){const Y=`Switching the cloud session to ${U}\u2026`;let ce;if(V[33]!==U||V[34]!==c)ce=()=>{if(Fe.current){return}Fe.current=!0,De.current=!0,g("model_switch","remote_wait_cancelled"),c(`Stopped waiting for the cloud session \u2014 you\u2019ll get a notice if the switch to ${U} still lands`,{display:"system"})},V[33]=U,V[34]=c,V[35]=ce;else ce=V[35];let $e;if(V[36]!==Y||V[37]!==ce)$e=e(s1,{message:Y,onCancel:ce}),V[36]=Y,V[37]=ce,V[38]=$e;else $e=V[38];return $e}if(bt){let{model:rt,substitutedFrom:lt}=bt;let Ko=xe.current;let Y;if(V[39]!==rt||V[40]!==c||V[41]!==de||V[42]!==R||V[43]!==lt)Y=e(Wme,{variant:"picker",onDone:(qo,Qo)=>{if(Ko!==xe.current){return!1}if(ze.current){return!1}if(ze.current=!0,vt(null),qo==="consent"){de(rt,lt);return}c(Qo??`${pte}${og(xm(i2(R.getState())))}`,{display:"system"})}}),V[39]=rt,V[40]=c,V[41]=de,V[42]=R,V[43]=lt,V[44]=Y;else Y=V[44];return Y}if(T){let Y;if(V[45]!==be||V[46]!==c||V[47]!==T.model||V[48]!==T.substitutedFrom||V[49]!==T.vettedFrom||V[50]!==R)Y=()=>{if(T.vettedFrom!==void 0&&Rv(R.getState())!==T.vettedFrom){c("The model changed while you were confirming; pick again",{display:"system"});return}be(T.model,T.substitutedFrom)},V[45]=be,V[46]=c,V[47]=T.model,V[48]=T.substitutedFrom,V[49]=T.vettedFrom,V[50]=R,V[51]=Y;else Y=V[51];let ce;if(V[52]!==c||V[53]!==R)ce=()=>c(`${pte}${og(xm(i2(R.getState())))}`,{display:"system"}),V[52]=c,V[53]=R,V[54]=ce;else ce=V[54];let $e;if(V[55]!==T.hookReason||V[56]!==T.model||V[57]!==Y||V[58]!==ce)$e=e(lq,{kind:"model",model:T.model,effort:void 0,hookReason:T.hookReason,onConfirm:Y,onCancel:ce}),V[55]=T.hookReason,V[56]=T.model,V[57]=Y,V[58]=ce,V[59]=$e;else $e=V[59];return $e}if(Go){let Y;if(V[60]!==c)Y=e(s1,{message:"Running PreModelSwitch hooks\u2026",onCancel:()=>{Ft.current?.abort(),je(!1),c("Model switch cancelled",{display:"system"})}}),V[60]=c,V[61]=Y;else Y=V[61];return Y}return null}function Ve(f,i){let r=FSt(f);if(!r)return;i({key:"model-deprecation-warning",kind:"warning",text:r,color:"warning",priority:"immediate",invalidates:["model-deprecation-warning"]})}function mt(Xo){let{onDone:Zo}=Xo,zo=W(Wt),xo=W(Ht),en=W(Jt),tn=W(Kt);return Zo(e6e({mainLoopModel:zo,mainLoopModelForSession:xo,sessionEffort:en,settingsEffortTable:tn})),null}var Lo=async(f,i,r)=>{if(r=r?.trim()||"",_j.includes(r))return s("tengu_model_command_inline_help",{args:r}),e(mt,{onDone:f});if(A0.includes(r)){f("Run /model to open the model selection menu, or /model [modelName] to set the model.",{display:"system"});return}if(r)return s("tengu_model_command_inline",{args_hash:Vn(r),args_length:r.length}),e(Le,{args:r,getMessages:()=>i.getMessages?.()??i.messages,onDone:f,storageV5:i.storageV5,credentials:i.credentials,session:i.session});if(Gr()){if(zT("modelCatalog")&&ba())return e(ut,{getMessages:()=>i.getMessages?.()??i.messages,onDone:f,storageV5:i.storageV5,credentials:i.credentials,session:i.session});f(Ue,{display:"system"});return}return e(Yt,{onDone:f,getMessages:()=>i.getMessages?.()??i.messages,storageV5:i.storageV5,session:i.session})};export{Lo as call};
+`)}`
+            : Rt,
+        );
+    }),
+      (V[1] = me),
+      (V[2] = c),
+      (V[3] = ne),
+      (V[4] = ae),
+      (V[5] = oe),
+      (V[6] = R),
+      (V[7] = St);
+  else St = V[7];
+  let be = St,
+    Et;
+  if (V[8] !== be || V[9] !== Xe || V[10] !== R)
+    (Et = (tt, Lt, Jo) => {
+      let ot = R.getState();
+      if (!Jo && ZHt(tt, ot.mainLoopModel, ot.mainLoopModelForSession, ot.cacheMissAckedAtOutputTokens, GB(Xe()))) {
+        wt({ model: tt, substitutedFrom: Lt, vettedFrom: Rv(R.getState()) });
+        return;
+      }
+      be(tt, Lt);
+    }),
+      (V[8] = be),
+      (V[9] = Xe),
+      (V[10] = R),
+      (V[11] = Et);
+  else Et = V[11];
+  let nt = Et,
+    Ot;
+  if (V[12] !== nt || V[13] !== c || V[14] !== ne || V[15] !== R)
+    (Ot = (Ie, Nt) => {
+      let Pe = new AbortController();
+      (Ft.current = Pe),
+        je(!0),
+        rg(ne, () => CS(ne, R.getState, Ie, "command", { signal: Pe.signal }))
+          .then((he) => {
+            if ((je(!1), Pe.signal.aborted)) {
+              return;
+            }
+            if (((Ze.current = he.messages), he.decision === "block")) {
+              g("model_switch", "blocked_by_hook"), c(BP(Ie, he.reason, he.messages), { display: "system" });
+              return;
+            }
+            if (he.decision === "ask") {
+              wt({
+                model: Ie,
+                substitutedFrom: Nt,
+                hookReason: he.reason ?? "Confirm switching the model",
+                vettedFrom: Rv(R.getState()),
+              });
+              return;
+            }
+            nt(Ie, Nt, he.skipConfirm);
+          })
+          .catch((Tt) => {
+            if ((je(!1), Pe.signal.aborted)) {
+              return;
+            }
+            h(we(Tt)), c(`Model switch failed: ${ac(l(Tt))}`, { display: "system" });
+          });
+    }),
+      (V[12] = nt),
+      (V[13] = c),
+      (V[14] = ne),
+      (V[15] = R),
+      (V[16] = Ot);
+  else Ot = V[16];
+  let de = Ot,
+    jt;
+  if (
+    V[17] !== me ||
+    V[18] !== U ||
+    V[19] !== ge ||
+    V[20] !== c ||
+    V[21] !== de ||
+    V[22] !== ne ||
+    V[23] !== ae ||
+    V[24] !== oe
+  )
+    (jt = () => {
+      let Dt = Gr();
+      if (Dt && ba()) {
+        Xge(U, oe, ge).then((ye) => {
+          if (De.current) {
+            return;
+          }
+          if (!ye.ok) {
+            (Fe.current = !0), c(ye.message, { display: "system" });
+            return;
+          }
+          if (aW(ye.model)) {
+            g("model_fable_consent", "remote_thin_client_blocked"),
+              (Fe.current = !0),
+              c(
+                "Fable 5 uses usage credits, and this cloud session can\u2019t show the consent prompt yet \xB7 switch models from the workspace, or consent once in a local session first",
+                { display: "system" },
+              );
+            return;
+          }
+          let J = ye.model;
+          return Dt.sendControlRequest({ subtype: "set_model", model: J ?? void 0 })
+            .then(() => {
+              let st = !1;
+              if (
+                (ae(
+                  (Ye) => (
+                    (st = Yr() && !!Ye.fastMode && !dw(J, Ye.fastMode)),
+                    ng(ne, Ye, J, "command"),
+                    { ...Ye, mainLoopModel: J, mainLoopModelForSession: null, ...(st && { fastMode: !1 }) }
+                  ),
+                ),
+                st)
+              )
+                pw(!0, !1);
+              if (De.current) {
+                me({
+                  key: `remote-model-switch-landed-${J ?? "default"}`,
+                  kind: "event",
+                  text:
+                    J === null
+                      ? "The cloud session reset its model to the workspace default"
+                      : `The cloud session switched to ${xm(J)}`,
+                  priority: "high",
+                });
+                return;
+              }
+              if (ye.substitutedFrom !== void 0 && J !== null)
+                me({
+                  key: `model-restricted-${J}`,
+                  kind: "warning",
+                  text: Lh(ye.substitutedFrom, J),
+                  priority: "immediate",
+                });
+              if (ye.substitutedFrom !== void 0) g("model_switch", "family_alias_stepped_down");
+              else y("model_switch");
+              (Fe.current = !0), c(J === null ? "Reset model to the workspace default" : `${dte}${og(xm(J))}`);
+            })
+            .catch((it) => {
+              if ((n(`[remote] set_model rejected: ${l(it)}`), De.current)) {
+                return;
+              }
+              let It = it instanceof kb;
+              p("model_switch", It ? "timeout" : "remote_rejected"),
+                (Fe.current = !0),
+                c(It ? `${JUt}${og(U)} may still have been applied` : `${QUt}${og(U)}: ${ac(l(it))}`, {
+                  display: "system",
+                });
+            });
+        });
+        return;
+      }
+      Xge(U, oe, ge).then((_e) => {
+        if (!_e.ok) {
+          c(_e.message, { display: "system" });
+          return;
+        }
+        if (ext(_e.model)) {
+          (ze.current = !1),
+            (xe.current = xe.current + 1),
+            vt({ model: _e.model, substitutedFrom: _e.substitutedFrom });
+          return;
+        }
+        de(_e.model, _e.substitutedFrom);
+      });
+    }),
+      (V[17] = me),
+      (V[18] = U),
+      (V[19] = ge),
+      (V[20] = c),
+      (V[21] = de),
+      (V[22] = ne),
+      (V[23] = ae),
+      (V[24] = oe),
+      (V[25] = jt);
+  else jt = V[25];
+  let Pt;
+  if (V[26] !== U || V[27] !== ge || V[28] !== c || V[29] !== de || V[30] !== ae || V[31] !== oe)
+    (Pt = [U, c, ae, de, oe, ge]),
+      (V[26] = U),
+      (V[27] = ge),
+      (V[28] = c),
+      (V[29] = de),
+      (V[30] = ae),
+      (V[31] = oe),
+      (V[32] = Pt);
+  else Pt = V[32];
+  if ((A(jt, Pt), Wo)) {
+    const Y = `Switching the cloud session to ${U}\u2026`;
+    let ce;
+    if (V[33] !== U || V[34] !== c)
+      (ce = () => {
+        if (Fe.current) {
+          return;
+        }
+        (Fe.current = !0),
+          (De.current = !0),
+          g("model_switch", "remote_wait_cancelled"),
+          c(`Stopped waiting for the cloud session \u2014 you\u2019ll get a notice if the switch to ${U} still lands`, {
+            display: "system",
+          });
+      }),
+        (V[33] = U),
+        (V[34] = c),
+        (V[35] = ce);
+    else ce = V[35];
+    let $e;
+    if (V[36] !== Y || V[37] !== ce)
+      ($e = e(s1, { message: Y, onCancel: ce })), (V[36] = Y), (V[37] = ce), (V[38] = $e);
+    else $e = V[38];
+    return $e;
+  }
+  if (bt) {
+    let { model: rt, substitutedFrom: lt } = bt;
+    let Ko = xe.current;
+    let Y;
+    if (V[39] !== rt || V[40] !== c || V[41] !== de || V[42] !== R || V[43] !== lt)
+      (Y = e(Wme, {
+        variant: "picker",
+        onDone: (qo, Qo) => {
+          if (Ko !== xe.current) {
+            return !1;
+          }
+          if (ze.current) {
+            return !1;
+          }
+          if (((ze.current = !0), vt(null), qo === "consent")) {
+            de(rt, lt);
+            return;
+          }
+          c(Qo ?? `${pte}${og(xm(i2(R.getState())))}`, { display: "system" });
+        },
+      })),
+        (V[39] = rt),
+        (V[40] = c),
+        (V[41] = de),
+        (V[42] = R),
+        (V[43] = lt),
+        (V[44] = Y);
+    else Y = V[44];
+    return Y;
+  }
+  if (T) {
+    let Y;
+    if (
+      V[45] !== be ||
+      V[46] !== c ||
+      V[47] !== T.model ||
+      V[48] !== T.substitutedFrom ||
+      V[49] !== T.vettedFrom ||
+      V[50] !== R
+    )
+      (Y = () => {
+        if (T.vettedFrom !== void 0 && Rv(R.getState()) !== T.vettedFrom) {
+          c("The model changed while you were confirming; pick again", { display: "system" });
+          return;
+        }
+        be(T.model, T.substitutedFrom);
+      }),
+        (V[45] = be),
+        (V[46] = c),
+        (V[47] = T.model),
+        (V[48] = T.substitutedFrom),
+        (V[49] = T.vettedFrom),
+        (V[50] = R),
+        (V[51] = Y);
+    else Y = V[51];
+    let ce;
+    if (V[52] !== c || V[53] !== R)
+      (ce = () => c(`${pte}${og(xm(i2(R.getState())))}`, { display: "system" })),
+        (V[52] = c),
+        (V[53] = R),
+        (V[54] = ce);
+    else ce = V[54];
+    let $e;
+    if (V[55] !== T.hookReason || V[56] !== T.model || V[57] !== Y || V[58] !== ce)
+      ($e = e(lq, {
+        kind: "model",
+        model: T.model,
+        effort: void 0,
+        hookReason: T.hookReason,
+        onConfirm: Y,
+        onCancel: ce,
+      })),
+        (V[55] = T.hookReason),
+        (V[56] = T.model),
+        (V[57] = Y),
+        (V[58] = ce),
+        (V[59] = $e);
+    else $e = V[59];
+    return $e;
+  }
+  if (Go) {
+    let Y;
+    if (V[60] !== c)
+      (Y = e(s1, {
+        message: "Running PreModelSwitch hooks\u2026",
+        onCancel: () => {
+          Ft.current?.abort(), je(!1), c("Model switch cancelled", { display: "system" });
+        },
+      })),
+        (V[60] = c),
+        (V[61] = Y);
+    else Y = V[61];
+    return Y;
+  }
+  return null;
+}
+function Ve(f, i) {
+  let r = FSt(f);
+  if (!r) return;
+  i({
+    key: "model-deprecation-warning",
+    kind: "warning",
+    text: r,
+    color: "warning",
+    priority: "immediate",
+    invalidates: ["model-deprecation-warning"],
+  });
+}
+function mt(Xo) {
+  let { onDone: Zo } = Xo,
+    zo = W(Wt),
+    xo = W(Ht),
+    en = W(Jt),
+    tn = W(Kt);
+  return Zo(e6e({ mainLoopModel: zo, mainLoopModelForSession: xo, sessionEffort: en, settingsEffortTable: tn })), null;
+}
+var Lo = async (f, i, r) => {
+  if (((r = r?.trim() || ""), _j.includes(r)))
+    return s("tengu_model_command_inline_help", { args: r }), e(mt, { onDone: f });
+  if (A0.includes(r)) {
+    f("Run /model to open the model selection menu, or /model [modelName] to set the model.", { display: "system" });
+    return;
+  }
+  if (r)
+    return (
+      s("tengu_model_command_inline", { args_hash: Vn(r), args_length: r.length }),
+      e(Le, {
+        args: r,
+        getMessages: () => i.getMessages?.() ?? i.messages,
+        onDone: f,
+        storageV5: i.storageV5,
+        credentials: i.credentials,
+        session: i.session,
+      })
+    );
+  if (Gr()) {
+    if (zT("modelCatalog") && ba())
+      return e(ut, {
+        getMessages: () => i.getMessages?.() ?? i.messages,
+        onDone: f,
+        storageV5: i.storageV5,
+        credentials: i.credentials,
+        session: i.session,
+      });
+    f(Ue, { display: "system" });
+    return;
+  }
+  return e(Yt, {
+    onDone: f,
+    getMessages: () => i.getMessages?.() ?? i.messages,
+    storageV5: i.storageV5,
+    session: i.session,
+  });
+};
+export { Lo as call };

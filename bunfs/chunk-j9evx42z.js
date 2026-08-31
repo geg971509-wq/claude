@@ -8,4 +8,7 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{prt}from"/$bunfs/root/chunk-y20fbsfk.js";import"/$bunfs/root/chunk-83rtv341.js";import"/$bunfs/root/chunk-8afqfths.js";export default prt();
+import { prt } from "/$bunfs/root/chunk-y20fbsfk.js";
+import "/$bunfs/root/chunk-83rtv341.js";
+import "/$bunfs/root/chunk-8afqfths.js";
+export default prt();

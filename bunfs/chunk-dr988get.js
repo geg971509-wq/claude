@@ -8,5 +8,18 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-function $ge(o){o((e)=>e.prResolvedThisSession?e:{...e,prResolvedThisSession:!0})}function OQ(o){o((e)=>e.ultrareviewOverageConfirmed?e:{...e,ultrareviewOverageConfirmed:!0})}function Uge(o){let e=(s)=>o((t)=>{let i=typeof s==="function"?s(t.toolPermissionContext):s;return t.toolPermissionContext===i?t:{...t,toolPermissionContext:i}});return{setToolPermissionContext:e,setSessionToolPermissionContext:e}}
-export{$ge,OQ,Uge};
+function $ge(o) {
+  o((e) => (e.prResolvedThisSession ? e : { ...e, prResolvedThisSession: !0 }));
+}
+function OQ(o) {
+  o((e) => (e.ultrareviewOverageConfirmed ? e : { ...e, ultrareviewOverageConfirmed: !0 }));
+}
+function Uge(o) {
+  let e = (s) =>
+    o((t) => {
+      let i = typeof s === "function" ? s(t.toolPermissionContext) : s;
+      return t.toolPermissionContext === i ? t : { ...t, toolPermissionContext: i };
+    });
+  return { setToolPermissionContext: e, setSessionToolPermissionContext: e };
+}
+export { $ge, OQ, Uge };

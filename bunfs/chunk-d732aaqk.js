@@ -8,4 +8,28 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{EYe}from"/$bunfs/root/chunk-dzmwvtn9.js";import{Li}from"/$bunfs/root/chunk-z5yhadgs.js";import{S,ue}from"/$bunfs/root/chunk-yz031c9r.js";var u=S(function(r){Object.defineProperty(r,"__esModule",{value:!0});r.getMachineId=void 0;var n=ue("fs"),s=EYe(),t=Li();async function c(){try{return(await n.promises.readFile("/etc/hostid",{encoding:"utf8"})).trim()}catch(e){t.diag.debug(`error reading machine id: ${e}`)}try{return(await(0,s.execAsync)("kenv -q smbios.system.uuid")).stdout.trim()}catch(e){t.diag.debug(`error reading machine id: ${e}`)}return}r.getMachineId=c});export default u();
+import { EYe } from "/$bunfs/root/chunk-dzmwvtn9.js";
+import { Li } from "/$bunfs/root/chunk-z5yhadgs.js";
+import { S, ue } from "/$bunfs/root/chunk-yz031c9r.js";
+var u = S(function (r) {
+  Object.defineProperty(r, "__esModule", { value: !0 });
+  r.getMachineId = void 0;
+  var n = ue("fs"),
+    s = EYe(),
+    t = Li();
+  async function c() {
+    try {
+      return (await n.promises.readFile("/etc/hostid", { encoding: "utf8" })).trim();
+    } catch (e) {
+      t.diag.debug(`error reading machine id: ${e}`);
+    }
+    try {
+      return (await (0, s.execAsync)("kenv -q smbios.system.uuid")).stdout.trim();
+    } catch (e) {
+      t.diag.debug(`error reading machine id: ${e}`);
+    }
+    return;
+  }
+  r.getMachineId = c;
+});
+export default u();

@@ -8,6 +8,851 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{on,kt}from"/$bunfs/root/chunk-twwd9fep.js";import{po,et,Se,gn,Le,Zfe,HU,X5}from"/$bunfs/root/chunk-f9h0bg01.js";import{y,p,g}from"/$bunfs/root/chunk-ca80fke8.js";import{Ze,It,l,E,Ht,TA,r1}from"/$bunfs/root/chunk-ypdw393e.js";import{CP,Kg,_A,n}from"/$bunfs/root/chunk-fv016jr6.js";import{m}from"/$bunfs/root/chunk-bzx56g36.js";import{H5,ee}from"/$bunfs/root/chunk-4fwj3vnx.js";import{h}from"/$bunfs/root/chunk-wkxx62a2.js";import{moe}from"/$bunfs/root/chunk-1yr12dqr.js";import{Bu}from"/$bunfs/root/chunk-bj904w9w.js";import{dr,ha,Rbn,Ltr,fw,vc,PH}from"/$bunfs/root/chunk-8tgj5dp2.js";import{nb}from"/$bunfs/root/chunk-0g6cj4h1.js";import{Vht,he,cm}from"/$bunfs/root/chunk-h605j25g.js";import{j8,OB,Pct,fE,Kxe,ja,W8,jx,AG,Wx,kG,X1,gE,K_,jW,WW,Rye,F9n,U9n,Pee,q0,dD,Dee,r7,bIe,l7,VB,Fb,V0,Cr,rFt,Kx,Bee,y4e,x4n,I4n,BIe,$b,yE,ZW,sF,R7,hD,D7,nqe,Jdt,XL,KG,ESe,ASe,U7,KA,RPe,lte,xe,pbe,hk,wce,Tce,Ece,ig,QA,OS}from"/$bunfs/root/chunk-zze8764r.js";import{Sl}from"/$bunfs/root/chunk-6a5ggyw4.js";import{kz}from"/$bunfs/root/chunk-tveh0k24.js";import{Aht}from"/$bunfs/root/chunk-vzc4dhqq.js";import{Vt}from"/$bunfs/root/chunk-x06p1jhb.js";import{Q9}from"/$bunfs/root/chunk-anwgkcw5.js";import{eu}from"/$bunfs/root/chunk-gmgmb4mg.js";import{lm}from"/$bunfs/root/chunk-pbd9yggs.js";import{ogt}from"/$bunfs/root/chunk-pzvxycbq.js";import{B2}from"/$bunfs/root/chunk-jn7d47r1.js";import{T0e,Mot}from"/$bunfs/root/chunk-kt7pdq84.js";import{pa}from"/$bunfs/root/chunk-h4g4vfcb.js";import{$d}from"/$bunfs/root/chunk-81defen8.js";import{Xr}from"/$bunfs/root/chunk-p8c745fb.js";import{ma}from"/$bunfs/root/chunk-4cvqk0nv.js";import{yt,xf}from"/$bunfs/root/chunk-06p73s1x.js";import{Spe}from"/$bunfs/root/chunk-b40bn863.js";import{i,ot}from"/$bunfs/root/chunk-saay52v7.js";import{ns,Qi}from"/$bunfs/root/chunk-56sxk8k2.js";import{te}from"/$bunfs/root/chunk-wag5ye9w.js";var Z="ObserverReport";var $e="Send a report to your report target \u2014 the agent you observe, or the coordinating agent that spawned the worker you observe. The target is resolved from your observer pairing \u2014 there is no recipient to name. Use this only when you have something genuinely useful: a mistake about to compound, a missed constraint, prior art the observed agent should see. The expected steady state is silence \u2014 if nothing warrants action, end your turn without calling this.",Ie="Send a report to your report target \u2014 the agent you observe, or the coordinating agent that spawned the worker you observe. The target is resolved from your observer pairing \u2014 there is no recipient to name. Use this only when you have something genuinely useful: a mistake about to compound, a missed constraint, prior art the observed agent should see. The expected steady state is silence \u2014 if nothing warrants action, end your turn without calling this.";var ut=m(()=>ot({report:i().min(1).describe("The report to deliver to your report target. Be concise and specific.")})),Be=kt({name:Z,maxResultSizeChars:1000,async description(){return $e},async prompt(){return Ie},get inputSchema(){return ut()},isReadOnly(){return!1},isEnabled(){return!0},async checkPermissions(e,u){return{behavior:"allow",updatedInput:e}},async call(e,u){let d=u.agentId;if(d===void 0)return{data:{success:!1,message:"ObserverReport is only available to an observer agent; the main session does not have an observed pairing."}};let k=F9n(u.session,d);if(!k)return{data:{success:!1,message:"Your observer pairing is not armed (stopped, retired, or never installed). The report was not delivered."}};let{reportTargetTaskId:f,reportTargetName:s,viaWorkerName:S}=k;if(f!==void 0){let O=u.taskRegistry.get(f);if(!(Cr(O)&&(O.status==="running"||O.status==="completed"&&[...Kx(O)].some((re)=>re!==sF))))return{data:{success:!1,message:`The report target (${s}) is not running. The report was not delivered.`}}}let B=`observer:${k.observerAgentType}`,U=k.observedTaskId===void 0?`"${S}"`:`"${S}" [${k.observedTaskId}]`,D=Spe(B,S===void 0?e.report:`(observing worker ${U})
-${e.report}`),V={kind:"observer",from:B,senderTaskId:d};if(f===void 0)gE({mode:"prompt",agentId:et(),value:D,priority:"next",origin:V,skipSlashCommands:!0,isMeta:!0,skipAttachments:!0});else nqe(f,D,u.taskRegistry,{origin:V,isMeta:!0});return{data:{success:!0,message:`Report queued for ${f===void 0?"the main conversation":s}.`}}},mapToolResultToToolResultBlockParam(e,u){return{type:"tool_result",tool_use_id:u,content:e.message,is_error:!e.success}},renderToolUseMessage(e){return`report: ${e.report}`}});var pt=[Xr,Z,yt,eu,pa,ma,lm];function wIt(e){return[...e.filter((u)=>pt.every((d)=>!on(u,d))),Be]}import{promises as me}from"fs";function len(e){return(e.name===yt||e.name===xf)&&typeof e.input==="object"&&e.input!==null&&"subagent_type"in e.input&&Pct(e.input.subagent_type)}function Ve(e,u){let d=new Set;for(let k of e)if(k.type==="assistant"){let f=k.message.content;if(!Array.isArray(f))continue;for(let s of f)if(s.type==="tool_use"&&len(s))d.add(s.id)}else if(k.type==="user"&&d.size>0){let f=k.toolUseResult,s=k.message.content;if(typeof f!=="object"||f===null||!("agentId"in f)||f.agentId!==u||!Array.isArray(s))continue;if(s.some((S)=>S.type==="tool_result"&&d.has(S.tool_use_id)))return!0}return!1}var pe="resumedInline";function cen(e){return e instanceof Error&&pe in e&&e[pe]===!0}class fd extends Error{transcriptMissing;constructor(e,u){super(e);this.name="ResumeAgentStateError",this.transcriptMissing=u?.transcriptMissing===!0}}var ue="git_worktree_create";class uB extends fd{constructor(e){super(e);this.name="AgentResumeTransientError"}}class yhe extends fd{constructor(e){super(e);this.name="AgentResumePermanentlyRefusedError"}}class SL extends fd{constructor(e){super(e);this.name="AgentStoppedByUserError"}}class mW extends fd{constructor(e){super(e);this.name="AgentResumeInProgressError"}}function gW(e){return fe(e,"notification")}function Q$n(e){return fe(e,"inline")}function uen(e){return fe(e,"reply")}async function fe(e,u){let{agentId:d}=e,{resumesInFlight:k}=dr();if(k.has(d))throw new mW(`Agent ${d} is already running or being resumed`);k.add(d);let f=!0,s=()=>{if(f)f=!1,k.delete(d)};try{return await ft(e,u,s)}finally{s()}}async function ft({agentId:e,prompt:u,promptOrigin:d,promptIsMeta:k,continueInterruptedTurn:f,toolUseContext:s,canUseTool:S,invokingRequestId:B,parentPromptId:U,userInitiated:D,suppressOwnerNotification:V,workerPermissionMode:O,onDeliveryCommitted:ge,isWebFetchLaunch:re},se,je){let Ge=Date.now(),oe=s.getAppState(),j=he(s),{taskRegistry:w}=s,G=j.mode,C=w.get(e),H=0;if(Cr(C)){let t=!1;if(w.update(e,(a)=>{if(a.status==="running"||a.resuming)return a;return t=!0,H=a.userStopCount??0,{...a,resuming:!0}}),!t)throw new mW(`Agent ${e} is already running or being resumed`)}let c=()=>{w.update(e,(t)=>t.resuming?{...t,resuming:!1}:t),D7(e,w)},[He,r]=await Promise.all([lte(po(e),s.storageV5,{signal:s.abortController.signal}),KA(po(e),s.storageV5)]).catch((t)=>{if(It(t))throw c(),t;if(p("subagent_launch","subagent_resume_setup_read_failed"),c(),t instanceof fd)throw t;throw t instanceof RPe||y4e(E(t)??r1(t))?new uB(l(t)):new fd(l(t))});if(s.abortController.signal.aborted)throw c(),new Ze;if(r?.stoppedByUser&&d?.kind!=="observer-activity"){if(!D)throw c(),new SL(`Agent ${e} was stopped by the user and won't be resumed. Treat its work as cancelled; only launch a new agent if the user explicitly asks.`)}let A=await x4n(po(e),s.storageV5),ne="transientRead"in A&&A.transientRead?uB:fd;if(A.status==="malformed")throw p("subagent_launch","forked_skill_resume_scoping_invalid"),c(),new ne(`Agent ${e} has a malformed forked-skill scoping record; refusing to resume it without the skill's permission scoping.`);if((A.status==="absent"||A.status==="absent-but-marked")&&Cr(C)&&C.forkedSkillName!==void 0)throw p("subagent_launch","forked_skill_resume_scoping_missing"),c(),new ne(`Agent ${e} ran as a forked skill but its scoping record is missing; refusing to resume it without the skill's permission scoping.`);if(A.status==="absent-but-marked")throw p("subagent_launch","forked_skill_resume_scoping_missing_cold"),c(),new ne(`Agent ${e} carries a forked-skill provenance marker but its scoping record is missing; refusing to resume it without the skill's permission scoping.`);if(A.status==="valid"&&Cr(C)){if(C.forkedSkillName!==A.scoping.skillName)throw p("subagent_launch","forked_skill_resume_scoping_mismatch"),c(),new fd(`Agent ${e} has a forked-skill scoping record that does not match its task record; refusing to resume it.`)}else if(A.status==="valid"){if(await I4n(po(e),s.storageV5)!==A.scoping.skillName)throw p("subagent_launch","forked_skill_resume_cold_witness_mismatch"),c(),new fd(`Agent ${e} has a forked-skill scoping record with no matching provenance-marker witness; refusing to resume it on a cold path without a corroborated fork identity.`)}let T=A.status==="valid"?A.scoping:void 0,z=[],q=[],ie;if(T){let t=await ig(gn(),s.storageV5).catch(()=>[]),a=s.getAppState().mcp.commands.filter((_)=>_.type==="prompt"&&_.loadedFrom==="mcp"),o=[...jx(t,s.getAppState().mcp.commands),...a].find((_)=>_.name===T.skillName&&_.type==="prompt");if(o?.type!=="prompt"||o.context!=="fork"&&o.getContext===void 0)throw p("subagent_launch","forked_skill_resume_skill_unresolved"),c(),new fd(`Agent ${e} ran as forked skill ${T.skillName}, which no longer resolves to a fork-capable skill; refusing to resume it without its permission scoping.`);if(o.loadedFrom==="syncedSkills"&&kG())throw p("subagent_launch","forked_skill_resume_sync_vetoed"),c(),new fd(`Agent ${e} ran as forked skill ${T.skillName}, an account-synced skill that is currently disabled (skills sync turned off or denied by policy); refusing to resume it.`);z=Bu(await o.getAllowedTools?.()?.catch((_)=>{throw p("subagent_launch","forked_skill_resume_allowed_tools_failed"),c(),_ instanceof fd?_:new fd(l(_))})??o.allowedTools??[]),q=Bu(o.disallowedTools??[]),ie=QA(o)}let ze=T?T.frozenCommandDenies??s.getAppState().toolPermissionContext.alwaysDenyRules.command??[]:void 0,ke=T?[...z.length===0?[]:[{kind:"allowed_tools",allowedTools:z}],...q.length===0?[]:[{kind:"disallowed_tools",disallowedTools:q}]]:[],ye=bIe.restoredProvenance(e),we=ye!==void 0?{...s,...ye}:r?.pluginSteered===!0?{...s,pluginSteered:!0}:s,qe=T?{...we,getAppState:Vht(s.getAppState,z,q,{replaceCommandRules:!0,frozenCommandDenies:ze}),permissionLayers:ke.length>0?[...s.permissionLayers??[],...ke]:s.permissionLayers}:we,v=w.get(e),ae=Cr(v)?v.result:void 0,Ke=ae?.modelsUsed??(ae?.resolvedModel?[ae.resolvedModel]:void 0),x=(Cr(v)?v.spawnDepth:r?.spawnDepth)??vc(s.agentContext)+1,Ye=Cr(v)?v.startTime:Ge,R=He;if(!R){let t=w.getTranscript(e)?.messages;if(t&&t.length>0)n(`[resumeAgentBackground ${e}] disk transcript missing; using ${t.length} in-memory messages mirrored during the run`),R={messages:t,contentReplacements:[]}}if(!R)throw p("subagent_launch","subagent_resume_transcript_missing"),c(),new fd(`No transcript found for agent ID: ${e}`,{transcriptMissing:!0});Dee(R.messages),Aht(R.messages);let Je=f?[...T0e(R.messages)]:R.messages,L=wce(Tce(pbe(r7(Je,{site:"agent_resume"}))));if(f&&L.length>0&&!Mot(L))return w.update(e,(t)=>({...t,resuming:!1,notified:!0,evictAfter:Date.now()+V0})),y("subagent_launch"),{agentId:e,description:r?.description??"(resumed)",outputFile:Sl(e),alreadyCompleted:!0};let Qe=ogt(s.contentReplacementState,L,R.contentReplacements),Xe=!r&&(Cr(v)&&(v.agentType===Kxe.agentType||v.webFetchSavedFiles!==void 0)||re===!0||Ve(s.messages,e)),le=r?.agentType??(Xe?Kxe.agentType:void 0),P=r?.isFork===!0?void 0:le?s.options.agentDefinitions.activeAgents.find((t)=>t.agentType===le):void 0,M=r?.isFork===!0||!P&&r?.isFork===void 0&&r?.agentType===Wx.agentType,N=le===Kxe.agentType&&r?.isBuiltIn!==!1?P&&ja(P)?P:Kxe:r?.isBuiltIn===!1?P&&!ja(P)?P:OB:P??(M?Wx:OB);if(ESe(N,j))throw p("subagent_launch","subagent_resume_tools_denied"),c(),new fd(ASe(N.agentType));if((await X1.offeredAgents([N])).length!==1)throw p("subagent_launch","subagent_resume_not_offered"),c(),new fd(`Agent type '${N.agentType}' is not offered in this session.`);let K=se==="inline"||se==="reply"&&($d()||fE(N)),Y=(t,a)=>{let o=ha(),_=r?.cwd&&!CP(r.cwd)?r.cwd:ee(),Ce=Fb(_),at=o!==null&&Ce.length>0&&(()=>{let dt=[o.worktreePath,...Fb(o.originalCwd),...o.liveLaunchAnchor?[o.liveLaunchAnchor,...Fb(o.liveLaunchAnchor)]:[],R7,...Fb(R7)];return Ce.every((ct)=>dt.some((mt)=>VB(ct,mt)==="same"))})(),We=a?.telemetryCode??"git_worktree_resume_worktree_gone",lt=r?.worktreePath??`agent ${e}`;if(at){g(ue,We),n(`Resumed worktree ${lt} ${t}; falling back to ${_} under the session worktree's fences`,{level:"error"});return}if(a?.terminalOnUncovered===!1)throw c(),new uB(`Cannot resume this agent right now: its worktree ${t}, and the fallback directory is not covered by the session's isolation fences. Re-run from a session whose fences cover the agent's directory.`);throw p(ue,We),c(),new yhe(`This agent cannot be resumed: its worktree ${t}, and the fallback directory is not covered by the session's isolation fences.`)},Ue=typeof r?.worktreePath==="string"&&r.worktreePath!==""&&!Qi(r.worktreePath)&&!ns(r.worktreePath)&&Kg(_A,r.worktreePath)===void 0?r.worktreePath:void 0,tt=typeof r?.inheritedWorktreePath==="string"&&r.inheritedWorktreePath!==""&&!Qi(r.inheritedWorktreePath)&&!ns(r.inheritedWorktreePath)&&Kg(_A,r.inheritedWorktreePath)===void 0?r.inheritedWorktreePath:void 0,J=Ue??tt,W=J?await me.stat(J).then((t)=>t.isDirectory()?J:Y("exists but is not a directory"),(t)=>{let a=E(t);if(a==="ENOENT"||a==="ENOTDIR")return Y("no longer exists");throw c(),new uB(`Cannot resume this agent: its worktree could not be examined (${String(a??"unknown error")}). Re-run once the directory is accessible.`)}):void 0;if(J===void 0&&!Ltr(e)&&(r!==null&&r.spawnedWithWorktree===!0&&r.worktreeCleanlyRemoved!==!0&&!(r.inheritedWorktreePath!==void 0&&r.parentAgentId!==void 0&&(await KA(po(r.parentAgentId),s.storageV5).catch(Rye("resumeAgentBackground (parent)")))?.worktreeCleanlyRemoved===!0)||Rbn(e)))Y("is not recorded for this isolated agent",{telemetryCode:"git_worktree_resume_binding_missing",terminalOnUncovered:Rbn(e)});let F=W;if(W){let t=Se(),a=await me.realpath(t).catch(()=>t),o=await l7(W,Fb(t),te([a,R7,...Fb(R7)]),{requireWitnessForSelfOwningPins:!0,declineSelfOwningPinUnderLiveRoot:!0});if(!o.ok){if(c(),o.reason!=="unverifiable"&&o.reason!=="pin-is-own-launch-tree")throw p(ue,"git_worktree_create_root_rejected"),n(`[worktree] refusing to resume parked agent into ${W} (${o.reason}): ${o.message}`,{level:"error"}),new yhe(`This agent cannot be resumed: its worktree was refused (${o.reason}). ${o.message}`);throw n(`[worktree] could not verify parked agent worktree ${W} this attempt; the resume will retry: ${o.message}`),new uB(`Cannot resume this agent right now: its worktree could not be verified (${o.reason}). Re-run once git can answer.`)}}if(F){let t=new Date;try{await me.utimes(F,t,t)}catch(a){let o=E(a);if(o==="ENOENT"||o==="ENOTDIR")F=Y("vanished between verification and the resume");else throw c(),new uB(`Cannot resume this agent: its worktree could not be touched (${String(o??"unknown error")}). Re-run once the directory is accessible.`)}}let be=r?.cwd&&!CP(r.cwd)?r.cwd:F,Te=s.session.withProject({cwd:be??ee()}),b=T?.effort!==void 0?{...N,effort:T.effort}:N,Q=r?.description??"(resumed)",X;if(M){if(s.renderedSystemPrompt)X=s.renderedSystemPrompt;else try{let t=oe.agent?oe.agentDefinitions.activeAgents.find((_)=>_.agentType===oe.agent):void 0,a=Array.from(j.additionalWorkingDirectories.keys()),o=await OS(s.options.tools,s.options.mainLoopModel,a);X=dD({mainThreadAgentDefinition:t,toolUseContext:s,customSystemPrompt:s.options.customSystemPrompt,defaultSystemPrompt:o,appendSystemPrompt:s.options.appendSystemPrompt,skillsPersistencePrompt:Pee(s.options.tools)})}catch(t){throw p("subagent_launch","subagent_resume_fork_prompt_reconstruct_failed"),c(),t instanceof fd?t:new fd(l(t))}if(!X)throw p("subagent_launch","subagent_resume_fork_prompt_missing"),c(),new fd("Cannot resume fork agent: unable to reconstruct parent system prompt")}let _e=cm(s),ve=q0(j8(b,_e),_e,r?.isObserver?void 0:M?"inherit":r?.model,G);if(d?.kind==="observer-activity"&&r?.isObserver!==!0)throw p("subagent_launch","observer_resume_sidecar_unconfirmed"),c(),new fd(`Observer sidecar for ${e} missing or did not confirm isObserver; refusing delivery`);let Ae=r?.isObserver?moe(O,G)??G:void 0,Re={...j,mode:Ae??O??r?.spawnMode??b.permissionMode??G},Pe=s.options.tools.filter(K_),Me=s.getAppState(),rt=M?B2(s.options.tools):hD(Re,B2(Me.mcp.tools.concat(Pe)),{skipReplFilter:!0,skillTools:Me.skillTools}),st=r?.isObserver?wIt(yE(b,hD(Re,B2(Pe),{skipReplFilter:!0}),!0,!1,!1,x).resolvedTools):rt,Oe=d?xe({content:Ece(u,d),origin:d,isMeta:!0}):xe({content:k?Ece(u,void 0,{isMeta:!0}):u,...k&&{isMeta:!0}}),de=Cr(v)?v.webFetchSavedFiles:void 0,Ne=fE(b)?de?{dirs:[...de.dirs],paths:[...de.paths]}:kz():void 0,Ee={agentDefinition:b,promptMessages:f?L:[...L,Oe],toolUseContext:qe,canUseTool:S,isAsync:!0,preserveToolUseResults:!Le(),persistedToolResultFiles:Ne,querySource:jW(b.agentType,ja(b)),spawnedBySkill:ie,...T!==void 0&&{spawnedByForkedSkill:!0},model:r?.isObserver?void 0:M?"inherit":r?.model,onModelRestricted:r?.isObserver?void 0:Bee(ie??b.agentType,s.appendSystemMessage),override:M?{systemPrompt:X}:void 0,availableTools:st,forkContextMessages:void 0,recordedUuids:new Set(L.map((t)=>t.uuid)),...(M||r?.isObserver)&&{useExactTools:!0},worktreePath:F,worktreeBranch:r?.worktreeBranch,cwd:r?.cwd,spawnMode:Ae??r?.spawnMode,description:r?.description,name:r?.name,toolUseId:r?.toolUseId,contentReplacementState:Qe},ce=w.get(e);if(Cr(ce)&&ce.stoppedByUser&&(!D||(ce.userStopCount??0)!==H))throw c(),new SL(`Agent ${e} was stopped by the user and won't be resumed. Treat its work as cancelled; only launch a new agent if the user explicitly asks.`);if(!k&&!f)Jdt(e,hk(d)?Oe:xe({content:u,origin:d}),w);ge?.();let I=KG({agentId:e,ownerAgentId:et(),parentAgentId:r?.parentAgentId,parentAbortController:K?s.abortController:void 0,spawnDepth:x,description:Q,prompt:u,model:ve,selectedAgent:b,taskRegistry:w,toolUseId:s.toolUseId,cwd:be,forkedSkillName:T?.skillName,...d?.kind==="observer-activity"&&{isObserver:!0},sessionScratch:s.session.sessionScratch});if(je(),D&&r?.stoppedByUser)try{if(rFt(w.get(e))===H){if(await U7(po(e),{stoppedByUser:!1},s.storageV5),rFt(w.get(e))!==H)await U7(po(e),{stoppedByUser:!0},s.storageV5)}}catch(t){if(Ht(t)||TA(r1(t)))n(`failed to clear stop marker for ${e}: ${WW(t)}`,{level:"warn"});else h(t)}if(V)XL(I.agentId,w);if(await U9n({observedTaskId:e,observedDefinition:b,observedName:r?.name??b.agentType,observedMeta:r?{observerTaskId:r.observerTaskId,armingPermissionMode:r.armingPermissionMode}:null,toolUseContext:s,canUseTool:S}),D7(e,w),r?.name&&s.getAppState().agentNameRegistry.get(r.name)===void 0)s.agentLifecycle.registerName(r.name,po(e));let nt={prompt:u,resolvedAgentModel:ve,modelsUsed:Ke,isBuiltInAgent:ja(b),startTime:Ye,agentType:b.agentType,isAsync:!0,agentDepth:x,source:b.source,pluginId:W8(b)?Vt(b.plugin):void 0,persistedToolResultFiles:Ne,spawnedSubagent:Cr(v)?v.spawnedSubagent:void 0},Fe={agentId:e,parentAgentId:s.agentId,depth:x,parentSessionId:nb(),agentType:"subagent",subagentName:b.agentType,displayName:r?.name,isAsync:!0,isBuiltIn:ja(b),invokingRequestId:B,invocationKind:"resume",invocationEmitted:!1,parentPromptId:U,isBackgroundAgent:!0,...PH(s.agentContext)},it=d?.kind==="observer-activity"?()=>{}:w.takeConcurrencySlot(),De=fw(Fe,()=>H5(Te.project.cwd,()=>ZW({taskId:I.agentId,abortController:I.abortController,makeStream:(t,a)=>$b({...Ee,session:Te,override:{...Ee.override,agentId:po(I.agentId),agentContext:Fe,abortController:I.abortController,replHydration:{kind:"resume"}},onCacheSafeParams:t,onQueryProgress:a}),metadata:nt,description:Q,toolUseContext:s,taskRegistry:w,agentIdForCleanup:e,enableSummarization:Zfe()||(Q9()||M||AG())&&!Le(),getWorktreeResult:async()=>F?{worktreePath:F,...r?.worktreeBranch&&{worktreeBranch:r.worktreeBranch}}:{},shouldNotifyOwner:K?()=>!1:void 0,reviewInlineHandoff:se==="reply"&&K,onTerminalSuccess:T?()=>{let t=T.skillName,a=`:${t}`;if(X5().has(a))return;HU(t,t,"",null);let o=BIe(t);if(o)s.applyAttributionOp({kind:"recordVerification",method:o})}:void 0,onRunSettled:it})));if(y("subagent_launch"),K)try{await De;let t=w.get(e),a=Cr(t)?t.result:void 0;return{agentId:e,description:Q,outputFile:Sl(e),inlineHandback:{content:a?.content??[],harnessNoteCount:a?.harnessNoteCount,harnessTailCount:a?.harnessTailCount,harnessSectionHash:a?.harnessSectionHash,handoffReviewSkipped:a?.handoffReviewSkipped}}}catch(t){if(t instanceof Error)Object.defineProperty(t,pe,{value:!0});throw t}finally{w.update(e,(t)=>({...t,notified:!0,evictAfter:Date.now()+V0}))}return{agentId:e,description:Q,outputFile:Sl(e)}}
-export{wIt,len,cen,fd,uB,yhe,SL,mW,gW,Q$n,uen};
+import { on, kt } from "/$bunfs/root/chunk-twwd9fep.js";
+import { po, et, Se, gn, Le, Zfe, HU, X5 } from "/$bunfs/root/chunk-f9h0bg01.js";
+import { y, p, g } from "/$bunfs/root/chunk-ca80fke8.js";
+import { Ze, It, l, E, Ht, TA, r1 } from "/$bunfs/root/chunk-ypdw393e.js";
+import { CP, Kg, _A, n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { m } from "/$bunfs/root/chunk-bzx56g36.js";
+import { H5, ee } from "/$bunfs/root/chunk-4fwj3vnx.js";
+import { h } from "/$bunfs/root/chunk-wkxx62a2.js";
+import { moe } from "/$bunfs/root/chunk-1yr12dqr.js";
+import { Bu } from "/$bunfs/root/chunk-bj904w9w.js";
+import { dr, ha, Rbn, Ltr, fw, vc, PH } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { nb } from "/$bunfs/root/chunk-0g6cj4h1.js";
+import { Vht, he, cm } from "/$bunfs/root/chunk-h605j25g.js";
+import {
+  j8,
+  OB,
+  Pct,
+  fE,
+  Kxe,
+  ja,
+  W8,
+  jx,
+  AG,
+  Wx,
+  kG,
+  X1,
+  gE,
+  K_,
+  jW,
+  WW,
+  Rye,
+  F9n,
+  U9n,
+  Pee,
+  q0,
+  dD,
+  Dee,
+  r7,
+  bIe,
+  l7,
+  VB,
+  Fb,
+  V0,
+  Cr,
+  rFt,
+  Kx,
+  Bee,
+  y4e,
+  x4n,
+  I4n,
+  BIe,
+  $b,
+  yE,
+  ZW,
+  sF,
+  R7,
+  hD,
+  D7,
+  nqe,
+  Jdt,
+  XL,
+  KG,
+  ESe,
+  ASe,
+  U7,
+  KA,
+  RPe,
+  lte,
+  xe,
+  pbe,
+  hk,
+  wce,
+  Tce,
+  Ece,
+  ig,
+  QA,
+  OS,
+} from "/$bunfs/root/chunk-zze8764r.js";
+import { Sl } from "/$bunfs/root/chunk-6a5ggyw4.js";
+import { kz } from "/$bunfs/root/chunk-tveh0k24.js";
+import { Aht } from "/$bunfs/root/chunk-vzc4dhqq.js";
+import { Vt } from "/$bunfs/root/chunk-x06p1jhb.js";
+import { Q9 } from "/$bunfs/root/chunk-anwgkcw5.js";
+import { eu } from "/$bunfs/root/chunk-gmgmb4mg.js";
+import { lm } from "/$bunfs/root/chunk-pbd9yggs.js";
+import { ogt } from "/$bunfs/root/chunk-pzvxycbq.js";
+import { B2 } from "/$bunfs/root/chunk-jn7d47r1.js";
+import { T0e, Mot } from "/$bunfs/root/chunk-kt7pdq84.js";
+import { pa } from "/$bunfs/root/chunk-h4g4vfcb.js";
+import { $d } from "/$bunfs/root/chunk-81defen8.js";
+import { Xr } from "/$bunfs/root/chunk-p8c745fb.js";
+import { ma } from "/$bunfs/root/chunk-4cvqk0nv.js";
+import { yt, xf } from "/$bunfs/root/chunk-06p73s1x.js";
+import { Spe } from "/$bunfs/root/chunk-b40bn863.js";
+import { i, ot } from "/$bunfs/root/chunk-saay52v7.js";
+import { ns, Qi } from "/$bunfs/root/chunk-56sxk8k2.js";
+import { te } from "/$bunfs/root/chunk-wag5ye9w.js";
+var Z = "ObserverReport";
+var $e =
+    "Send a report to your report target \u2014 the agent you observe, or the coordinating agent that spawned the worker you observe. The target is resolved from your observer pairing \u2014 there is no recipient to name. Use this only when you have something genuinely useful: a mistake about to compound, a missed constraint, prior art the observed agent should see. The expected steady state is silence \u2014 if nothing warrants action, end your turn without calling this.",
+  Ie =
+    "Send a report to your report target \u2014 the agent you observe, or the coordinating agent that spawned the worker you observe. The target is resolved from your observer pairing \u2014 there is no recipient to name. Use this only when you have something genuinely useful: a mistake about to compound, a missed constraint, prior art the observed agent should see. The expected steady state is silence \u2014 if nothing warrants action, end your turn without calling this.";
+var ut = m(() =>
+    ot({ report: i().min(1).describe("The report to deliver to your report target. Be concise and specific.") }),
+  ),
+  Be = kt({
+    name: Z,
+    maxResultSizeChars: 1000,
+    async description() {
+      return $e;
+    },
+    async prompt() {
+      return Ie;
+    },
+    get inputSchema() {
+      return ut();
+    },
+    isReadOnly() {
+      return !1;
+    },
+    isEnabled() {
+      return !0;
+    },
+    async checkPermissions(e, u) {
+      return { behavior: "allow", updatedInput: e };
+    },
+    async call(e, u) {
+      let d = u.agentId;
+      if (d === void 0)
+        return {
+          data: {
+            success: !1,
+            message:
+              "ObserverReport is only available to an observer agent; the main session does not have an observed pairing.",
+          },
+        };
+      let k = F9n(u.session, d);
+      if (!k)
+        return {
+          data: {
+            success: !1,
+            message:
+              "Your observer pairing is not armed (stopped, retired, or never installed). The report was not delivered.",
+          },
+        };
+      let { reportTargetTaskId: f, reportTargetName: s, viaWorkerName: S } = k;
+      if (f !== void 0) {
+        let O = u.taskRegistry.get(f);
+        if (!(Cr(O) && (O.status === "running" || (O.status === "completed" && [...Kx(O)].some((re) => re !== sF)))))
+          return {
+            data: { success: !1, message: `The report target (${s}) is not running. The report was not delivered.` },
+          };
+      }
+      let B = `observer:${k.observerAgentType}`,
+        U = k.observedTaskId === void 0 ? `"${S}"` : `"${S}" [${k.observedTaskId}]`,
+        D = Spe(
+          B,
+          S === void 0
+            ? e.report
+            : `(observing worker ${U})
+${e.report}`,
+        ),
+        V = { kind: "observer", from: B, senderTaskId: d };
+      if (f === void 0)
+        gE({
+          mode: "prompt",
+          agentId: et(),
+          value: D,
+          priority: "next",
+          origin: V,
+          skipSlashCommands: !0,
+          isMeta: !0,
+          skipAttachments: !0,
+        });
+      else nqe(f, D, u.taskRegistry, { origin: V, isMeta: !0 });
+      return { data: { success: !0, message: `Report queued for ${f === void 0 ? "the main conversation" : s}.` } };
+    },
+    mapToolResultToToolResultBlockParam(e, u) {
+      return { type: "tool_result", tool_use_id: u, content: e.message, is_error: !e.success };
+    },
+    renderToolUseMessage(e) {
+      return `report: ${e.report}`;
+    },
+  });
+var pt = [Xr, Z, yt, eu, pa, ma, lm];
+function wIt(e) {
+  return [...e.filter((u) => pt.every((d) => !on(u, d))), Be];
+}
+import { promises as me } from "fs";
+function len(e) {
+  return (
+    (e.name === yt || e.name === xf) &&
+    typeof e.input === "object" &&
+    e.input !== null &&
+    "subagent_type" in e.input &&
+    Pct(e.input.subagent_type)
+  );
+}
+function Ve(e, u) {
+  let d = new Set();
+  for (let k of e)
+    if (k.type === "assistant") {
+      let f = k.message.content;
+      if (!Array.isArray(f)) continue;
+      for (let s of f) if (s.type === "tool_use" && len(s)) d.add(s.id);
+    } else if (k.type === "user" && d.size > 0) {
+      let f = k.toolUseResult,
+        s = k.message.content;
+      if (typeof f !== "object" || f === null || !("agentId" in f) || f.agentId !== u || !Array.isArray(s)) continue;
+      if (s.some((S) => S.type === "tool_result" && d.has(S.tool_use_id))) return !0;
+    }
+  return !1;
+}
+var pe = "resumedInline";
+function cen(e) {
+  return e instanceof Error && pe in e && e[pe] === !0;
+}
+class fd extends Error {
+  transcriptMissing;
+  constructor(e, u) {
+    super(e);
+    (this.name = "ResumeAgentStateError"), (this.transcriptMissing = u?.transcriptMissing === !0);
+  }
+}
+var ue = "git_worktree_create";
+class uB extends fd {
+  constructor(e) {
+    super(e);
+    this.name = "AgentResumeTransientError";
+  }
+}
+class yhe extends fd {
+  constructor(e) {
+    super(e);
+    this.name = "AgentResumePermanentlyRefusedError";
+  }
+}
+class SL extends fd {
+  constructor(e) {
+    super(e);
+    this.name = "AgentStoppedByUserError";
+  }
+}
+class mW extends fd {
+  constructor(e) {
+    super(e);
+    this.name = "AgentResumeInProgressError";
+  }
+}
+function gW(e) {
+  return fe(e, "notification");
+}
+function Q$n(e) {
+  return fe(e, "inline");
+}
+function uen(e) {
+  return fe(e, "reply");
+}
+async function fe(e, u) {
+  let { agentId: d } = e,
+    { resumesInFlight: k } = dr();
+  if (k.has(d)) throw new mW(`Agent ${d} is already running or being resumed`);
+  k.add(d);
+  let f = !0,
+    s = () => {
+      if (f) (f = !1), k.delete(d);
+    };
+  try {
+    return await ft(e, u, s);
+  } finally {
+    s();
+  }
+}
+async function ft(
+  {
+    agentId: e,
+    prompt: u,
+    promptOrigin: d,
+    promptIsMeta: k,
+    continueInterruptedTurn: f,
+    toolUseContext: s,
+    canUseTool: S,
+    invokingRequestId: B,
+    parentPromptId: U,
+    userInitiated: D,
+    suppressOwnerNotification: V,
+    workerPermissionMode: O,
+    onDeliveryCommitted: ge,
+    isWebFetchLaunch: re,
+  },
+  se,
+  je,
+) {
+  let Ge = Date.now(),
+    oe = s.getAppState(),
+    j = he(s),
+    { taskRegistry: w } = s,
+    G = j.mode,
+    C = w.get(e),
+    H = 0;
+  if (Cr(C)) {
+    let t = !1;
+    if (
+      (w.update(e, (a) => {
+        if (a.status === "running" || a.resuming) return a;
+        return (t = !0), (H = a.userStopCount ?? 0), { ...a, resuming: !0 };
+      }),
+      !t)
+    )
+      throw new mW(`Agent ${e} is already running or being resumed`);
+  }
+  let c = () => {
+      w.update(e, (t) => (t.resuming ? { ...t, resuming: !1 } : t)), D7(e, w);
+    },
+    [He, r] = await Promise.all([
+      lte(po(e), s.storageV5, { signal: s.abortController.signal }),
+      KA(po(e), s.storageV5),
+    ]).catch((t) => {
+      if (It(t)) throw (c(), t);
+      if ((p("subagent_launch", "subagent_resume_setup_read_failed"), c(), t instanceof fd)) throw t;
+      throw t instanceof RPe || y4e(E(t) ?? r1(t)) ? new uB(l(t)) : new fd(l(t));
+    });
+  if (s.abortController.signal.aborted) throw (c(), new Ze());
+  if (r?.stoppedByUser && d?.kind !== "observer-activity") {
+    if (!D)
+      throw (
+        (c(),
+        new SL(
+          `Agent ${e} was stopped by the user and won't be resumed. Treat its work as cancelled; only launch a new agent if the user explicitly asks.`,
+        ))
+      );
+  }
+  let A = await x4n(po(e), s.storageV5),
+    ne = "transientRead" in A && A.transientRead ? uB : fd;
+  if (A.status === "malformed")
+    throw (
+      (p("subagent_launch", "forked_skill_resume_scoping_invalid"),
+      c(),
+      new ne(
+        `Agent ${e} has a malformed forked-skill scoping record; refusing to resume it without the skill's permission scoping.`,
+      ))
+    );
+  if ((A.status === "absent" || A.status === "absent-but-marked") && Cr(C) && C.forkedSkillName !== void 0)
+    throw (
+      (p("subagent_launch", "forked_skill_resume_scoping_missing"),
+      c(),
+      new ne(
+        `Agent ${e} ran as a forked skill but its scoping record is missing; refusing to resume it without the skill's permission scoping.`,
+      ))
+    );
+  if (A.status === "absent-but-marked")
+    throw (
+      (p("subagent_launch", "forked_skill_resume_scoping_missing_cold"),
+      c(),
+      new ne(
+        `Agent ${e} carries a forked-skill provenance marker but its scoping record is missing; refusing to resume it without the skill's permission scoping.`,
+      ))
+    );
+  if (A.status === "valid" && Cr(C)) {
+    if (C.forkedSkillName !== A.scoping.skillName)
+      throw (
+        (p("subagent_launch", "forked_skill_resume_scoping_mismatch"),
+        c(),
+        new fd(
+          `Agent ${e} has a forked-skill scoping record that does not match its task record; refusing to resume it.`,
+        ))
+      );
+  } else if (A.status === "valid") {
+    if ((await I4n(po(e), s.storageV5)) !== A.scoping.skillName)
+      throw (
+        (p("subagent_launch", "forked_skill_resume_cold_witness_mismatch"),
+        c(),
+        new fd(
+          `Agent ${e} has a forked-skill scoping record with no matching provenance-marker witness; refusing to resume it on a cold path without a corroborated fork identity.`,
+        ))
+      );
+  }
+  let T = A.status === "valid" ? A.scoping : void 0,
+    z = [],
+    q = [],
+    ie;
+  if (T) {
+    let t = await ig(gn(), s.storageV5).catch(() => []),
+      a = s.getAppState().mcp.commands.filter((_) => _.type === "prompt" && _.loadedFrom === "mcp"),
+      o = [...jx(t, s.getAppState().mcp.commands), ...a].find((_) => _.name === T.skillName && _.type === "prompt");
+    if (o?.type !== "prompt" || (o.context !== "fork" && o.getContext === void 0))
+      throw (
+        (p("subagent_launch", "forked_skill_resume_skill_unresolved"),
+        c(),
+        new fd(
+          `Agent ${e} ran as forked skill ${T.skillName}, which no longer resolves to a fork-capable skill; refusing to resume it without its permission scoping.`,
+        ))
+      );
+    if (o.loadedFrom === "syncedSkills" && kG())
+      throw (
+        (p("subagent_launch", "forked_skill_resume_sync_vetoed"),
+        c(),
+        new fd(
+          `Agent ${e} ran as forked skill ${T.skillName}, an account-synced skill that is currently disabled (skills sync turned off or denied by policy); refusing to resume it.`,
+        ))
+      );
+    (z = Bu(
+      (await o.getAllowedTools?.()?.catch((_) => {
+        throw (
+          (p("subagent_launch", "forked_skill_resume_allowed_tools_failed"), c(), _ instanceof fd ? _ : new fd(l(_)))
+        );
+      })) ??
+        o.allowedTools ??
+        [],
+    )),
+      (q = Bu(o.disallowedTools ?? [])),
+      (ie = QA(o));
+  }
+  let ze = T ? (T.frozenCommandDenies ?? s.getAppState().toolPermissionContext.alwaysDenyRules.command ?? []) : void 0,
+    ke = T
+      ? [
+          ...(z.length === 0 ? [] : [{ kind: "allowed_tools", allowedTools: z }]),
+          ...(q.length === 0 ? [] : [{ kind: "disallowed_tools", disallowedTools: q }]),
+        ]
+      : [],
+    ye = bIe.restoredProvenance(e),
+    we = ye !== void 0 ? { ...s, ...ye } : r?.pluginSteered === !0 ? { ...s, pluginSteered: !0 } : s,
+    qe = T
+      ? {
+          ...we,
+          getAppState: Vht(s.getAppState, z, q, { replaceCommandRules: !0, frozenCommandDenies: ze }),
+          permissionLayers: ke.length > 0 ? [...(s.permissionLayers ?? []), ...ke] : s.permissionLayers,
+        }
+      : we,
+    v = w.get(e),
+    ae = Cr(v) ? v.result : void 0,
+    Ke = ae?.modelsUsed ?? (ae?.resolvedModel ? [ae.resolvedModel] : void 0),
+    x = (Cr(v) ? v.spawnDepth : r?.spawnDepth) ?? vc(s.agentContext) + 1,
+    Ye = Cr(v) ? v.startTime : Ge,
+    R = He;
+  if (!R) {
+    let t = w.getTranscript(e)?.messages;
+    if (t && t.length > 0)
+      n(
+        `[resumeAgentBackground ${e}] disk transcript missing; using ${t.length} in-memory messages mirrored during the run`,
+      ),
+        (R = { messages: t, contentReplacements: [] });
+  }
+  if (!R)
+    throw (
+      (p("subagent_launch", "subagent_resume_transcript_missing"),
+      c(),
+      new fd(`No transcript found for agent ID: ${e}`, { transcriptMissing: !0 }))
+    );
+  Dee(R.messages), Aht(R.messages);
+  let Je = f ? [...T0e(R.messages)] : R.messages,
+    L = wce(Tce(pbe(r7(Je, { site: "agent_resume" }))));
+  if (f && L.length > 0 && !Mot(L))
+    return (
+      w.update(e, (t) => ({ ...t, resuming: !1, notified: !0, evictAfter: Date.now() + V0 })),
+      y("subagent_launch"),
+      { agentId: e, description: r?.description ?? "(resumed)", outputFile: Sl(e), alreadyCompleted: !0 }
+    );
+  let Qe = ogt(s.contentReplacementState, L, R.contentReplacements),
+    Xe =
+      !r &&
+      ((Cr(v) && (v.agentType === Kxe.agentType || v.webFetchSavedFiles !== void 0)) || re === !0 || Ve(s.messages, e)),
+    le = r?.agentType ?? (Xe ? Kxe.agentType : void 0),
+    P =
+      r?.isFork === !0 ? void 0 : le ? s.options.agentDefinitions.activeAgents.find((t) => t.agentType === le) : void 0,
+    M = r?.isFork === !0 || (!P && r?.isFork === void 0 && r?.agentType === Wx.agentType),
+    N =
+      le === Kxe.agentType && r?.isBuiltIn !== !1
+        ? P && ja(P)
+          ? P
+          : Kxe
+        : r?.isBuiltIn === !1
+          ? P && !ja(P)
+            ? P
+            : OB
+          : (P ?? (M ? Wx : OB));
+  if (ESe(N, j)) throw (p("subagent_launch", "subagent_resume_tools_denied"), c(), new fd(ASe(N.agentType)));
+  if ((await X1.offeredAgents([N])).length !== 1)
+    throw (
+      (p("subagent_launch", "subagent_resume_not_offered"),
+      c(),
+      new fd(`Agent type '${N.agentType}' is not offered in this session.`))
+    );
+  let K = se === "inline" || (se === "reply" && ($d() || fE(N))),
+    Y = (t, a) => {
+      let o = ha(),
+        _ = r?.cwd && !CP(r.cwd) ? r.cwd : ee(),
+        Ce = Fb(_),
+        at =
+          o !== null &&
+          Ce.length > 0 &&
+          (() => {
+            let dt = [
+              o.worktreePath,
+              ...Fb(o.originalCwd),
+              ...(o.liveLaunchAnchor ? [o.liveLaunchAnchor, ...Fb(o.liveLaunchAnchor)] : []),
+              R7,
+              ...Fb(R7),
+            ];
+            return Ce.every((ct) => dt.some((mt) => VB(ct, mt) === "same"));
+          })(),
+        We = a?.telemetryCode ?? "git_worktree_resume_worktree_gone",
+        lt = r?.worktreePath ?? `agent ${e}`;
+      if (at) {
+        g(ue, We),
+          n(`Resumed worktree ${lt} ${t}; falling back to ${_} under the session worktree's fences`, {
+            level: "error",
+          });
+        return;
+      }
+      if (a?.terminalOnUncovered === !1)
+        throw (
+          (c(),
+          new uB(
+            `Cannot resume this agent right now: its worktree ${t}, and the fallback directory is not covered by the session's isolation fences. Re-run from a session whose fences cover the agent's directory.`,
+          ))
+        );
+      throw (
+        (p(ue, We),
+        c(),
+        new yhe(
+          `This agent cannot be resumed: its worktree ${t}, and the fallback directory is not covered by the session's isolation fences.`,
+        ))
+      );
+    },
+    Ue =
+      typeof r?.worktreePath === "string" &&
+      r.worktreePath !== "" &&
+      !Qi(r.worktreePath) &&
+      !ns(r.worktreePath) &&
+      Kg(_A, r.worktreePath) === void 0
+        ? r.worktreePath
+        : void 0,
+    tt =
+      typeof r?.inheritedWorktreePath === "string" &&
+      r.inheritedWorktreePath !== "" &&
+      !Qi(r.inheritedWorktreePath) &&
+      !ns(r.inheritedWorktreePath) &&
+      Kg(_A, r.inheritedWorktreePath) === void 0
+        ? r.inheritedWorktreePath
+        : void 0,
+    J = Ue ?? tt,
+    W = J
+      ? await me.stat(J).then(
+          (t) => (t.isDirectory() ? J : Y("exists but is not a directory")),
+          (t) => {
+            let a = E(t);
+            if (a === "ENOENT" || a === "ENOTDIR") return Y("no longer exists");
+            throw (
+              (c(),
+              new uB(
+                `Cannot resume this agent: its worktree could not be examined (${String(a ?? "unknown error")}). Re-run once the directory is accessible.`,
+              ))
+            );
+          },
+        )
+      : void 0;
+  if (
+    J === void 0 &&
+    !Ltr(e) &&
+    ((r !== null &&
+      r.spawnedWithWorktree === !0 &&
+      r.worktreeCleanlyRemoved !== !0 &&
+      !(
+        r.inheritedWorktreePath !== void 0 &&
+        r.parentAgentId !== void 0 &&
+        (await KA(po(r.parentAgentId), s.storageV5).catch(Rye("resumeAgentBackground (parent)")))
+          ?.worktreeCleanlyRemoved === !0
+      )) ||
+      Rbn(e))
+  )
+    Y("is not recorded for this isolated agent", {
+      telemetryCode: "git_worktree_resume_binding_missing",
+      terminalOnUncovered: Rbn(e),
+    });
+  let F = W;
+  if (W) {
+    let t = Se(),
+      a = await me.realpath(t).catch(() => t),
+      o = await l7(W, Fb(t), te([a, R7, ...Fb(R7)]), {
+        requireWitnessForSelfOwningPins: !0,
+        declineSelfOwningPinUnderLiveRoot: !0,
+      });
+    if (!o.ok) {
+      if ((c(), o.reason !== "unverifiable" && o.reason !== "pin-is-own-launch-tree"))
+        throw (
+          (p(ue, "git_worktree_create_root_rejected"),
+          n(`[worktree] refusing to resume parked agent into ${W} (${o.reason}): ${o.message}`, { level: "error" }),
+          new yhe(`This agent cannot be resumed: its worktree was refused (${o.reason}). ${o.message}`))
+        );
+      throw (
+        (n(`[worktree] could not verify parked agent worktree ${W} this attempt; the resume will retry: ${o.message}`),
+        new uB(
+          `Cannot resume this agent right now: its worktree could not be verified (${o.reason}). Re-run once git can answer.`,
+        ))
+      );
+    }
+  }
+  if (F) {
+    let t = new Date();
+    try {
+      await me.utimes(F, t, t);
+    } catch (a) {
+      let o = E(a);
+      if (o === "ENOENT" || o === "ENOTDIR") F = Y("vanished between verification and the resume");
+      else
+        throw (
+          (c(),
+          new uB(
+            `Cannot resume this agent: its worktree could not be touched (${String(o ?? "unknown error")}). Re-run once the directory is accessible.`,
+          ))
+        );
+    }
+  }
+  let be = r?.cwd && !CP(r.cwd) ? r.cwd : F,
+    Te = s.session.withProject({ cwd: be ?? ee() }),
+    b = T?.effort !== void 0 ? { ...N, effort: T.effort } : N,
+    Q = r?.description ?? "(resumed)",
+    X;
+  if (M) {
+    if (s.renderedSystemPrompt) X = s.renderedSystemPrompt;
+    else
+      try {
+        let t = oe.agent ? oe.agentDefinitions.activeAgents.find((_) => _.agentType === oe.agent) : void 0,
+          a = Array.from(j.additionalWorkingDirectories.keys()),
+          o = await OS(s.options.tools, s.options.mainLoopModel, a);
+        X = dD({
+          mainThreadAgentDefinition: t,
+          toolUseContext: s,
+          customSystemPrompt: s.options.customSystemPrompt,
+          defaultSystemPrompt: o,
+          appendSystemPrompt: s.options.appendSystemPrompt,
+          skillsPersistencePrompt: Pee(s.options.tools),
+        });
+      } catch (t) {
+        throw (
+          (p("subagent_launch", "subagent_resume_fork_prompt_reconstruct_failed"),
+          c(),
+          t instanceof fd ? t : new fd(l(t)))
+        );
+      }
+    if (!X)
+      throw (
+        (p("subagent_launch", "subagent_resume_fork_prompt_missing"),
+        c(),
+        new fd("Cannot resume fork agent: unable to reconstruct parent system prompt"))
+      );
+  }
+  let _e = cm(s),
+    ve = q0(j8(b, _e), _e, r?.isObserver ? void 0 : M ? "inherit" : r?.model, G);
+  if (d?.kind === "observer-activity" && r?.isObserver !== !0)
+    throw (
+      (p("subagent_launch", "observer_resume_sidecar_unconfirmed"),
+      c(),
+      new fd(`Observer sidecar for ${e} missing or did not confirm isObserver; refusing delivery`))
+    );
+  let Ae = r?.isObserver ? (moe(O, G) ?? G) : void 0,
+    Re = { ...j, mode: Ae ?? O ?? r?.spawnMode ?? b.permissionMode ?? G },
+    Pe = s.options.tools.filter(K_),
+    Me = s.getAppState(),
+    rt = M
+      ? B2(s.options.tools)
+      : hD(Re, B2(Me.mcp.tools.concat(Pe)), { skipReplFilter: !0, skillTools: Me.skillTools }),
+    st = r?.isObserver ? wIt(yE(b, hD(Re, B2(Pe), { skipReplFilter: !0 }), !0, !1, !1, x).resolvedTools) : rt,
+    Oe = d
+      ? xe({ content: Ece(u, d), origin: d, isMeta: !0 })
+      : xe({ content: k ? Ece(u, void 0, { isMeta: !0 }) : u, ...(k && { isMeta: !0 }) }),
+    de = Cr(v) ? v.webFetchSavedFiles : void 0,
+    Ne = fE(b) ? (de ? { dirs: [...de.dirs], paths: [...de.paths] } : kz()) : void 0,
+    Ee = {
+      agentDefinition: b,
+      promptMessages: f ? L : [...L, Oe],
+      toolUseContext: qe,
+      canUseTool: S,
+      isAsync: !0,
+      preserveToolUseResults: !Le(),
+      persistedToolResultFiles: Ne,
+      querySource: jW(b.agentType, ja(b)),
+      spawnedBySkill: ie,
+      ...(T !== void 0 && { spawnedByForkedSkill: !0 }),
+      model: r?.isObserver ? void 0 : M ? "inherit" : r?.model,
+      onModelRestricted: r?.isObserver ? void 0 : Bee(ie ?? b.agentType, s.appendSystemMessage),
+      override: M ? { systemPrompt: X } : void 0,
+      availableTools: st,
+      forkContextMessages: void 0,
+      recordedUuids: new Set(L.map((t) => t.uuid)),
+      ...((M || r?.isObserver) && { useExactTools: !0 }),
+      worktreePath: F,
+      worktreeBranch: r?.worktreeBranch,
+      cwd: r?.cwd,
+      spawnMode: Ae ?? r?.spawnMode,
+      description: r?.description,
+      name: r?.name,
+      toolUseId: r?.toolUseId,
+      contentReplacementState: Qe,
+    },
+    ce = w.get(e);
+  if (Cr(ce) && ce.stoppedByUser && (!D || (ce.userStopCount ?? 0) !== H))
+    throw (
+      (c(),
+      new SL(
+        `Agent ${e} was stopped by the user and won't be resumed. Treat its work as cancelled; only launch a new agent if the user explicitly asks.`,
+      ))
+    );
+  if (!k && !f) Jdt(e, hk(d) ? Oe : xe({ content: u, origin: d }), w);
+  ge?.();
+  let I = KG({
+    agentId: e,
+    ownerAgentId: et(),
+    parentAgentId: r?.parentAgentId,
+    parentAbortController: K ? s.abortController : void 0,
+    spawnDepth: x,
+    description: Q,
+    prompt: u,
+    model: ve,
+    selectedAgent: b,
+    taskRegistry: w,
+    toolUseId: s.toolUseId,
+    cwd: be,
+    forkedSkillName: T?.skillName,
+    ...(d?.kind === "observer-activity" && { isObserver: !0 }),
+    sessionScratch: s.session.sessionScratch,
+  });
+  if ((je(), D && r?.stoppedByUser))
+    try {
+      if (rFt(w.get(e)) === H) {
+        if ((await U7(po(e), { stoppedByUser: !1 }, s.storageV5), rFt(w.get(e)) !== H))
+          await U7(po(e), { stoppedByUser: !0 }, s.storageV5);
+      }
+    } catch (t) {
+      if (Ht(t) || TA(r1(t))) n(`failed to clear stop marker for ${e}: ${WW(t)}`, { level: "warn" });
+      else h(t);
+    }
+  if (V) XL(I.agentId, w);
+  if (
+    (await U9n({
+      observedTaskId: e,
+      observedDefinition: b,
+      observedName: r?.name ?? b.agentType,
+      observedMeta: r ? { observerTaskId: r.observerTaskId, armingPermissionMode: r.armingPermissionMode } : null,
+      toolUseContext: s,
+      canUseTool: S,
+    }),
+    D7(e, w),
+    r?.name && s.getAppState().agentNameRegistry.get(r.name) === void 0)
+  )
+    s.agentLifecycle.registerName(r.name, po(e));
+  let nt = {
+      prompt: u,
+      resolvedAgentModel: ve,
+      modelsUsed: Ke,
+      isBuiltInAgent: ja(b),
+      startTime: Ye,
+      agentType: b.agentType,
+      isAsync: !0,
+      agentDepth: x,
+      source: b.source,
+      pluginId: W8(b) ? Vt(b.plugin) : void 0,
+      persistedToolResultFiles: Ne,
+      spawnedSubagent: Cr(v) ? v.spawnedSubagent : void 0,
+    },
+    Fe = {
+      agentId: e,
+      parentAgentId: s.agentId,
+      depth: x,
+      parentSessionId: nb(),
+      agentType: "subagent",
+      subagentName: b.agentType,
+      displayName: r?.name,
+      isAsync: !0,
+      isBuiltIn: ja(b),
+      invokingRequestId: B,
+      invocationKind: "resume",
+      invocationEmitted: !1,
+      parentPromptId: U,
+      isBackgroundAgent: !0,
+      ...PH(s.agentContext),
+    },
+    it = d?.kind === "observer-activity" ? () => {} : w.takeConcurrencySlot(),
+    De = fw(Fe, () =>
+      H5(Te.project.cwd, () =>
+        ZW({
+          taskId: I.agentId,
+          abortController: I.abortController,
+          makeStream: (t, a) =>
+            $b({
+              ...Ee,
+              session: Te,
+              override: {
+                ...Ee.override,
+                agentId: po(I.agentId),
+                agentContext: Fe,
+                abortController: I.abortController,
+                replHydration: { kind: "resume" },
+              },
+              onCacheSafeParams: t,
+              onQueryProgress: a,
+            }),
+          metadata: nt,
+          description: Q,
+          toolUseContext: s,
+          taskRegistry: w,
+          agentIdForCleanup: e,
+          enableSummarization: Zfe() || ((Q9() || M || AG()) && !Le()),
+          getWorktreeResult: async () =>
+            F ? { worktreePath: F, ...(r?.worktreeBranch && { worktreeBranch: r.worktreeBranch }) } : {},
+          shouldNotifyOwner: K ? () => !1 : void 0,
+          reviewInlineHandoff: se === "reply" && K,
+          onTerminalSuccess: T
+            ? () => {
+                let t = T.skillName,
+                  a = `:${t}`;
+                if (X5().has(a)) return;
+                HU(t, t, "", null);
+                let o = BIe(t);
+                if (o) s.applyAttributionOp({ kind: "recordVerification", method: o });
+              }
+            : void 0,
+          onRunSettled: it,
+        }),
+      ),
+    );
+  if ((y("subagent_launch"), K))
+    try {
+      await De;
+      let t = w.get(e),
+        a = Cr(t) ? t.result : void 0;
+      return {
+        agentId: e,
+        description: Q,
+        outputFile: Sl(e),
+        inlineHandback: {
+          content: a?.content ?? [],
+          harnessNoteCount: a?.harnessNoteCount,
+          harnessTailCount: a?.harnessTailCount,
+          harnessSectionHash: a?.harnessSectionHash,
+          handoffReviewSkipped: a?.handoffReviewSkipped,
+        },
+      };
+    } catch (t) {
+      if (t instanceof Error) Object.defineProperty(t, pe, { value: !0 });
+      throw t;
+    } finally {
+      w.update(e, (t) => ({ ...t, notified: !0, evictAfter: Date.now() + V0 }));
+    }
+  return { agentId: e, description: Q, outputFile: Sl(e) };
+}
+export { wIt, len, cen, fd, uB, yhe, SL, mW, gW, Q$n, uen };

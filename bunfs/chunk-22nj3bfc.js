@@ -8,4 +8,12 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{nt}from"/$bunfs/root/chunk-zfjmcnyh.js";import{ue}from"/$bunfs/root/chunk-yz031c9r.js";var e=ue("/$bunfs/root/cli-f091jpwx.md");var t=ue("/$bunfs/root/server-6cyhjq09.md");var s="/$bunfs/root/SKILL-cf37e4b8.md.zst";var i=nt(s,import.meta.dirname);var g=i,y={"examples/cli.md":e,"examples/server.md":t};export{y as SKILL_FILES,g as SKILL_MD};
+import { nt } from "/$bunfs/root/chunk-zfjmcnyh.js";
+import { ue } from "/$bunfs/root/chunk-yz031c9r.js";
+var e = ue("/$bunfs/root/cli-f091jpwx.md");
+var t = ue("/$bunfs/root/server-6cyhjq09.md");
+var s = "/$bunfs/root/SKILL-cf37e4b8.md.zst";
+var i = nt(s, import.meta.dirname);
+var g = i,
+  y = { "examples/cli.md": e, "examples/server.md": t };
+export { y as SKILL_FILES, g as SKILL_MD };

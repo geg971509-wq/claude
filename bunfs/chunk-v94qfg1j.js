@@ -8,5 +8,27 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-class e{hooks=null;uiMounted=!1;setHooks(o){this.hooks=o}setUiMounted(o){this.uiMounted=o}}var n=new e;function $gn(o){n.setHooks(o)}function Ugn(){return n.hooks}function YYn(o){n.setUiMounted(o)}function k5e(){return n.uiMounted}
-export{$gn,Ugn,YYn,k5e};
+class e {
+  hooks = null;
+  uiMounted = !1;
+  setHooks(o) {
+    this.hooks = o;
+  }
+  setUiMounted(o) {
+    this.uiMounted = o;
+  }
+}
+var n = new e();
+function $gn(o) {
+  n.setHooks(o);
+}
+function Ugn() {
+  return n.hooks;
+}
+function YYn(o) {
+  n.setUiMounted(o);
+}
+function k5e() {
+  return n.uiMounted;
+}
+export { $gn, Ugn, YYn, k5e };

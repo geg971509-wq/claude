@@ -8,4 +8,20 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-var t=new Set(["update","upgrade","doctor"]);function r(o){let n=o.indexOf("mcp");return n!==-1&&o[n+1]==="serve"}function i(o){return o.some((n,e)=>(n==="plugin"||n==="plugins")&&o[e+1]==="eval")}function a(o){return o.some((n)=>n==="remote-control"||n==="rc")}export{t as NON_REPL_SUBCOMMANDS,r as isMcpServeInvocation,i as isPluginEvalInvocation,a as isRemoteControlInvocation};
+var t = new Set(["update", "upgrade", "doctor"]);
+function r(o) {
+  let n = o.indexOf("mcp");
+  return n !== -1 && o[n + 1] === "serve";
+}
+function i(o) {
+  return o.some((n, e) => (n === "plugin" || n === "plugins") && o[e + 1] === "eval");
+}
+function a(o) {
+  return o.some((n) => n === "remote-control" || n === "rc");
+}
+export {
+  t as NON_REPL_SUBCOMMANDS,
+  r as isMcpServeInvocation,
+  i as isPluginEvalInvocation,
+  a as isRemoteControlInvocation,
+};

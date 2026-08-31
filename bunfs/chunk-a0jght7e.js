@@ -8,4 +8,19 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Jxn}from"/$bunfs/root/chunk-7y61rbtd.js";var r=null;function n(){if(r)return r;try{return r=Jxn(),r}catch{return null}}function t(e){let l=n();if(!l)return null;return l.waitForUrlEvent(e)}export{t as waitForUrlEvent};
+import { Jxn } from "/$bunfs/root/chunk-7y61rbtd.js";
+var r = null;
+function n() {
+  if (r) return r;
+  try {
+    return (r = Jxn()), r;
+  } catch {
+    return null;
+  }
+}
+function t(e) {
+  let l = n();
+  if (!l) return null;
+  return l.waitForUrlEvent(e);
+}
+export { t as waitForUrlEvent };

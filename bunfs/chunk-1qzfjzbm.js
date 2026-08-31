@@ -8,7 +8,1005 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{$kn,FVt}from"/$bunfs/root/chunk-f9h0bg01.js";import"/$bunfs/root/chunk-qq1mdtb5.js";import"/$bunfs/root/chunk-tx16jn0x.js";import{s}from"/$bunfs/root/chunk-r53tkxrh.js";import{c}from"/$bunfs/root/chunk-4xj01xwv.js";import{y,p,g}from"/$bunfs/root/chunk-ca80fke8.js";import"/$bunfs/root/chunk-vfy57cpd.js";import{R,l}from"/$bunfs/root/chunk-ypdw393e.js";import"/$bunfs/root/chunk-fv016jr6.js";import"/$bunfs/root/chunk-gcks6mn0.js";import"/$bunfs/root/chunk-qk7r0t2g.js";import"/$bunfs/root/chunk-4ddxwr9r.js";import{Dt}from"/$bunfs/root/chunk-zze8764r.js";import"/$bunfs/root/chunk-bzx56g36.js";import"/$bunfs/root/chunk-6k63g5t6.js";import"/$bunfs/root/chunk-4fwj3vnx.js";import"/$bunfs/root/chunk-nqmqabr8.js";import"/$bunfs/root/chunk-eqdctte5.js";import"/$bunfs/root/chunk-fec4384a.js";import"/$bunfs/root/chunk-qm65zb83.js";import{h}from"/$bunfs/root/chunk-wkxx62a2.js";import"/$bunfs/root/chunk-ps6pc7xd.js";import"/$bunfs/root/chunk-0pgyw7te.js";import"/$bunfs/root/chunk-q14dgq5g.js";import"/$bunfs/root/chunk-f5hrzy3k.js";import"/$bunfs/root/chunk-s7e0px8j.js";import"/$bunfs/root/chunk-s28wf80n.js";import"/$bunfs/root/chunk-3bbym8ct.js";import"/$bunfs/root/chunk-cf8qhmdc.js";import"/$bunfs/root/chunk-2masxyqj.js";import"/$bunfs/root/chunk-rgw52f13.js";import"/$bunfs/root/chunk-2rx5nghb.js";import"/$bunfs/root/chunk-z0z1xzkg.js";import"/$bunfs/root/chunk-c47snwm2.js";import"/$bunfs/root/chunk-jpf4kat5.js";import"/$bunfs/root/chunk-s4vc7est.js";import"/$bunfs/root/chunk-hyh5wcm1.js";import"/$bunfs/root/chunk-ntyhd04p.js";import"/$bunfs/root/chunk-8qsdea2c.js";import{ye,$$}from"/$bunfs/root/chunk-988p40e0.js";import"/$bunfs/root/chunk-0spqrdaj.js";import"/$bunfs/root/chunk-5rt2mvvk.js";import"/$bunfs/root/chunk-1yr12dqr.js";import"/$bunfs/root/chunk-2mmw62jx.js";import"/$bunfs/root/chunk-z2bvp3sv.js";import"/$bunfs/root/chunk-keb644xg.js";import"/$bunfs/root/chunk-bj904w9w.js";import"/$bunfs/root/chunk-18bck2pp.js";import"/$bunfs/root/chunk-dwwpyy7b.js";import"/$bunfs/root/chunk-jck8t8fq.js";import"/$bunfs/root/chunk-twwd9fep.js";import"/$bunfs/root/chunk-98tgyb1d.js";import"/$bunfs/root/chunk-492vgtnr.js";import"/$bunfs/root/chunk-qk6zade1.js";import"/$bunfs/root/chunk-0g6cj4h1.js";import{ys}from"/$bunfs/root/chunk-8tgj5dp2.js";import"/$bunfs/root/chunk-amem41jf.js";import"/$bunfs/root/chunk-a48rnvhj.js";import"/$bunfs/root/chunk-167jjb66.js";import"/$bunfs/root/chunk-4rh74qms.js";import"/$bunfs/root/chunk-386w1sy8.js";import"/$bunfs/root/chunk-ax6dy60b.js";import"/$bunfs/root/chunk-qcx34e4j.js";import"/$bunfs/root/chunk-psdymar6.js";import"/$bunfs/root/chunk-0r9wzh7g.js";import"/$bunfs/root/chunk-sxxp6vcr.js";import"/$bunfs/root/chunk-rf51999f.js";import"/$bunfs/root/chunk-82w4mtvq.js";import"/$bunfs/root/chunk-v7yhn7cf.js";import"/$bunfs/root/chunk-kxyny47c.js";import"/$bunfs/root/chunk-e7rq8w09.js";import"/$bunfs/root/chunk-ghara6r1.js";import"/$bunfs/root/chunk-4r03fm98.js";import"/$bunfs/root/chunk-r3qa2s4k.js";import"/$bunfs/root/chunk-k4a21mkt.js";import"/$bunfs/root/chunk-1evht33z.js";import"/$bunfs/root/chunk-97wwdfyx.js";import"/$bunfs/root/chunk-fbp3w46j.js";import"/$bunfs/root/chunk-gtv2468w.js";import"/$bunfs/root/chunk-s4smmnta.js";import"/$bunfs/root/chunk-z9ex1x2t.js";import"/$bunfs/root/chunk-gkfy5ggn.js";import"/$bunfs/root/chunk-4t3vsqt7.js";import"/$bunfs/root/chunk-ejdwrhgv.js";import"/$bunfs/root/chunk-zkvj62rn.js";import"/$bunfs/root/chunk-tzhtxm67.js";import"/$bunfs/root/chunk-mznd09c6.js";import"/$bunfs/root/chunk-2n1hsggr.js";import"/$bunfs/root/chunk-c76q2y0e.js";import"/$bunfs/root/chunk-cds31m36.js";import"/$bunfs/root/chunk-x06p1jhb.js";import"/$bunfs/root/chunk-1pn2pk9v.js";import"/$bunfs/root/chunk-nkjrjh5n.js";import"/$bunfs/root/chunk-hebj76vj.js";import"/$bunfs/root/chunk-5wecjdtm.js";import"/$bunfs/root/chunk-s0xdwab3.js";import"/$bunfs/root/chunk-fs02hzwy.js";import"/$bunfs/root/chunk-z15hpjf9.js";import"/$bunfs/root/chunk-0mrbtv3q.js";import"/$bunfs/root/chunk-5n1tbe50.js";import"/$bunfs/root/chunk-a2an01ph.js";import"/$bunfs/root/chunk-dck778n3.js";import"/$bunfs/root/chunk-c6k0ecxv.js";import"/$bunfs/root/chunk-bp3j8sq3.js";import"/$bunfs/root/chunk-qekzccch.js";import"/$bunfs/root/chunk-s2ac0z44.js";import"/$bunfs/root/chunk-wgz3g40p.js";import"/$bunfs/root/chunk-1mp2j0tx.js";import"/$bunfs/root/chunk-w3c6n7jh.js";import"/$bunfs/root/chunk-6a5ggyw4.js";import"/$bunfs/root/chunk-gvnqpbsf.js";import"/$bunfs/root/chunk-d1d8xqks.js";import"/$bunfs/root/chunk-rgh8hav6.js";import"/$bunfs/root/chunk-91315wj5.js";import"/$bunfs/root/chunk-btcxpqw5.js";import"/$bunfs/root/chunk-jwrz2gmg.js";import"/$bunfs/root/chunk-tz5bx4mb.js";import"/$bunfs/root/chunk-p1awcxk1.js";import"/$bunfs/root/chunk-z9bhq3k9.js";import"/$bunfs/root/chunk-e17gvevg.js";import"/$bunfs/root/chunk-da857b4g.js";import"/$bunfs/root/chunk-vzc4dhqq.js";import"/$bunfs/root/chunk-anwgkcw5.js";import"/$bunfs/root/chunk-h7dkgq01.js";import"/$bunfs/root/chunk-hz299nfa.js";import"/$bunfs/root/chunk-1v3848mh.js";import"/$bunfs/root/chunk-699y5x28.js";import"/$bunfs/root/chunk-qg6z8ah8.js";import"/$bunfs/root/chunk-wjr8v4tx.js";import"/$bunfs/root/chunk-fctnm902.js";import"/$bunfs/root/chunk-e53y7x75.js";import"/$bunfs/root/chunk-37pvmyqb.js";import"/$bunfs/root/chunk-dd55s64p.js";import"/$bunfs/root/chunk-83h0j7w2.js";import"/$bunfs/root/chunk-d5s7a9by.js";import"/$bunfs/root/chunk-5g92v3fd.js";import"/$bunfs/root/chunk-76gryyye.js";import{he}from"/$bunfs/root/chunk-h605j25g.js";import"/$bunfs/root/chunk-4sw5yxwb.js";import"/$bunfs/root/chunk-vq9g7y26.js";import"/$bunfs/root/chunk-0m39033q.js";import"/$bunfs/root/chunk-tveh0k24.js";import"/$bunfs/root/chunk-k8xha1qv.js";import"/$bunfs/root/chunk-30e2jew7.js";import"/$bunfs/root/chunk-51qp0385.js";import"/$bunfs/root/chunk-kbyvkqye.js";import"/$bunfs/root/chunk-308krgtb.js";import"/$bunfs/root/chunk-nf8aaj8a.js";import"/$bunfs/root/chunk-a6xhjq7b.js";import"/$bunfs/root/chunk-qnrh4abv.js";import"/$bunfs/root/chunk-6nmk3t6g.js";import"/$bunfs/root/chunk-6w72z84m.js";import"/$bunfs/root/chunk-nkf7ctf5.js";import"/$bunfs/root/chunk-38mxah2g.js";import"/$bunfs/root/chunk-v94qfg1j.js";import"/$bunfs/root/chunk-p18e2918.js";import"/$bunfs/root/chunk-rsp0anqd.js";import"/$bunfs/root/chunk-qd35gw0c.js";import"/$bunfs/root/chunk-ky33xsw7.js";import"/$bunfs/root/chunk-8td9ks9h.js";import"/$bunfs/root/chunk-eb5y4yrx.js";import"/$bunfs/root/chunk-5c5qq1s7.js";import"/$bunfs/root/chunk-9y48by1e.js";import"/$bunfs/root/chunk-cfqs035d.js";import"/$bunfs/root/chunk-9tey6wcd.js";import"/$bunfs/root/chunk-86v6b72m.js";import"/$bunfs/root/chunk-hzjjsb0j.js";import"/$bunfs/root/chunk-50g10fz0.js";import"/$bunfs/root/chunk-c2kqvv3h.js";import"/$bunfs/root/chunk-xgfepdf4.js";import"/$bunfs/root/chunk-rntp2fy5.js";import"/$bunfs/root/chunk-4c3hecm4.js";import"/$bunfs/root/chunk-cgy998p5.js";import"/$bunfs/root/chunk-96xrtyd5.js";import"/$bunfs/root/chunk-dt5bt1kc.js";import"/$bunfs/root/chunk-k7v7xwvs.js";import"/$bunfs/root/chunk-trte0v0g.js";import"/$bunfs/root/chunk-gmgmb4mg.js";import"/$bunfs/root/chunk-avrc9gay.js";import"/$bunfs/root/chunk-pbd9yggs.js";import"/$bunfs/root/chunk-fvkzpeqe.js";import"/$bunfs/root/chunk-vx3kc9d2.js";import"/$bunfs/root/chunk-z9rrv31w.js";import"/$bunfs/root/chunk-pzvxycbq.js";import"/$bunfs/root/chunk-dzv4k86d.js";import"/$bunfs/root/chunk-rt5p4yax.js";import"/$bunfs/root/chunk-jn7d47r1.js";import"/$bunfs/root/chunk-dc4hb8f7.js";import"/$bunfs/root/chunk-z9jgt14c.js";import"/$bunfs/root/chunk-y8sx7bf9.js";import"/$bunfs/root/chunk-q2gyteg0.js";import"/$bunfs/root/chunk-0manfhn2.js";import"/$bunfs/root/chunk-r6ppzf4r.js";import"/$bunfs/root/chunk-4399d2v0.js";import"/$bunfs/root/chunk-y79sc2hm.js";import"/$bunfs/root/chunk-2t3rnt88.js";import"/$bunfs/root/chunk-986hvegp.js";import"/$bunfs/root/chunk-8jsj2mx0.js";import"/$bunfs/root/chunk-5djs3wbb.js";import"/$bunfs/root/chunk-r4m4cqz1.js";import"/$bunfs/root/chunk-mq8h2tk8.js";import"/$bunfs/root/chunk-pdf5n9dy.js";import"/$bunfs/root/chunk-a9vrr0nr.js";import"/$bunfs/root/chunk-nfmyt8cw.js";import"/$bunfs/root/chunk-6var9pwd.js";import"/$bunfs/root/chunk-gmj1vprd.js";import"/$bunfs/root/chunk-ht15rw3x.js";import"/$bunfs/root/chunk-gay9hbs8.js";import"/$bunfs/root/chunk-mvz9fsh3.js";import"/$bunfs/root/chunk-ddbk6aje.js";import"/$bunfs/root/chunk-krety1hw.js";import"/$bunfs/root/chunk-6ywvv1q0.js";import"/$bunfs/root/chunk-wn1jrcrk.js";import"/$bunfs/root/chunk-zk5v8tw6.js";import"/$bunfs/root/chunk-kdtcyk0z.js";import"/$bunfs/root/chunk-q75cm02t.js";import"/$bunfs/root/chunk-dxqac26z.js";import"/$bunfs/root/chunk-2204t1q0.js";import"/$bunfs/root/chunk-kfdrcvxr.js";import"/$bunfs/root/chunk-fd2h00ye.js";import"/$bunfs/root/chunk-vm4xrmr7.js";import"/$bunfs/root/chunk-hkzwg35z.js";import"/$bunfs/root/chunk-mkweh3a4.js";import"/$bunfs/root/chunk-z6m3k8w5.js";import{o0e,the}from"/$bunfs/root/chunk-jvgmmdgq.js";import"/$bunfs/root/chunk-mhf4d4sa.js";import"/$bunfs/root/chunk-pbmajbn7.js";import"/$bunfs/root/chunk-htrft0p0.js";import{_}from"/$bunfs/root/chunk-haan6f8z.js";import"/$bunfs/root/chunk-c3bffkxg.js";import"/$bunfs/root/chunk-fwwvmbqn.js";import{o,t,hn}from"/$bunfs/root/chunk-he2phymk.js";import"/$bunfs/root/chunk-ka74qrx3.js";import"/$bunfs/root/chunk-kez2zndg.js";import"/$bunfs/root/chunk-2wxj9m3z.js";import"/$bunfs/root/chunk-z45ex17x.js";import"/$bunfs/root/chunk-tbbqkkg3.js";import"/$bunfs/root/chunk-q04k5ycg.js";import"/$bunfs/root/chunk-e28mhr30.js";import"/$bunfs/root/chunk-zk5d9rtp.js";import"/$bunfs/root/chunk-syabrr2b.js";import"/$bunfs/root/chunk-93max1bs.js";import{xt}from"/$bunfs/root/chunk-8cv6dqkz.js";import"/$bunfs/root/chunk-f9km17e9.js";import{Be,ht}from"/$bunfs/root/chunk-ek4tmwbt.js";import{fe}from"/$bunfs/root/chunk-rycvm63e.js";import"/$bunfs/root/chunk-8ktvd0rh.js";import"/$bunfs/root/chunk-59pkbjrf.js";import"/$bunfs/root/chunk-tmxtk606.js";import{me}from"/$bunfs/root/chunk-489c3cyq.js";import"/$bunfs/root/chunk-tspcysj2.js";import"/$bunfs/root/chunk-jmrpkgzd.js";import{M}from"/$bunfs/root/chunk-y2r26k83.js";import"/$bunfs/root/chunk-rp246vnd.js";import"/$bunfs/root/chunk-vba6efmv.js";import"/$bunfs/root/chunk-pwk6q778.js";import"/$bunfs/root/chunk-gtwaztzc.js";import"/$bunfs/root/chunk-se2bnecc.js";import"/$bunfs/root/chunk-fm0ga625.js";import"/$bunfs/root/chunk-ypheby59.js";import"/$bunfs/root/chunk-q903htrr.js";import"/$bunfs/root/chunk-ht28m404.js";import"/$bunfs/root/chunk-h4r2tn7z.js";import"/$bunfs/root/chunk-hyj9nfhh.js";import"/$bunfs/root/chunk-ngn87vcm.js";import"/$bunfs/root/chunk-fbn06kdf.js";import"/$bunfs/root/chunk-06m34t0b.js";import{tt}from"/$bunfs/root/chunk-s8gya298.js";import{LK,Ce}from"/$bunfs/root/chunk-1y0jc48h.js";import"/$bunfs/root/chunk-42q7ctbx.js";import"/$bunfs/root/chunk-m5yhrq50.js";import"/$bunfs/root/chunk-cmhbx7me.js";import"/$bunfs/root/chunk-sypj25ha.js";import"/$bunfs/root/chunk-hb6grkjg.js";import"/$bunfs/root/chunk-q5hmd7j9.js";import{Xj,MBe,nke,NBe,FBe}from"/$bunfs/root/chunk-0xqepz51.js";import{r0e}from"/$bunfs/root/chunk-7b20eep4.js";import{rr}from"/$bunfs/root/chunk-0nfwsvfd.js";import"/$bunfs/root/chunk-sys0j174.js";import"/$bunfs/root/chunk-qz5vfzn9.js";import"/$bunfs/root/chunk-fxswqr2j.js";import"/$bunfs/root/chunk-b6a5y1qe.js";import"/$bunfs/root/chunk-pm63yfcg.js";import"/$bunfs/root/chunk-k9a5yseb.js";import"/$bunfs/root/chunk-84qb5tsd.js";import"/$bunfs/root/chunk-96dhk9az.js";import"/$bunfs/root/chunk-5v6kpgmm.js";import"/$bunfs/root/chunk-4kafv9jq.js";import"/$bunfs/root/chunk-7d0my7mt.js";import"/$bunfs/root/chunk-wnc75h2x.js";import"/$bunfs/root/chunk-1fwtbc4t.js";import{U,e,r}from"/$bunfs/root/chunk-8s7kcbyw.js";import"/$bunfs/root/chunk-tfb5y7hy.js";import"/$bunfs/root/chunk-d5bnjcbw.js";import{A,u,F}from"/$bunfs/root/chunk-twm95mhz.js";import"/$bunfs/root/chunk-31xy83wr.js";import"/$bunfs/root/chunk-g732bkj4.js";import"/$bunfs/root/chunk-zgfc288e.js";import"/$bunfs/root/chunk-6nsyrmhg.js";import"/$bunfs/root/chunk-jjkewjsg.js";import"/$bunfs/root/chunk-4r71nj50.js";import{Oh,Md}from"/$bunfs/root/chunk-3qvtfvqg.js";import"/$bunfs/root/chunk-r7t0evh2.js";import"/$bunfs/root/chunk-6xz0kht6.js";import"/$bunfs/root/chunk-2am7kb6k.js";import"/$bunfs/root/chunk-9kr4hqvs.js";import"/$bunfs/root/chunk-xvwx3w83.js";import"/$bunfs/root/chunk-y9akj3mq.js";import"/$bunfs/root/chunk-gdk3p0b3.js";import"/$bunfs/root/chunk-qy75zxb2.js";import"/$bunfs/root/chunk-r6t6p0zm.js";import"/$bunfs/root/chunk-qpj83ec7.js";import"/$bunfs/root/chunk-f77e8yef.js";import"/$bunfs/root/chunk-f7y0mdt6.js";import"/$bunfs/root/chunk-jb2pzt3t.js";import"/$bunfs/root/chunk-9yzzw213.js";import"/$bunfs/root/chunk-mknyj0qp.js";import"/$bunfs/root/chunk-81defen8.js";import"/$bunfs/root/chunk-mpg6r2j0.js";import"/$bunfs/root/chunk-3dh32z3c.js";import"/$bunfs/root/chunk-n8ecp4gs.js";import"/$bunfs/root/chunk-406nxetx.js";import"/$bunfs/root/chunk-2zf9m1zh.js";import"/$bunfs/root/chunk-rxqmmxnb.js";import"/$bunfs/root/chunk-gdhqsw8a.js";import"/$bunfs/root/chunk-5xr818a0.js";import"/$bunfs/root/chunk-fgavb5x0.js";import"/$bunfs/root/chunk-sqa0bs5e.js";import{L}from"/$bunfs/root/chunk-v4qqyykc.js";import"/$bunfs/root/chunk-fveqn4y7.js";import"/$bunfs/root/chunk-4zsxhey6.js";import"/$bunfs/root/chunk-61nasexv.js";import"/$bunfs/root/chunk-m1andcps.js";import"/$bunfs/root/chunk-61hbq2wc.js";import"/$bunfs/root/chunk-rq65wazg.js";import"/$bunfs/root/chunk-5tdaspnd.js";import"/$bunfs/root/chunk-rr0yj5sq.js";import"/$bunfs/root/chunk-a7wreksn.js";import"/$bunfs/root/chunk-8sbwe0jk.js";import"/$bunfs/root/chunk-nwb64bac.js";import"/$bunfs/root/chunk-g5y4mxg8.js";import"/$bunfs/root/chunk-cbn30h5b.js";import"/$bunfs/root/chunk-g01aac1k.js";import"/$bunfs/root/chunk-3fwkz19s.js";import"/$bunfs/root/chunk-9319g175.js";import"/$bunfs/root/chunk-szz73wxx.js";import"/$bunfs/root/chunk-b40bn863.js";import"/$bunfs/root/chunk-6mgs10s2.js";import{hTn}from"/$bunfs/root/chunk-6s9ybdq1.js";import"/$bunfs/root/chunk-74qqwjhx.js";import"/$bunfs/root/chunk-1hh0bg14.js";import"/$bunfs/root/chunk-052zvbpg.js";import"/$bunfs/root/chunk-werv747a.js";import"/$bunfs/root/chunk-jzh4kg5x.js";import"/$bunfs/root/chunk-7s7jqj2f.js";import"/$bunfs/root/chunk-56sxk8k2.js";import"/$bunfs/root/chunk-7jz6r17g.js";import"/$bunfs/root/chunk-a4q326ap.js";import{d}from"/$bunfs/root/chunk-yz031c9r.js";function Ae(n){return typeof n==="object"&&n!==null&&"type"in n&&n.type==="auto_mode_scan"}function Z(n){for(let a of Object.values(n.all()))if(Ae(a)&&a.status==="running")return a;return}function oe(n,a,f){let v=Oh("auto_mode_scan"),k={...Md(v,"auto_mode_scan","scanning for auto-mode setup"),type:"auto_mode_scan",status:"running",skipTranscript:!0,gathersFromGitHubOrg:f,abortController:a};return n.register(k),v}function X(n,a,f){let v=!1;if(a.update(n,(k)=>{if(k.status!=="running")return k;return v=!0,{...k,status:f,endTime:Date.now(),notified:!0,abortController:void 0}}),v)ys(n,f,{skipTranscript:!0,ambient:!0})}F();function Y(n){return{environment:n.environment,...n.allow.length>0&&{allow:n.allow},...n.soft_deny.length>0&&{soft_deny:n.soft_deny},...n.hard_deny.length>0&&{hard_deny:n.hard_deny}}}function q(n,a){return`Saved to ${n.filePath} (${n.autoModeKeysWritten.join(", ")}`+(n.environmentEntriesPreserved>0?`; kept ${n.environmentEntriesPreserved} existing environment ${n.environmentEntriesPreserved===1?"entry":"entries"}`:"")+(a.removed>0?`; removed ${a.removed} permissions.allow ${a.removed===1?"entry":"entries"}`:"")+"). Run `claude auto-mode config` to see the effective result."+(a.skipped>0?` Note: ${a.skipped} ${a.skipped===1?"rule":"rules"} couldn\u2019t be removed \u2014 permissions.allow isn\u2019t an array in your settings.`:"")+((a.notFound??0)>0?` Note: ${a.notFound} ${a.notFound===1?"rule was":"rules were"} already gone from permissions.allow.`:"")+(n.warnings.length>0?`
+import { $kn, FVt } from "/$bunfs/root/chunk-f9h0bg01.js";
+import "/$bunfs/root/chunk-qq1mdtb5.js";
+import "/$bunfs/root/chunk-tx16jn0x.js";
+import { s } from "/$bunfs/root/chunk-r53tkxrh.js";
+import { c } from "/$bunfs/root/chunk-4xj01xwv.js";
+import { y, p, g } from "/$bunfs/root/chunk-ca80fke8.js";
+import "/$bunfs/root/chunk-vfy57cpd.js";
+import { R, l } from "/$bunfs/root/chunk-ypdw393e.js";
+import "/$bunfs/root/chunk-fv016jr6.js";
+import "/$bunfs/root/chunk-gcks6mn0.js";
+import "/$bunfs/root/chunk-qk7r0t2g.js";
+import "/$bunfs/root/chunk-4ddxwr9r.js";
+import { Dt } from "/$bunfs/root/chunk-zze8764r.js";
+import "/$bunfs/root/chunk-bzx56g36.js";
+import "/$bunfs/root/chunk-6k63g5t6.js";
+import "/$bunfs/root/chunk-4fwj3vnx.js";
+import "/$bunfs/root/chunk-nqmqabr8.js";
+import "/$bunfs/root/chunk-eqdctte5.js";
+import "/$bunfs/root/chunk-fec4384a.js";
+import "/$bunfs/root/chunk-qm65zb83.js";
+import { h } from "/$bunfs/root/chunk-wkxx62a2.js";
+import "/$bunfs/root/chunk-ps6pc7xd.js";
+import "/$bunfs/root/chunk-0pgyw7te.js";
+import "/$bunfs/root/chunk-q14dgq5g.js";
+import "/$bunfs/root/chunk-f5hrzy3k.js";
+import "/$bunfs/root/chunk-s7e0px8j.js";
+import "/$bunfs/root/chunk-s28wf80n.js";
+import "/$bunfs/root/chunk-3bbym8ct.js";
+import "/$bunfs/root/chunk-cf8qhmdc.js";
+import "/$bunfs/root/chunk-2masxyqj.js";
+import "/$bunfs/root/chunk-rgw52f13.js";
+import "/$bunfs/root/chunk-2rx5nghb.js";
+import "/$bunfs/root/chunk-z0z1xzkg.js";
+import "/$bunfs/root/chunk-c47snwm2.js";
+import "/$bunfs/root/chunk-jpf4kat5.js";
+import "/$bunfs/root/chunk-s4vc7est.js";
+import "/$bunfs/root/chunk-hyh5wcm1.js";
+import "/$bunfs/root/chunk-ntyhd04p.js";
+import "/$bunfs/root/chunk-8qsdea2c.js";
+import { ye, $$ } from "/$bunfs/root/chunk-988p40e0.js";
+import "/$bunfs/root/chunk-0spqrdaj.js";
+import "/$bunfs/root/chunk-5rt2mvvk.js";
+import "/$bunfs/root/chunk-1yr12dqr.js";
+import "/$bunfs/root/chunk-2mmw62jx.js";
+import "/$bunfs/root/chunk-z2bvp3sv.js";
+import "/$bunfs/root/chunk-keb644xg.js";
+import "/$bunfs/root/chunk-bj904w9w.js";
+import "/$bunfs/root/chunk-18bck2pp.js";
+import "/$bunfs/root/chunk-dwwpyy7b.js";
+import "/$bunfs/root/chunk-jck8t8fq.js";
+import "/$bunfs/root/chunk-twwd9fep.js";
+import "/$bunfs/root/chunk-98tgyb1d.js";
+import "/$bunfs/root/chunk-492vgtnr.js";
+import "/$bunfs/root/chunk-qk6zade1.js";
+import "/$bunfs/root/chunk-0g6cj4h1.js";
+import { ys } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import "/$bunfs/root/chunk-amem41jf.js";
+import "/$bunfs/root/chunk-a48rnvhj.js";
+import "/$bunfs/root/chunk-167jjb66.js";
+import "/$bunfs/root/chunk-4rh74qms.js";
+import "/$bunfs/root/chunk-386w1sy8.js";
+import "/$bunfs/root/chunk-ax6dy60b.js";
+import "/$bunfs/root/chunk-qcx34e4j.js";
+import "/$bunfs/root/chunk-psdymar6.js";
+import "/$bunfs/root/chunk-0r9wzh7g.js";
+import "/$bunfs/root/chunk-sxxp6vcr.js";
+import "/$bunfs/root/chunk-rf51999f.js";
+import "/$bunfs/root/chunk-82w4mtvq.js";
+import "/$bunfs/root/chunk-v7yhn7cf.js";
+import "/$bunfs/root/chunk-kxyny47c.js";
+import "/$bunfs/root/chunk-e7rq8w09.js";
+import "/$bunfs/root/chunk-ghara6r1.js";
+import "/$bunfs/root/chunk-4r03fm98.js";
+import "/$bunfs/root/chunk-r3qa2s4k.js";
+import "/$bunfs/root/chunk-k4a21mkt.js";
+import "/$bunfs/root/chunk-1evht33z.js";
+import "/$bunfs/root/chunk-97wwdfyx.js";
+import "/$bunfs/root/chunk-fbp3w46j.js";
+import "/$bunfs/root/chunk-gtv2468w.js";
+import "/$bunfs/root/chunk-s4smmnta.js";
+import "/$bunfs/root/chunk-z9ex1x2t.js";
+import "/$bunfs/root/chunk-gkfy5ggn.js";
+import "/$bunfs/root/chunk-4t3vsqt7.js";
+import "/$bunfs/root/chunk-ejdwrhgv.js";
+import "/$bunfs/root/chunk-zkvj62rn.js";
+import "/$bunfs/root/chunk-tzhtxm67.js";
+import "/$bunfs/root/chunk-mznd09c6.js";
+import "/$bunfs/root/chunk-2n1hsggr.js";
+import "/$bunfs/root/chunk-c76q2y0e.js";
+import "/$bunfs/root/chunk-cds31m36.js";
+import "/$bunfs/root/chunk-x06p1jhb.js";
+import "/$bunfs/root/chunk-1pn2pk9v.js";
+import "/$bunfs/root/chunk-nkjrjh5n.js";
+import "/$bunfs/root/chunk-hebj76vj.js";
+import "/$bunfs/root/chunk-5wecjdtm.js";
+import "/$bunfs/root/chunk-s0xdwab3.js";
+import "/$bunfs/root/chunk-fs02hzwy.js";
+import "/$bunfs/root/chunk-z15hpjf9.js";
+import "/$bunfs/root/chunk-0mrbtv3q.js";
+import "/$bunfs/root/chunk-5n1tbe50.js";
+import "/$bunfs/root/chunk-a2an01ph.js";
+import "/$bunfs/root/chunk-dck778n3.js";
+import "/$bunfs/root/chunk-c6k0ecxv.js";
+import "/$bunfs/root/chunk-bp3j8sq3.js";
+import "/$bunfs/root/chunk-qekzccch.js";
+import "/$bunfs/root/chunk-s2ac0z44.js";
+import "/$bunfs/root/chunk-wgz3g40p.js";
+import "/$bunfs/root/chunk-1mp2j0tx.js";
+import "/$bunfs/root/chunk-w3c6n7jh.js";
+import "/$bunfs/root/chunk-6a5ggyw4.js";
+import "/$bunfs/root/chunk-gvnqpbsf.js";
+import "/$bunfs/root/chunk-d1d8xqks.js";
+import "/$bunfs/root/chunk-rgh8hav6.js";
+import "/$bunfs/root/chunk-91315wj5.js";
+import "/$bunfs/root/chunk-btcxpqw5.js";
+import "/$bunfs/root/chunk-jwrz2gmg.js";
+import "/$bunfs/root/chunk-tz5bx4mb.js";
+import "/$bunfs/root/chunk-p1awcxk1.js";
+import "/$bunfs/root/chunk-z9bhq3k9.js";
+import "/$bunfs/root/chunk-e17gvevg.js";
+import "/$bunfs/root/chunk-da857b4g.js";
+import "/$bunfs/root/chunk-vzc4dhqq.js";
+import "/$bunfs/root/chunk-anwgkcw5.js";
+import "/$bunfs/root/chunk-h7dkgq01.js";
+import "/$bunfs/root/chunk-hz299nfa.js";
+import "/$bunfs/root/chunk-1v3848mh.js";
+import "/$bunfs/root/chunk-699y5x28.js";
+import "/$bunfs/root/chunk-qg6z8ah8.js";
+import "/$bunfs/root/chunk-wjr8v4tx.js";
+import "/$bunfs/root/chunk-fctnm902.js";
+import "/$bunfs/root/chunk-e53y7x75.js";
+import "/$bunfs/root/chunk-37pvmyqb.js";
+import "/$bunfs/root/chunk-dd55s64p.js";
+import "/$bunfs/root/chunk-83h0j7w2.js";
+import "/$bunfs/root/chunk-d5s7a9by.js";
+import "/$bunfs/root/chunk-5g92v3fd.js";
+import "/$bunfs/root/chunk-76gryyye.js";
+import { he } from "/$bunfs/root/chunk-h605j25g.js";
+import "/$bunfs/root/chunk-4sw5yxwb.js";
+import "/$bunfs/root/chunk-vq9g7y26.js";
+import "/$bunfs/root/chunk-0m39033q.js";
+import "/$bunfs/root/chunk-tveh0k24.js";
+import "/$bunfs/root/chunk-k8xha1qv.js";
+import "/$bunfs/root/chunk-30e2jew7.js";
+import "/$bunfs/root/chunk-51qp0385.js";
+import "/$bunfs/root/chunk-kbyvkqye.js";
+import "/$bunfs/root/chunk-308krgtb.js";
+import "/$bunfs/root/chunk-nf8aaj8a.js";
+import "/$bunfs/root/chunk-a6xhjq7b.js";
+import "/$bunfs/root/chunk-qnrh4abv.js";
+import "/$bunfs/root/chunk-6nmk3t6g.js";
+import "/$bunfs/root/chunk-6w72z84m.js";
+import "/$bunfs/root/chunk-nkf7ctf5.js";
+import "/$bunfs/root/chunk-38mxah2g.js";
+import "/$bunfs/root/chunk-v94qfg1j.js";
+import "/$bunfs/root/chunk-p18e2918.js";
+import "/$bunfs/root/chunk-rsp0anqd.js";
+import "/$bunfs/root/chunk-qd35gw0c.js";
+import "/$bunfs/root/chunk-ky33xsw7.js";
+import "/$bunfs/root/chunk-8td9ks9h.js";
+import "/$bunfs/root/chunk-eb5y4yrx.js";
+import "/$bunfs/root/chunk-5c5qq1s7.js";
+import "/$bunfs/root/chunk-9y48by1e.js";
+import "/$bunfs/root/chunk-cfqs035d.js";
+import "/$bunfs/root/chunk-9tey6wcd.js";
+import "/$bunfs/root/chunk-86v6b72m.js";
+import "/$bunfs/root/chunk-hzjjsb0j.js";
+import "/$bunfs/root/chunk-50g10fz0.js";
+import "/$bunfs/root/chunk-c2kqvv3h.js";
+import "/$bunfs/root/chunk-xgfepdf4.js";
+import "/$bunfs/root/chunk-rntp2fy5.js";
+import "/$bunfs/root/chunk-4c3hecm4.js";
+import "/$bunfs/root/chunk-cgy998p5.js";
+import "/$bunfs/root/chunk-96xrtyd5.js";
+import "/$bunfs/root/chunk-dt5bt1kc.js";
+import "/$bunfs/root/chunk-k7v7xwvs.js";
+import "/$bunfs/root/chunk-trte0v0g.js";
+import "/$bunfs/root/chunk-gmgmb4mg.js";
+import "/$bunfs/root/chunk-avrc9gay.js";
+import "/$bunfs/root/chunk-pbd9yggs.js";
+import "/$bunfs/root/chunk-fvkzpeqe.js";
+import "/$bunfs/root/chunk-vx3kc9d2.js";
+import "/$bunfs/root/chunk-z9rrv31w.js";
+import "/$bunfs/root/chunk-pzvxycbq.js";
+import "/$bunfs/root/chunk-dzv4k86d.js";
+import "/$bunfs/root/chunk-rt5p4yax.js";
+import "/$bunfs/root/chunk-jn7d47r1.js";
+import "/$bunfs/root/chunk-dc4hb8f7.js";
+import "/$bunfs/root/chunk-z9jgt14c.js";
+import "/$bunfs/root/chunk-y8sx7bf9.js";
+import "/$bunfs/root/chunk-q2gyteg0.js";
+import "/$bunfs/root/chunk-0manfhn2.js";
+import "/$bunfs/root/chunk-r6ppzf4r.js";
+import "/$bunfs/root/chunk-4399d2v0.js";
+import "/$bunfs/root/chunk-y79sc2hm.js";
+import "/$bunfs/root/chunk-2t3rnt88.js";
+import "/$bunfs/root/chunk-986hvegp.js";
+import "/$bunfs/root/chunk-8jsj2mx0.js";
+import "/$bunfs/root/chunk-5djs3wbb.js";
+import "/$bunfs/root/chunk-r4m4cqz1.js";
+import "/$bunfs/root/chunk-mq8h2tk8.js";
+import "/$bunfs/root/chunk-pdf5n9dy.js";
+import "/$bunfs/root/chunk-a9vrr0nr.js";
+import "/$bunfs/root/chunk-nfmyt8cw.js";
+import "/$bunfs/root/chunk-6var9pwd.js";
+import "/$bunfs/root/chunk-gmj1vprd.js";
+import "/$bunfs/root/chunk-ht15rw3x.js";
+import "/$bunfs/root/chunk-gay9hbs8.js";
+import "/$bunfs/root/chunk-mvz9fsh3.js";
+import "/$bunfs/root/chunk-ddbk6aje.js";
+import "/$bunfs/root/chunk-krety1hw.js";
+import "/$bunfs/root/chunk-6ywvv1q0.js";
+import "/$bunfs/root/chunk-wn1jrcrk.js";
+import "/$bunfs/root/chunk-zk5v8tw6.js";
+import "/$bunfs/root/chunk-kdtcyk0z.js";
+import "/$bunfs/root/chunk-q75cm02t.js";
+import "/$bunfs/root/chunk-dxqac26z.js";
+import "/$bunfs/root/chunk-2204t1q0.js";
+import "/$bunfs/root/chunk-kfdrcvxr.js";
+import "/$bunfs/root/chunk-fd2h00ye.js";
+import "/$bunfs/root/chunk-vm4xrmr7.js";
+import "/$bunfs/root/chunk-hkzwg35z.js";
+import "/$bunfs/root/chunk-mkweh3a4.js";
+import "/$bunfs/root/chunk-z6m3k8w5.js";
+import { o0e, the } from "/$bunfs/root/chunk-jvgmmdgq.js";
+import "/$bunfs/root/chunk-mhf4d4sa.js";
+import "/$bunfs/root/chunk-pbmajbn7.js";
+import "/$bunfs/root/chunk-htrft0p0.js";
+import { _ } from "/$bunfs/root/chunk-haan6f8z.js";
+import "/$bunfs/root/chunk-c3bffkxg.js";
+import "/$bunfs/root/chunk-fwwvmbqn.js";
+import { o, t, hn } from "/$bunfs/root/chunk-he2phymk.js";
+import "/$bunfs/root/chunk-ka74qrx3.js";
+import "/$bunfs/root/chunk-kez2zndg.js";
+import "/$bunfs/root/chunk-2wxj9m3z.js";
+import "/$bunfs/root/chunk-z45ex17x.js";
+import "/$bunfs/root/chunk-tbbqkkg3.js";
+import "/$bunfs/root/chunk-q04k5ycg.js";
+import "/$bunfs/root/chunk-e28mhr30.js";
+import "/$bunfs/root/chunk-zk5d9rtp.js";
+import "/$bunfs/root/chunk-syabrr2b.js";
+import "/$bunfs/root/chunk-93max1bs.js";
+import { xt } from "/$bunfs/root/chunk-8cv6dqkz.js";
+import "/$bunfs/root/chunk-f9km17e9.js";
+import { Be, ht } from "/$bunfs/root/chunk-ek4tmwbt.js";
+import { fe } from "/$bunfs/root/chunk-rycvm63e.js";
+import "/$bunfs/root/chunk-8ktvd0rh.js";
+import "/$bunfs/root/chunk-59pkbjrf.js";
+import "/$bunfs/root/chunk-tmxtk606.js";
+import { me } from "/$bunfs/root/chunk-489c3cyq.js";
+import "/$bunfs/root/chunk-tspcysj2.js";
+import "/$bunfs/root/chunk-jmrpkgzd.js";
+import { M } from "/$bunfs/root/chunk-y2r26k83.js";
+import "/$bunfs/root/chunk-rp246vnd.js";
+import "/$bunfs/root/chunk-vba6efmv.js";
+import "/$bunfs/root/chunk-pwk6q778.js";
+import "/$bunfs/root/chunk-gtwaztzc.js";
+import "/$bunfs/root/chunk-se2bnecc.js";
+import "/$bunfs/root/chunk-fm0ga625.js";
+import "/$bunfs/root/chunk-ypheby59.js";
+import "/$bunfs/root/chunk-q903htrr.js";
+import "/$bunfs/root/chunk-ht28m404.js";
+import "/$bunfs/root/chunk-h4r2tn7z.js";
+import "/$bunfs/root/chunk-hyj9nfhh.js";
+import "/$bunfs/root/chunk-ngn87vcm.js";
+import "/$bunfs/root/chunk-fbn06kdf.js";
+import "/$bunfs/root/chunk-06m34t0b.js";
+import { tt } from "/$bunfs/root/chunk-s8gya298.js";
+import { LK, Ce } from "/$bunfs/root/chunk-1y0jc48h.js";
+import "/$bunfs/root/chunk-42q7ctbx.js";
+import "/$bunfs/root/chunk-m5yhrq50.js";
+import "/$bunfs/root/chunk-cmhbx7me.js";
+import "/$bunfs/root/chunk-sypj25ha.js";
+import "/$bunfs/root/chunk-hb6grkjg.js";
+import "/$bunfs/root/chunk-q5hmd7j9.js";
+import { Xj, MBe, nke, NBe, FBe } from "/$bunfs/root/chunk-0xqepz51.js";
+import { r0e } from "/$bunfs/root/chunk-7b20eep4.js";
+import { rr } from "/$bunfs/root/chunk-0nfwsvfd.js";
+import "/$bunfs/root/chunk-sys0j174.js";
+import "/$bunfs/root/chunk-qz5vfzn9.js";
+import "/$bunfs/root/chunk-fxswqr2j.js";
+import "/$bunfs/root/chunk-b6a5y1qe.js";
+import "/$bunfs/root/chunk-pm63yfcg.js";
+import "/$bunfs/root/chunk-k9a5yseb.js";
+import "/$bunfs/root/chunk-84qb5tsd.js";
+import "/$bunfs/root/chunk-96dhk9az.js";
+import "/$bunfs/root/chunk-5v6kpgmm.js";
+import "/$bunfs/root/chunk-4kafv9jq.js";
+import "/$bunfs/root/chunk-7d0my7mt.js";
+import "/$bunfs/root/chunk-wnc75h2x.js";
+import "/$bunfs/root/chunk-1fwtbc4t.js";
+import { U, e, r } from "/$bunfs/root/chunk-8s7kcbyw.js";
+import "/$bunfs/root/chunk-tfb5y7hy.js";
+import "/$bunfs/root/chunk-d5bnjcbw.js";
+import { A, u, F } from "/$bunfs/root/chunk-twm95mhz.js";
+import "/$bunfs/root/chunk-31xy83wr.js";
+import "/$bunfs/root/chunk-g732bkj4.js";
+import "/$bunfs/root/chunk-zgfc288e.js";
+import "/$bunfs/root/chunk-6nsyrmhg.js";
+import "/$bunfs/root/chunk-jjkewjsg.js";
+import "/$bunfs/root/chunk-4r71nj50.js";
+import { Oh, Md } from "/$bunfs/root/chunk-3qvtfvqg.js";
+import "/$bunfs/root/chunk-r7t0evh2.js";
+import "/$bunfs/root/chunk-6xz0kht6.js";
+import "/$bunfs/root/chunk-2am7kb6k.js";
+import "/$bunfs/root/chunk-9kr4hqvs.js";
+import "/$bunfs/root/chunk-xvwx3w83.js";
+import "/$bunfs/root/chunk-y9akj3mq.js";
+import "/$bunfs/root/chunk-gdk3p0b3.js";
+import "/$bunfs/root/chunk-qy75zxb2.js";
+import "/$bunfs/root/chunk-r6t6p0zm.js";
+import "/$bunfs/root/chunk-qpj83ec7.js";
+import "/$bunfs/root/chunk-f77e8yef.js";
+import "/$bunfs/root/chunk-f7y0mdt6.js";
+import "/$bunfs/root/chunk-jb2pzt3t.js";
+import "/$bunfs/root/chunk-9yzzw213.js";
+import "/$bunfs/root/chunk-mknyj0qp.js";
+import "/$bunfs/root/chunk-81defen8.js";
+import "/$bunfs/root/chunk-mpg6r2j0.js";
+import "/$bunfs/root/chunk-3dh32z3c.js";
+import "/$bunfs/root/chunk-n8ecp4gs.js";
+import "/$bunfs/root/chunk-406nxetx.js";
+import "/$bunfs/root/chunk-2zf9m1zh.js";
+import "/$bunfs/root/chunk-rxqmmxnb.js";
+import "/$bunfs/root/chunk-gdhqsw8a.js";
+import "/$bunfs/root/chunk-5xr818a0.js";
+import "/$bunfs/root/chunk-fgavb5x0.js";
+import "/$bunfs/root/chunk-sqa0bs5e.js";
+import { L } from "/$bunfs/root/chunk-v4qqyykc.js";
+import "/$bunfs/root/chunk-fveqn4y7.js";
+import "/$bunfs/root/chunk-4zsxhey6.js";
+import "/$bunfs/root/chunk-61nasexv.js";
+import "/$bunfs/root/chunk-m1andcps.js";
+import "/$bunfs/root/chunk-61hbq2wc.js";
+import "/$bunfs/root/chunk-rq65wazg.js";
+import "/$bunfs/root/chunk-5tdaspnd.js";
+import "/$bunfs/root/chunk-rr0yj5sq.js";
+import "/$bunfs/root/chunk-a7wreksn.js";
+import "/$bunfs/root/chunk-8sbwe0jk.js";
+import "/$bunfs/root/chunk-nwb64bac.js";
+import "/$bunfs/root/chunk-g5y4mxg8.js";
+import "/$bunfs/root/chunk-cbn30h5b.js";
+import "/$bunfs/root/chunk-g01aac1k.js";
+import "/$bunfs/root/chunk-3fwkz19s.js";
+import "/$bunfs/root/chunk-9319g175.js";
+import "/$bunfs/root/chunk-szz73wxx.js";
+import "/$bunfs/root/chunk-b40bn863.js";
+import "/$bunfs/root/chunk-6mgs10s2.js";
+import { hTn } from "/$bunfs/root/chunk-6s9ybdq1.js";
+import "/$bunfs/root/chunk-74qqwjhx.js";
+import "/$bunfs/root/chunk-1hh0bg14.js";
+import "/$bunfs/root/chunk-052zvbpg.js";
+import "/$bunfs/root/chunk-werv747a.js";
+import "/$bunfs/root/chunk-jzh4kg5x.js";
+import "/$bunfs/root/chunk-7s7jqj2f.js";
+import "/$bunfs/root/chunk-56sxk8k2.js";
+import "/$bunfs/root/chunk-7jz6r17g.js";
+import "/$bunfs/root/chunk-a4q326ap.js";
+import { d } from "/$bunfs/root/chunk-yz031c9r.js";
+function Ae(n) {
+  return typeof n === "object" && n !== null && "type" in n && n.type === "auto_mode_scan";
+}
+function Z(n) {
+  for (let a of Object.values(n.all())) if (Ae(a) && a.status === "running") return a;
+  return;
+}
+function oe(n, a, f) {
+  let v = Oh("auto_mode_scan"),
+    k = {
+      ...Md(v, "auto_mode_scan", "scanning for auto-mode setup"),
+      type: "auto_mode_scan",
+      status: "running",
+      skipTranscript: !0,
+      gathersFromGitHubOrg: f,
+      abortController: a,
+    };
+  return n.register(k), v;
+}
+function X(n, a, f) {
+  let v = !1;
+  if (
+    (a.update(n, (k) => {
+      if (k.status !== "running") return k;
+      return (v = !0), { ...k, status: f, endTime: Date.now(), notified: !0, abortController: void 0 };
+    }),
+    v)
+  )
+    ys(n, f, { skipTranscript: !0, ambient: !0 });
+}
+F();
+function Y(n) {
+  return {
+    environment: n.environment,
+    ...(n.allow.length > 0 && { allow: n.allow }),
+    ...(n.soft_deny.length > 0 && { soft_deny: n.soft_deny }),
+    ...(n.hard_deny.length > 0 && { hard_deny: n.hard_deny }),
+  };
+}
+function q(n, a) {
+  return (
+    `Saved to ${n.filePath} (${n.autoModeKeysWritten.join(", ")}` +
+    (n.environmentEntriesPreserved > 0
+      ? `; kept ${n.environmentEntriesPreserved} existing environment ${n.environmentEntriesPreserved === 1 ? "entry" : "entries"}`
+      : "") +
+    (a.removed > 0 ? `; removed ${a.removed} permissions.allow ${a.removed === 1 ? "entry" : "entries"}` : "") +
+    "). Run `claude auto-mode config` to see the effective result." +
+    (a.skipped > 0
+      ? ` Note: ${a.skipped} ${a.skipped === 1 ? "rule" : "rules"} couldn\u2019t be removed \u2014 permissions.allow isn\u2019t an array in your settings.`
+      : "") +
+    ((a.notFound ?? 0) > 0
+      ? ` Note: ${a.notFound} ${a.notFound === 1 ? "rule was" : "rules were"} already gone from permissions.allow.`
+      : "") +
+    (n.warnings.length > 0
+      ? `
 ${n.warnings.join(`
-`)}`:"")}function ie(n=!1){return{step:n?"existing":"confirm",hasExisting:n,mode:"append",posture:"mixed",gathersFromGitHubOrg:!1,flaggedPicking:!1,flaggedSelection:[],confirmSelection:["shell"],confirmFocus:1,confirmSrAtPosture:!0,shownLogged:!1,resolution:"none"}}var ue="Teach auto mode about your environment?",le="Claude Code reads this project, your recent Claude sessions, and optionally your shell history and other repositories. Claude analyzes this data and customizes auto mode to make better decisions.",ee="How you use Claude here",V=[{value:"enterprise",label:"Work"},{value:"open-source",label:"Open source"},{value:"personal",label:"Hobby"},{value:"mixed",label:"Mixed"}],Q=[{value:"shell",label:"Also scan shell history"},{value:"repos",label:"Also scan your other repos"}],ke=[{value:"shell",label:"Also scan shell history (default)"},{value:"repos",label:"Also scan your other repos"},{value:"both",label:"Scan both"},{value:"here",label:"Neither \u2014 just this project and sessions"}];function _e(n){switch(n){case"both":return["shell","repos"];case"shell":return["shell"];case"repos":return["repos"];case"here":return[]}}function de({state:n,propose:a,onBackgroundStart:f,abort:v,write:k,writeRemoval:E,onDone:x,onCancel:b}){let[,m]=u(n.step),C=n.step,B=xt();u(()=>(n.lastAcceptAt=Math.max(B.now(),n.lastAcceptAt??0),null)),A(()=>(n.notify=()=>m(n.step),m(n.step),()=>{n.notify=void 0}),[n]),A(()=>{if(!n.shownLogged)n.shownLogged=!0,s("tengu_auto_mode_setup_wizard_shown",{has_existing:n.hasExisting?1:0})},[n]);function z(){let S=B.now(),w=n.lastAcceptAt;return n.lastAcceptAt=Math.max(S,w??S),w!==void 0&&S-w>=Xj}function T(S){if(!z())return!1;return n.step===S&&n.resolution==="none"}function P(S){n.lastAcceptAt=Math.max(B.now(),n.lastAcceptAt??0),n.step=S,n.notify?.()}function D(S){if(n.resolution!=="none")return;n.resolution="cancel",s("tengu_auto_mode_setup_wizard_resolved",{choice:c(S),step:c(n.step)}),b()}function i(){D("cancel")}function O(S,w){if(n.resolution!=="none")return;n.resolution="done",s("tengu_auto_mode_setup_wizard_resolved",{choice:c("saved"),mode:c(n.mode)}),x(q(S,w))}function j(){if(!z())return;if(n.saved){O(n.saved,{removed:0,skipped:0});return}D("error")}let H=r(fe,{children:[C==="confirm"?e(M,{chord:["left","right"],action:"change usage"}):null,e(M,{chord:"enter",action:"continue"}),e(M,{chord:"escape",action:"cancel"})]});if(C==="existing")return e(me,{title:"You already have auto-mode entries \u2014 add to them, or start fresh?",onCancel:i,inputGuide:H,children:e(Ce,{options:[{value:"append",label:"Add to them (keeps your existing entries)"},{value:"replace",label:"Start fresh (replaces the environment section)"},{value:"cancel",label:"Cancel"}],onChange:(S)=>{if(!T("existing"))return;if(S==="cancel"){i();return}n.mode=S,P("confirm")},onCancel:i})});if(C==="confirm")return e(ce,{persisted:n,cancel:i,footer:H,isFreshKeypress:z,onContinue:(S)=>{if(!T("confirm"))return;let w=S.includes("shell"),I=S.includes("repos"),G={posture:n.posture,scope:"project",depth:w&&I?"both":w?"shell":I?"repos":"here"};if(s("tengu_auto_mode_setup_wizard_answers",{posture:c(G.posture),scope:c(G.scope),depth:c(G.depth)}),n.gathersFromGitHubOrg=o0e(G).allProjects,f){n.resolution="done",f(G),x(`Gathering data and drafting your auto-mode setup; back soon${n.gathersFromGitHubOrg?" (also scanning your GitHub org \u2014 stoppable from the background tasks list)":""}`);return}P("propose"),a(G).then((N)=>{if(N.ok)n.proposal=N.proposal,P("review");else if(N.code==="aborted")i();else n.error=N.reason,P("error")},(N)=>{n.error=N instanceof Error?N.message:String(N),P("error")})}});if(C==="propose")return e(pe,{message:n.gathersFromGitHubOrg?"Scanning your repo, recent sessions, and your GitHub org\u2026":"Scanning your repo and recent sessions\u2026",subtitle:"then drafting a proposal \u2014 this can take a moment (Esc to cancel)",onEscape:v});if(C==="review"&&n.proposal){let S=n.proposal;return e(nke,{hideIndexes:!0,proposal:S,onCancel:i,onDecline:()=>{if(!T("review"))return;n.resolution="done",s("tengu_auto_mode_setup_wizard_resolved",{choice:c("decline")}),x("Discarded \u2014 nothing was saved. Re-run /auto-mode-setup anytime.")},onAccept:()=>{if(!T("review"))return;P("write"),k(S,n.mode).then((w)=>{if(n.saved=w,S.remove_from_permissions_allow.length>0)P("flagged");else O(w,{removed:0,skipped:0})},(w)=>{n.error=w instanceof Error?w.message:String(w),P("error")})}})}if(C==="write")return e(rr,{message:"Saving\u2026"});if(C==="flagged"&&n.proposal&&n.saved){let S=n.saved;return e(MBe,{hideIndexes:!0,flagged:n.proposal.remove_from_permissions_allow,initialPicking:n.flaggedPicking,onPickingChange:(w)=>{if(!T("flagged"))return!1;return n.flaggedPicking=w,!0},initialSelection:n.flaggedSelection,onSelectionChange:(w)=>{n.flaggedSelection=w},onCancel:()=>{if(!z())return;O(S,{removed:0,skipped:0})},onResolve:(w)=>{if(!T("flagged"))return;if(w.length===0){O(S,{removed:0,skipped:0});return}P("write"),E(w).then((I)=>O(S,{removed:I.permissionsAllowRemoved.length,skipped:I.permissionsAllowSkipped?w.length:0,notFound:I.permissionsAllowNotFound.length}),(I)=>{n.error=I instanceof Error?I.message:String(I),P("error")})}})}return e(me,{title:"Auto-mode setup",onCancel:j,children:r(o,{flexDirection:"column",gap:1,children:[r(o,{children:[e(tt,{status:"error"}),r(t,{children:[" ",n.error??"Something went wrong."]})]}),e(Ce,{options:[{value:"close",label:"Close"}],onChange:j,onCancel:j})]})})}var ne=Math.max(ee.length,...Q.map((n)=>n.label.length));function ce(K){let we=_(4);if(hn()){let J;if(we[0]!==K)J=e(se,{...K}),we[0]=K,we[1]=J;else J=we[1];return J}let J;if(we[2]!==K)J=e(ae,{...K}),we[2]=K,we[3]=J;else J=we[3];return J}function ae({persisted:n,cancel:a,footer:f,onContinue:v,isFreshKeypress:k}){let[,E]=u(0),x=()=>E((i)=>i+1),b=Q.length+2,m=n.confirmFocus,C=(i)=>{let O=V.findIndex((H)=>H.value===n.posture),j=V[(O+i+V.length)%V.length];if(j)n.posture=j.value,x()},B=(i)=>{n.confirmFocus=(n.confirmFocus+i+b)%b,x()},z=(i)=>{n.confirmSelection=n.confirmSelection.includes(i)?n.confirmSelection.filter((O)=>O!==i):[...n.confirmSelection,i],x()},T=()=>{let i=n.confirmFocus;if(i===b-1){v(n.confirmSelection);return}if(!k())return;let O=Q[i-1];if(O)z(O.value)};ht({"tabs:previous":()=>C(-1),"tabs:next":()=>C(1)},{context:"Tabs",isActive:n.confirmFocus===0}),ht({"confirm:previous":()=>B(-1),"confirm:next":()=>B(1),"confirm:toggle":T,"confirm:yes":T},{context:"Confirmation"});let P=V.find((i)=>i.value===n.posture)?.label??n.posture,D=(i)=>r(t,{color:m===i?"suggestion":void 0,children:[m===i?L.pointer:" "," "]});return r(me,{title:ue,onCancel:a,inputGuide:f,children:[e(t,{children:le}),r(o,{flexDirection:"column",children:[r(o,{children:[D(0),r(t,{color:m===0?"suggestion":void 0,children:[ee.padEnd(ne)," "]}),r(t,{dimColor:!0,children:[L.triangleLeft," "]}),e(t,{children:P}),r(t,{dimColor:!0,children:[" ",L.triangleRight]})]}),Q.map((i,O)=>{let j=O+1,H=n.confirmSelection.includes(i.value);return r(o,{children:[D(j),r(t,{color:m===j?"suggestion":void 0,children:[i.label.padEnd(ne)," "]}),r(t,{color:H?"success":void 0,children:["[",H?L.tick:" ","]"]})]},i.value)}),r(o,{marginTop:1,children:[D(b-1),e(t,{bold:!0,color:m===b-1?"suggestion":void 0,children:"Continue"})]})]})]})}function se({persisted:n,cancel:a,onContinue:f}){let v=xt(),[,k]=u(0),E=()=>{n.lastAcceptAt=Math.max(v.now(),n.lastAcceptAt??0)};return r(me,{title:ue,onCancel:a,children:[e(t,{children:le}),n.confirmSrAtPosture?r(U,{children:[r(t,{children:[ee,":"]}),e(LK,{options:V,defaultValue:n.posture,onChange:(x)=>{n.posture=x,n.confirmSrAtPosture=!1,E(),k((b)=>b+1)},onCancel:a})]}):r(U,{children:[e(t,{children:"Optional reads (Claude already reads this project):"}),e(LK,{options:ke,defaultValue:"shell",onChange:(x)=>{let b=_e(x);n.confirmSelection=b,f(b)},onCancel:a})]})]})}function pe(to){let ve=_(4),{message:te,subtitle:re,onEscape:ro}=to,Me;if(ve[0]===d)Me={context:"Settings"},ve[0]=Me;else Me=ve[0];Be("confirm:no",ro,Me);let be;if(ve[1]!==te||ve[2]!==re)be=e(rr,{message:te,subtitle:re}),ve[1]=te,ve[2]=re,ve[3]=be;else be=ve[3];return be}function W(n,a,f){if(s("tengu_auto_mode_setup_wizard_resolved",{choice:c(n),step:c(a),...f!==void 0&&{mode:c(f)}}),n==="saved")y("auto_mode_setup_wizard");else if(n==="error")p("auto_mode_setup_wizard",a);else g("auto_mode_setup_wizard",n)}function ge(){return $kn()}async function Se(n){FVt(!0);try{await Re(n)}catch(a){n.appendSystemMessage?.(Dt(`Auto-mode setup hit an unexpected error and stopped: ${l(a)}. Re-run /auto-mode-setup to try again.`,"warning")),h(new R(`background auto-mode setup crashed: ${l(a)}`,"background auto-mode setup crashed")),W("error","background_crash")}finally{FVt(!1)}}async function Re(n){let{taskRegistry:a}=n,f=new AbortController,v=oe(a,f,o0e(n.answers).allProjects);try{await xe(n,v,f)}finally{X(v,a,"failed")}}async function xe(n,a,f){let{taskRegistry:v,requestDialog:k,appendSystemMessage:E,propose:x=r0e,write:b=the}=n,m=await x(n.answers,n.permissionContext,f.signal,void 0,void 0,n.storageV5,n.credentials).catch((T)=>(h(new R(`background auto-mode scan rejected: ${l(T)}`,"background auto-mode scan rejected")),{ok:!1,code:"api_failed",reason:"The model call didn\u2019t complete. This is usually temporary \u2014 re-run /auto-mode-setup to try again."}));if(!m.ok){if(m.code==="aborted"||f.signal.aborted){W("cancel","background_scan");return}X(a,v,"failed"),E?.(Dt(`Auto-mode setup scan failed: ${m.reason}`,"warning")),W("error","background_scan");return}if(f.signal.aborted){W("cancel","background_scan");return}X(a,v,"completed");let C=await k(NBe,{...m.proposal,mode:n.mode},{queueBehind:!0});if(C!=="accept"){E?.(Dt("Auto-mode proposal discarded \u2014 nothing was saved. Re-run /auto-mode-setup anytime.","notice")),W(C==="decline"?"decline":"cancel","background_review");return}let B;try{B=await b({mode:n.mode,autoMode:Y(m.proposal)},n.storageV5)}catch(T){E?.(Dt(`Auto-mode setup couldn\u2019t save: ${l(T)}. Re-run /auto-mode-setup to try again.`,"warning")),W("error","background_write");return}let z={removed:0,skipped:0,notFound:0};if(m.proposal.remove_from_permissions_allow.length>0){let T=await k(FBe,{flagged:m.proposal.remove_from_permissions_allow,runId:a},{queueBehind:!0}),P=T==="cancelled"?[]:T.toRemove.filter((D)=>m.proposal.remove_from_permissions_allow.includes(D));if(P.length>0)try{let D=await b({removeFromPermissionsAllow:P},n.storageV5);z={removed:D.permissionsAllowRemoved.length,skipped:D.permissionsAllowSkipped?P.length:0,notFound:D.permissionsAllowNotFound.length}}catch(D){E?.(Dt(`${q(B,{removed:0,skipped:0})}
-Note: removing the flagged permissions.allow entries failed: ${l(D)}`,"warning")),W("saved","background_write",n.mode);return}}E?.(Dt(q(B,z),"notice")),W("saved","background",n.mode)}var Oo=async(n,a,f)=>{if(f.trim()!=="")return n("/auto-mode-setup doesn\u2019t take arguments \u2014 run it on its own to open the setup dialog. In non-interactive mode, use --propose / --apply-file.",{display:"system"}),null;if(ge()||Z(a.taskRegistry))return n(Z(a.taskRegistry)?"An auto-mode setup is already in progress \u2014 the proposal review will pop up when the scan finishes. (The scan shows in the background tasks list.)":"An auto-mode setup is already wrapping up \u2014 if its proposal review hasn\u2019t popped up, answer it when it does; if you just stopped the scan, it\u2019s winding down \u2014 try again in a moment.",{display:"system"}),null;let v=hTn(n),k=new AbortController,E=ie(Te()),x=!1,b=a.requestDialog;return e(de,{state:E,onBackgroundStart:b&&((m)=>{x=!0,Se({answers:m,mode:E.mode,permissionContext:he(a),taskRegistry:a.taskRegistry,requestDialog:b,appendSystemMessage:a.appendSystemMessage,storageV5:a.storageV5,credentials:a.credentials}).catch((C)=>{h(new R(`background auto-mode setup crashed: ${l(C)}`,"background auto-mode setup crashed"))})}),propose:(m)=>r0e(m,he(a),AbortSignal.any([a.abortController.signal,k.signal]),void 0,void 0,a.storageV5,a.credentials),abort:()=>k.abort(),write:(m,C)=>the({mode:C,autoMode:Y(m)},a.storageV5),writeRemoval:(m)=>the({removeFromPermissionsAllow:m},a.storageV5),onCancel:()=>{g("auto_mode_setup_wizard","cancelled"),v(void 0,{display:"skip"})},onDone:(m)=>{if(!x)y("auto_mode_setup_wizard");v(m,{display:"system"})}})};function Te(){let n=$$().safeParse(ye("userSettings")?.autoMode);if(!n.success)return!1;let a=n.data;return(a.environment?.length??0)>0||(a.allow?.length??0)>0||(a.soft_deny?.length??0)>0||(a.hard_deny?.length??0)>0}export{Oo as call,Te as hasExistingAutoModeConfig};
+`)}`
+      : "")
+  );
+}
+function ie(n = !1) {
+  return {
+    step: n ? "existing" : "confirm",
+    hasExisting: n,
+    mode: "append",
+    posture: "mixed",
+    gathersFromGitHubOrg: !1,
+    flaggedPicking: !1,
+    flaggedSelection: [],
+    confirmSelection: ["shell"],
+    confirmFocus: 1,
+    confirmSrAtPosture: !0,
+    shownLogged: !1,
+    resolution: "none",
+  };
+}
+var ue = "Teach auto mode about your environment?",
+  le =
+    "Claude Code reads this project, your recent Claude sessions, and optionally your shell history and other repositories. Claude analyzes this data and customizes auto mode to make better decisions.",
+  ee = "How you use Claude here",
+  V = [
+    { value: "enterprise", label: "Work" },
+    { value: "open-source", label: "Open source" },
+    { value: "personal", label: "Hobby" },
+    { value: "mixed", label: "Mixed" },
+  ],
+  Q = [
+    { value: "shell", label: "Also scan shell history" },
+    { value: "repos", label: "Also scan your other repos" },
+  ],
+  ke = [
+    { value: "shell", label: "Also scan shell history (default)" },
+    { value: "repos", label: "Also scan your other repos" },
+    { value: "both", label: "Scan both" },
+    { value: "here", label: "Neither \u2014 just this project and sessions" },
+  ];
+function _e(n) {
+  switch (n) {
+    case "both":
+      return ["shell", "repos"];
+    case "shell":
+      return ["shell"];
+    case "repos":
+      return ["repos"];
+    case "here":
+      return [];
+  }
+}
+function de({
+  state: n,
+  propose: a,
+  onBackgroundStart: f,
+  abort: v,
+  write: k,
+  writeRemoval: E,
+  onDone: x,
+  onCancel: b,
+}) {
+  let [, m] = u(n.step),
+    C = n.step,
+    B = xt();
+  u(() => ((n.lastAcceptAt = Math.max(B.now(), n.lastAcceptAt ?? 0)), null)),
+    A(
+      () => (
+        (n.notify = () => m(n.step)),
+        m(n.step),
+        () => {
+          n.notify = void 0;
+        }
+      ),
+      [n],
+    ),
+    A(() => {
+      if (!n.shownLogged)
+        (n.shownLogged = !0), s("tengu_auto_mode_setup_wizard_shown", { has_existing: n.hasExisting ? 1 : 0 });
+    }, [n]);
+  function z() {
+    let S = B.now(),
+      w = n.lastAcceptAt;
+    return (n.lastAcceptAt = Math.max(S, w ?? S)), w !== void 0 && S - w >= Xj;
+  }
+  function T(S) {
+    if (!z()) return !1;
+    return n.step === S && n.resolution === "none";
+  }
+  function P(S) {
+    (n.lastAcceptAt = Math.max(B.now(), n.lastAcceptAt ?? 0)), (n.step = S), n.notify?.();
+  }
+  function D(S) {
+    if (n.resolution !== "none") return;
+    (n.resolution = "cancel"), s("tengu_auto_mode_setup_wizard_resolved", { choice: c(S), step: c(n.step) }), b();
+  }
+  function i() {
+    D("cancel");
+  }
+  function O(S, w) {
+    if (n.resolution !== "none") return;
+    (n.resolution = "done"),
+      s("tengu_auto_mode_setup_wizard_resolved", { choice: c("saved"), mode: c(n.mode) }),
+      x(q(S, w));
+  }
+  function j() {
+    if (!z()) return;
+    if (n.saved) {
+      O(n.saved, { removed: 0, skipped: 0 });
+      return;
+    }
+    D("error");
+  }
+  let H = r(fe, {
+    children: [
+      C === "confirm" ? e(M, { chord: ["left", "right"], action: "change usage" }) : null,
+      e(M, { chord: "enter", action: "continue" }),
+      e(M, { chord: "escape", action: "cancel" }),
+    ],
+  });
+  if (C === "existing")
+    return e(me, {
+      title: "You already have auto-mode entries \u2014 add to them, or start fresh?",
+      onCancel: i,
+      inputGuide: H,
+      children: e(Ce, {
+        options: [
+          { value: "append", label: "Add to them (keeps your existing entries)" },
+          { value: "replace", label: "Start fresh (replaces the environment section)" },
+          { value: "cancel", label: "Cancel" },
+        ],
+        onChange: (S) => {
+          if (!T("existing")) return;
+          if (S === "cancel") {
+            i();
+            return;
+          }
+          (n.mode = S), P("confirm");
+        },
+        onCancel: i,
+      }),
+    });
+  if (C === "confirm")
+    return e(ce, {
+      persisted: n,
+      cancel: i,
+      footer: H,
+      isFreshKeypress: z,
+      onContinue: (S) => {
+        if (!T("confirm")) return;
+        let w = S.includes("shell"),
+          I = S.includes("repos"),
+          G = { posture: n.posture, scope: "project", depth: w && I ? "both" : w ? "shell" : I ? "repos" : "here" };
+        if (
+          (s("tengu_auto_mode_setup_wizard_answers", { posture: c(G.posture), scope: c(G.scope), depth: c(G.depth) }),
+          (n.gathersFromGitHubOrg = o0e(G).allProjects),
+          f)
+        ) {
+          (n.resolution = "done"),
+            f(G),
+            x(
+              `Gathering data and drafting your auto-mode setup; back soon${n.gathersFromGitHubOrg ? " (also scanning your GitHub org \u2014 stoppable from the background tasks list)" : ""}`,
+            );
+          return;
+        }
+        P("propose"),
+          a(G).then(
+            (N) => {
+              if (N.ok) (n.proposal = N.proposal), P("review");
+              else if (N.code === "aborted") i();
+              else (n.error = N.reason), P("error");
+            },
+            (N) => {
+              (n.error = N instanceof Error ? N.message : String(N)), P("error");
+            },
+          );
+      },
+    });
+  if (C === "propose")
+    return e(pe, {
+      message: n.gathersFromGitHubOrg
+        ? "Scanning your repo, recent sessions, and your GitHub org\u2026"
+        : "Scanning your repo and recent sessions\u2026",
+      subtitle: "then drafting a proposal \u2014 this can take a moment (Esc to cancel)",
+      onEscape: v,
+    });
+  if (C === "review" && n.proposal) {
+    let S = n.proposal;
+    return e(nke, {
+      hideIndexes: !0,
+      proposal: S,
+      onCancel: i,
+      onDecline: () => {
+        if (!T("review")) return;
+        (n.resolution = "done"),
+          s("tengu_auto_mode_setup_wizard_resolved", { choice: c("decline") }),
+          x("Discarded \u2014 nothing was saved. Re-run /auto-mode-setup anytime.");
+      },
+      onAccept: () => {
+        if (!T("review")) return;
+        P("write"),
+          k(S, n.mode).then(
+            (w) => {
+              if (((n.saved = w), S.remove_from_permissions_allow.length > 0)) P("flagged");
+              else O(w, { removed: 0, skipped: 0 });
+            },
+            (w) => {
+              (n.error = w instanceof Error ? w.message : String(w)), P("error");
+            },
+          );
+      },
+    });
+  }
+  if (C === "write") return e(rr, { message: "Saving\u2026" });
+  if (C === "flagged" && n.proposal && n.saved) {
+    let S = n.saved;
+    return e(MBe, {
+      hideIndexes: !0,
+      flagged: n.proposal.remove_from_permissions_allow,
+      initialPicking: n.flaggedPicking,
+      onPickingChange: (w) => {
+        if (!T("flagged")) return !1;
+        return (n.flaggedPicking = w), !0;
+      },
+      initialSelection: n.flaggedSelection,
+      onSelectionChange: (w) => {
+        n.flaggedSelection = w;
+      },
+      onCancel: () => {
+        if (!z()) return;
+        O(S, { removed: 0, skipped: 0 });
+      },
+      onResolve: (w) => {
+        if (!T("flagged")) return;
+        if (w.length === 0) {
+          O(S, { removed: 0, skipped: 0 });
+          return;
+        }
+        P("write"),
+          E(w).then(
+            (I) =>
+              O(S, {
+                removed: I.permissionsAllowRemoved.length,
+                skipped: I.permissionsAllowSkipped ? w.length : 0,
+                notFound: I.permissionsAllowNotFound.length,
+              }),
+            (I) => {
+              (n.error = I instanceof Error ? I.message : String(I)), P("error");
+            },
+          );
+      },
+    });
+  }
+  return e(me, {
+    title: "Auto-mode setup",
+    onCancel: j,
+    children: r(o, {
+      flexDirection: "column",
+      gap: 1,
+      children: [
+        r(o, { children: [e(tt, { status: "error" }), r(t, { children: [" ", n.error ?? "Something went wrong."] })] }),
+        e(Ce, { options: [{ value: "close", label: "Close" }], onChange: j, onCancel: j }),
+      ],
+    }),
+  });
+}
+var ne = Math.max(ee.length, ...Q.map((n) => n.label.length));
+function ce(K) {
+  let we = _(4);
+  if (hn()) {
+    let J;
+    if (we[0] !== K) (J = e(se, { ...K })), (we[0] = K), (we[1] = J);
+    else J = we[1];
+    return J;
+  }
+  let J;
+  if (we[2] !== K) (J = e(ae, { ...K })), (we[2] = K), (we[3] = J);
+  else J = we[3];
+  return J;
+}
+function ae({ persisted: n, cancel: a, footer: f, onContinue: v, isFreshKeypress: k }) {
+  let [, E] = u(0),
+    x = () => E((i) => i + 1),
+    b = Q.length + 2,
+    m = n.confirmFocus,
+    C = (i) => {
+      let O = V.findIndex((H) => H.value === n.posture),
+        j = V[(O + i + V.length) % V.length];
+      if (j) (n.posture = j.value), x();
+    },
+    B = (i) => {
+      (n.confirmFocus = (n.confirmFocus + i + b) % b), x();
+    },
+    z = (i) => {
+      (n.confirmSelection = n.confirmSelection.includes(i)
+        ? n.confirmSelection.filter((O) => O !== i)
+        : [...n.confirmSelection, i]),
+        x();
+    },
+    T = () => {
+      let i = n.confirmFocus;
+      if (i === b - 1) {
+        v(n.confirmSelection);
+        return;
+      }
+      if (!k()) return;
+      let O = Q[i - 1];
+      if (O) z(O.value);
+    };
+  ht({ "tabs:previous": () => C(-1), "tabs:next": () => C(1) }, { context: "Tabs", isActive: n.confirmFocus === 0 }),
+    ht(
+      { "confirm:previous": () => B(-1), "confirm:next": () => B(1), "confirm:toggle": T, "confirm:yes": T },
+      { context: "Confirmation" },
+    );
+  let P = V.find((i) => i.value === n.posture)?.label ?? n.posture,
+    D = (i) => r(t, { color: m === i ? "suggestion" : void 0, children: [m === i ? L.pointer : " ", " "] });
+  return r(me, {
+    title: ue,
+    onCancel: a,
+    inputGuide: f,
+    children: [
+      e(t, { children: le }),
+      r(o, {
+        flexDirection: "column",
+        children: [
+          r(o, {
+            children: [
+              D(0),
+              r(t, { color: m === 0 ? "suggestion" : void 0, children: [ee.padEnd(ne), " "] }),
+              r(t, { dimColor: !0, children: [L.triangleLeft, " "] }),
+              e(t, { children: P }),
+              r(t, { dimColor: !0, children: [" ", L.triangleRight] }),
+            ],
+          }),
+          Q.map((i, O) => {
+            let j = O + 1,
+              H = n.confirmSelection.includes(i.value);
+            return r(
+              o,
+              {
+                children: [
+                  D(j),
+                  r(t, { color: m === j ? "suggestion" : void 0, children: [i.label.padEnd(ne), " "] }),
+                  r(t, { color: H ? "success" : void 0, children: ["[", H ? L.tick : " ", "]"] }),
+                ],
+              },
+              i.value,
+            );
+          }),
+          r(o, {
+            marginTop: 1,
+            children: [D(b - 1), e(t, { bold: !0, color: m === b - 1 ? "suggestion" : void 0, children: "Continue" })],
+          }),
+        ],
+      }),
+    ],
+  });
+}
+function se({ persisted: n, cancel: a, onContinue: f }) {
+  let v = xt(),
+    [, k] = u(0),
+    E = () => {
+      n.lastAcceptAt = Math.max(v.now(), n.lastAcceptAt ?? 0);
+    };
+  return r(me, {
+    title: ue,
+    onCancel: a,
+    children: [
+      e(t, { children: le }),
+      n.confirmSrAtPosture
+        ? r(U, {
+            children: [
+              r(t, { children: [ee, ":"] }),
+              e(LK, {
+                options: V,
+                defaultValue: n.posture,
+                onChange: (x) => {
+                  (n.posture = x), (n.confirmSrAtPosture = !1), E(), k((b) => b + 1);
+                },
+                onCancel: a,
+              }),
+            ],
+          })
+        : r(U, {
+            children: [
+              e(t, { children: "Optional reads (Claude already reads this project):" }),
+              e(LK, {
+                options: ke,
+                defaultValue: "shell",
+                onChange: (x) => {
+                  let b = _e(x);
+                  (n.confirmSelection = b), f(b);
+                },
+                onCancel: a,
+              }),
+            ],
+          }),
+    ],
+  });
+}
+function pe(to) {
+  let ve = _(4),
+    { message: te, subtitle: re, onEscape: ro } = to,
+    Me;
+  if (ve[0] === d) (Me = { context: "Settings" }), (ve[0] = Me);
+  else Me = ve[0];
+  Be("confirm:no", ro, Me);
+  let be;
+  if (ve[1] !== te || ve[2] !== re)
+    (be = e(rr, { message: te, subtitle: re })), (ve[1] = te), (ve[2] = re), (ve[3] = be);
+  else be = ve[3];
+  return be;
+}
+function W(n, a, f) {
+  if (
+    (s("tengu_auto_mode_setup_wizard_resolved", { choice: c(n), step: c(a), ...(f !== void 0 && { mode: c(f) }) }),
+    n === "saved")
+  )
+    y("auto_mode_setup_wizard");
+  else if (n === "error") p("auto_mode_setup_wizard", a);
+  else g("auto_mode_setup_wizard", n);
+}
+function ge() {
+  return $kn();
+}
+async function Se(n) {
+  FVt(!0);
+  try {
+    await Re(n);
+  } catch (a) {
+    n.appendSystemMessage?.(
+      Dt(
+        `Auto-mode setup hit an unexpected error and stopped: ${l(a)}. Re-run /auto-mode-setup to try again.`,
+        "warning",
+      ),
+    ),
+      h(new R(`background auto-mode setup crashed: ${l(a)}`, "background auto-mode setup crashed")),
+      W("error", "background_crash");
+  } finally {
+    FVt(!1);
+  }
+}
+async function Re(n) {
+  let { taskRegistry: a } = n,
+    f = new AbortController(),
+    v = oe(a, f, o0e(n.answers).allProjects);
+  try {
+    await xe(n, v, f);
+  } finally {
+    X(v, a, "failed");
+  }
+}
+async function xe(n, a, f) {
+  let { taskRegistry: v, requestDialog: k, appendSystemMessage: E, propose: x = r0e, write: b = the } = n,
+    m = await x(n.answers, n.permissionContext, f.signal, void 0, void 0, n.storageV5, n.credentials).catch(
+      (T) => (
+        h(new R(`background auto-mode scan rejected: ${l(T)}`, "background auto-mode scan rejected")),
+        {
+          ok: !1,
+          code: "api_failed",
+          reason:
+            "The model call didn\u2019t complete. This is usually temporary \u2014 re-run /auto-mode-setup to try again.",
+        }
+      ),
+    );
+  if (!m.ok) {
+    if (m.code === "aborted" || f.signal.aborted) {
+      W("cancel", "background_scan");
+      return;
+    }
+    X(a, v, "failed"), E?.(Dt(`Auto-mode setup scan failed: ${m.reason}`, "warning")), W("error", "background_scan");
+    return;
+  }
+  if (f.signal.aborted) {
+    W("cancel", "background_scan");
+    return;
+  }
+  X(a, v, "completed");
+  let C = await k(NBe, { ...m.proposal, mode: n.mode }, { queueBehind: !0 });
+  if (C !== "accept") {
+    E?.(Dt("Auto-mode proposal discarded \u2014 nothing was saved. Re-run /auto-mode-setup anytime.", "notice")),
+      W(C === "decline" ? "decline" : "cancel", "background_review");
+    return;
+  }
+  let B;
+  try {
+    B = await b({ mode: n.mode, autoMode: Y(m.proposal) }, n.storageV5);
+  } catch (T) {
+    E?.(Dt(`Auto-mode setup couldn\u2019t save: ${l(T)}. Re-run /auto-mode-setup to try again.`, "warning")),
+      W("error", "background_write");
+    return;
+  }
+  let z = { removed: 0, skipped: 0, notFound: 0 };
+  if (m.proposal.remove_from_permissions_allow.length > 0) {
+    let T = await k(FBe, { flagged: m.proposal.remove_from_permissions_allow, runId: a }, { queueBehind: !0 }),
+      P = T === "cancelled" ? [] : T.toRemove.filter((D) => m.proposal.remove_from_permissions_allow.includes(D));
+    if (P.length > 0)
+      try {
+        let D = await b({ removeFromPermissionsAllow: P }, n.storageV5);
+        z = {
+          removed: D.permissionsAllowRemoved.length,
+          skipped: D.permissionsAllowSkipped ? P.length : 0,
+          notFound: D.permissionsAllowNotFound.length,
+        };
+      } catch (D) {
+        E?.(
+          Dt(
+            `${q(B, { removed: 0, skipped: 0 })}
+Note: removing the flagged permissions.allow entries failed: ${l(D)}`,
+            "warning",
+          ),
+        ),
+          W("saved", "background_write", n.mode);
+        return;
+      }
+  }
+  E?.(Dt(q(B, z), "notice")), W("saved", "background", n.mode);
+}
+var Oo = async (n, a, f) => {
+  if (f.trim() !== "")
+    return (
+      n(
+        "/auto-mode-setup doesn\u2019t take arguments \u2014 run it on its own to open the setup dialog. In non-interactive mode, use --propose / --apply-file.",
+        { display: "system" },
+      ),
+      null
+    );
+  if (ge() || Z(a.taskRegistry))
+    return (
+      n(
+        Z(a.taskRegistry)
+          ? "An auto-mode setup is already in progress \u2014 the proposal review will pop up when the scan finishes. (The scan shows in the background tasks list.)"
+          : "An auto-mode setup is already wrapping up \u2014 if its proposal review hasn\u2019t popped up, answer it when it does; if you just stopped the scan, it\u2019s winding down \u2014 try again in a moment.",
+        { display: "system" },
+      ),
+      null
+    );
+  let v = hTn(n),
+    k = new AbortController(),
+    E = ie(Te()),
+    x = !1,
+    b = a.requestDialog;
+  return e(de, {
+    state: E,
+    onBackgroundStart:
+      b &&
+      ((m) => {
+        (x = !0),
+          Se({
+            answers: m,
+            mode: E.mode,
+            permissionContext: he(a),
+            taskRegistry: a.taskRegistry,
+            requestDialog: b,
+            appendSystemMessage: a.appendSystemMessage,
+            storageV5: a.storageV5,
+            credentials: a.credentials,
+          }).catch((C) => {
+            h(new R(`background auto-mode setup crashed: ${l(C)}`, "background auto-mode setup crashed"));
+          });
+      }),
+    propose: (m) =>
+      r0e(m, he(a), AbortSignal.any([a.abortController.signal, k.signal]), void 0, void 0, a.storageV5, a.credentials),
+    abort: () => k.abort(),
+    write: (m, C) => the({ mode: C, autoMode: Y(m) }, a.storageV5),
+    writeRemoval: (m) => the({ removeFromPermissionsAllow: m }, a.storageV5),
+    onCancel: () => {
+      g("auto_mode_setup_wizard", "cancelled"), v(void 0, { display: "skip" });
+    },
+    onDone: (m) => {
+      if (!x) y("auto_mode_setup_wizard");
+      v(m, { display: "system" });
+    },
+  });
+};
+function Te() {
+  let n = $$().safeParse(ye("userSettings")?.autoMode);
+  if (!n.success) return !1;
+  let a = n.data;
+  return (
+    (a.environment?.length ?? 0) > 0 ||
+    (a.allow?.length ?? 0) > 0 ||
+    (a.soft_deny?.length ?? 0) > 0 ||
+    (a.hard_deny?.length ?? 0) > 0
+  );
+}
+export { Oo as call, Te as hasExistingAutoModeConfig };

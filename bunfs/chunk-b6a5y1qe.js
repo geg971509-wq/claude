@@ -8,5 +8,8 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{W}from"/$bunfs/root/chunk-ht28m404.js";function Ts(){return W((t)=>t.settings)}
-export{Ts};
+import { W } from "/$bunfs/root/chunk-ht28m404.js";
+function Ts() {
+  return W((t) => t.settings);
+}
+export { Ts };

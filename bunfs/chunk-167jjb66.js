@@ -8,5 +8,5 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-var f4=new TextDecoder("utf-8",{ignoreBOM:!0});
-export{f4};
+var f4 = new TextDecoder("utf-8", { ignoreBOM: !0 });
+export { f4 };

@@ -8,5 +8,88 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Zwt,eTt,NNe,Oor,Lor,Mor,REn,FNe,Nor}from"/$bunfs/root/chunk-18bck2pp.js";import{execFile as d}from"child_process";import{existsSync as m}from"fs";class i{promise=null;start(){if(this.promise)return;this.promise=qwt()}reset(){this.promise=null}}var Sor=new i;function ZSr(t){if(!t)return{status:"ok",exitCode:0,errno:null,signal:null};let e=t,o=typeof e.signal==="string"&&e.signal?e.signal:null;if(typeof e.code==="string")return{status:"spawn_error",exitCode:null,errno:e.code,signal:null};if(e.killed===!0)return{status:"timeout",exitCode:null,errno:null,signal:o};if(o)return{status:"killed",exitCode:null,errno:null,signal:o};return{status:"exited",exitCode:typeof e.code==="number"?e.code:null,errno:null,signal:null}}function l(t,e){let o=Date.now();return new Promise((s)=>{try{d(t,e,{encoding:"utf-8",timeout:Mor,windowsHide:!0},(n,u)=>{s({stdout:u??"",...ZSr(n),durationMs:Date.now()-o})})}catch(n){let u=n.code;s({stdout:"",status:"spawn_error",exitCode:null,errno:typeof u==="string"?u:null,signal:null,durationMs:Date.now()-o})}})}function r(t){return{status:t.status,exitCode:t.exitCode,errno:t.errno,signal:t.signal,durationMs:t.durationMs}}function qwt(){return(async()=>{{let t=Nor(),o=(await Promise.all(t.map(async({path:s,label:n})=>{if(!m(s))return{stdout:"",label:n,ok:!1};let{stdout:u,status:a}=await l(Oor,[...Lor,s]);return{stdout:u,label:n,ok:a==="ok"&&!!u}}))).find((s)=>s.ok);return{plistStdouts:o?[{stdout:o.stdout,label:o.label}]:[],hklmStdout:null,hkcuStdout:null,outcomes:{hklm:null,hkcu:null}}}if(FNe()){let[t,e]=await Promise.all([l(REn,["query",Zwt,"/v",NNe]),l(REn,["query",eTt,"/v",NNe])]);return{plistStdouts:null,hklmStdout:t.status==="ok"?t.stdout:null,hkcuStdout:e.status==="ok"?e.stdout:null,outcomes:{hklm:r(t),hkcu:r(e)}}}return{plistStdouts:null,hklmStdout:null,hkcuStdout:null,outcomes:{hklm:null,hkcu:null}}})()}function gEn(){Sor.start()}function hEn(){return Sor.promise}
-export{Sor,ZSr,qwt,gEn,hEn};
+import { Zwt, eTt, NNe, Oor, Lor, Mor, REn, FNe, Nor } from "/$bunfs/root/chunk-18bck2pp.js";
+import { execFile as d } from "child_process";
+import { existsSync as m } from "fs";
+class i {
+  promise = null;
+  start() {
+    if (this.promise) return;
+    this.promise = qwt();
+  }
+  reset() {
+    this.promise = null;
+  }
+}
+var Sor = new i();
+function ZSr(t) {
+  if (!t) return { status: "ok", exitCode: 0, errno: null, signal: null };
+  let e = t,
+    o = typeof e.signal === "string" && e.signal ? e.signal : null;
+  if (typeof e.code === "string") return { status: "spawn_error", exitCode: null, errno: e.code, signal: null };
+  if (e.killed === !0) return { status: "timeout", exitCode: null, errno: null, signal: o };
+  if (o) return { status: "killed", exitCode: null, errno: null, signal: o };
+  return { status: "exited", exitCode: typeof e.code === "number" ? e.code : null, errno: null, signal: null };
+}
+function l(t, e) {
+  let o = Date.now();
+  return new Promise((s) => {
+    try {
+      d(t, e, { encoding: "utf-8", timeout: Mor, windowsHide: !0 }, (n, u) => {
+        s({ stdout: u ?? "", ...ZSr(n), durationMs: Date.now() - o });
+      });
+    } catch (n) {
+      let u = n.code;
+      s({
+        stdout: "",
+        status: "spawn_error",
+        exitCode: null,
+        errno: typeof u === "string" ? u : null,
+        signal: null,
+        durationMs: Date.now() - o,
+      });
+    }
+  });
+}
+function r(t) {
+  return { status: t.status, exitCode: t.exitCode, errno: t.errno, signal: t.signal, durationMs: t.durationMs };
+}
+function qwt() {
+  return (async () => {
+    {
+      let t = Nor(),
+        o = (
+          await Promise.all(
+            t.map(async ({ path: s, label: n }) => {
+              if (!m(s)) return { stdout: "", label: n, ok: !1 };
+              let { stdout: u, status: a } = await l(Oor, [...Lor, s]);
+              return { stdout: u, label: n, ok: a === "ok" && !!u };
+            }),
+          )
+        ).find((s) => s.ok);
+      return {
+        plistStdouts: o ? [{ stdout: o.stdout, label: o.label }] : [],
+        hklmStdout: null,
+        hkcuStdout: null,
+        outcomes: { hklm: null, hkcu: null },
+      };
+    }
+    if (FNe()) {
+      let [t, e] = await Promise.all([l(REn, ["query", Zwt, "/v", NNe]), l(REn, ["query", eTt, "/v", NNe])]);
+      return {
+        plistStdouts: null,
+        hklmStdout: t.status === "ok" ? t.stdout : null,
+        hkcuStdout: e.status === "ok" ? e.stdout : null,
+        outcomes: { hklm: r(t), hkcu: r(e) },
+      };
+    }
+    return { plistStdouts: null, hklmStdout: null, hkcuStdout: null, outcomes: { hklm: null, hkcu: null } };
+  })();
+}
+function gEn() {
+  Sor.start();
+}
+function hEn() {
+  return Sor.promise;
+}
+export { Sor, ZSr, qwt, gEn, hEn };

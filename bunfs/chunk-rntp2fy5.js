@@ -8,7 +8,211 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{To}from"/$bunfs/root/chunk-1v3848mh.js";import{y,p}from"/$bunfs/root/chunk-ca80fke8.js";import{E}from"/$bunfs/root/chunk-ypdw393e.js";import{n}from"/$bunfs/root/chunk-fv016jr6.js";import{uWt}from"/$bunfs/root/chunk-2n1hsggr.js";import{ay}from"/$bunfs/root/chunk-3fwkz19s.js";import{join as R}from"path";import{constants as c}from"fs";import{lstat as h,mkdir as S,open as b}from"fs/promises";import{dirname as w,isAbsolute as C,join as v,normalize as F,sep as T}from"path";var k=c.O_NOFOLLOW??0,B=c.O_WRONLY|c.O_CREAT|c.O_EXCL|k;async function O(e,o,t=384){let r=await b(e,B,t);try{if(t!==384)await r.chmod(t);await r.writeFile(o,"utf8")}finally{await r.close()}}function P(e,o){let t=F(o);if(C(t)||t.split(T).includes("..")||t.split("/").includes(".."))throw Error("bundled file path escapes its extraction dir");return v(e,t)}async function R_t(e,o,t){let r=new Map;for(let[l,m]of Object.entries(o)){let a=P(e,l),d=w(a),u=[a,m,t?.mode?.(l)??384],i=r.get(d);if(i)i.push(u);else r.set(d,[u])}await Promise.all([...r].map(async([l,m])=>{await S(l,{recursive:!0,mode:448}),await Promise.all(m.map(([a,d,u])=>O(a,d,u).catch((i)=>{if(t?.tolerateExisting&&E(i)==="EEXIST"){if(t.tolerateExisting!=="verify-content")return h(a).then((s)=>{if(!s.isFile())throw i});return b(a,c.O_RDONLY|k|(c.O_NONBLOCK??0)).then((s)=>s.stat().then((f)=>{if(!f.isFile())throw i;return s.readFile({encoding:"utf8"})}).finally(()=>s.close())).then((s)=>{if(s!==d)throw i})}throw i})))}))}function LTe(e,o,t){if(typeof t!=="function")return;Object.defineProperty(e,o,{get:t,enumerable:!0,configurable:!0})}function Bjt(e,o,t){if(typeof t!=="function")return;Object.defineProperty(e,o,{get:t,enumerable:!0,configurable:!0})}function ehn(e){To().bundledSkillSessionResetHooks.push(e)}function Kue(){for(let e of To().bundledSkillSessionResetHooks)try{e()}catch(o){n(`[skills] session-reset hook failed: ${o instanceof Error?o.message:String(o)}`)}}function M_r(e){let{files:o}=e,t=typeof o==="function";if(!o||!t&&Object.keys(o).length===0)return{skillRoot:void 0,getPromptForCommand:e.getPromptForCommand};let r,l,m=e.getPromptForCommand,a=async(d,u)=>{l??=(async()=>(r??=t?await o(u):o,j(e.name,r)))();let i=l,g;try{g=await i}catch(x){if(l===i)l=void 0,r=void 0;throw x}if(l===i)l=void 0;let s=await m(d,u,g);if(g===null)return s;let f=`Base directory for this skill: ${g}
+import { To } from "/$bunfs/root/chunk-1v3848mh.js";
+import { y, p } from "/$bunfs/root/chunk-ca80fke8.js";
+import { E } from "/$bunfs/root/chunk-ypdw393e.js";
+import { n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { uWt } from "/$bunfs/root/chunk-2n1hsggr.js";
+import { ay } from "/$bunfs/root/chunk-3fwkz19s.js";
+import { join as R } from "path";
+import { constants as c } from "fs";
+import { lstat as h, mkdir as S, open as b } from "fs/promises";
+import { dirname as w, isAbsolute as C, join as v, normalize as F, sep as T } from "path";
+var k = c.O_NOFOLLOW ?? 0,
+  B = c.O_WRONLY | c.O_CREAT | c.O_EXCL | k;
+async function O(e, o, t = 384) {
+  let r = await b(e, B, t);
+  try {
+    if (t !== 384) await r.chmod(t);
+    await r.writeFile(o, "utf8");
+  } finally {
+    await r.close();
+  }
+}
+function P(e, o) {
+  let t = F(o);
+  if (C(t) || t.split(T).includes("..") || t.split("/").includes(".."))
+    throw Error("bundled file path escapes its extraction dir");
+  return v(e, t);
+}
+async function R_t(e, o, t) {
+  let r = new Map();
+  for (let [l, m] of Object.entries(o)) {
+    let a = P(e, l),
+      d = w(a),
+      u = [a, m, t?.mode?.(l) ?? 384],
+      i = r.get(d);
+    if (i) i.push(u);
+    else r.set(d, [u]);
+  }
+  await Promise.all(
+    [...r].map(async ([l, m]) => {
+      await S(l, { recursive: !0, mode: 448 }),
+        await Promise.all(
+          m.map(([a, d, u]) =>
+            O(a, d, u).catch((i) => {
+              if (t?.tolerateExisting && E(i) === "EEXIST") {
+                if (t.tolerateExisting !== "verify-content")
+                  return h(a).then((s) => {
+                    if (!s.isFile()) throw i;
+                  });
+                return b(a, c.O_RDONLY | k | (c.O_NONBLOCK ?? 0))
+                  .then((s) =>
+                    s
+                      .stat()
+                      .then((f) => {
+                        if (!f.isFile()) throw i;
+                        return s.readFile({ encoding: "utf8" });
+                      })
+                      .finally(() => s.close()),
+                  )
+                  .then((s) => {
+                    if (s !== d) throw i;
+                  });
+              }
+              throw i;
+            }),
+          ),
+        );
+    }),
+  );
+}
+function LTe(e, o, t) {
+  if (typeof t !== "function") return;
+  Object.defineProperty(e, o, { get: t, enumerable: !0, configurable: !0 });
+}
+function Bjt(e, o, t) {
+  if (typeof t !== "function") return;
+  Object.defineProperty(e, o, { get: t, enumerable: !0, configurable: !0 });
+}
+function ehn(e) {
+  To().bundledSkillSessionResetHooks.push(e);
+}
+function Kue() {
+  for (let e of To().bundledSkillSessionResetHooks)
+    try {
+      e();
+    } catch (o) {
+      n(`[skills] session-reset hook failed: ${o instanceof Error ? o.message : String(o)}`);
+    }
+}
+function M_r(e) {
+  let { files: o } = e,
+    t = typeof o === "function";
+  if (!o || (!t && Object.keys(o).length === 0))
+    return { skillRoot: void 0, getPromptForCommand: e.getPromptForCommand };
+  let r,
+    l,
+    m = e.getPromptForCommand,
+    a = async (d, u) => {
+      l ??= (async () => ((r ??= t ? await o(u) : o), j(e.name, r)))();
+      let i = l,
+        g;
+      try {
+        g = await i;
+      } catch (x) {
+        if (l === i) (l = void 0), (r = void 0);
+        throw x;
+      }
+      if (l === i) l = void 0;
+      let s = await m(d, u, g);
+      if (g === null) return s;
+      let f = `Base directory for this skill: ${g}
 
-`;if(s.length>0&&s[0].type==="text")return[{type:"text",text:f+s[0].text},...s.slice(1)];return[{type:"text",text:f},...s]};return{skillRoot:Xue(e.name),getPromptForCommand:a}}function Zr(e){let{skillRoot:o,getPromptForCommand:t}=M_r(e),r={type:"prompt",name:e.name,description:typeof e.description==="function"?"":e.description,menuDescription:e.menuDescription,aliases:e.aliases,subcommands:e.subcommands,subcommandsBareOnly:e.subcommandsBareOnly,hasUserSpecifiedDescription:!0,allowedTools:e.allowedTools??[],getAllowedTools:e.getAllowedTools,disallowedTools:e.disallowedTools??[],argumentHint:typeof e.argumentHint==="function"?void 0:e.argumentHint,whenToUse:typeof e.whenToUse==="function"?void 0:e.whenToUse,model:e.model,disableModelInvocation:typeof e.disableModelInvocation==="function"?!0:e.disableModelInvocation??!1,disableBridgeInvocation:e.disableBridgeInvocation,userInvocable:e.userInvocable??!0,terminalOriented:e.terminalOriented,argsMayContainSlashCommands:e.argsMayContainSlashCommands,contentLength:0,source:"bundled",loadedFrom:"bundled",hooks:e.hooks,skillRoot:o,context:e.context,getContext:e.getContext,agent:e.agent,background:e.background,isEnabled:e.isEnabled,policyGate:e.policyGate,requires:e.requires,isHidden:!(e.userInvocable??!0),progressMessage:e.progressMessage??"running",getPromptForCommand:t,getEffort:e.getEffort,getDefaultEffort:e.getDefaultEffort,onUserTypedArgs:e.onUserTypedArgs,getArgumentCompletions:e.getArgumentCompletions};LTe(r,"description",e.description),LTe(r,"argumentHint",e.argumentHint),LTe(r,"whenToUse",e.whenToUse),Bjt(r,"disableModelInvocation",e.disableModelInvocation);let l=To();if(e.survivesBundledKillSwitch)l.bundledSkillKillSwitchSurvivors.add(r);l.bundledSkills.push(r)}function One(){let e=To();if(ay())return e.bundledSkills.filter((o)=>e.bundledSkillKillSwitchSurvivors.has(o));return[...e.bundledSkills]}function thn(){return[...To().bundledSkills]}function cvr(){let e=To();e.bundledSkillSessionResetHooks.length=0,e.bundledSkills.length=0,e.bundledSkillKillSwitchSurvivors.clear()}function Xue(e){return R(uWt(),e)}async function j(e,o){if(Object.keys(o).length===0)return null;let t=Xue(e);try{return await R_t(t,o,{tolerateExisting:"verify-content"}),y("skill_bundled_extract"),t}catch(r){return n(`Failed to extract bundled skill '${e}' to ${t}: ${r instanceof Error?r.message:String(r)}`),p("skill_bundled_extract","skill_bundled_extract_write_failed"),null}}async function jjt(e,o){if(Object.keys(o).length===0)return null;let t=Xue(e);try{return await R_t(t,o,{tolerateExisting:!0}),t}catch(r){return n(`Failed to extract additional skill files for '${e}' to ${t}: ${r instanceof Error?r.message:String(r)}`),null}}
-export{LTe,Bjt,R_t,ehn,Kue,M_r,Zr,One,thn,cvr,Xue,jjt};
+`;
+      if (s.length > 0 && s[0].type === "text") return [{ type: "text", text: f + s[0].text }, ...s.slice(1)];
+      return [{ type: "text", text: f }, ...s];
+    };
+  return { skillRoot: Xue(e.name), getPromptForCommand: a };
+}
+function Zr(e) {
+  let { skillRoot: o, getPromptForCommand: t } = M_r(e),
+    r = {
+      type: "prompt",
+      name: e.name,
+      description: typeof e.description === "function" ? "" : e.description,
+      menuDescription: e.menuDescription,
+      aliases: e.aliases,
+      subcommands: e.subcommands,
+      subcommandsBareOnly: e.subcommandsBareOnly,
+      hasUserSpecifiedDescription: !0,
+      allowedTools: e.allowedTools ?? [],
+      getAllowedTools: e.getAllowedTools,
+      disallowedTools: e.disallowedTools ?? [],
+      argumentHint: typeof e.argumentHint === "function" ? void 0 : e.argumentHint,
+      whenToUse: typeof e.whenToUse === "function" ? void 0 : e.whenToUse,
+      model: e.model,
+      disableModelInvocation: typeof e.disableModelInvocation === "function" ? !0 : (e.disableModelInvocation ?? !1),
+      disableBridgeInvocation: e.disableBridgeInvocation,
+      userInvocable: e.userInvocable ?? !0,
+      terminalOriented: e.terminalOriented,
+      argsMayContainSlashCommands: e.argsMayContainSlashCommands,
+      contentLength: 0,
+      source: "bundled",
+      loadedFrom: "bundled",
+      hooks: e.hooks,
+      skillRoot: o,
+      context: e.context,
+      getContext: e.getContext,
+      agent: e.agent,
+      background: e.background,
+      isEnabled: e.isEnabled,
+      policyGate: e.policyGate,
+      requires: e.requires,
+      isHidden: !(e.userInvocable ?? !0),
+      progressMessage: e.progressMessage ?? "running",
+      getPromptForCommand: t,
+      getEffort: e.getEffort,
+      getDefaultEffort: e.getDefaultEffort,
+      onUserTypedArgs: e.onUserTypedArgs,
+      getArgumentCompletions: e.getArgumentCompletions,
+    };
+  LTe(r, "description", e.description),
+    LTe(r, "argumentHint", e.argumentHint),
+    LTe(r, "whenToUse", e.whenToUse),
+    Bjt(r, "disableModelInvocation", e.disableModelInvocation);
+  let l = To();
+  if (e.survivesBundledKillSwitch) l.bundledSkillKillSwitchSurvivors.add(r);
+  l.bundledSkills.push(r);
+}
+function One() {
+  let e = To();
+  if (ay()) return e.bundledSkills.filter((o) => e.bundledSkillKillSwitchSurvivors.has(o));
+  return [...e.bundledSkills];
+}
+function thn() {
+  return [...To().bundledSkills];
+}
+function cvr() {
+  let e = To();
+  (e.bundledSkillSessionResetHooks.length = 0), (e.bundledSkills.length = 0), e.bundledSkillKillSwitchSurvivors.clear();
+}
+function Xue(e) {
+  return R(uWt(), e);
+}
+async function j(e, o) {
+  if (Object.keys(o).length === 0) return null;
+  let t = Xue(e);
+  try {
+    return await R_t(t, o, { tolerateExisting: "verify-content" }), y("skill_bundled_extract"), t;
+  } catch (r) {
+    return (
+      n(`Failed to extract bundled skill '${e}' to ${t}: ${r instanceof Error ? r.message : String(r)}`),
+      p("skill_bundled_extract", "skill_bundled_extract_write_failed"),
+      null
+    );
+  }
+}
+async function jjt(e, o) {
+  if (Object.keys(o).length === 0) return null;
+  let t = Xue(e);
+  try {
+    return await R_t(t, o, { tolerateExisting: !0 }), t;
+  } catch (r) {
+    return (
+      n(`Failed to extract additional skill files for '${e}' to ${t}: ${r instanceof Error ? r.message : String(r)}`),
+      null
+    );
+  }
+}
+export { LTe, Bjt, R_t, ehn, Kue, M_r, Zr, One, thn, cvr, Xue, jjt };

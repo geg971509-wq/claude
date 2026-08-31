@@ -8,5 +8,27 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Mn,G}from"/$bunfs/root/chunk-f9h0bg01.js";class n{announcementSlotWinner=null;announcementSlotGovernance=null;countedNoticeImpressions=new Set;startupAnnouncementPick=void 0;companyAnnouncement=null;fotwContent=null;ccCeMigrateGroup=void 0;reset(){this.announcementSlotWinner=null,this.announcementSlotGovernance=null,this.countedNoticeImpressions.clear(),this.startupAnnouncementPick=void 0,this.companyAnnouncement=null,this.fotwContent=null,this.ccCeMigrateGroup=void 0}}var GJt=new Mn(()=>new n);function gL(){return GJt.of(G())}
-export{GJt,gL};
+import { Mn, G } from "/$bunfs/root/chunk-f9h0bg01.js";
+class n {
+  announcementSlotWinner = null;
+  announcementSlotGovernance = null;
+  countedNoticeImpressions = new Set();
+  startupAnnouncementPick = void 0;
+  companyAnnouncement = null;
+  fotwContent = null;
+  ccCeMigrateGroup = void 0;
+  reset() {
+    (this.announcementSlotWinner = null),
+      (this.announcementSlotGovernance = null),
+      this.countedNoticeImpressions.clear(),
+      (this.startupAnnouncementPick = void 0),
+      (this.companyAnnouncement = null),
+      (this.fotwContent = null),
+      (this.ccCeMigrateGroup = void 0);
+  }
+}
+var GJt = new Mn(() => new n());
+function gL() {
+  return GJt.of(G());
+}
+export { GJt, gL };

@@ -8,5 +8,112 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Yl,Ae,ie}from"/$bunfs/root/chunk-8tgj5dp2.js";import{ch}from"/$bunfs/root/chunk-hz299nfa.js";import{Fi}from"/$bunfs/root/chunk-42q7ctbx.js";import{_}from"/$bunfs/root/chunk-haan6f8z.js";import{ge}from"/$bunfs/root/chunk-c3bffkxg.js";import{o,t,Yn}from"/$bunfs/root/chunk-he2phymk.js";import{Ce}from"/$bunfs/root/chunk-1y0jc48h.js";import{di}from"/$bunfs/root/chunk-fkq47fkr.js";import{e,r}from"/$bunfs/root/chunk-8s7kcbyw.js";import{A,F}from"/$bunfs/root/chunk-twm95mhz.js";import{d}from"/$bunfs/root/chunk-yz031c9r.js";F();function k(b){if(b.remoteDialogSeen){return b}return{...b,remoteDialogSeen:!0}}function WRt(X){let l=_(15),{onDone:h,defaultFocusValue:g}=X,{storageV5:a}=ge(),s=Yn(Fi),S;if(l[0]!==s||l[1]!==h)S=function i(j){if(!s){return}h(j)},l[0]=s,l[1]=h,l[2]=S;else S=l[2];let i=S,y,v;if(l[3]!==a)y=()=>{Ae(k,a)},v=[a],l[3]=a,l[4]=y,l[5]=v;else y=l[4],v=l[5];A(y,v);let w;if(l[6]===d)w=[{label:"Enable Remote Control",description:"Opens a secure connection to claude.ai.",value:"enable"},{label:"Never mind",description:"You can always enable it later with /remote-control.",value:"dismiss"}],l[6]=w;else w=l[6];let q=w,x;if(l[7]===d)x=r(o,{marginBottom:1,flexDirection:"column",children:[e(t,{children:"Take this session with you and pick up right where you left off on any device. Open the Code tab in the Claude mobile app, or visit claude.ai/code in a browser."}),e(t,{children:" "}),e(t,{children:"The session keeps running on this machine. Use your other devices as a remote control. Disconnect anytime with /remote-control."})]}),l[7]=x;else x=l[7];const C=!s;let m;if(l[8]!==i)m=()=>i("dismiss"),l[8]=i,l[9]=m;else m=l[9];let O;if(l[10]!==g||l[11]!==i||l[12]!==C||l[13]!==m)O=e(di,{title:"Remote Control",children:r(o,{flexDirection:"column",paddingX:2,paddingY:1,children:[x,e(o,{children:e(Ce,{defaultFocusValue:g,options:q,isDisabled:C,onChange:i,onCancel:m})})]})}),l[10]=g,l[11]=i,l[12]=C,l[13]=m,l[14]=O;else O=l[14];return O}function D8t(){if(ie().remoteDialogSeen)return!1;if(!ch())return!1;if(!Yl())return!1;return!0}
-export{WRt,D8t};
+import { Yl, Ae, ie } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { ch } from "/$bunfs/root/chunk-hz299nfa.js";
+import { Fi } from "/$bunfs/root/chunk-42q7ctbx.js";
+import { _ } from "/$bunfs/root/chunk-haan6f8z.js";
+import { ge } from "/$bunfs/root/chunk-c3bffkxg.js";
+import { o, t, Yn } from "/$bunfs/root/chunk-he2phymk.js";
+import { Ce } from "/$bunfs/root/chunk-1y0jc48h.js";
+import { di } from "/$bunfs/root/chunk-fkq47fkr.js";
+import { e, r } from "/$bunfs/root/chunk-8s7kcbyw.js";
+import { A, F } from "/$bunfs/root/chunk-twm95mhz.js";
+import { d } from "/$bunfs/root/chunk-yz031c9r.js";
+F();
+function k(b) {
+  if (b.remoteDialogSeen) {
+    return b;
+  }
+  return { ...b, remoteDialogSeen: !0 };
+}
+function WRt(X) {
+  let l = _(15),
+    { onDone: h, defaultFocusValue: g } = X,
+    { storageV5: a } = ge(),
+    s = Yn(Fi),
+    S;
+  if (l[0] !== s || l[1] !== h)
+    (S = function i(j) {
+      if (!s) {
+        return;
+      }
+      h(j);
+    }),
+      (l[0] = s),
+      (l[1] = h),
+      (l[2] = S);
+  else S = l[2];
+  let i = S,
+    y,
+    v;
+  if (l[3] !== a)
+    (y = () => {
+      Ae(k, a);
+    }),
+      (v = [a]),
+      (l[3] = a),
+      (l[4] = y),
+      (l[5] = v);
+  else (y = l[4]), (v = l[5]);
+  A(y, v);
+  let w;
+  if (l[6] === d)
+    (w = [
+      { label: "Enable Remote Control", description: "Opens a secure connection to claude.ai.", value: "enable" },
+      { label: "Never mind", description: "You can always enable it later with /remote-control.", value: "dismiss" },
+    ]),
+      (l[6] = w);
+  else w = l[6];
+  let q = w,
+    x;
+  if (l[7] === d)
+    (x = r(o, {
+      marginBottom: 1,
+      flexDirection: "column",
+      children: [
+        e(t, {
+          children:
+            "Take this session with you and pick up right where you left off on any device. Open the Code tab in the Claude mobile app, or visit claude.ai/code in a browser.",
+        }),
+        e(t, { children: " " }),
+        e(t, {
+          children:
+            "The session keeps running on this machine. Use your other devices as a remote control. Disconnect anytime with /remote-control.",
+        }),
+      ],
+    })),
+      (l[7] = x);
+  else x = l[7];
+  const C = !s;
+  let m;
+  if (l[8] !== i) (m = () => i("dismiss")), (l[8] = i), (l[9] = m);
+  else m = l[9];
+  let O;
+  if (l[10] !== g || l[11] !== i || l[12] !== C || l[13] !== m)
+    (O = e(di, {
+      title: "Remote Control",
+      children: r(o, {
+        flexDirection: "column",
+        paddingX: 2,
+        paddingY: 1,
+        children: [
+          x,
+          e(o, { children: e(Ce, { defaultFocusValue: g, options: q, isDisabled: C, onChange: i, onCancel: m }) }),
+        ],
+      }),
+    })),
+      (l[10] = g),
+      (l[11] = i),
+      (l[12] = C),
+      (l[13] = m),
+      (l[14] = O);
+  else O = l[14];
+  return O;
+}
+function D8t() {
+  if (ie().remoteDialogSeen) return !1;
+  if (!ch()) return !1;
+  if (!Yl()) return !1;
+  return !0;
+}
+export { WRt, D8t };

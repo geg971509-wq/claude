@@ -8,5 +8,69 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{M_}from"/$bunfs/root/chunk-qm65zb83.js";import{zh,Fl,oS,Yl,I6,I}from"/$bunfs/root/chunk-8tgj5dp2.js";import{Ne,jo}from"/$bunfs/root/chunk-82w4mtvq.js";import{Mt,lw}from"/$bunfs/root/chunk-fs02hzwy.js";import{mm}from"/$bunfs/root/chunk-5jbjbjsn.js";import{j}from"/$bunfs/root/chunk-yz031c9r.js";var e=j(mm(),1);var o="tengu_orford_ness",t="2.1.193";function n(){try{return I(o,!1)}catch{return!1}}function rSn(){let r=lw();if(!Mt("allow_error_reporting")){if(r===null)return"blocked_cache_miss";return r.restrictions.allow_error_reporting?.allowed===!1?"blocked_restriction":"blocked_tainted"}if(r!==null)return"allowed_taints_clean";if(Yl()&&!I6(M_))return"blocked_scopeless_oauth";if(Fl().source==="ANTHROPIC_AUTH_TOKEN")return"blocked_auth_token_env";if(oS())return"blocked_api_key_helper";return"allowed_untaintable"}function fer(){if(process.env.DISABLE_ERROR_REPORTING)return!1;if(zh())return!1;if(Ne()!=="firstParty"||!jo())return!1;if(!e.gte(e.coerce({ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION)?.version??{ISSUES_EXPLAINER:"report the issue at https://github.com/anthropics/claude-code/issues",PACKAGE_URL:"@anthropic-ai/claude-code",README_URL:"https://code.claude.com/docs/en/overview",VERSION:"2.1.252",FEEDBACK_CHANNEL:"https://github.com/anthropics/claude-code/issues",BUILD_TIME:"2026-08-31T16:02:57Z",GIT_SHA:"c0778c45886d8f1ed8bd5e7c972b8507d299a548",HOOKS_WORKER_URL:"/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",DD_SOURCEMAP_GROUP:"darwin"}.VERSION,t))return!1;if(!rSn().startsWith("allowed"))return!1;return n()}
-export{rSn,fer};
+import { M_ } from "/$bunfs/root/chunk-qm65zb83.js";
+import { zh, Fl, oS, Yl, I6, I } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { Ne, jo } from "/$bunfs/root/chunk-82w4mtvq.js";
+import { Mt, lw } from "/$bunfs/root/chunk-fs02hzwy.js";
+import { mm } from "/$bunfs/root/chunk-5jbjbjsn.js";
+import { j } from "/$bunfs/root/chunk-yz031c9r.js";
+var e = j(mm(), 1);
+var o = "tengu_orford_ness",
+  t = "2.1.193";
+function n() {
+  try {
+    return I(o, !1);
+  } catch {
+    return !1;
+  }
+}
+function rSn() {
+  let r = lw();
+  if (!Mt("allow_error_reporting")) {
+    if (r === null) return "blocked_cache_miss";
+    return r.restrictions.allow_error_reporting?.allowed === !1 ? "blocked_restriction" : "blocked_tainted";
+  }
+  if (r !== null) return "allowed_taints_clean";
+  if (Yl() && !I6(M_)) return "blocked_scopeless_oauth";
+  if (Fl().source === "ANTHROPIC_AUTH_TOKEN") return "blocked_auth_token_env";
+  if (oS()) return "blocked_api_key_helper";
+  return "allowed_untaintable";
+}
+function fer() {
+  if (process.env.DISABLE_ERROR_REPORTING) return !1;
+  if (zh()) return !1;
+  if (Ne() !== "firstParty" || !jo()) return !1;
+  if (
+    !e.gte(
+      e.coerce(
+        {
+          ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues",
+          PACKAGE_URL: "@anthropic-ai/claude-code",
+          README_URL: "https://code.claude.com/docs/en/overview",
+          VERSION: "2.1.252",
+          FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues",
+          BUILD_TIME: "2026-08-31T16:02:57Z",
+          GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548",
+          HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",
+          DD_SOURCEMAP_GROUP: "darwin",
+        }.VERSION,
+      )?.version ??
+        {
+          ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues",
+          PACKAGE_URL: "@anthropic-ai/claude-code",
+          README_URL: "https://code.claude.com/docs/en/overview",
+          VERSION: "2.1.252",
+          FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues",
+          BUILD_TIME: "2026-08-31T16:02:57Z",
+          GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548",
+          HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",
+          DD_SOURCEMAP_GROUP: "darwin",
+        }.VERSION,
+      t,
+    )
+  )
+    return !1;
+  if (!rSn().startsWith("allowed")) return !1;
+  return n();
+}
+export { rSn, fer };

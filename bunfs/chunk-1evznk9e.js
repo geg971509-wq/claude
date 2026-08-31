@@ -8,5 +8,7 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-function h_e(e){return!!e?.experimental?.["claude/channel"]}
-export{h_e};
+function h_e(e) {
+  return !!e?.experimental?.["claude/channel"];
+}
+export { h_e };

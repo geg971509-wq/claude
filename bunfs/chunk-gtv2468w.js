@@ -8,5 +8,53 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{bFe}from"/$bunfs/root/chunk-qm65zb83.js";import{STn}from"/$bunfs/root/chunk-q3yd61z9.js";var r=(t)=>JSON.stringify(t);var o=new Set(["api.anthropic.com","api-staging.anthropic.com",...bFe.map((t)=>new URL(t).hostname)]);function vrr(t){let e=Kre();if(!t){if(e.status==="absent")return null;return e.status==="rejected"?{code:e.code,reason:e.reason}:{code:"view_mismatch",reason:"the eager argv scan sees a --sdk-url value commander did not bind"}}if(e.status==="rejected")return{code:e.code,reason:e.reason};if(e.status==="absent"||e.url!==t)return{code:"view_mismatch",reason:"the --sdk-url value commander bound disagrees with the eager argv scan"};return null}function yTn(t){let e;try{e=new URL(t)}catch{return{code:"unparseable",reason:`could not parse ${r(t)} as a URL`}}if(o.has(e.hostname)){if(e.protocol!=="wss:"&&e.protocol!=="https:")return{code:"bad_scheme",reason:`scheme ${r(e.protocol)} is not permitted for host ${r(e.hostname)}; only wss:// and https:// are accepted`};return null}return{code:"not_allowlisted",reason:`host ${r(e.hostname)} is not an approved Anthropic endpoint`}}function Kre(){let t=STn("--sdk-url"),e=t.filter(Boolean).at(-1);if(!e)return{status:"absent"};if(new Set(t).size>1)return{status:"rejected",code:"conflicting",reason:"conflicting --sdk-url occurrences"};let n=yTn(e);if(n)return{status:"rejected",...n};return{status:"ok",url:e}}function Xre(t){if(t.protocol==="wss:")t.protocol="https:";else if(t.protocol==="ws:")t.protocol="http:";return t}
-export{vrr,yTn,Kre,Xre};
+import { bFe } from "/$bunfs/root/chunk-qm65zb83.js";
+import { STn } from "/$bunfs/root/chunk-q3yd61z9.js";
+var r = (t) => JSON.stringify(t);
+var o = new Set(["api.anthropic.com", "api-staging.anthropic.com", ...bFe.map((t) => new URL(t).hostname)]);
+function vrr(t) {
+  let e = Kre();
+  if (!t) {
+    if (e.status === "absent") return null;
+    return e.status === "rejected"
+      ? { code: e.code, reason: e.reason }
+      : { code: "view_mismatch", reason: "the eager argv scan sees a --sdk-url value commander did not bind" };
+  }
+  if (e.status === "rejected") return { code: e.code, reason: e.reason };
+  if (e.status === "absent" || e.url !== t)
+    return { code: "view_mismatch", reason: "the --sdk-url value commander bound disagrees with the eager argv scan" };
+  return null;
+}
+function yTn(t) {
+  let e;
+  try {
+    e = new URL(t);
+  } catch {
+    return { code: "unparseable", reason: `could not parse ${r(t)} as a URL` };
+  }
+  if (o.has(e.hostname)) {
+    if (e.protocol !== "wss:" && e.protocol !== "https:")
+      return {
+        code: "bad_scheme",
+        reason: `scheme ${r(e.protocol)} is not permitted for host ${r(e.hostname)}; only wss:// and https:// are accepted`,
+      };
+    return null;
+  }
+  return { code: "not_allowlisted", reason: `host ${r(e.hostname)} is not an approved Anthropic endpoint` };
+}
+function Kre() {
+  let t = STn("--sdk-url"),
+    e = t.filter(Boolean).at(-1);
+  if (!e) return { status: "absent" };
+  if (new Set(t).size > 1)
+    return { status: "rejected", code: "conflicting", reason: "conflicting --sdk-url occurrences" };
+  let n = yTn(e);
+  if (n) return { status: "rejected", ...n };
+  return { status: "ok", url: e };
+}
+function Xre(t) {
+  if (t.protocol === "wss:") t.protocol = "https:";
+  else if (t.protocol === "ws:") t.protocol = "http:";
+  return t;
+}
+export { vrr, yTn, Kre, Xre };

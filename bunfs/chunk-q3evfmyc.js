@@ -8,5 +8,10 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Je}from"/$bunfs/root/chunk-988p40e0.js";function OP(){let e=Je()?.autoUpdatesChannel;if(e&&e!=="latest")return e;return"latest"}
-export{OP};
+import { Je } from "/$bunfs/root/chunk-988p40e0.js";
+function OP() {
+  let e = Je()?.autoUpdatesChannel;
+  if (e && e !== "latest") return e;
+  return "latest";
+}
+export { OP };

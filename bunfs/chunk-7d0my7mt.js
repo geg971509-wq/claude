@@ -8,5 +8,70 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{mP}from"/$bunfs/root/chunk-1yr12dqr.js";import{Ee}from"/$bunfs/root/chunk-rp246vnd.js";import{_}from"/$bunfs/root/chunk-haan6f8z.js";import{t,oo,vW}from"/$bunfs/root/chunk-he2phymk.js";import{e,r}from"/$bunfs/root/chunk-8s7kcbyw.js";import{se}from"/$bunfs/root/chunk-q1fyd2qk.js";function ql(I){let a=_(27),{width:J,color:o,char:w,padding:N,title:i,titleAlign:j}=I,m=w===void 0?mP:w,K=N===void 0?0:N,L=j===void 0?"center":j,{columns:O}=Ee(),l=Math.max(0,(J??O)-K),q;if(a[0]!==o||a[1]!==i)q=i?e(t,{color:o,dimColor:!o,children:e(oo,{children:i})}):null,a[0]=o,a[1]=i,a[2]=q;else q=a[2];let y=q;if(i){let Q=se(i)+2;let C=Math.max(0,l-Q);let u=L==="start"?Math.min(4,C):Math.floor(C/2);let M=C-u;const d=!o;let n;if(a[3]!==m||a[4]!==u)n=m.repeat(u),a[3]=m,a[4]=u,a[5]=n;else n=a[5];let f;if(a[6]!==i)f=e(t,{dimColor:!0,children:e(oo,{children:i})}),a[6]=i,a[7]=f;else f=a[7];let W;if(a[8]!==m||a[9]!==M)W=m.repeat(M),a[8]=m,a[9]=M,a[10]=W;else W=a[10];let g;if(a[11]!==o||a[12]!==d||a[13]!==n||a[14]!==f||a[15]!==W)g=r(t,{color:o,dimColor:d,children:[n," ",f," ",W]}),a[11]=o,a[12]=d,a[13]=n,a[14]=f,a[15]=W,a[16]=g;else g=a[16];let z;if(a[17]!==y||a[18]!==g)z=e(vW,{fallback:y,children:g}),a[17]=y,a[18]=g,a[19]=z;else z=a[19];return z}const d=!o;let n;if(a[20]!==m||a[21]!==l)n=m.repeat(l),a[20]=m,a[21]=l,a[22]=n;else n=a[22];let f;if(a[23]!==o||a[24]!==d||a[25]!==n)f=e(vW,{children:e(t,{color:o,dimColor:d,children:n})}),a[23]=o,a[24]=d,a[25]=n,a[26]=f;else f=a[26];return f}
-export{ql};
+import { mP } from "/$bunfs/root/chunk-1yr12dqr.js";
+import { Ee } from "/$bunfs/root/chunk-rp246vnd.js";
+import { _ } from "/$bunfs/root/chunk-haan6f8z.js";
+import { t, oo, vW } from "/$bunfs/root/chunk-he2phymk.js";
+import { e, r } from "/$bunfs/root/chunk-8s7kcbyw.js";
+import { se } from "/$bunfs/root/chunk-q1fyd2qk.js";
+function ql(I) {
+  let a = _(27),
+    { width: J, color: o, char: w, padding: N, title: i, titleAlign: j } = I,
+    m = w === void 0 ? mP : w,
+    K = N === void 0 ? 0 : N,
+    L = j === void 0 ? "center" : j,
+    { columns: O } = Ee(),
+    l = Math.max(0, (J ?? O) - K),
+    q;
+  if (a[0] !== o || a[1] !== i)
+    (q = i ? e(t, { color: o, dimColor: !o, children: e(oo, { children: i }) }) : null),
+      (a[0] = o),
+      (a[1] = i),
+      (a[2] = q);
+  else q = a[2];
+  let y = q;
+  if (i) {
+    let Q = se(i) + 2;
+    let C = Math.max(0, l - Q);
+    let u = L === "start" ? Math.min(4, C) : Math.floor(C / 2);
+    let M = C - u;
+    const d = !o;
+    let n;
+    if (a[3] !== m || a[4] !== u) (n = m.repeat(u)), (a[3] = m), (a[4] = u), (a[5] = n);
+    else n = a[5];
+    let f;
+    if (a[6] !== i) (f = e(t, { dimColor: !0, children: e(oo, { children: i }) })), (a[6] = i), (a[7] = f);
+    else f = a[7];
+    let W;
+    if (a[8] !== m || a[9] !== M) (W = m.repeat(M)), (a[8] = m), (a[9] = M), (a[10] = W);
+    else W = a[10];
+    let g;
+    if (a[11] !== o || a[12] !== d || a[13] !== n || a[14] !== f || a[15] !== W)
+      (g = r(t, { color: o, dimColor: d, children: [n, " ", f, " ", W] })),
+        (a[11] = o),
+        (a[12] = d),
+        (a[13] = n),
+        (a[14] = f),
+        (a[15] = W),
+        (a[16] = g);
+    else g = a[16];
+    let z;
+    if (a[17] !== y || a[18] !== g) (z = e(vW, { fallback: y, children: g })), (a[17] = y), (a[18] = g), (a[19] = z);
+    else z = a[19];
+    return z;
+  }
+  const d = !o;
+  let n;
+  if (a[20] !== m || a[21] !== l) (n = m.repeat(l)), (a[20] = m), (a[21] = l), (a[22] = n);
+  else n = a[22];
+  let f;
+  if (a[23] !== o || a[24] !== d || a[25] !== n)
+    (f = e(vW, { children: e(t, { color: o, dimColor: d, children: n }) })),
+      (a[23] = o),
+      (a[24] = d),
+      (a[25] = n),
+      (a[26] = f);
+  else f = a[26];
+  return f;
+}
+export { ql };

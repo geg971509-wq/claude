@@ -8,4 +8,41 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{prt}from"/$bunfs/root/chunk-y20fbsfk.js";import{$2e}from"/$bunfs/root/chunk-v9992jrf.js";import{yx}from"/$bunfs/root/chunk-83rtv341.js";import"/$bunfs/root/chunk-8afqfths.js";import{S}from"/$bunfs/root/chunk-yz031c9r.js";var i=S(function(c){Object.defineProperty(c,"__esModule",{value:!0});c.OTLPMetricExporter=void 0;var s=prt(),t=$2e(),u=yx();class o extends s.OTLPMetricExporterBase{constructor(r){super((0,t.createOtlpGrpcExportDelegate)((0,t.convertLegacyOtlpGrpcOptions)(r??{},"METRICS"),u.ProtobufMetricsSerializer,"MetricsExportService","/opentelemetry.proto.collector.metrics.v1.MetricsService/Export"),r)}}c.OTLPMetricExporter=o});var n=S(function(e){Object.defineProperty(e,"__esModule",{value:!0});e.OTLPMetricExporter=void 0;var l=i();Object.defineProperty(e,"OTLPMetricExporter",{enumerable:!0,get:function(){return l.OTLPMetricExporter}})});export default n();
+import { prt } from "/$bunfs/root/chunk-y20fbsfk.js";
+import { $2e } from "/$bunfs/root/chunk-v9992jrf.js";
+import { yx } from "/$bunfs/root/chunk-83rtv341.js";
+import "/$bunfs/root/chunk-8afqfths.js";
+import { S } from "/$bunfs/root/chunk-yz031c9r.js";
+var i = S(function (c) {
+  Object.defineProperty(c, "__esModule", { value: !0 });
+  c.OTLPMetricExporter = void 0;
+  var s = prt(),
+    t = $2e(),
+    u = yx();
+  class o extends s.OTLPMetricExporterBase {
+    constructor(r) {
+      super(
+        (0, t.createOtlpGrpcExportDelegate)(
+          (0, t.convertLegacyOtlpGrpcOptions)(r ?? {}, "METRICS"),
+          u.ProtobufMetricsSerializer,
+          "MetricsExportService",
+          "/opentelemetry.proto.collector.metrics.v1.MetricsService/Export",
+        ),
+        r,
+      );
+    }
+  }
+  c.OTLPMetricExporter = o;
+});
+var n = S(function (e) {
+  Object.defineProperty(e, "__esModule", { value: !0 });
+  e.OTLPMetricExporter = void 0;
+  var l = i();
+  Object.defineProperty(e, "OTLPMetricExporter", {
+    enumerable: !0,
+    get: function () {
+      return l.OTLPMetricExporter;
+    },
+  });
+});
+export default n();

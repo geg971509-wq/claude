@@ -8,5 +8,33 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{KIe,dSe,XIe}from"/$bunfs/root/chunk-zze8764r.js";function h(s){let o=XIe(s),a=Math.min(o.length,KIe());return 2+s.name.length+2+a+1}function GRe(s,o,a){let p=new Map;for(let n of s){if(n.type!=="prompt"||n.disableModelInvocation)continue;let t=n.pluginInfo?.pluginManifest.name;if(!t)continue;let e=h(n),r=p.get(t)??[];r.push({name:n.name,chars:e,approxTokens:Math.round(e/o)}),p.set(t,r)}let m=[...p.entries()].map(([n,t])=>{t.sort((r,u)=>u.chars-r.chars);let e=t.reduce((r,u)=>r+u.chars,0);return{pluginName:n,skillCount:t.length,chars:e,approxTokens:Math.round(e/o),skills:t}}).sort((n,t)=>t.chars-n.chars),c=m.reduce((n,t)=>n+t.chars,0),i=dSe(a,o),l=c>i,g=l?i:c;return{byPlugin:m,totalChars:g,totalTokens:Math.round(g/o),overBudget:l,budgetTokens:Math.round(i/o)}}
-export{GRe};
+import { KIe, dSe, XIe } from "/$bunfs/root/chunk-zze8764r.js";
+function h(s) {
+  let o = XIe(s),
+    a = Math.min(o.length, KIe());
+  return 2 + s.name.length + 2 + a + 1;
+}
+function GRe(s, o, a) {
+  let p = new Map();
+  for (let n of s) {
+    if (n.type !== "prompt" || n.disableModelInvocation) continue;
+    let t = n.pluginInfo?.pluginManifest.name;
+    if (!t) continue;
+    let e = h(n),
+      r = p.get(t) ?? [];
+    r.push({ name: n.name, chars: e, approxTokens: Math.round(e / o) }), p.set(t, r);
+  }
+  let m = [...p.entries()]
+      .map(([n, t]) => {
+        t.sort((r, u) => u.chars - r.chars);
+        let e = t.reduce((r, u) => r + u.chars, 0);
+        return { pluginName: n, skillCount: t.length, chars: e, approxTokens: Math.round(e / o), skills: t };
+      })
+      .sort((n, t) => t.chars - n.chars),
+    c = m.reduce((n, t) => n + t.chars, 0),
+    i = dSe(a, o),
+    l = c > i,
+    g = l ? i : c;
+  return { byPlugin: m, totalChars: g, totalTokens: Math.round(g / o), overBudget: l, budgetTokens: Math.round(i / o) };
+}
+export { GRe };

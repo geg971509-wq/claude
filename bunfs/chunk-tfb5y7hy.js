@@ -8,4 +8,21 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{l,E}from"/$bunfs/root/chunk-ypdw393e.js";import{n}from"/$bunfs/root/chunk-fv016jr6.js";var s=new Set(["EIO","ENOTTY","EBADF"]);function Kw(e,t){if(!("setRawMode"in e)||typeof e.setRawMode!=="function")return;try{e.setRawMode(t)}catch(o){let r=l(o),a=E(o);if(r.includes("setRawMode failed")||s.has(a??"")){n(`setRawMode(${t}) failed on revoked tty: ${r}`);return}throw o}}export{Kw};
+import { l, E } from "/$bunfs/root/chunk-ypdw393e.js";
+import { n } from "/$bunfs/root/chunk-fv016jr6.js";
+var s = new Set(["EIO", "ENOTTY", "EBADF"]);
+function Kw(e, t) {
+  if (!("setRawMode" in e) || typeof e.setRawMode !== "function") return;
+  try {
+    e.setRawMode(t);
+  } catch (o) {
+    let r = l(o),
+      a = E(o);
+    if (r.includes("setRawMode failed") || s.has(a ?? "")) {
+      n(`setRawMode(${t}) failed on revoked tty: ${r}`);
+      return;
+    }
+    throw o;
+  }
+}
+export { Kw };

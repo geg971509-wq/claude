@@ -8,5 +8,11 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-var e=null;function JUn(r){e=r}function QUn(){return e}
-export{JUn,QUn};
+var e = null;
+function JUn(r) {
+  e = r;
+}
+function QUn() {
+  return e;
+}
+export { JUn, QUn };

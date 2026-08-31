@@ -8,5 +8,12 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{ne}from"/$bunfs/root/chunk-tx16jn0x.js";function xwe(e){return function(r){let t=e*2**(r-1),i=Math.round(t*(0.5+Math.random()/2));return ne(i)}}
-export{xwe};
+import { ne } from "/$bunfs/root/chunk-tx16jn0x.js";
+function xwe(e) {
+  return function (r) {
+    let t = e * 2 ** (r - 1),
+      i = Math.round(t * (0.5 + Math.random() / 2));
+    return ne(i);
+  };
+}
+export { xwe };

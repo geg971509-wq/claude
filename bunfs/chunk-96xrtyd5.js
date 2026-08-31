@@ -8,5 +8,19 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Fa}from"/$bunfs/root/chunk-97wwdfyx.js";import{a}from"/$bunfs/root/chunk-fec4384a.js";var o=3,_="tengu_hazel_trellis";function jS(){let n=a.CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH;if(n!==void 0)return n;let t=Fa();if(t.maxSubagentSpawnDepthFromGrowthBook===void 0){let{getFeatureValue_CACHED_MAY_BE_STALE:r}=import.meta.require("/$bunfs/root/chunk-2sq45cbb.js"),e=r(_,o);t.maxSubagentSpawnDepthFromGrowthBook=typeof e==="number"&&Number.isInteger(e)&&e>=1?e:o}return t.maxSubagentSpawnDepthFromGrowthBook}
-export{jS};
+import { Fa } from "/$bunfs/root/chunk-97wwdfyx.js";
+import { a } from "/$bunfs/root/chunk-fec4384a.js";
+var o = 3,
+  _ = "tengu_hazel_trellis";
+function jS() {
+  let n = a.CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH;
+  if (n !== void 0) return n;
+  let t = Fa();
+  if (t.maxSubagentSpawnDepthFromGrowthBook === void 0) {
+    let { getFeatureValue_CACHED_MAY_BE_STALE: r } = import.meta.require("/$bunfs/root/chunk-2sq45cbb.js"),
+      e = r(_, o);
+    t.maxSubagentSpawnDepthFromGrowthBook = typeof e === "number" && Number.isInteger(e) && e >= 1 ? e : o;
+  }
+  return t.maxSubagentSpawnDepthFromGrowthBook;
+}
+export { jS };

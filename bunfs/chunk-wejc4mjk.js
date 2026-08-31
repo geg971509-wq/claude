@@ -8,5 +8,44 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{I}from"/$bunfs/root/chunk-8tgj5dp2.js";import{Rr}from"/$bunfs/root/chunk-y9akj3mq.js";import{Ra}from"/$bunfs/root/chunk-1emzhzm3.js";var p=["microsoft365.mcp.claude.com","gmail.mcp.claude.com","gcal.mcp.claude.com"];function i(e){return e.toLowerCase().replace(/\.$/,"")}function u(){let e=I("tengu_mcp_local_oauth_blocked_hosts",{hosts:p}),t=p;if(e!==null&&typeof e==="object"&&"hosts"in e&&Array.isArray(e.hosts)){let o=e.hosts.filter((n)=>typeof n==="string");if(o.length>0)t=o}return new Set(t.map(i))}function c(e){if(!e)return!1;try{let t=i(new URL(e).hostname);return u().has(t)}catch{return!1}}function a(e,t={}){let o=`"${Rr(e)}" is Anthropic-hosted and doesn't support local OAuth. `+"Connect it via Settings \u2192 Connectors on claude.ai (requires "+"`claude login`), then it'll be available here automatically.",r=t.scope==="local"||t.scope==="project"||t.scope==="user"?Ra("mcp remove",e):null,s=r?`${o} Remove the stale entry with: \`${r}\``:o;return r&&[...s].length<=1024?s:o}function Rx(e,t){if(t.type==="claudeai-proxy")return{kind:"claudeai-proxy",config:t};if(t.type!=="sse"&&t.type!=="http")return{kind:"unsupported-transport",transport:t.type??"stdio"};if(c(t.url))return{kind:"anthropic-hosted",config:t,message:a(e,{scope:t.scope})};return{kind:"oauth",config:t}}
-export{Rx};
+import { I } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { Rr } from "/$bunfs/root/chunk-y9akj3mq.js";
+import { Ra } from "/$bunfs/root/chunk-1emzhzm3.js";
+var p = ["microsoft365.mcp.claude.com", "gmail.mcp.claude.com", "gcal.mcp.claude.com"];
+function i(e) {
+  return e.toLowerCase().replace(/\.$/, "");
+}
+function u() {
+  let e = I("tengu_mcp_local_oauth_blocked_hosts", { hosts: p }),
+    t = p;
+  if (e !== null && typeof e === "object" && "hosts" in e && Array.isArray(e.hosts)) {
+    let o = e.hosts.filter((n) => typeof n === "string");
+    if (o.length > 0) t = o;
+  }
+  return new Set(t.map(i));
+}
+function c(e) {
+  if (!e) return !1;
+  try {
+    let t = i(new URL(e).hostname);
+    return u().has(t);
+  } catch {
+    return !1;
+  }
+}
+function a(e, t = {}) {
+  let o =
+      `"${Rr(e)}" is Anthropic-hosted and doesn't support local OAuth. ` +
+      "Connect it via Settings \u2192 Connectors on claude.ai (requires " +
+      "`claude login`), then it'll be available here automatically.",
+    r = t.scope === "local" || t.scope === "project" || t.scope === "user" ? Ra("mcp remove", e) : null,
+    s = r ? `${o} Remove the stale entry with: \`${r}\`` : o;
+  return r && [...s].length <= 1024 ? s : o;
+}
+function Rx(e, t) {
+  if (t.type === "claudeai-proxy") return { kind: "claudeai-proxy", config: t };
+  if (t.type !== "sse" && t.type !== "http") return { kind: "unsupported-transport", transport: t.type ?? "stdio" };
+  if (c(t.url)) return { kind: "anthropic-hosted", config: t, message: a(e, { scope: t.scope }) };
+  return { kind: "oauth", config: t };
+}
+export { Rx };

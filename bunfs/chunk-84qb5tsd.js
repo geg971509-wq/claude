@@ -8,5 +8,10 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{I}from"/$bunfs/root/chunk-8tgj5dp2.js";import{ip}from"/$bunfs/root/chunk-pbmajbn7.js";function Xu(e){if(e)return!0;return ip()&&I("tengu_cedar_marsh",!1)}
-export{Xu};
+import { I } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { ip } from "/$bunfs/root/chunk-pbmajbn7.js";
+function Xu(e) {
+  if (e) return !0;
+  return ip() && I("tengu_cedar_marsh", !1);
+}
+export { Xu };

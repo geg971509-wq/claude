@@ -8,5 +8,209 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-var _3={NUL:0,SOH:1,STX:2,ETX:3,EOT:4,ENQ:5,ACK:6,BEL:7,BS:8,HT:9,LF:10,VT:11,FF:12,CR:13,SO:14,SI:15,DLE:16,DC1:17,DC2:18,DC3:19,DC4:20,NAK:21,SYN:22,ETB:23,CAN:24,EM:25,SUB:26,ESC:27,FS:28,GS:29,RS:30,US:31,DEL:127},UI="\x1B",YE="\x07",bde=";",BWt="\x1B(B\x0F",VM={CSI:91,OSC:93,DCS:80,APC:95,PM:94,SOS:88,ST:92};function E_n(t){return t>=48&&t<=126}var e=UI+String.fromCharCode(VM.CSI),o={PARAM_START:48,PARAM_END:63,INTERMEDIATE_START:32,INTERMEDIATE_END:47,FINAL_START:64,FINAL_END:126};function zQn(t){return t>=o.PARAM_START&&t<=o.PARAM_END}function Nyt(t){return t>=o.INTERMEDIATE_START&&t<=o.INTERMEDIATE_END}function VQn(t){return t>=o.FINAL_START&&t<=o.FINAL_END}function of(...t){if(t.length===0)return e;if(t.length===1)return`${e}${t[0]}`;let r=t.slice(0,-1),n=t.at(-1);return`${e}${r.join(bde)}${n}`}var lh={CUU:65,CUD:66,CUF:67,CUB:68,CNL:69,CPL:70,CHA:71,CUP:72,CHT:73,HPA:96,HPR:97,VPA:100,VPR:101,HVP:102,ED:74,EL:75,ECH:88,IL:76,DL:77,ICH:64,DCH:80,SU:83,SD:84,SM:104,RM:108,SGR:109,DSR:110,DECSCUSR:113,DECSTBM:114,SCOSC:115,SCORC:117,CBT:90},KQn=["toEnd","toStart","all","scrollback"],XQn=["toEnd","toStart","all"],A_n=[{style:"block",blinking:!0},{style:"block",blinking:!0},{style:"block",blinking:!1},{style:"underline",blinking:!0},{style:"underline",blinking:!1},{style:"bar",blinking:!0},{style:"bar",blinking:!1}];function x(t=1){return t===0?"":of(t,"A")}function C_n(t=1){return t===0?"":of(t,"B")}function s(t=1){return t===0?"":of(t,"C")}function E(t=1){return t===0?"":of(t,"D")}function Yne(t){return of(t,"G")}var v_n=of("G");function BI(t,r){return of(t,r,"H")}var dg=of("H");function f6(t,r){let n="";if(t<0)n+=E(-t);else if(t>0)n+=s(t);if(r<0)n+=x(-r);else if(r>0)n+=C_n(r);return n}function jWt(){return of("K")}var m6=of(2,"K"),sy=of(2,"J"),VLe=of(3,"J");function Fyt(t){if(t<=0)return"";let r="";for(let n=0;n<t;n++)if(r+=m6,n<t-1)r+=x(1);return r+=v_n,r}function YQn(t=1){return t===0?"":of(t,"S")}function JQn(t=1){return t===0?"":of(t,"T")}function y3(t,r){return of(t,r,"r")}var r$=of("r"),QQn=of("200~"),ZQn=of("201~"),aEe=of("I"),wde=of("O"),eZn=of(">5u"),tZn=of(">1u"),sY=of("<u"),nZn=of(">4;2m"),Jne=of(">4m");
-export{_3,UI,YE,bde,BWt,VM,E_n,zQn,Nyt,VQn,of,lh,KQn,XQn,A_n,C_n,Yne,v_n,BI,dg,f6,jWt,m6,sy,VLe,Fyt,YQn,JQn,y3,r$,QQn,ZQn,aEe,wde,eZn,tZn,sY,nZn,Jne};
+var _3 = {
+    NUL: 0,
+    SOH: 1,
+    STX: 2,
+    ETX: 3,
+    EOT: 4,
+    ENQ: 5,
+    ACK: 6,
+    BEL: 7,
+    BS: 8,
+    HT: 9,
+    LF: 10,
+    VT: 11,
+    FF: 12,
+    CR: 13,
+    SO: 14,
+    SI: 15,
+    DLE: 16,
+    DC1: 17,
+    DC2: 18,
+    DC3: 19,
+    DC4: 20,
+    NAK: 21,
+    SYN: 22,
+    ETB: 23,
+    CAN: 24,
+    EM: 25,
+    SUB: 26,
+    ESC: 27,
+    FS: 28,
+    GS: 29,
+    RS: 30,
+    US: 31,
+    DEL: 127,
+  },
+  UI = "\x1B",
+  YE = "\x07",
+  bde = ";",
+  BWt = "\x1B(B\x0F",
+  VM = { CSI: 91, OSC: 93, DCS: 80, APC: 95, PM: 94, SOS: 88, ST: 92 };
+function E_n(t) {
+  return t >= 48 && t <= 126;
+}
+var e = UI + String.fromCharCode(VM.CSI),
+  o = { PARAM_START: 48, PARAM_END: 63, INTERMEDIATE_START: 32, INTERMEDIATE_END: 47, FINAL_START: 64, FINAL_END: 126 };
+function zQn(t) {
+  return t >= o.PARAM_START && t <= o.PARAM_END;
+}
+function Nyt(t) {
+  return t >= o.INTERMEDIATE_START && t <= o.INTERMEDIATE_END;
+}
+function VQn(t) {
+  return t >= o.FINAL_START && t <= o.FINAL_END;
+}
+function of(...t) {
+  if (t.length === 0) return e;
+  if (t.length === 1) return `${e}${t[0]}`;
+  let r = t.slice(0, -1),
+    n = t.at(-1);
+  return `${e}${r.join(bde)}${n}`;
+}
+var lh = {
+    CUU: 65,
+    CUD: 66,
+    CUF: 67,
+    CUB: 68,
+    CNL: 69,
+    CPL: 70,
+    CHA: 71,
+    CUP: 72,
+    CHT: 73,
+    HPA: 96,
+    HPR: 97,
+    VPA: 100,
+    VPR: 101,
+    HVP: 102,
+    ED: 74,
+    EL: 75,
+    ECH: 88,
+    IL: 76,
+    DL: 77,
+    ICH: 64,
+    DCH: 80,
+    SU: 83,
+    SD: 84,
+    SM: 104,
+    RM: 108,
+    SGR: 109,
+    DSR: 110,
+    DECSCUSR: 113,
+    DECSTBM: 114,
+    SCOSC: 115,
+    SCORC: 117,
+    CBT: 90,
+  },
+  KQn = ["toEnd", "toStart", "all", "scrollback"],
+  XQn = ["toEnd", "toStart", "all"],
+  A_n = [
+    { style: "block", blinking: !0 },
+    { style: "block", blinking: !0 },
+    { style: "block", blinking: !1 },
+    { style: "underline", blinking: !0 },
+    { style: "underline", blinking: !1 },
+    { style: "bar", blinking: !0 },
+    { style: "bar", blinking: !1 },
+  ];
+function x(t = 1) {
+  return t === 0 ? "" : of(t, "A");
+}
+function C_n(t = 1) {
+  return t === 0 ? "" : of(t, "B");
+}
+function s(t = 1) {
+  return t === 0 ? "" : of(t, "C");
+}
+function E(t = 1) {
+  return t === 0 ? "" : of(t, "D");
+}
+function Yne(t) {
+  return of(t, "G");
+}
+var v_n = of("G");
+function BI(t, r) {
+  return of(t, r, "H");
+}
+var dg = of("H");
+function f6(t, r) {
+  let n = "";
+  if (t < 0) n += E(-t);
+  else if (t > 0) n += s(t);
+  if (r < 0) n += x(-r);
+  else if (r > 0) n += C_n(r);
+  return n;
+}
+function jWt() {
+  return of("K");
+}
+var m6 = of(2, "K"),
+  sy = of(2, "J"),
+  VLe = of(3, "J");
+function Fyt(t) {
+  if (t <= 0) return "";
+  let r = "";
+  for (let n = 0; n < t; n++) if (((r += m6), n < t - 1)) r += x(1);
+  return (r += v_n), r;
+}
+function YQn(t = 1) {
+  return t === 0 ? "" : of(t, "S");
+}
+function JQn(t = 1) {
+  return t === 0 ? "" : of(t, "T");
+}
+function y3(t, r) {
+  return of(t, r, "r");
+}
+var r$ = of("r"),
+  QQn = of("200~"),
+  ZQn = of("201~"),
+  aEe = of("I"),
+  wde = of("O"),
+  eZn = of(">5u"),
+  tZn = of(">1u"),
+  sY = of("<u"),
+  nZn = of(">4;2m"),
+  Jne = of(">4m");
+export {
+  _3,
+  UI,
+  YE,
+  bde,
+  BWt,
+  VM,
+  E_n,
+  zQn,
+  Nyt,
+  VQn,
+  of,
+  lh,
+  KQn,
+  XQn,
+  A_n,
+  C_n,
+  Yne,
+  v_n,
+  BI,
+  dg,
+  f6,
+  jWt,
+  m6,
+  sy,
+  VLe,
+  Fyt,
+  YQn,
+  JQn,
+  y3,
+  r$,
+  QQn,
+  ZQn,
+  aEe,
+  wde,
+  eZn,
+  tZn,
+  sY,
+  nZn,
+  Jne,
+};

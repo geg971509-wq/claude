@@ -8,5 +8,305 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{a}from"/$bunfs/root/chunk-fec4384a.js";import{YFe,Rj,OJ,sx,JFe,QFe,o5t,i5t}from"/$bunfs/root/chunk-f9h0bg01.js";import{l,E,X}from"/$bunfs/root/chunk-ypdw393e.js";import{le,n}from"/$bunfs/root/chunk-fv016jr6.js";import{Afe}from"/$bunfs/root/chunk-q14dgq5g.js";function FY(){return a.CLAUDE_CODE_REMOTE_SESSION_ORIGIN==="review"}import{mkdirSync as k,writeFileSync as I}from"fs";import{unlink as D}from"fs/promises";var T="/home/claude/.claude/remote",vNe=`${T}/.oauth_token`,nqt=`${T}/.api_key`,K6=`${T}/.session_ingress_token`,Yre=65536;function A(e,s,t,{skipInReviewOrigin:r=!1}={}){if(!a.CLAUDE_CODE_REMOTE)return;if(r&&FY()){n(`Skipping ${t} disk persistence in review-origin session`);return}try{k(T,{recursive:!0,mode:448}),I(e,s,{encoding:"utf8",mode:384}),n(`Persisted ${t} to ${e} for subprocess access`)}catch(o){n(`Failed to persist ${t} to disk (non-fatal): ${l(o)}`,{level:"error"})}}function g(e,s){return RNe(e,s).token}function RNe(e,s){try{let r=le().readFileSync(e,{encoding:"utf8"}).trim();if(!r)return{token:null,miss:"empty"};return n(`Read ${s} from well-known file ${e}`),{token:r}}catch(t){if(X(t))return{token:null,miss:"enoent"};return n(`Failed to read ${s} from ${e}: ${l(t)}`,{level:"debug"}),{token:null,miss:E(t)==="EACCES"?"eacces":"other"}}}async function h(e,s,t,r,{skipInReviewOrigin:o=!1}={}){if(!a.CLAUDE_CODE_REMOTE)return;if(o&&FY()){n(`Skipping ${t} disk persistence in review-origin session`);return}let i=await r.writeHandoffCredential(e,s);if(i.state==="written"){n(`Persisted ${t} to ${e} for subprocess access`);return}n(`Failed to persist ${t} to disk (non-fatal): ${i.code??"unknown error"}`,{level:"error"})}async function O(e,s,t){let r=await t.readHandoffCredential(e,{symlinkAtPath:"follow"});switch(r.state){case"present":{let o=r.contents.trim();if(!o)return null;return n(`Read ${s} from well-known file ${e}`),o}case"absent":return null;case"read-failed":return n(`Failed to read ${s} from ${e}: ${r.code??"unknown error"}`,{level:"debug"}),null}}function F({envVar:e,wellKnownPath:s,label:t,getCached:r,setCached:o,skipInReviewOrigin:i=!1}){let d=r();if(d!==void 0)return d;let f=process.env[e];if(!f){let u=g(s,t);return o(u),u}let p=parseInt(f,10);if(Number.isNaN(p))return n(`${e} must be a valid file descriptor number, got: ${f}`,{level:"error"}),o(null),null;try{let u=`/dev/fd/${p}`,c=Afe(u,{maxBytes:Yre}).trim();if(!c)return n(`File descriptor contained empty ${t}`,{level:"error"}),o(null),null;return n(`Successfully read ${t} from file descriptor ${p}`),o(c),A(s,c,t,{skipInReviewOrigin:i}),c}catch(u){n(`Failed to read ${t} from file descriptor ${p}: ${l(u)}`,{level:"error"});let c=g(s,t);return o(c),c}}async function C({envVar:e,wellKnownPath:s,readPath:t=s,label:r,fileLabel:o=r,getCached:i,setCached:d,credentials:f,skipInReviewOrigin:p=!1}){let u=i();if(u!==void 0)return u;let c=process.env[e];if(!c){let m=await O(t,o,f);return v(i,d,m)}let S=parseInt(c,10);if(Number.isNaN(S))return n(`${e} must be a valid file descriptor number, got: ${c}`,{level:"error"}),d(null),null;try{let m=`/dev/fd/${S}`,_=Afe(m,{maxBytes:Yre}).trim();if(!_)return n(`File descriptor contained empty ${r}`,{level:"error"}),d(null),null;return n(`Successfully read ${r} from file descriptor ${S}`),d(_),await h(s,_,o,f,{skipInReviewOrigin:p}),_}catch(m){n(`Failed to read ${r} from file descriptor ${S}: ${l(m)}`,{level:"error"});let _=await O(t,o,f);return v(i,d,_)}}function v(e,s,t){let r=e();if(r!==void 0)return r;return s(t),t}function y(){let e=process.env.CLAUDE_BG_AUTH_SNAPSHOT_PATH;if(!e)return;delete process.env.CLAUDE_BG_AUTH_SNAPSHOT_PATH;try{let t=le().readFileSync(e,{encoding:"utf8"});D(e).catch(()=>{});let r=JSON.parse(t);if(typeof r?.accessToken!=="string"||!r.accessToken){n("bg auth snapshot missing accessToken",{level:"warn"});return}if(sx(r.accessToken),JFe(!0),Array.isArray(r.scopes))QFe(r.scopes);if(r.subscriptionType)process.env.CLAUDE_CODE_SUBSCRIPTION_TYPE=r.subscriptionType;if(r.rateLimitTier)process.env.CLAUDE_CODE_RATE_LIMIT_TIER=r.rateLimitTier;n("Consumed bg auth snapshot from sockDir")}catch(s){if(!X(s))n(`Failed to consume bg auth snapshot: ${l(s)}`,{level:"warn"})}}async function ITn(e){let s=process.env.CLAUDE_BG_AUTH_SNAPSHOT_PATH;if(!s)return;let t=await e.readHandoffCredential(s,{symlinkAtPath:a.CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST?"follow":"refuse"});if(process.env.CLAUDE_BG_AUTH_SNAPSHOT_PATH!==s)return;switch(a.unset("CLAUDE_BG_AUTH_SNAPSHOT_PATH"),t.state){case"absent":return;case"read-failed":n(`Failed to consume bg auth snapshot: ${t.code??"unknown error"}`,{level:"warn"});return;case"present":break}e.discardSpentCredentialFile(s).catch(()=>{});try{let r=JSON.parse(t.contents);if(typeof r?.accessToken!=="string"||!r.accessToken){n("bg auth snapshot missing accessToken",{level:"warn"});return}if(sx(r.accessToken),JFe(!0),Array.isArray(r.scopes))QFe(r.scopes);if(r.subscriptionType)a.set("CLAUDE_CODE_SUBSCRIPTION_TYPE",String(r.subscriptionType));if(r.rateLimitTier)a.set("CLAUDE_CODE_RATE_LIMIT_TIER",String(r.rateLimitTier));n("Consumed bg auth snapshot from sockDir")}catch(r){n(`Failed to consume bg auth snapshot: ${l(r)}`,{level:"warn"})}}function F$(){return y(),F({envVar:"CLAUDE_CODE_OAUTH_TOKEN_FILE_DESCRIPTOR",wellKnownPath:vNe,label:"OAuth token",getCached:OJ,setCached:sx,skipInReviewOrigin:!0})}async function rqt(e){return await ITn(e),PTn(e)}async function PTn(e){return C({envVar:"CLAUDE_CODE_OAUTH_TOKEN_FILE_DESCRIPTOR",wellKnownPath:vNe,label:"OAuth token",getCached:OJ,setCached:sx,credentials:e,skipInReviewOrigin:!0})}function xwt(){return F({envVar:"CLAUDE_CODE_API_KEY_FILE_DESCRIPTOR",wellKnownPath:nqt,label:"API key",getCached:o5t,setCached:i5t})}async function Krr(e){return C({envVar:"CLAUDE_CODE_API_KEY_FILE_DESCRIPTOR",wellKnownPath:nqt,label:"API key",getCached:o5t,setCached:i5t,credentials:e})}function w(){let e=YFe();if(e!==void 0)return e;let s=process.env.CLAUDE_CODE_WEBSOCKET_AUTH_FILE_DESCRIPTOR;if(!s){let r=process.env.CLAUDE_SESSION_INGRESS_TOKEN_FILE??K6,o=g(r,"session ingress token");return Rj(o),o}let t=parseInt(s,10);if(Number.isNaN(t))return n(`CLAUDE_CODE_WEBSOCKET_AUTH_FILE_DESCRIPTOR must be a valid file descriptor number, got: ${s}`,{level:"error"}),Rj(null),null;try{let r=`/dev/fd/${t}`,o=Afe(r,{maxBytes:Yre}).trim();if(!o)return n("File descriptor contained empty token",{level:"error"}),Rj(null),null;return n(`Successfully read token from file descriptor ${t}`),Rj(o),A(K6,o,"session ingress token",{skipInReviewOrigin:!0}),o}catch(r){n(`Failed to read token from file descriptor ${t}: ${l(r)}`,{level:"error"});let o=process.env.CLAUDE_SESSION_INGRESS_TOKEN_FILE??K6,i=g(o,"session ingress token");return Rj(i),i}}async function Xrr(e){if(process.env.CLAUDE_CODE_SESSION_ACCESS_TOKEN)return;await C({envVar:"CLAUDE_CODE_WEBSOCKET_AUTH_FILE_DESCRIPTOR",wellKnownPath:K6,readPath:process.env.CLAUDE_SESSION_INGRESS_TOKEN_FILE??K6,label:"token",fileLabel:"session ingress token",getCached:YFe,setCached:Rj,credentials:e,skipInReviewOrigin:!0})}function rl(){let e=process.env.CLAUDE_CODE_SESSION_ACCESS_TOKEN;if(e)return e;return w()}function Jre(){let e=rl();if(!e)return{};if(e.startsWith("sk-ant-sid")){let s={Cookie:`sessionKey=${e}`},t=process.env.CLAUDE_CODE_ORGANIZATION_UUID;if(t)s["X-Organization-Uuid"]=t;return s}return DTn(e)}function DTn(e){return e?{Authorization:`Bearer ${e}`}:{}}function Iwt(e){process.env.CLAUDE_CODE_SESSION_ACCESS_TOKEN=e}
-export{FY,vNe,nqt,K6,Yre,RNe,ITn,F$,rqt,PTn,xwt,Krr,Xrr,rl,Jre,DTn,Iwt};
+import { a } from "/$bunfs/root/chunk-fec4384a.js";
+import { YFe, Rj, OJ, sx, JFe, QFe, o5t, i5t } from "/$bunfs/root/chunk-f9h0bg01.js";
+import { l, E, X } from "/$bunfs/root/chunk-ypdw393e.js";
+import { le, n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { Afe } from "/$bunfs/root/chunk-q14dgq5g.js";
+function FY() {
+  return a.CLAUDE_CODE_REMOTE_SESSION_ORIGIN === "review";
+}
+import { mkdirSync as k, writeFileSync as I } from "fs";
+import { unlink as D } from "fs/promises";
+var T = "/home/claude/.claude/remote",
+  vNe = `${T}/.oauth_token`,
+  nqt = `${T}/.api_key`,
+  K6 = `${T}/.session_ingress_token`,
+  Yre = 65536;
+function A(e, s, t, { skipInReviewOrigin: r = !1 } = {}) {
+  if (!a.CLAUDE_CODE_REMOTE) return;
+  if (r && FY()) {
+    n(`Skipping ${t} disk persistence in review-origin session`);
+    return;
+  }
+  try {
+    k(T, { recursive: !0, mode: 448 }),
+      I(e, s, { encoding: "utf8", mode: 384 }),
+      n(`Persisted ${t} to ${e} for subprocess access`);
+  } catch (o) {
+    n(`Failed to persist ${t} to disk (non-fatal): ${l(o)}`, { level: "error" });
+  }
+}
+function g(e, s) {
+  return RNe(e, s).token;
+}
+function RNe(e, s) {
+  try {
+    let r = le().readFileSync(e, { encoding: "utf8" }).trim();
+    if (!r) return { token: null, miss: "empty" };
+    return n(`Read ${s} from well-known file ${e}`), { token: r };
+  } catch (t) {
+    if (X(t)) return { token: null, miss: "enoent" };
+    return (
+      n(`Failed to read ${s} from ${e}: ${l(t)}`, { level: "debug" }),
+      { token: null, miss: E(t) === "EACCES" ? "eacces" : "other" }
+    );
+  }
+}
+async function h(e, s, t, r, { skipInReviewOrigin: o = !1 } = {}) {
+  if (!a.CLAUDE_CODE_REMOTE) return;
+  if (o && FY()) {
+    n(`Skipping ${t} disk persistence in review-origin session`);
+    return;
+  }
+  let i = await r.writeHandoffCredential(e, s);
+  if (i.state === "written") {
+    n(`Persisted ${t} to ${e} for subprocess access`);
+    return;
+  }
+  n(`Failed to persist ${t} to disk (non-fatal): ${i.code ?? "unknown error"}`, { level: "error" });
+}
+async function O(e, s, t) {
+  let r = await t.readHandoffCredential(e, { symlinkAtPath: "follow" });
+  switch (r.state) {
+    case "present": {
+      let o = r.contents.trim();
+      if (!o) return null;
+      return n(`Read ${s} from well-known file ${e}`), o;
+    }
+    case "absent":
+      return null;
+    case "read-failed":
+      return n(`Failed to read ${s} from ${e}: ${r.code ?? "unknown error"}`, { level: "debug" }), null;
+  }
+}
+function F({ envVar: e, wellKnownPath: s, label: t, getCached: r, setCached: o, skipInReviewOrigin: i = !1 }) {
+  let d = r();
+  if (d !== void 0) return d;
+  let f = process.env[e];
+  if (!f) {
+    let u = g(s, t);
+    return o(u), u;
+  }
+  let p = parseInt(f, 10);
+  if (Number.isNaN(p))
+    return n(`${e} must be a valid file descriptor number, got: ${f}`, { level: "error" }), o(null), null;
+  try {
+    let u = `/dev/fd/${p}`,
+      c = Afe(u, { maxBytes: Yre }).trim();
+    if (!c) return n(`File descriptor contained empty ${t}`, { level: "error" }), o(null), null;
+    return n(`Successfully read ${t} from file descriptor ${p}`), o(c), A(s, c, t, { skipInReviewOrigin: i }), c;
+  } catch (u) {
+    n(`Failed to read ${t} from file descriptor ${p}: ${l(u)}`, { level: "error" });
+    let c = g(s, t);
+    return o(c), c;
+  }
+}
+async function C({
+  envVar: e,
+  wellKnownPath: s,
+  readPath: t = s,
+  label: r,
+  fileLabel: o = r,
+  getCached: i,
+  setCached: d,
+  credentials: f,
+  skipInReviewOrigin: p = !1,
+}) {
+  let u = i();
+  if (u !== void 0) return u;
+  let c = process.env[e];
+  if (!c) {
+    let m = await O(t, o, f);
+    return v(i, d, m);
+  }
+  let S = parseInt(c, 10);
+  if (Number.isNaN(S))
+    return n(`${e} must be a valid file descriptor number, got: ${c}`, { level: "error" }), d(null), null;
+  try {
+    let m = `/dev/fd/${S}`,
+      _ = Afe(m, { maxBytes: Yre }).trim();
+    if (!_) return n(`File descriptor contained empty ${r}`, { level: "error" }), d(null), null;
+    return (
+      n(`Successfully read ${r} from file descriptor ${S}`), d(_), await h(s, _, o, f, { skipInReviewOrigin: p }), _
+    );
+  } catch (m) {
+    n(`Failed to read ${r} from file descriptor ${S}: ${l(m)}`, { level: "error" });
+    let _ = await O(t, o, f);
+    return v(i, d, _);
+  }
+}
+function v(e, s, t) {
+  let r = e();
+  if (r !== void 0) return r;
+  return s(t), t;
+}
+function y() {
+  let e = process.env.CLAUDE_BG_AUTH_SNAPSHOT_PATH;
+  if (!e) return;
+  delete process.env.CLAUDE_BG_AUTH_SNAPSHOT_PATH;
+  try {
+    let t = le().readFileSync(e, { encoding: "utf8" });
+    D(e).catch(() => {});
+    let r = JSON.parse(t);
+    if (typeof r?.accessToken !== "string" || !r.accessToken) {
+      n("bg auth snapshot missing accessToken", { level: "warn" });
+      return;
+    }
+    if ((sx(r.accessToken), JFe(!0), Array.isArray(r.scopes))) QFe(r.scopes);
+    if (r.subscriptionType) process.env.CLAUDE_CODE_SUBSCRIPTION_TYPE = r.subscriptionType;
+    if (r.rateLimitTier) process.env.CLAUDE_CODE_RATE_LIMIT_TIER = r.rateLimitTier;
+    n("Consumed bg auth snapshot from sockDir");
+  } catch (s) {
+    if (!X(s)) n(`Failed to consume bg auth snapshot: ${l(s)}`, { level: "warn" });
+  }
+}
+async function ITn(e) {
+  let s = process.env.CLAUDE_BG_AUTH_SNAPSHOT_PATH;
+  if (!s) return;
+  let t = await e.readHandoffCredential(s, {
+    symlinkAtPath: a.CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST ? "follow" : "refuse",
+  });
+  if (process.env.CLAUDE_BG_AUTH_SNAPSHOT_PATH !== s) return;
+  switch ((a.unset("CLAUDE_BG_AUTH_SNAPSHOT_PATH"), t.state)) {
+    case "absent":
+      return;
+    case "read-failed":
+      n(`Failed to consume bg auth snapshot: ${t.code ?? "unknown error"}`, { level: "warn" });
+      return;
+    case "present":
+      break;
+  }
+  e.discardSpentCredentialFile(s).catch(() => {});
+  try {
+    let r = JSON.parse(t.contents);
+    if (typeof r?.accessToken !== "string" || !r.accessToken) {
+      n("bg auth snapshot missing accessToken", { level: "warn" });
+      return;
+    }
+    if ((sx(r.accessToken), JFe(!0), Array.isArray(r.scopes))) QFe(r.scopes);
+    if (r.subscriptionType) a.set("CLAUDE_CODE_SUBSCRIPTION_TYPE", String(r.subscriptionType));
+    if (r.rateLimitTier) a.set("CLAUDE_CODE_RATE_LIMIT_TIER", String(r.rateLimitTier));
+    n("Consumed bg auth snapshot from sockDir");
+  } catch (r) {
+    n(`Failed to consume bg auth snapshot: ${l(r)}`, { level: "warn" });
+  }
+}
+function F$() {
+  return (
+    y(),
+    F({
+      envVar: "CLAUDE_CODE_OAUTH_TOKEN_FILE_DESCRIPTOR",
+      wellKnownPath: vNe,
+      label: "OAuth token",
+      getCached: OJ,
+      setCached: sx,
+      skipInReviewOrigin: !0,
+    })
+  );
+}
+async function rqt(e) {
+  return await ITn(e), PTn(e);
+}
+async function PTn(e) {
+  return C({
+    envVar: "CLAUDE_CODE_OAUTH_TOKEN_FILE_DESCRIPTOR",
+    wellKnownPath: vNe,
+    label: "OAuth token",
+    getCached: OJ,
+    setCached: sx,
+    credentials: e,
+    skipInReviewOrigin: !0,
+  });
+}
+function xwt() {
+  return F({
+    envVar: "CLAUDE_CODE_API_KEY_FILE_DESCRIPTOR",
+    wellKnownPath: nqt,
+    label: "API key",
+    getCached: o5t,
+    setCached: i5t,
+  });
+}
+async function Krr(e) {
+  return C({
+    envVar: "CLAUDE_CODE_API_KEY_FILE_DESCRIPTOR",
+    wellKnownPath: nqt,
+    label: "API key",
+    getCached: o5t,
+    setCached: i5t,
+    credentials: e,
+  });
+}
+function w() {
+  let e = YFe();
+  if (e !== void 0) return e;
+  let s = process.env.CLAUDE_CODE_WEBSOCKET_AUTH_FILE_DESCRIPTOR;
+  if (!s) {
+    let r = process.env.CLAUDE_SESSION_INGRESS_TOKEN_FILE ?? K6,
+      o = g(r, "session ingress token");
+    return Rj(o), o;
+  }
+  let t = parseInt(s, 10);
+  if (Number.isNaN(t))
+    return (
+      n(`CLAUDE_CODE_WEBSOCKET_AUTH_FILE_DESCRIPTOR must be a valid file descriptor number, got: ${s}`, {
+        level: "error",
+      }),
+      Rj(null),
+      null
+    );
+  try {
+    let r = `/dev/fd/${t}`,
+      o = Afe(r, { maxBytes: Yre }).trim();
+    if (!o) return n("File descriptor contained empty token", { level: "error" }), Rj(null), null;
+    return (
+      n(`Successfully read token from file descriptor ${t}`),
+      Rj(o),
+      A(K6, o, "session ingress token", { skipInReviewOrigin: !0 }),
+      o
+    );
+  } catch (r) {
+    n(`Failed to read token from file descriptor ${t}: ${l(r)}`, { level: "error" });
+    let o = process.env.CLAUDE_SESSION_INGRESS_TOKEN_FILE ?? K6,
+      i = g(o, "session ingress token");
+    return Rj(i), i;
+  }
+}
+async function Xrr(e) {
+  if (process.env.CLAUDE_CODE_SESSION_ACCESS_TOKEN) return;
+  await C({
+    envVar: "CLAUDE_CODE_WEBSOCKET_AUTH_FILE_DESCRIPTOR",
+    wellKnownPath: K6,
+    readPath: process.env.CLAUDE_SESSION_INGRESS_TOKEN_FILE ?? K6,
+    label: "token",
+    fileLabel: "session ingress token",
+    getCached: YFe,
+    setCached: Rj,
+    credentials: e,
+    skipInReviewOrigin: !0,
+  });
+}
+function rl() {
+  let e = process.env.CLAUDE_CODE_SESSION_ACCESS_TOKEN;
+  if (e) return e;
+  return w();
+}
+function Jre() {
+  let e = rl();
+  if (!e) return {};
+  if (e.startsWith("sk-ant-sid")) {
+    let s = { Cookie: `sessionKey=${e}` },
+      t = process.env.CLAUDE_CODE_ORGANIZATION_UUID;
+    if (t) s["X-Organization-Uuid"] = t;
+    return s;
+  }
+  return DTn(e);
+}
+function DTn(e) {
+  return e ? { Authorization: `Bearer ${e}` } : {};
+}
+function Iwt(e) {
+  process.env.CLAUDE_CODE_SESSION_ACCESS_TOKEN = e;
+}
+export { FY, vNe, nqt, K6, Yre, RNe, ITn, F$, rqt, PTn, xwt, Krr, Xrr, rl, Jre, DTn, Iwt };

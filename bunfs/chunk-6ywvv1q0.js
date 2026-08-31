@@ -8,5 +8,59 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Dr,xj}from"/$bunfs/root/chunk-gcks6mn0.js";function fdn(n,e){return e&&!n.restricted?{...n,restricted:!0}:n}function Lce(n){return Dr()||xj()||[n.permissionMode,n.model,n.fallbackModel,n.effort,n.agent,n.agents,n.settings,n.appendSystemPrompt,n.appendSystemPromptFile,n.systemPrompt,n.systemPromptFile,n.replyOnResume,n.permissionPromptTool,n.settingSources,n.managedSettings].some((e)=>e!==void 0)||Boolean(n.disableSlashCommands)||n.sessionPersistence===!1||Boolean(n.dangerouslySkipPermissions)||Boolean(n.allowDangerouslySkipPermissions)||Boolean(n.allowBypass)||Boolean(n.restricted)||Boolean(n.ide)||Boolean(n.strictMcpConfig)||(n.allowedTools??[]).length>0||(n.disallowedTools??[]).length>0||(n.tools??[]).length>0||(n.mcpConfig??[]).length>0||(n.addDir??[]).length>0||(n.pluginDir??[]).length>0||(n.pluginDirNoMcp??[]).length>0}function mdn(n){return[n.systemPrompt,n.systemPromptFile,n.appendSystemPromptFile,n.permissionPromptTool,n.settingSources,n.managedSettings].some((e)=>e!==void 0)||(n.tools??[]).some((e)=>e!=="default")}var OGe="a custom system prompt, a tool allowlist, or restricted settings";
-export{fdn,Lce,mdn,OGe};
+import { Dr, xj } from "/$bunfs/root/chunk-gcks6mn0.js";
+function fdn(n, e) {
+  return e && !n.restricted ? { ...n, restricted: !0 } : n;
+}
+function Lce(n) {
+  return (
+    Dr() ||
+    xj() ||
+    [
+      n.permissionMode,
+      n.model,
+      n.fallbackModel,
+      n.effort,
+      n.agent,
+      n.agents,
+      n.settings,
+      n.appendSystemPrompt,
+      n.appendSystemPromptFile,
+      n.systemPrompt,
+      n.systemPromptFile,
+      n.replyOnResume,
+      n.permissionPromptTool,
+      n.settingSources,
+      n.managedSettings,
+    ].some((e) => e !== void 0) ||
+    Boolean(n.disableSlashCommands) ||
+    n.sessionPersistence === !1 ||
+    Boolean(n.dangerouslySkipPermissions) ||
+    Boolean(n.allowDangerouslySkipPermissions) ||
+    Boolean(n.allowBypass) ||
+    Boolean(n.restricted) ||
+    Boolean(n.ide) ||
+    Boolean(n.strictMcpConfig) ||
+    (n.allowedTools ?? []).length > 0 ||
+    (n.disallowedTools ?? []).length > 0 ||
+    (n.tools ?? []).length > 0 ||
+    (n.mcpConfig ?? []).length > 0 ||
+    (n.addDir ?? []).length > 0 ||
+    (n.pluginDir ?? []).length > 0 ||
+    (n.pluginDirNoMcp ?? []).length > 0
+  );
+}
+function mdn(n) {
+  return (
+    [
+      n.systemPrompt,
+      n.systemPromptFile,
+      n.appendSystemPromptFile,
+      n.permissionPromptTool,
+      n.settingSources,
+      n.managedSettings,
+    ].some((e) => e !== void 0) || (n.tools ?? []).some((e) => e !== "default")
+  );
+}
+var OGe = "a custom system prompt, a tool allowlist, or restricted settings";
+export { fdn, Lce, mdn, OGe };

@@ -8,5 +8,28 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{J,G}from"/$bunfs/root/chunk-f9h0bg01.js";var s=Object.freeze({});class t{#o;register(o){this.#o??=o}get runtime(){return this.#o??s}get registered(){return this.#o!==void 0}}var r=new J(()=>new t);function e(){return r.of(G().host)}function RVn(o){e().register(o)}function AGe(){return e().runtime}
-export{RVn,AGe};
+import { J, G } from "/$bunfs/root/chunk-f9h0bg01.js";
+var s = Object.freeze({});
+class t {
+  #o;
+  register(o) {
+    this.#o ??= o;
+  }
+  get runtime() {
+    return this.#o ?? s;
+  }
+  get registered() {
+    return this.#o !== void 0;
+  }
+}
+var r = new J(() => new t());
+function e() {
+  return r.of(G().host);
+}
+function RVn(o) {
+  e().register(o);
+}
+function AGe() {
+  return e().runtime;
+}
+export { RVn, AGe };

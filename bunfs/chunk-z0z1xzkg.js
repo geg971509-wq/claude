@@ -8,5 +8,7 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{constants as O}from"fs";var uFe=O.O_NONBLOCK,Bp=O.O_NOFOLLOW|uFe;
-export{uFe,Bp};
+import { constants as O } from "fs";
+var uFe = O.O_NONBLOCK,
+  Bp = O.O_NOFOLLOW | uFe;
+export { uFe, Bp };

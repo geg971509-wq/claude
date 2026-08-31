@@ -8,5 +8,8 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-function HDn(o){return{name:o.name,working_dir:o.description?.working_dir??""}}var Z4={held:!1,reason:"not_held"};
-export{HDn,Z4};
+function HDn(o) {
+  return { name: o.name, working_dir: o.description?.working_dir ?? "" };
+}
+var Z4 = { held: !1, reason: "not_held" };
+export { HDn, Z4 };

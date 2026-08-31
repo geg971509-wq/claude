@@ -8,5 +8,117 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{m}from"/$bunfs/root/chunk-bzx56g36.js";import{$D,tn,lht}from"/$bunfs/root/chunk-y8sx7bf9.js";import{RDt,Eae,yWe,kDt}from"/$bunfs/root/chunk-802k7j4j.js";import{i,v,H,f,dt,ps,oe,N}from"/$bunfs/root/chunk-saay52v7.js";import{Nn}from"/$bunfs/root/chunk-c48t1p6v.js";import{createHash as o}from"crypto";var s=1,l=2,d=3,r=200000+RDt;function z2n(e){return e.length===64?"sha256":"sha1"}var u=["index","seed","pushed","pulled","conflict_copy","rebuilt"],p=2000,b=8;function frn(e){let{sent:t,...n}=e;return n}var g=m(()=>ps("kind",[f({kind:N("sha256"),sha256:i().regex(yWe)}),f({kind:N("git_blob"),blobId:i().regex(lht)}),f({kind:N("unknown")})])),a=m(()=>i().refine($D)),c=m(()=>f({agreed:g(),stat:f({size:v().int().nonnegative(),mtimeMs:v(),mode:v().int().nonnegative(),observedAtMs:v()}).nullable(),etag:i().min(1).max(Eae).nullable(),origin:oe(u),sent:H(i().regex(yWe)).max(b).optional(),gen:v().int().nonnegative().optional(),peerGen:v().int().nonnegative().optional(),trashedAt:v().int().nonnegative().optional()})),h=m(()=>f({published:H(f({path:a(),agreed:kDt(),generation:v().int().nonnegative(),unheard:N(!0).optional(),peerSeen:v().int().nonnegative().optional()})).max(r),withheld:H(a()).max(r),pending:H(f({path:a(),agreed:kDt(),unjudged:v().int().nonnegative().optional()})).max(r),judged:H(f({path:a(),generation:v().int().nonnegative()})).max(r)})),z=m(()=>f({version:dt([N(s),N(l),N(d)]),sessionId:i().min(1),armedAtMs:v().int().nonnegative(),pinnedTreeish:i().regex(tn).nullable(),publishedGeneration:v().int().nonnegative(),publishedEtag:i().min(1).max(Eae).nullable(),peerGenerationSeen:v().int().nonnegative(),excludedPaths:H(a()).max(r),uploadOnly:N(!0).optional(),withheldPaths:H(a()).max(r).optional(),detachedPaths:H(a()).max(r).optional(),tracksDependencyDirs:N(!0).optional().catch(void 0),lostWithDisk:H(a()).max(r).optional(),tombstones:h().optional(),entries:H(c().extend({path:a()})).max(r).refine((e)=>new Set(e.map((t)=>t.path)).size===e.length)}));function V2n(e,t){let n=z().safeParse(e);return n.success&&n.data.sessionId===t?n.data:null}var S=["seed_pending","seed_incomplete"],y=m(()=>f({note:oe(S),sessionId:i().min(1)}));function K2n(e,t){let n=y().safeParse(e);return n.success&&n.data.sessionId===t?n.data.note:null}function kA(e,t="sha1"){return o(t).update(`blob ${e.length}\x00`).update(e).digest("hex")}function s_e(e){return{sha256:Nn(e),gitBlobId:kA(e)}}function IHe(e,t){switch(e.kind){case"sha256":return e.sha256===t.sha256;case"git_blob":return e.blobId===t.gitBlobId;case"unknown":return!1}}function mrn(e){return e.mtimeMs<=e.observedAtMs-p}
-export{z2n,frn,V2n,K2n,kA,s_e,IHe,mrn};
+import { m } from "/$bunfs/root/chunk-bzx56g36.js";
+import { $D, tn, lht } from "/$bunfs/root/chunk-y8sx7bf9.js";
+import { RDt, Eae, yWe, kDt } from "/$bunfs/root/chunk-802k7j4j.js";
+import { i, v, H, f, dt, ps, oe, N } from "/$bunfs/root/chunk-saay52v7.js";
+import { Nn } from "/$bunfs/root/chunk-c48t1p6v.js";
+import { createHash as o } from "crypto";
+var s = 1,
+  l = 2,
+  d = 3,
+  r = 200000 + RDt;
+function z2n(e) {
+  return e.length === 64 ? "sha256" : "sha1";
+}
+var u = ["index", "seed", "pushed", "pulled", "conflict_copy", "rebuilt"],
+  p = 2000,
+  b = 8;
+function frn(e) {
+  let { sent: t, ...n } = e;
+  return n;
+}
+var g = m(() =>
+    ps("kind", [
+      f({ kind: N("sha256"), sha256: i().regex(yWe) }),
+      f({ kind: N("git_blob"), blobId: i().regex(lht) }),
+      f({ kind: N("unknown") }),
+    ]),
+  ),
+  a = m(() => i().refine($D)),
+  c = m(() =>
+    f({
+      agreed: g(),
+      stat: f({
+        size: v().int().nonnegative(),
+        mtimeMs: v(),
+        mode: v().int().nonnegative(),
+        observedAtMs: v(),
+      }).nullable(),
+      etag: i().min(1).max(Eae).nullable(),
+      origin: oe(u),
+      sent: H(i().regex(yWe)).max(b).optional(),
+      gen: v().int().nonnegative().optional(),
+      peerGen: v().int().nonnegative().optional(),
+      trashedAt: v().int().nonnegative().optional(),
+    }),
+  ),
+  h = m(() =>
+    f({
+      published: H(
+        f({
+          path: a(),
+          agreed: kDt(),
+          generation: v().int().nonnegative(),
+          unheard: N(!0).optional(),
+          peerSeen: v().int().nonnegative().optional(),
+        }),
+      ).max(r),
+      withheld: H(a()).max(r),
+      pending: H(f({ path: a(), agreed: kDt(), unjudged: v().int().nonnegative().optional() })).max(r),
+      judged: H(f({ path: a(), generation: v().int().nonnegative() })).max(r),
+    }),
+  ),
+  z = m(() =>
+    f({
+      version: dt([N(s), N(l), N(d)]),
+      sessionId: i().min(1),
+      armedAtMs: v().int().nonnegative(),
+      pinnedTreeish: i().regex(tn).nullable(),
+      publishedGeneration: v().int().nonnegative(),
+      publishedEtag: i().min(1).max(Eae).nullable(),
+      peerGenerationSeen: v().int().nonnegative(),
+      excludedPaths: H(a()).max(r),
+      uploadOnly: N(!0).optional(),
+      withheldPaths: H(a()).max(r).optional(),
+      detachedPaths: H(a()).max(r).optional(),
+      tracksDependencyDirs: N(!0)
+        .optional()
+        .catch(void 0),
+      lostWithDisk: H(a()).max(r).optional(),
+      tombstones: h().optional(),
+      entries: H(c().extend({ path: a() }))
+        .max(r)
+        .refine((e) => new Set(e.map((t) => t.path)).size === e.length),
+    }),
+  );
+function V2n(e, t) {
+  let n = z().safeParse(e);
+  return n.success && n.data.sessionId === t ? n.data : null;
+}
+var S = ["seed_pending", "seed_incomplete"],
+  y = m(() => f({ note: oe(S), sessionId: i().min(1) }));
+function K2n(e, t) {
+  let n = y().safeParse(e);
+  return n.success && n.data.sessionId === t ? n.data.note : null;
+}
+function kA(e, t = "sha1") {
+  return o(t).update(`blob ${e.length}\x00`).update(e).digest("hex");
+}
+function s_e(e) {
+  return { sha256: Nn(e), gitBlobId: kA(e) };
+}
+function IHe(e, t) {
+  switch (e.kind) {
+    case "sha256":
+      return e.sha256 === t.sha256;
+    case "git_blob":
+      return e.blobId === t.gitBlobId;
+    case "unknown":
+      return !1;
+  }
+}
+function mrn(e) {
+  return e.mtimeMs <= e.observedAtMs - p;
+}
+export { z2n, frn, V2n, K2n, kA, s_e, IHe, mrn };

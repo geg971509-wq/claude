@@ -8,5 +8,438 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Ut}from"/$bunfs/root/chunk-ntyhd04p.js";import{b}from"/$bunfs/root/chunk-fv016jr6.js";import{rs,ku,Ry}from"/$bunfs/root/chunk-4ddxwr9r.js";import{m}from"/$bunfs/root/chunk-bzx56g36.js";import{LVe,amn,lmn,$D,DF,Lm,oht,Kwe,aht,M2,LE,ymn,OX,tn,_ne,UD,lht,ey,ME,jVe,wmn,sC,V9,LX,Tmn,Rue,j7n,BD,Emn}from"/$bunfs/root/chunk-y8sx7bf9.js";import{Jl}from"/$bunfs/root/chunk-8tgj5dp2.js";import{i,v,q,_e,H,f,dt,ps,oe,N}from"/$bunfs/root/chunk-saay52v7.js";import{te}from"/$bunfs/root/chunk-wag5ye9w.js";var h=1,g8=2,RDt=amn-lmn,Eae=256,yWe=/^[0-9a-f]{64}$/,y=512,A=256,E=64,L=2097152,a_e=32,w=128,C=["over_budget","too_large","lane_path","unreadable","case_collision"],P=["recreated","ended","cleared","start_failed"],T=300,SWe=["withdrawn","switched_off","seed_incomplete","arm_failed","engine_declined","engine_unavailable","store_unwritable","lane_full","unauthorized","lane_unavailable","repeated_errors","refused","too_large","start_failed","offline","ended_earlier","layout_unserved"],J=/[\p{Cc}\p{Cf}\p{Zl}\p{Zp}]/gu;function c(e){return Ry(e).replace(J,"\uFFFD")}function grn(e){return c(rs(e,T))}var D=m(()=>f({path:i().refine((e)=>DF(e)===null),sha256:i().regex(yWe),size:v().int().nonnegative(),mode:v().int().nonnegative().transform(Gw),etag:i().min(1).max(Eae),gen:v().int().nonnegative().optional()})),kDt=m(()=>ps("kind",[f({kind:N("sha256"),sha256:i().regex(yWe)}),f({kind:N("git_blob"),blobId:i().regex(lht)})])),M=m(()=>f({path:i().refine((e)=>DF(e)===null),agreed:kDt(),generation:v().int().nonnegative(),peerSeen:v().int().nonnegative().optional()})),u=m(()=>i().regex(tn).refine(_ne)),O=m(()=>H(u()).max(ey).refine((e)=>new Set(e).size===e.length)),x=m(()=>i().max(Rue).refine(Emn).transform((e)=>BD(e)?e:null).nullable()),U=/^[A-Za-z0-9_-]+$/,B=104857600,z={row:Lm,file:B,direct:LVe},Est=m(()=>f({via:i().min(1).max(32),fileId:i().max(j7n).regex(U).optional(),sha256:i().regex(yWe),size:v().int().positive(),tipRef:i().refine(UD),prerequisites:O()}).refine((e)=>e.via==="file"===(e.fileId!==void 0)).refine((e)=>e.size<=(Object.hasOwn(z,e.via)?z[e.via]:LVe)).transform(({via:e,fileId:n,...t})=>e==="file"&&n!==void 0?{via:e,fileId:n,...t}:{via:e==="direct"?"direct":e==="row"?"row":"unknown",...t})),Ast=m(()=>Est().refine((e)=>e.via!=="unknown")),g=128,X=/[\p{Cc}\\]|^[A-Za-z]:/u;function l_e(e){return e.length<=2*wmn&&$D(e)&&!X.test(e)&&!e.split("/").some(F)&&ku(e)&&Array.from(e).length<=wmn}function F(e){let n=Jl(e);return n===".git"||/^git~\d+$/.test(n)}var W=m(()=>H(i().refine(l_e)).max(sC)),G=m(()=>i().refine((e)=>Array.from(e).length<=jVe).transform(c)),R=()=>({engine:N("git"),generation:v().int().positive(),head:u(),branch:x(),indexCommit:u(),worktreeCommit:u(),bundle:Est().nullable(),holds:O()}),k=m(()=>f({...R(),downApplied:H(f({turn:v().int().positive(),notInstalled:Y(),truncated:q()})).max(V9).refine((e)=>e.reduce((n,t)=>n+t.notInstalled.length,0)<=g),withheldCounts:_rn(),fastForwardedTo:H(u()).max(LX).refine((e)=>new Set(e).size===e.length).default(()=>[]),origin:i().max(32).optional().transform((e)=>e==="folder"?"folder":void 0).catch(void 0),acceptsHeldParents:N(!0).optional().catch(void 0),seedless:_e().optional().transform((e)=>e===!0?!0:void 0).catch(void 0)})),hrn=m(()=>i().max(64).transform((e)=>Tmn.includes(e)?e:"other")),Y=m(()=>H(f({path:i().refine(l_e),reason:hrn()})).max(sC)),I=m(()=>f({...R(),bundle:Est().refine((e)=>e.via!=="file").nullable(),basedOn:u().nullable(),appliedGeneration:v().int().nonnegative(),notTaken:W(),notTakenTruncated:q(),need:u().nullable(),report:H(G()).max(ME),agentHead:u(),agentHeadContainsBasis:q().nullable(),recreatedAfterTurn:v().int().nonnegative().optional(),installsBankedThrough:v().int().nonnegative().optional()}).refine((e)=>e.basedOn!==null||e.appliedGeneration===0).refine((e)=>e.basedOn!==null||e.agentHeadContainsBasis===null)),V=m(()=>f({version:dt([N(h),N(g8)]),side:oe(["laptop","worker"]),generation:v().int().nonnegative(),turnIndex:v().int().nonnegative(),userEventUuids:H(i().min(1).max(w)).max(a_e),writtenAtMs:v().int().nonnegative(),entries:H(D()).max(RDt).refine((e)=>new Set(e.map((n)=>n.path)).size===e.length),skipped:H(f({path:i().min(1).refine((e)=>Array.from(e).length<=y).transform(c),reason:oe(C)})).max(A),skippedOmittedCount:v().int().nonnegative(),skippedDeferredCount:v().int().nonnegative().optional(),countsDependencyDirs:N(!0).optional().catch(void 0),deletedWithheldCount:v().int().nonnegative().optional(),deleted:H(M()).max(E).refine((e)=>new Set(e.map((n)=>n.path)).size===e.length).default([]),halted:oe(P).optional().catch(void 0),haltLine:i().min(1).transform((e)=>grn(e)).optional().catch(void 0),haltReason:oe(SWe).optional().catch(void 0),uploading:f({generation:v().int().positive(),startedAtMs:v().int().nonnegative(),abandoned:N(!0).optional().catch(void 0),writer:i().min(1).max(64).optional().catch(void 0),heartbeatAtMs:v().int().nonnegative().optional().catch(void 0),reason:i().max(200).transform((e)=>c(e)).optional().catch(void 0)}).optional().catch(void 0),note:_e().optional()})),K=m(()=>f({version:v().int()}));function Z(e){let n=K().safeParse(e);return n.success?n.data.version:null}var _rn=m(()=>f({credentialNamed:v().int().nonnegative(),filterAttributed:v().int().nonnegative(),hardLinked:v().int().nonnegative(),tooLarge:v().int().nonnegative().optional()}));function HDt(e){let n=M2(),t=n?e.path.split("/").map(ymn).join("/"):e.path;return!aht(t,!0)&&!(n&&LE(e.path))&&!(n&&OX(t))&&!oht(t)&&!Kwe(t)}function c_e(e,n,{engine:t}){if(e.length>L)return{ok:!1,reason:"oversize"};let a=Ut(e.toString("utf8"),!1),p=Z(a);if(p!==null&&p!==h&&p!==g8)return{ok:!1,reason:"unsupported_version"};let o=V().safeParse(a);if(!o.success||!Q(o.data))return{ok:!1,reason:"malformed"};if(o.data.side!==n)return{ok:!1,reason:"wrong_side"};let{note:s,...r}=o.data,d=s!==void 0||r.uploading!==void 0&&n==="laptop"||r.halted==="start_failed"&&n==="worker";if(d!==(r.version===g8)||d!==(t==="git")||r.halted==="start_failed"&&s!==void 0||d&&(r.entries.length>0||r.skipped.length>0||r.skippedOmittedCount>0||(r.skippedDeferredCount??0)>0||(r.deletedWithheldCount??0)>0||r.deleted.length>0))return{ok:!1,reason:"wrong_note"};let l=s===void 0?void 0:(n==="laptop"?k():I()).safeParse(s);if(l!==void 0&&!l.success)return{ok:!1,reason:"wrong_note"};let _=r.entries.filter(HDt),S=r.deleted.filter(HDt);return{ok:!0,journal:{...r,entries:_,deleted:S,...l!==void 0&&{note:l.data}},droppedEntries:r.entries.length-_.length+(r.deleted.length-S.length)}}function Q(e){return e.entries.every((n)=>n.gen===void 0||n.gen<=e.generation)&&(e.deleted??[]).every((n)=>n.generation<=e.generation)}function Gw(e){return(e&64)!==0?493:420}function PHe(e){let n=j(e.deleted??[]),t=e.note===void 0?void 0:ee(e.note),a=t!==void 0||e.uploading!==void 0&&e.side==="laptop"||e.halted==="start_failed"&&e.side==="worker";if(a&&(e.halted==="start_failed"&&t!==void 0||e.entries.length>0||e.skipped.length>0||e.skippedOmittedCount>0||(e.skippedDeferredCount??0)>0||(e.deletedWithheldCount??0)>0||n.length>0||t!==void 0&&(t.bundle?.via==="unknown"||!(e.side==="laptop"?k():I()).safeParse(t).success)))throw Error("sync journal note is not one its reader would accept, or rides with rows");return Buffer.from(b({...e,version:a?g8:h,uploading:e.side==="laptop"?e.uploading:void 0,haltLine:e.haltLine===void 0?void 0:rs(e.haltLine,T),...t!==void 0&&{note:t},userEventUuids:e.userEventUuids.slice(-a_e),entries:e.entries.toSorted(EW).slice(0,RDt),skipped:e.skipped.toSorted(EW).slice(0,A).map(({path:p,reason:o})=>({path:rs(p,y),reason:o})),deleted:n.length>0?n:void 0,deletedWithheldCount:(e.deletedWithheldCount??0)>0?e.deletedWithheldCount:void 0}))}function j(e){let n=new Set;return e.toSorted((t,a)=>a.generation-t.generation||EW(t,a)).filter((t)=>{let a=DF(t.path)===null&&!n.has(t.path);return n.add(t.path),a}).slice(0,E)}function EW(e,n){return e.path<n.path?-1:e.path>n.path?1:0}function ee(e){let n=(o)=>rs(o,jVe),t={holds:te(e.holds).slice(0,ey),branch:x().safeParse(e.branch).data??null,bundle:e.bundle===null?null:{...e.bundle,prerequisites:te(e.bundle.prerequisites).slice(0,ey)}},a=(o,s,r=g)=>{let d=o.filter((l)=>l_e(s(l))).slice(0,Math.max(0,Math.min(sC,r)));return{kept:d,truncated:d.length!==o.length}};if("report"in e){let o=a(e.notTaken,(s)=>s);return{...e,...t,notTaken:o.kept,notTakenTruncated:e.notTakenTruncated||o.truncated,report:e.report.slice(0,ME).map(n)}}let p=e.downApplied.slice(-V9).reduceRight((o,s)=>{let r=a(s.notInstalled,(d)=>d.path,o.left);return{left:o.left-r.kept.length,turns:[{turn:s.turn,notInstalled:r.kept.map(({path:d,reason:l})=>({path:d,reason:l})),truncated:s.truncated||r.truncated},...o.turns]}},{left:g,turns:[]});return{...e,...t,downApplied:p.turns,fastForwardedTo:te([...e.fastForwardedTo].reverse()).reverse().slice(-LX)}}
-export{g8,RDt,Eae,yWe,a_e,SWe,grn,kDt,Est,Ast,l_e,hrn,_rn,HDt,c_e,Gw,PHe,EW};
+import { Ut } from "/$bunfs/root/chunk-ntyhd04p.js";
+import { b } from "/$bunfs/root/chunk-fv016jr6.js";
+import { rs, ku, Ry } from "/$bunfs/root/chunk-4ddxwr9r.js";
+import { m } from "/$bunfs/root/chunk-bzx56g36.js";
+import {
+  LVe,
+  amn,
+  lmn,
+  $D,
+  DF,
+  Lm,
+  oht,
+  Kwe,
+  aht,
+  M2,
+  LE,
+  ymn,
+  OX,
+  tn,
+  _ne,
+  UD,
+  lht,
+  ey,
+  ME,
+  jVe,
+  wmn,
+  sC,
+  V9,
+  LX,
+  Tmn,
+  Rue,
+  j7n,
+  BD,
+  Emn,
+} from "/$bunfs/root/chunk-y8sx7bf9.js";
+import { Jl } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { i, v, q, _e, H, f, dt, ps, oe, N } from "/$bunfs/root/chunk-saay52v7.js";
+import { te } from "/$bunfs/root/chunk-wag5ye9w.js";
+var h = 1,
+  g8 = 2,
+  RDt = amn - lmn,
+  Eae = 256,
+  yWe = /^[0-9a-f]{64}$/,
+  y = 512,
+  A = 256,
+  E = 64,
+  L = 2097152,
+  a_e = 32,
+  w = 128,
+  C = ["over_budget", "too_large", "lane_path", "unreadable", "case_collision"],
+  P = ["recreated", "ended", "cleared", "start_failed"],
+  T = 300,
+  SWe = [
+    "withdrawn",
+    "switched_off",
+    "seed_incomplete",
+    "arm_failed",
+    "engine_declined",
+    "engine_unavailable",
+    "store_unwritable",
+    "lane_full",
+    "unauthorized",
+    "lane_unavailable",
+    "repeated_errors",
+    "refused",
+    "too_large",
+    "start_failed",
+    "offline",
+    "ended_earlier",
+    "layout_unserved",
+  ],
+  J = /[\p{Cc}\p{Cf}\p{Zl}\p{Zp}]/gu;
+function c(e) {
+  return Ry(e).replace(J, "\uFFFD");
+}
+function grn(e) {
+  return c(rs(e, T));
+}
+var D = m(() =>
+    f({
+      path: i().refine((e) => DF(e) === null),
+      sha256: i().regex(yWe),
+      size: v().int().nonnegative(),
+      mode: v().int().nonnegative().transform(Gw),
+      etag: i().min(1).max(Eae),
+      gen: v().int().nonnegative().optional(),
+    }),
+  ),
+  kDt = m(() =>
+    ps("kind", [f({ kind: N("sha256"), sha256: i().regex(yWe) }), f({ kind: N("git_blob"), blobId: i().regex(lht) })]),
+  ),
+  M = m(() =>
+    f({
+      path: i().refine((e) => DF(e) === null),
+      agreed: kDt(),
+      generation: v().int().nonnegative(),
+      peerSeen: v().int().nonnegative().optional(),
+    }),
+  ),
+  u = m(() => i().regex(tn).refine(_ne)),
+  O = m(() =>
+    H(u())
+      .max(ey)
+      .refine((e) => new Set(e).size === e.length),
+  ),
+  x = m(() =>
+    i()
+      .max(Rue)
+      .refine(Emn)
+      .transform((e) => (BD(e) ? e : null))
+      .nullable(),
+  ),
+  U = /^[A-Za-z0-9_-]+$/,
+  B = 104857600,
+  z = { row: Lm, file: B, direct: LVe },
+  Est = m(() =>
+    f({
+      via: i().min(1).max(32),
+      fileId: i().max(j7n).regex(U).optional(),
+      sha256: i().regex(yWe),
+      size: v().int().positive(),
+      tipRef: i().refine(UD),
+      prerequisites: O(),
+    })
+      .refine((e) => (e.via === "file") === (e.fileId !== void 0))
+      .refine((e) => e.size <= (Object.hasOwn(z, e.via) ? z[e.via] : LVe))
+      .transform(({ via: e, fileId: n, ...t }) =>
+        e === "file" && n !== void 0
+          ? { via: e, fileId: n, ...t }
+          : { via: e === "direct" ? "direct" : e === "row" ? "row" : "unknown", ...t },
+      ),
+  ),
+  Ast = m(() => Est().refine((e) => e.via !== "unknown")),
+  g = 128,
+  X = /[\p{Cc}\\]|^[A-Za-z]:/u;
+function l_e(e) {
+  return e.length <= 2 * wmn && $D(e) && !X.test(e) && !e.split("/").some(F) && ku(e) && Array.from(e).length <= wmn;
+}
+function F(e) {
+  let n = Jl(e);
+  return n === ".git" || /^git~\d+$/.test(n);
+}
+var W = m(() => H(i().refine(l_e)).max(sC)),
+  G = m(() =>
+    i()
+      .refine((e) => Array.from(e).length <= jVe)
+      .transform(c),
+  ),
+  R = () => ({
+    engine: N("git"),
+    generation: v().int().positive(),
+    head: u(),
+    branch: x(),
+    indexCommit: u(),
+    worktreeCommit: u(),
+    bundle: Est().nullable(),
+    holds: O(),
+  }),
+  k = m(() =>
+    f({
+      ...R(),
+      downApplied: H(f({ turn: v().int().positive(), notInstalled: Y(), truncated: q() }))
+        .max(V9)
+        .refine((e) => e.reduce((n, t) => n + t.notInstalled.length, 0) <= g),
+      withheldCounts: _rn(),
+      fastForwardedTo: H(u())
+        .max(LX)
+        .refine((e) => new Set(e).size === e.length)
+        .default(() => []),
+      origin: i()
+        .max(32)
+        .optional()
+        .transform((e) => (e === "folder" ? "folder" : void 0))
+        .catch(void 0),
+      acceptsHeldParents: N(!0)
+        .optional()
+        .catch(void 0),
+      seedless: _e()
+        .optional()
+        .transform((e) => (e === !0 ? !0 : void 0))
+        .catch(void 0),
+    }),
+  ),
+  hrn = m(() =>
+    i()
+      .max(64)
+      .transform((e) => (Tmn.includes(e) ? e : "other")),
+  ),
+  Y = m(() => H(f({ path: i().refine(l_e), reason: hrn() })).max(sC)),
+  I = m(() =>
+    f({
+      ...R(),
+      bundle: Est()
+        .refine((e) => e.via !== "file")
+        .nullable(),
+      basedOn: u().nullable(),
+      appliedGeneration: v().int().nonnegative(),
+      notTaken: W(),
+      notTakenTruncated: q(),
+      need: u().nullable(),
+      report: H(G()).max(ME),
+      agentHead: u(),
+      agentHeadContainsBasis: q().nullable(),
+      recreatedAfterTurn: v().int().nonnegative().optional(),
+      installsBankedThrough: v().int().nonnegative().optional(),
+    })
+      .refine((e) => e.basedOn !== null || e.appliedGeneration === 0)
+      .refine((e) => e.basedOn !== null || e.agentHeadContainsBasis === null),
+  ),
+  V = m(() =>
+    f({
+      version: dt([N(h), N(g8)]),
+      side: oe(["laptop", "worker"]),
+      generation: v().int().nonnegative(),
+      turnIndex: v().int().nonnegative(),
+      userEventUuids: H(i().min(1).max(w)).max(a_e),
+      writtenAtMs: v().int().nonnegative(),
+      entries: H(D())
+        .max(RDt)
+        .refine((e) => new Set(e.map((n) => n.path)).size === e.length),
+      skipped: H(
+        f({
+          path: i()
+            .min(1)
+            .refine((e) => Array.from(e).length <= y)
+            .transform(c),
+          reason: oe(C),
+        }),
+      ).max(A),
+      skippedOmittedCount: v().int().nonnegative(),
+      skippedDeferredCount: v().int().nonnegative().optional(),
+      countsDependencyDirs: N(!0)
+        .optional()
+        .catch(void 0),
+      deletedWithheldCount: v().int().nonnegative().optional(),
+      deleted: H(M())
+        .max(E)
+        .refine((e) => new Set(e.map((n) => n.path)).size === e.length)
+        .default([]),
+      halted: oe(P)
+        .optional()
+        .catch(void 0),
+      haltLine: i()
+        .min(1)
+        .transform((e) => grn(e))
+        .optional()
+        .catch(void 0),
+      haltReason: oe(SWe)
+        .optional()
+        .catch(void 0),
+      uploading: f({
+        generation: v().int().positive(),
+        startedAtMs: v().int().nonnegative(),
+        abandoned: N(!0)
+          .optional()
+          .catch(void 0),
+        writer: i()
+          .min(1)
+          .max(64)
+          .optional()
+          .catch(void 0),
+        heartbeatAtMs: v()
+          .int()
+          .nonnegative()
+          .optional()
+          .catch(void 0),
+        reason: i()
+          .max(200)
+          .transform((e) => c(e))
+          .optional()
+          .catch(void 0),
+      })
+        .optional()
+        .catch(void 0),
+      note: _e().optional(),
+    }),
+  ),
+  K = m(() => f({ version: v().int() }));
+function Z(e) {
+  let n = K().safeParse(e);
+  return n.success ? n.data.version : null;
+}
+var _rn = m(() =>
+  f({
+    credentialNamed: v().int().nonnegative(),
+    filterAttributed: v().int().nonnegative(),
+    hardLinked: v().int().nonnegative(),
+    tooLarge: v().int().nonnegative().optional(),
+  }),
+);
+function HDt(e) {
+  let n = M2(),
+    t = n ? e.path.split("/").map(ymn).join("/") : e.path;
+  return !aht(t, !0) && !(n && LE(e.path)) && !(n && OX(t)) && !oht(t) && !Kwe(t);
+}
+function c_e(e, n, { engine: t }) {
+  if (e.length > L) return { ok: !1, reason: "oversize" };
+  let a = Ut(e.toString("utf8"), !1),
+    p = Z(a);
+  if (p !== null && p !== h && p !== g8) return { ok: !1, reason: "unsupported_version" };
+  let o = V().safeParse(a);
+  if (!o.success || !Q(o.data)) return { ok: !1, reason: "malformed" };
+  if (o.data.side !== n) return { ok: !1, reason: "wrong_side" };
+  let { note: s, ...r } = o.data,
+    d = s !== void 0 || (r.uploading !== void 0 && n === "laptop") || (r.halted === "start_failed" && n === "worker");
+  if (
+    d !== (r.version === g8) ||
+    d !== (t === "git") ||
+    (r.halted === "start_failed" && s !== void 0) ||
+    (d &&
+      (r.entries.length > 0 ||
+        r.skipped.length > 0 ||
+        r.skippedOmittedCount > 0 ||
+        (r.skippedDeferredCount ?? 0) > 0 ||
+        (r.deletedWithheldCount ?? 0) > 0 ||
+        r.deleted.length > 0))
+  )
+    return { ok: !1, reason: "wrong_note" };
+  let l = s === void 0 ? void 0 : (n === "laptop" ? k() : I()).safeParse(s);
+  if (l !== void 0 && !l.success) return { ok: !1, reason: "wrong_note" };
+  let _ = r.entries.filter(HDt),
+    S = r.deleted.filter(HDt);
+  return {
+    ok: !0,
+    journal: { ...r, entries: _, deleted: S, ...(l !== void 0 && { note: l.data }) },
+    droppedEntries: r.entries.length - _.length + (r.deleted.length - S.length),
+  };
+}
+function Q(e) {
+  return (
+    e.entries.every((n) => n.gen === void 0 || n.gen <= e.generation) &&
+    (e.deleted ?? []).every((n) => n.generation <= e.generation)
+  );
+}
+function Gw(e) {
+  return (e & 64) !== 0 ? 493 : 420;
+}
+function PHe(e) {
+  let n = j(e.deleted ?? []),
+    t = e.note === void 0 ? void 0 : ee(e.note),
+    a =
+      t !== void 0 ||
+      (e.uploading !== void 0 && e.side === "laptop") ||
+      (e.halted === "start_failed" && e.side === "worker");
+  if (
+    a &&
+    ((e.halted === "start_failed" && t !== void 0) ||
+      e.entries.length > 0 ||
+      e.skipped.length > 0 ||
+      e.skippedOmittedCount > 0 ||
+      (e.skippedDeferredCount ?? 0) > 0 ||
+      (e.deletedWithheldCount ?? 0) > 0 ||
+      n.length > 0 ||
+      (t !== void 0 && (t.bundle?.via === "unknown" || !(e.side === "laptop" ? k() : I()).safeParse(t).success)))
+  )
+    throw Error("sync journal note is not one its reader would accept, or rides with rows");
+  return Buffer.from(
+    b({
+      ...e,
+      version: a ? g8 : h,
+      uploading: e.side === "laptop" ? e.uploading : void 0,
+      haltLine: e.haltLine === void 0 ? void 0 : rs(e.haltLine, T),
+      ...(t !== void 0 && { note: t }),
+      userEventUuids: e.userEventUuids.slice(-a_e),
+      entries: e.entries.toSorted(EW).slice(0, RDt),
+      skipped: e.skipped
+        .toSorted(EW)
+        .slice(0, A)
+        .map(({ path: p, reason: o }) => ({ path: rs(p, y), reason: o })),
+      deleted: n.length > 0 ? n : void 0,
+      deletedWithheldCount: (e.deletedWithheldCount ?? 0) > 0 ? e.deletedWithheldCount : void 0,
+    }),
+  );
+}
+function j(e) {
+  let n = new Set();
+  return e
+    .toSorted((t, a) => a.generation - t.generation || EW(t, a))
+    .filter((t) => {
+      let a = DF(t.path) === null && !n.has(t.path);
+      return n.add(t.path), a;
+    })
+    .slice(0, E);
+}
+function EW(e, n) {
+  return e.path < n.path ? -1 : e.path > n.path ? 1 : 0;
+}
+function ee(e) {
+  let n = (o) => rs(o, jVe),
+    t = {
+      holds: te(e.holds).slice(0, ey),
+      branch: x().safeParse(e.branch).data ?? null,
+      bundle: e.bundle === null ? null : { ...e.bundle, prerequisites: te(e.bundle.prerequisites).slice(0, ey) },
+    },
+    a = (o, s, r = g) => {
+      let d = o.filter((l) => l_e(s(l))).slice(0, Math.max(0, Math.min(sC, r)));
+      return { kept: d, truncated: d.length !== o.length };
+    };
+  if ("report" in e) {
+    let o = a(e.notTaken, (s) => s);
+    return {
+      ...e,
+      ...t,
+      notTaken: o.kept,
+      notTakenTruncated: e.notTakenTruncated || o.truncated,
+      report: e.report.slice(0, ME).map(n),
+    };
+  }
+  let p = e.downApplied.slice(-V9).reduceRight(
+    (o, s) => {
+      let r = a(s.notInstalled, (d) => d.path, o.left);
+      return {
+        left: o.left - r.kept.length,
+        turns: [
+          {
+            turn: s.turn,
+            notInstalled: r.kept.map(({ path: d, reason: l }) => ({ path: d, reason: l })),
+            truncated: s.truncated || r.truncated,
+          },
+          ...o.turns,
+        ],
+      };
+    },
+    { left: g, turns: [] },
+  );
+  return {
+    ...e,
+    ...t,
+    downApplied: p.turns,
+    fastForwardedTo: te([...e.fastForwardedTo].reverse())
+      .reverse()
+      .slice(-LX),
+  };
+}
+export { g8, RDt, Eae, yWe, a_e, SWe, grn, kDt, Est, Ast, l_e, hrn, _rn, HDt, c_e, Gw, PHe, EW };

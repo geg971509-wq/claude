@@ -8,4 +8,7 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{nt}from"/$bunfs/root/chunk-zfjmcnyh.js";var l="/$bunfs/root/validate_palette.py-6ec9d950.txt.zst";var T=nt(l,import.meta.dirname);export{T as default};
+import { nt } from "/$bunfs/root/chunk-zfjmcnyh.js";
+var l = "/$bunfs/root/validate_palette.py-6ec9d950.txt.zst";
+var T = nt(l, import.meta.dirname);
+export { T as default };

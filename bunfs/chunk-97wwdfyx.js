@@ -8,5 +8,39 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Mn,G}from"/$bunfs/root/chunk-f9h0bg01.js";class e{pinnedFeatureValues;maxSubagentSpawnDepthFromGrowthBook;decstbmRendererEnabled;forkSubagentEnabledSource;bashFirstDescriptionTrimmed;bashActFirstEnabled;defaultFileReadingLimits;suggestRolloutEnabled;sendUserFileDeferred;sessionStartWorkflowSizeGuideline;totalTokensReminderMode;totalTokensReminderBudget;totalTokensReminderAfterUserTurn;silentTurnReminderTurns;clientDataCapabilityLogged;sharedMemoryServedViaTools;stoneShellServed;tetherLiveGate;sandboxedAttemptGateEnabled;machinesSectionShown;workflowAuthoringSkillAvailable;staticSystemPromptEnabled;shellDescription;agentProxyNote;keptDeferredToolsEnabled;clear(){for(let o of Object.keys(this))this[o]=void 0}}var t=new Mn(()=>new e);function Fa(){return t.of(G())}
-export{Fa};
+import { Mn, G } from "/$bunfs/root/chunk-f9h0bg01.js";
+class e {
+  pinnedFeatureValues;
+  maxSubagentSpawnDepthFromGrowthBook;
+  decstbmRendererEnabled;
+  forkSubagentEnabledSource;
+  bashFirstDescriptionTrimmed;
+  bashActFirstEnabled;
+  defaultFileReadingLimits;
+  suggestRolloutEnabled;
+  sendUserFileDeferred;
+  sessionStartWorkflowSizeGuideline;
+  totalTokensReminderMode;
+  totalTokensReminderBudget;
+  totalTokensReminderAfterUserTurn;
+  silentTurnReminderTurns;
+  clientDataCapabilityLogged;
+  sharedMemoryServedViaTools;
+  stoneShellServed;
+  tetherLiveGate;
+  sandboxedAttemptGateEnabled;
+  machinesSectionShown;
+  workflowAuthoringSkillAvailable;
+  staticSystemPromptEnabled;
+  shellDescription;
+  agentProxyNote;
+  keptDeferredToolsEnabled;
+  clear() {
+    for (let o of Object.keys(this)) this[o] = void 0;
+  }
+}
+var t = new Mn(() => new e());
+function Fa() {
+  return t.of(G());
+}
+export { Fa };

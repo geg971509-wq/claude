@@ -8,4 +8,39 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{$2e}from"/$bunfs/root/chunk-v9992jrf.js";import{UP,yx}from"/$bunfs/root/chunk-83rtv341.js";import"/$bunfs/root/chunk-8afqfths.js";import{S}from"/$bunfs/root/chunk-yz031c9r.js";var p=S(function(o){Object.defineProperty(o,"__esModule",{value:!0});o.OTLPTraceExporter=void 0;var r=$2e(),s=yx(),u=UP();class t extends u.OTLPExporterBase{constructor(a={}){super((0,r.createOtlpGrpcExportDelegate)((0,r.convertLegacyOtlpGrpcOptions)(a,"TRACES"),s.ProtobufTraceSerializer,"TraceExportService","/opentelemetry.proto.collector.trace.v1.TraceService/Export"))}}o.OTLPTraceExporter=t});var l=S(function(e){Object.defineProperty(e,"__esModule",{value:!0});e.OTLPTraceExporter=void 0;var i=p();Object.defineProperty(e,"OTLPTraceExporter",{enumerable:!0,get:function(){return i.OTLPTraceExporter}})});export default l();
+import { $2e } from "/$bunfs/root/chunk-v9992jrf.js";
+import { UP, yx } from "/$bunfs/root/chunk-83rtv341.js";
+import "/$bunfs/root/chunk-8afqfths.js";
+import { S } from "/$bunfs/root/chunk-yz031c9r.js";
+var p = S(function (o) {
+  Object.defineProperty(o, "__esModule", { value: !0 });
+  o.OTLPTraceExporter = void 0;
+  var r = $2e(),
+    s = yx(),
+    u = UP();
+  class t extends u.OTLPExporterBase {
+    constructor(a = {}) {
+      super(
+        (0, r.createOtlpGrpcExportDelegate)(
+          (0, r.convertLegacyOtlpGrpcOptions)(a, "TRACES"),
+          s.ProtobufTraceSerializer,
+          "TraceExportService",
+          "/opentelemetry.proto.collector.trace.v1.TraceService/Export",
+        ),
+      );
+    }
+  }
+  o.OTLPTraceExporter = t;
+});
+var l = S(function (e) {
+  Object.defineProperty(e, "__esModule", { value: !0 });
+  e.OTLPTraceExporter = void 0;
+  var i = p();
+  Object.defineProperty(e, "OTLPTraceExporter", {
+    enumerable: !0,
+    get: function () {
+      return i.OTLPTraceExporter;
+    },
+  });
+});
+export default l();

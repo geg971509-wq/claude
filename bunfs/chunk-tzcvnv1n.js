@@ -8,5 +8,17 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-function bit(e,s){return{behavior:"deny",message:`Permission for ${e} requires the user to read a consent disclosure before approving, and ${s} cannot display it. The user can run this from an interactive Claude Code session, where the permission dialog renders the full disclosure.`,decisionReason:{type:"other",reason:`localDisplayOnly ask not forwarded: ${s} cannot render the consent disclosure the approval depends on`}}}function UUn(e){return e.startsWith("localDisplayOnly ask not forwarded:")}
-export{bit,UUn};
+function bit(e, s) {
+  return {
+    behavior: "deny",
+    message: `Permission for ${e} requires the user to read a consent disclosure before approving, and ${s} cannot display it. The user can run this from an interactive Claude Code session, where the permission dialog renders the full disclosure.`,
+    decisionReason: {
+      type: "other",
+      reason: `localDisplayOnly ask not forwarded: ${s} cannot render the consent disclosure the approval depends on`,
+    },
+  };
+}
+function UUn(e) {
+  return e.startsWith("localDisplayOnly ask not forwarded:");
+}
+export { bit, UUn };

@@ -8,5 +8,32 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-var bB={register(){},update(){},updateTranscript(){},getTranscript(){return},remove(){},evictTerminal(){},applyOffsetsAndEvict(){},get(){return},all(){return{}},incrementWebSearchCalls(){},getWebSearchCalls(){return 0},resetWebSearchCalls(){},takeConcurrencySlot(){return()=>{}},getConcurrentSubagents(){return 0}};
-export{bB};
+var bB = {
+  register() {},
+  update() {},
+  updateTranscript() {},
+  getTranscript() {
+    return;
+  },
+  remove() {},
+  evictTerminal() {},
+  applyOffsetsAndEvict() {},
+  get() {
+    return;
+  },
+  all() {
+    return {};
+  },
+  incrementWebSearchCalls() {},
+  getWebSearchCalls() {
+    return 0;
+  },
+  resetWebSearchCalls() {},
+  takeConcurrencySlot() {
+    return () => {};
+  },
+  getConcurrentSubagents() {
+    return 0;
+  },
+};
+export { bB };

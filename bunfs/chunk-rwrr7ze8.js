@@ -8,4 +8,7 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{nt}from"/$bunfs/root/chunk-zfjmcnyh.js";var d="/$bunfs/root/permissions_external-cc7eb68f.txt.zst";var w=nt(d,import.meta.dirname);export{w as default};
+import { nt } from "/$bunfs/root/chunk-zfjmcnyh.js";
+var d = "/$bunfs/root/permissions_external-cc7eb68f.txt.zst";
+var w = nt(d, import.meta.dirname);
+export { w as default };

@@ -8,7 +8,13 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{a}from"/$bunfs/root/chunk-fec4384a.js";import{D}from"/$bunfs/root/chunk-7s7jqj2f.js";var m={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"};function l(t){return t.replace(/[&<>"']/g,(e)=>m[e]??e)}var u=`*,*::before,*::after{box-sizing:border-box}
+import { a } from "/$bunfs/root/chunk-fec4384a.js";
+import { D } from "/$bunfs/root/chunk-7s7jqj2f.js";
+var m = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
+function l(t) {
+  return t.replace(/[&<>"']/g, (e) => m[e] ?? e);
+}
+var u = `*,*::before,*::after{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{min-height:100vh;background:#FAF9F5;color:#141413;font:15px/1.5 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;display:flex;align-items:center;justify-content:center;padding:48px 24px}
 main{width:100%;max-width:560px}
@@ -19,5 +25,56 @@ main{width:100%;max-width:560px}
 h1{font-family:ui-serif,Charter,"Iowan Old Style",Georgia,serif;font-weight:400;font-size:32px;line-height:1.15;letter-spacing:-.02em;margin:0 0 10px;text-wrap:balance}
 .sub{margin:0;color:#4D4C48;font-size:15px;line-height:1.55;max-width:52ch}
 .detail{margin-top:20px;background:#FFF;border:.5px solid rgba(31,30,29,.15);border-left:3px solid #A63244;border-radius:10px;padding:14px 16px;font-size:14px;line-height:1.5;color:#3D3D3A;word-break:break-word}
-@media (max-width:520px){h1{font-size:26px}body{padding:32px 18px}}`;function cE(t){let{ok:e,heading:r,message:n,detail:i}=t,d=e?'<span class="status">Connected</span>':'<span class="status err">Error</span>',o=i?`<div class="detail">${l(i)}</div>`:"",s=e?"<script>setTimeout(function(){try{window.close()}catch(e){}},1500)</script>":"";return`<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Claude Code</title><style>${u}</style></head><body><main>${d}<h1>${l(r)}</h1><p class="sub">${l(n)}</p>${o}</main>${s}</body></html>`}import{createServer as g}from"http";function FWe(t){let e=Array.isArray(t)?t[0]:t;return e?e:void 0}var f=D()==="windows"?{min:39152,max:49151}:{min:49152,max:65535},p=3118;function UHe(t=p){return`http://localhost:${t}/callback`}function b(){let t=a.MCP_OAUTH_CALLBACK_PORT;return t!==void 0&&t<=65535?t:void 0}async function b8(t){let e=b();if(e)return e;if(t&&await c(t))return t;let{min:r,max:n}=f,i=n-r+1,d=Math.min(i,100);for(let o=0;o<d;o++){let s=r+Math.floor(Math.random()*i);if(await c(s))return s}if(await c(p))return p;throw Error("No available ports for OAuth redirect")}async function c(t){try{return await new Promise((e,r)=>{let n=g();n.once("error",r),n.listen(t,"127.0.0.1",()=>{n.close(()=>e())})}),!0}catch{return!1}}
-export{cE,FWe,UHe,b8};
+@media (max-width:520px){h1{font-size:26px}body{padding:32px 18px}}`;
+function cE(t) {
+  let { ok: e, heading: r, message: n, detail: i } = t,
+    d = e ? '<span class="status">Connected</span>' : '<span class="status err">Error</span>',
+    o = i ? `<div class="detail">${l(i)}</div>` : "",
+    s = e ? "<script>setTimeout(function(){try{window.close()}catch(e){}},1500)</script>" : "";
+  return `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Claude Code</title><style>${u}</style></head><body><main>${d}<h1>${l(r)}</h1><p class="sub">${l(n)}</p>${o}</main>${s}</body></html>`;
+}
+import { createServer as g } from "http";
+function FWe(t) {
+  let e = Array.isArray(t) ? t[0] : t;
+  return e ? e : void 0;
+}
+var f = D() === "windows" ? { min: 39152, max: 49151 } : { min: 49152, max: 65535 },
+  p = 3118;
+function UHe(t = p) {
+  return `http://localhost:${t}/callback`;
+}
+function b() {
+  let t = a.MCP_OAUTH_CALLBACK_PORT;
+  return t !== void 0 && t <= 65535 ? t : void 0;
+}
+async function b8(t) {
+  let e = b();
+  if (e) return e;
+  if (t && (await c(t))) return t;
+  let { min: r, max: n } = f,
+    i = n - r + 1,
+    d = Math.min(i, 100);
+  for (let o = 0; o < d; o++) {
+    let s = r + Math.floor(Math.random() * i);
+    if (await c(s)) return s;
+  }
+  if (await c(p)) return p;
+  throw Error("No available ports for OAuth redirect");
+}
+async function c(t) {
+  try {
+    return (
+      await new Promise((e, r) => {
+        let n = g();
+        n.once("error", r),
+          n.listen(t, "127.0.0.1", () => {
+            n.close(() => e());
+          });
+      }),
+      !0
+    );
+  } catch {
+    return !1;
+  }
+}
+export { cE, FWe, UHe, b8 };

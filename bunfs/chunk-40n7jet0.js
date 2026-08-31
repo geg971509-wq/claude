@@ -8,4 +8,7 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{nt}from"/$bunfs/root/chunk-zfjmcnyh.js";var e="/$bunfs/root/remote-diff.mjs-a2ecedbc.txt.zst";var u=nt(e,import.meta.dirname);export{u as default};
+import { nt } from "/$bunfs/root/chunk-zfjmcnyh.js";
+var e = "/$bunfs/root/remote-diff.mjs-a2ecedbc.txt.zst";
+var u = nt(e, import.meta.dirname);
+export { u as default };

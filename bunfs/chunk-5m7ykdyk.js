@@ -8,5 +8,111 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{IH}from"/$bunfs/root/chunk-8tgj5dp2.js";import{bs}from"/$bunfs/root/chunk-f9h0bg01.js";import{n}from"/$bunfs/root/chunk-fv016jr6.js";import{Dd,sF,zA}from"/$bunfs/root/chunk-zze8764r.js";import{Xs}from"/$bunfs/root/chunk-3qvtfvqg.js";function f(r,i){if(Object.hasOwn(r,i))return r[i];return Object.values(r).find((t)=>Dd(t)&&t.identity.resumableAgentId===i)}function xrt(r,i){return new Map([...r].filter(([,t])=>{let e=f(i,t);if(e===void 0)return!1;if(!Xs(e.status))return!0;return zA(e)&&"keepaliveReasons"in e&&e.keepaliveReasons!==void 0&&[...e.keepaliveReasons].some((s)=>s!==sF)}))}var Irt={markTypeInvoked(){},registerName(){},allocateName(r){return r},clearTodos(){},setTeammate(){},setSendMessagePin(){}};function Qge(r,i){return{markTypeInvoked(t){i((e)=>e.agentTypesInvokedThisSession.has(t)?e:{...e,agentTypesInvokedThisSession:new Set(e.agentTypesInvokedThisSession).add(t)})},registerName(t,e){if(IH(t)){n(`[registerName] refused reserved or agent-id-shaped name "${t}" for ${e}`);return}i((s)=>{if(s.agentNameRegistry.get(t)===e)return s;let a=new Map(s.agentNameRegistry);return a.set(t,e),{...s,agentNameRegistry:a}})},allocateName(t){let e=c(t),s=r(),a=s.agentNameRegistry,g=new Set(Object.values(s.teamContext?.teammates??{}).map((o)=>o.name));for(let o=1;;o++){let m=o===1?e:`${e}-${o}`;if(IH(m)||g.has(m))continue;let d=a.get(m);if(d===void 0||f(s.tasks,d)===void 0)return m}},clearTodos(t){i((e)=>{if(!(t in e.todos))return e;let{[t]:s,...a}=e.todos;return{...e,todos:a}})},setSendMessagePin(t,e){i((s)=>{let a=Object.hasOwn(s.sendMessagePins,t)?s.sendMessagePins[t]:void 0;if(bs(a,e))return s;return{...s,sendMessagePins:{...s.sendMessagePins,[t]:e}}})},setTeammate(t,e){if(e!==void 0&&IH(e.name)){n(`[setTeammate] refused reserved or agent-id-shaped teammate name "${e.name}" for ${t}`);return}i((s)=>{let a=s.teamContext;if(!a)return s;let g=a.teammates?.[t];if(e===void 0){if(!g)return s;let{[t]:o,...m}=a.teammates;return{...s,teamContext:{...a,teammates:m}}}if(g===e)return s;return{...s,teamContext:{...a,teammates:{...a.teammates,[t]:e}}}})}}}function c(r){let i=r.replace(/[^A-Za-z0-9_-]+/g,"-").replace(/^-+/,"").slice(0,64);return i.length>0?i:"agent"}
-export{xrt,Irt,Qge};
+import { IH } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { bs } from "/$bunfs/root/chunk-f9h0bg01.js";
+import { n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { Dd, sF, zA } from "/$bunfs/root/chunk-zze8764r.js";
+import { Xs } from "/$bunfs/root/chunk-3qvtfvqg.js";
+function f(r, i) {
+  if (Object.hasOwn(r, i)) return r[i];
+  return Object.values(r).find((t) => Dd(t) && t.identity.resumableAgentId === i);
+}
+function xrt(r, i) {
+  return new Map(
+    [...r].filter(([, t]) => {
+      let e = f(i, t);
+      if (e === void 0) return !1;
+      if (!Xs(e.status)) return !0;
+      return (
+        zA(e) &&
+        "keepaliveReasons" in e &&
+        e.keepaliveReasons !== void 0 &&
+        [...e.keepaliveReasons].some((s) => s !== sF)
+      );
+    }),
+  );
+}
+var Irt = {
+  markTypeInvoked() {},
+  registerName() {},
+  allocateName(r) {
+    return r;
+  },
+  clearTodos() {},
+  setTeammate() {},
+  setSendMessagePin() {},
+};
+function Qge(r, i) {
+  return {
+    markTypeInvoked(t) {
+      i((e) =>
+        e.agentTypesInvokedThisSession.has(t)
+          ? e
+          : { ...e, agentTypesInvokedThisSession: new Set(e.agentTypesInvokedThisSession).add(t) },
+      );
+    },
+    registerName(t, e) {
+      if (IH(t)) {
+        n(`[registerName] refused reserved or agent-id-shaped name "${t}" for ${e}`);
+        return;
+      }
+      i((s) => {
+        if (s.agentNameRegistry.get(t) === e) return s;
+        let a = new Map(s.agentNameRegistry);
+        return a.set(t, e), { ...s, agentNameRegistry: a };
+      });
+    },
+    allocateName(t) {
+      let e = c(t),
+        s = r(),
+        a = s.agentNameRegistry,
+        g = new Set(Object.values(s.teamContext?.teammates ?? {}).map((o) => o.name));
+      for (let o = 1; ; o++) {
+        let m = o === 1 ? e : `${e}-${o}`;
+        if (IH(m) || g.has(m)) continue;
+        let d = a.get(m);
+        if (d === void 0 || f(s.tasks, d) === void 0) return m;
+      }
+    },
+    clearTodos(t) {
+      i((e) => {
+        if (!(t in e.todos)) return e;
+        let { [t]: s, ...a } = e.todos;
+        return { ...e, todos: a };
+      });
+    },
+    setSendMessagePin(t, e) {
+      i((s) => {
+        let a = Object.hasOwn(s.sendMessagePins, t) ? s.sendMessagePins[t] : void 0;
+        if (bs(a, e)) return s;
+        return { ...s, sendMessagePins: { ...s.sendMessagePins, [t]: e } };
+      });
+    },
+    setTeammate(t, e) {
+      if (e !== void 0 && IH(e.name)) {
+        n(`[setTeammate] refused reserved or agent-id-shaped teammate name "${e.name}" for ${t}`);
+        return;
+      }
+      i((s) => {
+        let a = s.teamContext;
+        if (!a) return s;
+        let g = a.teammates?.[t];
+        if (e === void 0) {
+          if (!g) return s;
+          let { [t]: o, ...m } = a.teammates;
+          return { ...s, teamContext: { ...a, teammates: m } };
+        }
+        if (g === e) return s;
+        return { ...s, teamContext: { ...a, teammates: { ...a.teammates, [t]: e } } };
+      });
+    },
+  };
+}
+function c(r) {
+  let i = r
+    .replace(/[^A-Za-z0-9_-]+/g, "-")
+    .replace(/^-+/, "")
+    .slice(0, 64);
+  return i.length > 0 ? i : "agent";
+}
+export { xrt, Irt, Qge };

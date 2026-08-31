@@ -8,5 +8,873 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{w,ke,ky,Vo}from"/$bunfs/root/chunk-4xj01xwv.js";import{R,ft,we,E,Rg,n1,X}from"/$bunfs/root/chunk-ypdw393e.js";import{Ge,b,V,n}from"/$bunfs/root/chunk-fv016jr6.js";import{Qs,j$,xXe,IXe}from"/$bunfs/root/chunk-6k63g5t6.js";import{m}from"/$bunfs/root/chunk-bzx56g36.js";import{h}from"/$bunfs/root/chunk-wkxx62a2.js";import{xH}from"/$bunfs/root/chunk-8tgj5dp2.js";import{s}from"/$bunfs/root/chunk-r53tkxrh.js";import{Wn}from"/$bunfs/root/chunk-nqmqabr8.js";import{Te}from"/$bunfs/root/chunk-jpf4kat5.js";import{bF,fX}from"/$bunfs/root/chunk-ddbk6aje.js";import{i,v,q,_e,H,f,un,dt,ps,De,oe,N}from"/$bunfs/root/chunk-saay52v7.js";import{zm}from"/$bunfs/root/chunk-13198prn.js";import{SS}from"/$bunfs/root/chunk-56sxk8k2.js";import{isAbsolute as ie}from"path";var Mce=new Set(["--exec","--model","-m","--permission-mode","--agent","--agents","--routine","--effort","--add-dir","--mcp-config","--settings","--setting-sources","--system-prompt","--system-prompt-file","--append-system-prompt","--append-system-prompt-file","--append-subagent-system-prompt","--fallback-model","--advisor","--channels","--watch-artifact","--watch-artifact-no-autoreact","--permission-prompt-tool","--allowed-tools","--allowedTools","--disallowed-tools","--disallowedTools","--tools","--session-id","--debug-file","-n","--name","--autocompact","--betas","--file","--max-budget-usd","--max-thinking-tokens","--max-turns","--task-budget","--plan-mode-instructions","--plugin-dir","--plugin-dir-no-mcp","--plugin-url","--rewind-files","--thinking","--thinking-display","--remote-control-session-name-prefix","--json-schema"]),dDe=new Set([...Mce,"--resume-session-at","--resume-drops-turn"]),pDe=new Set(["--allowed-tools","--allowedTools","--disallowed-tools","--disallowedTools","--tools","--mcp-config","--betas","--add-dir","--file","--channels"]),re=new Set(["--plugin-dir","--plugin-dir-no-mcp","--plugin-url"]),Uft=new Set(["--dangerously-skip-permissions","--allow-dangerously-skip-permissions","--strict-mcp-config","--dangerously-allow-browser-network-access","--restricted","--disable-slash-commands","--verbose","--reply-on-resume","--ide","--chrome","--no-chrome","--bare","--brief","--remote-control","--rc"]),gdn=[...xXe,...IXe],IBt=new Set(["CLAUDE_CONFIG_DIR","CLAUDE_INTERNAL_FC_OVERRIDES",...gdn,...j$,"AWS_REGION","AWS_DEFAULT_REGION","ANTHROPIC_BEDROCK_REGION_PREFIX","AWS_PROFILE","AWS_CONFIG_FILE","AWS_SHARED_CREDENTIALS_FILE","GOOGLE_APPLICATION_CREDENTIALS","GOOGLE_CLOUD_PROJECT","GCLOUD_PROJECT","CLAUDE_SECURESTORAGE_CONFIG_DIR","CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST"]);function qVn(e){let t=Object.keys(e).filter((r)=>!IBt.has(r));if(t.length===0)return e;n(`[jobs] stripped non-allowlisted providerEnv key(s) from persisted job state: ${t.join(", ")}`,{level:"warn"});let o=Qs(e,(r,a)=>IBt.has(a));return Object.keys(o).length>0?o:void 0}function uX(e){let t=[],o=[];for(let r=0;r<e.length;r++){let a=e[r];if(!a.startsWith("-")){o.push(a);continue}let l=a.indexOf("="),p=l===-1?a:a.slice(0,l);if(l!==-1&&!Mce.has(p)&&Uft.has(p)){t.push(p),o.push(a);continue}let d=l===-1&&Mce.has(p),c=l===-1?Uft.has(p)||d&&e[r+1]!==void 0:Mce.has(p),S=c?t:o;if(S.push(a),d&&e[r+1]!==void 0)S.push(e[++r]);if(!c||d&&pDe.has(p))while(e[r+1]!==void 0&&!e[r+1].startsWith("-"))S.push(e[++r])}if(o.length>0)n(`[jobs] stripped non-allowlisted respawnFlags token(s) from persisted job state: ${o.join(" ")}`,{level:"warn"});return ne(t)}function ne(e){let t=[];for(let r=0;r<e.length;r++){let a=e[r],l=a.indexOf("="),p=l===-1?a:a.slice(0,l),d=[a];if(l===-1&&Mce.has(p)&&e[r+1]!==void 0){if(d.push(e[++r]),pDe.has(p))while(e[r+1]!==void 0&&!e[r+1].startsWith("-"))d.push(e[++r])}t.push({name:p,toks:d})}let o=new Map;for(let r=0;r<t.length;r++){let a=t[r];if(Mce.has(a.name)&&!pDe.has(a.name)&&!re.has(a.name))o.set(a.name,r)}return t.filter((r,a)=>(o.get(r.name)??a)===a).flatMap((r)=>r.toks)}function hF(e){let t=[];for(let o=0;o<e.length;o++){let r=e[o];if(r==="--"){for(let l=o;l<e.length;l++)t.push(e[l]);break}let a=r.startsWith("--")?r.indexOf("="):-1;if(a!==-1&&(dDe.has(r.slice(0,a))||T.has(r.slice(0,a)))){t.push(r.slice(0,a+1)+z(r.slice(0,a),r.slice(a+1)));continue}if(/^-[a-zA-Z].+/.test(r)){let l=1;while(l<r.length-1&&PBt.has(`-${r[l]}`))l++;let p=`-${r[l]}`;if(r.length>l+1&&(dDe.has(p)||T.has(p))){t.push(r.slice(0,l+1)+z(p,r.slice(l+1)));continue}if(r.length===l+1&&l>1&&(dDe.has(p)||T.has(p))){if(t.push(r),dDe.has(p)&&e[o+1]!==void 0){if(t.push(z(p,e[++o])),pDe.has(p))while(e[o+1]!==void 0&&!F(e[o+1]))t.push(z(p,e[++o]))}else if(T.has(p)&&e[o+1]!==void 0&&!F(e[o+1]))t.push(SS(e[++o]));continue}}if(t.push(r),dDe.has(r)&&e[o+1]!==void 0){if(t.push(z(r,e[++o])),pDe.has(r))while(e[o+1]!==void 0&&!F(e[o+1]))t.push(z(r,e[++o]))}else if(T.has(r)&&e[o+1]!==void 0&&!F(e[o+1]))t.push(SS(e[++o]))}return t}var se=new Set(["--system-prompt","--append-system-prompt","--append-subagent-system-prompt","--plan-mode-instructions","--name","-n"]);function z(e,t){return se.has(e)?t:SS(t)}var T=new Set(["-r","--resume"]),PBt=new Set(["-c","-p","-h","-v"]);function F(e){return e.length>1&&e.startsWith("-")}function LGe(e){return e.includes("--reply-on-resume")?[...e]:[...e,"--reply-on-resume"]}function hdn(e){return e.filter((t)=>t!=="--reply-on-resume")}var Ca=1,MGe=1,aI=/^[a-f0-9]{8}$/,_F="\x1B_cc-daemon-detach\x1B\\",O="\x1B\\",L="\x1B_cc-detach-msg;",Bft="\x1B_cc-daemon-hint\x1B\\";function Nbe(e){return Bft+e+Bft}var jft="\x1B_cc-d-imark;",ae=Buffer.from(jft,"latin1");function DBt(e){return jft+b(e)+O}function _dn(e,t,o){let r=o?.maxPayload??512,a=e.length>0?Buffer.concat([e,t]):t,l=[],p=[],d=0,c=0,S=-1,j=!1;for(;;){let g=a.indexOf(jft,c);if(g<0)break;let y=g+jft.length,_=j?-1:S>=y?S:S=a.indexOf(O,y);if(_<0){j=!0;let u=a.subarray(g);if(u.length>jft.length+r){c=y;continue}let U=!1;for(let x=y;x<a.length;x++){let B=a[x];if(B===24||B===26||B===27&&x<a.length-1){U=!0;break}}if(U){c=y;continue}return p.push(a.subarray(d,g)),{marks:l,carry:Buffer.from(u),cleaned:p.length===1?p[0]:Buffer.concat(p)}}let D=!1;if(_-y<=r)try{let u=V(a.subarray(y,_).toString("utf8"));if(u!==null&&typeof u==="object"&&(u.kind==="content_paint"||u.kind==="prompt_idle")){if(D=!0,o?.requireNonce===void 0||u.nonce===o.requireNonce)l.push({kind:u.kind,msgsLoaded:Fbe(u.msgsLoaded),msgsInJsonl:Fbe(u.msgsInJsonl),msgsRenderedAtFirstPaint:Fbe(u.msgsRenderedAtFirstPaint)})}}catch{}if(D)p.push(a.subarray(d,g)),d=_+O.length;c=D?_+O.length:y}let k=a.subarray(c),M=ae,I=0,te=Math.min(k.length,M.length-1);e:for(let g=te;g>0;g--){let y=k.length-g;for(let _=0;_<g;_++)if(k[y+_]!==M[_])continue e;I=g;break}return p.push(a.subarray(d,a.length-I)),{marks:l,carry:I>0?Buffer.from(k.subarray(k.length-I)):Buffer.alloc(0),cleaned:p.length===1?p[0]:Buffer.concat(p)}}function Fbe(e){return typeof e==="number"&&Number.isInteger(e)&&e>=0&&e<=GVn?e:void 0}var GVn=1e9,A=()=>v().int().nonnegative().max(GVn).optional(),le=m(()=>f({kind:oe(["content_paint","prompt_idle"]),msgsLoaded:A(),msgsInJsonl:A(),msgsRenderedAtFirstPaint:A()})),Whr=m(()=>un({kind:oe(["content_paint","prompt_idle"]),msgsLoaded:A(),msgsInJsonl:A(),msgsRenderedAtFirstPaint:A()}));function ydn(e){let t=Whr().safeParse(e);if(!t.success)return null;return{kind:t.data.kind,msgsLoaded:t.data.msgsLoaded,msgsInJsonl:t.data.msgsInJsonl,msgsRenderedAtFirstPaint:t.data.msgsRenderedAtFirstPaint}}function T2(e){if(!e)return _F;return L+e+O+_F}function Sdn(e){let t=e.indexOf(L);if(t<0)return;let o=t+L.length,r=e.indexOf(O,o);if(r<0)return;return e.subarray(o,r).toString("utf8")}var Wft=m(()=>f({proto:v().int().min(MGe).max(Ca),short:i().regex(aI),nonce:i().regex(aI).optional(),sessionId:i().transform(SS),createdAt:v(),source:oe(["shell","slash","fleet","spare","respawn"]).catch("fleet"),cwd:i().transform(SS),launch:ps("mode",[f({mode:N("prompt"),args:H(i()).transform(hF),restoresTranscript:q().optional()}),f({mode:N("resume"),sessionId:i().transform(SS),transcriptPath:i().transform(SS).optional(),fork:q(),flagArgs:H(i()).transform(hF),restoresTranscript:q().optional()}),f({mode:N("exec"),cmd:i().transform(SS),args:H(i()).transform((e)=>e.map(SS))})]),env:De(i(),i()).default({}),reattachEnv:De(i(),i()).optional(),worktree:f({path:i().transform(SS),ownershipToken:i()}).optional(),isolation:oe(["none","worktree"]).default("none"),respawnFlags:H(i()).default([]).transform(hF),attachStallRespawns:v().int().optional(),agent:i().optional(),routine:i().optional(),seed:f({intent:i(),name:i().optional()}).optional(),cols:v().int().positive().max(fX).optional(),rows:v().int().positive().max(fX).optional()})),NGe=/ERESPAWNING|ESTARTING/,FGe=/\bE(?:NOENT|CONNREFUSED|CONNRESET)\b|control socket closed/,$be="ERESPAWNING",fDe="updated Claude Code",Nce="stalled",$Ge="legacy",UGe="EHOSTDEAD",Fce="terminal host process died \u2014 press Enter to restart",Ube="This session's terminal host process died (the conversation is saved)",mDe="terminal host process died \u2014 its output is gone; the command was not run again",Bbe="This command's terminal host process died \u2014 its output is gone and the command was not run again",BGe=/ESTALLED|EUNVERIFIED|EHOSTDEAD/,jbe=/^EKICKED:\s*/,jGe=/^E[A-Z]+:/;function C(){return i().refine(xH,"remote IPC path")}var zVn=m(()=>un({pid:v(),procStart:i().optional(),sessionId:i().transform(SS),rendezvousSock:C(),ptySock:C().optional(),messagingSock:C().optional(),cliVersion:i().optional(),startedAt:v(),attempt:v(),cwd:i().transform(SS),worktreePath:i().transform(SS).optional(),dispatch:Wft(),pendingRespawn:N("upgrade").optional(),decModes:H(v()).optional(),firedInteractiveMarks:H(_e()).transform((e)=>{let t=[];for(let o of e){let r=le().safeParse(o);if(r.success)t.push(r.data)}return t.slice(0,2)}).optional().catch(void 0),rvAuth:i().optional(),ptyAuth:i().optional(),replPid:v().optional(),replProcStart:i().optional()}));function OBt(e){let t=zVn().shape,o={};for(let[r,a]of Object.entries(e))if(!(r in t))o[r]=a;return o}var VVn=m(()=>un({proto:v().int().min(MGe).max(Ca),supervisorPid:v().catch(0),updatedAt:v().catch(0),workers:De(i().regex(aI),zVn())})),bdn=m(()=>{let e=i().regex(aI),t=v().int().min(MGe).max(Ca);return ps("op",[f({proto:t,op:N("ping")}),f({proto:t,op:N("nudge")}),f({proto:t,op:N("yield")}),f({proto:t,op:N("lease"),client:f({label:i(),cwd:i(),pid:v()}).optional()}),f({proto:t,op:N("leases")}),f({proto:t,op:N("await-ack"),short:e,nonce:e.optional(),timeoutMs:v()}),f({proto:t,op:N("dispatch"),d:Wft(),timeoutMs:v(),auth:i().optional()}),f({proto:t,op:N("list")}),f({proto:t,op:N("has"),short:e}),f({proto:t,op:N("kill"),short:e,signal:oe(["SIGTERM","SIGKILL"]).optional(),handoff:q().optional(),evict:q().optional()}),f({proto:t,op:N("reply"),short:e,text:i(),auth:i().optional()}),f({proto:t,op:N("subscribe"),short:e,tail:v().optional()}),f({proto:t,op:N("attach"),short:e,auth:i().optional(),cols:v().int().min(1).max(fX),rows:v().int().min(1).max(fX),attachId:i().optional(),caps:f({imark:q().optional(),terminal:i().nullable(),mux:oe(["tmux","screen","zellij"]).nullable(),ssh:q(),wheelFlood:q().optional(),hyperlinks:q().optional(),progressReporting:q().optional(),wtSession:q().optional(),isVscodeTerm:q().optional(),browser:i().nullable().optional(),colorLevel:dt([N(0),N(1),N(2),N(3)]).optional(),syncOutput:q().optional(),editor:i().nullable().optional(),systemTheme:oe(["dark","light"]).optional(),tmuxSocket:C().refine(ie).optional().catch(void 0)}).optional(),holdingFrame:q().optional()}),f({proto:t,op:N("resize"),short:e,cols:v().int().min(1).max(fX),rows:v().int().min(1).max(fX),attachId:i().optional()}),f({proto:t,op:N("ensure-spare"),cwd:i()}),f({proto:t,op:N("permission-response"),short:e,requestId:i(),allow:q(),auth:i().optional()}),f({proto:t,op:N("respawn-stale"),short:e}),f({proto:t,op:N("shutdown"),reapWorkers:q().optional()})])});import{lstat as de,mkdir as ce,readFile as ue,rename as me,rm as Y}from"fs/promises";import{dirname as ge}from"path";import{lstat as pe}from"fs/promises";async function LBt(e){try{let t=await pe(e);return t.isFile()?{kind:"proceed"}:{kind:"refused",symlink:t.isSymbolicLink()}}catch(t){return X(t)?{kind:"proceed"}:{kind:"error",error:t}}}function MBt(e){return e?.code==="Failed"&&(e.telemetryCode==="ENXIO"||e.telemetryCode==="EFBIG"||e.telemetryCode==="ELOOP"||e.telemetryCode==="ENAMETOOLONG")}var fe=new Set(["proto","supervisorPid","updatedAt","workers","pid","procStart","sessionId","rendezvousSock","ptySock","messagingSock","rvAuth","ptyAuth","replPid","replProcStart","cliVersion","startedAt","attempt","cwd","worktreePath","dispatch","pendingRespawn","decModes","firedInteractiveMarks","kind","msgsLoaded","msgsInJsonl","msgsRenderedAtFirstPaint","short","restoresTranscript","nonce","createdAt","cols","rows","source","launch","mode","args","fork","flagArgs","cmd","env","reattachEnv","worktree","path","ownershipToken","isolation","respawnFlags","seed","intent","name","agent","routine","attachStallRespawns"]),G=8388608;function gDe(){return Te.daemon(["roster.json"])}function Cte(){return{proto:Ca,supervisorPid:process.pid,updatedAt:Date.now(),workers:{}}}async function cT(e,t){if(t){let{roster:r,inspectFailed:a}=await Q(t,e);return a?{...r,inspectFailed:!0}:r}let o;try{let r=await de(bF());if(!r.isFile()||r.size>G){if(!e?.silent)if(h(Error(`roster.json ${r.isFile()?`too large (${r.size} bytes) \u2014 quarantining`:"is not a regular file \u2014 removing"}`)),s("tengu_bg_roster_parse_failed",{orphaned:-1,quarantined:1,errCode:r.isFile()?w("E2BIG"):w("EFTYPE")}),r.isFile())await P(void 0);else await Y(bF(),{recursive:!0,force:!0}).catch((a)=>h(a));return{...Cte(),parseFailed:!0}}o=V(await ue(bF(),"utf8"))}catch(r){if(X(r))return Cte();if(!e?.silent)h(ft(we(r),"bg roster.json read/parse failed")),s("tengu_bg_roster_parse_failed",{orphaned:-1,quarantined:1,errCode:Rg(r)}),await P(void 0);return{...Cte(),parseFailed:!0}}return Z(o,e,void 0)}async function Z(e,t,o){let r;try{r=VVn().safeParse(e)}catch(a){if(!t?.silent)h(a),s("tengu_bg_roster_parse_failed",{orphaned:K(e),quarantined:1,errCode:Rg(a)}),await P(o);return{...Cte(),parseFailed:!0}}if(r.success){delete r.data.parseFailed,delete r.data.inspectFailed;let a=e,l=["supervisorPid","updatedAt"].filter((p)=>!Number.isFinite(a[p]));if(l.length>0&&!t?.silent)n(`[daemon] roster.json stamp field(s) healed on read: ${l.join(", ")}`,{level:"warn"}),s("tengu_bg_roster_parse_failed",{orphaned:0,quarantined:0,issuePath:ky(l),issueCode:w("healed_stamp")});return r.data}if(!t?.silent){let a=K(e),l=r.error.issues[0];h(Error(`roster.json parse failed at ${J(l?.path)||"<root>"} (orphaning ${a} worker(s)): ${l?.message}`)),s("tengu_bg_roster_parse_failed",{orphaned:a,quarantined:1,issuePath:J(l?.path),issueCode:ke(l?.code)}),await P(o)}return{...Cte(),parseFailed:!0}}async function P(e){if(!e){await me(bF(),`${bF()}.corrupt.${Date.now()}`).catch((o)=>h(o));return}let t=await e.move(gDe(),Te.daemon([`roster.json.corrupt.${Date.now()}`])).catch(()=>{return});if(t===void 0||!t.ok)h(new R(`roster quarantine v5 move failed: ${t===void 0?"threw":Ge(t.error)}`,"roster quarantine v5 move failed"))}async function he(e){await Y(e,{recursive:!0,force:!0}).catch((t)=>h(t))}async function W(e,t,o,r){if(!t?.silent)h(o),s("tengu_bg_roster_parse_failed",{orphaned:-1,quarantined:1,errCode:w(r)}),await Ee(e);return{...Cte(),parseFailed:!0}}async function Q(e,t){let o=await LBt(bF());if(o.kind==="refused"){if(!t?.silent)h(Error("roster.json is not a regular file \u2014 removing")),s("tengu_bg_roster_parse_failed",{orphaned:-1,quarantined:1,errCode:w("EFTYPE")}),await he(bF());return{roster:{...Cte(),parseFailed:!0},inspectFailed:!1}}if(o.kind==="error")return ee(t,ft(we(o.error),"bg roster.json read/parse failed"),Rg(o.error));return be(e,t)}function ee(e,t,o){if(!e?.silent)h(t),s("tengu_bg_roster_parse_failed",{orphaned:-1,quarantined:0,errCode:o});return{roster:{...Cte(),parseFailed:!0},inspectFailed:!0}}async function be(e,t){let o=await e.read([{key:gDe(),offset:0,length:G+1}]).catch(()=>{return});if(o===void 0||!o.ok){if(o!==void 0&&MBt(o.error))return{roster:await W(e,t,new R(`bg roster.json v5 read refused: ${o.error.telemetryCode} \u2014 removing`,"bg roster.json v5 read refused \u2014 removing"),"EV5READ"),inspectFailed:!1};return ee(t,new R(`bg roster.json v5 read failed: ${o?.error.code??"threw"}`,"bg roster.json v5 read failed"),w("EV5READ"))}let r=o.value.items[0];if(!r.found)return{roster:Cte(),inspectFailed:!1};if(r.totalBytes>G)return{roster:await W(e,t,new R(`roster.json too large (${r.totalBytes} bytes) \u2014 removing`,"roster.json too large \u2014 removing"),"E2BIG"),inspectFailed:!1};let a;try{a=V(Buffer.from(r.value).toString("utf8"))}catch(l){if(!t?.silent)h(ft(we(l),"bg roster.json read/parse failed")),s("tengu_bg_roster_parse_failed",{orphaned:-1,quarantined:1,errCode:Rg(l)}),await P(e);return{roster:{...Cte(),parseFailed:!0},inspectFailed:!1}}return{roster:await Z(a,t,e),inspectFailed:!1}}async function Ee(e){let t=await e.delete(gDe()).catch(()=>{return});if(t===void 0||!t.ok)h(new R(`roster quarantine v5 delete failed: ${t?.error.code??"threw"}`,"roster quarantine v5 delete failed"))}function J(e){return Vo((e??[]).map((t)=>typeof t==="string"&&!fe.has(t)?"*":String(t)).join("."))}function Dv(e){return aI.test(e)?Vo(e):w("invalid")}function K(e){let t=e!==null&&typeof e==="object"?e.workers:void 0;return t!==null&&typeof t==="object"&&!Array.isArray(t)?Object.keys(t).length:0}async function qhr(e,t){let{parseFailed:o,inspectFailed:r,...a}=e;if(t){let p=await t.write(gDe(),b(a,null,2),{mode:384});if(!p.ok){let d=p.error,c="telemetryCode"in d?d.telemetryCode:void 0;if(c!==void 0&&n1.has(c)){n(`[daemon] roster write failed: ${c}`,{level:"error"});return}throw new R(`roster v5 write failed: ${d.code}`,"roster v5 write failed")}return}let l=bF();await ce(ge(l),{recursive:!0,mode:448}).catch(()=>{}),await Wn(l,b(a,null,2),384).catch((p)=>{let d=E(p);if(d&&n1.has(d)){n(`[daemon] roster write failed: ${d}`,{level:"error"});return}throw p})}var ye=zm();function yF(e,t){return ye.run("roster",async()=>{let o=await Re(t),r=e(o)??o;r.supervisorPid=process.pid,r.updatedAt=Date.now(),await qhr(r,t)})}async function Re(e){if(!e)return cT();let t=await Q(e);if(t.inspectFailed)throw new R("bg roster.json update skipped: the file could not be inspected","bg roster.json update skipped: the file could not be inspected");return t.roster}
-export{Mce,dDe,pDe,Uft,gdn,IBt,qVn,uX,hF,PBt,LGe,hdn,Ca,MGe,aI,_F,Bft,Nbe,jft,DBt,_dn,Fbe,GVn,Whr,ydn,T2,Sdn,Wft,NGe,FGe,$be,fDe,Nce,$Ge,UGe,Fce,Ube,mDe,Bbe,BGe,jbe,jGe,zVn,OBt,VVn,bdn,LBt,MBt,gDe,Cte,cT,Dv,qhr,yF};
+import { w, ke, ky, Vo } from "/$bunfs/root/chunk-4xj01xwv.js";
+import { R, ft, we, E, Rg, n1, X } from "/$bunfs/root/chunk-ypdw393e.js";
+import { Ge, b, V, n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { Qs, j$, xXe, IXe } from "/$bunfs/root/chunk-6k63g5t6.js";
+import { m } from "/$bunfs/root/chunk-bzx56g36.js";
+import { h } from "/$bunfs/root/chunk-wkxx62a2.js";
+import { xH } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { s } from "/$bunfs/root/chunk-r53tkxrh.js";
+import { Wn } from "/$bunfs/root/chunk-nqmqabr8.js";
+import { Te } from "/$bunfs/root/chunk-jpf4kat5.js";
+import { bF, fX } from "/$bunfs/root/chunk-ddbk6aje.js";
+import { i, v, q, _e, H, f, un, dt, ps, De, oe, N } from "/$bunfs/root/chunk-saay52v7.js";
+import { zm } from "/$bunfs/root/chunk-13198prn.js";
+import { SS } from "/$bunfs/root/chunk-56sxk8k2.js";
+import { isAbsolute as ie } from "path";
+var Mce = new Set([
+    "--exec",
+    "--model",
+    "-m",
+    "--permission-mode",
+    "--agent",
+    "--agents",
+    "--routine",
+    "--effort",
+    "--add-dir",
+    "--mcp-config",
+    "--settings",
+    "--setting-sources",
+    "--system-prompt",
+    "--system-prompt-file",
+    "--append-system-prompt",
+    "--append-system-prompt-file",
+    "--append-subagent-system-prompt",
+    "--fallback-model",
+    "--advisor",
+    "--channels",
+    "--watch-artifact",
+    "--watch-artifact-no-autoreact",
+    "--permission-prompt-tool",
+    "--allowed-tools",
+    "--allowedTools",
+    "--disallowed-tools",
+    "--disallowedTools",
+    "--tools",
+    "--session-id",
+    "--debug-file",
+    "-n",
+    "--name",
+    "--autocompact",
+    "--betas",
+    "--file",
+    "--max-budget-usd",
+    "--max-thinking-tokens",
+    "--max-turns",
+    "--task-budget",
+    "--plan-mode-instructions",
+    "--plugin-dir",
+    "--plugin-dir-no-mcp",
+    "--plugin-url",
+    "--rewind-files",
+    "--thinking",
+    "--thinking-display",
+    "--remote-control-session-name-prefix",
+    "--json-schema",
+  ]),
+  dDe = new Set([...Mce, "--resume-session-at", "--resume-drops-turn"]),
+  pDe = new Set([
+    "--allowed-tools",
+    "--allowedTools",
+    "--disallowed-tools",
+    "--disallowedTools",
+    "--tools",
+    "--mcp-config",
+    "--betas",
+    "--add-dir",
+    "--file",
+    "--channels",
+  ]),
+  re = new Set(["--plugin-dir", "--plugin-dir-no-mcp", "--plugin-url"]),
+  Uft = new Set([
+    "--dangerously-skip-permissions",
+    "--allow-dangerously-skip-permissions",
+    "--strict-mcp-config",
+    "--dangerously-allow-browser-network-access",
+    "--restricted",
+    "--disable-slash-commands",
+    "--verbose",
+    "--reply-on-resume",
+    "--ide",
+    "--chrome",
+    "--no-chrome",
+    "--bare",
+    "--brief",
+    "--remote-control",
+    "--rc",
+  ]),
+  gdn = [...xXe, ...IXe],
+  IBt = new Set([
+    "CLAUDE_CONFIG_DIR",
+    "CLAUDE_INTERNAL_FC_OVERRIDES",
+    ...gdn,
+    ...j$,
+    "AWS_REGION",
+    "AWS_DEFAULT_REGION",
+    "ANTHROPIC_BEDROCK_REGION_PREFIX",
+    "AWS_PROFILE",
+    "AWS_CONFIG_FILE",
+    "AWS_SHARED_CREDENTIALS_FILE",
+    "GOOGLE_APPLICATION_CREDENTIALS",
+    "GOOGLE_CLOUD_PROJECT",
+    "GCLOUD_PROJECT",
+    "CLAUDE_SECURESTORAGE_CONFIG_DIR",
+    "CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST",
+  ]);
+function qVn(e) {
+  let t = Object.keys(e).filter((r) => !IBt.has(r));
+  if (t.length === 0) return e;
+  n(`[jobs] stripped non-allowlisted providerEnv key(s) from persisted job state: ${t.join(", ")}`, { level: "warn" });
+  let o = Qs(e, (r, a) => IBt.has(a));
+  return Object.keys(o).length > 0 ? o : void 0;
+}
+function uX(e) {
+  let t = [],
+    o = [];
+  for (let r = 0; r < e.length; r++) {
+    let a = e[r];
+    if (!a.startsWith("-")) {
+      o.push(a);
+      continue;
+    }
+    let l = a.indexOf("="),
+      p = l === -1 ? a : a.slice(0, l);
+    if (l !== -1 && !Mce.has(p) && Uft.has(p)) {
+      t.push(p), o.push(a);
+      continue;
+    }
+    let d = l === -1 && Mce.has(p),
+      c = l === -1 ? Uft.has(p) || (d && e[r + 1] !== void 0) : Mce.has(p),
+      S = c ? t : o;
+    if ((S.push(a), d && e[r + 1] !== void 0)) S.push(e[++r]);
+    if (!c || (d && pDe.has(p))) while (e[r + 1] !== void 0 && !e[r + 1].startsWith("-")) S.push(e[++r]);
+  }
+  if (o.length > 0)
+    n(`[jobs] stripped non-allowlisted respawnFlags token(s) from persisted job state: ${o.join(" ")}`, {
+      level: "warn",
+    });
+  return ne(t);
+}
+function ne(e) {
+  let t = [];
+  for (let r = 0; r < e.length; r++) {
+    let a = e[r],
+      l = a.indexOf("="),
+      p = l === -1 ? a : a.slice(0, l),
+      d = [a];
+    if (l === -1 && Mce.has(p) && e[r + 1] !== void 0) {
+      if ((d.push(e[++r]), pDe.has(p))) while (e[r + 1] !== void 0 && !e[r + 1].startsWith("-")) d.push(e[++r]);
+    }
+    t.push({ name: p, toks: d });
+  }
+  let o = new Map();
+  for (let r = 0; r < t.length; r++) {
+    let a = t[r];
+    if (Mce.has(a.name) && !pDe.has(a.name) && !re.has(a.name)) o.set(a.name, r);
+  }
+  return t.filter((r, a) => (o.get(r.name) ?? a) === a).flatMap((r) => r.toks);
+}
+function hF(e) {
+  let t = [];
+  for (let o = 0; o < e.length; o++) {
+    let r = e[o];
+    if (r === "--") {
+      for (let l = o; l < e.length; l++) t.push(e[l]);
+      break;
+    }
+    let a = r.startsWith("--") ? r.indexOf("=") : -1;
+    if (a !== -1 && (dDe.has(r.slice(0, a)) || T.has(r.slice(0, a)))) {
+      t.push(r.slice(0, a + 1) + z(r.slice(0, a), r.slice(a + 1)));
+      continue;
+    }
+    if (/^-[a-zA-Z].+/.test(r)) {
+      let l = 1;
+      while (l < r.length - 1 && PBt.has(`-${r[l]}`)) l++;
+      let p = `-${r[l]}`;
+      if (r.length > l + 1 && (dDe.has(p) || T.has(p))) {
+        t.push(r.slice(0, l + 1) + z(p, r.slice(l + 1)));
+        continue;
+      }
+      if (r.length === l + 1 && l > 1 && (dDe.has(p) || T.has(p))) {
+        if ((t.push(r), dDe.has(p) && e[o + 1] !== void 0)) {
+          if ((t.push(z(p, e[++o])), pDe.has(p))) while (e[o + 1] !== void 0 && !F(e[o + 1])) t.push(z(p, e[++o]));
+        } else if (T.has(p) && e[o + 1] !== void 0 && !F(e[o + 1])) t.push(SS(e[++o]));
+        continue;
+      }
+    }
+    if ((t.push(r), dDe.has(r) && e[o + 1] !== void 0)) {
+      if ((t.push(z(r, e[++o])), pDe.has(r))) while (e[o + 1] !== void 0 && !F(e[o + 1])) t.push(z(r, e[++o]));
+    } else if (T.has(r) && e[o + 1] !== void 0 && !F(e[o + 1])) t.push(SS(e[++o]));
+  }
+  return t;
+}
+var se = new Set([
+  "--system-prompt",
+  "--append-system-prompt",
+  "--append-subagent-system-prompt",
+  "--plan-mode-instructions",
+  "--name",
+  "-n",
+]);
+function z(e, t) {
+  return se.has(e) ? t : SS(t);
+}
+var T = new Set(["-r", "--resume"]),
+  PBt = new Set(["-c", "-p", "-h", "-v"]);
+function F(e) {
+  return e.length > 1 && e.startsWith("-");
+}
+function LGe(e) {
+  return e.includes("--reply-on-resume") ? [...e] : [...e, "--reply-on-resume"];
+}
+function hdn(e) {
+  return e.filter((t) => t !== "--reply-on-resume");
+}
+var Ca = 1,
+  MGe = 1,
+  aI = /^[a-f0-9]{8}$/,
+  _F = "\x1B_cc-daemon-detach\x1B\\",
+  O = "\x1B\\",
+  L = "\x1B_cc-detach-msg;",
+  Bft = "\x1B_cc-daemon-hint\x1B\\";
+function Nbe(e) {
+  return Bft + e + Bft;
+}
+var jft = "\x1B_cc-d-imark;",
+  ae = Buffer.from(jft, "latin1");
+function DBt(e) {
+  return jft + b(e) + O;
+}
+function _dn(e, t, o) {
+  let r = o?.maxPayload ?? 512,
+    a = e.length > 0 ? Buffer.concat([e, t]) : t,
+    l = [],
+    p = [],
+    d = 0,
+    c = 0,
+    S = -1,
+    j = !1;
+  for (;;) {
+    let g = a.indexOf(jft, c);
+    if (g < 0) break;
+    let y = g + jft.length,
+      _ = j ? -1 : S >= y ? S : (S = a.indexOf(O, y));
+    if (_ < 0) {
+      j = !0;
+      let u = a.subarray(g);
+      if (u.length > jft.length + r) {
+        c = y;
+        continue;
+      }
+      let U = !1;
+      for (let x = y; x < a.length; x++) {
+        let B = a[x];
+        if (B === 24 || B === 26 || (B === 27 && x < a.length - 1)) {
+          U = !0;
+          break;
+        }
+      }
+      if (U) {
+        c = y;
+        continue;
+      }
+      return (
+        p.push(a.subarray(d, g)), { marks: l, carry: Buffer.from(u), cleaned: p.length === 1 ? p[0] : Buffer.concat(p) }
+      );
+    }
+    let D = !1;
+    if (_ - y <= r)
+      try {
+        let u = V(a.subarray(y, _).toString("utf8"));
+        if (u !== null && typeof u === "object" && (u.kind === "content_paint" || u.kind === "prompt_idle")) {
+          if (((D = !0), o?.requireNonce === void 0 || u.nonce === o.requireNonce))
+            l.push({
+              kind: u.kind,
+              msgsLoaded: Fbe(u.msgsLoaded),
+              msgsInJsonl: Fbe(u.msgsInJsonl),
+              msgsRenderedAtFirstPaint: Fbe(u.msgsRenderedAtFirstPaint),
+            });
+        }
+      } catch {}
+    if (D) p.push(a.subarray(d, g)), (d = _ + O.length);
+    c = D ? _ + O.length : y;
+  }
+  let k = a.subarray(c),
+    M = ae,
+    I = 0,
+    te = Math.min(k.length, M.length - 1);
+  e: for (let g = te; g > 0; g--) {
+    let y = k.length - g;
+    for (let _ = 0; _ < g; _++) if (k[y + _] !== M[_]) continue e;
+    I = g;
+    break;
+  }
+  return (
+    p.push(a.subarray(d, a.length - I)),
+    {
+      marks: l,
+      carry: I > 0 ? Buffer.from(k.subarray(k.length - I)) : Buffer.alloc(0),
+      cleaned: p.length === 1 ? p[0] : Buffer.concat(p),
+    }
+  );
+}
+function Fbe(e) {
+  return typeof e === "number" && Number.isInteger(e) && e >= 0 && e <= GVn ? e : void 0;
+}
+var GVn = 1e9,
+  A = () => v().int().nonnegative().max(GVn).optional(),
+  le = m(() =>
+    f({ kind: oe(["content_paint", "prompt_idle"]), msgsLoaded: A(), msgsInJsonl: A(), msgsRenderedAtFirstPaint: A() }),
+  ),
+  Whr = m(() =>
+    un({
+      kind: oe(["content_paint", "prompt_idle"]),
+      msgsLoaded: A(),
+      msgsInJsonl: A(),
+      msgsRenderedAtFirstPaint: A(),
+    }),
+  );
+function ydn(e) {
+  let t = Whr().safeParse(e);
+  if (!t.success) return null;
+  return {
+    kind: t.data.kind,
+    msgsLoaded: t.data.msgsLoaded,
+    msgsInJsonl: t.data.msgsInJsonl,
+    msgsRenderedAtFirstPaint: t.data.msgsRenderedAtFirstPaint,
+  };
+}
+function T2(e) {
+  if (!e) return _F;
+  return L + e + O + _F;
+}
+function Sdn(e) {
+  let t = e.indexOf(L);
+  if (t < 0) return;
+  let o = t + L.length,
+    r = e.indexOf(O, o);
+  if (r < 0) return;
+  return e.subarray(o, r).toString("utf8");
+}
+var Wft = m(() =>
+    f({
+      proto: v().int().min(MGe).max(Ca),
+      short: i().regex(aI),
+      nonce: i().regex(aI).optional(),
+      sessionId: i().transform(SS),
+      createdAt: v(),
+      source: oe(["shell", "slash", "fleet", "spare", "respawn"]).catch("fleet"),
+      cwd: i().transform(SS),
+      launch: ps("mode", [
+        f({ mode: N("prompt"), args: H(i()).transform(hF), restoresTranscript: q().optional() }),
+        f({
+          mode: N("resume"),
+          sessionId: i().transform(SS),
+          transcriptPath: i().transform(SS).optional(),
+          fork: q(),
+          flagArgs: H(i()).transform(hF),
+          restoresTranscript: q().optional(),
+        }),
+        f({ mode: N("exec"), cmd: i().transform(SS), args: H(i()).transform((e) => e.map(SS)) }),
+      ]),
+      env: De(i(), i()).default({}),
+      reattachEnv: De(i(), i()).optional(),
+      worktree: f({ path: i().transform(SS), ownershipToken: i() }).optional(),
+      isolation: oe(["none", "worktree"]).default("none"),
+      respawnFlags: H(i()).default([]).transform(hF),
+      attachStallRespawns: v().int().optional(),
+      agent: i().optional(),
+      routine: i().optional(),
+      seed: f({ intent: i(), name: i().optional() }).optional(),
+      cols: v().int().positive().max(fX).optional(),
+      rows: v().int().positive().max(fX).optional(),
+    }),
+  ),
+  NGe = /ERESPAWNING|ESTARTING/,
+  FGe = /\bE(?:NOENT|CONNREFUSED|CONNRESET)\b|control socket closed/,
+  $be = "ERESPAWNING",
+  fDe = "updated Claude Code",
+  Nce = "stalled",
+  $Ge = "legacy",
+  UGe = "EHOSTDEAD",
+  Fce = "terminal host process died \u2014 press Enter to restart",
+  Ube = "This session's terminal host process died (the conversation is saved)",
+  mDe = "terminal host process died \u2014 its output is gone; the command was not run again",
+  Bbe = "This command's terminal host process died \u2014 its output is gone and the command was not run again",
+  BGe = /ESTALLED|EUNVERIFIED|EHOSTDEAD/,
+  jbe = /^EKICKED:\s*/,
+  jGe = /^E[A-Z]+:/;
+function C() {
+  return i().refine(xH, "remote IPC path");
+}
+var zVn = m(() =>
+  un({
+    pid: v(),
+    procStart: i().optional(),
+    sessionId: i().transform(SS),
+    rendezvousSock: C(),
+    ptySock: C().optional(),
+    messagingSock: C().optional(),
+    cliVersion: i().optional(),
+    startedAt: v(),
+    attempt: v(),
+    cwd: i().transform(SS),
+    worktreePath: i().transform(SS).optional(),
+    dispatch: Wft(),
+    pendingRespawn: N("upgrade").optional(),
+    decModes: H(v()).optional(),
+    firedInteractiveMarks: H(_e())
+      .transform((e) => {
+        let t = [];
+        for (let o of e) {
+          let r = le().safeParse(o);
+          if (r.success) t.push(r.data);
+        }
+        return t.slice(0, 2);
+      })
+      .optional()
+      .catch(void 0),
+    rvAuth: i().optional(),
+    ptyAuth: i().optional(),
+    replPid: v().optional(),
+    replProcStart: i().optional(),
+  }),
+);
+function OBt(e) {
+  let t = zVn().shape,
+    o = {};
+  for (let [r, a] of Object.entries(e)) if (!(r in t)) o[r] = a;
+  return o;
+}
+var VVn = m(() =>
+    un({
+      proto: v().int().min(MGe).max(Ca),
+      supervisorPid: v().catch(0),
+      updatedAt: v().catch(0),
+      workers: De(i().regex(aI), zVn()),
+    }),
+  ),
+  bdn = m(() => {
+    let e = i().regex(aI),
+      t = v().int().min(MGe).max(Ca);
+    return ps("op", [
+      f({ proto: t, op: N("ping") }),
+      f({ proto: t, op: N("nudge") }),
+      f({ proto: t, op: N("yield") }),
+      f({ proto: t, op: N("lease"), client: f({ label: i(), cwd: i(), pid: v() }).optional() }),
+      f({ proto: t, op: N("leases") }),
+      f({ proto: t, op: N("await-ack"), short: e, nonce: e.optional(), timeoutMs: v() }),
+      f({ proto: t, op: N("dispatch"), d: Wft(), timeoutMs: v(), auth: i().optional() }),
+      f({ proto: t, op: N("list") }),
+      f({ proto: t, op: N("has"), short: e }),
+      f({
+        proto: t,
+        op: N("kill"),
+        short: e,
+        signal: oe(["SIGTERM", "SIGKILL"]).optional(),
+        handoff: q().optional(),
+        evict: q().optional(),
+      }),
+      f({ proto: t, op: N("reply"), short: e, text: i(), auth: i().optional() }),
+      f({ proto: t, op: N("subscribe"), short: e, tail: v().optional() }),
+      f({
+        proto: t,
+        op: N("attach"),
+        short: e,
+        auth: i().optional(),
+        cols: v().int().min(1).max(fX),
+        rows: v().int().min(1).max(fX),
+        attachId: i().optional(),
+        caps: f({
+          imark: q().optional(),
+          terminal: i().nullable(),
+          mux: oe(["tmux", "screen", "zellij"]).nullable(),
+          ssh: q(),
+          wheelFlood: q().optional(),
+          hyperlinks: q().optional(),
+          progressReporting: q().optional(),
+          wtSession: q().optional(),
+          isVscodeTerm: q().optional(),
+          browser: i().nullable().optional(),
+          colorLevel: dt([N(0), N(1), N(2), N(3)]).optional(),
+          syncOutput: q().optional(),
+          editor: i().nullable().optional(),
+          systemTheme: oe(["dark", "light"]).optional(),
+          tmuxSocket: C()
+            .refine(ie)
+            .optional()
+            .catch(void 0),
+        }).optional(),
+        holdingFrame: q().optional(),
+      }),
+      f({
+        proto: t,
+        op: N("resize"),
+        short: e,
+        cols: v().int().min(1).max(fX),
+        rows: v().int().min(1).max(fX),
+        attachId: i().optional(),
+      }),
+      f({ proto: t, op: N("ensure-spare"), cwd: i() }),
+      f({ proto: t, op: N("permission-response"), short: e, requestId: i(), allow: q(), auth: i().optional() }),
+      f({ proto: t, op: N("respawn-stale"), short: e }),
+      f({ proto: t, op: N("shutdown"), reapWorkers: q().optional() }),
+    ]);
+  });
+import { lstat as de, mkdir as ce, readFile as ue, rename as me, rm as Y } from "fs/promises";
+import { dirname as ge } from "path";
+import { lstat as pe } from "fs/promises";
+async function LBt(e) {
+  try {
+    let t = await pe(e);
+    return t.isFile() ? { kind: "proceed" } : { kind: "refused", symlink: t.isSymbolicLink() };
+  } catch (t) {
+    return X(t) ? { kind: "proceed" } : { kind: "error", error: t };
+  }
+}
+function MBt(e) {
+  return (
+    e?.code === "Failed" &&
+    (e.telemetryCode === "ENXIO" ||
+      e.telemetryCode === "EFBIG" ||
+      e.telemetryCode === "ELOOP" ||
+      e.telemetryCode === "ENAMETOOLONG")
+  );
+}
+var fe = new Set([
+    "proto",
+    "supervisorPid",
+    "updatedAt",
+    "workers",
+    "pid",
+    "procStart",
+    "sessionId",
+    "rendezvousSock",
+    "ptySock",
+    "messagingSock",
+    "rvAuth",
+    "ptyAuth",
+    "replPid",
+    "replProcStart",
+    "cliVersion",
+    "startedAt",
+    "attempt",
+    "cwd",
+    "worktreePath",
+    "dispatch",
+    "pendingRespawn",
+    "decModes",
+    "firedInteractiveMarks",
+    "kind",
+    "msgsLoaded",
+    "msgsInJsonl",
+    "msgsRenderedAtFirstPaint",
+    "short",
+    "restoresTranscript",
+    "nonce",
+    "createdAt",
+    "cols",
+    "rows",
+    "source",
+    "launch",
+    "mode",
+    "args",
+    "fork",
+    "flagArgs",
+    "cmd",
+    "env",
+    "reattachEnv",
+    "worktree",
+    "path",
+    "ownershipToken",
+    "isolation",
+    "respawnFlags",
+    "seed",
+    "intent",
+    "name",
+    "agent",
+    "routine",
+    "attachStallRespawns",
+  ]),
+  G = 8388608;
+function gDe() {
+  return Te.daemon(["roster.json"]);
+}
+function Cte() {
+  return { proto: Ca, supervisorPid: process.pid, updatedAt: Date.now(), workers: {} };
+}
+async function cT(e, t) {
+  if (t) {
+    let { roster: r, inspectFailed: a } = await Q(t, e);
+    return a ? { ...r, inspectFailed: !0 } : r;
+  }
+  let o;
+  try {
+    let r = await de(bF());
+    if (!r.isFile() || r.size > G) {
+      if (!e?.silent)
+        if (
+          (h(
+            Error(
+              `roster.json ${r.isFile() ? `too large (${r.size} bytes) \u2014 quarantining` : "is not a regular file \u2014 removing"}`,
+            ),
+          ),
+          s("tengu_bg_roster_parse_failed", {
+            orphaned: -1,
+            quarantined: 1,
+            errCode: r.isFile() ? w("E2BIG") : w("EFTYPE"),
+          }),
+          r.isFile())
+        )
+          await P(void 0);
+        else await Y(bF(), { recursive: !0, force: !0 }).catch((a) => h(a));
+      return { ...Cte(), parseFailed: !0 };
+    }
+    o = V(await ue(bF(), "utf8"));
+  } catch (r) {
+    if (X(r)) return Cte();
+    if (!e?.silent)
+      h(ft(we(r), "bg roster.json read/parse failed")),
+        s("tengu_bg_roster_parse_failed", { orphaned: -1, quarantined: 1, errCode: Rg(r) }),
+        await P(void 0);
+    return { ...Cte(), parseFailed: !0 };
+  }
+  return Z(o, e, void 0);
+}
+async function Z(e, t, o) {
+  let r;
+  try {
+    r = VVn().safeParse(e);
+  } catch (a) {
+    if (!t?.silent)
+      h(a), s("tengu_bg_roster_parse_failed", { orphaned: K(e), quarantined: 1, errCode: Rg(a) }), await P(o);
+    return { ...Cte(), parseFailed: !0 };
+  }
+  if (r.success) {
+    delete r.data.parseFailed, delete r.data.inspectFailed;
+    let a = e,
+      l = ["supervisorPid", "updatedAt"].filter((p) => !Number.isFinite(a[p]));
+    if (l.length > 0 && !t?.silent)
+      n(`[daemon] roster.json stamp field(s) healed on read: ${l.join(", ")}`, { level: "warn" }),
+        s("tengu_bg_roster_parse_failed", {
+          orphaned: 0,
+          quarantined: 0,
+          issuePath: ky(l),
+          issueCode: w("healed_stamp"),
+        });
+    return r.data;
+  }
+  if (!t?.silent) {
+    let a = K(e),
+      l = r.error.issues[0];
+    h(Error(`roster.json parse failed at ${J(l?.path) || "<root>"} (orphaning ${a} worker(s)): ${l?.message}`)),
+      s("tengu_bg_roster_parse_failed", { orphaned: a, quarantined: 1, issuePath: J(l?.path), issueCode: ke(l?.code) }),
+      await P(o);
+  }
+  return { ...Cte(), parseFailed: !0 };
+}
+async function P(e) {
+  if (!e) {
+    await me(bF(), `${bF()}.corrupt.${Date.now()}`).catch((o) => h(o));
+    return;
+  }
+  let t = await e.move(gDe(), Te.daemon([`roster.json.corrupt.${Date.now()}`])).catch(() => {
+    return;
+  });
+  if (t === void 0 || !t.ok)
+    h(
+      new R(
+        `roster quarantine v5 move failed: ${t === void 0 ? "threw" : Ge(t.error)}`,
+        "roster quarantine v5 move failed",
+      ),
+    );
+}
+async function he(e) {
+  await Y(e, { recursive: !0, force: !0 }).catch((t) => h(t));
+}
+async function W(e, t, o, r) {
+  if (!t?.silent) h(o), s("tengu_bg_roster_parse_failed", { orphaned: -1, quarantined: 1, errCode: w(r) }), await Ee(e);
+  return { ...Cte(), parseFailed: !0 };
+}
+async function Q(e, t) {
+  let o = await LBt(bF());
+  if (o.kind === "refused") {
+    if (!t?.silent)
+      h(Error("roster.json is not a regular file \u2014 removing")),
+        s("tengu_bg_roster_parse_failed", { orphaned: -1, quarantined: 1, errCode: w("EFTYPE") }),
+        await he(bF());
+    return { roster: { ...Cte(), parseFailed: !0 }, inspectFailed: !1 };
+  }
+  if (o.kind === "error") return ee(t, ft(we(o.error), "bg roster.json read/parse failed"), Rg(o.error));
+  return be(e, t);
+}
+function ee(e, t, o) {
+  if (!e?.silent) h(t), s("tengu_bg_roster_parse_failed", { orphaned: -1, quarantined: 0, errCode: o });
+  return { roster: { ...Cte(), parseFailed: !0 }, inspectFailed: !0 };
+}
+async function be(e, t) {
+  let o = await e.read([{ key: gDe(), offset: 0, length: G + 1 }]).catch(() => {
+    return;
+  });
+  if (o === void 0 || !o.ok) {
+    if (o !== void 0 && MBt(o.error))
+      return {
+        roster: await W(
+          e,
+          t,
+          new R(
+            `bg roster.json v5 read refused: ${o.error.telemetryCode} \u2014 removing`,
+            "bg roster.json v5 read refused \u2014 removing",
+          ),
+          "EV5READ",
+        ),
+        inspectFailed: !1,
+      };
+    return ee(
+      t,
+      new R(`bg roster.json v5 read failed: ${o?.error.code ?? "threw"}`, "bg roster.json v5 read failed"),
+      w("EV5READ"),
+    );
+  }
+  let r = o.value.items[0];
+  if (!r.found) return { roster: Cte(), inspectFailed: !1 };
+  if (r.totalBytes > G)
+    return {
+      roster: await W(
+        e,
+        t,
+        new R(`roster.json too large (${r.totalBytes} bytes) \u2014 removing`, "roster.json too large \u2014 removing"),
+        "E2BIG",
+      ),
+      inspectFailed: !1,
+    };
+  let a;
+  try {
+    a = V(Buffer.from(r.value).toString("utf8"));
+  } catch (l) {
+    if (!t?.silent)
+      h(ft(we(l), "bg roster.json read/parse failed")),
+        s("tengu_bg_roster_parse_failed", { orphaned: -1, quarantined: 1, errCode: Rg(l) }),
+        await P(e);
+    return { roster: { ...Cte(), parseFailed: !0 }, inspectFailed: !1 };
+  }
+  return { roster: await Z(a, t, e), inspectFailed: !1 };
+}
+async function Ee(e) {
+  let t = await e.delete(gDe()).catch(() => {
+    return;
+  });
+  if (t === void 0 || !t.ok)
+    h(new R(`roster quarantine v5 delete failed: ${t?.error.code ?? "threw"}`, "roster quarantine v5 delete failed"));
+}
+function J(e) {
+  return Vo((e ?? []).map((t) => (typeof t === "string" && !fe.has(t) ? "*" : String(t))).join("."));
+}
+function Dv(e) {
+  return aI.test(e) ? Vo(e) : w("invalid");
+}
+function K(e) {
+  let t = e !== null && typeof e === "object" ? e.workers : void 0;
+  return t !== null && typeof t === "object" && !Array.isArray(t) ? Object.keys(t).length : 0;
+}
+async function qhr(e, t) {
+  let { parseFailed: o, inspectFailed: r, ...a } = e;
+  if (t) {
+    let p = await t.write(gDe(), b(a, null, 2), { mode: 384 });
+    if (!p.ok) {
+      let d = p.error,
+        c = "telemetryCode" in d ? d.telemetryCode : void 0;
+      if (c !== void 0 && n1.has(c)) {
+        n(`[daemon] roster write failed: ${c}`, { level: "error" });
+        return;
+      }
+      throw new R(`roster v5 write failed: ${d.code}`, "roster v5 write failed");
+    }
+    return;
+  }
+  let l = bF();
+  await ce(ge(l), { recursive: !0, mode: 448 }).catch(() => {}),
+    await Wn(l, b(a, null, 2), 384).catch((p) => {
+      let d = E(p);
+      if (d && n1.has(d)) {
+        n(`[daemon] roster write failed: ${d}`, { level: "error" });
+        return;
+      }
+      throw p;
+    });
+}
+var ye = zm();
+function yF(e, t) {
+  return ye.run("roster", async () => {
+    let o = await Re(t),
+      r = e(o) ?? o;
+    (r.supervisorPid = process.pid), (r.updatedAt = Date.now()), await qhr(r, t);
+  });
+}
+async function Re(e) {
+  if (!e) return cT();
+  let t = await Q(e);
+  if (t.inspectFailed)
+    throw new R(
+      "bg roster.json update skipped: the file could not be inspected",
+      "bg roster.json update skipped: the file could not be inspected",
+    );
+  return t.roster;
+}
+export {
+  Mce,
+  dDe,
+  pDe,
+  Uft,
+  gdn,
+  IBt,
+  qVn,
+  uX,
+  hF,
+  PBt,
+  LGe,
+  hdn,
+  Ca,
+  MGe,
+  aI,
+  _F,
+  Bft,
+  Nbe,
+  jft,
+  DBt,
+  _dn,
+  Fbe,
+  GVn,
+  Whr,
+  ydn,
+  T2,
+  Sdn,
+  Wft,
+  NGe,
+  FGe,
+  $be,
+  fDe,
+  Nce,
+  $Ge,
+  UGe,
+  Fce,
+  Ube,
+  mDe,
+  Bbe,
+  BGe,
+  jbe,
+  jGe,
+  zVn,
+  OBt,
+  VVn,
+  bdn,
+  LBt,
+  MBt,
+  gDe,
+  Cte,
+  cT,
+  Dv,
+  qhr,
+  yF,
+};

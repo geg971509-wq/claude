@@ -8,4 +8,5 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{zae}from"/$bunfs/root/chunk-ntp265nj.js";export{zae as CLAUDE_AGENT};
+import { zae } from "/$bunfs/root/chunk-ntp265nj.js";
+export { zae as CLAUDE_AGENT };

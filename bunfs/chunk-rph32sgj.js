@@ -8,29 +8,1873 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Mn,K,Ty,Se}from"/$bunfs/root/chunk-f9h0bg01.js";import"/$bunfs/root/chunk-qq1mdtb5.js";import{ne}from"/$bunfs/root/chunk-tx16jn0x.js";import{s}from"/$bunfs/root/chunk-r53tkxrh.js";import{w,c}from"/$bunfs/root/chunk-4xj01xwv.js";import{y,p}from"/$bunfs/root/chunk-ca80fke8.js";import"/$bunfs/root/chunk-gcks6mn0.js";import{m}from"/$bunfs/root/chunk-bzx56g36.js";import"/$bunfs/root/chunk-eqdctte5.js";import"/$bunfs/root/chunk-fec4384a.js";import"/$bunfs/root/chunk-qm65zb83.js";import"/$bunfs/root/chunk-vfy57cpd.js";import{R,l,X}from"/$bunfs/root/chunk-ypdw393e.js";import{Ge,b,P5,V,Ps,n}from"/$bunfs/root/chunk-fv016jr6.js";import"/$bunfs/root/chunk-qk7r0t2g.js";import{ce,Dn}from"/$bunfs/root/chunk-4ddxwr9r.js";import"/$bunfs/root/chunk-wkxx62a2.js";import"/$bunfs/root/chunk-82w4mtvq.js";import{ap,Zxe,Hce}from"/$bunfs/root/chunk-zze8764r.js";import{kt}from"/$bunfs/root/chunk-twwd9fep.js";import"/$bunfs/root/chunk-ps6pc7xd.js";import{ee}from"/$bunfs/root/chunk-4fwj3vnx.js";import"/$bunfs/root/chunk-s7e0px8j.js";import"/$bunfs/root/chunk-s28wf80n.js";import"/$bunfs/root/chunk-3bbym8ct.js";import"/$bunfs/root/chunk-cf8qhmdc.js";import"/$bunfs/root/chunk-0pgyw7te.js";import"/$bunfs/root/chunk-2masxyqj.js";import"/$bunfs/root/chunk-rgw52f13.js";import{Hoe}from"/$bunfs/root/chunk-2rx5nghb.js";import"/$bunfs/root/chunk-f5hrzy3k.js";import"/$bunfs/root/chunk-nqmqabr8.js";import"/$bunfs/root/chunk-z0z1xzkg.js";import"/$bunfs/root/chunk-c47snwm2.js";import{Te}from"/$bunfs/root/chunk-jpf4kat5.js";import"/$bunfs/root/chunk-s4vc7est.js";import{Kn}from"/$bunfs/root/chunk-hyh5wcm1.js";import{ie}from"/$bunfs/root/chunk-8tgj5dp2.js";import"/$bunfs/root/chunk-amem41jf.js";import"/$bunfs/root/chunk-386w1sy8.js";import"/$bunfs/root/chunk-ax6dy60b.js";import"/$bunfs/root/chunk-6k63g5t6.js";import"/$bunfs/root/chunk-q14dgq5g.js";import"/$bunfs/root/chunk-ntyhd04p.js";import"/$bunfs/root/chunk-8qsdea2c.js";import"/$bunfs/root/chunk-988p40e0.js";import"/$bunfs/root/chunk-0spqrdaj.js";import"/$bunfs/root/chunk-5rt2mvvk.js";import"/$bunfs/root/chunk-1yr12dqr.js";import"/$bunfs/root/chunk-2mmw62jx.js";import"/$bunfs/root/chunk-z2bvp3sv.js";import"/$bunfs/root/chunk-keb644xg.js";import"/$bunfs/root/chunk-bj904w9w.js";import"/$bunfs/root/chunk-18bck2pp.js";import"/$bunfs/root/chunk-dwwpyy7b.js";import"/$bunfs/root/chunk-jck8t8fq.js";import"/$bunfs/root/chunk-qcx34e4j.js";import"/$bunfs/root/chunk-psdymar6.js";import"/$bunfs/root/chunk-0r9wzh7g.js";import"/$bunfs/root/chunk-sxxp6vcr.js";import"/$bunfs/root/chunk-rf51999f.js";import"/$bunfs/root/chunk-v7yhn7cf.js";import"/$bunfs/root/chunk-kxyny47c.js";import"/$bunfs/root/chunk-e7rq8w09.js";import"/$bunfs/root/chunk-fbp3w46j.js";import"/$bunfs/root/chunk-gtv2468w.js";import"/$bunfs/root/chunk-4r03fm98.js";import"/$bunfs/root/chunk-s4smmnta.js";import"/$bunfs/root/chunk-z9ex1x2t.js";import"/$bunfs/root/chunk-k4a21mkt.js";import"/$bunfs/root/chunk-4rh74qms.js";import"/$bunfs/root/chunk-r3qa2s4k.js";import"/$bunfs/root/chunk-1evht33z.js";import"/$bunfs/root/chunk-gkfy5ggn.js";import"/$bunfs/root/chunk-qk6zade1.js";import"/$bunfs/root/chunk-4t3vsqt7.js";import"/$bunfs/root/chunk-ejdwrhgv.js";import"/$bunfs/root/chunk-zkvj62rn.js";import"/$bunfs/root/chunk-492vgtnr.js";import"/$bunfs/root/chunk-0g6cj4h1.js";import"/$bunfs/root/chunk-a48rnvhj.js";import"/$bunfs/root/chunk-tzhtxm67.js";import"/$bunfs/root/chunk-mznd09c6.js";import"/$bunfs/root/chunk-ghara6r1.js";import"/$bunfs/root/chunk-97wwdfyx.js";import"/$bunfs/root/chunk-167jjb66.js";import"/$bunfs/root/chunk-h7dkgq01.js";import{dm,W_t}from"/$bunfs/root/chunk-2n1hsggr.js";import"/$bunfs/root/chunk-s0xdwab3.js";import"/$bunfs/root/chunk-fs02hzwy.js";import"/$bunfs/root/chunk-c76q2y0e.js";import{t$}from"/$bunfs/root/chunk-cds31m36.js";import"/$bunfs/root/chunk-z15hpjf9.js";import"/$bunfs/root/chunk-1pn2pk9v.js";import"/$bunfs/root/chunk-hebj76vj.js";import"/$bunfs/root/chunk-0mrbtv3q.js";import"/$bunfs/root/chunk-5n1tbe50.js";import"/$bunfs/root/chunk-a2an01ph.js";import{h3}from"/$bunfs/root/chunk-dck778n3.js";import"/$bunfs/root/chunk-nkjrjh5n.js";import{Bk,bl}from"/$bunfs/root/chunk-c6k0ecxv.js";import"/$bunfs/root/chunk-bp3j8sq3.js";import"/$bunfs/root/chunk-qekzccch.js";import"/$bunfs/root/chunk-s2ac0z44.js";import"/$bunfs/root/chunk-wgz3g40p.js";import{WS}from"/$bunfs/root/chunk-1mp2j0tx.js";import"/$bunfs/root/chunk-anwgkcw5.js";import"/$bunfs/root/chunk-hz299nfa.js";import"/$bunfs/root/chunk-5wecjdtm.js";import"/$bunfs/root/chunk-p1awcxk1.js";import"/$bunfs/root/chunk-z9bhq3k9.js";import"/$bunfs/root/chunk-e17gvevg.js";import"/$bunfs/root/chunk-da857b4g.js";import"/$bunfs/root/chunk-vzc4dhqq.js";import"/$bunfs/root/chunk-98tgyb1d.js";import"/$bunfs/root/chunk-tveh0k24.js";import"/$bunfs/root/chunk-699y5x28.js";import"/$bunfs/root/chunk-37pvmyqb.js";import"/$bunfs/root/chunk-0m39033q.js";import"/$bunfs/root/chunk-6a5ggyw4.js";import"/$bunfs/root/chunk-btcxpqw5.js";import"/$bunfs/root/chunk-k8xha1qv.js";import"/$bunfs/root/chunk-30e2jew7.js";import"/$bunfs/root/chunk-51qp0385.js";import"/$bunfs/root/chunk-wjr8v4tx.js";import"/$bunfs/root/chunk-kbyvkqye.js";import{vTe,Zu,IYn}from"/$bunfs/root/chunk-dd55s64p.js";import"/$bunfs/root/chunk-83h0j7w2.js";import{nK,jJ,QT}from"/$bunfs/root/chunk-qg6z8ah8.js";import"/$bunfs/root/chunk-308krgtb.js";import"/$bunfs/root/chunk-nf8aaj8a.js";import"/$bunfs/root/chunk-a6xhjq7b.js";import"/$bunfs/root/chunk-qnrh4abv.js";import"/$bunfs/root/chunk-6nmk3t6g.js";import"/$bunfs/root/chunk-jwrz2gmg.js";import"/$bunfs/root/chunk-6w72z84m.js";import"/$bunfs/root/chunk-nkf7ctf5.js";import"/$bunfs/root/chunk-38mxah2g.js";import"/$bunfs/root/chunk-v94qfg1j.js";import"/$bunfs/root/chunk-p18e2918.js";import"/$bunfs/root/chunk-rsp0anqd.js";import"/$bunfs/root/chunk-vq9g7y26.js";import"/$bunfs/root/chunk-w3c6n7jh.js";import"/$bunfs/root/chunk-gvnqpbsf.js";import"/$bunfs/root/chunk-d1d8xqks.js";import"/$bunfs/root/chunk-rgh8hav6.js";import"/$bunfs/root/chunk-qd35gw0c.js";import"/$bunfs/root/chunk-ky33xsw7.js";import"/$bunfs/root/chunk-x06p1jhb.js";import"/$bunfs/root/chunk-91315wj5.js";import"/$bunfs/root/chunk-tz5bx4mb.js";import"/$bunfs/root/chunk-1v3848mh.js";import"/$bunfs/root/chunk-xgfepdf4.js";import"/$bunfs/root/chunk-r4m4cqz1.js";import"/$bunfs/root/chunk-mq8h2tk8.js";import"/$bunfs/root/chunk-50g10fz0.js";import"/$bunfs/root/chunk-5c5qq1s7.js";import"/$bunfs/root/chunk-86v6b72m.js";import"/$bunfs/root/chunk-eb5y4yrx.js";import"/$bunfs/root/chunk-cfqs035d.js";import"/$bunfs/root/chunk-8td9ks9h.js";import"/$bunfs/root/chunk-9y48by1e.js";import"/$bunfs/root/chunk-9tey6wcd.js";import"/$bunfs/root/chunk-c2kqvv3h.js";import"/$bunfs/root/chunk-cgy998p5.js";import{he}from"/$bunfs/root/chunk-h605j25g.js";import"/$bunfs/root/chunk-vx3kc9d2.js";import"/$bunfs/root/chunk-fctnm902.js";import"/$bunfs/root/chunk-e53y7x75.js";import"/$bunfs/root/chunk-d5s7a9by.js";import"/$bunfs/root/chunk-5g92v3fd.js";import"/$bunfs/root/chunk-76gryyye.js";import"/$bunfs/root/chunk-4sw5yxwb.js";import"/$bunfs/root/chunk-trte0v0g.js";import{eu}from"/$bunfs/root/chunk-gmgmb4mg.js";import"/$bunfs/root/chunk-hzjjsb0j.js";import"/$bunfs/root/chunk-avrc9gay.js";import"/$bunfs/root/chunk-pbd9yggs.js";import"/$bunfs/root/chunk-fvkzpeqe.js";import"/$bunfs/root/chunk-96xrtyd5.js";import"/$bunfs/root/chunk-k7v7xwvs.js";import"/$bunfs/root/chunk-pzvxycbq.js";import"/$bunfs/root/chunk-dzv4k86d.js";import"/$bunfs/root/chunk-rt5p4yax.js";import"/$bunfs/root/chunk-jn7d47r1.js";import"/$bunfs/root/chunk-dc4hb8f7.js";import"/$bunfs/root/chunk-z9jgt14c.js";import"/$bunfs/root/chunk-y8sx7bf9.js";import"/$bunfs/root/chunk-q2gyteg0.js";import"/$bunfs/root/chunk-0manfhn2.js";import"/$bunfs/root/chunk-r6ppzf4r.js";import"/$bunfs/root/chunk-4399d2v0.js";import"/$bunfs/root/chunk-y79sc2hm.js";import"/$bunfs/root/chunk-2t3rnt88.js";import"/$bunfs/root/chunk-986hvegp.js";import"/$bunfs/root/chunk-8jsj2mx0.js";import"/$bunfs/root/chunk-dt5bt1kc.js";import"/$bunfs/root/chunk-z9rrv31w.js";import"/$bunfs/root/chunk-5djs3wbb.js";import"/$bunfs/root/chunk-pdf5n9dy.js";import"/$bunfs/root/chunk-4c3hecm4.js";import"/$bunfs/root/chunk-rntp2fy5.js";import"/$bunfs/root/chunk-a9vrr0nr.js";import"/$bunfs/root/chunk-nfmyt8cw.js";import"/$bunfs/root/chunk-6var9pwd.js";import"/$bunfs/root/chunk-gmj1vprd.js";import"/$bunfs/root/chunk-ht15rw3x.js";import"/$bunfs/root/chunk-gay9hbs8.js";import"/$bunfs/root/chunk-mvz9fsh3.js";import"/$bunfs/root/chunk-ddbk6aje.js";import"/$bunfs/root/chunk-krety1hw.js";import"/$bunfs/root/chunk-6ywvv1q0.js";import"/$bunfs/root/chunk-wn1jrcrk.js";import"/$bunfs/root/chunk-zk5v8tw6.js";import"/$bunfs/root/chunk-kdtcyk0z.js";import"/$bunfs/root/chunk-q75cm02t.js";import"/$bunfs/root/chunk-dxqac26z.js";import"/$bunfs/root/chunk-2204t1q0.js";import"/$bunfs/root/chunk-kfdrcvxr.js";import"/$bunfs/root/chunk-fd2h00ye.js";import"/$bunfs/root/chunk-z6m3k8w5.js";import"/$bunfs/root/chunk-vm4xrmr7.js";import"/$bunfs/root/chunk-hkzwg35z.js";import"/$bunfs/root/chunk-mkweh3a4.js";import{ttn,nit,yje,i8,VIt,rit,oit,Sje}from"/$bunfs/root/chunk-nm7kp5hv.js";import{tit}from"/$bunfs/root/chunk-rs4mk5cn.js";import"/$bunfs/root/chunk-5hskqad6.js";import{Tf}from"/$bunfs/root/chunk-k2an0hy6.js";import{etn}from"/$bunfs/root/chunk-zyd8bk7m.js";import{dZ}from"/$bunfs/root/chunk-jhbzwjff.js";import"/$bunfs/root/chunk-2vpjf0dz.js";import"/$bunfs/root/chunk-n5yr1b9d.js";import{F0}from"/$bunfs/root/chunk-nmpqha26.js";import{DUn,Hhe,pZ,bje}from"/$bunfs/root/chunk-w9wjwz4e.js";import{wje}from"/$bunfs/root/chunk-8swr939y.js";import"/$bunfs/root/chunk-nq83tgen.js";import"/$bunfs/root/chunk-6nsyrmhg.js";import"/$bunfs/root/chunk-jjkewjsg.js";import"/$bunfs/root/chunk-4r71nj50.js";import{Oh,Zun}from"/$bunfs/root/chunk-3qvtfvqg.js";import{IE}from"/$bunfs/root/chunk-0b5b5vvk.js";import"/$bunfs/root/chunk-r7t0evh2.js";import"/$bunfs/root/chunk-6xz0kht6.js";import"/$bunfs/root/chunk-2am7kb6k.js";import"/$bunfs/root/chunk-9kr4hqvs.js";import"/$bunfs/root/chunk-xvwx3w83.js";import"/$bunfs/root/chunk-y9akj3mq.js";import"/$bunfs/root/chunk-gdk3p0b3.js";import"/$bunfs/root/chunk-qy75zxb2.js";import"/$bunfs/root/chunk-r6t6p0zm.js";import"/$bunfs/root/chunk-qpj83ec7.js";import"/$bunfs/root/chunk-f77e8yef.js";import"/$bunfs/root/chunk-f7y0mdt6.js";import"/$bunfs/root/chunk-jb2pzt3t.js";import"/$bunfs/root/chunk-9yzzw213.js";import"/$bunfs/root/chunk-mknyj0qp.js";import{ny}from"/$bunfs/root/chunk-8spbv9dy.js";import"/$bunfs/root/chunk-81defen8.js";import"/$bunfs/root/chunk-mpg6r2j0.js";import"/$bunfs/root/chunk-3dh32z3c.js";import"/$bunfs/root/chunk-n8ecp4gs.js";import"/$bunfs/root/chunk-406nxetx.js";import"/$bunfs/root/chunk-2zf9m1zh.js";import"/$bunfs/root/chunk-rxqmmxnb.js";import"/$bunfs/root/chunk-gdhqsw8a.js";import"/$bunfs/root/chunk-5xr818a0.js";import"/$bunfs/root/chunk-fgavb5x0.js";import"/$bunfs/root/chunk-sqa0bs5e.js";import"/$bunfs/root/chunk-fveqn4y7.js";import"/$bunfs/root/chunk-4zsxhey6.js";import"/$bunfs/root/chunk-61nasexv.js";import"/$bunfs/root/chunk-m1andcps.js";import"/$bunfs/root/chunk-61hbq2wc.js";import"/$bunfs/root/chunk-rq65wazg.js";import"/$bunfs/root/chunk-5tdaspnd.js";import"/$bunfs/root/chunk-rr0yj5sq.js";import"/$bunfs/root/chunk-a7wreksn.js";import"/$bunfs/root/chunk-8sbwe0jk.js";import"/$bunfs/root/chunk-nwb64bac.js";import"/$bunfs/root/chunk-g5y4mxg8.js";import"/$bunfs/root/chunk-cbn30h5b.js";import"/$bunfs/root/chunk-g01aac1k.js";import"/$bunfs/root/chunk-3fwkz19s.js";import"/$bunfs/root/chunk-9319g175.js";import"/$bunfs/root/chunk-szz73wxx.js";import"/$bunfs/root/chunk-b40bn863.js";import"/$bunfs/root/chunk-6mgs10s2.js";import"/$bunfs/root/chunk-6s9ybdq1.js";import"/$bunfs/root/chunk-74qqwjhx.js";import{i,v,q,dS,_e,H,f,ot,un,dt,De,oe,zH}from"/$bunfs/root/chunk-saay52v7.js";import"/$bunfs/root/chunk-1hh0bg14.js";import"/$bunfs/root/chunk-052zvbpg.js";import"/$bunfs/root/chunk-werv747a.js";import"/$bunfs/root/chunk-jzh4kg5x.js";import"/$bunfs/root/chunk-7s7jqj2f.js";import"/$bunfs/root/chunk-56sxk8k2.js";import{O}from"/$bunfs/root/chunk-dqkj2bph.js";import"/$bunfs/root/chunk-7jz6r17g.js";import{He}from"/$bunfs/root/chunk-79g5tayq.js";import"/$bunfs/root/chunk-a4q326ap.js";import{randomUUID as Lr}from"crypto";import{resolve as Vr}from"path";function ze(e,{apply:r}){if(!He(e))return null;let t=e.args;if(typeof t!=="string")return null;let a=t.trimStart()[0];if(a!=="{"&&a!=="[")return null;let u;try{u=V(t)}catch{return null}if(u===null||typeof u!=="object")return null;let d=typeof e.name==="string"?"_named":"",h=Array.isArray(u)?"args_json_string_to_array":"args_json_string_to_object";if(!r)return{input:e,shapeClass:`${h}${d}_detect_only`};return{input:{...e,args:u},shapeClass:`${h}${d}`}}var _=-1;function Be(e){return e!==null&&typeof e==="object"&&!Array.isArray(e)&&typeof e.$var==="string"}function me(e){return e!==null&&typeof e==="object"&&!Array.isArray(e)&&typeof e.$atleast==="number"}function N(e){let r=Pr().safeParse(e);if(!r.success||me(r.data))throw new R('a pattern must be a JSON object (nested objects as subsets, arrays exact, v("x") binds)',"world: not a pattern");return r.data}function Ue(e){if(me(e)){let r=e.$atleast;if(!Number.isSafeInteger(r)||r<0)throw new R("atleast(N, pattern): N must be a non-negative integer","world: bad threshold count");return{$atleast:r,of:N(e.of)}}return N(e)}var hr=new Set(["addr","by","status","at","in"]),gr=new Set(["live","done"]),kr=1e5;function Je(e){return Array.isArray(e)}function br(e,r){return Object.is(e,r)||b(e)===b(r)}function we(e,r,t={}){if(e===null||typeof e!=="object")return Object.is(e,r)?t:void 0;if(Be(e)){if(r===void 0)return;if(Object.hasOwn(t,e.$var))return br(t[e.$var],r)?t:void 0;return{...t,[e.$var]:r}}if(Je(e)){if(!Array.isArray(r)||r.length!==e.length)return;let u=t;for(let d=0;d<e.length&&u;d++)u=we(e[d],r[d],u);return u}if(r===null||typeof r!=="object"||Array.isArray(r))return;let o=e,a=t;for(let u of Object.keys(o)){if(u==="__proto__")continue;let d=Object.hasOwn(r,u)?r[u]:void 0;if(a=we(o[u],d,a),!a)return}return a}function Ke(e){return{...e.fact,addr:e.addr,by:e.by,in:e.in,status:e.status,...e.kind==="eval"&&{value:e.value,error:e.error}}}function Oe(e){if(e===null||typeof e!=="object")return!1;if(Be(e))return!0;if(Je(e))return e.some(Oe);return Object.values(e).some(Oe)}function yr(e,r){return we(e,Ke(r))!==void 0}function vr(e){return Object.prototype.hasOwnProperty.call(e,"status")}function Rr(e,r){return We(e,r)!==void 0}function We(e,r){if(!vr(e)&&!gr.has(r.status))return;return we(e,Ke(r))}var Sr=m(()=>un({topic:i().min(1)})),Pr=m(()=>{let e=zH(()=>dt([i(),v(),q(),dS(),H(e),De(i(),e)]));return De(i(),e)});function B(e){let r=Sr().safeParse(e);if(!r.success)throw new R("a fact must be an object with a non-empty string `topic`","world: not a fact");for(let t of Object.keys(r.data))if(hr.has(t))throw new R(`a fact may not carry \`${t}\` \u2014 the host sets it on the row`,"world: fact carries a reserved key");return r.data}function Ne(e){try{return ap(l(e))}catch{return"non-stringifiable error"}}class xe{rows=[];rules=new Map;fired=new Set;evalControllers=new Map;inFlight=new Set;spentIn=new Map;childrenOf=new Map;pendingIn=new Map;idleWaiters=new Map;listeners=new Set;maxRows;schedule;constructor(e={}){this.maxRows=e.maxRows??kr,this.schedule=e.schedule??((r)=>queueMicrotask(r))}subscribe(e){return this.listeners.add(e),()=>{this.listeners.delete(e)}}pending(e=_){return this.pendingIn.get(e)??0}isIdle(e=_){return this.pending(e)===0}liveRuleCount(e=_){let r=0;for(let t of this.rules.values())if(this.within(t.addr,e))r++;return r}within(e,r){if(r===_)return!0;let t=e;while(t!==_){if(t===r)return!0;t=this.rows[t]?.in??_}return!1}restore(e){if(this.rows.length>0)throw new R("restore() on a non-empty world","world: restore on a non-empty world");for(let r of e){if(r.addr!==this.rows.length)throw new R(`restore(): row ${r.addr} out of order`,"world: restore out of order");this.rows.push(r);let t=this.childrenOf.get(r.in);if(t)t.push(r.addr);else this.childrenOf.set(r.in,[r.addr])}}put(e,r,t={}){if(e.topic==="budget"&&!(typeof e.units==="number"&&Number.isFinite(e.units)&&e.units>=0))throw new R("a {topic:'budget'} fact needs a finite, non-negative numeric `units`","world: malformed budget fact");return this.append(e,r,"live","put",this.writeScopeOf(t)).addr}read(e,r={}){let t=this.scopeOf(r);return this.rows.filter((o)=>this.within(o.addr,t)&&Rr(e,o))}on(e,r,t,o={}){let a=this.writeScopeOf(o),u=this.append({topic:"sub",pattern:e},t,"live","sub",a),d={addr:u.addr,pattern:e,in:a,fn:r};if(this.rules.set(u.addr,d),me(e))return this.maybeFireThreshold(d,e),u.addr;let h=this.rows.length;for(let g=0;g<h;g++){if(!this.rules.has(d.addr))break;this.maybeFire(d,this.rows[g])}return u.addr}retract(e){let r=this.rows[e];if(!r||r.status==="retracted")return!1;let t=this.inFlight.delete(e);r.status="retracted",this.rules.delete(e);let o=this.evalControllers.get(e);if(o)this.evalControllers.delete(e),o.abort();if(t)this.adjustPending(r.addr,-1);for(let a of this.childrenOf.get(e)??[])if(this.rows[a].status!=="retracted")this.retract(a);if(this.emit({kind:"retracted",row:r}),this.deliver(r),t)this.wakeIdle(r.addr);return!0}eval(e,r,t,o={}){let a=this.append(e,t,"pending","eval",this.writeScopeOf(o)),u=new AbortController;this.evalControllers.set(a.addr,u);let d=()=>{if(a.status!=="pending")return Promise.resolve(void 0);this.inFlight.add(a.addr),this.adjustPending(a.addr,1);try{return Promise.resolve(r(u.signal))}catch(g){return Promise.reject(g)}},h;if(o.admit)try{h=o.admit(u.signal).then(d)}catch(g){h=Promise.reject(g)}else h=d();return h.then((g)=>this.settle(a,{value:g}),(g)=>this.settle(a,{error:Ne(g)})),a.addr}nearestBudget(e){let r=e;for(;;){let t=this.childrenOf.get(r)??[];for(let o=t.length-1;o>=0;o--){let a=this.rows[t[o]];if(a.kind==="put"&&a.status==="live"&&a.fact.topic==="budget"&&typeof a.fact.units==="number")return{holder:r,units:a.fact.units}}if(r===_)return null;r=this.rows[r]?.in??_}}ceiling(e){return this.nearestBudget(e)?.units??null}spent(e=_){return this.spentIn.get(e)??0}charge(e,r){if(!(r>0)||!this.rows[e])return;let t=e;for(;;){if(this.spentIn.set(t,(this.spentIn.get(t)??0)+r),t===_)break;t=this.rows[t]?.in??_}}isOpen(e){let r=this.nearestBudget(e);return r===null||this.spent(r.holder)<r.units}whenOpen(e,r){if(this.isOpen(e))return Promise.resolve();return new Promise((t,o)=>{let a=()=>{d(),r.removeEventListener("abort",u)},u=()=>{a(),o(new R("retracted while waiting for budget","world: admission aborted"))},d=this.subscribe((h)=>{if((h.kind==="put"||h.kind==="retracted")&&h.row.fact.topic==="budget"&&this.isOpen(e))a(),t()});r.addEventListener("abort",u,{once:!0})})}spentAt(e){let r=this.nearestBudget(e);return this.spent(r?r.holder:_)}settled(e){let r=this.rows[e];if(!r)return Promise.reject(new R(`no row at ${e}`,"world: settled() on a missing row"));if(r.status!=="pending")return Promise.resolve(r);return new Promise((t)=>{let o=this.subscribe((a)=>{if((a.kind==="settled"||a.kind==="retracted")&&a.row.addr===e)o(),t(a.row)})})}whenIdle(e=_){if(this.isIdle(e))return Promise.resolve();return new Promise((r)=>{let t=this.idleWaiters.get(e);if(t)t.push(r);else this.idleWaiters.set(e,[r])})}scopeOf(e){let r=e.in??_;if(r!==_&&!this.rows[r])throw new R(`no row at ${r} to place in`,"world: placement names a missing row");return r}writeScopeOf(e){let r=this.scopeOf(e);if(this.isRetractedScope(r))throw new R(`row ${r} is retracted; nothing can be placed inside it`,"world: placement inside a retracted scope");return r}isRetractedScope(e){let r=e;while(r!==_){let t=this.rows[r];if(!t)return!1;if(t.status==="retracted")return!0;r=t.in}return!1}append(e,r,t,o,a){if(this.rows.length>=this.maxRows)throw new R(`world full (${this.maxRows} rows) \u2014 a rule is probably putting the fact it fires on`,"world: full");let u={addr:this.rows.length,kind:o,fact:e,by:r,in:a,at:Date.now(),status:t};this.rows.push(u);let d=this.childrenOf.get(a);if(d)d.push(u.addr);else this.childrenOf.set(a,[u.addr]);return this.emit({kind:"put",row:u}),this.deliver(u),u}settle(e,r){if(e.status!=="pending")return;if(this.evalControllers.delete(e.addr),"error"in r)e.status="failed",e.error=r.error;else e.status="done",e.value=r.value;if(this.inFlight.delete(e.addr))this.adjustPending(e.addr,-1);this.emit({kind:"settled",row:e}),this.deliver(e),this.wakeIdle(e.addr)}deliver(e){for(let r of Array.from(this.rules.values()))if(this.rules.has(r.addr))this.maybeFire(r,e)}maybeFire(e,r){if(me(e.pattern)){if(this.within(r.addr,e.in)&&yr(e.pattern.of,r))this.maybeFireThreshold(e,e.pattern);return}if(!this.within(r.addr,e.in))return;let t=We(e.pattern,r);if(!t)return;let o=`${e.addr}:${r.addr}:${r.status}`;if(this.fired.has(o))return;this.fired.add(o),this.fire(e,r,t,r.addr)}maybeFireThreshold(e,r){let t=new Map;for(let o of this.rows){if(!this.within(o.addr,e.in))continue;let a=We(r.of,o);if(!a)continue;let u=b(a)??"",d=t.get(u);if(d)d.rows.push(o);else t.set(u,{bindings:a,rows:[o]})}if(t.size===0&&!Oe(r.of))t.set("{}",{bindings:{},rows:[]});for(let[o,a]of t){if(a.rows.length<r.$atleast)continue;let u=`${e.addr}:group:${o}`;if(this.fired.has(u))continue;this.fired.add(u),this.fire(e,a.rows,a.bindings,a.rows[0]?.addr??-1)}}fire(e,r,t,o){this.adjustPending(e.addr,1),new Promise((a)=>this.schedule(a)).then(()=>e.fn(r,t)).catch((a)=>{let u=Ne(a);if(n(`world rule ${e.addr} threw on row ${o}: ${u}`,{level:"warn"}),!this.isRetractedScope(e.in))try{this.append({topic:"error",kind:"rule",rule:e.addr,on:o,message:u},"host","live","put",e.in)}catch{}}).finally(()=>{this.adjustPending(e.addr,-1),this.wakeIdle(e.addr)})}adjustPending(e,r){let t=e;for(;;){if(this.pendingIn.set(t,(this.pendingIn.get(t)??0)+r),t===_)return;t=this.rows[t]?.in??_}}wakeIdle(e){let r=e;for(;;){if(this.isIdle(r)){let t=this.idleWaiters.get(r);if(t){this.idleWaiters.delete(r);for(let o of t)o()}this.emit({kind:"idle",in:r})}if(r===_)return;r=this.rows[r]?.in??_}}emit(e){for(let r of this.listeners)try{r(e)}catch(t){n(`world listener threw: ${l(t)}`,{level:"warn"})}}}function Ir(e){return Array.isArray(e)}var Or=/[\p{Cc}\p{Cf}\u0022\u201c-\u201f\u2033\u2036\u275d\u275e\u301d\u301e\uff02]/gu;function Ce(e){return e.replace(Or,"")}function Q(e){return{addr:e.addr,by:e.by,in:e.in,status:e.status,value:e.value,error:e.error,fact:e.fact}}function Ye(e,r,t){let{clone:o,call:a,settle:u,sanitize:d}=e.vmBoundary,{vmContext:h,hooks:g}=e,T=jJ(h),P="script",W=new Map;function C(k){let S;try{S=u(k())}catch(I){return Promise.reject(x(I))}return S.then((I)=>j(I.v),(I)=>{throw x(I)})}function x(k){let S=T(k);return new R(S.message?`${S.name}: ${S.message}`:S.name,"workflow v2: VM code threw")}function F(k){let S=j(k);if(S!==null&&typeof S==="object"&&"in"in S){let I=S.in;if(typeof I!=="number"||!Number.isSafeInteger(I)||!r.within(I,t))throw new R("`in` must be the address of a row inside this run","workflow v2: placement outside the run");return{in:I}}return{in:t}}function j(k){let S=d(k);if(S===null||typeof S!=="object")return S;let I=b(S);return I===void 0?void 0:V(I)}function M(k,S){if(typeof k!=="function")throw new R(S,"workflow v2: word expected a function")}let re=QT((k,S)=>r.put(B(j(k)),P,F(S))),te=QT((k,S)=>{let I=N(j(k)??{});return o(r.read(I,F(S)).map(Q))}),se=QT((k,S,I)=>{let E=Ue(j(k)??{});M(S,"on() expects a function");let J=-1,Y=P;return J=r.on(E,(G,Pe)=>{let ue=P;P=`rule:${J}`;try{let z=Ir(G)?G.map(Q):Q(G);return C(()=>a(S,o(z),o(Pe)))}finally{P=ue}},Y,F(I)),J}),ae=QT((k)=>{if(typeof k!=="number"||!Number.isSafeInteger(k))throw TypeError("retract() expects an address (a number)");if(k===t||!r.within(k,t))return!1;return r.retract(k)}),le=QT((k,S,I)=>{let E=B(j(k));return M(S,"eval() expects a function"),r.eval(E,()=>C(()=>a(S)),P,F(I))}),ve=QT((k,S)=>{let I=j(S),E=I!==null&&typeof I==="object"&&!Array.isArray(I)?I:{},J=e.vmToStr(k),Y=typeof E.label==="string"?E.label:ce(J,60).replace(/\s+/g," ").trim(),G=E.fact!==null&&typeof E.fact==="object"&&!Array.isArray(E.fact)?E.fact:{},Pe=B({...G,topic:"agent",label:Y,...typeof E.phase==="string"&&{phase:E.phase}}),ue=F(S),z=ue.in??t,mr=r.rows.length;return r.eval(Pe,(Ie)=>{let de=g.getAgentCount(),fe=g.agent(k,S,Ie),pe=g.getAgentCount();if(pe>de)W.set(pe,mr);return fe.then((Z)=>{if(Z===null||Z===void 0)throw new R("agent produced no result (skipped, blocked, or gave up after retries)","workflow v2: agent resolved without a result");return j(Z)},(Z)=>{throw x(Z)})},P,{...ue,admit:(Ie)=>{if(r.isOpen(z))return Promise.resolve();let de=r.spentAt(z),fe=r.ceiling(z),pe=r.put({topic:"starved",label:Y,spent:de,ceiling:fe},"host",{in:z});return g.log(`starved: "${Ee(Ce(Y))}" waits \u2014 spent ${de} of ${fe}; put {topic:'budget', units:N} to continue`),r.whenOpen(z,Ie).finally(()=>r.retract(pe))}})}),L=QT((k)=>{if(typeof k!=="string"||k==="")throw new R("v(name) expects a non-empty string","workflow v2: v() expects a name");return o({$var:k})}),D=QT((k,S)=>{let I=N(j(S)??{});if(typeof k!=="number"||!Number.isSafeInteger(k)||k<0)throw new R("atleast(N, pattern) expects a non-negative integer","workflow v2: atleast() expects a count");return o({$atleast:k,of:I})}),Re=QT((k,S)=>{M(k,"setTimeout() expects a function");let I=typeof S==="number"&&Number.isFinite(S)&&S>=0?S:0;return r.eval({topic:"timer",ms:I},(E)=>ne(I,E,{throwOnAbort:!0}).then(()=>C(()=>a(k))),P,{in:t})}),U=QT((k)=>{if(typeof k==="number"&&Number.isSafeInteger(k)){let S=r.rows[k];if(S&&S.fact.topic==="timer"&&r.within(k,t))r.retract(k)}});for(let[k,S]of[["put",re],["read",te],["on",se],["retract",ae],["eval",le],["agent",ve],["v",L],["atleast",D],["setTimeout",Re],["clearTimeout",U]])Object.defineProperty(h,k,{value:S,writable:!1,enumerable:!0,configurable:!1});for(let k of["parallel","pipeline","workflow"])Reflect.deleteProperty(h,k);return{agentAddrByIndex:W,as(k,S){let I=P;P=k;try{return S()}finally{P=I}}}}var qe=200;function Ee(e){return e.length>qe?`${ce(e,qe)}\u2026`:e}var Tr=1000,_r=5000;class ge{runId;vmScript;world;controller=new AbortController;ctx;words;vmErrorInfo;logs=[];log(e){if(this.logs.length<Tr)this.logs.push(ap(e))}sink;killed=!1;scope=-1;syncTimeoutMs;reportedRows=0;reportedLogs=0;reportedFailures=0;reopen;constructor(e,r,t){this.runId=e;this.vmScript=r;this.world=t}static lost(e,r,t){let o=new ge(e,void 0,r);return o.scope=t,o.lostOnResume=!0,o}lostOnResume=!1;get isLost(){return this.lostOnResume}get founded(){return this.scope>=0}get isKilled(){return this.killed}get isActive(){return this.scope>=0&&!this.world.isIdle(this.scope)}status(){if(this.scope<0)return{rows:0,pending:0,rules:0};return{rows:this.world.read({},{in:this.scope}).length,pending:this.world.pending(this.scope),rules:this.world.liveRuleCount(this.scope)}}kill(){if(this.killed=!0,this.controller.abort(),this.scope>=0)this.world.retract(this.scope);this.ctx=void 0,this.words=void 0}async run(e,r,t,o){this.sink=t;let a=Date.now();if(this.scope<0)try{this.found(e,r,o)}catch(x){throw this.scope=-1,this.ctx=void 0,this.words=void 0,x}await Promise.race([this.world.whenIdle(this.scope),this.aborted()]);let u=this.reportedRows;this.reportedRows=this.world.rows.length;let d=this.world.rows[this.scope],h=d?.status==="failed"&&this.scope>=u?d.error:void 0,g={in:this.scope},T=(x)=>x.addr>=u,P=this.logs.slice(this.reportedLogs);this.reportedLogs=this.logs.length;let W=this.ctx?.hooks.getFailures()??[],C=[...W.slice(this.reportedFailures),...this.world.read({topic:"error"},g).filter(T).map((x)=>ap(`error: ${b(x.fact)}`)),...this.world.read({topic:"starved"},g).filter(T).map((x)=>ap(`starved: ${b(x.fact)} \u2014 Workflow({runId, put:{topic:'budget', units:N}}) to continue`))];return this.reportedFailures=W.length,{result:this.world.read({topic:"result"},g).filter(T).map((x)=>x.fact),agentCount:this.ctx?.hooks.getAgentCount()??0,logs:P,failures:C,durationMs:Date.now()-a,...h!==void 0&&{error:h}}}put(e,r){return this.requireOpen(),this.requireFounded(),this.world.put(B(e),r,{in:this.scope})}retract(e){if(this.requireOpen(),this.requireFounded(),e===this.scope||!this.world.within(e,this.scope))return!1;return this.world.retract(e)}read(e){if(this.scope<0)return[];return this.world.read(N(e??{}),{in:this.scope}).map(Q)}beginScript(e,r){if(this.requireOpen(),this.requireFounded(),!this.ctx||!this.words)return{error:"run has no context yet"};let t=i8(e);if(!t.ok)return{error:t.error};return{addr:this.evalScript(t.vmScript,{topic:"script",via:r},r,r,{in:this.scope})}}async awaitScript(e){await Promise.race([this.world.settled(e),ne(_r)]);let r=this.world.rows[e];return r.status==="failed"?{error:r.error}:{}}async script(e,r){let t=this.beginScript(e,r);if("error"in t)return{error:t.error};let o=await this.awaitScript(t.addr);return{addr:t.addr,...o}}requireOpen(){if(this.killed)throw new R(`workflow run ${this.runId} was killed`,"workflow v2: run op on a killed run")}requireFounded(){if(this.scope<0)throw new R(`workflow run ${this.runId} is not founded`,"workflow v2: run-op on an unfounded run");if(this.lostOnResume)throw new R(`workflow run ${this.runId} was restored from the journal on resume; its rules and work are gone \u2014 read its facts, or launch again`,"workflow v2: run op on a lost run")}aborted(){let e=this.controller.signal;if(e.aborted)return Promise.resolve();return new Promise((r)=>{e.addEventListener("abort",()=>r(),{once:!0})})}found(e,r,t){let o={...e,abortController:this.controller},a=new Map,u=VIt(o,r,(h)=>{if(h.type==="progress"&&h.data.type==="workflow_log")this.log(h.data.message);else if(h.type==="progress"&&h.data.type==="workflow_agent"&&typeof h.data.tokens==="number"){let g=this.words?.agentAddrByIndex.get(h.data.index);if(g!==void 0){let T=a.get(h.data.index)??0;if(h.data.tokens>T)this.world.charge(g,h.data.tokens-T),a.set(h.data.index,h.data.tokens);let P=this.world.rows[g],W=h.data.state==="done"||h.data.state==="error";if(P&&P.status==="pending"&&!W){let C=this.world.ceiling(P.in);if(C!==null&&this.world.spentAt(P.in)>C){let x=Ce(String(P.fact.label??g));if(!this.world.isRetractedScope(P.in))this.world.put({topic:"over-budget",label:x,agent:g,spent:this.world.spentAt(P.in),ceiling:C},"host",{in:P.in});this.world.retract(g),this.log(`over budget: "${Ee(x)}" cut off \u2014 spent ${this.world.spentAt(P.in)} of ${C}; put {topic:'budget', units:N} to raise the ceiling`)}}}}this.sink?.onProgress(h)},this.runId,(h,g)=>this.sink?.onAgentController(h,g),t.args,t.seedPhaseTitles,t.tokenBudget,void 0,void 0,t.workflowName,t.invokingRequestId,void 0);if(this.ctx=u,this.vmErrorInfo=jJ(u.vmContext),this.syncTimeoutMs=t.syncTimeoutMs,this.scope=this.world.rows.length,this.words=Ye(u,this.world,this.scope),!this.vmScript)throw new R("a run restored from the journal cannot be founded","workflow v2: found() on a lost run");let d=this.evalScript(this.vmScript,{topic:"script",founding:!0,runId:this.runId},"host","script",{in:_});if(d!==this.scope)throw new R(`founding row landed at ${d}, expected ${this.scope}`,"workflow v2: founding address mismatch")}evalScript(e,r,t,o,a){let u=this.ctx,d=this.words;return this.world.eval(r,()=>d.as(o,()=>this.execute(e,u)).then((h)=>{if(h.error)throw new R(h.error,"workflow v2: script failed");return null}),t,a)}async execute(e,r){let t=r.vmBoundary.settle;try{let o=e.runInContext(r.vmContext,nK(yje,this.syncTimeoutMs));return await t(o),{}}catch(o){let a=this.vmErrorInfo?.(o)??{name:"Error",message:"",stack:""};if(a.stack)n(`Workflow v2 script error stack:
-${a.stack}`,{level:"error"});return{error:Zxe(a)}}}}class ke{byId=new Map}function Xe(e,r){let t=0;for(let o of e.read({topic:"script",founding:!0,status:"failed"},{in:_}))$e(o)&&je(o.addr,o.fact.runId,e,r)&&t++;for(let o of e.read({topic:"script",founding:!0,status:"done"},{in:_}))$e(o)&&je(o.addr,o.fact.runId,e,r)&&t++;for(let o of e.read({topic:"script",founding:!0,status:"retracted"},{in:_}))if($e(o)&&je(o.addr,o.fact.runId,e,r))r.byId.get(String(o.fact.runId))?.kill(),t++;return t}function $e(e){return e.in===_&&e.kind==="eval"&&e.by==="host"}function je(e,r,t,o){if(typeof r!=="string"||o.byId.has(r))return!1;return o.byId.set(r,ge.lost(r,t,e)),!0}function be(e){if(typeof e.runId!=="string")return;let r=e.put!==void 0||typeof e.retract==="number"||e.read!==void 0;return{runId:e.runId,...e.put!==void 0&&{put:e.put},...typeof e.retract==="number"&&{retract:e.retract},...e.read!==void 0&&{read:e.read},...!r&&typeof e.script==="string"&&e.script!==""&&{script:e.script}}}var Nt=m(()=>f({verb:oe(["put","retract","read","script"]),addr:v().optional(),retracted:q().optional(),rows:H(_e()).optional(),error:i().optional(),reopened:q(),status:f({rows:v(),pending:v(),rules:v()})}));function Ze(e){let r=[];if(e.put!==void 0)r.push("put");if(e.retract!==void 0)r.push("retract");if(e.read!==void 0)r.push("read");if(e.script!==void 0)r.push("script");return r.length===1?r[0]:void 0}import{appendFile as Wr,mkdir as xr,readFile as Cr}from"fs/promises";import{basename as Qe,dirname as Ae,join as Er}from"path";var rr="world.jsonl",$r=4194304;function tr(){let e=Ty()??bl(Se());return Er(e,K(),rr)}function nr(e){let r=Ae(e),t=Bk(Ae(r));if(t===void 0||Qe(e)!==rr)return;let o=Te.sessionJournal(t,Qe(r),"world");return Kn(o)===void 0?o:void 0}function or(e,r,t){let o=nr(r),a=!1,u=Promise.resolve(),d=(h)=>{u=u.then(async()=>{if(O()&&t!==void 0&&o!==void 0){let g=await t.append(o,[{data:P5(h)}]);if(!g.ok)n(`world journal append failed: ${Ge(g.error)}`,{level:"warn"});return}if(!a)await xr(Ae(r),{recursive:!0}),a=!0;await Wr(r,P5(h))}).catch((g)=>{n(`world journal append failed: ${g}`,{level:"warn"})})};return e.subscribe((h)=>{switch(h.kind){case"put":{let{addr:g,kind:T,fact:P,by:W,at:C,status:x}=h.row;d({k:"put",addr:g,kind:T,fact:P,by:W,in:h.row.in,at:C,status:x});return}case"settled":{let{addr:g,status:T,value:P,error:W}=h.row;if(T==="done")d({k:"settled",addr:g,status:T,value:P});else if(T==="failed")d({k:"settled",addr:g,status:T,error:W});return}case"retracted":d({k:"retracted",addr:h.row.addr});return;case"idle":return}})}async function sr(e,r){let t=nr(e);if(O()&&r!==void 0&&t!==void 0)return er(await jr(r,t)??[]);let o;try{o=await Cr(e,"utf8")}catch(a){if(X(a))return[];throw a}return er(o.split(`
-`))}function er(e){let r=[];for(let t of e){if(!t)continue;try{r.push(Ps(t))}catch{n("world journal: skipping a malformed line",{level:"warn"})}}return r}async function jr(e,r){let t=new TextDecoder("utf-8",{ignoreBOM:!0}),o=[],a;for(;;){let u=await e.readRecords(r,{...a!==void 0&&{fromSeq:a},maxBytes:$r});if(!u.ok){if(u.error.code==="NotFound")return;throw n(`world journal read failed: ${Ge(u.error)}`,{level:"warn"}),Error("world journal read failed",{cause:u.error})}for(let h of u.value.items){let g=t.decode(h.data);o.push(g.endsWith(`
-`)?g.slice(0,-1):g)}let d=u.value.nextSeq;if(d===void 0)return o;if(a!==void 0&&d<=a)throw Error("world journal read cursor failed to advance");a=d}}function ir(e,r){if(e.rows.length>0)throw Error("replayWorldJournal: the world is not empty");let t=new Map,o=new Map,a=new Set;for(let d of r)switch(d.k){case"put":t.set(d.addr,d);break;case"settled":o.set(d.addr,d);break;case"retracted":a.add(d.addr);break}let u=[];for(let d=0;d<t.size;d++){let h=t.get(d);if(!h)break;let g={addr:d,kind:h.kind,fact:h.fact,by:h.by,in:h.in,at:h.at,status:h.status},T=o.get(d);if(T)if(g.status=T.status,T.status==="done")g.value=T.value;else g.error=T.error;if(a.has(d))g.status="retracted";else if(g.kind==="sub"&&g.status==="live")g.status="retracted";else if(g.status==="pending")g.status="failed",g.error="lost on resume";u.push(g)}return e.restore(u),u.length}var Ar=new Mn(()=>new xe);function Fe(e){return Ar.of(e)}class ar{opened}var Fr=new Mn(()=>new ar);function lr(e,r){let t=Fr.of(e);if(t.opened)return t.opened;return t.opened=(async()=>{let o=Fe(e),a=tr(),u=0;try{let d=await sr(a,r);if(d.length>0&&o.rows.length===0)u=ir(o,d)}catch(d){n(`world journal replay failed: ${d}`,{level:"warn"})}return or(o,a,r),{restored:u}})(),t.opened}var ur=80;async function dr(e){await lr(e.session,e.storageV5),Xe(Fe(e.session),e.toolState.get(ke))}function A(){return}function Le(e,r){return e.name===void 0&&(e.script!==void 0||e.scriptPath!==void 0)&&dZ(r)?`
-Load the \`${IE}\` skill for the script reference if you have not, fix the script, and retry.`:""}function cr(){return}var Dr="script contains control characters that would be hidden in the approval dialog",zr=m(()=>ot({script:i().max(dm).refine(t$,Dr).optional().describe(A()?.SCRIPT_DESCRIPTION_V2??"Self-contained workflow script. Must begin with `export const meta = { name, description, phases }` (pure literal, no computed values) followed by the script body using agent()/parallel()/pipeline()/phase()."),name:i().optional().describe("Name of a predefined workflow (built-in or from .claude/workflows/). Resolves to a self-contained script."),description:i().optional().describe("Ignored \u2014 set the workflow description in the script's `meta` block."),title:i().optional().describe("Ignored \u2014 set the workflow title in the script's `meta` block."),args:_e().optional().describe("Optional input value exposed to the script as the global `args`, verbatim. Pass arrays/objects as actual JSON values, NOT as a "+"JSON-encoded string \u2014 a stringified list breaks `args.filter`/"+"`args.map` in the script. Use for parameterized named workflows (e.g. a research question)."),scriptPath:i().optional().describe("Path to a workflow script file on disk. Every Workflow invocation persists its script under the session directory and returns the path in the tool result. To iterate, edit that file with Write/Edit and re-invoke Workflow with the same `scriptPath` instead of re-sending the full script. Takes precedence over `script` and `name`."),resumeFromRunId:i().regex(/^wf_[a-z0-9-]{6,}$/).optional().describe(`Run ID of a prior Workflow invocation to resume from. Completed agent() calls with unchanged (prompt, opts) return their cached results instantly; only edited or new calls re-run. Same-session only. Stop the prior run first (${ny}) before resuming.`),...A()?.runOpFields()??{},...!1}).refine((e)=>e.script||e.name||e.scriptPath||e.runId,{message:"Must provide script, name, scriptPath, or runId"})),Nr=m(()=>f({status:oe(["async_launched","remote_launched",...A()?[A().RUN_OP_STATUS]:[]]),taskId:i(),taskType:oe(["local_workflow","remote_agent"]).optional().describe("TaskType of the registered background task \u2014 'local_workflow' for in-process runs, 'remote_agent' when remote:true dispatches to CCR. Set on all new writes; absent only on transcripts written before this field existed."),workflowName:i().optional().describe("meta.name from the workflow script \u2014 same value as task_started.workflow_name. Set on all new writes; absent only on transcripts written before this field existed."),runId:i().optional().describe("Local workflow run identifier for resumeFromRunId. Absent for remote_launched (the CCR session URL is the resume handle there) and on transcripts written before this field existed."),summary:i().optional(),transcriptDir:i().optional().describe("Directory where subagent transcripts are written during execution"),scriptPath:i().optional().describe("Path to the persisted workflow script for this invocation. Editable via Write/Edit; pass back as `scriptPath` to re-run without resending the script."),sessionUrl:i().optional().describe("CCR session URL when status is remote_launched"),warning:i().optional().describe("Non-blocking heads-up (e.g. local git state diverges from the pushed branch the cloud session will clone)"),error:i().optional().describe("Set if syntax check failed"),...A()?.runOpOutputFields()??{}}));class ye extends Error{constructor(e){super(e);this.name="WorkflowInputError"}}async function fr(e,r,t){if(e.scriptPath){let o,a;if(e.script)o=e.script,a=Vr(ee(),e.scriptPath);else{let u=await nit(e.scriptPath,r);if("error"in u)return u;o=u.script,a=u.path}if(wje().some((u)=>u.script===o))return{script:o,resolvedScriptPath:a,source:"built-in",scriptMatchesDefinition:!0};return{script:o,resolvedScriptPath:a}}if(e.name){let o=await bje(e.name,ee(),t);if(!o){let a=(await pZ(ee(),t)).map((u)=>u.name).join(", ");return{error:`Workflow "${e.name}" not found. Available: ${a||"(none)"}`}}return{script:e.script??o.script,source:o.source,scriptMatchesDefinition:e.script===void 0||e.script===o.script}}if(e.script)return{script:e.script};return{error:"Must provide script, name, or scriptPath"}}var pr={result:!1,message:"Tool dispatch was retracted by a server fallback; the input may be truncated.",errorCode:7},to=kt({name:eu,aliases:["RunWorkflow"],searchHint:"orchestrate subagents with deterministic JavaScript workflow",enablesCodeExecution:!0,maxResultSizeChars:1e5,isEnabled:()=>Zu(),async prompt(e){let r=cr();if(r!==void 0)return r;return etn(dZ(e?.tools))+Zun(ie().workflowSizeGuideline)},async description(e,r){let t=cr();if(t!==void 0)return t;return etn(dZ(r?.tools))+Zun(ie().workflowSizeGuideline)},get inputSchema(){return zr()},get outputSchema(){return Nr()},coerceInput:(e)=>ze(e,{apply:IYn()}),toAutoClassifierInput(e){let r=A();if(r&&typeof e.runId==="string")return r.runOpClassifierInput(e);if(e.script&&e.scriptPath)return`${e.script}
+import { Mn, K, Ty, Se } from "/$bunfs/root/chunk-f9h0bg01.js";
+import "/$bunfs/root/chunk-qq1mdtb5.js";
+import { ne } from "/$bunfs/root/chunk-tx16jn0x.js";
+import { s } from "/$bunfs/root/chunk-r53tkxrh.js";
+import { w, c } from "/$bunfs/root/chunk-4xj01xwv.js";
+import { y, p } from "/$bunfs/root/chunk-ca80fke8.js";
+import "/$bunfs/root/chunk-gcks6mn0.js";
+import { m } from "/$bunfs/root/chunk-bzx56g36.js";
+import "/$bunfs/root/chunk-eqdctte5.js";
+import "/$bunfs/root/chunk-fec4384a.js";
+import "/$bunfs/root/chunk-qm65zb83.js";
+import "/$bunfs/root/chunk-vfy57cpd.js";
+import { R, l, X } from "/$bunfs/root/chunk-ypdw393e.js";
+import { Ge, b, P5, V, Ps, n } from "/$bunfs/root/chunk-fv016jr6.js";
+import "/$bunfs/root/chunk-qk7r0t2g.js";
+import { ce, Dn } from "/$bunfs/root/chunk-4ddxwr9r.js";
+import "/$bunfs/root/chunk-wkxx62a2.js";
+import "/$bunfs/root/chunk-82w4mtvq.js";
+import { ap, Zxe, Hce } from "/$bunfs/root/chunk-zze8764r.js";
+import { kt } from "/$bunfs/root/chunk-twwd9fep.js";
+import "/$bunfs/root/chunk-ps6pc7xd.js";
+import { ee } from "/$bunfs/root/chunk-4fwj3vnx.js";
+import "/$bunfs/root/chunk-s7e0px8j.js";
+import "/$bunfs/root/chunk-s28wf80n.js";
+import "/$bunfs/root/chunk-3bbym8ct.js";
+import "/$bunfs/root/chunk-cf8qhmdc.js";
+import "/$bunfs/root/chunk-0pgyw7te.js";
+import "/$bunfs/root/chunk-2masxyqj.js";
+import "/$bunfs/root/chunk-rgw52f13.js";
+import { Hoe } from "/$bunfs/root/chunk-2rx5nghb.js";
+import "/$bunfs/root/chunk-f5hrzy3k.js";
+import "/$bunfs/root/chunk-nqmqabr8.js";
+import "/$bunfs/root/chunk-z0z1xzkg.js";
+import "/$bunfs/root/chunk-c47snwm2.js";
+import { Te } from "/$bunfs/root/chunk-jpf4kat5.js";
+import "/$bunfs/root/chunk-s4vc7est.js";
+import { Kn } from "/$bunfs/root/chunk-hyh5wcm1.js";
+import { ie } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import "/$bunfs/root/chunk-amem41jf.js";
+import "/$bunfs/root/chunk-386w1sy8.js";
+import "/$bunfs/root/chunk-ax6dy60b.js";
+import "/$bunfs/root/chunk-6k63g5t6.js";
+import "/$bunfs/root/chunk-q14dgq5g.js";
+import "/$bunfs/root/chunk-ntyhd04p.js";
+import "/$bunfs/root/chunk-8qsdea2c.js";
+import "/$bunfs/root/chunk-988p40e0.js";
+import "/$bunfs/root/chunk-0spqrdaj.js";
+import "/$bunfs/root/chunk-5rt2mvvk.js";
+import "/$bunfs/root/chunk-1yr12dqr.js";
+import "/$bunfs/root/chunk-2mmw62jx.js";
+import "/$bunfs/root/chunk-z2bvp3sv.js";
+import "/$bunfs/root/chunk-keb644xg.js";
+import "/$bunfs/root/chunk-bj904w9w.js";
+import "/$bunfs/root/chunk-18bck2pp.js";
+import "/$bunfs/root/chunk-dwwpyy7b.js";
+import "/$bunfs/root/chunk-jck8t8fq.js";
+import "/$bunfs/root/chunk-qcx34e4j.js";
+import "/$bunfs/root/chunk-psdymar6.js";
+import "/$bunfs/root/chunk-0r9wzh7g.js";
+import "/$bunfs/root/chunk-sxxp6vcr.js";
+import "/$bunfs/root/chunk-rf51999f.js";
+import "/$bunfs/root/chunk-v7yhn7cf.js";
+import "/$bunfs/root/chunk-kxyny47c.js";
+import "/$bunfs/root/chunk-e7rq8w09.js";
+import "/$bunfs/root/chunk-fbp3w46j.js";
+import "/$bunfs/root/chunk-gtv2468w.js";
+import "/$bunfs/root/chunk-4r03fm98.js";
+import "/$bunfs/root/chunk-s4smmnta.js";
+import "/$bunfs/root/chunk-z9ex1x2t.js";
+import "/$bunfs/root/chunk-k4a21mkt.js";
+import "/$bunfs/root/chunk-4rh74qms.js";
+import "/$bunfs/root/chunk-r3qa2s4k.js";
+import "/$bunfs/root/chunk-1evht33z.js";
+import "/$bunfs/root/chunk-gkfy5ggn.js";
+import "/$bunfs/root/chunk-qk6zade1.js";
+import "/$bunfs/root/chunk-4t3vsqt7.js";
+import "/$bunfs/root/chunk-ejdwrhgv.js";
+import "/$bunfs/root/chunk-zkvj62rn.js";
+import "/$bunfs/root/chunk-492vgtnr.js";
+import "/$bunfs/root/chunk-0g6cj4h1.js";
+import "/$bunfs/root/chunk-a48rnvhj.js";
+import "/$bunfs/root/chunk-tzhtxm67.js";
+import "/$bunfs/root/chunk-mznd09c6.js";
+import "/$bunfs/root/chunk-ghara6r1.js";
+import "/$bunfs/root/chunk-97wwdfyx.js";
+import "/$bunfs/root/chunk-167jjb66.js";
+import "/$bunfs/root/chunk-h7dkgq01.js";
+import { dm, W_t } from "/$bunfs/root/chunk-2n1hsggr.js";
+import "/$bunfs/root/chunk-s0xdwab3.js";
+import "/$bunfs/root/chunk-fs02hzwy.js";
+import "/$bunfs/root/chunk-c76q2y0e.js";
+import { t$ } from "/$bunfs/root/chunk-cds31m36.js";
+import "/$bunfs/root/chunk-z15hpjf9.js";
+import "/$bunfs/root/chunk-1pn2pk9v.js";
+import "/$bunfs/root/chunk-hebj76vj.js";
+import "/$bunfs/root/chunk-0mrbtv3q.js";
+import "/$bunfs/root/chunk-5n1tbe50.js";
+import "/$bunfs/root/chunk-a2an01ph.js";
+import { h3 } from "/$bunfs/root/chunk-dck778n3.js";
+import "/$bunfs/root/chunk-nkjrjh5n.js";
+import { Bk, bl } from "/$bunfs/root/chunk-c6k0ecxv.js";
+import "/$bunfs/root/chunk-bp3j8sq3.js";
+import "/$bunfs/root/chunk-qekzccch.js";
+import "/$bunfs/root/chunk-s2ac0z44.js";
+import "/$bunfs/root/chunk-wgz3g40p.js";
+import { WS } from "/$bunfs/root/chunk-1mp2j0tx.js";
+import "/$bunfs/root/chunk-anwgkcw5.js";
+import "/$bunfs/root/chunk-hz299nfa.js";
+import "/$bunfs/root/chunk-5wecjdtm.js";
+import "/$bunfs/root/chunk-p1awcxk1.js";
+import "/$bunfs/root/chunk-z9bhq3k9.js";
+import "/$bunfs/root/chunk-e17gvevg.js";
+import "/$bunfs/root/chunk-da857b4g.js";
+import "/$bunfs/root/chunk-vzc4dhqq.js";
+import "/$bunfs/root/chunk-98tgyb1d.js";
+import "/$bunfs/root/chunk-tveh0k24.js";
+import "/$bunfs/root/chunk-699y5x28.js";
+import "/$bunfs/root/chunk-37pvmyqb.js";
+import "/$bunfs/root/chunk-0m39033q.js";
+import "/$bunfs/root/chunk-6a5ggyw4.js";
+import "/$bunfs/root/chunk-btcxpqw5.js";
+import "/$bunfs/root/chunk-k8xha1qv.js";
+import "/$bunfs/root/chunk-30e2jew7.js";
+import "/$bunfs/root/chunk-51qp0385.js";
+import "/$bunfs/root/chunk-wjr8v4tx.js";
+import "/$bunfs/root/chunk-kbyvkqye.js";
+import { vTe, Zu, IYn } from "/$bunfs/root/chunk-dd55s64p.js";
+import "/$bunfs/root/chunk-83h0j7w2.js";
+import { nK, jJ, QT } from "/$bunfs/root/chunk-qg6z8ah8.js";
+import "/$bunfs/root/chunk-308krgtb.js";
+import "/$bunfs/root/chunk-nf8aaj8a.js";
+import "/$bunfs/root/chunk-a6xhjq7b.js";
+import "/$bunfs/root/chunk-qnrh4abv.js";
+import "/$bunfs/root/chunk-6nmk3t6g.js";
+import "/$bunfs/root/chunk-jwrz2gmg.js";
+import "/$bunfs/root/chunk-6w72z84m.js";
+import "/$bunfs/root/chunk-nkf7ctf5.js";
+import "/$bunfs/root/chunk-38mxah2g.js";
+import "/$bunfs/root/chunk-v94qfg1j.js";
+import "/$bunfs/root/chunk-p18e2918.js";
+import "/$bunfs/root/chunk-rsp0anqd.js";
+import "/$bunfs/root/chunk-vq9g7y26.js";
+import "/$bunfs/root/chunk-w3c6n7jh.js";
+import "/$bunfs/root/chunk-gvnqpbsf.js";
+import "/$bunfs/root/chunk-d1d8xqks.js";
+import "/$bunfs/root/chunk-rgh8hav6.js";
+import "/$bunfs/root/chunk-qd35gw0c.js";
+import "/$bunfs/root/chunk-ky33xsw7.js";
+import "/$bunfs/root/chunk-x06p1jhb.js";
+import "/$bunfs/root/chunk-91315wj5.js";
+import "/$bunfs/root/chunk-tz5bx4mb.js";
+import "/$bunfs/root/chunk-1v3848mh.js";
+import "/$bunfs/root/chunk-xgfepdf4.js";
+import "/$bunfs/root/chunk-r4m4cqz1.js";
+import "/$bunfs/root/chunk-mq8h2tk8.js";
+import "/$bunfs/root/chunk-50g10fz0.js";
+import "/$bunfs/root/chunk-5c5qq1s7.js";
+import "/$bunfs/root/chunk-86v6b72m.js";
+import "/$bunfs/root/chunk-eb5y4yrx.js";
+import "/$bunfs/root/chunk-cfqs035d.js";
+import "/$bunfs/root/chunk-8td9ks9h.js";
+import "/$bunfs/root/chunk-9y48by1e.js";
+import "/$bunfs/root/chunk-9tey6wcd.js";
+import "/$bunfs/root/chunk-c2kqvv3h.js";
+import "/$bunfs/root/chunk-cgy998p5.js";
+import { he } from "/$bunfs/root/chunk-h605j25g.js";
+import "/$bunfs/root/chunk-vx3kc9d2.js";
+import "/$bunfs/root/chunk-fctnm902.js";
+import "/$bunfs/root/chunk-e53y7x75.js";
+import "/$bunfs/root/chunk-d5s7a9by.js";
+import "/$bunfs/root/chunk-5g92v3fd.js";
+import "/$bunfs/root/chunk-76gryyye.js";
+import "/$bunfs/root/chunk-4sw5yxwb.js";
+import "/$bunfs/root/chunk-trte0v0g.js";
+import { eu } from "/$bunfs/root/chunk-gmgmb4mg.js";
+import "/$bunfs/root/chunk-hzjjsb0j.js";
+import "/$bunfs/root/chunk-avrc9gay.js";
+import "/$bunfs/root/chunk-pbd9yggs.js";
+import "/$bunfs/root/chunk-fvkzpeqe.js";
+import "/$bunfs/root/chunk-96xrtyd5.js";
+import "/$bunfs/root/chunk-k7v7xwvs.js";
+import "/$bunfs/root/chunk-pzvxycbq.js";
+import "/$bunfs/root/chunk-dzv4k86d.js";
+import "/$bunfs/root/chunk-rt5p4yax.js";
+import "/$bunfs/root/chunk-jn7d47r1.js";
+import "/$bunfs/root/chunk-dc4hb8f7.js";
+import "/$bunfs/root/chunk-z9jgt14c.js";
+import "/$bunfs/root/chunk-y8sx7bf9.js";
+import "/$bunfs/root/chunk-q2gyteg0.js";
+import "/$bunfs/root/chunk-0manfhn2.js";
+import "/$bunfs/root/chunk-r6ppzf4r.js";
+import "/$bunfs/root/chunk-4399d2v0.js";
+import "/$bunfs/root/chunk-y79sc2hm.js";
+import "/$bunfs/root/chunk-2t3rnt88.js";
+import "/$bunfs/root/chunk-986hvegp.js";
+import "/$bunfs/root/chunk-8jsj2mx0.js";
+import "/$bunfs/root/chunk-dt5bt1kc.js";
+import "/$bunfs/root/chunk-z9rrv31w.js";
+import "/$bunfs/root/chunk-5djs3wbb.js";
+import "/$bunfs/root/chunk-pdf5n9dy.js";
+import "/$bunfs/root/chunk-4c3hecm4.js";
+import "/$bunfs/root/chunk-rntp2fy5.js";
+import "/$bunfs/root/chunk-a9vrr0nr.js";
+import "/$bunfs/root/chunk-nfmyt8cw.js";
+import "/$bunfs/root/chunk-6var9pwd.js";
+import "/$bunfs/root/chunk-gmj1vprd.js";
+import "/$bunfs/root/chunk-ht15rw3x.js";
+import "/$bunfs/root/chunk-gay9hbs8.js";
+import "/$bunfs/root/chunk-mvz9fsh3.js";
+import "/$bunfs/root/chunk-ddbk6aje.js";
+import "/$bunfs/root/chunk-krety1hw.js";
+import "/$bunfs/root/chunk-6ywvv1q0.js";
+import "/$bunfs/root/chunk-wn1jrcrk.js";
+import "/$bunfs/root/chunk-zk5v8tw6.js";
+import "/$bunfs/root/chunk-kdtcyk0z.js";
+import "/$bunfs/root/chunk-q75cm02t.js";
+import "/$bunfs/root/chunk-dxqac26z.js";
+import "/$bunfs/root/chunk-2204t1q0.js";
+import "/$bunfs/root/chunk-kfdrcvxr.js";
+import "/$bunfs/root/chunk-fd2h00ye.js";
+import "/$bunfs/root/chunk-z6m3k8w5.js";
+import "/$bunfs/root/chunk-vm4xrmr7.js";
+import "/$bunfs/root/chunk-hkzwg35z.js";
+import "/$bunfs/root/chunk-mkweh3a4.js";
+import { ttn, nit, yje, i8, VIt, rit, oit, Sje } from "/$bunfs/root/chunk-nm7kp5hv.js";
+import { tit } from "/$bunfs/root/chunk-rs4mk5cn.js";
+import "/$bunfs/root/chunk-5hskqad6.js";
+import { Tf } from "/$bunfs/root/chunk-k2an0hy6.js";
+import { etn } from "/$bunfs/root/chunk-zyd8bk7m.js";
+import { dZ } from "/$bunfs/root/chunk-jhbzwjff.js";
+import "/$bunfs/root/chunk-2vpjf0dz.js";
+import "/$bunfs/root/chunk-n5yr1b9d.js";
+import { F0 } from "/$bunfs/root/chunk-nmpqha26.js";
+import { DUn, Hhe, pZ, bje } from "/$bunfs/root/chunk-w9wjwz4e.js";
+import { wje } from "/$bunfs/root/chunk-8swr939y.js";
+import "/$bunfs/root/chunk-nq83tgen.js";
+import "/$bunfs/root/chunk-6nsyrmhg.js";
+import "/$bunfs/root/chunk-jjkewjsg.js";
+import "/$bunfs/root/chunk-4r71nj50.js";
+import { Oh, Zun } from "/$bunfs/root/chunk-3qvtfvqg.js";
+import { IE } from "/$bunfs/root/chunk-0b5b5vvk.js";
+import "/$bunfs/root/chunk-r7t0evh2.js";
+import "/$bunfs/root/chunk-6xz0kht6.js";
+import "/$bunfs/root/chunk-2am7kb6k.js";
+import "/$bunfs/root/chunk-9kr4hqvs.js";
+import "/$bunfs/root/chunk-xvwx3w83.js";
+import "/$bunfs/root/chunk-y9akj3mq.js";
+import "/$bunfs/root/chunk-gdk3p0b3.js";
+import "/$bunfs/root/chunk-qy75zxb2.js";
+import "/$bunfs/root/chunk-r6t6p0zm.js";
+import "/$bunfs/root/chunk-qpj83ec7.js";
+import "/$bunfs/root/chunk-f77e8yef.js";
+import "/$bunfs/root/chunk-f7y0mdt6.js";
+import "/$bunfs/root/chunk-jb2pzt3t.js";
+import "/$bunfs/root/chunk-9yzzw213.js";
+import "/$bunfs/root/chunk-mknyj0qp.js";
+import { ny } from "/$bunfs/root/chunk-8spbv9dy.js";
+import "/$bunfs/root/chunk-81defen8.js";
+import "/$bunfs/root/chunk-mpg6r2j0.js";
+import "/$bunfs/root/chunk-3dh32z3c.js";
+import "/$bunfs/root/chunk-n8ecp4gs.js";
+import "/$bunfs/root/chunk-406nxetx.js";
+import "/$bunfs/root/chunk-2zf9m1zh.js";
+import "/$bunfs/root/chunk-rxqmmxnb.js";
+import "/$bunfs/root/chunk-gdhqsw8a.js";
+import "/$bunfs/root/chunk-5xr818a0.js";
+import "/$bunfs/root/chunk-fgavb5x0.js";
+import "/$bunfs/root/chunk-sqa0bs5e.js";
+import "/$bunfs/root/chunk-fveqn4y7.js";
+import "/$bunfs/root/chunk-4zsxhey6.js";
+import "/$bunfs/root/chunk-61nasexv.js";
+import "/$bunfs/root/chunk-m1andcps.js";
+import "/$bunfs/root/chunk-61hbq2wc.js";
+import "/$bunfs/root/chunk-rq65wazg.js";
+import "/$bunfs/root/chunk-5tdaspnd.js";
+import "/$bunfs/root/chunk-rr0yj5sq.js";
+import "/$bunfs/root/chunk-a7wreksn.js";
+import "/$bunfs/root/chunk-8sbwe0jk.js";
+import "/$bunfs/root/chunk-nwb64bac.js";
+import "/$bunfs/root/chunk-g5y4mxg8.js";
+import "/$bunfs/root/chunk-cbn30h5b.js";
+import "/$bunfs/root/chunk-g01aac1k.js";
+import "/$bunfs/root/chunk-3fwkz19s.js";
+import "/$bunfs/root/chunk-9319g175.js";
+import "/$bunfs/root/chunk-szz73wxx.js";
+import "/$bunfs/root/chunk-b40bn863.js";
+import "/$bunfs/root/chunk-6mgs10s2.js";
+import "/$bunfs/root/chunk-6s9ybdq1.js";
+import "/$bunfs/root/chunk-74qqwjhx.js";
+import { i, v, q, dS, _e, H, f, ot, un, dt, De, oe, zH } from "/$bunfs/root/chunk-saay52v7.js";
+import "/$bunfs/root/chunk-1hh0bg14.js";
+import "/$bunfs/root/chunk-052zvbpg.js";
+import "/$bunfs/root/chunk-werv747a.js";
+import "/$bunfs/root/chunk-jzh4kg5x.js";
+import "/$bunfs/root/chunk-7s7jqj2f.js";
+import "/$bunfs/root/chunk-56sxk8k2.js";
+import { O } from "/$bunfs/root/chunk-dqkj2bph.js";
+import "/$bunfs/root/chunk-7jz6r17g.js";
+import { He } from "/$bunfs/root/chunk-79g5tayq.js";
+import "/$bunfs/root/chunk-a4q326ap.js";
+import { randomUUID as Lr } from "crypto";
+import { resolve as Vr } from "path";
+function ze(e, { apply: r }) {
+  if (!He(e)) return null;
+  let t = e.args;
+  if (typeof t !== "string") return null;
+  let a = t.trimStart()[0];
+  if (a !== "{" && a !== "[") return null;
+  let u;
+  try {
+    u = V(t);
+  } catch {
+    return null;
+  }
+  if (u === null || typeof u !== "object") return null;
+  let d = typeof e.name === "string" ? "_named" : "",
+    h = Array.isArray(u) ? "args_json_string_to_array" : "args_json_string_to_object";
+  if (!r) return { input: e, shapeClass: `${h}${d}_detect_only` };
+  return { input: { ...e, args: u }, shapeClass: `${h}${d}` };
+}
+var _ = -1;
+function Be(e) {
+  return e !== null && typeof e === "object" && !Array.isArray(e) && typeof e.$var === "string";
+}
+function me(e) {
+  return e !== null && typeof e === "object" && !Array.isArray(e) && typeof e.$atleast === "number";
+}
+function N(e) {
+  let r = Pr().safeParse(e);
+  if (!r.success || me(r.data))
+    throw new R(
+      'a pattern must be a JSON object (nested objects as subsets, arrays exact, v("x") binds)',
+      "world: not a pattern",
+    );
+  return r.data;
+}
+function Ue(e) {
+  if (me(e)) {
+    let r = e.$atleast;
+    if (!Number.isSafeInteger(r) || r < 0)
+      throw new R("atleast(N, pattern): N must be a non-negative integer", "world: bad threshold count");
+    return { $atleast: r, of: N(e.of) };
+  }
+  return N(e);
+}
+var hr = new Set(["addr", "by", "status", "at", "in"]),
+  gr = new Set(["live", "done"]),
+  kr = 1e5;
+function Je(e) {
+  return Array.isArray(e);
+}
+function br(e, r) {
+  return Object.is(e, r) || b(e) === b(r);
+}
+function we(e, r, t = {}) {
+  if (e === null || typeof e !== "object") return Object.is(e, r) ? t : void 0;
+  if (Be(e)) {
+    if (r === void 0) return;
+    if (Object.hasOwn(t, e.$var)) return br(t[e.$var], r) ? t : void 0;
+    return { ...t, [e.$var]: r };
+  }
+  if (Je(e)) {
+    if (!Array.isArray(r) || r.length !== e.length) return;
+    let u = t;
+    for (let d = 0; d < e.length && u; d++) u = we(e[d], r[d], u);
+    return u;
+  }
+  if (r === null || typeof r !== "object" || Array.isArray(r)) return;
+  let o = e,
+    a = t;
+  for (let u of Object.keys(o)) {
+    if (u === "__proto__") continue;
+    let d = Object.hasOwn(r, u) ? r[u] : void 0;
+    if (((a = we(o[u], d, a)), !a)) return;
+  }
+  return a;
+}
+function Ke(e) {
+  return {
+    ...e.fact,
+    addr: e.addr,
+    by: e.by,
+    in: e.in,
+    status: e.status,
+    ...(e.kind === "eval" && { value: e.value, error: e.error }),
+  };
+}
+function Oe(e) {
+  if (e === null || typeof e !== "object") return !1;
+  if (Be(e)) return !0;
+  if (Je(e)) return e.some(Oe);
+  return Object.values(e).some(Oe);
+}
+function yr(e, r) {
+  return we(e, Ke(r)) !== void 0;
+}
+function vr(e) {
+  return Object.prototype.hasOwnProperty.call(e, "status");
+}
+function Rr(e, r) {
+  return We(e, r) !== void 0;
+}
+function We(e, r) {
+  if (!vr(e) && !gr.has(r.status)) return;
+  return we(e, Ke(r));
+}
+var Sr = m(() => un({ topic: i().min(1) })),
+  Pr = m(() => {
+    let e = zH(() => dt([i(), v(), q(), dS(), H(e), De(i(), e)]));
+    return De(i(), e);
+  });
+function B(e) {
+  let r = Sr().safeParse(e);
+  if (!r.success) throw new R("a fact must be an object with a non-empty string `topic`", "world: not a fact");
+  for (let t of Object.keys(r.data))
+    if (hr.has(t))
+      throw new R(
+        `a fact may not carry \`${t}\` \u2014 the host sets it on the row`,
+        "world: fact carries a reserved key",
+      );
+  return r.data;
+}
+function Ne(e) {
+  try {
+    return ap(l(e));
+  } catch {
+    return "non-stringifiable error";
+  }
+}
+class xe {
+  rows = [];
+  rules = new Map();
+  fired = new Set();
+  evalControllers = new Map();
+  inFlight = new Set();
+  spentIn = new Map();
+  childrenOf = new Map();
+  pendingIn = new Map();
+  idleWaiters = new Map();
+  listeners = new Set();
+  maxRows;
+  schedule;
+  constructor(e = {}) {
+    (this.maxRows = e.maxRows ?? kr), (this.schedule = e.schedule ?? ((r) => queueMicrotask(r)));
+  }
+  subscribe(e) {
+    return (
+      this.listeners.add(e),
+      () => {
+        this.listeners.delete(e);
+      }
+    );
+  }
+  pending(e = _) {
+    return this.pendingIn.get(e) ?? 0;
+  }
+  isIdle(e = _) {
+    return this.pending(e) === 0;
+  }
+  liveRuleCount(e = _) {
+    let r = 0;
+    for (let t of this.rules.values()) if (this.within(t.addr, e)) r++;
+    return r;
+  }
+  within(e, r) {
+    if (r === _) return !0;
+    let t = e;
+    while (t !== _) {
+      if (t === r) return !0;
+      t = this.rows[t]?.in ?? _;
+    }
+    return !1;
+  }
+  restore(e) {
+    if (this.rows.length > 0) throw new R("restore() on a non-empty world", "world: restore on a non-empty world");
+    for (let r of e) {
+      if (r.addr !== this.rows.length)
+        throw new R(`restore(): row ${r.addr} out of order`, "world: restore out of order");
+      this.rows.push(r);
+      let t = this.childrenOf.get(r.in);
+      if (t) t.push(r.addr);
+      else this.childrenOf.set(r.in, [r.addr]);
+    }
+  }
+  put(e, r, t = {}) {
+    if (e.topic === "budget" && !(typeof e.units === "number" && Number.isFinite(e.units) && e.units >= 0))
+      throw new R(
+        "a {topic:'budget'} fact needs a finite, non-negative numeric `units`",
+        "world: malformed budget fact",
+      );
+    return this.append(e, r, "live", "put", this.writeScopeOf(t)).addr;
+  }
+  read(e, r = {}) {
+    let t = this.scopeOf(r);
+    return this.rows.filter((o) => this.within(o.addr, t) && Rr(e, o));
+  }
+  on(e, r, t, o = {}) {
+    let a = this.writeScopeOf(o),
+      u = this.append({ topic: "sub", pattern: e }, t, "live", "sub", a),
+      d = { addr: u.addr, pattern: e, in: a, fn: r };
+    if ((this.rules.set(u.addr, d), me(e))) return this.maybeFireThreshold(d, e), u.addr;
+    let h = this.rows.length;
+    for (let g = 0; g < h; g++) {
+      if (!this.rules.has(d.addr)) break;
+      this.maybeFire(d, this.rows[g]);
+    }
+    return u.addr;
+  }
+  retract(e) {
+    let r = this.rows[e];
+    if (!r || r.status === "retracted") return !1;
+    let t = this.inFlight.delete(e);
+    (r.status = "retracted"), this.rules.delete(e);
+    let o = this.evalControllers.get(e);
+    if (o) this.evalControllers.delete(e), o.abort();
+    if (t) this.adjustPending(r.addr, -1);
+    for (let a of this.childrenOf.get(e) ?? []) if (this.rows[a].status !== "retracted") this.retract(a);
+    if ((this.emit({ kind: "retracted", row: r }), this.deliver(r), t)) this.wakeIdle(r.addr);
+    return !0;
+  }
+  eval(e, r, t, o = {}) {
+    let a = this.append(e, t, "pending", "eval", this.writeScopeOf(o)),
+      u = new AbortController();
+    this.evalControllers.set(a.addr, u);
+    let d = () => {
+        if (a.status !== "pending") return Promise.resolve(void 0);
+        this.inFlight.add(a.addr), this.adjustPending(a.addr, 1);
+        try {
+          return Promise.resolve(r(u.signal));
+        } catch (g) {
+          return Promise.reject(g);
+        }
+      },
+      h;
+    if (o.admit)
+      try {
+        h = o.admit(u.signal).then(d);
+      } catch (g) {
+        h = Promise.reject(g);
+      }
+    else h = d();
+    return (
+      h.then(
+        (g) => this.settle(a, { value: g }),
+        (g) => this.settle(a, { error: Ne(g) }),
+      ),
+      a.addr
+    );
+  }
+  nearestBudget(e) {
+    let r = e;
+    for (;;) {
+      let t = this.childrenOf.get(r) ?? [];
+      for (let o = t.length - 1; o >= 0; o--) {
+        let a = this.rows[t[o]];
+        if (a.kind === "put" && a.status === "live" && a.fact.topic === "budget" && typeof a.fact.units === "number")
+          return { holder: r, units: a.fact.units };
+      }
+      if (r === _) return null;
+      r = this.rows[r]?.in ?? _;
+    }
+  }
+  ceiling(e) {
+    return this.nearestBudget(e)?.units ?? null;
+  }
+  spent(e = _) {
+    return this.spentIn.get(e) ?? 0;
+  }
+  charge(e, r) {
+    if (!(r > 0) || !this.rows[e]) return;
+    let t = e;
+    for (;;) {
+      if ((this.spentIn.set(t, (this.spentIn.get(t) ?? 0) + r), t === _)) break;
+      t = this.rows[t]?.in ?? _;
+    }
+  }
+  isOpen(e) {
+    let r = this.nearestBudget(e);
+    return r === null || this.spent(r.holder) < r.units;
+  }
+  whenOpen(e, r) {
+    if (this.isOpen(e)) return Promise.resolve();
+    return new Promise((t, o) => {
+      let a = () => {
+          d(), r.removeEventListener("abort", u);
+        },
+        u = () => {
+          a(), o(new R("retracted while waiting for budget", "world: admission aborted"));
+        },
+        d = this.subscribe((h) => {
+          if ((h.kind === "put" || h.kind === "retracted") && h.row.fact.topic === "budget" && this.isOpen(e)) a(), t();
+        });
+      r.addEventListener("abort", u, { once: !0 });
+    });
+  }
+  spentAt(e) {
+    let r = this.nearestBudget(e);
+    return this.spent(r ? r.holder : _);
+  }
+  settled(e) {
+    let r = this.rows[e];
+    if (!r) return Promise.reject(new R(`no row at ${e}`, "world: settled() on a missing row"));
+    if (r.status !== "pending") return Promise.resolve(r);
+    return new Promise((t) => {
+      let o = this.subscribe((a) => {
+        if ((a.kind === "settled" || a.kind === "retracted") && a.row.addr === e) o(), t(a.row);
+      });
+    });
+  }
+  whenIdle(e = _) {
+    if (this.isIdle(e)) return Promise.resolve();
+    return new Promise((r) => {
+      let t = this.idleWaiters.get(e);
+      if (t) t.push(r);
+      else this.idleWaiters.set(e, [r]);
+    });
+  }
+  scopeOf(e) {
+    let r = e.in ?? _;
+    if (r !== _ && !this.rows[r]) throw new R(`no row at ${r} to place in`, "world: placement names a missing row");
+    return r;
+  }
+  writeScopeOf(e) {
+    let r = this.scopeOf(e);
+    if (this.isRetractedScope(r))
+      throw new R(
+        `row ${r} is retracted; nothing can be placed inside it`,
+        "world: placement inside a retracted scope",
+      );
+    return r;
+  }
+  isRetractedScope(e) {
+    let r = e;
+    while (r !== _) {
+      let t = this.rows[r];
+      if (!t) return !1;
+      if (t.status === "retracted") return !0;
+      r = t.in;
+    }
+    return !1;
+  }
+  append(e, r, t, o, a) {
+    if (this.rows.length >= this.maxRows)
+      throw new R(
+        `world full (${this.maxRows} rows) \u2014 a rule is probably putting the fact it fires on`,
+        "world: full",
+      );
+    let u = { addr: this.rows.length, kind: o, fact: e, by: r, in: a, at: Date.now(), status: t };
+    this.rows.push(u);
+    let d = this.childrenOf.get(a);
+    if (d) d.push(u.addr);
+    else this.childrenOf.set(a, [u.addr]);
+    return this.emit({ kind: "put", row: u }), this.deliver(u), u;
+  }
+  settle(e, r) {
+    if (e.status !== "pending") return;
+    if ((this.evalControllers.delete(e.addr), "error" in r)) (e.status = "failed"), (e.error = r.error);
+    else (e.status = "done"), (e.value = r.value);
+    if (this.inFlight.delete(e.addr)) this.adjustPending(e.addr, -1);
+    this.emit({ kind: "settled", row: e }), this.deliver(e), this.wakeIdle(e.addr);
+  }
+  deliver(e) {
+    for (let r of Array.from(this.rules.values())) if (this.rules.has(r.addr)) this.maybeFire(r, e);
+  }
+  maybeFire(e, r) {
+    if (me(e.pattern)) {
+      if (this.within(r.addr, e.in) && yr(e.pattern.of, r)) this.maybeFireThreshold(e, e.pattern);
+      return;
+    }
+    if (!this.within(r.addr, e.in)) return;
+    let t = We(e.pattern, r);
+    if (!t) return;
+    let o = `${e.addr}:${r.addr}:${r.status}`;
+    if (this.fired.has(o)) return;
+    this.fired.add(o), this.fire(e, r, t, r.addr);
+  }
+  maybeFireThreshold(e, r) {
+    let t = new Map();
+    for (let o of this.rows) {
+      if (!this.within(o.addr, e.in)) continue;
+      let a = We(r.of, o);
+      if (!a) continue;
+      let u = b(a) ?? "",
+        d = t.get(u);
+      if (d) d.rows.push(o);
+      else t.set(u, { bindings: a, rows: [o] });
+    }
+    if (t.size === 0 && !Oe(r.of)) t.set("{}", { bindings: {}, rows: [] });
+    for (let [o, a] of t) {
+      if (a.rows.length < r.$atleast) continue;
+      let u = `${e.addr}:group:${o}`;
+      if (this.fired.has(u)) continue;
+      this.fired.add(u), this.fire(e, a.rows, a.bindings, a.rows[0]?.addr ?? -1);
+    }
+  }
+  fire(e, r, t, o) {
+    this.adjustPending(e.addr, 1),
+      new Promise((a) => this.schedule(a))
+        .then(() => e.fn(r, t))
+        .catch((a) => {
+          let u = Ne(a);
+          if ((n(`world rule ${e.addr} threw on row ${o}: ${u}`, { level: "warn" }), !this.isRetractedScope(e.in)))
+            try {
+              this.append(
+                { topic: "error", kind: "rule", rule: e.addr, on: o, message: u },
+                "host",
+                "live",
+                "put",
+                e.in,
+              );
+            } catch {}
+        })
+        .finally(() => {
+          this.adjustPending(e.addr, -1), this.wakeIdle(e.addr);
+        });
+  }
+  adjustPending(e, r) {
+    let t = e;
+    for (;;) {
+      if ((this.pendingIn.set(t, (this.pendingIn.get(t) ?? 0) + r), t === _)) return;
+      t = this.rows[t]?.in ?? _;
+    }
+  }
+  wakeIdle(e) {
+    let r = e;
+    for (;;) {
+      if (this.isIdle(r)) {
+        let t = this.idleWaiters.get(r);
+        if (t) {
+          this.idleWaiters.delete(r);
+          for (let o of t) o();
+        }
+        this.emit({ kind: "idle", in: r });
+      }
+      if (r === _) return;
+      r = this.rows[r]?.in ?? _;
+    }
+  }
+  emit(e) {
+    for (let r of this.listeners)
+      try {
+        r(e);
+      } catch (t) {
+        n(`world listener threw: ${l(t)}`, { level: "warn" });
+      }
+  }
+}
+function Ir(e) {
+  return Array.isArray(e);
+}
+var Or = /[\p{Cc}\p{Cf}\u0022\u201c-\u201f\u2033\u2036\u275d\u275e\u301d\u301e\uff02]/gu;
+function Ce(e) {
+  return e.replace(Or, "");
+}
+function Q(e) {
+  return { addr: e.addr, by: e.by, in: e.in, status: e.status, value: e.value, error: e.error, fact: e.fact };
+}
+function Ye(e, r, t) {
+  let { clone: o, call: a, settle: u, sanitize: d } = e.vmBoundary,
+    { vmContext: h, hooks: g } = e,
+    T = jJ(h),
+    P = "script",
+    W = new Map();
+  function C(k) {
+    let S;
+    try {
+      S = u(k());
+    } catch (I) {
+      return Promise.reject(x(I));
+    }
+    return S.then(
+      (I) => j(I.v),
+      (I) => {
+        throw x(I);
+      },
+    );
+  }
+  function x(k) {
+    let S = T(k);
+    return new R(S.message ? `${S.name}: ${S.message}` : S.name, "workflow v2: VM code threw");
+  }
+  function F(k) {
+    let S = j(k);
+    if (S !== null && typeof S === "object" && "in" in S) {
+      let I = S.in;
+      if (typeof I !== "number" || !Number.isSafeInteger(I) || !r.within(I, t))
+        throw new R("`in` must be the address of a row inside this run", "workflow v2: placement outside the run");
+      return { in: I };
+    }
+    return { in: t };
+  }
+  function j(k) {
+    let S = d(k);
+    if (S === null || typeof S !== "object") return S;
+    let I = b(S);
+    return I === void 0 ? void 0 : V(I);
+  }
+  function M(k, S) {
+    if (typeof k !== "function") throw new R(S, "workflow v2: word expected a function");
+  }
+  let re = QT((k, S) => r.put(B(j(k)), P, F(S))),
+    te = QT((k, S) => {
+      let I = N(j(k) ?? {});
+      return o(r.read(I, F(S)).map(Q));
+    }),
+    se = QT((k, S, I) => {
+      let E = Ue(j(k) ?? {});
+      M(S, "on() expects a function");
+      let J = -1,
+        Y = P;
+      return (
+        (J = r.on(
+          E,
+          (G, Pe) => {
+            let ue = P;
+            P = `rule:${J}`;
+            try {
+              let z = Ir(G) ? G.map(Q) : Q(G);
+              return C(() => a(S, o(z), o(Pe)));
+            } finally {
+              P = ue;
+            }
+          },
+          Y,
+          F(I),
+        )),
+        J
+      );
+    }),
+    ae = QT((k) => {
+      if (typeof k !== "number" || !Number.isSafeInteger(k)) throw TypeError("retract() expects an address (a number)");
+      if (k === t || !r.within(k, t)) return !1;
+      return r.retract(k);
+    }),
+    le = QT((k, S, I) => {
+      let E = B(j(k));
+      return M(S, "eval() expects a function"), r.eval(E, () => C(() => a(S)), P, F(I));
+    }),
+    ve = QT((k, S) => {
+      let I = j(S),
+        E = I !== null && typeof I === "object" && !Array.isArray(I) ? I : {},
+        J = e.vmToStr(k),
+        Y = typeof E.label === "string" ? E.label : ce(J, 60).replace(/\s+/g, " ").trim(),
+        G = E.fact !== null && typeof E.fact === "object" && !Array.isArray(E.fact) ? E.fact : {},
+        Pe = B({ ...G, topic: "agent", label: Y, ...(typeof E.phase === "string" && { phase: E.phase }) }),
+        ue = F(S),
+        z = ue.in ?? t,
+        mr = r.rows.length;
+      return r.eval(
+        Pe,
+        (Ie) => {
+          let de = g.getAgentCount(),
+            fe = g.agent(k, S, Ie),
+            pe = g.getAgentCount();
+          if (pe > de) W.set(pe, mr);
+          return fe.then(
+            (Z) => {
+              if (Z === null || Z === void 0)
+                throw new R(
+                  "agent produced no result (skipped, blocked, or gave up after retries)",
+                  "workflow v2: agent resolved without a result",
+                );
+              return j(Z);
+            },
+            (Z) => {
+              throw x(Z);
+            },
+          );
+        },
+        P,
+        {
+          ...ue,
+          admit: (Ie) => {
+            if (r.isOpen(z)) return Promise.resolve();
+            let de = r.spentAt(z),
+              fe = r.ceiling(z),
+              pe = r.put({ topic: "starved", label: Y, spent: de, ceiling: fe }, "host", { in: z });
+            return (
+              g.log(
+                `starved: "${Ee(Ce(Y))}" waits \u2014 spent ${de} of ${fe}; put {topic:'budget', units:N} to continue`,
+              ),
+              r.whenOpen(z, Ie).finally(() => r.retract(pe))
+            );
+          },
+        },
+      );
+    }),
+    L = QT((k) => {
+      if (typeof k !== "string" || k === "")
+        throw new R("v(name) expects a non-empty string", "workflow v2: v() expects a name");
+      return o({ $var: k });
+    }),
+    D = QT((k, S) => {
+      let I = N(j(S) ?? {});
+      if (typeof k !== "number" || !Number.isSafeInteger(k) || k < 0)
+        throw new R("atleast(N, pattern) expects a non-negative integer", "workflow v2: atleast() expects a count");
+      return o({ $atleast: k, of: I });
+    }),
+    Re = QT((k, S) => {
+      M(k, "setTimeout() expects a function");
+      let I = typeof S === "number" && Number.isFinite(S) && S >= 0 ? S : 0;
+      return r.eval({ topic: "timer", ms: I }, (E) => ne(I, E, { throwOnAbort: !0 }).then(() => C(() => a(k))), P, {
+        in: t,
+      });
+    }),
+    U = QT((k) => {
+      if (typeof k === "number" && Number.isSafeInteger(k)) {
+        let S = r.rows[k];
+        if (S && S.fact.topic === "timer" && r.within(k, t)) r.retract(k);
+      }
+    });
+  for (let [k, S] of [
+    ["put", re],
+    ["read", te],
+    ["on", se],
+    ["retract", ae],
+    ["eval", le],
+    ["agent", ve],
+    ["v", L],
+    ["atleast", D],
+    ["setTimeout", Re],
+    ["clearTimeout", U],
+  ])
+    Object.defineProperty(h, k, { value: S, writable: !1, enumerable: !0, configurable: !1 });
+  for (let k of ["parallel", "pipeline", "workflow"]) Reflect.deleteProperty(h, k);
+  return {
+    agentAddrByIndex: W,
+    as(k, S) {
+      let I = P;
+      P = k;
+      try {
+        return S();
+      } finally {
+        P = I;
+      }
+    },
+  };
+}
+var qe = 200;
+function Ee(e) {
+  return e.length > qe ? `${ce(e, qe)}\u2026` : e;
+}
+var Tr = 1000,
+  _r = 5000;
+class ge {
+  runId;
+  vmScript;
+  world;
+  controller = new AbortController();
+  ctx;
+  words;
+  vmErrorInfo;
+  logs = [];
+  log(e) {
+    if (this.logs.length < Tr) this.logs.push(ap(e));
+  }
+  sink;
+  killed = !1;
+  scope = -1;
+  syncTimeoutMs;
+  reportedRows = 0;
+  reportedLogs = 0;
+  reportedFailures = 0;
+  reopen;
+  constructor(e, r, t) {
+    this.runId = e;
+    this.vmScript = r;
+    this.world = t;
+  }
+  static lost(e, r, t) {
+    let o = new ge(e, void 0, r);
+    return (o.scope = t), (o.lostOnResume = !0), o;
+  }
+  lostOnResume = !1;
+  get isLost() {
+    return this.lostOnResume;
+  }
+  get founded() {
+    return this.scope >= 0;
+  }
+  get isKilled() {
+    return this.killed;
+  }
+  get isActive() {
+    return this.scope >= 0 && !this.world.isIdle(this.scope);
+  }
+  status() {
+    if (this.scope < 0) return { rows: 0, pending: 0, rules: 0 };
+    return {
+      rows: this.world.read({}, { in: this.scope }).length,
+      pending: this.world.pending(this.scope),
+      rules: this.world.liveRuleCount(this.scope),
+    };
+  }
+  kill() {
+    if (((this.killed = !0), this.controller.abort(), this.scope >= 0)) this.world.retract(this.scope);
+    (this.ctx = void 0), (this.words = void 0);
+  }
+  async run(e, r, t, o) {
+    this.sink = t;
+    let a = Date.now();
+    if (this.scope < 0)
+      try {
+        this.found(e, r, o);
+      } catch (x) {
+        throw ((this.scope = -1), (this.ctx = void 0), (this.words = void 0), x);
+      }
+    await Promise.race([this.world.whenIdle(this.scope), this.aborted()]);
+    let u = this.reportedRows;
+    this.reportedRows = this.world.rows.length;
+    let d = this.world.rows[this.scope],
+      h = d?.status === "failed" && this.scope >= u ? d.error : void 0,
+      g = { in: this.scope },
+      T = (x) => x.addr >= u,
+      P = this.logs.slice(this.reportedLogs);
+    this.reportedLogs = this.logs.length;
+    let W = this.ctx?.hooks.getFailures() ?? [],
+      C = [
+        ...W.slice(this.reportedFailures),
+        ...this.world
+          .read({ topic: "error" }, g)
+          .filter(T)
+          .map((x) => ap(`error: ${b(x.fact)}`)),
+        ...this.world
+          .read({ topic: "starved" }, g)
+          .filter(T)
+          .map((x) => ap(`starved: ${b(x.fact)} \u2014 Workflow({runId, put:{topic:'budget', units:N}}) to continue`)),
+      ];
+    return (
+      (this.reportedFailures = W.length),
+      {
+        result: this.world
+          .read({ topic: "result" }, g)
+          .filter(T)
+          .map((x) => x.fact),
+        agentCount: this.ctx?.hooks.getAgentCount() ?? 0,
+        logs: P,
+        failures: C,
+        durationMs: Date.now() - a,
+        ...(h !== void 0 && { error: h }),
+      }
+    );
+  }
+  put(e, r) {
+    return this.requireOpen(), this.requireFounded(), this.world.put(B(e), r, { in: this.scope });
+  }
+  retract(e) {
+    if ((this.requireOpen(), this.requireFounded(), e === this.scope || !this.world.within(e, this.scope))) return !1;
+    return this.world.retract(e);
+  }
+  read(e) {
+    if (this.scope < 0) return [];
+    return this.world.read(N(e ?? {}), { in: this.scope }).map(Q);
+  }
+  beginScript(e, r) {
+    if ((this.requireOpen(), this.requireFounded(), !this.ctx || !this.words))
+      return { error: "run has no context yet" };
+    let t = i8(e);
+    if (!t.ok) return { error: t.error };
+    return { addr: this.evalScript(t.vmScript, { topic: "script", via: r }, r, r, { in: this.scope }) };
+  }
+  async awaitScript(e) {
+    await Promise.race([this.world.settled(e), ne(_r)]);
+    let r = this.world.rows[e];
+    return r.status === "failed" ? { error: r.error } : {};
+  }
+  async script(e, r) {
+    let t = this.beginScript(e, r);
+    if ("error" in t) return { error: t.error };
+    let o = await this.awaitScript(t.addr);
+    return { addr: t.addr, ...o };
+  }
+  requireOpen() {
+    if (this.killed) throw new R(`workflow run ${this.runId} was killed`, "workflow v2: run op on a killed run");
+  }
+  requireFounded() {
+    if (this.scope < 0)
+      throw new R(`workflow run ${this.runId} is not founded`, "workflow v2: run-op on an unfounded run");
+    if (this.lostOnResume)
+      throw new R(
+        `workflow run ${this.runId} was restored from the journal on resume; its rules and work are gone \u2014 read its facts, or launch again`,
+        "workflow v2: run op on a lost run",
+      );
+  }
+  aborted() {
+    let e = this.controller.signal;
+    if (e.aborted) return Promise.resolve();
+    return new Promise((r) => {
+      e.addEventListener("abort", () => r(), { once: !0 });
+    });
+  }
+  found(e, r, t) {
+    let o = { ...e, abortController: this.controller },
+      a = new Map(),
+      u = VIt(
+        o,
+        r,
+        (h) => {
+          if (h.type === "progress" && h.data.type === "workflow_log") this.log(h.data.message);
+          else if (h.type === "progress" && h.data.type === "workflow_agent" && typeof h.data.tokens === "number") {
+            let g = this.words?.agentAddrByIndex.get(h.data.index);
+            if (g !== void 0) {
+              let T = a.get(h.data.index) ?? 0;
+              if (h.data.tokens > T) this.world.charge(g, h.data.tokens - T), a.set(h.data.index, h.data.tokens);
+              let P = this.world.rows[g],
+                W = h.data.state === "done" || h.data.state === "error";
+              if (P && P.status === "pending" && !W) {
+                let C = this.world.ceiling(P.in);
+                if (C !== null && this.world.spentAt(P.in) > C) {
+                  let x = Ce(String(P.fact.label ?? g));
+                  if (!this.world.isRetractedScope(P.in))
+                    this.world.put(
+                      { topic: "over-budget", label: x, agent: g, spent: this.world.spentAt(P.in), ceiling: C },
+                      "host",
+                      { in: P.in },
+                    );
+                  this.world.retract(g),
+                    this.log(
+                      `over budget: "${Ee(x)}" cut off \u2014 spent ${this.world.spentAt(P.in)} of ${C}; put {topic:'budget', units:N} to raise the ceiling`,
+                    );
+                }
+              }
+            }
+          }
+          this.sink?.onProgress(h);
+        },
+        this.runId,
+        (h, g) => this.sink?.onAgentController(h, g),
+        t.args,
+        t.seedPhaseTitles,
+        t.tokenBudget,
+        void 0,
+        void 0,
+        t.workflowName,
+        t.invokingRequestId,
+        void 0,
+      );
+    if (
+      ((this.ctx = u),
+      (this.vmErrorInfo = jJ(u.vmContext)),
+      (this.syncTimeoutMs = t.syncTimeoutMs),
+      (this.scope = this.world.rows.length),
+      (this.words = Ye(u, this.world, this.scope)),
+      !this.vmScript)
+    )
+      throw new R("a run restored from the journal cannot be founded", "workflow v2: found() on a lost run");
+    let d = this.evalScript(this.vmScript, { topic: "script", founding: !0, runId: this.runId }, "host", "script", {
+      in: _,
+    });
+    if (d !== this.scope)
+      throw new R(`founding row landed at ${d}, expected ${this.scope}`, "workflow v2: founding address mismatch");
+  }
+  evalScript(e, r, t, o, a) {
+    let u = this.ctx,
+      d = this.words;
+    return this.world.eval(
+      r,
+      () =>
+        d
+          .as(o, () => this.execute(e, u))
+          .then((h) => {
+            if (h.error) throw new R(h.error, "workflow v2: script failed");
+            return null;
+          }),
+      t,
+      a,
+    );
+  }
+  async execute(e, r) {
+    let t = r.vmBoundary.settle;
+    try {
+      let o = e.runInContext(r.vmContext, nK(yje, this.syncTimeoutMs));
+      return await t(o), {};
+    } catch (o) {
+      let a = this.vmErrorInfo?.(o) ?? { name: "Error", message: "", stack: "" };
+      if (a.stack)
+        n(
+          `Workflow v2 script error stack:
+${a.stack}`,
+          { level: "error" },
+        );
+      return { error: Zxe(a) };
+    }
+  }
+}
+class ke {
+  byId = new Map();
+}
+function Xe(e, r) {
+  let t = 0;
+  for (let o of e.read({ topic: "script", founding: !0, status: "failed" }, { in: _ }))
+    $e(o) && je(o.addr, o.fact.runId, e, r) && t++;
+  for (let o of e.read({ topic: "script", founding: !0, status: "done" }, { in: _ }))
+    $e(o) && je(o.addr, o.fact.runId, e, r) && t++;
+  for (let o of e.read({ topic: "script", founding: !0, status: "retracted" }, { in: _ }))
+    if ($e(o) && je(o.addr, o.fact.runId, e, r)) r.byId.get(String(o.fact.runId))?.kill(), t++;
+  return t;
+}
+function $e(e) {
+  return e.in === _ && e.kind === "eval" && e.by === "host";
+}
+function je(e, r, t, o) {
+  if (typeof r !== "string" || o.byId.has(r)) return !1;
+  return o.byId.set(r, ge.lost(r, t, e)), !0;
+}
+function be(e) {
+  if (typeof e.runId !== "string") return;
+  let r = e.put !== void 0 || typeof e.retract === "number" || e.read !== void 0;
+  return {
+    runId: e.runId,
+    ...(e.put !== void 0 && { put: e.put }),
+    ...(typeof e.retract === "number" && { retract: e.retract }),
+    ...(e.read !== void 0 && { read: e.read }),
+    ...(!r && typeof e.script === "string" && e.script !== "" && { script: e.script }),
+  };
+}
+var Nt = m(() =>
+  f({
+    verb: oe(["put", "retract", "read", "script"]),
+    addr: v().optional(),
+    retracted: q().optional(),
+    rows: H(_e()).optional(),
+    error: i().optional(),
+    reopened: q(),
+    status: f({ rows: v(), pending: v(), rules: v() }),
+  }),
+);
+function Ze(e) {
+  let r = [];
+  if (e.put !== void 0) r.push("put");
+  if (e.retract !== void 0) r.push("retract");
+  if (e.read !== void 0) r.push("read");
+  if (e.script !== void 0) r.push("script");
+  return r.length === 1 ? r[0] : void 0;
+}
+import { appendFile as Wr, mkdir as xr, readFile as Cr } from "fs/promises";
+import { basename as Qe, dirname as Ae, join as Er } from "path";
+var rr = "world.jsonl",
+  $r = 4194304;
+function tr() {
+  let e = Ty() ?? bl(Se());
+  return Er(e, K(), rr);
+}
+function nr(e) {
+  let r = Ae(e),
+    t = Bk(Ae(r));
+  if (t === void 0 || Qe(e) !== rr) return;
+  let o = Te.sessionJournal(t, Qe(r), "world");
+  return Kn(o) === void 0 ? o : void 0;
+}
+function or(e, r, t) {
+  let o = nr(r),
+    a = !1,
+    u = Promise.resolve(),
+    d = (h) => {
+      u = u
+        .then(async () => {
+          if (O() && t !== void 0 && o !== void 0) {
+            let g = await t.append(o, [{ data: P5(h) }]);
+            if (!g.ok) n(`world journal append failed: ${Ge(g.error)}`, { level: "warn" });
+            return;
+          }
+          if (!a) await xr(Ae(r), { recursive: !0 }), (a = !0);
+          await Wr(r, P5(h));
+        })
+        .catch((g) => {
+          n(`world journal append failed: ${g}`, { level: "warn" });
+        });
+    };
+  return e.subscribe((h) => {
+    switch (h.kind) {
+      case "put": {
+        let { addr: g, kind: T, fact: P, by: W, at: C, status: x } = h.row;
+        d({ k: "put", addr: g, kind: T, fact: P, by: W, in: h.row.in, at: C, status: x });
+        return;
+      }
+      case "settled": {
+        let { addr: g, status: T, value: P, error: W } = h.row;
+        if (T === "done") d({ k: "settled", addr: g, status: T, value: P });
+        else if (T === "failed") d({ k: "settled", addr: g, status: T, error: W });
+        return;
+      }
+      case "retracted":
+        d({ k: "retracted", addr: h.row.addr });
+        return;
+      case "idle":
+        return;
+    }
+  });
+}
+async function sr(e, r) {
+  let t = nr(e);
+  if (O() && r !== void 0 && t !== void 0) return er((await jr(r, t)) ?? []);
+  let o;
+  try {
+    o = await Cr(e, "utf8");
+  } catch (a) {
+    if (X(a)) return [];
+    throw a;
+  }
+  return er(
+    o.split(`
+`),
+  );
+}
+function er(e) {
+  let r = [];
+  for (let t of e) {
+    if (!t) continue;
+    try {
+      r.push(Ps(t));
+    } catch {
+      n("world journal: skipping a malformed line", { level: "warn" });
+    }
+  }
+  return r;
+}
+async function jr(e, r) {
+  let t = new TextDecoder("utf-8", { ignoreBOM: !0 }),
+    o = [],
+    a;
+  for (;;) {
+    let u = await e.readRecords(r, { ...(a !== void 0 && { fromSeq: a }), maxBytes: $r });
+    if (!u.ok) {
+      if (u.error.code === "NotFound") return;
+      throw (
+        (n(`world journal read failed: ${Ge(u.error)}`, { level: "warn" }),
+        Error("world journal read failed", { cause: u.error }))
+      );
+    }
+    for (let h of u.value.items) {
+      let g = t.decode(h.data);
+      o.push(
+        g.endsWith(`
+`)
+          ? g.slice(0, -1)
+          : g,
+      );
+    }
+    let d = u.value.nextSeq;
+    if (d === void 0) return o;
+    if (a !== void 0 && d <= a) throw Error("world journal read cursor failed to advance");
+    a = d;
+  }
+}
+function ir(e, r) {
+  if (e.rows.length > 0) throw Error("replayWorldJournal: the world is not empty");
+  let t = new Map(),
+    o = new Map(),
+    a = new Set();
+  for (let d of r)
+    switch (d.k) {
+      case "put":
+        t.set(d.addr, d);
+        break;
+      case "settled":
+        o.set(d.addr, d);
+        break;
+      case "retracted":
+        a.add(d.addr);
+        break;
+    }
+  let u = [];
+  for (let d = 0; d < t.size; d++) {
+    let h = t.get(d);
+    if (!h) break;
+    let g = { addr: d, kind: h.kind, fact: h.fact, by: h.by, in: h.in, at: h.at, status: h.status },
+      T = o.get(d);
+    if (T)
+      if (((g.status = T.status), T.status === "done")) g.value = T.value;
+      else g.error = T.error;
+    if (a.has(d)) g.status = "retracted";
+    else if (g.kind === "sub" && g.status === "live") g.status = "retracted";
+    else if (g.status === "pending") (g.status = "failed"), (g.error = "lost on resume");
+    u.push(g);
+  }
+  return e.restore(u), u.length;
+}
+var Ar = new Mn(() => new xe());
+function Fe(e) {
+  return Ar.of(e);
+}
+class ar {
+  opened;
+}
+var Fr = new Mn(() => new ar());
+function lr(e, r) {
+  let t = Fr.of(e);
+  if (t.opened) return t.opened;
+  return (
+    (t.opened = (async () => {
+      let o = Fe(e),
+        a = tr(),
+        u = 0;
+      try {
+        let d = await sr(a, r);
+        if (d.length > 0 && o.rows.length === 0) u = ir(o, d);
+      } catch (d) {
+        n(`world journal replay failed: ${d}`, { level: "warn" });
+      }
+      return or(o, a, r), { restored: u };
+    })()),
+    t.opened
+  );
+}
+var ur = 80;
+async function dr(e) {
+  await lr(e.session, e.storageV5), Xe(Fe(e.session), e.toolState.get(ke));
+}
+function A() {
+  return;
+}
+function Le(e, r) {
+  return e.name === void 0 && (e.script !== void 0 || e.scriptPath !== void 0) && dZ(r)
+    ? `
+Load the \`${IE}\` skill for the script reference if you have not, fix the script, and retry.`
+    : "";
+}
+function cr() {
+  return;
+}
+var Dr = "script contains control characters that would be hidden in the approval dialog",
+  zr = m(() =>
+    ot({
+      script: i()
+        .max(dm)
+        .refine(t$, Dr)
+        .optional()
+        .describe(
+          A()?.SCRIPT_DESCRIPTION_V2 ??
+            "Self-contained workflow script. Must begin with `export const meta = { name, description, phases }` (pure literal, no computed values) followed by the script body using agent()/parallel()/pipeline()/phase().",
+        ),
+      name: i()
+        .optional()
+        .describe(
+          "Name of a predefined workflow (built-in or from .claude/workflows/). Resolves to a self-contained script.",
+        ),
+      description: i().optional().describe("Ignored \u2014 set the workflow description in the script's `meta` block."),
+      title: i().optional().describe("Ignored \u2014 set the workflow title in the script's `meta` block."),
+      args: _e()
+        .optional()
+        .describe(
+          "Optional input value exposed to the script as the global `args`, verbatim. Pass arrays/objects as actual JSON values, NOT as a " +
+            "JSON-encoded string \u2014 a stringified list breaks `args.filter`/" +
+            "`args.map` in the script. Use for parameterized named workflows (e.g. a research question).",
+        ),
+      scriptPath: i()
+        .optional()
+        .describe(
+          "Path to a workflow script file on disk. Every Workflow invocation persists its script under the session directory and returns the path in the tool result. To iterate, edit that file with Write/Edit and re-invoke Workflow with the same `scriptPath` instead of re-sending the full script. Takes precedence over `script` and `name`.",
+        ),
+      resumeFromRunId: i()
+        .regex(/^wf_[a-z0-9-]{6,}$/)
+        .optional()
+        .describe(
+          `Run ID of a prior Workflow invocation to resume from. Completed agent() calls with unchanged (prompt, opts) return their cached results instantly; only edited or new calls re-run. Same-session only. Stop the prior run first (${ny}) before resuming.`,
+        ),
+      ...(A()?.runOpFields() ?? {}),
+      ...!1,
+    }).refine((e) => e.script || e.name || e.scriptPath || e.runId, {
+      message: "Must provide script, name, scriptPath, or runId",
+    }),
+  ),
+  Nr = m(() =>
+    f({
+      status: oe(["async_launched", "remote_launched", ...(A() ? [A().RUN_OP_STATUS] : [])]),
+      taskId: i(),
+      taskType: oe(["local_workflow", "remote_agent"])
+        .optional()
+        .describe(
+          "TaskType of the registered background task \u2014 'local_workflow' for in-process runs, 'remote_agent' when remote:true dispatches to CCR. Set on all new writes; absent only on transcripts written before this field existed.",
+        ),
+      workflowName: i()
+        .optional()
+        .describe(
+          "meta.name from the workflow script \u2014 same value as task_started.workflow_name. Set on all new writes; absent only on transcripts written before this field existed.",
+        ),
+      runId: i()
+        .optional()
+        .describe(
+          "Local workflow run identifier for resumeFromRunId. Absent for remote_launched (the CCR session URL is the resume handle there) and on transcripts written before this field existed.",
+        ),
+      summary: i().optional(),
+      transcriptDir: i().optional().describe("Directory where subagent transcripts are written during execution"),
+      scriptPath: i()
+        .optional()
+        .describe(
+          "Path to the persisted workflow script for this invocation. Editable via Write/Edit; pass back as `scriptPath` to re-run without resending the script.",
+        ),
+      sessionUrl: i().optional().describe("CCR session URL when status is remote_launched"),
+      warning: i()
+        .optional()
+        .describe(
+          "Non-blocking heads-up (e.g. local git state diverges from the pushed branch the cloud session will clone)",
+        ),
+      error: i().optional().describe("Set if syntax check failed"),
+      ...(A()?.runOpOutputFields() ?? {}),
+    }),
+  );
+class ye extends Error {
+  constructor(e) {
+    super(e);
+    this.name = "WorkflowInputError";
+  }
+}
+async function fr(e, r, t) {
+  if (e.scriptPath) {
+    let o, a;
+    if (e.script) (o = e.script), (a = Vr(ee(), e.scriptPath));
+    else {
+      let u = await nit(e.scriptPath, r);
+      if ("error" in u) return u;
+      (o = u.script), (a = u.path);
+    }
+    if (wje().some((u) => u.script === o))
+      return { script: o, resolvedScriptPath: a, source: "built-in", scriptMatchesDefinition: !0 };
+    return { script: o, resolvedScriptPath: a };
+  }
+  if (e.name) {
+    let o = await bje(e.name, ee(), t);
+    if (!o) {
+      let a = (await pZ(ee(), t)).map((u) => u.name).join(", ");
+      return { error: `Workflow "${e.name}" not found. Available: ${a || "(none)"}` };
+    }
+    return {
+      script: e.script ?? o.script,
+      source: o.source,
+      scriptMatchesDefinition: e.script === void 0 || e.script === o.script,
+    };
+  }
+  if (e.script) return { script: e.script };
+  return { error: "Must provide script, name, or scriptPath" };
+}
+var pr = {
+    result: !1,
+    message: "Tool dispatch was retracted by a server fallback; the input may be truncated.",
+    errorCode: 7,
+  },
+  to = kt({
+    name: eu,
+    aliases: ["RunWorkflow"],
+    searchHint: "orchestrate subagents with deterministic JavaScript workflow",
+    enablesCodeExecution: !0,
+    maxResultSizeChars: 1e5,
+    isEnabled: () => Zu(),
+    async prompt(e) {
+      let r = cr();
+      if (r !== void 0) return r;
+      return etn(dZ(e?.tools)) + Zun(ie().workflowSizeGuideline);
+    },
+    async description(e, r) {
+      let t = cr();
+      if (t !== void 0) return t;
+      return etn(dZ(r?.tools)) + Zun(ie().workflowSizeGuideline);
+    },
+    get inputSchema() {
+      return zr();
+    },
+    get outputSchema() {
+      return Nr();
+    },
+    coerceInput: (e) => ze(e, { apply: IYn() }),
+    toAutoClassifierInput(e) {
+      let r = A();
+      if (r && typeof e.runId === "string") return r.runOpClassifierInput(e);
+      if (e.script && e.scriptPath)
+        return `${e.script}
 
-scriptPath: ${e.scriptPath}`;if(e.script&&e.name)return`${e.script}
+scriptPath: ${e.scriptPath}`;
+      if (e.script && e.name)
+        return `${e.script}
 
-name: ${e.name}`;return e.script||e.scriptPath||e.name||""},async validateInput(e,r){if(h3(r.abortController.signal))return pr;if(vTe())return{result:!1,message:"Dynamic workflows are disabled by managed settings (`disableWorkflows`).",errorCode:5};if(!Zu())return{result:!1,message:'Dynamic workflows are not enabled for this session (org policy, launch gate, or the "Dynamic workflows" setting in /config).',errorCode:6};if(typeof e.runId==="string"){let a=A();if(!a)return{result:!1,message:"runId is not a field of this tool here.",errorCode:9};await dr(r);let u=await a.validateRunOp(e,r);if(u)return u}if(Hhe()){let a=[e.script&&"script",e.scriptPath&&"scriptPath",e.resumeFromRunId&&"resumeFromRunId",e.remote&&"remote"].filter((u)=>Boolean(u));if(a.length>0)return{result:!1,message:`This session restricts the Workflow tool to named workflows (${DUn} is set). Not allowed here: ${a.join(", ")}. Invoke as {name, args} only.`,errorCode:8}}if(e.scriptPath){let a=ttn(e.scriptPath,r);if(a!==null)return{result:!1,message:a,errorCode:15}}let t=await fr(e,r,r.storageV5);if(h3(r.abortController.signal))return pr;if("error"in t){if(e.name&&!e.scriptPath)p("workflow_resolve","not_found");return{result:!1,message:t.error,errorCode:1}}if(e.name&&!e.scriptPath)y("workflow_resolve");let o=Tf(t.script);if("error"in o)return{result:!1,message:`Invalid workflow script: ${o.error}${Le(e,r.options.tools)}`,errorCode:2};if(e.script&&tit(o.scriptBody))return{result:!1,message:`Workflow scripts must be deterministic: Date.now()/Math.random()/new Date() are unavailable (breaks resume). Stamp results after the workflow returns, or pass timestamps via args.${Le(e,r.options.tools)}`,errorCode:4};if(e.resumeFromRunId,e.resumeFromRunId){for(let[a,u]of Object.entries(r.taskRegistry.all()))if(u.type==="local_workflow"&&u.status==="running"&&u.workflowRunId===e.resumeFromRunId)return{result:!1,message:`Workflow ${e.resumeFromRunId} is still running (task ${a}). Stop it first with ${ny}({taskId: "${a}"}) before resuming.`,errorCode:3}}return{result:!0}},async checkPermissions(e,r){let t=he(r),o=be(e)!==void 0,a=e.scriptPath||o?void 0:e.name,u=(W)=>a?WS(t,eu,W).get(a):void 0,d=u("deny");if(d)return{behavior:"deny",message:`Workflow ${a} blocked by permission rules`,decisionReason:{type:"rule",rule:d}};let h=e;if(o);else if(e.scriptPath){let W=await nit(e.scriptPath,r);if("error"in W)return{behavior:"deny",message:W.error,decisionReason:{type:"other",reason:"workflow scriptPath outside the readable set"}};h={...e,script:W.script}}else if(e.name){let W=await bje(e.name,ee(),r.storageV5);h={...e,script:W?.script}}let g=o&&A()?.RUN_OP_CONSENT_MESSAGE||"Review dynamic workflow before running",T=u("ask");if(T)return{behavior:"ask",message:g,updatedInput:h,decisionReason:{type:"rule",rule:T}};let P=u("allow");if(P)return{behavior:"allow",updatedInput:h,decisionReason:{type:"rule",rule:P}};return{behavior:"ask",message:g,updatedInput:h,...a&&{suggestions:[{type:"addRules",rules:[{toolName:eu,ruleContent:a}],behavior:"allow",destination:"localSettings"}]}}},userFacingName(){return"Workflow"},getToolUseSummary(e){let r=e?be(e):void 0;if(r&&A())return`workflow ${r.runId} \xB7 ${Ze(r)??"?"}`;if(e?.name)return`dynamic workflow: ${e.name}`;if(!e?.script)return null;let t=Tf(e.script);if(!("error"in t))return t.meta.description;let o=e.script.split(`
-`).find((a)=>a.trim())??"";return o.length>50?o.slice(0,49)+"\u2026":o},async call(e,r,t,o,a){if(typeof e.runId==="string"){let L=A();if(!L)throw new ye("runId is not a field of this tool here.");await dr(r);let D=await L.callRunOp(e,r);if(D)return{data:{status:L.RUN_OP_STATUS,taskId:"",runId:D.runId,runOp:D.runOp}}}let u=await fr(e,r,r.storageV5);if("error"in u)throw new ye(u.error);let{script:d,source:h,resolvedScriptPath:g}=u,T=h==="built-in"&&u.scriptMatchesDefinition===!0,P=Tf(d);if("error"in P)throw new ye(`Invalid workflow script: ${P.error}`);let W=e.resumeFromRunId??`wf_${Lr().slice(0,12)}`,C=Oh("local_workflow"),x=P.meta.description,F=P.meta.name,j=i8(P.scriptBody);if(!j.ok)return p("task_local_workflow","compile_failed"),{data:{status:"async_launched",taskId:C,taskType:"local_workflow",workflowName:F,runId:W,summary:x,error:`${j.error}${Le(e,r.options.tools)}`}};let M=F0(W),re=g??W_t(F,W,d,r.storageV5),te=e.scriptPath?void 0:h,se=e.scriptPath?"scriptPath":h??"inline",ae=rit(F,te,T),le=oit(P.meta.description,te,T);s("tengu_workflow_launched",{invocation_mode:w(e.scriptPath?"scriptPath":e.name?"named":"inline"),workflow_source:c(se),workflow_name:ae,workflow_description:le,phase_count:P.meta.phases?.length??0,launched_from_subagent:r.agentId!=null,has_args:e.args!=null,is_resume:e.resumeFromRunId!=null,script_size_chars:d.length});let ve={workflowRunId:W,script:d,scriptPath:re,args:e.args,meta:P.meta,vmScript:j.vmScript,toolUseContext:r,canUseTool:t,toolUseId:r.toolUseId,transcriptDir:M,telemetry:{source:se,name:ae,description:le,scriptIsVerbatimBuiltIn:T},invokingRequestId:o?.requestId,parentPromptId:Hce(r.messages,r.agentContext)};return Sje({...ve,taskId:C,isResume:e.resumeFromRunId!=null}),{data:{status:"async_launched",taskId:C,taskType:"local_workflow",workflowName:F,runId:W,summary:x,transcriptDir:M,scriptPath:re}}},renderToolUseMessage(e,{verbose:r}){let t=be(e),o=A();if(t&&o)return o.renderRunOp(t,r);if(e.name)return`dynamic workflow: ${e.name}`;if(!e.script)return null;if(r)return e.script;let a=Tf(e.script);if(!("error"in a))return a.meta.description;let u=e.script.split(`
-`).find((T)=>T.trim())??e.script.slice(0,40),d=u.length>ur?u.slice(0,ur-1)+"\u2026":u,h=Dn(e.script,`
-`)+1,g=Hoe(h-1);return g?`${d} ${g}`:d},mapToolResultToToolResultBlockParam(e,r){if(e.error)return{tool_use_id:r,type:"tool_result",content:`Workflow script has a syntax error and was not launched:
-${e.error}`,is_error:!0};let t=A()?.runOpToolResultText(e.runId,e.runOp);if(t)return{tool_use_id:r,type:"tool_result",content:t.content,is_error:t.isError};if(e.status==="remote_launched")return{tool_use_id:r,type:"tool_result",content:`Workflow launched in a remote CCR session. Task ID: ${e.taskId}
+name: ${e.name}`;
+      return e.script || e.scriptPath || e.name || "";
+    },
+    async validateInput(e, r) {
+      if (h3(r.abortController.signal)) return pr;
+      if (vTe())
+        return {
+          result: !1,
+          message: "Dynamic workflows are disabled by managed settings (`disableWorkflows`).",
+          errorCode: 5,
+        };
+      if (!Zu())
+        return {
+          result: !1,
+          message:
+            'Dynamic workflows are not enabled for this session (org policy, launch gate, or the "Dynamic workflows" setting in /config).',
+          errorCode: 6,
+        };
+      if (typeof e.runId === "string") {
+        let a = A();
+        if (!a) return { result: !1, message: "runId is not a field of this tool here.", errorCode: 9 };
+        await dr(r);
+        let u = await a.validateRunOp(e, r);
+        if (u) return u;
+      }
+      if (Hhe()) {
+        let a = [
+          e.script && "script",
+          e.scriptPath && "scriptPath",
+          e.resumeFromRunId && "resumeFromRunId",
+          e.remote && "remote",
+        ].filter((u) => Boolean(u));
+        if (a.length > 0)
+          return {
+            result: !1,
+            message: `This session restricts the Workflow tool to named workflows (${DUn} is set). Not allowed here: ${a.join(", ")}. Invoke as {name, args} only.`,
+            errorCode: 8,
+          };
+      }
+      if (e.scriptPath) {
+        let a = ttn(e.scriptPath, r);
+        if (a !== null) return { result: !1, message: a, errorCode: 15 };
+      }
+      let t = await fr(e, r, r.storageV5);
+      if (h3(r.abortController.signal)) return pr;
+      if ("error" in t) {
+        if (e.name && !e.scriptPath) p("workflow_resolve", "not_found");
+        return { result: !1, message: t.error, errorCode: 1 };
+      }
+      if (e.name && !e.scriptPath) y("workflow_resolve");
+      let o = Tf(t.script);
+      if ("error" in o)
+        return { result: !1, message: `Invalid workflow script: ${o.error}${Le(e, r.options.tools)}`, errorCode: 2 };
+      if (e.script && tit(o.scriptBody))
+        return {
+          result: !1,
+          message: `Workflow scripts must be deterministic: Date.now()/Math.random()/new Date() are unavailable (breaks resume). Stamp results after the workflow returns, or pass timestamps via args.${Le(e, r.options.tools)}`,
+          errorCode: 4,
+        };
+      if ((e.resumeFromRunId, e.resumeFromRunId)) {
+        for (let [a, u] of Object.entries(r.taskRegistry.all()))
+          if (u.type === "local_workflow" && u.status === "running" && u.workflowRunId === e.resumeFromRunId)
+            return {
+              result: !1,
+              message: `Workflow ${e.resumeFromRunId} is still running (task ${a}). Stop it first with ${ny}({taskId: "${a}"}) before resuming.`,
+              errorCode: 3,
+            };
+      }
+      return { result: !0 };
+    },
+    async checkPermissions(e, r) {
+      let t = he(r),
+        o = be(e) !== void 0,
+        a = e.scriptPath || o ? void 0 : e.name,
+        u = (W) => (a ? WS(t, eu, W).get(a) : void 0),
+        d = u("deny");
+      if (d)
+        return {
+          behavior: "deny",
+          message: `Workflow ${a} blocked by permission rules`,
+          decisionReason: { type: "rule", rule: d },
+        };
+      let h = e;
+      if (o);
+      else if (e.scriptPath) {
+        let W = await nit(e.scriptPath, r);
+        if ("error" in W)
+          return {
+            behavior: "deny",
+            message: W.error,
+            decisionReason: { type: "other", reason: "workflow scriptPath outside the readable set" },
+          };
+        h = { ...e, script: W.script };
+      } else if (e.name) {
+        let W = await bje(e.name, ee(), r.storageV5);
+        h = { ...e, script: W?.script };
+      }
+      let g = (o && A()?.RUN_OP_CONSENT_MESSAGE) || "Review dynamic workflow before running",
+        T = u("ask");
+      if (T) return { behavior: "ask", message: g, updatedInput: h, decisionReason: { type: "rule", rule: T } };
+      let P = u("allow");
+      if (P) return { behavior: "allow", updatedInput: h, decisionReason: { type: "rule", rule: P } };
+      return {
+        behavior: "ask",
+        message: g,
+        updatedInput: h,
+        ...(a && {
+          suggestions: [
+            {
+              type: "addRules",
+              rules: [{ toolName: eu, ruleContent: a }],
+              behavior: "allow",
+              destination: "localSettings",
+            },
+          ],
+        }),
+      };
+    },
+    userFacingName() {
+      return "Workflow";
+    },
+    getToolUseSummary(e) {
+      let r = e ? be(e) : void 0;
+      if (r && A()) return `workflow ${r.runId} \xB7 ${Ze(r) ?? "?"}`;
+      if (e?.name) return `dynamic workflow: ${e.name}`;
+      if (!e?.script) return null;
+      let t = Tf(e.script);
+      if (!("error" in t)) return t.meta.description;
+      let o =
+        e.script
+          .split(`
+`)
+          .find((a) => a.trim()) ?? "";
+      return o.length > 50 ? o.slice(0, 49) + "\u2026" : o;
+    },
+    async call(e, r, t, o, a) {
+      if (typeof e.runId === "string") {
+        let L = A();
+        if (!L) throw new ye("runId is not a field of this tool here.");
+        await dr(r);
+        let D = await L.callRunOp(e, r);
+        if (D) return { data: { status: L.RUN_OP_STATUS, taskId: "", runId: D.runId, runOp: D.runOp } };
+      }
+      let u = await fr(e, r, r.storageV5);
+      if ("error" in u) throw new ye(u.error);
+      let { script: d, source: h, resolvedScriptPath: g } = u,
+        T = h === "built-in" && u.scriptMatchesDefinition === !0,
+        P = Tf(d);
+      if ("error" in P) throw new ye(`Invalid workflow script: ${P.error}`);
+      let W = e.resumeFromRunId ?? `wf_${Lr().slice(0, 12)}`,
+        C = Oh("local_workflow"),
+        x = P.meta.description,
+        F = P.meta.name,
+        j = i8(P.scriptBody);
+      if (!j.ok)
+        return (
+          p("task_local_workflow", "compile_failed"),
+          {
+            data: {
+              status: "async_launched",
+              taskId: C,
+              taskType: "local_workflow",
+              workflowName: F,
+              runId: W,
+              summary: x,
+              error: `${j.error}${Le(e, r.options.tools)}`,
+            },
+          }
+        );
+      let M = F0(W),
+        re = g ?? W_t(F, W, d, r.storageV5),
+        te = e.scriptPath ? void 0 : h,
+        se = e.scriptPath ? "scriptPath" : (h ?? "inline"),
+        ae = rit(F, te, T),
+        le = oit(P.meta.description, te, T);
+      s("tengu_workflow_launched", {
+        invocation_mode: w(e.scriptPath ? "scriptPath" : e.name ? "named" : "inline"),
+        workflow_source: c(se),
+        workflow_name: ae,
+        workflow_description: le,
+        phase_count: P.meta.phases?.length ?? 0,
+        launched_from_subagent: r.agentId != null,
+        has_args: e.args != null,
+        is_resume: e.resumeFromRunId != null,
+        script_size_chars: d.length,
+      });
+      let ve = {
+        workflowRunId: W,
+        script: d,
+        scriptPath: re,
+        args: e.args,
+        meta: P.meta,
+        vmScript: j.vmScript,
+        toolUseContext: r,
+        canUseTool: t,
+        toolUseId: r.toolUseId,
+        transcriptDir: M,
+        telemetry: { source: se, name: ae, description: le, scriptIsVerbatimBuiltIn: T },
+        invokingRequestId: o?.requestId,
+        parentPromptId: Hce(r.messages, r.agentContext),
+      };
+      return (
+        Sje({ ...ve, taskId: C, isResume: e.resumeFromRunId != null }),
+        {
+          data: {
+            status: "async_launched",
+            taskId: C,
+            taskType: "local_workflow",
+            workflowName: F,
+            runId: W,
+            summary: x,
+            transcriptDir: M,
+            scriptPath: re,
+          },
+        }
+      );
+    },
+    renderToolUseMessage(e, { verbose: r }) {
+      let t = be(e),
+        o = A();
+      if (t && o) return o.renderRunOp(t, r);
+      if (e.name) return `dynamic workflow: ${e.name}`;
+      if (!e.script) return null;
+      if (r) return e.script;
+      let a = Tf(e.script);
+      if (!("error" in a)) return a.meta.description;
+      let u =
+          e.script
+            .split(`
+`)
+            .find((T) => T.trim()) ?? e.script.slice(0, 40),
+        d = u.length > ur ? u.slice(0, ur - 1) + "\u2026" : u,
+        h =
+          Dn(
+            e.script,
+            `
+`,
+          ) + 1,
+        g = Hoe(h - 1);
+      return g ? `${d} ${g}` : d;
+    },
+    mapToolResultToToolResultBlockParam(e, r) {
+      if (e.error)
+        return {
+          tool_use_id: r,
+          type: "tool_result",
+          content: `Workflow script has a syntax error and was not launched:
+${e.error}`,
+          is_error: !0,
+        };
+      let t = A()?.runOpToolResultText(e.runId, e.runOp);
+      if (t) return { tool_use_id: r, type: "tool_result", content: t.content, is_error: t.isError };
+      if (e.status === "remote_launched")
+        return {
+          tool_use_id: r,
+          type: "tool_result",
+          content:
+            `Workflow launched in a remote CCR session. Task ID: ${e.taskId}
 Session: ${e.sessionUrl}
-`+(e.summary?`Summary: ${e.summary}
-`:"")+(e.warning?`Warning: ${e.warning}
-`:"")+`
-The workflow runs against a fresh clone of the pushed branch; phase progress is visible at the session URL, not in /workflows. You will be notified when it completes.`,is_error:!1};let o=e.summary?`
-Summary: ${e.summary}`:"",a=e.transcriptDir?`
-Transcript dir: ${e.transcriptDir}`:"",u=e.scriptPath?`
+` +
+            (e.summary
+              ? `Summary: ${e.summary}
+`
+              : "") +
+            (e.warning
+              ? `Warning: ${e.warning}
+`
+              : "") +
+            `
+The workflow runs against a fresh clone of the pushed branch; phase progress is visible at the session URL, not in /workflows. You will be notified when it completes.`,
+          is_error: !1,
+        };
+      let o = e.summary
+          ? `
+Summary: ${e.summary}`
+          : "",
+        a = e.transcriptDir
+          ? `
+Transcript dir: ${e.transcriptDir}`
+          : "",
+        u = e.scriptPath
+          ? `
 Script file: ${e.scriptPath}
-(Edit this file with Write/Edit and re-invoke Workflow with {scriptPath: "${e.scriptPath}"} to iterate without resending the script.)`:"",d=e.scriptPath&&e.runId?`
+(Edit this file with Write/Edit and re-invoke Workflow with {scriptPath: "${e.scriptPath}"} to iterate without resending the script.)`
+          : "",
+        d =
+          e.scriptPath && e.runId
+            ? `
 Run ID: ${e.runId}
-To resume after editing the script: Workflow({scriptPath: "${e.scriptPath}", resumeFromRunId: "${e.runId}"}) \u2014 completed agents return cached results (cached results may themselves be empty \u2014 inspect journal.jsonl before assuming there is something to recover).`:"",h=`Workflow launched in background. Task ID: ${e.taskId}${o}${a}${u}${d}
+To resume after editing the script: Workflow({scriptPath: "${e.scriptPath}", resumeFromRunId: "${e.runId}"}) \u2014 completed agents return cached results (cached results may themselves be empty \u2014 inspect journal.jsonl before assuming there is something to recover).`
+            : "",
+        h = `Workflow launched in background. Task ID: ${e.taskId}${o}${a}${u}${d}
 
-You will be notified when it completes. Use /workflows to watch live progress.`;return{tool_use_id:r,type:"tool_result",content:h,is_error:!1}}});export{ye as WorkflowInputError,to as WorkflowTool};
+You will be notified when it completes. Use /workflows to watch live progress.`;
+      return { tool_use_id: r, type: "tool_result", content: h, is_error: !1 };
+    },
+  });
+export { ye as WorkflowInputError, to as WorkflowTool };

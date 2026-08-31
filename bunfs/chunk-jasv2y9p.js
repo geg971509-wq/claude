@@ -8,5 +8,35 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{ln}from"/$bunfs/root/chunk-tjmf73ft.js";var Ed="claude-in-chrome",M4t="javascript_tool";function LH(e){return ln(e)===Ed}var Ynr=["file_upload","browser_batch"],Jnr=[M4t,"read_page","find","form_input","computer","browser_batch","navigate","resize_window","gif_creator","upload_image","get_page_text","tabs_context_mcp","tabs_create_mcp","tabs_close_mcp","read_console_messages","read_network_requests","shortcuts_list","shortcuts_execute","file_upload","switch_browser","list_connected_browsers","select_browser"];
-export{Ed,M4t,LH,Ynr,Jnr};
+import { ln } from "/$bunfs/root/chunk-tjmf73ft.js";
+var Ed = "claude-in-chrome",
+  M4t = "javascript_tool";
+function LH(e) {
+  return ln(e) === Ed;
+}
+var Ynr = ["file_upload", "browser_batch"],
+  Jnr = [
+    M4t,
+    "read_page",
+    "find",
+    "form_input",
+    "computer",
+    "browser_batch",
+    "navigate",
+    "resize_window",
+    "gif_creator",
+    "upload_image",
+    "get_page_text",
+    "tabs_context_mcp",
+    "tabs_create_mcp",
+    "tabs_close_mcp",
+    "read_console_messages",
+    "read_network_requests",
+    "shortcuts_list",
+    "shortcuts_execute",
+    "file_upload",
+    "switch_browser",
+    "list_connected_browsers",
+    "select_browser",
+  ];
+export { Ed, M4t, LH, Ynr, Jnr };

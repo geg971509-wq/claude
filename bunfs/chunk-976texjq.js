@@ -8,5 +8,13 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-function kV(s,n,e=32000){let t=Math.min(500*Math.pow(2,s-1),e),a=Math.round(t+Math.random()*0.25*t);if(n){let o=parseInt(n,10);if(!isNaN(o))return Math.max(o*1000,a)}return a}
-export{kV};
+function kV(s, n, e = 32000) {
+  let t = Math.min(500 * Math.pow(2, s - 1), e),
+    a = Math.round(t + Math.random() * 0.25 * t);
+  if (n) {
+    let o = parseInt(n, 10);
+    if (!isNaN(o)) return Math.max(o * 1000, a);
+  }
+  return a;
+}
+export { kV };

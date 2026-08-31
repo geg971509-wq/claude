@@ -8,5 +8,24 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{J}from"/$bunfs/root/chunk-f9h0bg01.js";class a{packageManagerUpdateLastFailedAt=0;packageManagerLatestVersion=null;fastIconHintShown=!1;memorySelectorLastPath=void 0;recordPackageManagerUpdateFailure(e){this.packageManagerUpdateLastFailedAt=e}recordPackageManagerLatestVersion(e){this.packageManagerLatestVersion=e}markFastIconHintShown(){this.fastIconHintShown=!0}rememberMemorySelectorPath(e){this.memorySelectorLastPath=e}}var Bie=new J(()=>new a);
-export{Bie};
+import { J } from "/$bunfs/root/chunk-f9h0bg01.js";
+class a {
+  packageManagerUpdateLastFailedAt = 0;
+  packageManagerLatestVersion = null;
+  fastIconHintShown = !1;
+  memorySelectorLastPath = void 0;
+  recordPackageManagerUpdateFailure(e) {
+    this.packageManagerUpdateLastFailedAt = e;
+  }
+  recordPackageManagerLatestVersion(e) {
+    this.packageManagerLatestVersion = e;
+  }
+  markFastIconHintShown() {
+    this.fastIconHintShown = !0;
+  }
+  rememberMemorySelectorPath(e) {
+    this.memorySelectorLastPath = e;
+  }
+}
+var Bie = new J(() => new a());
+export { Bie };

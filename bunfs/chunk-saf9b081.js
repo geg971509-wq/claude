@@ -8,14 +8,1016 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{G,Se}from"/$bunfs/root/chunk-f9h0bg01.js";import"/$bunfs/root/chunk-qq1mdtb5.js";import"/$bunfs/root/chunk-tx16jn0x.js";import"/$bunfs/root/chunk-haan6f8z.js";import{vp}from"/$bunfs/root/chunk-ph2x1s8t.js";import"/$bunfs/root/chunk-gtwaztzc.js";import"/$bunfs/root/chunk-ht28m404.js";import"/$bunfs/root/chunk-8td9ks9h.js";import"/$bunfs/root/chunk-syabrr2b.js";import"/$bunfs/root/chunk-8cv6dqkz.js";import"/$bunfs/root/chunk-cmhbx7me.js";import"/$bunfs/root/chunk-c3bffkxg.js";import{V,n}from"/$bunfs/root/chunk-fv016jr6.js";import{ie,Twn}from"/$bunfs/root/chunk-8tgj5dp2.js";import"/$bunfs/root/chunk-vfy57cpd.js";import"/$bunfs/root/chunk-4xj01xwv.js";import{R,l,X}from"/$bunfs/root/chunk-ypdw393e.js";import{be}from"/$bunfs/root/chunk-gcks6mn0.js";import"/$bunfs/root/chunk-qk7r0t2g.js";import"/$bunfs/root/chunk-4ddxwr9r.js";import"/$bunfs/root/chunk-bzx56g36.js";import"/$bunfs/root/chunk-eqdctte5.js";import"/$bunfs/root/chunk-fec4384a.js";import"/$bunfs/root/chunk-qm65zb83.js";import"/$bunfs/root/chunk-wkxx62a2.js";import"/$bunfs/root/chunk-ps6pc7xd.js";import"/$bunfs/root/chunk-amem41jf.js";import"/$bunfs/root/chunk-0pgyw7te.js";import"/$bunfs/root/chunk-386w1sy8.js";import"/$bunfs/root/chunk-r53tkxrh.js";import{y,p}from"/$bunfs/root/chunk-ca80fke8.js";import"/$bunfs/root/chunk-ax6dy60b.js";import"/$bunfs/root/chunk-6k63g5t6.js";import"/$bunfs/root/chunk-4fwj3vnx.js";import{Wn}from"/$bunfs/root/chunk-nqmqabr8.js";import{zN}from"/$bunfs/root/chunk-q14dgq5g.js";import{hA,aa,Al,fb}from"/$bunfs/root/chunk-f5hrzy3k.js";import"/$bunfs/root/chunk-s7e0px8j.js";import"/$bunfs/root/chunk-s28wf80n.js";import"/$bunfs/root/chunk-3bbym8ct.js";import"/$bunfs/root/chunk-cf8qhmdc.js";import"/$bunfs/root/chunk-2masxyqj.js";import{Vr}from"/$bunfs/root/chunk-rgw52f13.js";import"/$bunfs/root/chunk-2rx5nghb.js";import"/$bunfs/root/chunk-z0z1xzkg.js";import"/$bunfs/root/chunk-c47snwm2.js";import{Zt,Te}from"/$bunfs/root/chunk-jpf4kat5.js";import"/$bunfs/root/chunk-s4vc7est.js";import"/$bunfs/root/chunk-hyh5wcm1.js";import"/$bunfs/root/chunk-ntyhd04p.js";import"/$bunfs/root/chunk-8qsdea2c.js";import"/$bunfs/root/chunk-988p40e0.js";import"/$bunfs/root/chunk-0spqrdaj.js";import"/$bunfs/root/chunk-5rt2mvvk.js";import"/$bunfs/root/chunk-1yr12dqr.js";import"/$bunfs/root/chunk-2mmw62jx.js";import"/$bunfs/root/chunk-z2bvp3sv.js";import"/$bunfs/root/chunk-keb644xg.js";import"/$bunfs/root/chunk-bj904w9w.js";import"/$bunfs/root/chunk-18bck2pp.js";import"/$bunfs/root/chunk-dwwpyy7b.js";import"/$bunfs/root/chunk-jck8t8fq.js";import"/$bunfs/root/chunk-qcx34e4j.js";import"/$bunfs/root/chunk-psdymar6.js";import"/$bunfs/root/chunk-0r9wzh7g.js";import"/$bunfs/root/chunk-sxxp6vcr.js";import"/$bunfs/root/chunk-rf51999f.js";import"/$bunfs/root/chunk-82w4mtvq.js";import"/$bunfs/root/chunk-v7yhn7cf.js";import"/$bunfs/root/chunk-kxyny47c.js";import"/$bunfs/root/chunk-e7rq8w09.js";import"/$bunfs/root/chunk-fbp3w46j.js";import"/$bunfs/root/chunk-gtv2468w.js";import"/$bunfs/root/chunk-4r03fm98.js";import"/$bunfs/root/chunk-s4smmnta.js";import"/$bunfs/root/chunk-z9ex1x2t.js";import"/$bunfs/root/chunk-k4a21mkt.js";import"/$bunfs/root/chunk-4rh74qms.js";import"/$bunfs/root/chunk-r3qa2s4k.js";import"/$bunfs/root/chunk-1evht33z.js";import"/$bunfs/root/chunk-gkfy5ggn.js";import"/$bunfs/root/chunk-qk6zade1.js";import"/$bunfs/root/chunk-4t3vsqt7.js";import"/$bunfs/root/chunk-ejdwrhgv.js";import"/$bunfs/root/chunk-zkvj62rn.js";import"/$bunfs/root/chunk-492vgtnr.js";import"/$bunfs/root/chunk-0g6cj4h1.js";import"/$bunfs/root/chunk-a48rnvhj.js";import"/$bunfs/root/chunk-tzhtxm67.js";import"/$bunfs/root/chunk-mznd09c6.js";import"/$bunfs/root/chunk-ghara6r1.js";import"/$bunfs/root/chunk-97wwdfyx.js";import"/$bunfs/root/chunk-167jjb66.js";import"/$bunfs/root/chunk-kez2zndg.js";import"/$bunfs/root/chunk-c76q2y0e.js";import"/$bunfs/root/chunk-2204t1q0.js";import"/$bunfs/root/chunk-qd35gw0c.js";import"/$bunfs/root/chunk-mhf4d4sa.js";import"/$bunfs/root/chunk-pbmajbn7.js";import"/$bunfs/root/chunk-htrft0p0.js";import"/$bunfs/root/chunk-d1d8xqks.js";import"/$bunfs/root/chunk-37pvmyqb.js";import"/$bunfs/root/chunk-fwwvmbqn.js";import"/$bunfs/root/chunk-5c5qq1s7.js";import{o,t,Lx}from"/$bunfs/root/chunk-he2phymk.js";import"/$bunfs/root/chunk-ka74qrx3.js";import"/$bunfs/root/chunk-2wxj9m3z.js";import"/$bunfs/root/chunk-z45ex17x.js";import"/$bunfs/root/chunk-tbbqkkg3.js";import"/$bunfs/root/chunk-z9bhq3k9.js";import"/$bunfs/root/chunk-0m39033q.js";import"/$bunfs/root/chunk-v94qfg1j.js";import"/$bunfs/root/chunk-q04k5ycg.js";import"/$bunfs/root/chunk-e28mhr30.js";import"/$bunfs/root/chunk-ky33xsw7.js";import"/$bunfs/root/chunk-zk5d9rtp.js";import"/$bunfs/root/chunk-1pn2pk9v.js";import"/$bunfs/root/chunk-93max1bs.js";import"/$bunfs/root/chunk-f9km17e9.js";import"/$bunfs/root/chunk-dxqac26z.js";import"/$bunfs/root/chunk-pc41wsq4.js";import"/$bunfs/root/chunk-98tgyb1d.js";import"/$bunfs/root/chunk-zze8764r.js";import"/$bunfs/root/chunk-h7dkgq01.js";import"/$bunfs/root/chunk-2n1hsggr.js";import"/$bunfs/root/chunk-s0xdwab3.js";import"/$bunfs/root/chunk-fs02hzwy.js";import"/$bunfs/root/chunk-cds31m36.js";import"/$bunfs/root/chunk-z15hpjf9.js";import"/$bunfs/root/chunk-hebj76vj.js";import"/$bunfs/root/chunk-0mrbtv3q.js";import"/$bunfs/root/chunk-5n1tbe50.js";import"/$bunfs/root/chunk-twwd9fep.js";import"/$bunfs/root/chunk-a2an01ph.js";import"/$bunfs/root/chunk-dck778n3.js";import"/$bunfs/root/chunk-nkjrjh5n.js";import"/$bunfs/root/chunk-c6k0ecxv.js";import"/$bunfs/root/chunk-bp3j8sq3.js";import"/$bunfs/root/chunk-qekzccch.js";import"/$bunfs/root/chunk-s2ac0z44.js";import"/$bunfs/root/chunk-wgz3g40p.js";import"/$bunfs/root/chunk-1mp2j0tx.js";import"/$bunfs/root/chunk-tveh0k24.js";import"/$bunfs/root/chunk-699y5x28.js";import"/$bunfs/root/chunk-6a5ggyw4.js";import"/$bunfs/root/chunk-btcxpqw5.js";import"/$bunfs/root/chunk-k8xha1qv.js";import"/$bunfs/root/chunk-30e2jew7.js";import"/$bunfs/root/chunk-51qp0385.js";import"/$bunfs/root/chunk-wjr8v4tx.js";import"/$bunfs/root/chunk-kbyvkqye.js";import"/$bunfs/root/chunk-dd55s64p.js";import"/$bunfs/root/chunk-83h0j7w2.js";import"/$bunfs/root/chunk-qg6z8ah8.js";import"/$bunfs/root/chunk-308krgtb.js";import"/$bunfs/root/chunk-nf8aaj8a.js";import"/$bunfs/root/chunk-a6xhjq7b.js";import"/$bunfs/root/chunk-qnrh4abv.js";import"/$bunfs/root/chunk-6nmk3t6g.js";import"/$bunfs/root/chunk-jwrz2gmg.js";import"/$bunfs/root/chunk-6w72z84m.js";import"/$bunfs/root/chunk-nkf7ctf5.js";import"/$bunfs/root/chunk-38mxah2g.js";import"/$bunfs/root/chunk-p18e2918.js";import"/$bunfs/root/chunk-rsp0anqd.js";import"/$bunfs/root/chunk-vq9g7y26.js";import"/$bunfs/root/chunk-w3c6n7jh.js";import"/$bunfs/root/chunk-gvnqpbsf.js";import"/$bunfs/root/chunk-5wecjdtm.js";import"/$bunfs/root/chunk-rgh8hav6.js";import"/$bunfs/root/chunk-x06p1jhb.js";import"/$bunfs/root/chunk-91315wj5.js";import{Dk}from"/$bunfs/root/chunk-tz5bx4mb.js";import"/$bunfs/root/chunk-p1awcxk1.js";import"/$bunfs/root/chunk-e17gvevg.js";import"/$bunfs/root/chunk-da857b4g.js";import"/$bunfs/root/chunk-vzc4dhqq.js";import"/$bunfs/root/chunk-anwgkcw5.js";import"/$bunfs/root/chunk-hz299nfa.js";import"/$bunfs/root/chunk-1v3848mh.js";import"/$bunfs/root/chunk-fctnm902.js";import"/$bunfs/root/chunk-e53y7x75.js";import"/$bunfs/root/chunk-d5s7a9by.js";import"/$bunfs/root/chunk-5g92v3fd.js";import"/$bunfs/root/chunk-76gryyye.js";import"/$bunfs/root/chunk-h605j25g.js";import"/$bunfs/root/chunk-4sw5yxwb.js";import"/$bunfs/root/chunk-vx3kc9d2.js";import"/$bunfs/root/chunk-eb5y4yrx.js";import"/$bunfs/root/chunk-4c3hecm4.js";import"/$bunfs/root/chunk-xgfepdf4.js";import"/$bunfs/root/chunk-50g10fz0.js";import"/$bunfs/root/chunk-9y48by1e.js";import"/$bunfs/root/chunk-cfqs035d.js";import"/$bunfs/root/chunk-9tey6wcd.js";import"/$bunfs/root/chunk-86v6b72m.js";import"/$bunfs/root/chunk-c2kqvv3h.js";import"/$bunfs/root/chunk-cgy998p5.js";import"/$bunfs/root/chunk-hzjjsb0j.js";import"/$bunfs/root/chunk-trte0v0g.js";import"/$bunfs/root/chunk-gmgmb4mg.js";import"/$bunfs/root/chunk-avrc9gay.js";import"/$bunfs/root/chunk-pbd9yggs.js";import"/$bunfs/root/chunk-fvkzpeqe.js";import"/$bunfs/root/chunk-96xrtyd5.js";import"/$bunfs/root/chunk-k7v7xwvs.js";import"/$bunfs/root/chunk-pzvxycbq.js";import"/$bunfs/root/chunk-dzv4k86d.js";import"/$bunfs/root/chunk-rt5p4yax.js";import"/$bunfs/root/chunk-jn7d47r1.js";import"/$bunfs/root/chunk-dc4hb8f7.js";import"/$bunfs/root/chunk-z9jgt14c.js";import"/$bunfs/root/chunk-y8sx7bf9.js";import"/$bunfs/root/chunk-q2gyteg0.js";import"/$bunfs/root/chunk-0manfhn2.js";import"/$bunfs/root/chunk-r6ppzf4r.js";import"/$bunfs/root/chunk-4399d2v0.js";import"/$bunfs/root/chunk-y79sc2hm.js";import"/$bunfs/root/chunk-2t3rnt88.js";import"/$bunfs/root/chunk-986hvegp.js";import"/$bunfs/root/chunk-8jsj2mx0.js";import"/$bunfs/root/chunk-dt5bt1kc.js";import{Ek}from"/$bunfs/root/chunk-z9rrv31w.js";import"/$bunfs/root/chunk-5djs3wbb.js";import"/$bunfs/root/chunk-r4m4cqz1.js";import"/$bunfs/root/chunk-mq8h2tk8.js";import"/$bunfs/root/chunk-pdf5n9dy.js";import"/$bunfs/root/chunk-rntp2fy5.js";import"/$bunfs/root/chunk-a9vrr0nr.js";import"/$bunfs/root/chunk-nfmyt8cw.js";import"/$bunfs/root/chunk-6var9pwd.js";import"/$bunfs/root/chunk-gmj1vprd.js";import"/$bunfs/root/chunk-ht15rw3x.js";import"/$bunfs/root/chunk-gay9hbs8.js";import"/$bunfs/root/chunk-mvz9fsh3.js";import"/$bunfs/root/chunk-ddbk6aje.js";import"/$bunfs/root/chunk-krety1hw.js";import"/$bunfs/root/chunk-6ywvv1q0.js";import"/$bunfs/root/chunk-wn1jrcrk.js";import"/$bunfs/root/chunk-zk5v8tw6.js";import"/$bunfs/root/chunk-kdtcyk0z.js";import"/$bunfs/root/chunk-q75cm02t.js";import"/$bunfs/root/chunk-kfdrcvxr.js";import"/$bunfs/root/chunk-fd2h00ye.js";import"/$bunfs/root/chunk-vm4xrmr7.js";import"/$bunfs/root/chunk-hkzwg35z.js";import"/$bunfs/root/chunk-mkweh3a4.js";import"/$bunfs/root/chunk-z6m3k8w5.js";import"/$bunfs/root/chunk-620fbwm6.js";import"/$bunfs/root/chunk-fbn06kdf.js";import"/$bunfs/root/chunk-42q7ctbx.js";import"/$bunfs/root/chunk-h4r2tn7z.js";import"/$bunfs/root/chunk-2ggyrkka.js";import"/$bunfs/root/chunk-5hskqad6.js";import"/$bunfs/root/chunk-4vfft545.js";import"/$bunfs/root/chunk-1eqdma2n.js";import"/$bunfs/root/chunk-w83ydshr.js";import"/$bunfs/root/chunk-bdq8yz46.js";import"/$bunfs/root/chunk-m5yhrq50.js";import"/$bunfs/root/chunk-24p66taq.js";import"/$bunfs/root/chunk-ngn87vcm.js";import{Ce}from"/$bunfs/root/chunk-1y0jc48h.js";import"/$bunfs/root/chunk-8ktvd0rh.js";import"/$bunfs/root/chunk-rp246vnd.js";import"/$bunfs/root/chunk-s8gya298.js";import"/$bunfs/root/chunk-ek4tmwbt.js";import"/$bunfs/root/chunk-jmrpkgzd.js";import"/$bunfs/root/chunk-y2r26k83.js";import"/$bunfs/root/chunk-rycvm63e.js";import"/$bunfs/root/chunk-sypj25ha.js";import"/$bunfs/root/chunk-hb6grkjg.js";import"/$bunfs/root/chunk-q5hmd7j9.js";import{Tn,Uw,AS}from"/$bunfs/root/chunk-n71q9jb8.js";import"/$bunfs/root/chunk-9r67t977.js";import"/$bunfs/root/chunk-d9p5c429.js";import"/$bunfs/root/chunk-s6datcvt.js";import"/$bunfs/root/chunk-qwp18h36.js";import"/$bunfs/root/chunk-5g669xdp.js";import"/$bunfs/root/chunk-x2q1t6es.js";import{gke}from"/$bunfs/root/chunk-2fxat6s0.js";import"/$bunfs/root/chunk-xgyzc8y0.js";import"/$bunfs/root/chunk-bf0mh6c1.js";import"/$bunfs/root/chunk-q3evfmyc.js";import"/$bunfs/root/chunk-pm63yfcg.js";import"/$bunfs/root/chunk-k9a5yseb.js";import"/$bunfs/root/chunk-84qb5tsd.js";import"/$bunfs/root/chunk-x05qkgt7.js";import"/$bunfs/root/chunk-e7z75y3n.js";import"/$bunfs/root/chunk-jrgq7wk9.js";import"/$bunfs/root/chunk-wktm3bts.js";import"/$bunfs/root/chunk-d7066vf7.js";import"/$bunfs/root/chunk-qvvgsfrp.js";import"/$bunfs/root/chunk-dp9rvsnb.js";import"/$bunfs/root/chunk-nmpqha26.js";import"/$bunfs/root/chunk-meqzkkeh.js";import"/$bunfs/root/chunk-4kafv9jq.js";import"/$bunfs/root/chunk-1fwtbc4t.js";import{e,r}from"/$bunfs/root/chunk-8s7kcbyw.js";import"/$bunfs/root/chunk-tfb5y7hy.js";import"/$bunfs/root/chunk-d5bnjcbw.js";import"/$bunfs/root/chunk-31xy83wr.js";import"/$bunfs/root/chunk-g732bkj4.js";import"/$bunfs/root/chunk-zgfc288e.js";import"/$bunfs/root/chunk-6nsyrmhg.js";import"/$bunfs/root/chunk-jjkewjsg.js";import"/$bunfs/root/chunk-4r71nj50.js";import"/$bunfs/root/chunk-3qvtfvqg.js";import{Nc}from"/$bunfs/root/chunk-r7t0evh2.js";import"/$bunfs/root/chunk-6xz0kht6.js";import"/$bunfs/root/chunk-2am7kb6k.js";import"/$bunfs/root/chunk-9kr4hqvs.js";import"/$bunfs/root/chunk-xvwx3w83.js";import"/$bunfs/root/chunk-y9akj3mq.js";import"/$bunfs/root/chunk-gdk3p0b3.js";import"/$bunfs/root/chunk-qy75zxb2.js";import"/$bunfs/root/chunk-r6t6p0zm.js";import"/$bunfs/root/chunk-qpj83ec7.js";import"/$bunfs/root/chunk-f77e8yef.js";import"/$bunfs/root/chunk-f7y0mdt6.js";import{Nu}from"/$bunfs/root/chunk-jb2pzt3t.js";import"/$bunfs/root/chunk-9yzzw213.js";import"/$bunfs/root/chunk-mknyj0qp.js";import"/$bunfs/root/chunk-81defen8.js";import"/$bunfs/root/chunk-mpg6r2j0.js";import"/$bunfs/root/chunk-3dh32z3c.js";import"/$bunfs/root/chunk-n8ecp4gs.js";import"/$bunfs/root/chunk-406nxetx.js";import"/$bunfs/root/chunk-2zf9m1zh.js";import"/$bunfs/root/chunk-rxqmmxnb.js";import"/$bunfs/root/chunk-gdhqsw8a.js";import"/$bunfs/root/chunk-5xr818a0.js";import"/$bunfs/root/chunk-fgavb5x0.js";import"/$bunfs/root/chunk-sqa0bs5e.js";import"/$bunfs/root/chunk-fveqn4y7.js";import"/$bunfs/root/chunk-4zsxhey6.js";import"/$bunfs/root/chunk-61nasexv.js";import"/$bunfs/root/chunk-m1andcps.js";import"/$bunfs/root/chunk-61hbq2wc.js";import"/$bunfs/root/chunk-rq65wazg.js";import"/$bunfs/root/chunk-5tdaspnd.js";import"/$bunfs/root/chunk-rr0yj5sq.js";import"/$bunfs/root/chunk-a7wreksn.js";import"/$bunfs/root/chunk-8sbwe0jk.js";import"/$bunfs/root/chunk-nwb64bac.js";import"/$bunfs/root/chunk-g5y4mxg8.js";import"/$bunfs/root/chunk-cbn30h5b.js";import"/$bunfs/root/chunk-g01aac1k.js";import"/$bunfs/root/chunk-3fwkz19s.js";import"/$bunfs/root/chunk-9319g175.js";import"/$bunfs/root/chunk-szz73wxx.js";import"/$bunfs/root/chunk-b40bn863.js";import"/$bunfs/root/chunk-6mgs10s2.js";import"/$bunfs/root/chunk-6s9ybdq1.js";import"/$bunfs/root/chunk-74qqwjhx.js";import"/$bunfs/root/chunk-1hh0bg14.js";import"/$bunfs/root/chunk-052zvbpg.js";import"/$bunfs/root/chunk-werv747a.js";import"/$bunfs/root/chunk-jzh4kg5x.js";import"/$bunfs/root/chunk-7s7jqj2f.js";import"/$bunfs/root/chunk-56sxk8k2.js";import{O}from"/$bunfs/root/chunk-dqkj2bph.js";import"/$bunfs/root/chunk-7jz6r17g.js";import"/$bunfs/root/chunk-a4q326ap.js";import{createReadStream as Q}from"fs";import{readdir as N,rm as ke,stat as L}from"fs/promises";import{basename as we,dirname as Pe,join as b,resolve as H,sep as je}from"path";import{createInterface as Z}from"readline";var ee=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;function E(i=""){process.stdout.write(`${i}
-`)}async function F(i,s,a){if(O()&&s!==void 0){let c=await a(s);if(c!==void 0)return c}try{return await L(i),!0}catch{return!1}}async function q(i,s){try{let a=await i.scopeKind(s,{resolveLink:!0});if(!a.ok)return;switch(a.value.kind){case"absent":return!1;case"link":return a.value.linkResolves===!0;case"directory":case"other":return!0}}catch{return}}async function te(i,s){try{let a=await i.statMeta(s);if(a.ok)return!0;return a.error.code==="NotFound"?!1:void 0}catch{return}}async function C(i){try{return await L(i),!0}catch{return!1}}async function ne(i,s,a){let c=()=>{},d=new Promise((u)=>{c=u}),{unmount:f,waitUntilExit:g}=await Lx(e(vp,{session:G(),children:r(o,{flexDirection:"column",gap:1,paddingY:1,children:[e(t,{bold:!0,children:i}),e(Ce,{options:s,defaultValue:a,visibleOptionCount:10,onChange:(u)=>{c(u),f()},onCancel:()=>{c(null),f()}})]})}),{exitOnCtrlC:!1});return await g(),d}function re(){return Object.keys(ie().projects??{})}async function ve(){let i=H(Se()),s=re(),a=new Set([i]),c=[{label:i,value:i,description:"current directory"}];for(let d of s){if(a.has(d))continue;a.add(d),c.push({label:d,value:d})}return ne("Select a project to purge:",c,i)}function se(i,s){for(let a of s)if(i===a||i.startsWith(a+je))return!0;return!1}function oe(i,s){if(!i)return!1;try{let a=V(i);return typeof a.project==="string"&&se(a.project,s)}catch{return!1}}async function $e(i,s,a){let c=await He(a,i),d;if(c!==null)d=c;else try{d=(await N(i)).filter((f)=>f.endsWith(".jsonl")).sort()}catch{return!1}for(let f of d){let g=await _e(b(i,f),a);if(g!==null)return se(g,s)}return!1}function ae(i){try{let s=V(i);return typeof s.cwd==="string"?s.cwd:void 0}catch{return}}var ce=50;async function _e(i,s){let a=await Fe(i,s);if(a!==void 0)return a;let c=Q(i,{encoding:"utf8"}),d=Z({input:c,crlfDelay:1/0}),f=0;try{for await(let g of d){if(++f>ce)break;let u=ae(g);if(u!==void 0)return u}}catch{}finally{d.close(),c.close()}return null}var Ie=16384,Be=262144;async function Fe(i,s){let a=Nc(i,s);if(a===void 0)return;let c=await de(a.backend,a.key,{pageBytes:(d)=>d===0?Ie:Be,lineCap:ce,judge:ae});switch(c.kind){case"found":return c.value;case"end":return null;case"refused":return c.code==="Failed"?null:void 0;case"cannotAnswer":return}}async function de(i,s,a){let c=0,d;try{for(let f=0;;f++){if(f>=fe)return{kind:"cannotAnswer"};let g=await i.readRecords(s,{order:"forward",maxBytes:a.pageBytes(f),...a.lineCap!==void 0&&{limit:a.lineCap-c},...d!==void 0&&{fromSeq:d}});if(!g.ok){let{error:h}=g;return{kind:"refused",code:h.code,..."telemetryCode"in h&&h.telemetryCode!==void 0&&{telemetryCode:h.telemetryCode}}}for(let h of g.value.items)for(let k of Re(h.data)){let S=a.judge(k);if(S!==void 0)return{kind:"found",value:S};if(a.lineCap!==void 0&&++c>=a.lineCap)return{kind:"end"}}let u=g.value.nextSeq;if(u===void 0)return{kind:"end"};if(d!==void 0&&u<=d)return{kind:"cannotAnswer"};d=u}}catch(f){return n(`purge: the storage interface threw on readRecords of the ${s.namespace} stream; the caller's legacy path serves (${l(f)})`),{kind:"cannotAnswer"}}}function Re(i){let{buffer:s,byteOffset:a,byteLength:c}=i,d=Buffer.from(s,a,c).toString("utf8"),f=d.endsWith(`
-`)?d.slice(0,-1):d,g=f.endsWith("\r")?f.slice(0,-1):f;return g.includes("\r")?g.split("\r"):[g]}var Ae=1048576;async function le(i,s,a){let c=0,d=await de(i,Te.history(),{pageBytes:()=>Ae,judge:(f)=>{if(oe(f,s))c++;else a?.push(f);return}});switch(d.kind){case"found":case"end":return await De(i)===!1?{kind:"scanned",matched:c}:{kind:"defer"};case"refused":if(d.code==="NotFound")return{kind:"absent"};return d.code==="Unavailable"?{kind:"defer"}:d;case"cannotAnswer":return{kind:"defer"}}}async function Ee(i,s){let a=await le(i,s);switch(a.kind){case"scanned":return a.matched;case"absent":return 0;case"defer":case"refused":return}}class K extends R{}async function xe(i,s){let a=[],c=await le(i,s,a);switch(c.kind){case"absent":return 0;case"defer":return;case"refused":if(Dk(c.telemetryCode))throw T(`history.jsonl is a symlink or not a regular file, which the storage interface never reads or writes through (${B(c)})`);if(c.code==="InvalidArgument")throw T(`the storage interface declined the read (${B(c)})`);n(`purge history: the storage interface could not read history.jsonl (${B(c)}); today's rewrite serves`);return;case"scanned":break}let d=c.matched;if(d===0)return 0;let f;try{f=await i.replaceRecords(Te.history(),a.map((u)=>({data:`${u}
-`})),{mode:438&~process.umask()})}catch(u){n(`purge history: the storage interface threw on replaceRecords; the readline filter serves (${l(u)})`);return}if(f.ok)return d;let{error:g}=f;switch(g.code){case"Unavailable":case"Failed":n(`purge history: the storage interface could not rewrite history.jsonl (${B(g)}); today's rewrite serves`);return;case"InvalidArgument":throw T(`the storage interface declined the rewrite (${g.argument})`);case"NotFound":case"PreconditionFailed":throw T(`the storage interface declined the rewrite (${g.code})`)}}async function De(i){try{let s=await i.stat(Te.history());if(!s.ok)return s.error.code==="NotFound"?!1:void 0;return(s.value.tornTailBytes??0)>0}catch(s){n(`purge history: the storage interface threw on stat; the readline arm serves (${l(s)})`);return}}function B(i){return i.telemetryCode===void 0?i.code:`${i.code} ${i.telemetryCode}`}function T(i){return new K(`history.jsonl was not rewritten \u2014 ${i}`,"purge history rewrite refused")}async function Oe(i,s,a){return ue(i,s,"count",a)}async function ue(i,s,a,c){if(O()&&c!==void 0){let u=a==="count"?await Ee(c,s):await xe(c,s);if(u!==void 0)return u}let d=Z({input:Q(i,{encoding:"utf8"}),crlfDelay:1/0}),f=[],g=0;try{for await(let u of d)if(oe(u,s))g++;else if(a==="filter")f.push(u)}catch(u){if(X(u))return 0;throw u}if(a==="filter"&&g>0)await Wn(i,f.length?`${f.join(`
+import { G, Se } from "/$bunfs/root/chunk-f9h0bg01.js";
+import "/$bunfs/root/chunk-qq1mdtb5.js";
+import "/$bunfs/root/chunk-tx16jn0x.js";
+import "/$bunfs/root/chunk-haan6f8z.js";
+import { vp } from "/$bunfs/root/chunk-ph2x1s8t.js";
+import "/$bunfs/root/chunk-gtwaztzc.js";
+import "/$bunfs/root/chunk-ht28m404.js";
+import "/$bunfs/root/chunk-8td9ks9h.js";
+import "/$bunfs/root/chunk-syabrr2b.js";
+import "/$bunfs/root/chunk-8cv6dqkz.js";
+import "/$bunfs/root/chunk-cmhbx7me.js";
+import "/$bunfs/root/chunk-c3bffkxg.js";
+import { V, n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { ie, Twn } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import "/$bunfs/root/chunk-vfy57cpd.js";
+import "/$bunfs/root/chunk-4xj01xwv.js";
+import { R, l, X } from "/$bunfs/root/chunk-ypdw393e.js";
+import { be } from "/$bunfs/root/chunk-gcks6mn0.js";
+import "/$bunfs/root/chunk-qk7r0t2g.js";
+import "/$bunfs/root/chunk-4ddxwr9r.js";
+import "/$bunfs/root/chunk-bzx56g36.js";
+import "/$bunfs/root/chunk-eqdctte5.js";
+import "/$bunfs/root/chunk-fec4384a.js";
+import "/$bunfs/root/chunk-qm65zb83.js";
+import "/$bunfs/root/chunk-wkxx62a2.js";
+import "/$bunfs/root/chunk-ps6pc7xd.js";
+import "/$bunfs/root/chunk-amem41jf.js";
+import "/$bunfs/root/chunk-0pgyw7te.js";
+import "/$bunfs/root/chunk-386w1sy8.js";
+import "/$bunfs/root/chunk-r53tkxrh.js";
+import { y, p } from "/$bunfs/root/chunk-ca80fke8.js";
+import "/$bunfs/root/chunk-ax6dy60b.js";
+import "/$bunfs/root/chunk-6k63g5t6.js";
+import "/$bunfs/root/chunk-4fwj3vnx.js";
+import { Wn } from "/$bunfs/root/chunk-nqmqabr8.js";
+import { zN } from "/$bunfs/root/chunk-q14dgq5g.js";
+import { hA, aa, Al, fb } from "/$bunfs/root/chunk-f5hrzy3k.js";
+import "/$bunfs/root/chunk-s7e0px8j.js";
+import "/$bunfs/root/chunk-s28wf80n.js";
+import "/$bunfs/root/chunk-3bbym8ct.js";
+import "/$bunfs/root/chunk-cf8qhmdc.js";
+import "/$bunfs/root/chunk-2masxyqj.js";
+import { Vr } from "/$bunfs/root/chunk-rgw52f13.js";
+import "/$bunfs/root/chunk-2rx5nghb.js";
+import "/$bunfs/root/chunk-z0z1xzkg.js";
+import "/$bunfs/root/chunk-c47snwm2.js";
+import { Zt, Te } from "/$bunfs/root/chunk-jpf4kat5.js";
+import "/$bunfs/root/chunk-s4vc7est.js";
+import "/$bunfs/root/chunk-hyh5wcm1.js";
+import "/$bunfs/root/chunk-ntyhd04p.js";
+import "/$bunfs/root/chunk-8qsdea2c.js";
+import "/$bunfs/root/chunk-988p40e0.js";
+import "/$bunfs/root/chunk-0spqrdaj.js";
+import "/$bunfs/root/chunk-5rt2mvvk.js";
+import "/$bunfs/root/chunk-1yr12dqr.js";
+import "/$bunfs/root/chunk-2mmw62jx.js";
+import "/$bunfs/root/chunk-z2bvp3sv.js";
+import "/$bunfs/root/chunk-keb644xg.js";
+import "/$bunfs/root/chunk-bj904w9w.js";
+import "/$bunfs/root/chunk-18bck2pp.js";
+import "/$bunfs/root/chunk-dwwpyy7b.js";
+import "/$bunfs/root/chunk-jck8t8fq.js";
+import "/$bunfs/root/chunk-qcx34e4j.js";
+import "/$bunfs/root/chunk-psdymar6.js";
+import "/$bunfs/root/chunk-0r9wzh7g.js";
+import "/$bunfs/root/chunk-sxxp6vcr.js";
+import "/$bunfs/root/chunk-rf51999f.js";
+import "/$bunfs/root/chunk-82w4mtvq.js";
+import "/$bunfs/root/chunk-v7yhn7cf.js";
+import "/$bunfs/root/chunk-kxyny47c.js";
+import "/$bunfs/root/chunk-e7rq8w09.js";
+import "/$bunfs/root/chunk-fbp3w46j.js";
+import "/$bunfs/root/chunk-gtv2468w.js";
+import "/$bunfs/root/chunk-4r03fm98.js";
+import "/$bunfs/root/chunk-s4smmnta.js";
+import "/$bunfs/root/chunk-z9ex1x2t.js";
+import "/$bunfs/root/chunk-k4a21mkt.js";
+import "/$bunfs/root/chunk-4rh74qms.js";
+import "/$bunfs/root/chunk-r3qa2s4k.js";
+import "/$bunfs/root/chunk-1evht33z.js";
+import "/$bunfs/root/chunk-gkfy5ggn.js";
+import "/$bunfs/root/chunk-qk6zade1.js";
+import "/$bunfs/root/chunk-4t3vsqt7.js";
+import "/$bunfs/root/chunk-ejdwrhgv.js";
+import "/$bunfs/root/chunk-zkvj62rn.js";
+import "/$bunfs/root/chunk-492vgtnr.js";
+import "/$bunfs/root/chunk-0g6cj4h1.js";
+import "/$bunfs/root/chunk-a48rnvhj.js";
+import "/$bunfs/root/chunk-tzhtxm67.js";
+import "/$bunfs/root/chunk-mznd09c6.js";
+import "/$bunfs/root/chunk-ghara6r1.js";
+import "/$bunfs/root/chunk-97wwdfyx.js";
+import "/$bunfs/root/chunk-167jjb66.js";
+import "/$bunfs/root/chunk-kez2zndg.js";
+import "/$bunfs/root/chunk-c76q2y0e.js";
+import "/$bunfs/root/chunk-2204t1q0.js";
+import "/$bunfs/root/chunk-qd35gw0c.js";
+import "/$bunfs/root/chunk-mhf4d4sa.js";
+import "/$bunfs/root/chunk-pbmajbn7.js";
+import "/$bunfs/root/chunk-htrft0p0.js";
+import "/$bunfs/root/chunk-d1d8xqks.js";
+import "/$bunfs/root/chunk-37pvmyqb.js";
+import "/$bunfs/root/chunk-fwwvmbqn.js";
+import "/$bunfs/root/chunk-5c5qq1s7.js";
+import { o, t, Lx } from "/$bunfs/root/chunk-he2phymk.js";
+import "/$bunfs/root/chunk-ka74qrx3.js";
+import "/$bunfs/root/chunk-2wxj9m3z.js";
+import "/$bunfs/root/chunk-z45ex17x.js";
+import "/$bunfs/root/chunk-tbbqkkg3.js";
+import "/$bunfs/root/chunk-z9bhq3k9.js";
+import "/$bunfs/root/chunk-0m39033q.js";
+import "/$bunfs/root/chunk-v94qfg1j.js";
+import "/$bunfs/root/chunk-q04k5ycg.js";
+import "/$bunfs/root/chunk-e28mhr30.js";
+import "/$bunfs/root/chunk-ky33xsw7.js";
+import "/$bunfs/root/chunk-zk5d9rtp.js";
+import "/$bunfs/root/chunk-1pn2pk9v.js";
+import "/$bunfs/root/chunk-93max1bs.js";
+import "/$bunfs/root/chunk-f9km17e9.js";
+import "/$bunfs/root/chunk-dxqac26z.js";
+import "/$bunfs/root/chunk-pc41wsq4.js";
+import "/$bunfs/root/chunk-98tgyb1d.js";
+import "/$bunfs/root/chunk-zze8764r.js";
+import "/$bunfs/root/chunk-h7dkgq01.js";
+import "/$bunfs/root/chunk-2n1hsggr.js";
+import "/$bunfs/root/chunk-s0xdwab3.js";
+import "/$bunfs/root/chunk-fs02hzwy.js";
+import "/$bunfs/root/chunk-cds31m36.js";
+import "/$bunfs/root/chunk-z15hpjf9.js";
+import "/$bunfs/root/chunk-hebj76vj.js";
+import "/$bunfs/root/chunk-0mrbtv3q.js";
+import "/$bunfs/root/chunk-5n1tbe50.js";
+import "/$bunfs/root/chunk-twwd9fep.js";
+import "/$bunfs/root/chunk-a2an01ph.js";
+import "/$bunfs/root/chunk-dck778n3.js";
+import "/$bunfs/root/chunk-nkjrjh5n.js";
+import "/$bunfs/root/chunk-c6k0ecxv.js";
+import "/$bunfs/root/chunk-bp3j8sq3.js";
+import "/$bunfs/root/chunk-qekzccch.js";
+import "/$bunfs/root/chunk-s2ac0z44.js";
+import "/$bunfs/root/chunk-wgz3g40p.js";
+import "/$bunfs/root/chunk-1mp2j0tx.js";
+import "/$bunfs/root/chunk-tveh0k24.js";
+import "/$bunfs/root/chunk-699y5x28.js";
+import "/$bunfs/root/chunk-6a5ggyw4.js";
+import "/$bunfs/root/chunk-btcxpqw5.js";
+import "/$bunfs/root/chunk-k8xha1qv.js";
+import "/$bunfs/root/chunk-30e2jew7.js";
+import "/$bunfs/root/chunk-51qp0385.js";
+import "/$bunfs/root/chunk-wjr8v4tx.js";
+import "/$bunfs/root/chunk-kbyvkqye.js";
+import "/$bunfs/root/chunk-dd55s64p.js";
+import "/$bunfs/root/chunk-83h0j7w2.js";
+import "/$bunfs/root/chunk-qg6z8ah8.js";
+import "/$bunfs/root/chunk-308krgtb.js";
+import "/$bunfs/root/chunk-nf8aaj8a.js";
+import "/$bunfs/root/chunk-a6xhjq7b.js";
+import "/$bunfs/root/chunk-qnrh4abv.js";
+import "/$bunfs/root/chunk-6nmk3t6g.js";
+import "/$bunfs/root/chunk-jwrz2gmg.js";
+import "/$bunfs/root/chunk-6w72z84m.js";
+import "/$bunfs/root/chunk-nkf7ctf5.js";
+import "/$bunfs/root/chunk-38mxah2g.js";
+import "/$bunfs/root/chunk-p18e2918.js";
+import "/$bunfs/root/chunk-rsp0anqd.js";
+import "/$bunfs/root/chunk-vq9g7y26.js";
+import "/$bunfs/root/chunk-w3c6n7jh.js";
+import "/$bunfs/root/chunk-gvnqpbsf.js";
+import "/$bunfs/root/chunk-5wecjdtm.js";
+import "/$bunfs/root/chunk-rgh8hav6.js";
+import "/$bunfs/root/chunk-x06p1jhb.js";
+import "/$bunfs/root/chunk-91315wj5.js";
+import { Dk } from "/$bunfs/root/chunk-tz5bx4mb.js";
+import "/$bunfs/root/chunk-p1awcxk1.js";
+import "/$bunfs/root/chunk-e17gvevg.js";
+import "/$bunfs/root/chunk-da857b4g.js";
+import "/$bunfs/root/chunk-vzc4dhqq.js";
+import "/$bunfs/root/chunk-anwgkcw5.js";
+import "/$bunfs/root/chunk-hz299nfa.js";
+import "/$bunfs/root/chunk-1v3848mh.js";
+import "/$bunfs/root/chunk-fctnm902.js";
+import "/$bunfs/root/chunk-e53y7x75.js";
+import "/$bunfs/root/chunk-d5s7a9by.js";
+import "/$bunfs/root/chunk-5g92v3fd.js";
+import "/$bunfs/root/chunk-76gryyye.js";
+import "/$bunfs/root/chunk-h605j25g.js";
+import "/$bunfs/root/chunk-4sw5yxwb.js";
+import "/$bunfs/root/chunk-vx3kc9d2.js";
+import "/$bunfs/root/chunk-eb5y4yrx.js";
+import "/$bunfs/root/chunk-4c3hecm4.js";
+import "/$bunfs/root/chunk-xgfepdf4.js";
+import "/$bunfs/root/chunk-50g10fz0.js";
+import "/$bunfs/root/chunk-9y48by1e.js";
+import "/$bunfs/root/chunk-cfqs035d.js";
+import "/$bunfs/root/chunk-9tey6wcd.js";
+import "/$bunfs/root/chunk-86v6b72m.js";
+import "/$bunfs/root/chunk-c2kqvv3h.js";
+import "/$bunfs/root/chunk-cgy998p5.js";
+import "/$bunfs/root/chunk-hzjjsb0j.js";
+import "/$bunfs/root/chunk-trte0v0g.js";
+import "/$bunfs/root/chunk-gmgmb4mg.js";
+import "/$bunfs/root/chunk-avrc9gay.js";
+import "/$bunfs/root/chunk-pbd9yggs.js";
+import "/$bunfs/root/chunk-fvkzpeqe.js";
+import "/$bunfs/root/chunk-96xrtyd5.js";
+import "/$bunfs/root/chunk-k7v7xwvs.js";
+import "/$bunfs/root/chunk-pzvxycbq.js";
+import "/$bunfs/root/chunk-dzv4k86d.js";
+import "/$bunfs/root/chunk-rt5p4yax.js";
+import "/$bunfs/root/chunk-jn7d47r1.js";
+import "/$bunfs/root/chunk-dc4hb8f7.js";
+import "/$bunfs/root/chunk-z9jgt14c.js";
+import "/$bunfs/root/chunk-y8sx7bf9.js";
+import "/$bunfs/root/chunk-q2gyteg0.js";
+import "/$bunfs/root/chunk-0manfhn2.js";
+import "/$bunfs/root/chunk-r6ppzf4r.js";
+import "/$bunfs/root/chunk-4399d2v0.js";
+import "/$bunfs/root/chunk-y79sc2hm.js";
+import "/$bunfs/root/chunk-2t3rnt88.js";
+import "/$bunfs/root/chunk-986hvegp.js";
+import "/$bunfs/root/chunk-8jsj2mx0.js";
+import "/$bunfs/root/chunk-dt5bt1kc.js";
+import { Ek } from "/$bunfs/root/chunk-z9rrv31w.js";
+import "/$bunfs/root/chunk-5djs3wbb.js";
+import "/$bunfs/root/chunk-r4m4cqz1.js";
+import "/$bunfs/root/chunk-mq8h2tk8.js";
+import "/$bunfs/root/chunk-pdf5n9dy.js";
+import "/$bunfs/root/chunk-rntp2fy5.js";
+import "/$bunfs/root/chunk-a9vrr0nr.js";
+import "/$bunfs/root/chunk-nfmyt8cw.js";
+import "/$bunfs/root/chunk-6var9pwd.js";
+import "/$bunfs/root/chunk-gmj1vprd.js";
+import "/$bunfs/root/chunk-ht15rw3x.js";
+import "/$bunfs/root/chunk-gay9hbs8.js";
+import "/$bunfs/root/chunk-mvz9fsh3.js";
+import "/$bunfs/root/chunk-ddbk6aje.js";
+import "/$bunfs/root/chunk-krety1hw.js";
+import "/$bunfs/root/chunk-6ywvv1q0.js";
+import "/$bunfs/root/chunk-wn1jrcrk.js";
+import "/$bunfs/root/chunk-zk5v8tw6.js";
+import "/$bunfs/root/chunk-kdtcyk0z.js";
+import "/$bunfs/root/chunk-q75cm02t.js";
+import "/$bunfs/root/chunk-kfdrcvxr.js";
+import "/$bunfs/root/chunk-fd2h00ye.js";
+import "/$bunfs/root/chunk-vm4xrmr7.js";
+import "/$bunfs/root/chunk-hkzwg35z.js";
+import "/$bunfs/root/chunk-mkweh3a4.js";
+import "/$bunfs/root/chunk-z6m3k8w5.js";
+import "/$bunfs/root/chunk-620fbwm6.js";
+import "/$bunfs/root/chunk-fbn06kdf.js";
+import "/$bunfs/root/chunk-42q7ctbx.js";
+import "/$bunfs/root/chunk-h4r2tn7z.js";
+import "/$bunfs/root/chunk-2ggyrkka.js";
+import "/$bunfs/root/chunk-5hskqad6.js";
+import "/$bunfs/root/chunk-4vfft545.js";
+import "/$bunfs/root/chunk-1eqdma2n.js";
+import "/$bunfs/root/chunk-w83ydshr.js";
+import "/$bunfs/root/chunk-bdq8yz46.js";
+import "/$bunfs/root/chunk-m5yhrq50.js";
+import "/$bunfs/root/chunk-24p66taq.js";
+import "/$bunfs/root/chunk-ngn87vcm.js";
+import { Ce } from "/$bunfs/root/chunk-1y0jc48h.js";
+import "/$bunfs/root/chunk-8ktvd0rh.js";
+import "/$bunfs/root/chunk-rp246vnd.js";
+import "/$bunfs/root/chunk-s8gya298.js";
+import "/$bunfs/root/chunk-ek4tmwbt.js";
+import "/$bunfs/root/chunk-jmrpkgzd.js";
+import "/$bunfs/root/chunk-y2r26k83.js";
+import "/$bunfs/root/chunk-rycvm63e.js";
+import "/$bunfs/root/chunk-sypj25ha.js";
+import "/$bunfs/root/chunk-hb6grkjg.js";
+import "/$bunfs/root/chunk-q5hmd7j9.js";
+import { Tn, Uw, AS } from "/$bunfs/root/chunk-n71q9jb8.js";
+import "/$bunfs/root/chunk-9r67t977.js";
+import "/$bunfs/root/chunk-d9p5c429.js";
+import "/$bunfs/root/chunk-s6datcvt.js";
+import "/$bunfs/root/chunk-qwp18h36.js";
+import "/$bunfs/root/chunk-5g669xdp.js";
+import "/$bunfs/root/chunk-x2q1t6es.js";
+import { gke } from "/$bunfs/root/chunk-2fxat6s0.js";
+import "/$bunfs/root/chunk-xgyzc8y0.js";
+import "/$bunfs/root/chunk-bf0mh6c1.js";
+import "/$bunfs/root/chunk-q3evfmyc.js";
+import "/$bunfs/root/chunk-pm63yfcg.js";
+import "/$bunfs/root/chunk-k9a5yseb.js";
+import "/$bunfs/root/chunk-84qb5tsd.js";
+import "/$bunfs/root/chunk-x05qkgt7.js";
+import "/$bunfs/root/chunk-e7z75y3n.js";
+import "/$bunfs/root/chunk-jrgq7wk9.js";
+import "/$bunfs/root/chunk-wktm3bts.js";
+import "/$bunfs/root/chunk-d7066vf7.js";
+import "/$bunfs/root/chunk-qvvgsfrp.js";
+import "/$bunfs/root/chunk-dp9rvsnb.js";
+import "/$bunfs/root/chunk-nmpqha26.js";
+import "/$bunfs/root/chunk-meqzkkeh.js";
+import "/$bunfs/root/chunk-4kafv9jq.js";
+import "/$bunfs/root/chunk-1fwtbc4t.js";
+import { e, r } from "/$bunfs/root/chunk-8s7kcbyw.js";
+import "/$bunfs/root/chunk-tfb5y7hy.js";
+import "/$bunfs/root/chunk-d5bnjcbw.js";
+import "/$bunfs/root/chunk-31xy83wr.js";
+import "/$bunfs/root/chunk-g732bkj4.js";
+import "/$bunfs/root/chunk-zgfc288e.js";
+import "/$bunfs/root/chunk-6nsyrmhg.js";
+import "/$bunfs/root/chunk-jjkewjsg.js";
+import "/$bunfs/root/chunk-4r71nj50.js";
+import "/$bunfs/root/chunk-3qvtfvqg.js";
+import { Nc } from "/$bunfs/root/chunk-r7t0evh2.js";
+import "/$bunfs/root/chunk-6xz0kht6.js";
+import "/$bunfs/root/chunk-2am7kb6k.js";
+import "/$bunfs/root/chunk-9kr4hqvs.js";
+import "/$bunfs/root/chunk-xvwx3w83.js";
+import "/$bunfs/root/chunk-y9akj3mq.js";
+import "/$bunfs/root/chunk-gdk3p0b3.js";
+import "/$bunfs/root/chunk-qy75zxb2.js";
+import "/$bunfs/root/chunk-r6t6p0zm.js";
+import "/$bunfs/root/chunk-qpj83ec7.js";
+import "/$bunfs/root/chunk-f77e8yef.js";
+import "/$bunfs/root/chunk-f7y0mdt6.js";
+import { Nu } from "/$bunfs/root/chunk-jb2pzt3t.js";
+import "/$bunfs/root/chunk-9yzzw213.js";
+import "/$bunfs/root/chunk-mknyj0qp.js";
+import "/$bunfs/root/chunk-81defen8.js";
+import "/$bunfs/root/chunk-mpg6r2j0.js";
+import "/$bunfs/root/chunk-3dh32z3c.js";
+import "/$bunfs/root/chunk-n8ecp4gs.js";
+import "/$bunfs/root/chunk-406nxetx.js";
+import "/$bunfs/root/chunk-2zf9m1zh.js";
+import "/$bunfs/root/chunk-rxqmmxnb.js";
+import "/$bunfs/root/chunk-gdhqsw8a.js";
+import "/$bunfs/root/chunk-5xr818a0.js";
+import "/$bunfs/root/chunk-fgavb5x0.js";
+import "/$bunfs/root/chunk-sqa0bs5e.js";
+import "/$bunfs/root/chunk-fveqn4y7.js";
+import "/$bunfs/root/chunk-4zsxhey6.js";
+import "/$bunfs/root/chunk-61nasexv.js";
+import "/$bunfs/root/chunk-m1andcps.js";
+import "/$bunfs/root/chunk-61hbq2wc.js";
+import "/$bunfs/root/chunk-rq65wazg.js";
+import "/$bunfs/root/chunk-5tdaspnd.js";
+import "/$bunfs/root/chunk-rr0yj5sq.js";
+import "/$bunfs/root/chunk-a7wreksn.js";
+import "/$bunfs/root/chunk-8sbwe0jk.js";
+import "/$bunfs/root/chunk-nwb64bac.js";
+import "/$bunfs/root/chunk-g5y4mxg8.js";
+import "/$bunfs/root/chunk-cbn30h5b.js";
+import "/$bunfs/root/chunk-g01aac1k.js";
+import "/$bunfs/root/chunk-3fwkz19s.js";
+import "/$bunfs/root/chunk-9319g175.js";
+import "/$bunfs/root/chunk-szz73wxx.js";
+import "/$bunfs/root/chunk-b40bn863.js";
+import "/$bunfs/root/chunk-6mgs10s2.js";
+import "/$bunfs/root/chunk-6s9ybdq1.js";
+import "/$bunfs/root/chunk-74qqwjhx.js";
+import "/$bunfs/root/chunk-1hh0bg14.js";
+import "/$bunfs/root/chunk-052zvbpg.js";
+import "/$bunfs/root/chunk-werv747a.js";
+import "/$bunfs/root/chunk-jzh4kg5x.js";
+import "/$bunfs/root/chunk-7s7jqj2f.js";
+import "/$bunfs/root/chunk-56sxk8k2.js";
+import { O } from "/$bunfs/root/chunk-dqkj2bph.js";
+import "/$bunfs/root/chunk-7jz6r17g.js";
+import "/$bunfs/root/chunk-a4q326ap.js";
+import { createReadStream as Q } from "fs";
+import { readdir as N, rm as ke, stat as L } from "fs/promises";
+import { basename as we, dirname as Pe, join as b, resolve as H, sep as je } from "path";
+import { createInterface as Z } from "readline";
+var ee = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+function E(i = "") {
+  process.stdout.write(`${i}
+`);
+}
+async function F(i, s, a) {
+  if (O() && s !== void 0) {
+    let c = await a(s);
+    if (c !== void 0) return c;
+  }
+  try {
+    return await L(i), !0;
+  } catch {
+    return !1;
+  }
+}
+async function q(i, s) {
+  try {
+    let a = await i.scopeKind(s, { resolveLink: !0 });
+    if (!a.ok) return;
+    switch (a.value.kind) {
+      case "absent":
+        return !1;
+      case "link":
+        return a.value.linkResolves === !0;
+      case "directory":
+      case "other":
+        return !0;
+    }
+  } catch {
+    return;
+  }
+}
+async function te(i, s) {
+  try {
+    let a = await i.statMeta(s);
+    if (a.ok) return !0;
+    return a.error.code === "NotFound" ? !1 : void 0;
+  } catch {
+    return;
+  }
+}
+async function C(i) {
+  try {
+    return await L(i), !0;
+  } catch {
+    return !1;
+  }
+}
+async function ne(i, s, a) {
+  let c = () => {},
+    d = new Promise((u) => {
+      c = u;
+    }),
+    { unmount: f, waitUntilExit: g } = await Lx(
+      e(vp, {
+        session: G(),
+        children: r(o, {
+          flexDirection: "column",
+          gap: 1,
+          paddingY: 1,
+          children: [
+            e(t, { bold: !0, children: i }),
+            e(Ce, {
+              options: s,
+              defaultValue: a,
+              visibleOptionCount: 10,
+              onChange: (u) => {
+                c(u), f();
+              },
+              onCancel: () => {
+                c(null), f();
+              },
+            }),
+          ],
+        }),
+      }),
+      { exitOnCtrlC: !1 },
+    );
+  return await g(), d;
+}
+function re() {
+  return Object.keys(ie().projects ?? {});
+}
+async function ve() {
+  let i = H(Se()),
+    s = re(),
+    a = new Set([i]),
+    c = [{ label: i, value: i, description: "current directory" }];
+  for (let d of s) {
+    if (a.has(d)) continue;
+    a.add(d), c.push({ label: d, value: d });
+  }
+  return ne("Select a project to purge:", c, i);
+}
+function se(i, s) {
+  for (let a of s) if (i === a || i.startsWith(a + je)) return !0;
+  return !1;
+}
+function oe(i, s) {
+  if (!i) return !1;
+  try {
+    let a = V(i);
+    return typeof a.project === "string" && se(a.project, s);
+  } catch {
+    return !1;
+  }
+}
+async function $e(i, s, a) {
+  let c = await He(a, i),
+    d;
+  if (c !== null) d = c;
+  else
+    try {
+      d = (await N(i)).filter((f) => f.endsWith(".jsonl")).sort();
+    } catch {
+      return !1;
+    }
+  for (let f of d) {
+    let g = await _e(b(i, f), a);
+    if (g !== null) return se(g, s);
+  }
+  return !1;
+}
+function ae(i) {
+  try {
+    let s = V(i);
+    return typeof s.cwd === "string" ? s.cwd : void 0;
+  } catch {
+    return;
+  }
+}
+var ce = 50;
+async function _e(i, s) {
+  let a = await Fe(i, s);
+  if (a !== void 0) return a;
+  let c = Q(i, { encoding: "utf8" }),
+    d = Z({ input: c, crlfDelay: 1 / 0 }),
+    f = 0;
+  try {
+    for await (let g of d) {
+      if (++f > ce) break;
+      let u = ae(g);
+      if (u !== void 0) return u;
+    }
+  } catch {
+  } finally {
+    d.close(), c.close();
+  }
+  return null;
+}
+var Ie = 16384,
+  Be = 262144;
+async function Fe(i, s) {
+  let a = Nc(i, s);
+  if (a === void 0) return;
+  let c = await de(a.backend, a.key, { pageBytes: (d) => (d === 0 ? Ie : Be), lineCap: ce, judge: ae });
+  switch (c.kind) {
+    case "found":
+      return c.value;
+    case "end":
+      return null;
+    case "refused":
+      return c.code === "Failed" ? null : void 0;
+    case "cannotAnswer":
+      return;
+  }
+}
+async function de(i, s, a) {
+  let c = 0,
+    d;
+  try {
+    for (let f = 0; ; f++) {
+      if (f >= fe) return { kind: "cannotAnswer" };
+      let g = await i.readRecords(s, {
+        order: "forward",
+        maxBytes: a.pageBytes(f),
+        ...(a.lineCap !== void 0 && { limit: a.lineCap - c }),
+        ...(d !== void 0 && { fromSeq: d }),
+      });
+      if (!g.ok) {
+        let { error: h } = g;
+        return {
+          kind: "refused",
+          code: h.code,
+          ...("telemetryCode" in h && h.telemetryCode !== void 0 && { telemetryCode: h.telemetryCode }),
+        };
+      }
+      for (let h of g.value.items)
+        for (let k of Re(h.data)) {
+          let S = a.judge(k);
+          if (S !== void 0) return { kind: "found", value: S };
+          if (a.lineCap !== void 0 && ++c >= a.lineCap) return { kind: "end" };
+        }
+      let u = g.value.nextSeq;
+      if (u === void 0) return { kind: "end" };
+      if (d !== void 0 && u <= d) return { kind: "cannotAnswer" };
+      d = u;
+    }
+  } catch (f) {
+    return (
+      n(
+        `purge: the storage interface threw on readRecords of the ${s.namespace} stream; the caller's legacy path serves (${l(f)})`,
+      ),
+      { kind: "cannotAnswer" }
+    );
+  }
+}
+function Re(i) {
+  let { buffer: s, byteOffset: a, byteLength: c } = i,
+    d = Buffer.from(s, a, c).toString("utf8"),
+    f = d.endsWith(`
+`)
+      ? d.slice(0, -1)
+      : d,
+    g = f.endsWith("\r") ? f.slice(0, -1) : f;
+  return g.includes("\r") ? g.split("\r") : [g];
+}
+var Ae = 1048576;
+async function le(i, s, a) {
+  let c = 0,
+    d = await de(i, Te.history(), {
+      pageBytes: () => Ae,
+      judge: (f) => {
+        if (oe(f, s)) c++;
+        else a?.push(f);
+        return;
+      },
+    });
+  switch (d.kind) {
+    case "found":
+    case "end":
+      return (await De(i)) === !1 ? { kind: "scanned", matched: c } : { kind: "defer" };
+    case "refused":
+      if (d.code === "NotFound") return { kind: "absent" };
+      return d.code === "Unavailable" ? { kind: "defer" } : d;
+    case "cannotAnswer":
+      return { kind: "defer" };
+  }
+}
+async function Ee(i, s) {
+  let a = await le(i, s);
+  switch (a.kind) {
+    case "scanned":
+      return a.matched;
+    case "absent":
+      return 0;
+    case "defer":
+    case "refused":
+      return;
+  }
+}
+class K extends R {}
+async function xe(i, s) {
+  let a = [],
+    c = await le(i, s, a);
+  switch (c.kind) {
+    case "absent":
+      return 0;
+    case "defer":
+      return;
+    case "refused":
+      if (Dk(c.telemetryCode))
+        throw T(
+          `history.jsonl is a symlink or not a regular file, which the storage interface never reads or writes through (${B(c)})`,
+        );
+      if (c.code === "InvalidArgument") throw T(`the storage interface declined the read (${B(c)})`);
+      n(`purge history: the storage interface could not read history.jsonl (${B(c)}); today's rewrite serves`);
+      return;
+    case "scanned":
+      break;
+  }
+  let d = c.matched;
+  if (d === 0) return 0;
+  let f;
+  try {
+    f = await i.replaceRecords(
+      Te.history(),
+      a.map((u) => ({
+        data: `${u}
+`,
+      })),
+      { mode: 438 & ~process.umask() },
+    );
+  } catch (u) {
+    n(`purge history: the storage interface threw on replaceRecords; the readline filter serves (${l(u)})`);
+    return;
+  }
+  if (f.ok) return d;
+  let { error: g } = f;
+  switch (g.code) {
+    case "Unavailable":
+    case "Failed":
+      n(`purge history: the storage interface could not rewrite history.jsonl (${B(g)}); today's rewrite serves`);
+      return;
+    case "InvalidArgument":
+      throw T(`the storage interface declined the rewrite (${g.argument})`);
+    case "NotFound":
+    case "PreconditionFailed":
+      throw T(`the storage interface declined the rewrite (${g.code})`);
+  }
+}
+async function De(i) {
+  try {
+    let s = await i.stat(Te.history());
+    if (!s.ok) return s.error.code === "NotFound" ? !1 : void 0;
+    return (s.value.tornTailBytes ?? 0) > 0;
+  } catch (s) {
+    n(`purge history: the storage interface threw on stat; the readline arm serves (${l(s)})`);
+    return;
+  }
+}
+function B(i) {
+  return i.telemetryCode === void 0 ? i.code : `${i.code} ${i.telemetryCode}`;
+}
+function T(i) {
+  return new K(`history.jsonl was not rewritten \u2014 ${i}`, "purge history rewrite refused");
+}
+async function Oe(i, s, a) {
+  return ue(i, s, "count", a);
+}
+async function ue(i, s, a, c) {
+  if (O() && c !== void 0) {
+    let u = a === "count" ? await Ee(c, s) : await xe(c, s);
+    if (u !== void 0) return u;
+  }
+  let d = Z({ input: Q(i, { encoding: "utf8" }), crlfDelay: 1 / 0 }),
+    f = [],
+    g = 0;
+  try {
+    for await (let u of d)
+      if (oe(u, s)) g++;
+      else if (a === "filter") f.push(u);
+  } catch (u) {
+    if (X(u)) return 0;
+    throw u;
+  }
+  if (a === "filter" && g > 0)
+    await Wn(
+      i,
+      f.length
+        ? `${f.join(`
 `)}
-`:"");return g}var fe=1e4;async function pe(i,s,a,c={}){let d={skipScopeStats:!0,skipKeyStats:!0,...c},f,g=0;try{do{let u=await i.listEntries(s,{...d,...f!==void 0&&{cursor:f}});if(!u.ok)return!1;for(let h of u.value.items)a(h);f=u.value.cursor}while(f&&++g<fe)}catch{return!1}return!f}async function Ne(i){if(!i)return null;let s=[];return await pe(i,{namespace:"transcript"},(c)=>{if(c.kind==="scope"&&c.scope.namespace==="transcript"&&c.scope.projectKey!==void 0&&c.scope.sessionId===void 0&&Zt(c.scope.projectKey))s.push(c.scope.projectKey)},{links:"skip"})?s.sort():null}async function ge(i,s){if(!i||Pe(s)!==aa())return null;let a=we(s),c=[];return await pe(i,{namespace:"transcript",projectKey:a},(f)=>{if(f.kind==="key"&&f.key.namespace==="transcript"&&f.key.projectKey===a&&f.key.agentId===void 0&&Zt(f.key.sessionId))c.push(f.key.sessionId)})?c.sort():null}async function Le(i,s){let a=await ge(i,s);return a===null?null:a.filter((c)=>ee.test(c))}async function He(i,s){let a=await ge(i,s);return a===null?null:a.map((c)=>`${c}.jsonl`).sort()}async function Ke(i,s){let a=await Le(s,i);if(a!==null)return a;let c;try{c=await N(i)}catch{return[]}return c.filter((d)=>d.endsWith(".jsonl")).map((d)=>d.slice(0,-6)).filter((d)=>ee.test(d))}async function We(i,s){let a=be(),c=H(i),d=await Al(c,Nu(s)),f=new Set([c,d]),g=[];try{await L(c);for(let m of f){let w=Vr(m);if(w)g.push(w)}}catch{}let u=[],h=[],k=new Set;for(let m of f)for(let w of await fb(m))k.add(w);let S=aa(),P=[...f].map((m)=>hA(m)+"-"),j=await Ne(s);try{for(let m of j!==null?j.map((w)=>({name:w,isDirectory:()=>!0})):await N(S,{withFileTypes:!0})){let w=b(S,m.name);if(m.isDirectory()&&!k.has(w)&&P.some((I)=>m.name.startsWith(I))&&await $e(w,f,s))k.add(w)}}catch{}let v=[...k],A=new Set;for(let m of v)for(let w of await Ke(m,s))A.add(w);for(let m of A){let w=Ek(m);if(await F(w,s,(_)=>q(_,{namespace:"task",listId:m})))u.push({path:w,kind:"dir",reason:`tasks for session ${m}`});let I=b(a,"debug",`${m}.txt`);if(await F(I,s,(_)=>te(_,Te.log(m,"debug"))))u.push({path:I,kind:"file",reason:`debug log for session ${m}`});let z=b(a,"file-history",m);if(await F(z,s,(_)=>q(_,{namespace:"fileHistory",sessionId:m})))u.push({path:z,kind:"dir",reason:`file edit history for session ${m}`})}for(let m of v)u.push({path:m,kind:"dir",reason:"project transcripts (.jsonl) and memory/"});let W=(m)=>zN(m).replace(/\/+$/,"")||"/",he=ie(),ye=new Set([...f,...g].map(W));for(let m of Object.keys(he.projects??{}))if(ye.has(W(m)))u.push({path:m,kind:"config-key",reason:"project entry in ~/.claude.json (trust, history, MCP servers)"});let M=b(a,"history.jsonl"),U=await Oe(M,f,s);if(U>0)u.push({path:M,kind:"history-lines",reason:`${U} prompt(s) typed in this project`,matchPaths:f});if(await C(b(a,"shell-snapshots")))h.push("shell-snapshots/ are not project-scoped and will not be touched");let Y=b(a,"backups");if(await C(Y))h.push(`backups/ may still contain this project entry in old .claude.json snapshots (${Y}); at most 5 are kept and they rotate out automatically`);return{items:u,warnings:h}}async function Ge(i){let s=be(),a=[],c=[],d=[["projects","all project transcripts (.jsonl) and memory/"],["tasks","all session task lists"],["debug","all session debug logs"],["file-history","all session file edit history"]];for(let[u,h]of d){let k=b(s,u);if(await C(k))a.push({path:k,kind:"dir",reason:h})}let f=b(s,"history.jsonl");if(await F(f,i,(u)=>te(u,Te.history())))a.push({path:f,kind:"file",reason:"prompt history across all projects"});for(let u of re())a.push({path:u,kind:"config-key",reason:"project entry in ~/.claude.json (trust, history, MCP servers)"});if(await C(b(s,"shell-snapshots")))c.push("shell-snapshots/ are not project-scoped and will not be touched");let g=b(s,"backups");if(await C(g))c.push(`backups/ may still contain project entries in old .claude.json snapshots (${g}); at most 5 are kept and they rotate out automatically`);return{items:a,warnings:c}}async function x(i,s){switch(i.kind){case"config-key":if(!await Twn(i.path,s))return{message:`Failed to remove projects["${i.path}"] from .claude.json \u2014 is your config directory writable?`,code:"config_write_failed"};return null;case"history-lines":try{await ue(i.path,i.matchPaths??new Set,"filter",s)}catch(a){if(a instanceof K)return{message:a.message,code:"history_rewrite_refused"};throw a}return null;case"file":case"dir":return await ke(i.path,{recursive:i.kind==="dir",force:!0}),null}}function D(i,s){if(i.length>0){let a=new Set(i.map((c)=>c.code));p("cli_purge_project",a.size===1?i[0].code:"multiple_failures"),Tn(`${i.length} item(s) failed:
-  ${i.map((c)=>c.message).join(`
-  `)}`)}y("cli_purge_project"),Uw(s)}function me(i){let s;switch(i.kind){case"config-key":s=`config: projects["${i.path}"]`;break;case"history-lines":s=`filter: ${i.path}`;break;case"file":case"dir":s=`${i.kind}:    ${i.path}`;break}return`${s}
-           ${i.reason}`}function J(i,s,a){E(`
+`
+        : "",
+    );
+  return g;
+}
+var fe = 1e4;
+async function pe(i, s, a, c = {}) {
+  let d = { skipScopeStats: !0, skipKeyStats: !0, ...c },
+    f,
+    g = 0;
+  try {
+    do {
+      let u = await i.listEntries(s, { ...d, ...(f !== void 0 && { cursor: f }) });
+      if (!u.ok) return !1;
+      for (let h of u.value.items) a(h);
+      f = u.value.cursor;
+    } while (f && ++g < fe);
+  } catch {
+    return !1;
+  }
+  return !f;
+}
+async function Ne(i) {
+  if (!i) return null;
+  let s = [];
+  return (await pe(
+    i,
+    { namespace: "transcript" },
+    (c) => {
+      if (
+        c.kind === "scope" &&
+        c.scope.namespace === "transcript" &&
+        c.scope.projectKey !== void 0 &&
+        c.scope.sessionId === void 0 &&
+        Zt(c.scope.projectKey)
+      )
+        s.push(c.scope.projectKey);
+    },
+    { links: "skip" },
+  ))
+    ? s.sort()
+    : null;
+}
+async function ge(i, s) {
+  if (!i || Pe(s) !== aa()) return null;
+  let a = we(s),
+    c = [];
+  return (await pe(i, { namespace: "transcript", projectKey: a }, (f) => {
+    if (
+      f.kind === "key" &&
+      f.key.namespace === "transcript" &&
+      f.key.projectKey === a &&
+      f.key.agentId === void 0 &&
+      Zt(f.key.sessionId)
+    )
+      c.push(f.key.sessionId);
+  }))
+    ? c.sort()
+    : null;
+}
+async function Le(i, s) {
+  let a = await ge(i, s);
+  return a === null ? null : a.filter((c) => ee.test(c));
+}
+async function He(i, s) {
+  let a = await ge(i, s);
+  return a === null ? null : a.map((c) => `${c}.jsonl`).sort();
+}
+async function Ke(i, s) {
+  let a = await Le(s, i);
+  if (a !== null) return a;
+  let c;
+  try {
+    c = await N(i);
+  } catch {
+    return [];
+  }
+  return c
+    .filter((d) => d.endsWith(".jsonl"))
+    .map((d) => d.slice(0, -6))
+    .filter((d) => ee.test(d));
+}
+async function We(i, s) {
+  let a = be(),
+    c = H(i),
+    d = await Al(c, Nu(s)),
+    f = new Set([c, d]),
+    g = [];
+  try {
+    await L(c);
+    for (let m of f) {
+      let w = Vr(m);
+      if (w) g.push(w);
+    }
+  } catch {}
+  let u = [],
+    h = [],
+    k = new Set();
+  for (let m of f) for (let w of await fb(m)) k.add(w);
+  let S = aa(),
+    P = [...f].map((m) => hA(m) + "-"),
+    j = await Ne(s);
+  try {
+    for (let m of j !== null ? j.map((w) => ({ name: w, isDirectory: () => !0 })) : await N(S, { withFileTypes: !0 })) {
+      let w = b(S, m.name);
+      if (m.isDirectory() && !k.has(w) && P.some((I) => m.name.startsWith(I)) && (await $e(w, f, s))) k.add(w);
+    }
+  } catch {}
+  let v = [...k],
+    A = new Set();
+  for (let m of v) for (let w of await Ke(m, s)) A.add(w);
+  for (let m of A) {
+    let w = Ek(m);
+    if (await F(w, s, (_) => q(_, { namespace: "task", listId: m })))
+      u.push({ path: w, kind: "dir", reason: `tasks for session ${m}` });
+    let I = b(a, "debug", `${m}.txt`);
+    if (await F(I, s, (_) => te(_, Te.log(m, "debug"))))
+      u.push({ path: I, kind: "file", reason: `debug log for session ${m}` });
+    let z = b(a, "file-history", m);
+    if (await F(z, s, (_) => q(_, { namespace: "fileHistory", sessionId: m })))
+      u.push({ path: z, kind: "dir", reason: `file edit history for session ${m}` });
+  }
+  for (let m of v) u.push({ path: m, kind: "dir", reason: "project transcripts (.jsonl) and memory/" });
+  let W = (m) => zN(m).replace(/\/+$/, "") || "/",
+    he = ie(),
+    ye = new Set([...f, ...g].map(W));
+  for (let m of Object.keys(he.projects ?? {}))
+    if (ye.has(W(m)))
+      u.push({ path: m, kind: "config-key", reason: "project entry in ~/.claude.json (trust, history, MCP servers)" });
+  let M = b(a, "history.jsonl"),
+    U = await Oe(M, f, s);
+  if (U > 0) u.push({ path: M, kind: "history-lines", reason: `${U} prompt(s) typed in this project`, matchPaths: f });
+  if (await C(b(a, "shell-snapshots"))) h.push("shell-snapshots/ are not project-scoped and will not be touched");
+  let Y = b(a, "backups");
+  if (await C(Y))
+    h.push(
+      `backups/ may still contain this project entry in old .claude.json snapshots (${Y}); at most 5 are kept and they rotate out automatically`,
+    );
+  return { items: u, warnings: h };
+}
+async function Ge(i) {
+  let s = be(),
+    a = [],
+    c = [],
+    d = [
+      ["projects", "all project transcripts (.jsonl) and memory/"],
+      ["tasks", "all session task lists"],
+      ["debug", "all session debug logs"],
+      ["file-history", "all session file edit history"],
+    ];
+  for (let [u, h] of d) {
+    let k = b(s, u);
+    if (await C(k)) a.push({ path: k, kind: "dir", reason: h });
+  }
+  let f = b(s, "history.jsonl");
+  if (await F(f, i, (u) => te(u, Te.history())))
+    a.push({ path: f, kind: "file", reason: "prompt history across all projects" });
+  for (let u of re())
+    a.push({ path: u, kind: "config-key", reason: "project entry in ~/.claude.json (trust, history, MCP servers)" });
+  if (await C(b(s, "shell-snapshots"))) c.push("shell-snapshots/ are not project-scoped and will not be touched");
+  let g = b(s, "backups");
+  if (await C(g))
+    c.push(
+      `backups/ may still contain project entries in old .claude.json snapshots (${g}); at most 5 are kept and they rotate out automatically`,
+    );
+  return { items: a, warnings: c };
+}
+async function x(i, s) {
+  switch (i.kind) {
+    case "config-key":
+      if (!(await Twn(i.path, s)))
+        return {
+          message: `Failed to remove projects["${i.path}"] from .claude.json \u2014 is your config directory writable?`,
+          code: "config_write_failed",
+        };
+      return null;
+    case "history-lines":
+      try {
+        await ue(i.path, i.matchPaths ?? new Set(), "filter", s);
+      } catch (a) {
+        if (a instanceof K) return { message: a.message, code: "history_rewrite_refused" };
+        throw a;
+      }
+      return null;
+    case "file":
+    case "dir":
+      return await ke(i.path, { recursive: i.kind === "dir", force: !0 }), null;
+  }
+}
+function D(i, s) {
+  if (i.length > 0) {
+    let a = new Set(i.map((c) => c.code));
+    p("cli_purge_project", a.size === 1 ? i[0].code : "multiple_failures"),
+      Tn(`${i.length} item(s) failed:
+  ${i
+    .map((c) => c.message)
+    .join(`
+  `)}`);
+  }
+  y("cli_purge_project"), Uw(s);
+}
+function me(i) {
+  let s;
+  switch (i.kind) {
+    case "config-key":
+      s = `config: projects["${i.path}"]`;
+      break;
+    case "history-lines":
+      s = `filter: ${i.path}`;
+      break;
+    case "file":
+    case "dir":
+      s = `${i.kind}:    ${i.path}`;
+      break;
+  }
+  return `${s}
+           ${i.reason}`;
+}
+function J(i, s, a) {
+  E(`
 Purge plan for ${i}:
-`);for(let c of s)E(`  ${me(c)}`);if(a.length){E();for(let c of a)AS(c)}}async function ht(i,s,a){if(s.all){if(i)Tn("Cannot specify both a path and --all.");if(s.interactive)Tn("Cannot use -i/--interactive with --all.");let{items:u,warnings:h}=await Ge(a);if(u.length===0)p("cli_purge_project","cli_purge_project_nothing_found"),Tn(`No Claude Code project state found under ${be()}.`);if(J("all projects",u,h),s.dryRun)Uw(`Dry run: ${u.length} item(s) would be deleted.`);if(!s.yes){if(!await gke(`Delete ${u.length} item(s) for ALL projects? This cannot be undone.`))Tn("Aborted.")}let k=[];for(let S of u){let P=await x(S,a);if(P)k.push(P)}D(k,`Purged ${u.length} item(s) across all projects.`)}let c;if(i)c=H(i);else{let u=await ve();if(u===null)Tn("Aborted.");c=u}let{items:d,warnings:f}=await We(c,a);if(d.length===0)p("cli_purge_project","cli_purge_project_nothing_found"),Tn(`No Claude Code project state found for ${c} under ${be()}.`);if(J(c,d,f),s.dryRun)Uw(`Dry run: ${d.length} item(s) would be deleted.`);if(s.interactive){let u=0,h=!1,k=[];for(let[S,P]of d.entries()){let j="delete";if(!h)j=await ne(`[${S+1}/${d.length}] ${me(P)}`,[{label:"Delete",value:"delete"},{label:"Skip",value:"skip"},{label:"Delete this and all remaining",value:"all"},{label:"Abort",value:"abort"}])??"abort";if(j==="abort")Tn(`Aborted. ${u} item(s) deleted.`);if(j==="skip")continue;if(j==="all")h=!0;let v=await x(P,a);if(v){k.push(v);continue}u++}D(k,`Purged ${u}/${d.length} item(s) for ${c}.`)}if(!s.yes){if(!await gke(`Delete ${d.length} item(s) for ${c}? This cannot be undone.`))Tn("Aborted.")}let g=[];for(let u of d){let h=await x(u,a);if(h)g.push(h)}D(g,`Purged ${d.length} item(s) for ${c}.`)}export{K as HistoryRewriteRefusedError,Ge as buildPurgeAllPlan,We as buildPurgePlan,Oe as countHistoryMatches,ht as purgeProjectHandler,ue as scanHistoryFile};
+`);
+  for (let c of s) E(`  ${me(c)}`);
+  if (a.length) {
+    E();
+    for (let c of a) AS(c);
+  }
+}
+async function ht(i, s, a) {
+  if (s.all) {
+    if (i) Tn("Cannot specify both a path and --all.");
+    if (s.interactive) Tn("Cannot use -i/--interactive with --all.");
+    let { items: u, warnings: h } = await Ge(a);
+    if (u.length === 0)
+      p("cli_purge_project", "cli_purge_project_nothing_found"),
+        Tn(`No Claude Code project state found under ${be()}.`);
+    if ((J("all projects", u, h), s.dryRun)) Uw(`Dry run: ${u.length} item(s) would be deleted.`);
+    if (!s.yes) {
+      if (!(await gke(`Delete ${u.length} item(s) for ALL projects? This cannot be undone.`))) Tn("Aborted.");
+    }
+    let k = [];
+    for (let S of u) {
+      let P = await x(S, a);
+      if (P) k.push(P);
+    }
+    D(k, `Purged ${u.length} item(s) across all projects.`);
+  }
+  let c;
+  if (i) c = H(i);
+  else {
+    let u = await ve();
+    if (u === null) Tn("Aborted.");
+    c = u;
+  }
+  let { items: d, warnings: f } = await We(c, a);
+  if (d.length === 0)
+    p("cli_purge_project", "cli_purge_project_nothing_found"),
+      Tn(`No Claude Code project state found for ${c} under ${be()}.`);
+  if ((J(c, d, f), s.dryRun)) Uw(`Dry run: ${d.length} item(s) would be deleted.`);
+  if (s.interactive) {
+    let u = 0,
+      h = !1,
+      k = [];
+    for (let [S, P] of d.entries()) {
+      let j = "delete";
+      if (!h)
+        j =
+          (await ne(`[${S + 1}/${d.length}] ${me(P)}`, [
+            { label: "Delete", value: "delete" },
+            { label: "Skip", value: "skip" },
+            { label: "Delete this and all remaining", value: "all" },
+            { label: "Abort", value: "abort" },
+          ])) ?? "abort";
+      if (j === "abort") Tn(`Aborted. ${u} item(s) deleted.`);
+      if (j === "skip") continue;
+      if (j === "all") h = !0;
+      let v = await x(P, a);
+      if (v) {
+        k.push(v);
+        continue;
+      }
+      u++;
+    }
+    D(k, `Purged ${u}/${d.length} item(s) for ${c}.`);
+  }
+  if (!s.yes) {
+    if (!(await gke(`Delete ${d.length} item(s) for ${c}? This cannot be undone.`))) Tn("Aborted.");
+  }
+  let g = [];
+  for (let u of d) {
+    let h = await x(u, a);
+    if (h) g.push(h);
+  }
+  D(g, `Purged ${d.length} item(s) for ${c}.`);
+}
+export {
+  K as HistoryRewriteRefusedError,
+  Ge as buildPurgeAllPlan,
+  We as buildPurgePlan,
+  Oe as countHistoryMatches,
+  ht as purgeProjectHandler,
+  ue as scanHistoryFile,
+};

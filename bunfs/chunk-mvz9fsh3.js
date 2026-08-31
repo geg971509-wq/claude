@@ -8,5 +8,30 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{J,G}from"/$bunfs/root/chunk-f9h0bg01.js";import{Ue}from"/$bunfs/root/chunk-qq1mdtb5.js";class t{inFlightSnapshot={tasks:0,queued:0,kinds:[],items:[]};inFlightSnapshotChanged=Ue();pendingStructuredResult=void 0;relocatedCwd=void 0;ownStateWriteDepth=0;warnedUnknownDisabledSurface=!1;publishInFlightSnapshot(n){this.inFlightSnapshot=n;try{this.inFlightSnapshotChanged.emit()}catch{}}reset(){this.pendingStructuredResult=void 0,this.relocatedCwd=void 0,this.warnedUnknownDisabledSurface=!1,this.publishInFlightSnapshot({tasks:0,queued:0,kinds:[],items:[]})}}var e=new J(()=>new t);function mI(){return e.of(G().host)}
-export{mI};
+import { J, G } from "/$bunfs/root/chunk-f9h0bg01.js";
+import { Ue } from "/$bunfs/root/chunk-qq1mdtb5.js";
+class t {
+  inFlightSnapshot = { tasks: 0, queued: 0, kinds: [], items: [] };
+  inFlightSnapshotChanged = Ue();
+  pendingStructuredResult = void 0;
+  relocatedCwd = void 0;
+  ownStateWriteDepth = 0;
+  warnedUnknownDisabledSurface = !1;
+  publishInFlightSnapshot(n) {
+    this.inFlightSnapshot = n;
+    try {
+      this.inFlightSnapshotChanged.emit();
+    } catch {}
+  }
+  reset() {
+    (this.pendingStructuredResult = void 0),
+      (this.relocatedCwd = void 0),
+      (this.warnedUnknownDisabledSurface = !1),
+      this.publishInFlightSnapshot({ tasks: 0, queued: 0, kinds: [], items: [] });
+  }
+}
+var e = new J(() => new t());
+function mI() {
+  return e.of(G().host);
+}
+export { mI };

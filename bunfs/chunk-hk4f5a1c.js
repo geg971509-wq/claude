@@ -8,4 +8,190 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{a8e,DZn,iyr,syr,ayr,lyr,cyr,uyr,dyr,pyr,fyr,Evr,u9t,Avr,myr,OZn,LZn,MZn,gyr,hyr,_yr,yyr,Syr,NZn,FZn,byr,wyr,Tyr,Eyr,Ayr,Cyr,vyr,Ryr,kyr,Hyr,xyr,Iyr,Pyr,$Zn,Dyr,UZn,Cvr,Oyr,uyn,vvr,Rvr,d9t,Lyr,kvr,BZn,jZn,Hvr,Myr}from"/$bunfs/root/chunk-qjw893de.js";import"/$bunfs/root/chunk-3bbym8ct.js";import"/$bunfs/root/chunk-40gjqkz9.js";function m(e,i){if(typeof e==="string"){let r=e;for(let[n,o]of Object.entries(i)){let t=new RegExp(`\\$\\{${n}\\}`,"g");if(r.match(t))if(Array.isArray(o))console.warn(`Cannot replace ${n} with array value in string context: "${e}"`,{key:n,replacement:o});else r=r.replace(t,o)}return r}else if(Array.isArray(e)){let r=[];for(let n of e)if(typeof n==="string"&&n.match(/^\$\{user_config\.[^}]+\}$/)){let o=n.match(/^\$\{([^}]+)\}$/)?.[1];if(o&&i[o]){let t=i[o];if(Array.isArray(t))r.push(...t);else r.push(t)}else r.push(n)}else r.push(m(n,i));return r}else if(e&&typeof e==="object"){let r={};for(let[n,o]of Object.entries(e))r[n]=m(o,i);return r}return e}async function x(e){let{manifest:i,extensionPath:r,systemDirs:n,userConfig:o,pathSeparator:t,logger:y}=e,a=i.server?.mcp_config;if(!a)return;let s={...a};if(a.platform_overrides){if("darwin"in a.platform_overrides){let c=a.platform_overrides.darwin;s.command=c.command||s.command,s.args=c.args||s.args,s.env=c.env||s.env}}if(d({manifest:i,userConfig:o})){y?.warn(`Extension ${i.name} has missing required configuration, skipping MCP config`);return}let p={__dirname:r,pathSeparator:t,"/":t,...n},g={};if(i.user_config){for(let[c,f]of Object.entries(i.user_config))if(f.default!==void 0)g[c]=f.default}if(o)Object.assign(g,o);for(let[c,f]of Object.entries(g)){let u=`user_config.${c}`;if(Array.isArray(f))p[u]=f.map(String);else if(typeof f==="boolean")p[u]=f?"true":"false";else p[u]=String(f)}return s=m(s,p),s}function l(e){return e===void 0||e===null||e===""}function d({manifest:e,userConfig:i}){if(!e.user_config)return!1;let r=i||{};for(let[n,o]of Object.entries(e.user_config))if(o.required){let t=r[n];if(l(t)||Array.isArray(t)&&(t.length===0||t.some(l)))return!0}return!1}export{a8e as CURRENT_MANIFEST_VERSION,Dyr as EXCLUDE_PATTERNS,DZn as McpServerConfigSchema,iyr as McpbManifestAuthorSchema,uyr as McpbManifestCompatibilitySchema,lyr as McpbManifestMcpConfigSchema,ayr as McpbManifestPlatformOverrideSchema,pyr as McpbManifestPromptSchema,syr as McpbManifestRepositorySchema,u9t as McpbManifestSchema,cyr as McpbManifestServerSchema,dyr as McpbManifestToolSchema,Avr as McpbSignatureInfoSchema,Evr as McpbUserConfigValuesSchema,fyr as McpbUserConfigurationOptionSchema,Iyr as buildManifest,Hvr as cleanMcpb,NZn as createMcpConfig,d9t as extractSignatureBlock,Oyr as getAllFiles,uyn as getAllFilesWithCount,LZn as getDefaultAuthorEmail,_yr as getDefaultAuthorInfo,OZn as getDefaultAuthorName,MZn as getDefaultAuthorUrl,hyr as getDefaultBasicInfo,FZn as getDefaultEntryPoint,Syr as getDefaultOptionalFields,gyr as getDefaultRepositoryUrl,yyr as getDefaultServerConfig,x as getMcpConfigForManifest,d as hasRequiredConfigMissing,$Zn as initExtension,Myr as packExtension,Pyr as printNextSteps,wyr as promptAuthorInfo,byr as promptBasicInfo,Hyr as promptCompatibility,vyr as promptLongDescription,Cyr as promptOptionalFields,Ayr as promptPrompts,Tyr as promptServerConfig,Eyr as promptTools,Ryr as promptUrls,xyr as promptUserConfig,kyr as promptVisualAssets,UZn as readMcpbIgnorePatterns,myr as readPackageJson,m as replaceVariables,Cvr as shouldExclude,vvr as signMcpbFile,BZn as unpackExtension,kvr as unsignMcpbFile,jZn as validateManifest,Lyr as verifyCertificateChain,Rvr as verifyMcpbFile};
+import {
+  a8e,
+  DZn,
+  iyr,
+  syr,
+  ayr,
+  lyr,
+  cyr,
+  uyr,
+  dyr,
+  pyr,
+  fyr,
+  Evr,
+  u9t,
+  Avr,
+  myr,
+  OZn,
+  LZn,
+  MZn,
+  gyr,
+  hyr,
+  _yr,
+  yyr,
+  Syr,
+  NZn,
+  FZn,
+  byr,
+  wyr,
+  Tyr,
+  Eyr,
+  Ayr,
+  Cyr,
+  vyr,
+  Ryr,
+  kyr,
+  Hyr,
+  xyr,
+  Iyr,
+  Pyr,
+  $Zn,
+  Dyr,
+  UZn,
+  Cvr,
+  Oyr,
+  uyn,
+  vvr,
+  Rvr,
+  d9t,
+  Lyr,
+  kvr,
+  BZn,
+  jZn,
+  Hvr,
+  Myr,
+} from "/$bunfs/root/chunk-qjw893de.js";
+import "/$bunfs/root/chunk-3bbym8ct.js";
+import "/$bunfs/root/chunk-40gjqkz9.js";
+function m(e, i) {
+  if (typeof e === "string") {
+    let r = e;
+    for (let [n, o] of Object.entries(i)) {
+      let t = new RegExp(`\\$\\{${n}\\}`, "g");
+      if (r.match(t))
+        if (Array.isArray(o))
+          console.warn(`Cannot replace ${n} with array value in string context: "${e}"`, { key: n, replacement: o });
+        else r = r.replace(t, o);
+    }
+    return r;
+  } else if (Array.isArray(e)) {
+    let r = [];
+    for (let n of e)
+      if (typeof n === "string" && n.match(/^\$\{user_config\.[^}]+\}$/)) {
+        let o = n.match(/^\$\{([^}]+)\}$/)?.[1];
+        if (o && i[o]) {
+          let t = i[o];
+          if (Array.isArray(t)) r.push(...t);
+          else r.push(t);
+        } else r.push(n);
+      } else r.push(m(n, i));
+    return r;
+  } else if (e && typeof e === "object") {
+    let r = {};
+    for (let [n, o] of Object.entries(e)) r[n] = m(o, i);
+    return r;
+  }
+  return e;
+}
+async function x(e) {
+  let { manifest: i, extensionPath: r, systemDirs: n, userConfig: o, pathSeparator: t, logger: y } = e,
+    a = i.server?.mcp_config;
+  if (!a) return;
+  let s = { ...a };
+  if (a.platform_overrides) {
+    if ("darwin" in a.platform_overrides) {
+      let c = a.platform_overrides.darwin;
+      (s.command = c.command || s.command), (s.args = c.args || s.args), (s.env = c.env || s.env);
+    }
+  }
+  if (d({ manifest: i, userConfig: o })) {
+    y?.warn(`Extension ${i.name} has missing required configuration, skipping MCP config`);
+    return;
+  }
+  let p = { __dirname: r, pathSeparator: t, "/": t, ...n },
+    g = {};
+  if (i.user_config) {
+    for (let [c, f] of Object.entries(i.user_config)) if (f.default !== void 0) g[c] = f.default;
+  }
+  if (o) Object.assign(g, o);
+  for (let [c, f] of Object.entries(g)) {
+    let u = `user_config.${c}`;
+    if (Array.isArray(f)) p[u] = f.map(String);
+    else if (typeof f === "boolean") p[u] = f ? "true" : "false";
+    else p[u] = String(f);
+  }
+  return (s = m(s, p)), s;
+}
+function l(e) {
+  return e === void 0 || e === null || e === "";
+}
+function d({ manifest: e, userConfig: i }) {
+  if (!e.user_config) return !1;
+  let r = i || {};
+  for (let [n, o] of Object.entries(e.user_config))
+    if (o.required) {
+      let t = r[n];
+      if (l(t) || (Array.isArray(t) && (t.length === 0 || t.some(l)))) return !0;
+    }
+  return !1;
+}
+export {
+  a8e as CURRENT_MANIFEST_VERSION,
+  Dyr as EXCLUDE_PATTERNS,
+  DZn as McpServerConfigSchema,
+  iyr as McpbManifestAuthorSchema,
+  uyr as McpbManifestCompatibilitySchema,
+  lyr as McpbManifestMcpConfigSchema,
+  ayr as McpbManifestPlatformOverrideSchema,
+  pyr as McpbManifestPromptSchema,
+  syr as McpbManifestRepositorySchema,
+  u9t as McpbManifestSchema,
+  cyr as McpbManifestServerSchema,
+  dyr as McpbManifestToolSchema,
+  Avr as McpbSignatureInfoSchema,
+  Evr as McpbUserConfigValuesSchema,
+  fyr as McpbUserConfigurationOptionSchema,
+  Iyr as buildManifest,
+  Hvr as cleanMcpb,
+  NZn as createMcpConfig,
+  d9t as extractSignatureBlock,
+  Oyr as getAllFiles,
+  uyn as getAllFilesWithCount,
+  LZn as getDefaultAuthorEmail,
+  _yr as getDefaultAuthorInfo,
+  OZn as getDefaultAuthorName,
+  MZn as getDefaultAuthorUrl,
+  hyr as getDefaultBasicInfo,
+  FZn as getDefaultEntryPoint,
+  Syr as getDefaultOptionalFields,
+  gyr as getDefaultRepositoryUrl,
+  yyr as getDefaultServerConfig,
+  x as getMcpConfigForManifest,
+  d as hasRequiredConfigMissing,
+  $Zn as initExtension,
+  Myr as packExtension,
+  Pyr as printNextSteps,
+  wyr as promptAuthorInfo,
+  byr as promptBasicInfo,
+  Hyr as promptCompatibility,
+  vyr as promptLongDescription,
+  Cyr as promptOptionalFields,
+  Ayr as promptPrompts,
+  Tyr as promptServerConfig,
+  Eyr as promptTools,
+  Ryr as promptUrls,
+  xyr as promptUserConfig,
+  kyr as promptVisualAssets,
+  UZn as readMcpbIgnorePatterns,
+  myr as readPackageJson,
+  m as replaceVariables,
+  Cvr as shouldExclude,
+  vvr as signMcpbFile,
+  BZn as unpackExtension,
+  kvr as unsignMcpbFile,
+  jZn as validateManifest,
+  Lyr as verifyCertificateChain,
+  Rvr as verifyMcpbFile,
+};

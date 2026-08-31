@@ -8,4 +8,11 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{iQe,qp,FHr,vkn,Rkn}from"/$bunfs/root/chunk-qk7r0t2g.js";export{iQe as BG_EXIT_CAUSE_SESSION_IN_USE,vkn as readAndClearBgExitCause,Rkn as readAndClearBgExitDetail,qp as setBgExitCause,FHr as setBgExitDetail};
+import { iQe, qp, FHr, vkn, Rkn } from "/$bunfs/root/chunk-qk7r0t2g.js";
+export {
+  iQe as BG_EXIT_CAUSE_SESSION_IN_USE,
+  vkn as readAndClearBgExitCause,
+  Rkn as readAndClearBgExitDetail,
+  qp as setBgExitCause,
+  FHr as setBgExitDetail,
+};

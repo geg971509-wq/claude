@@ -8,5 +8,35 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{_}from"/$bunfs/root/chunk-haan6f8z.js";import{o,hn}from"/$bunfs/root/chunk-he2phymk.js";import{e}from"/$bunfs/root/chunk-8s7kcbyw.js";function Iy(R){let u=_(6),{children:r,paddingX:b,marginTop:t,marginBottom:d}=R,n=b===void 0?1:b;const a=hn()?void 0:"dashed";let l;if(u[0]!==r||u[1]!==d||u[2]!==t||u[3]!==n||u[4]!==a)l=e(o,{borderStyle:a,borderColor:"subtle",borderLeft:!1,borderRight:!1,flexDirection:"column",overflow:"hidden",paddingX:n,marginTop:t,marginBottom:d,children:r}),u[0]=r,u[1]=d,u[2]=t,u[3]=n,u[4]=a,u[5]=l;else l=u[5];return l}
-export{Iy};
+import { _ } from "/$bunfs/root/chunk-haan6f8z.js";
+import { o, hn } from "/$bunfs/root/chunk-he2phymk.js";
+import { e } from "/$bunfs/root/chunk-8s7kcbyw.js";
+function Iy(R) {
+  let u = _(6),
+    { children: r, paddingX: b, marginTop: t, marginBottom: d } = R,
+    n = b === void 0 ? 1 : b;
+  const a = hn() ? void 0 : "dashed";
+  let l;
+  if (u[0] !== r || u[1] !== d || u[2] !== t || u[3] !== n || u[4] !== a)
+    (l = e(o, {
+      borderStyle: a,
+      borderColor: "subtle",
+      borderLeft: !1,
+      borderRight: !1,
+      flexDirection: "column",
+      overflow: "hidden",
+      paddingX: n,
+      marginTop: t,
+      marginBottom: d,
+      children: r,
+    })),
+      (u[0] = r),
+      (u[1] = d),
+      (u[2] = t),
+      (u[3] = n),
+      (u[4] = a),
+      (u[5] = l);
+  else l = u[5];
+  return l;
+}
+export { Iy };

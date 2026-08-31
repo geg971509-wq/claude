@@ -8,6 +8,170 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{le,n}from"/$bunfs/root/chunk-fv016jr6.js";import{h}from"/$bunfs/root/chunk-wkxx62a2.js";import{readdir as u,readFile as a}from"fs/promises";import{release as f}from"os";function pVt(){try{return le().readFileSync("/proc/version",{encoding:"utf8"}).toLowerCase()}catch{return}}function fVt(e){return e.includes("microsoft")||e.includes("wsl")}var rkn=["macos","wsl"];class c{sources;primedProcVersion;fallbackProcVersion;fallbackProcVersionRead=!1;platform;wslVersion=null;macOSMajorVersion=null;linuxDistroInfo;constructor(e){this.sources=e}kernelString(){if(this.primedProcVersion!==void 0)return this.primedProcVersion;if(!this.fallbackProcVersionRead)this.fallbackProcVersion=this.sources.readProcVersionSync(),this.fallbackProcVersionRead=!0;return this.fallbackProcVersion}getPlatform(){if(this.platform!==void 0)return this.platform;try{if(this.sources.platform==="darwin")this.platform="macos";else if(this.sources.platform==="win32")this.platform="windows";else if(this.sources.platform==="linux")if(this.sources.env.WSL_DISTRO_NAME||this.sources.env.WSL_INTEROP)this.platform="wsl";else{let e=this.kernelString();this.platform=e!==void 0&&fVt(e)?"wsl":"linux"}else this.platform="unknown"}catch(e){h(e),this.platform="unknown"}return this.platform}getWslVersion(){if(this.wslVersion!==null)return this.wslVersion;if(this.sources.platform!=="linux"){this.wslVersion=void 0;return}let e=this.kernelString();if(e===void 0){this.wslVersion=void 0;return}let r=e.match(/wsl(\d+)/);if(r&&r[1])this.wslVersion=r[1];else if(e.includes("microsoft"))this.wslVersion="1";else this.wslVersion=void 0;return this.wslVersion}getMacOSMajorVersion(){if(this.macOSMajorVersion!==null)return this.macOSMajorVersion;if(this.sources.platform!=="darwin"){this.macOSMajorVersion=void 0;return}let e=this.sources.osRelease().match(/^(\d+)\./);return this.macOSMajorVersion=e&&e[1]?parseInt(e[1],10)-9:void 0,this.macOSMajorVersion}getLinuxDistroInfo(){return this.linuxDistroInfo??=this.readLinuxDistroInfo()}async readLinuxDistroInfo(){if(this.sources.platform!=="linux")return;let e={linuxKernel:this.sources.osRelease()};try{let r=await this.sources.readOsRelease();for(let s of r.split(`
-`)){let t=s.match(/^(ID|VERSION_ID)=(.*)$/);if(t&&t[1]&&t[2]){let o=t[2].replace(/^"|"$/g,"");if(t[1]==="ID")e.linuxDistroId=o;else e.linuxDistroVersion=o}}}catch{}return e}async prime(){if(this.primedProcVersion!==void 0||this.sources.platform!=="linux")return;try{let e=await this.sources.readProcVersion();this.primedProcVersion=e.toLowerCase()}catch(e){n(`Failed to read /proc/version for WSL detection: ${e}`,{level:"error"});return}this.platform=void 0,this.wslVersion=null}}var d;function i(){return d??=new c({platform:"darwin",env:process.env,readProcVersionSync:pVt,readProcVersion:()=>a("/proc/version",{encoding:"utf8"}),osRelease:f,readOsRelease:()=>a("/etc/os-release","utf8")})}function slr(){return i().prime()}function D(){return i().getPlatform()}function TJ(e){switch(e){case"darwin":return"macOS";case"win32":return"Windows";case"linux":return"Linux";default:return e}}function JCe(){return i().getWslVersion()}function alr(){return i().getLinuxDistroInfo()}function llr(){return i().getMacOSMajorVersion()}var m=[[".git","git"],[".hg","mercurial"],[".svn","svn"],[".p4config","perforce"],["$tf","tfs"],[".tfvc","tfs"],[".jj","jujutsu"],[".sl","sapling"]];async function clr(e){let r=new Set;if(process.env.P4PORT)r.add("perforce");try{let s=e??le().cwd(),t=new Set(await u(s));for(let[o,l]of m)if(t.has(o))r.add(l)}catch{}return[...r]}
-export{pVt,fVt,rkn,slr,D,TJ,JCe,alr,llr,clr};
+import { le, n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { h } from "/$bunfs/root/chunk-wkxx62a2.js";
+import { readdir as u, readFile as a } from "fs/promises";
+import { release as f } from "os";
+function pVt() {
+  try {
+    return le().readFileSync("/proc/version", { encoding: "utf8" }).toLowerCase();
+  } catch {
+    return;
+  }
+}
+function fVt(e) {
+  return e.includes("microsoft") || e.includes("wsl");
+}
+var rkn = ["macos", "wsl"];
+class c {
+  sources;
+  primedProcVersion;
+  fallbackProcVersion;
+  fallbackProcVersionRead = !1;
+  platform;
+  wslVersion = null;
+  macOSMajorVersion = null;
+  linuxDistroInfo;
+  constructor(e) {
+    this.sources = e;
+  }
+  kernelString() {
+    if (this.primedProcVersion !== void 0) return this.primedProcVersion;
+    if (!this.fallbackProcVersionRead)
+      (this.fallbackProcVersion = this.sources.readProcVersionSync()), (this.fallbackProcVersionRead = !0);
+    return this.fallbackProcVersion;
+  }
+  getPlatform() {
+    if (this.platform !== void 0) return this.platform;
+    try {
+      if (this.sources.platform === "darwin") this.platform = "macos";
+      else if (this.sources.platform === "win32") this.platform = "windows";
+      else if (this.sources.platform === "linux")
+        if (this.sources.env.WSL_DISTRO_NAME || this.sources.env.WSL_INTEROP) this.platform = "wsl";
+        else {
+          let e = this.kernelString();
+          this.platform = e !== void 0 && fVt(e) ? "wsl" : "linux";
+        }
+      else this.platform = "unknown";
+    } catch (e) {
+      h(e), (this.platform = "unknown");
+    }
+    return this.platform;
+  }
+  getWslVersion() {
+    if (this.wslVersion !== null) return this.wslVersion;
+    if (this.sources.platform !== "linux") {
+      this.wslVersion = void 0;
+      return;
+    }
+    let e = this.kernelString();
+    if (e === void 0) {
+      this.wslVersion = void 0;
+      return;
+    }
+    let r = e.match(/wsl(\d+)/);
+    if (r && r[1]) this.wslVersion = r[1];
+    else if (e.includes("microsoft")) this.wslVersion = "1";
+    else this.wslVersion = void 0;
+    return this.wslVersion;
+  }
+  getMacOSMajorVersion() {
+    if (this.macOSMajorVersion !== null) return this.macOSMajorVersion;
+    if (this.sources.platform !== "darwin") {
+      this.macOSMajorVersion = void 0;
+      return;
+    }
+    let e = this.sources.osRelease().match(/^(\d+)\./);
+    return (this.macOSMajorVersion = e && e[1] ? parseInt(e[1], 10) - 9 : void 0), this.macOSMajorVersion;
+  }
+  getLinuxDistroInfo() {
+    return (this.linuxDistroInfo ??= this.readLinuxDistroInfo());
+  }
+  async readLinuxDistroInfo() {
+    if (this.sources.platform !== "linux") return;
+    let e = { linuxKernel: this.sources.osRelease() };
+    try {
+      let r = await this.sources.readOsRelease();
+      for (let s of r.split(`
+`)) {
+        let t = s.match(/^(ID|VERSION_ID)=(.*)$/);
+        if (t && t[1] && t[2]) {
+          let o = t[2].replace(/^"|"$/g, "");
+          if (t[1] === "ID") e.linuxDistroId = o;
+          else e.linuxDistroVersion = o;
+        }
+      }
+    } catch {}
+    return e;
+  }
+  async prime() {
+    if (this.primedProcVersion !== void 0 || this.sources.platform !== "linux") return;
+    try {
+      let e = await this.sources.readProcVersion();
+      this.primedProcVersion = e.toLowerCase();
+    } catch (e) {
+      n(`Failed to read /proc/version for WSL detection: ${e}`, { level: "error" });
+      return;
+    }
+    (this.platform = void 0), (this.wslVersion = null);
+  }
+}
+var d;
+function i() {
+  return (d ??= new c({
+    platform: "darwin",
+    env: process.env,
+    readProcVersionSync: pVt,
+    readProcVersion: () => a("/proc/version", { encoding: "utf8" }),
+    osRelease: f,
+    readOsRelease: () => a("/etc/os-release", "utf8"),
+  }));
+}
+function slr() {
+  return i().prime();
+}
+function D() {
+  return i().getPlatform();
+}
+function TJ(e) {
+  switch (e) {
+    case "darwin":
+      return "macOS";
+    case "win32":
+      return "Windows";
+    case "linux":
+      return "Linux";
+    default:
+      return e;
+  }
+}
+function JCe() {
+  return i().getWslVersion();
+}
+function alr() {
+  return i().getLinuxDistroInfo();
+}
+function llr() {
+  return i().getMacOSMajorVersion();
+}
+var m = [
+  [".git", "git"],
+  [".hg", "mercurial"],
+  [".svn", "svn"],
+  [".p4config", "perforce"],
+  ["$tf", "tfs"],
+  [".tfvc", "tfs"],
+  [".jj", "jujutsu"],
+  [".sl", "sapling"],
+];
+async function clr(e) {
+  let r = new Set();
+  if (process.env.P4PORT) r.add("perforce");
+  try {
+    let s = e ?? le().cwd(),
+      t = new Set(await u(s));
+    for (let [o, l] of m) if (t.has(o)) r.add(l);
+  } catch {}
+  return [...r];
+}
+export { pVt, fVt, rkn, slr, D, TJ, JCe, alr, llr, clr };

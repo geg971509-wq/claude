@@ -8,5 +8,21 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{y}from"/$bunfs/root/chunk-ca80fke8.js";import{iY}from"/$bunfs/root/chunk-nwb64bac.js";var d={},EFn=iY("whiteboardTelemetry",d);function AFn(i,r,e,n){y("whiteboard_publish",{seeded:n&&e.elCount>0,el_count:e.elCount,is_first_publish:n});let t;if(i.set((o)=>{if(t=o[r],t===void 0)return{...o,[r]:e.pingCount};if(e.pingCount>t)return{...o,[r]:e.pingCount};return o}),t!==void 0&&e.pingCount>t)y("whiteboard_turn",{ping_count:e.pingCount,el_count:e.elCount})}
-export{EFn,AFn};
+import { y } from "/$bunfs/root/chunk-ca80fke8.js";
+import { iY } from "/$bunfs/root/chunk-nwb64bac.js";
+var d = {},
+  EFn = iY("whiteboardTelemetry", d);
+function AFn(i, r, e, n) {
+  y("whiteboard_publish", { seeded: n && e.elCount > 0, el_count: e.elCount, is_first_publish: n });
+  let t;
+  if (
+    (i.set((o) => {
+      if (((t = o[r]), t === void 0)) return { ...o, [r]: e.pingCount };
+      if (e.pingCount > t) return { ...o, [r]: e.pingCount };
+      return o;
+    }),
+    t !== void 0 && e.pingCount > t)
+  )
+    y("whiteboard_turn", { ping_count: e.pingCount, el_count: e.elCount });
+}
+export { EFn, AFn };

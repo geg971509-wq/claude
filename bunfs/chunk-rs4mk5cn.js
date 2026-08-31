@@ -8,5 +8,33 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{ntn}from"/$bunfs/root/chunk-nm7kp5hv.js";import{Hbe}from"/$bunfs/root/chunk-3qvtfvqg.js";function tit(o){let{parse:i}=Hbe(),s=ntn(),t=!1;try{let a=i(o,{ecmaVersion:"latest",sourceType:"module",allowAwaitOutsideFunction:!0,allowReturnOutsideFunction:!0});s.simple(a,{MemberExpression(e){if(e.computed||e.object.type!=="Identifier"||e.property.type!=="Identifier")return;let r=e.object.name,n=e.property.name;if(r==="Date"&&n==="now"||r==="Math"&&n==="random")t=!0},NewExpression(e){if(e.callee.type==="Identifier"&&e.callee.name==="Date"&&e.arguments.length===0)t=!0}})}catch{return!1}return t}
-export{tit};
+import { ntn } from "/$bunfs/root/chunk-nm7kp5hv.js";
+import { Hbe } from "/$bunfs/root/chunk-3qvtfvqg.js";
+function tit(o) {
+  let { parse: i } = Hbe(),
+    s = ntn(),
+    t = !1;
+  try {
+    let a = i(o, {
+      ecmaVersion: "latest",
+      sourceType: "module",
+      allowAwaitOutsideFunction: !0,
+      allowReturnOutsideFunction: !0,
+    });
+    s.simple(a, {
+      MemberExpression(e) {
+        if (e.computed || e.object.type !== "Identifier" || e.property.type !== "Identifier") return;
+        let r = e.object.name,
+          n = e.property.name;
+        if ((r === "Date" && n === "now") || (r === "Math" && n === "random")) t = !0;
+      },
+      NewExpression(e) {
+        if (e.callee.type === "Identifier" && e.callee.name === "Date" && e.arguments.length === 0) t = !0;
+      },
+    });
+  } catch {
+    return !1;
+  }
+  return t;
+}
+export { tit };

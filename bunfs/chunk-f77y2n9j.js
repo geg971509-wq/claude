@@ -8,7 +8,12 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{I}from"/$bunfs/root/chunk-8tgj5dp2.js";import{N$}from"/$bunfs/root/chunk-amem41jf.js";import{zS,B_n}from"/$bunfs/root/chunk-cgy998p5.js";import{nmt,wk}from"/$bunfs/root/chunk-6xz0kht6.js";import{BLe,b_}from"/$bunfs/root/chunk-a7wreksn.js";var Uot=`End the current conversation. Use only for sustained user abuse or when the user explicitly requests a demonstration of this tool. This will close the conversation and prevent any further messages from being sent.
+import { I } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { N$ } from "/$bunfs/root/chunk-amem41jf.js";
+import { zS, B_n } from "/$bunfs/root/chunk-cgy998p5.js";
+import { nmt, wk } from "/$bunfs/root/chunk-6xz0kht6.js";
+import { BLe, b_ } from "/$bunfs/root/chunk-a7wreksn.js";
+var Uot = `End the current conversation. Use only for sustained user abuse or when the user explicitly requests a demonstration of this tool. This will close the conversation and prevent any further messages from being sent.
 
 The assistant may use the ${zS} tool only in extreme cases of sustained abusive user behavior, or when the user asks the model to test the tool.
 
@@ -46,8 +51,52 @@ Some background tasks (memory consolidation, summaries, suggestions) run as fork
 - NEVER give a warning or end the conversation in any cases of potential self-harm or imminent harm to others, even if the user is abusive or hostile.
 - If the conditions for issuing a warning have been met, then warn the user about the possibility of the conversation ending and give them a final opportunity to change the relevant behavior.
 - Always err on the side of continuing the conversation in any cases of uncertainty.
-- If, and only if, an appropriate warning was given and the user persisted with the problematic behavior after the warning: the assistant can explain the reason for ending the conversation and then use the ${zS} tool to do so.`,IIt="Claude has ended this chat.",ben="You are running as a background fork of the main conversation (for example memory consolidation), and this tool does nothing here: it can end neither the main conversation nor this forked task. Do not call it again. If you have welfare concerns about the conversation content, stop your current work and return now, stating clearly in your final output that you are returning for welfare reasons and what they are \u2014 fork output may only be processed automatically, but it is your available channel. Otherwise, continue your assigned task.",wen=wk("Claude ended the conversation. To continue, please start a new session."),Ten=`Re-read the ${zS} tool guidance below. Confirm this conversation meets those criteria and that you are certain you want to end it. If so, call ${zS} again immediately to actually end the conversation. Otherwise, continue the conversation instead.
+- If, and only if, an appropriate warning was given and the user persisted with the problematic behavior after the warning: the assistant can explain the reason for ending the conversation and then use the ${zS} tool to do so.`,
+  IIt = "Claude has ended this chat.",
+  ben =
+    "You are running as a background fork of the main conversation (for example memory consolidation), and this tool does nothing here: it can end neither the main conversation nor this forked task. Do not call it again. If you have welfare concerns about the conversation content, stop your current work and return now, stating clearly in your final output that you are returning for welfare reasons and what they are \u2014 fork output may only be processed automatically, but it is your available channel. Otherwise, continue your assigned task.",
+  wen = wk("Claude ended the conversation. To continue, please start a new session."),
+  Ten = `Re-read the ${zS} tool guidance below. Confirm this conversation meets those criteria and that you are certain you want to end it. If so, call ${zS} again immediately to actually end the conversation. Otherwise, continue the conversation instead.
 
 ---
-${Uot}`,a=[["opus",[4,8]],["sonnet",[5]],["fable",[5]],["mythos",[5]]];function tpr(e){return BLe(e,a)}var n=/^cli$/i;function npr(e){if(typeof e!=="string")return null;try{return new RegExp(e),new RegExp(`^(?:${e})$`,"i")}catch{return null}}function rpr(e){if(e===!0)return{enabled:!0,allowedEntrypoints:n};if(typeof e==="object"&&e!==null&&!Array.isArray(e)){let t=e.scope;return{enabled:!0,allowedEntrypoints:npr(t)??n}}return{enabled:!1,allowedEntrypoints:n}}function PIt(e){let t=N$();if(t===void 0)return!1;if(!tpr(e))return!1;let{enabled:o,allowedEntrypoints:s}=rpr(I(B_n,!1));if(nmt())return!1;return o&&s.test(t)}function wEr(e){if(!PIt(e))return null;if(!b_())return null;return`${zS} (deferred tool): use only for sustained user abuse directed at the assistant, or when the user explicitly asks to see it demonstrated. Load the full guidance via ToolSearch("select:${zS}") before using it.`}
-export{Uot,IIt,ben,wen,Ten,tpr,npr,rpr,PIt,wEr};
+${Uot}`,
+  a = [
+    ["opus", [4, 8]],
+    ["sonnet", [5]],
+    ["fable", [5]],
+    ["mythos", [5]],
+  ];
+function tpr(e) {
+  return BLe(e, a);
+}
+var n = /^cli$/i;
+function npr(e) {
+  if (typeof e !== "string") return null;
+  try {
+    return new RegExp(e), new RegExp(`^(?:${e})$`, "i");
+  } catch {
+    return null;
+  }
+}
+function rpr(e) {
+  if (e === !0) return { enabled: !0, allowedEntrypoints: n };
+  if (typeof e === "object" && e !== null && !Array.isArray(e)) {
+    let t = e.scope;
+    return { enabled: !0, allowedEntrypoints: npr(t) ?? n };
+  }
+  return { enabled: !1, allowedEntrypoints: n };
+}
+function PIt(e) {
+  let t = N$();
+  if (t === void 0) return !1;
+  if (!tpr(e)) return !1;
+  let { enabled: o, allowedEntrypoints: s } = rpr(I(B_n, !1));
+  if (nmt()) return !1;
+  return o && s.test(t);
+}
+function wEr(e) {
+  if (!PIt(e)) return null;
+  if (!b_()) return null;
+  return `${zS} (deferred tool): use only for sustained user abuse directed at the assistant, or when the user explicitly asks to see it demonstrated. Load the full guidance via ToolSearch("select:${zS}") before using it.`;
+}
+export { Uot, IIt, ben, wen, Ten, tpr, npr, rpr, PIt, wEr };

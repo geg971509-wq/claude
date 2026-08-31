@@ -8,5 +8,29 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{_}from"/$bunfs/root/chunk-haan6f8z.js";import{e}from"/$bunfs/root/chunk-8s7kcbyw.js";import{yn,We,Lt,F}from"/$bunfs/root/chunk-twm95mhz.js";F();var i=yn(null);function fHt(l){let T=_(3),{session:c,children:S}=l,u;if(T[0]!==S||T[1]!==c)u=e(i.Provider,{value:c,children:S}),T[0]=S,T[1]=c,T[2]=u;else u=T[2];return u}function ct(t){let R=_(3),o=We(i);if(!o){throw ReferenceError("useSession cannot be called outside of a <SessionProvider />")}let f;if(R[0]!==t||R[1]!==o)f=()=>t?t(o):o,R[0]=t,R[1]=o,R[2]=f;else f=R[2];let p=f;return Lt(o.subscribe,p,p)}
-export{fHt,ct};
+import { _ } from "/$bunfs/root/chunk-haan6f8z.js";
+import { e } from "/$bunfs/root/chunk-8s7kcbyw.js";
+import { yn, We, Lt, F } from "/$bunfs/root/chunk-twm95mhz.js";
+F();
+var i = yn(null);
+function fHt(l) {
+  let T = _(3),
+    { session: c, children: S } = l,
+    u;
+  if (T[0] !== S || T[1] !== c) (u = e(i.Provider, { value: c, children: S })), (T[0] = S), (T[1] = c), (T[2] = u);
+  else u = T[2];
+  return u;
+}
+function ct(t) {
+  let R = _(3),
+    o = We(i);
+  if (!o) {
+    throw ReferenceError("useSession cannot be called outside of a <SessionProvider />");
+  }
+  let f;
+  if (R[0] !== t || R[1] !== o) (f = () => (t ? t(o) : o)), (R[0] = t), (R[1] = o), (R[2] = f);
+  else f = R[2];
+  let p = f;
+  return Lt(o.subscribe, p, p);
+}
+export { fHt, ct };

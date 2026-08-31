@@ -8,5 +8,9 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{b}from"/$bunfs/root/chunk-fv016jr6.js";var o=/\u2028|\u2029/g;function CK(n){return b(n).replace(o,(r)=>r==="\u2028"?"\\u2028":"\\u2029")}
-export{CK};
+import { b } from "/$bunfs/root/chunk-fv016jr6.js";
+var o = /\u2028|\u2029/g;
+function CK(n) {
+  return b(n).replace(o, (r) => (r === "\u2028" ? "\\u2028" : "\\u2029"));
+}
+export { CK };

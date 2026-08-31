@@ -8,4 +8,5 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Jxn}from"/$bunfs/root/chunk-7y61rbtd.js";export default Jxn();
+import { Jxn } from "/$bunfs/root/chunk-7y61rbtd.js";
+export default Jxn();

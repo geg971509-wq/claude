@@ -8,5 +8,28 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{A,u,F}from"/$bunfs/root/chunk-twm95mhz.js";F();var vb=150,Fi=250;function bc(e,n=vb){let t=Date.now()-e;return t>=0&&t<n}function s2e(e){let[n,t]=u(()=>({key:e,at:Date.now()}));if(n.key!==e)t({key:e,at:Date.now()});return function(){return bc(n.at)}}function xge(){let[e,n]=u();return A(()=>{if(e!==void 0)n(void 0)},[e]),[e,n]}
-export{vb,Fi,bc,s2e,xge};
+import { A, u, F } from "/$bunfs/root/chunk-twm95mhz.js";
+F();
+var vb = 150,
+  Fi = 250;
+function bc(e, n = vb) {
+  let t = Date.now() - e;
+  return t >= 0 && t < n;
+}
+function s2e(e) {
+  let [n, t] = u(() => ({ key: e, at: Date.now() }));
+  if (n.key !== e) t({ key: e, at: Date.now() });
+  return function () {
+    return bc(n.at);
+  };
+}
+function xge() {
+  let [e, n] = u();
+  return (
+    A(() => {
+      if (e !== void 0) n(void 0);
+    }, [e]),
+    [e, n]
+  );
+}
+export { vb, Fi, bc, s2e, xge };

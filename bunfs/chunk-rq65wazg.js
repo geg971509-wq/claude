@@ -8,5 +8,13 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{a}from"/$bunfs/root/chunk-fec4384a.js";function $c(){let n=a.MCP_TIMEOUT;return n&&n>0?Math.min(n,2147483647):30000}function bJn(){let n=a.MCP_CONNECT_TIMEOUT_MS;return n&&n>0?Math.min(n,2147483647):5000}
-export{$c,bJn};
+import { a } from "/$bunfs/root/chunk-fec4384a.js";
+function $c() {
+  let n = a.MCP_TIMEOUT;
+  return n && n > 0 ? Math.min(n, 2147483647) : 30000;
+}
+function bJn() {
+  let n = a.MCP_CONNECT_TIMEOUT_MS;
+  return n && n > 0 ? Math.min(n, 2147483647) : 5000;
+}
+export { $c, bJn };

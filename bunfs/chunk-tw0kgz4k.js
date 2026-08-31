@@ -8,5 +8,150 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{st}from"/$bunfs/root/chunk-qcx34e4j.js";import{cw,bt,wt,eb,Fn,I}from"/$bunfs/root/chunk-8tgj5dp2.js";import{l,ic}from"/$bunfs/root/chunk-ypdw393e.js";import{n}from"/$bunfs/root/chunk-fv016jr6.js";import{Ct,h}from"/$bunfs/root/chunk-wkxx62a2.js";import{Hr}from"/$bunfs/root/chunk-ca80fke8.js";import{dI,Tmt}from"/$bunfs/root/chunk-86v6b72m.js";import{Lr}from"/$bunfs/root/chunk-31xy83wr.js";import{vf}from"/$bunfs/root/chunk-2am7kb6k.js";async function d(t,r){return Hr("api_admin_request_create",async()=>{let e=await bt.post("/api/oauth/organizations/:orgUUID/admin_requests",t,{auth:"teleport-org",credentials:r});if(!e.ok)throw Error(e.reason==="no-auth"?e.detail:`admin_requests: ${e.reason}`);return e.data})}async function m(t,r,e){return Hr("api_admin_request_list",async()=>{let i=new URLSearchParams({request_type:t});for(let a of r)i.append("statuses",a);let o=await bt.get(`/api/oauth/organizations/:orgUUID/admin_requests/me?${i}`,{auth:"teleport-org",credentials:e});if(!o.ok)throw Error(o.reason==="no-auth"?o.detail:`admin_requests/me: ${o.reason}`);return o.data})}async function p(t,r){return Hr("api_admin_request_eligibility",async()=>{let e=await bt.get(`/api/oauth/organizations/:orgUUID/admin_requests/eligibility?request_type=${t}`,{auth:"teleport-org",credentials:r});if(!e.ok)throw Error(e.reason==="no-auth"?e.detail:`admin_requests/eligibility: ${e.reason}`);return e.data})}function c(t){if(!st.isAxiosError(t))return null;let r=t.response?.status;if(typeof r!=="number"||r>=500)return null;let e=t.response?.data;if(!e||typeof e!=="object")return null;let i=e,o=i.error;if(o&&typeof o==="object"){let a=o.message;if(typeof a==="string"&&a.length>0)return a}for(let a of["message","detail"]){let s=i[a];if(typeof s==="string"&&s.length>0)return s}return null}var Bge="Requesting usage credits notifies your organization admins. To review and send the request, run /usage-credits in an interactive Claude Code session.";async function BYt(t,r){try{return await d({request_type:"limit_increase",details:null},r),{type:"message",filed:!0,value:t==null?"Request sent to your admin for usage credits.":t.is_enabled?"Request sent to your admin to increase your usage credit limit.":"Request sent to your admin to turn on usage credits."}}catch(e){let i=c(e);if(ic(e,(o)=>c(o)!==null))n(`Admin request rejected: ${i??l(e)}`,{level:"error"});else h(e);if(i)return{type:"message",value:i,filed:!1}}return{type:"message",filed:!1,value:"Contact your admin to manage usage credit settings."}}function g2e(){{if(wt())return!1;let t=Fn(),r=cw()!==null,e=I("tengu_ember_latch",!1)||r,i=eb()&&(r||(t==="pro"||t==="max")&&!Ct());return e&&i}return!1}async function jge(t,r){let e=Fn(),i=e==="team"||e==="enterprise";if(!vf()&&i){let s;try{s=(await dI(r))?.extra_usage}catch(u){n(`extra-usage: fetchUtilization failed, falling through to ask user: ${u}`,{level:"error"})}switch(s?.disabled_reason){case"out_of_credits":return{type:"message",value:"Your organization is out of usage credits. Contact your admin to add more."};case"org_level_disabled_until":case"org_spend_cap_reached":if(s.disabled_reason==="org_level_disabled_until"&&s.spend_limit_reached===!1)break;return{type:"message",value:"Your organization's usage credit cap is reached for this period. Contact your admin to raise it."};default:}if(s?.is_enabled&&s.monthly_limit===null)return{type:"message",value:"Your organization already has unlimited usage credits. No request needed."};try{if((await p("limit_increase",r))?.is_allowed===!1)return{type:"message",value:"Contact your admin to manage usage credit settings."}}catch(u){n(`Extra usage eligibility check failed: ${u}`,{level:"error"})}try{let u=await m("limit_increase",["pending"],r);if(u&&u.length>0)return{type:"message",value:"You've already sent a usage credit request to your admin."}}catch(u){n(`Failed to fetch pending admin requests: ${u}`,{level:"error"})}return{type:"confirm-admin-request",extraUsage:s}}let a=i?"https://claude.ai/admin-settings/usage":Tmt;if(!t.openInBrowser||wt())return{type:"browser-opened",url:a,opened:!1};try{let s=await Lr(a);return{type:"browser-opened",url:a,opened:s}}catch(s){return n(`Failed to open browser for ${a}: ${s}`,{level:"error"}),{type:"message",value:`Couldn't open your browser. Visit ${a} to manage usage credits.`}}}
-export{Bge,BYt,g2e,jge};
+import { st } from "/$bunfs/root/chunk-qcx34e4j.js";
+import { cw, bt, wt, eb, Fn, I } from "/$bunfs/root/chunk-8tgj5dp2.js";
+import { l, ic } from "/$bunfs/root/chunk-ypdw393e.js";
+import { n } from "/$bunfs/root/chunk-fv016jr6.js";
+import { Ct, h } from "/$bunfs/root/chunk-wkxx62a2.js";
+import { Hr } from "/$bunfs/root/chunk-ca80fke8.js";
+import { dI, Tmt } from "/$bunfs/root/chunk-86v6b72m.js";
+import { Lr } from "/$bunfs/root/chunk-31xy83wr.js";
+import { vf } from "/$bunfs/root/chunk-2am7kb6k.js";
+async function d(t, r) {
+  return Hr("api_admin_request_create", async () => {
+    let e = await bt.post("/api/oauth/organizations/:orgUUID/admin_requests", t, {
+      auth: "teleport-org",
+      credentials: r,
+    });
+    if (!e.ok) throw Error(e.reason === "no-auth" ? e.detail : `admin_requests: ${e.reason}`);
+    return e.data;
+  });
+}
+async function m(t, r, e) {
+  return Hr("api_admin_request_list", async () => {
+    let i = new URLSearchParams({ request_type: t });
+    for (let a of r) i.append("statuses", a);
+    let o = await bt.get(`/api/oauth/organizations/:orgUUID/admin_requests/me?${i}`, {
+      auth: "teleport-org",
+      credentials: e,
+    });
+    if (!o.ok) throw Error(o.reason === "no-auth" ? o.detail : `admin_requests/me: ${o.reason}`);
+    return o.data;
+  });
+}
+async function p(t, r) {
+  return Hr("api_admin_request_eligibility", async () => {
+    let e = await bt.get(`/api/oauth/organizations/:orgUUID/admin_requests/eligibility?request_type=${t}`, {
+      auth: "teleport-org",
+      credentials: r,
+    });
+    if (!e.ok) throw Error(e.reason === "no-auth" ? e.detail : `admin_requests/eligibility: ${e.reason}`);
+    return e.data;
+  });
+}
+function c(t) {
+  if (!st.isAxiosError(t)) return null;
+  let r = t.response?.status;
+  if (typeof r !== "number" || r >= 500) return null;
+  let e = t.response?.data;
+  if (!e || typeof e !== "object") return null;
+  let i = e,
+    o = i.error;
+  if (o && typeof o === "object") {
+    let a = o.message;
+    if (typeof a === "string" && a.length > 0) return a;
+  }
+  for (let a of ["message", "detail"]) {
+    let s = i[a];
+    if (typeof s === "string" && s.length > 0) return s;
+  }
+  return null;
+}
+var Bge =
+  "Requesting usage credits notifies your organization admins. To review and send the request, run /usage-credits in an interactive Claude Code session.";
+async function BYt(t, r) {
+  try {
+    return (
+      await d({ request_type: "limit_increase", details: null }, r),
+      {
+        type: "message",
+        filed: !0,
+        value:
+          t == null
+            ? "Request sent to your admin for usage credits."
+            : t.is_enabled
+              ? "Request sent to your admin to increase your usage credit limit."
+              : "Request sent to your admin to turn on usage credits.",
+      }
+    );
+  } catch (e) {
+    let i = c(e);
+    if (ic(e, (o) => c(o) !== null)) n(`Admin request rejected: ${i ?? l(e)}`, { level: "error" });
+    else h(e);
+    if (i) return { type: "message", value: i, filed: !1 };
+  }
+  return { type: "message", filed: !1, value: "Contact your admin to manage usage credit settings." };
+}
+function g2e() {
+  {
+    if (wt()) return !1;
+    let t = Fn(),
+      r = cw() !== null,
+      e = I("tengu_ember_latch", !1) || r,
+      i = eb() && (r || ((t === "pro" || t === "max") && !Ct()));
+    return e && i;
+  }
+  return !1;
+}
+async function jge(t, r) {
+  let e = Fn(),
+    i = e === "team" || e === "enterprise";
+  if (!vf() && i) {
+    let s;
+    try {
+      s = (await dI(r))?.extra_usage;
+    } catch (u) {
+      n(`extra-usage: fetchUtilization failed, falling through to ask user: ${u}`, { level: "error" });
+    }
+    switch (s?.disabled_reason) {
+      case "out_of_credits":
+        return { type: "message", value: "Your organization is out of usage credits. Contact your admin to add more." };
+      case "org_level_disabled_until":
+      case "org_spend_cap_reached":
+        if (s.disabled_reason === "org_level_disabled_until" && s.spend_limit_reached === !1) break;
+        return {
+          type: "message",
+          value: "Your organization's usage credit cap is reached for this period. Contact your admin to raise it.",
+        };
+      default:
+    }
+    if (s?.is_enabled && s.monthly_limit === null)
+      return { type: "message", value: "Your organization already has unlimited usage credits. No request needed." };
+    try {
+      if ((await p("limit_increase", r))?.is_allowed === !1)
+        return { type: "message", value: "Contact your admin to manage usage credit settings." };
+    } catch (u) {
+      n(`Extra usage eligibility check failed: ${u}`, { level: "error" });
+    }
+    try {
+      let u = await m("limit_increase", ["pending"], r);
+      if (u && u.length > 0)
+        return { type: "message", value: "You've already sent a usage credit request to your admin." };
+    } catch (u) {
+      n(`Failed to fetch pending admin requests: ${u}`, { level: "error" });
+    }
+    return { type: "confirm-admin-request", extraUsage: s };
+  }
+  let a = i ? "https://claude.ai/admin-settings/usage" : Tmt;
+  if (!t.openInBrowser || wt()) return { type: "browser-opened", url: a, opened: !1 };
+  try {
+    let s = await Lr(a);
+    return { type: "browser-opened", url: a, opened: s };
+  } catch (s) {
+    return (
+      n(`Failed to open browser for ${a}: ${s}`, { level: "error" }),
+      { type: "message", value: `Couldn't open your browser. Visit ${a} to manage usage credits.` }
+    );
+  }
+}
+export { Bge, BYt, g2e, jge };

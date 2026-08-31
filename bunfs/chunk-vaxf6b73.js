@@ -8,4 +8,5 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{_g}from"/$bunfs/root/chunk-1bw3xm1h.js";export default _g();
+import { _g } from "/$bunfs/root/chunk-1bw3xm1h.js";
+export default _g();

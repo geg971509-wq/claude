@@ -8,5 +8,17 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{n}from"/$bunfs/root/chunk-fv016jr6.js";function g1(r,o,t){let e=o.safeParse(t);if(e.success)return e.data;let s=e.error.issues[0];return n(`[thin-client] ${r} reply did not match its schema (${e.error.issues.length} issue(s); first: ${s?`${s.path.join(".")||"<root>"}: ${s.message}`:"unknown"})`,{level:"warn"}),null}
-export{g1};
+import { n } from "/$bunfs/root/chunk-fv016jr6.js";
+function g1(r, o, t) {
+  let e = o.safeParse(t);
+  if (e.success) return e.data;
+  let s = e.error.issues[0];
+  return (
+    n(
+      `[thin-client] ${r} reply did not match its schema (${e.error.issues.length} issue(s); first: ${s ? `${s.path.join(".") || "<root>"}: ${s.message}` : "unknown"})`,
+      { level: "warn" },
+    ),
+    null
+  );
+}
+export { g1 };

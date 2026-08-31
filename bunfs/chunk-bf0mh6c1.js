@@ -8,5 +8,86 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{KNe,WXe,XNe}from"/$bunfs/root/chunk-6k63g5t6.js";function sse(){let e=XNe();if(e)return e;if(KNe()===!1){let t=WXe();if(t)return{state:"ineligible",reason:t}}return}function $Mn(){return KNe()===!0&&XNe()===void 0}function r(e){switch(e){case"third_party_provider":return"not available on Bedrock/Vertex/third-party providers";case"custom_base_url":return"not available with a custom ANTHROPIC_BASE_URL";case"sandboxed_entrypoint":return"not available in sandboxed sessions";case"unpinned_gateway":return"gateway auth is unpinned; run `claude auth login` to pin";case"unsupported_subscription":return"requires an Enterprise or Team subscription";case"no_auth":return"no usable credentials for the settings fetch"}}function B0t(e,t){switch(e){case"no_auth_available":return"no credentials available";case"http_401":return"authentication rejected (401)";case"http_403":return"access denied (403)";case"http_4xx":return`client error${t?` (${t})`:""}`;case"http_5xx":return`server error${t?` (${t})`:""}`;case"timeout":return"request timed out";case"network_error":return"network error";case"gateway_cert_mismatch":return"gateway certificate mismatch";case"gateway_pin_refused":return"gateway TLS pin is in a symlinked credentials file";case"gateway_pin_unreadable":return"gateway TLS pin could not be read from the credentials file";case"parse_error":return"server response could not be parsed";case"invalid_settings":return"server returned invalid settings";case"unknown_error":return"unexpected error"}}function UMn(e){switch(e.state){case"failed":case"stale_cache":return!0;case"ok":return!1;case"ineligible":return e.reason==="third_party_provider"||e.reason==="custom_base_url"||e.reason==="unpinned_gateway"}}function Tnt(e){switch(e.state){case"ok":return e.hasSettings?"loaded":"none configured for this organization";case"stale_cache":return`fetch failed \u2014 using stale cache (${B0t(e.failure.errorKind,e.failure.httpStatus)})${e.transportEnvWithheld?"; proxy/CA/provider env withheld until a fetch succeeds":""}`;case"failed":return`fetch failed \u2014 no policy applied (${B0t(e.failure.errorKind,e.failure.httpStatus)})`;case"ineligible":return`not fetched \u2014 ${r(e.reason)}`}}
-export{sse,$Mn,B0t,UMn,Tnt};
+import { KNe, WXe, XNe } from "/$bunfs/root/chunk-6k63g5t6.js";
+function sse() {
+  let e = XNe();
+  if (e) return e;
+  if (KNe() === !1) {
+    let t = WXe();
+    if (t) return { state: "ineligible", reason: t };
+  }
+  return;
+}
+function $Mn() {
+  return KNe() === !0 && XNe() === void 0;
+}
+function r(e) {
+  switch (e) {
+    case "third_party_provider":
+      return "not available on Bedrock/Vertex/third-party providers";
+    case "custom_base_url":
+      return "not available with a custom ANTHROPIC_BASE_URL";
+    case "sandboxed_entrypoint":
+      return "not available in sandboxed sessions";
+    case "unpinned_gateway":
+      return "gateway auth is unpinned; run `claude auth login` to pin";
+    case "unsupported_subscription":
+      return "requires an Enterprise or Team subscription";
+    case "no_auth":
+      return "no usable credentials for the settings fetch";
+  }
+}
+function B0t(e, t) {
+  switch (e) {
+    case "no_auth_available":
+      return "no credentials available";
+    case "http_401":
+      return "authentication rejected (401)";
+    case "http_403":
+      return "access denied (403)";
+    case "http_4xx":
+      return `client error${t ? ` (${t})` : ""}`;
+    case "http_5xx":
+      return `server error${t ? ` (${t})` : ""}`;
+    case "timeout":
+      return "request timed out";
+    case "network_error":
+      return "network error";
+    case "gateway_cert_mismatch":
+      return "gateway certificate mismatch";
+    case "gateway_pin_refused":
+      return "gateway TLS pin is in a symlinked credentials file";
+    case "gateway_pin_unreadable":
+      return "gateway TLS pin could not be read from the credentials file";
+    case "parse_error":
+      return "server response could not be parsed";
+    case "invalid_settings":
+      return "server returned invalid settings";
+    case "unknown_error":
+      return "unexpected error";
+  }
+}
+function UMn(e) {
+  switch (e.state) {
+    case "failed":
+    case "stale_cache":
+      return !0;
+    case "ok":
+      return !1;
+    case "ineligible":
+      return e.reason === "third_party_provider" || e.reason === "custom_base_url" || e.reason === "unpinned_gateway";
+  }
+}
+function Tnt(e) {
+  switch (e.state) {
+    case "ok":
+      return e.hasSettings ? "loaded" : "none configured for this organization";
+    case "stale_cache":
+      return `fetch failed \u2014 using stale cache (${B0t(e.failure.errorKind, e.failure.httpStatus)})${e.transportEnvWithheld ? "; proxy/CA/provider env withheld until a fetch succeeds" : ""}`;
+    case "failed":
+      return `fetch failed \u2014 no policy applied (${B0t(e.failure.errorKind, e.failure.httpStatus)})`;
+    case "ineligible":
+      return `not fetched \u2014 ${r(e.reason)}`;
+  }
+}
+export { sse, $Mn, B0t, UMn, Tnt };

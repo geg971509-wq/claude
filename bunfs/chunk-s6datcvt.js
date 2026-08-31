@@ -8,5 +8,31 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{J,G}from"/$bunfs/root/chunk-f9h0bg01.js";import{te}from"/$bunfs/root/chunk-wag5ye9w.js";class e{directories=[];get(){return this.directories}publish(o){let i=te([...o.additionalWorkingDirectories.values()].map((t)=>t.path)).sort(),r=this.directories;if(r.length===i.length&&r.every((t,s)=>t===i[s]))return!1;return this.directories=i,!0}reset(){this.directories=[]}}var a=new J(()=>new e);function n(){return a.of(G().host)}function kae(){return n().get()}function VDt(o){return n().publish(o)}
-export{kae,VDt};
+import { J, G } from "/$bunfs/root/chunk-f9h0bg01.js";
+import { te } from "/$bunfs/root/chunk-wag5ye9w.js";
+class e {
+  directories = [];
+  get() {
+    return this.directories;
+  }
+  publish(o) {
+    let i = te([...o.additionalWorkingDirectories.values()].map((t) => t.path)).sort(),
+      r = this.directories;
+    if (r.length === i.length && r.every((t, s) => t === i[s])) return !1;
+    return (this.directories = i), !0;
+  }
+  reset() {
+    this.directories = [];
+  }
+}
+var a = new J(() => new e());
+function n() {
+  return a.of(G().host);
+}
+function kae() {
+  return n().get();
+}
+function VDt(o) {
+  return n().publish(o);
+}
+export { kae, VDt };

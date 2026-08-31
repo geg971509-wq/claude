@@ -8,5 +8,12 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Eg}from"/$bunfs/root/chunk-f9h0bg01.js";function $X(){return!1}function wht(){if(Eg())return!1;return!0}
-export{$X,wht};
+import { Eg } from "/$bunfs/root/chunk-f9h0bg01.js";
+function $X() {
+  return !1;
+}
+function wht() {
+  if (Eg()) return !1;
+  return !0;
+}
+export { $X, wht };

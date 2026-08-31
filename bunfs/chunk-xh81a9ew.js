@@ -8,4 +8,6 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{CCn}from"/$bunfs/root/chunk-v1m2b053.js";import"/$bunfs/root/chunk-g2s7kk3r.js";export{CCn as fromProcess};
+import { CCn } from "/$bunfs/root/chunk-v1m2b053.js";
+import "/$bunfs/root/chunk-g2s7kk3r.js";
+export { CCn as fromProcess };

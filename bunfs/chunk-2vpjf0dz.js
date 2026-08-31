@@ -8,5 +8,15 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{ir}from"/$bunfs/root/chunk-2rx5nghb.js";function iit(r){if(typeof r!=="object"||r===null)return"";let n=r;for(let t of["command","file_path","path","pattern","query","prompt"]){let o=n[t];if(typeof o==="string")return ir(o.replace(/\s+/g," ").trim(),60)}for(let t of Object.values(n))if(typeof t==="string")return ir(t.replace(/\s+/g," ").trim(),60);return""}
-export{iit};
+import { ir } from "/$bunfs/root/chunk-2rx5nghb.js";
+function iit(r) {
+  if (typeof r !== "object" || r === null) return "";
+  let n = r;
+  for (let t of ["command", "file_path", "path", "pattern", "query", "prompt"]) {
+    let o = n[t];
+    if (typeof o === "string") return ir(o.replace(/\s+/g, " ").trim(), 60);
+  }
+  for (let t of Object.values(n)) if (typeof t === "string") return ir(t.replace(/\s+/g, " ").trim(), 60);
+  return "";
+}
+export { iit };

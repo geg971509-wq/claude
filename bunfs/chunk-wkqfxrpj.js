@@ -8,4 +8,36 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{yZ}from"/$bunfs/root/chunk-zhvf30zp.js";import{hPt}from"/$bunfs/root/chunk-5s233wjm.js";var m=/<\/(?:body|html)[\t\n\f\r />]/i;function f(o){if(!m.test(o))return o.length;let e=-1,n=()=>{e=-1},r=()=>{},a=new yZ({sourceCodeLocationInfo:!0},{onStartTag(t){let i=hPt.get(t.tagName);if(i!==void 0)a.state=i,a.lastStartTagName=t.tagName;if(t.tagName!=="html")n()},onEndTag(t){if(t.tagName!=="body"&&t.tagName!=="html")n();else if(e<0&&t.location)e=t.location.startOffset},onComment:r,onDoctype:r,onCharacter:n,onNullCharacter:n,onWhitespaceCharacter:r,onEof:r});return a.write(o,!0),e>=0?e:o.length}export{f as runtimeBlockInsertionIndex};
+import { yZ } from "/$bunfs/root/chunk-zhvf30zp.js";
+import { hPt } from "/$bunfs/root/chunk-5s233wjm.js";
+var m = /<\/(?:body|html)[\t\n\f\r />]/i;
+function f(o) {
+  if (!m.test(o)) return o.length;
+  let e = -1,
+    n = () => {
+      e = -1;
+    },
+    r = () => {},
+    a = new yZ(
+      { sourceCodeLocationInfo: !0 },
+      {
+        onStartTag(t) {
+          let i = hPt.get(t.tagName);
+          if (i !== void 0) (a.state = i), (a.lastStartTagName = t.tagName);
+          if (t.tagName !== "html") n();
+        },
+        onEndTag(t) {
+          if (t.tagName !== "body" && t.tagName !== "html") n();
+          else if (e < 0 && t.location) e = t.location.startOffset;
+        },
+        onComment: r,
+        onDoctype: r,
+        onCharacter: n,
+        onNullCharacter: n,
+        onWhitespaceCharacter: r,
+        onEof: r,
+      },
+    );
+  return a.write(o, !0), e >= 0 ? e : o.length;
+}
+export { f as runtimeBlockInsertionIndex };

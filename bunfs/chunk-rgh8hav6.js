@@ -8,13 +8,40 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{J,G}from"/$bunfs/root/chunk-f9h0bg01.js";import{a}from"/$bunfs/root/chunk-fec4384a.js";import{k}from"/$bunfs/root/chunk-4ddxwr9r.js";import{td}from"/$bunfs/root/chunk-hebj76vj.js";var i=900000;class n{ms=void 0}var c=new J(()=>new n);function Tgn(){let e=c.of(G().host);return e.ms??=a.CLAUDE_CODE_WEBFETCH_CACHE_TTL_MS??i,e.ms}function r(){let e=Math.max(1,Math.round(Tgn()/60000));return`${e} ${k(e,"minute")}`}function lYn(e,t=!1){if(td(e))return`Fetches a URL, converts the page to markdown, and answers \`prompt\` against it using a small fast model.
+import { J, G } from "/$bunfs/root/chunk-f9h0bg01.js";
+import { a } from "/$bunfs/root/chunk-fec4384a.js";
+import { k } from "/$bunfs/root/chunk-4ddxwr9r.js";
+import { td } from "/$bunfs/root/chunk-hebj76vj.js";
+var i = 900000;
+class n {
+  ms = void 0;
+}
+var c = new J(() => new n());
+function Tgn() {
+  let e = c.of(G().host);
+  return (e.ms ??= a.CLAUDE_CODE_WEBFETCH_CACHE_TTL_MS ?? i), e.ms;
+}
+function r() {
+  let e = Math.max(1, Math.round(Tgn() / 60000));
+  return `${e} ${k(e, "minute")}`;
+}
+function lYn(e, t = !1) {
+  if (td(e))
+    return `Fetches a URL, converts the page to markdown, and answers \`prompt\` against it using a small fast model.
 
-- Fails on authenticated/private URLs \u2014 use an authenticated MCP tool or \`gh\` for those instead.${t?" Exception: claude.ai/code/artifact/{uuid} URLs ARE fetchable via your claude.ai login \u2014 use WebFetch, not curl (curl gets the SPA shell or a Cloudflare 403).":""}
+- Fails on authenticated/private URLs \u2014 use an authenticated MCP tool or \`gh\` for those instead.${t ? " Exception: claude.ai/code/artifact/{uuid} URLs ARE fetchable via your claude.ai login \u2014 use WebFetch, not curl (curl gets the SPA shell or a Cloudflare 403)." : ""}
 - HTTP is upgraded to HTTPS. Cross-host redirects are returned to you rather than followed; call again with the redirect URL.
-- Responses are cached for ${r()} per URL.`;return`IMPORTANT: WebFetch WILL FAIL for authenticated or private URLs. Before using this tool, check if the URL points to an authenticated service (e.g. Google Docs, Confluence, Jira, GitHub). If so, look for a specialized MCP tool that provides authenticated access.
-${t?`- Exception: claude.ai/code/artifact/{uuid} URLs (including preview.claude.ai) ARE fetchable \u2014 WebFetch uses your claude.ai login. Use WebFetch for these, not curl or a headless browser (those return the SPA shell or a Cloudflare 403, not the content).
-`:""}${u()}`}function u(){return`
+- Responses are cached for ${r()} per URL.`;
+  return `IMPORTANT: WebFetch WILL FAIL for authenticated or private URLs. Before using this tool, check if the URL points to an authenticated service (e.g. Google Docs, Confluence, Jira, GitHub). If so, look for a specialized MCP tool that provides authenticated access.
+${
+  t
+    ? `- Exception: claude.ai/code/artifact/{uuid} URLs (including preview.claude.ai) ARE fetchable \u2014 WebFetch uses your claude.ai login. Use WebFetch for these, not curl or a headless browser (those return the SPA shell or a Cloudflare 403, not the content).
+`
+    : ""
+}${u()}`;
+}
+function u() {
+  return `
 - Fetches content from a specified URL and processes it using an AI model
 - Takes a URL and a prompt as input
 - Fetches the URL content, converts HTML to markdown
@@ -32,11 +59,18 @@ Usage notes:
   - Includes a self-cleaning cache (entries expire after ${r()}) for faster responses when repeatedly accessing the same URL
   - When a URL redirects to a different host, the tool will inform you and provide the redirect URL in a special format. You should then make a new WebFetch request with the redirect URL to fetch the content.
   - For GitHub URLs, prefer using the gh CLI via Bash instead (e.g., gh pr view, gh issue view, gh api).
-`}var Egn=` - Enforce a strict 125-character maximum for quotes from any source document. Open Source Software is ok as long as we respect the license.
+`;
+}
+var Egn = ` - Enforce a strict 125-character maximum for quotes from any source document. Open Source Software is ok as long as we respect the license.
  - Use quotation marks for exact language from articles; any language outside of the quotation should never be word-for-word the same.
  - You are not a lawyer and never comment on the legality of your own prompts and responses.
- - Never produce or reproduce exact song lyrics.`;function cYn(e,t,o){let s=o?"Provide a concise response based on the content above. Include relevant details, code examples, and documentation excerpts as needed.":`Provide a concise response based only on the content above. In your response:
-${Egn}`;return`
+ - Never produce or reproduce exact song lyrics.`;
+function cYn(e, t, o) {
+  let s = o
+    ? "Provide a concise response based on the content above. Include relevant details, code examples, and documentation excerpts as needed."
+    : `Provide a concise response based only on the content above. In your response:
+${Egn}`;
+  return `
 Web page content:
 ---
 ${e}
@@ -45,5 +79,6 @@ ${e}
 ${t}
 
 ${s}
-`}
-export{Tgn,lYn,Egn,cYn};
+`;
+}
+export { Tgn, lYn, Egn, cYn };

@@ -8,4 +8,7 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{GH}from"/$bunfs/root/chunk-we8ad6eh.js";import"/$bunfs/root/chunk-5kxnt0zg.js";import"/$bunfs/root/chunk-d7nfr7mk.js";export{GH as Server};
+import { GH } from "/$bunfs/root/chunk-we8ad6eh.js";
+import "/$bunfs/root/chunk-5kxnt0zg.js";
+import "/$bunfs/root/chunk-d7nfr7mk.js";
+export { GH as Server };

@@ -8,5 +8,9 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{ft,we}from"/$bunfs/root/chunk-ypdw393e.js";import{h}from"/$bunfs/root/chunk-wkxx62a2.js";function xM(r,o){h(ft(we(r),o))}
-export{xM};
+import { ft, we } from "/$bunfs/root/chunk-ypdw393e.js";
+import { h } from "/$bunfs/root/chunk-wkxx62a2.js";
+function xM(r, o) {
+  h(ft(we(r), o));
+}
+export { xM };

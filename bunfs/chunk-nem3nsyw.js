@@ -8,4 +8,5 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{Ven,Ken,Xen}from"/$bunfs/root/chunk-srb2jmny.js";export{Ken as DESCRIPTION,Xen as PROMPT,Ven as SUGGEST_CONNECTORS_TOOL_NAME};
+import { Ven, Ken, Xen } from "/$bunfs/root/chunk-srb2jmny.js";
+export { Ken as DESCRIPTION, Xen as PROMPT, Ven as SUGGEST_CONNECTORS_TOOL_NAME };

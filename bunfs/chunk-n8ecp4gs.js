@@ -8,5 +8,16 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{M5}from"/$bunfs/root/chunk-f9h0bg01.js";var n=1;function r(){return M5()}var s=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;function hTe(t){return typeof t==="string"&&s.test(t)}function GD(){return{msgV:n,msg_id:r()}}
-export{hTe,GD};
+import { M5 } from "/$bunfs/root/chunk-f9h0bg01.js";
+var n = 1;
+function r() {
+  return M5();
+}
+var s = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+function hTe(t) {
+  return typeof t === "string" && s.test(t);
+}
+function GD() {
+  return { msgV: n, msg_id: r() };
+}
+export { hTe, GD };

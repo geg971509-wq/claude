@@ -8,4 +8,22 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-import{prt}from"/$bunfs/root/chunk-y20fbsfk.js";import{yx,y1}from"/$bunfs/root/chunk-83rtv341.js";import"/$bunfs/root/chunk-8afqfths.js";import{j}from"/$bunfs/root/chunk-yz031c9r.js";var o=j(prt(),1),p=j(yx(),1),r=j(y1(),1);class t extends o.OTLPMetricExporterBase{constructor(e){super(r.createOtlpHttpExportDelegate(r.convertLegacyHttpOptions(e??{},"METRICS","v1/metrics",{"Content-Type":"application/x-protobuf"}),p.ProtobufMetricsSerializer),e)}}export{t as OTLPMetricExporter};
+import { prt } from "/$bunfs/root/chunk-y20fbsfk.js";
+import { yx, y1 } from "/$bunfs/root/chunk-83rtv341.js";
+import "/$bunfs/root/chunk-8afqfths.js";
+import { j } from "/$bunfs/root/chunk-yz031c9r.js";
+var o = j(prt(), 1),
+  p = j(yx(), 1),
+  r = j(y1(), 1);
+class t extends o.OTLPMetricExporterBase {
+  constructor(e) {
+    super(
+      r.createOtlpHttpExportDelegate(
+        r.convertLegacyHttpOptions(e ?? {}, "METRICS", "v1/metrics", { "Content-Type": "application/x-protobuf" }),
+        p.ProtobufMetricsSerializer,
+      ),
+      e,
+    );
+  }
+}
+export { t as OTLPMetricExporter };

@@ -8,5 +8,12 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-function Ft(t){let e=t/1024;if(e<1)return`${t} bytes`;if(e<1024)return`${e.toFixed(1).replace(/\.0$/,"")}KB`;let r=e/1024;if(r<1024)return`${r.toFixed(1).replace(/\.0$/,"")}MB`;return`${(r/1024).toFixed(1).replace(/\.0$/,"")}GB`}
-export{Ft};
+function Ft(t) {
+  let e = t / 1024;
+  if (e < 1) return `${t} bytes`;
+  if (e < 1024) return `${e.toFixed(1).replace(/\.0$/, "")}KB`;
+  let r = e / 1024;
+  if (r < 1024) return `${r.toFixed(1).replace(/\.0$/, "")}MB`;
+  return `${(r / 1024).toFixed(1).replace(/\.0$/, "")}GB`;
+}
+export { Ft };

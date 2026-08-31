@@ -8,5 +8,12 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-var r=["ELOOP","ENXIO","EISDIR"],Dgn=new Set(r);function Dk(e){return e!==void 0&&Dgn.has(e)}function vjt(e){return e.code==="Failed"&&Dk(e.telemetryCode)}
-export{Dgn,Dk,vjt};
+var r = ["ELOOP", "ENXIO", "EISDIR"],
+  Dgn = new Set(r);
+function Dk(e) {
+  return e !== void 0 && Dgn.has(e);
+}
+function vjt(e) {
+  return e.code === "Failed" && Dk(e.telemetryCode);
+}
+export { Dgn, Dk, vjt };
