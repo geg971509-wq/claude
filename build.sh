@@ -15,7 +15,7 @@ command -v "$BUN_BIN" >/dev/null 2>&1 || {
   exit 1
 }
 
-for required in cli.original.js pathmap.json; do
+for required in cli.original.js pathmap.json bunfs/small-js-sources.json; do
   [[ -f "$ROOT/$required" ]] || {
     echo "error: missing $ROOT/$required" >&2
     exit 1
@@ -43,6 +43,18 @@ const [root, stage, outfile] = process.argv.slice(2);
 const prefix = "/$bunfs/root/";
 const rootResolved = path.resolve(root);
 const map = JSON.parse(fs.readFileSync(path.join(rootResolved, "pathmap.json"), "utf8"));
+const packedSourceFile = path.join(rootResolved, "bunfs/small-js-sources.json");
+const packedSourceDocument = JSON.parse(fs.readFileSync(packedSourceFile, "utf8"));
+if (packedSourceDocument.version !== 1 || packedSourceDocument.files === null || typeof packedSourceDocument.files !== "object") {
+  throw new Error(`Invalid packed JS source document: ${packedSourceFile}`);
+}
+const packedSources = new Map(Object.entries(packedSourceDocument.files));
+const mappedLocalPaths = new Set(Object.values(map));
+for (const [localPath, text] of packedSources) {
+  if (!mappedLocalPaths.has(localPath) || !localPath.startsWith("bunfs/chunk-") || !localPath.endsWith(".js") || typeof text !== "string") {
+    throw new Error(`Invalid packed JS source entry: ${localPath}`);
+  }
+}
 
 function isZstd(file) {
   const fd = fs.openSync(file, "r");
@@ -67,12 +79,21 @@ for (const [virtualPath, localPath] of Object.entries(map)) {
   }
 
   const src = path.resolve(rootResolved, localPath);
-  if (!(src === rootResolved || src.startsWith(`${rootResolved}${path.sep}`)) || !fs.existsSync(src)) {
+  if (!(src === rootResolved || src.startsWith(`${rootResolved}${path.sep}`))) {
     throw new Error(`Invalid mapped source: ${localPath}`);
   }
 
-  if (rel.endsWith(".js") && !isZstd(src)) {
-    executable.set(rel, src);
+  const packedText = packedSources.get(localPath);
+  const existsOnDisk = fs.existsSync(src);
+  if (!existsOnDisk && packedText === undefined) {
+    throw new Error(`Missing mapped source: ${localPath}`);
+  }
+  if (existsOnDisk && packedText !== undefined && fs.readFileSync(src, "utf8") !== packedText) {
+    throw new Error(`Packed JS source differs from on-disk source: ${localPath}`);
+  }
+
+  if (rel.endsWith(".js") && (packedText !== undefined || !isZstd(src))) {
+    executable.set(rel, packedText !== undefined ? { text: packedText } : { file: src });
     moduleMap.set(rel, rel);
   } else {
     assets.push([rel, src]);
@@ -110,9 +131,10 @@ function collectRuntimeTargets(text) {
   }
 }
 
-for (const [rel, src] of executable) {
+for (const [rel, source] of executable) {
   const dst = path.join(stage, ...rel.split("/"));
-  const text = rewrite(fs.readFileSync(src, "utf8"), rel);
+  const sourceText = source.text ?? fs.readFileSync(source.file, "utf8");
+  const text = rewrite(sourceText, rel);
   fs.mkdirSync(path.dirname(dst), { recursive: true });
   fs.writeFileSync(dst, text);
   collectRuntimeTargets(text);
