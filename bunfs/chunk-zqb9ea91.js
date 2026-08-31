@@ -1,0 +1,12 @@
+// @bun @bytecode
+// Claude Code is a Beta product per Anthropic's Commercial Terms of Service.
+// By using Claude Code, you agree that all code acceptance or rejection decisions you make,
+// and the associated conversations in context, constitute Feedback under Anthropic's Commercial Terms,
+// and may be used to improve Anthropic's products, including training models.
+// You are responsible for reviewing any code suggestions before use.
+
+// (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
+
+// Version: 2.1.252
+import{i2e,vp}from"/$bunfs/root/chunk-ph2x1s8t.js";import{Et}from"/$bunfs/root/chunk-5rt2mvvk.js";import{clt,f9e}from"/$bunfs/root/chunk-f9km17e9.js";import{pT,vze}from"/$bunfs/root/chunk-dxqac26z.js";import{rd}from"/$bunfs/root/chunk-dc4hb8f7.js";import{qU,GU}from"/$bunfs/root/chunk-2w2dcbe2.js";import{cse}from"/$bunfs/root/chunk-pwk6q778.js";import{gBe}from"/$bunfs/root/chunk-xjdmpdfa.js";import{Att}from"/$bunfs/root/chunk-t695xjrn.js";import{e,r}from"/$bunfs/root/chunk-8s7kcbyw.js";import{C,F}from"/$bunfs/root/chunk-twm95mhz.js";F();function R({children:o}){let{bindings:n}=vze(pT),s=C(null),d=C(new Map),m=C(new Set),a=C(new Set).current,i=C(clt());return e(f9e,{bindings:n,pendingChordRef:s,pendingChord:null,setPendingChord:()=>{},activeContexts:a,registerActiveContext:()=>{},unregisterActiveContext:()=>{},handlerRegistryRef:d,preDispatchRef:m,keyHandlerRegistry:i.current,children:o})}function S(o){for(let n of o)if(n.type==="assistant"){let s=n.message.model;if(s&&s!==rd)return s}return}function v(o){if(!("message"in o))return 1;let n=o.message.content;return Array.isArray(n)?n.length:1}async function h(o,n,s,d,{columns:m,verbose:a=!1,chunkSize:i=40,onProgress:l,storageV5:c}={}){let p=S(n),y={...i2e(),verbose:a,...p&&{mainLoopModel:p}},u=Att(s),b=(t)=>cse(e(vp,{session:o,storageV5:c,initialState:y,keybindings:!1,children:r(R,{children:[t[0]===0&&e(qU,{latchAnnouncementSlot:!1}),e(gBe,{children:e(GU,{source:{kind:"static",messages:n,conversationId:"export",renderRange:t},tools:u,commands:[],screen:"prompt"})})]})}),{columns:m,storageV5:c}),f=i;for(let t of n)f+=v(t);for(let t=0;t<f;t+=i){let g=await b([t,t+i]);if(Et(g).trim()==="")break;await d(g),l?.(t+i)}}async function OUe(o,n,s,{columns:d,storageV5:m}){let a=[];return await h(o,n,s,(i)=>void a.push(Et(i)),{columns:d,storageV5:m}),a.join("")}
+export{OUe};

@@ -1,0 +1,12 @@
+// @bun @bytecode
+// Claude Code is a Beta product per Anthropic's Commercial Terms of Service.
+// By using Claude Code, you agree that all code acceptance or rejection decisions you make,
+// and the associated conversations in context, constitute Feedback under Anthropic's Commercial Terms,
+// and may be used to improve Anthropic's products, including training models.
+// You are responsible for reviewing any code suggestions before use.
+
+// (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
+
+// Version: 2.1.252
+import{J,G}from"/$bunfs/root/chunk-f9h0bg01.js";class EQn{#o=!1;#e=!1;#n=!1;#t=null;#i=!1;#r=void 0;#a=void 0;#s=!1;get active(){return this.#o}get flagCli(){return this.#e}get circuitBroken(){return this.#n}get fastModeBreakerReason(){return this.#t}get fromFallback(){return this.#i}get provisionalStartupMode(){return this.#r}get envOnboardingEligible(){return this.#a}get envOnboardingShownLogged(){return this.#s}setActive(o){this.#o=o}setFlagCli(o){this.#e=o}setCircuitBroken(o){this.#n=o}setFastModeBreakerReason(o){this.#t=o}setFromFallback(o){this.#i=o}setProvisionalStartupMode(o){this.#r=o}setEnvOnboardingEligible(o){this.#a=o}setEnvOnboardingShownLogged(o){this.#s=o}reset(){this.#o=!1,this.#e=!1,this.#n=!1,this.#t=null,this.#i=!1,this.#r=void 0,this.#a=void 0,this.#s=!1}}var X_r=new J(()=>new EQn);function qM(){return X_r.of(G().host)}function mC(o){qM().setActive(o)}function iw(){return qM().active}function Cyt(o){return o.mode==="auto"||o.mode==="plan"&&iw()&&!o.isBypassPermissionsModeAvailable}function Qy(o){return o==="auto"||o==="plan"&&iw()}function a_n(o){qM().setFlagCli(o)}function l_n(){return qM().flagCli}function vyt(o){qM().setCircuitBroken(o)}function OKe(){return qM().circuitBroken}function c_n(o){qM().setFastModeBreakerReason(o)}function u_n(){return qM().fastModeBreakerReason}function HWt(o){qM().setFromFallback(o)}function a6(){return qM().fromFallback}function FLe(o){qM().setProvisionalStartupMode(o)}function d_n(){return qM().provisionalStartupMode}function Ryt(){return qM().envOnboardingEligible}function LKe(o){qM().setEnvOnboardingEligible(o)}function xWt(){return qM().envOnboardingShownLogged}function IWt(o){qM().setEnvOnboardingShownLogged(o)}
+export{EQn,X_r,qM,mC,iw,Cyt,Qy,a_n,l_n,vyt,OKe,c_n,u_n,HWt,a6,FLe,d_n,Ryt,LKe,xWt,IWt};
